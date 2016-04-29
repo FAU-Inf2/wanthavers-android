@@ -25,4 +25,4 @@ before_install:
 script: "./gradlew assemble"
 after_success:
   - mv app/build/outputs/apk/app-release.apk wanthavers-$TRAVIS_BRANCH-`git rev-parse HEAD`.apk
-  - curl -F "apk=@wanthavers-$TRAVIS_BRANCH-`git rev-parse HEAD`.apk" -F "project=wanthavers" $URL
+  - curl -F "apk=@wanthavers-$TRAVIS_BRANCH-`git rev-parse HEAD`.apk" -F "project=wanthavers-android" $URL
