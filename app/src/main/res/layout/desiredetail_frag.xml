@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="desire"
+            type="wanthavers.mad.cs.fau.de.wanthavers_android.data.Desire" />
+
+        <variable
+            name="presenter"
+            type="wanthavers.mad.cs.fau.de.wanthavers_android.desiredetail.DesireDetailContract.Presenter" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:weightSum="1">
+
+        <ImageView
+            android:layout_width="144dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/desire_detail_itemImage"
+            android:src="@android:drawable/sym_def_app_icon"
+            android:contentDescription="@string/desire_detail_itemImage_contentDesc" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@{desire.title}"
+            android:id="@+id/desire_detail_title"
+            android:layout_alignTop="@+id/desire_detail_itemImage"
+            android:layout_toRightOf="@+id/desire_detail_itemImage"
+            android:layout_toEndOf="@+id/desire_detail_itemImage" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@{desire.description}"
+            android:id="@+id/desire_detail_description"
+            android:layout_below="@+id/desire_detail_itemImage"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+
+    </RelativeLayout>
+
+
+
+</layout>
+
