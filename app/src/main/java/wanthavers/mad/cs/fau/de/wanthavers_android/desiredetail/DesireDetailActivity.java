@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
+import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.TasksRepository;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.local.TasksLocalDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.remote.TasksRemoteDataSource;
@@ -59,7 +60,7 @@ public class DesireDetailActivity extends AppCompatActivity {
         TasksRepository fake = TasksRepository.getInstance(TasksRemoteDataSource.getInstance(), TasksLocalDataSource.getInstance(context));
 
         //create the presenter with Injection of Usecases
-        mDesireDetailPresenter = new DesireDetailPresenter(
+        mDesireDetailPresenter = new DesireDetailPresenter(UseCaseHandler.getInstance(),
                 "test123",
                 desireDetailFragment,
                 new AcceptDesire(fake), new GetDesire(fake));

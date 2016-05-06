@@ -55,7 +55,7 @@ public class TasksLocalDataSource implements TasksDataSource {
     @Override
     public void getDesire(@NonNull String taskId, @NonNull GetTaskCallback callback) {
 
-        Desire desire = new Desire("00000000", "TestDbLayer", "TestDbLayerDesc");
+        Desire desire = new Desire("00000000", "TestLocalDbLayer", "TestLocalDbLayerDesc");
 
         if (desire != null) {
             callback.onTaskLoaded(desire);
