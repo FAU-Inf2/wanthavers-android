@@ -28,15 +28,14 @@ public class DesireDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.desiredetail_act);
 
-        Context context = getApplicationContext();
-        checkNotNull(context);
-        /*
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
         ab.setDisplayShowHomeEnabled(true);
-*/
+
 
         String desireId = getIntent().getStringExtra(EXTRA_TASK_ID);
 
@@ -52,10 +51,10 @@ public class DesireDetailActivity extends AppCompatActivity {
                     desireDetailFragment, R.id.contentFrame);
         }
 
-        //new DesireDetailFragment(desireId, Injection.provideTasksRepository(getApplicationContext()),
-        //        desireDetailFragment);
 
         //create fake task repo
+        Context context = getApplicationContext();
+        checkNotNull(context);
 
         TasksRepository fake = TasksRepository.getInstance(TasksRemoteDataSource.getInstance(), TasksLocalDataSource.getInstance(context));
 
