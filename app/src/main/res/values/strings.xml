@@ -1,15 +1,14 @@
 <resources>
-    <string name="app_name">wanthavers-android</string>
+
+    <!-- General Resources -->
+    <string name="app_name">WantHaver</string>
     <string name="action_settings">Settings</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
-
+    <string name="chat">chat</string>
 
 
     <!-- Resources for deatail view -->
     <string name="desire_detail_itemImage_contentDesc">Aufgaben Bild</string>
+    <string name="desire">Desire</string>
 
 
 </resources>

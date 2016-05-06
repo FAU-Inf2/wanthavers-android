@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -88,6 +90,12 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
         */
 
         return view;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.desire_detail_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
 
