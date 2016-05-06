@@ -92,6 +92,13 @@ public class TasksRepository implements TasksDataSource {
      * Note: {@link LoadTasksCallback#onDataNotAvailable()} is fired if all data sources fail to
      * get the data.
      */
+
+
+    public void acceptDesire(String acceptedDesireId){
+        System.out.print("TODO accept desire");
+    }
+
+    /*
     @Override
     public void getTasks(@NonNull final LoadTasksCallback callback) {
         checkNotNull(callback);
@@ -160,12 +167,13 @@ public class TasksRepository implements TasksDataSource {
      * Note: {@link LoadTasksCallback#onDataNotAvailable()} is fired if both data sources fail to
      * get the data.
      */
-    @Override
+
     public void getDesire(@NonNull final String desireId, @NonNull final GetTaskCallback callback) {
+
         checkNotNull(desireId);
         checkNotNull(callback);
 
-        Desire cachedTask = getDesireWithId(desireId);
+        Desire cachedTask = null;  //getDesireWithId(desireId);  TODO just commented this out to test stuff
 
         // Respond immediately with cache if available
         if (cachedTask != null) {
@@ -197,8 +205,9 @@ public class TasksRepository implements TasksDataSource {
                 });
             }
         });
-    }
 
+    }
+    /*
     @Override
     public void refreshTasks() {
         mCacheIsDirty = true;
@@ -266,4 +275,5 @@ public class TasksRepository implements TasksDataSource {
             return mCachedDesires.get(id);
         }
     }
+    */
 }

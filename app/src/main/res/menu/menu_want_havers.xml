@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="wanthavers.mad.cs.fau.de.wanthavers_android.WantHavers">
+    tools:context="wanthavers.mad.cs.fau.de.wanthavers_android.desiredetail.DesireDetailActivity">
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"

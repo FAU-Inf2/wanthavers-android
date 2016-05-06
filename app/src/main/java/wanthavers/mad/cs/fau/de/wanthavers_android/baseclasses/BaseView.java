@@ -1,4 +1,4 @@
-package wanthavers.mad.cs.fau.de.wanthavers_android;
+package wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses;
 
 public interface BaseView<T> {
 

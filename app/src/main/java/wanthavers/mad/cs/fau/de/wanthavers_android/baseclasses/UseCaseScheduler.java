@@ -14,33 +14,18 @@
  * limitations under the License.
  */
 
-package wanthavers.mad.cs.fau.de.wanthavers_android.data.source;
-
-import android.support.annotation.NonNull;
-
-import java.util.List;
-
-import wanthavers.mad.cs.fau.de.wanthavers_android.data.Desire;
+package wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses;
 
 /**
- * Main entry point for accessing tasks data.
+ * Interface for schedulers, see {@link UseCaseThreadPoolScheduler}.
  */
-public interface TasksDataSource {
+public interface UseCaseScheduler {
 
-    interface LoadTasksCallback {
+    void execute(Runnable runnable);
 
-        void onTasksLoaded(List<Desire> tasks);
+    <V extends UseCase.ResponseValue> void notifyResponse(final V response,
+                                                          final UseCase.UseCaseCallback<V> useCaseCallback);
 
-        void onDataNotAvailable();
-    }
-
-    interface GetTaskCallback {
-
-        void onTaskLoaded(Desire task);
-
-        void onDataNotAvailable();
-    }
-
-
-    void getDesire(@NonNull String taskId, @NonNull GetTaskCallback callback);
+    <V extends UseCase.ResponseValue> void onError(
+            final UseCase.UseCaseCallback<V> useCaseCallback);
 }
