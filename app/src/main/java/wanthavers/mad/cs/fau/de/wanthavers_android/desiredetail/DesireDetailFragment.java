@@ -32,9 +32,9 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
     private DesireDetailContract.Presenter mPresenter;
 
 
-    public static DesireDetailFragment newInstance(String desireId){
+    public static DesireDetailFragment newInstance(long desireId){
         Bundle arguments = new Bundle();
-        arguments.putString(DESIRE_ID, desireId);
+        arguments.putLong(DESIRE_ID, desireId);
         DesireDetailFragment fragment = new DesireDetailFragment();
         fragment.setArguments(arguments);
         return fragment;

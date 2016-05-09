@@ -25,16 +25,16 @@ import de.fau.cs.mad.wanthavers.common.Desire;
 /**
  * Main entry point for accessing tasks data.
  */
-public interface TasksDataSource {
+public interface DesireDataSource {
 
-    interface LoadTasksCallback {
+    interface LoadDesireCallback {
 
-        void onTasksLoaded(List<Desire> tasks);
+        void onDesireLoaded(List<Desire> tasks);
 
         void onDataNotAvailable();
     }
 
-    interface GetTaskCallback {
+    interface GetDesireCallback {
 
         void onTaskLoaded(Desire task);
 
@@ -42,5 +42,5 @@ public interface TasksDataSource {
     }
 
 
-    void getDesire(@NonNull String taskId, @NonNull GetTaskCallback callback);
+    void getDesire(@NonNull long desireId, @NonNull GetDesireCallback callback);
 }

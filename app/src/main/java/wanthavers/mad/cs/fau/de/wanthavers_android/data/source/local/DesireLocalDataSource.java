@@ -16,44 +16,39 @@
 
 package wanthavers.mad.cs.fau.de.wanthavers_android.data.source.local;
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 
-import java.util.ArrayList;
-import java.util.List;
 import de.fau.cs.mad.wanthavers.common.Desire;
 //import wanthavers.mad.cs.fau.de.wanthavers_android.data.Desire;
-import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.TasksDataSource;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.DesireDataSource;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Concrete implementation of a data source as a db.
  */
-public class TasksLocalDataSource implements TasksDataSource {
+public class DesireLocalDataSource implements DesireDataSource {
 
-    private static TasksLocalDataSource INSTANCE;
+    private static DesireLocalDataSource INSTANCE;
 
-    private TasksDbHelper mDbHelper;
+    private DesireDbHelper mDbHelper;
 
     // Prevent direct instantiation.
-    private TasksLocalDataSource(@NonNull Context context) {
+    private DesireLocalDataSource(@NonNull Context context) {
         checkNotNull(context);
-        mDbHelper = new TasksDbHelper(context);
+        mDbHelper = new DesireDbHelper(context);
     }
 
-    public static TasksLocalDataSource getInstance(@NonNull Context context) {
+    public static DesireLocalDataSource getInstance(@NonNull Context context) {
         if (INSTANCE == null) {
-            INSTANCE = new TasksLocalDataSource(context);
+            INSTANCE = new DesireLocalDataSource(context);
         }
         return INSTANCE;
     }
 
     @Override
-    public void getDesire(@NonNull String taskId, @NonNull GetTaskCallback callback) {
+    public void getDesire(@NonNull long desireId, @NonNull GetDesireCallback callback) {
 
         Desire desire = new Desire("TestLocalDbLayer", "TestLocalDbLayerDesc",null,0,0,null,null,0,0);
 
@@ -107,14 +102,14 @@ public class TasksLocalDataSource implements TasksDataSource {
 
 
     /**
-     * Note: {@link LoadTasksCallback#onDataNotAvailable()} is fired if the database doesn't exist
+     * Note: {@link LoadDesireCallback#onDataNotAvailable()} is fired if the database doesn't exist
      * or the table is empty.
      */
 
 
     /*
     @Override
-    public void getTasks(@NonNull TasksDataSource.LoadTasksCallback callback) {
+    public void getTasks(@NonNull DesireDataSource.LoadDesireCallback callback) {
         List<Task> tasks = new ArrayList<Task>();
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
@@ -150,18 +145,18 @@ public class TasksLocalDataSource implements TasksDataSource {
             // This will be called if the table is new or just empty.
             callback.onDataNotAvailable();
         } else {
-            callback.onTasksLoaded(tasks);
+            callback.onDesireLoaded(tasks);
         }
 
     }
 
     /**
-     * Note: {@link GetTaskCallback#onDataNotAvailable()} is fired if the {@link Task} isn't
+     * Note: {@link GetDesireCallback#onDataNotAvailable()} is fired if the {@link Task} isn't
      * found.
      */
     /*
     @Override
-    public void getTask(@NonNull String taskId, @NonNull GetTaskCallback callback) {
+    public void getTask(@NonNull String taskId, @NonNull GetDesireCallback callback) {
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
         String[] projection = {
@@ -235,7 +230,7 @@ public class TasksLocalDataSource implements TasksDataSource {
 
     @Override
     public void completeTask(@NonNull String taskId) {
-        // Not required for the local data source because the {@link TasksRepository} handles
+        // Not required for the local data source because the {@link DesireRepository} handles
         // converting from a {@code taskId} to a {@link task} using its cached data.
     }
 
@@ -256,7 +251,7 @@ public class TasksLocalDataSource implements TasksDataSource {
 
     @Override
     public void activateTask(@NonNull String taskId) {
-        // Not required for the local data source because the {@link TasksRepository} handles
+        // Not required for the local data source because the {@link DesireRepository} handles
         // converting from a {@code taskId} to a {@link task} using its cached data.
     }
 
@@ -274,7 +269,7 @@ public class TasksLocalDataSource implements TasksDataSource {
 
     @Override
     public void refreshTasks() {
-        // Not required because the {@link TasksRepository} handles the logic of refreshing the
+        // Not required because the {@link DesireRepository} handles the logic of refreshing the
         // tasks from all the available data sources.
     }
 

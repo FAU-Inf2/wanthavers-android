@@ -17,12 +17,7 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.data.source;
 
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 //import wanthavers.mad.cs.fau.de.wanthavers_android.data.Desire;
@@ -36,13 +31,13 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * obtained from the server, by using the remote data source only if the local database doesn't
  * exist or is empty.
  */
-public class TasksRepository implements TasksDataSource {
+public class DesireRepository implements DesireDataSource {
 
-    private static TasksRepository INSTANCE = null;
+    private static DesireRepository INSTANCE = null;
 
-    private final TasksDataSource mTasksRemoteDataSource;
+    private final DesireDataSource mTasksRemoteDataSource;
 
-    private final TasksDataSource mTasksLocalDataSource;
+    private final DesireDataSource mTasksLocalDataSource;
 
     /**
      * This variable has package local visibility so it can be accessed from tests.
@@ -56,8 +51,8 @@ public class TasksRepository implements TasksDataSource {
     boolean mCacheIsDirty = false;
 
     // Prevent direct instantiation.
-    private TasksRepository(@NonNull TasksDataSource tasksRemoteDataSource,
-                            @NonNull TasksDataSource tasksLocalDataSource) {
+    private DesireRepository(@NonNull DesireDataSource tasksRemoteDataSource,
+                             @NonNull DesireDataSource tasksLocalDataSource) {
         mTasksRemoteDataSource = checkNotNull(tasksRemoteDataSource);
         mTasksLocalDataSource = checkNotNull(tasksLocalDataSource);
     }
@@ -67,18 +62,18 @@ public class TasksRepository implements TasksDataSource {
      *
      * @param tasksRemoteDataSource the backend data source
      * @param tasksLocalDataSource  the device storage data source
-     * @return the {@link TasksRepository} instance
+     * @return the {@link DesireRepository} instance
      */
-    public static TasksRepository getInstance(TasksDataSource tasksRemoteDataSource,
-                                              TasksDataSource tasksLocalDataSource) {
+    public static DesireRepository getInstance(DesireDataSource tasksRemoteDataSource,
+                                               DesireDataSource tasksLocalDataSource) {
         if (INSTANCE == null) {
-            INSTANCE = new TasksRepository(tasksRemoteDataSource, tasksLocalDataSource);
+            INSTANCE = new DesireRepository(tasksRemoteDataSource, tasksLocalDataSource);
         }
         return INSTANCE;
     }
 
     /**
-     * Used to force {@link #getInstance(TasksDataSource, TasksDataSource)} to create a new instance
+     * Used to force {@link #getInstance(DesireDataSource, DesireDataSource)} to create a new instance
      * next time it's called.
      */
     public static void destroyInstance() {
@@ -89,23 +84,23 @@ public class TasksRepository implements TasksDataSource {
      * Gets tasks from cache, local data source (SQLite) or remote data source, whichever is
      * available first.
      * <p>
-     * Note: {@link LoadTasksCallback#onDataNotAvailable()} is fired if all data sources fail to
+     * Note: {@link LoadDesireCallback#onDataNotAvailable()} is fired if all data sources fail to
      * get the data.
      */
 
 
-    public void acceptDesire(String acceptedDesireId){
+    public void acceptDesire(long acceptedDesireId){
         System.out.print("TODO accept desire");
     }
 
     /*
     @Override
-    public void getTasks(@NonNull final LoadTasksCallback callback) {
+    public void getTasks(@NonNull final LoadDesireCallback callback) {
         checkNotNull(callback);
 
         // Respond immediately with cache if available and not dirty
         if (mCachedDesires != null && !mCacheIsDirty) {
-            callback.onTasksLoaded(new ArrayList<>(mCachedDesires.values()));
+            callback.onDesireLoaded(new ArrayList<>(mCachedDesires.values()));
             return;
         }
 
@@ -114,11 +109,11 @@ public class TasksRepository implements TasksDataSource {
             getTasksFromRemoteDataSource(callback);
         } else {
             // Query the local storage if available. If not, query the network.
-            mTasksLocalDataSource.getTasks(new LoadTasksCallback() {
+            mTasksLocalDataSource.getTasks(new LoadDesireCallback() {
                 @Override
-                public void onTasksLoaded(List<Desire> desire) {
+                public void onDesireLoaded(List<Desire> desire) {
                     refreshCache(desire);
-                    callback.onTasksLoaded(new ArrayList<>(mCachedDesires.values()));
+                    callback.onDesireLoaded(new ArrayList<>(mCachedDesires.values()));
                 }
 
                 @Override
@@ -164,11 +159,11 @@ public class TasksRepository implements TasksDataSource {
      * Gets tasks from local data source (sqlite) unless the table is new or empty. In that case it
      * uses the network data source. This is done to simplify the sample.
      * <p>
-     * Note: {@link LoadTasksCallback#onDataNotAvailable()} is fired if both data sources fail to
+     * Note: {@link LoadDesireCallback#onDataNotAvailable()} is fired if both data sources fail to
      * get the data.
      */
 
-    public void getDesire(@NonNull final String desireId, @NonNull final GetTaskCallback callback) {
+    public void getDesire(@NonNull final long desireId, @NonNull final GetDesireCallback callback) {
 
         checkNotNull(desireId);
         checkNotNull(callback);
@@ -184,7 +179,7 @@ public class TasksRepository implements TasksDataSource {
         // Load from server/persisted if needed.
 
         // Is the task in the local data source? If not, query the network.
-        mTasksLocalDataSource.getDesire(desireId, new GetTaskCallback() {
+        mTasksLocalDataSource.getDesire(desireId, new GetDesireCallback() {
             @Override
             public void onTaskLoaded(Desire desire) {
                 callback.onTaskLoaded(desire);
@@ -192,7 +187,7 @@ public class TasksRepository implements TasksDataSource {
 
             @Override
             public void onDataNotAvailable() {
-                mTasksRemoteDataSource.getDesire(desireId, new GetTaskCallback() {
+                mTasksRemoteDataSource.getDesire(desireId, new GetDesireCallback() {
                     @Override
                     public void onTaskLoaded(Desire desire) {
                         callback.onTaskLoaded(desire);
@@ -232,13 +227,13 @@ public class TasksRepository implements TasksDataSource {
         mCachedDesires.remove(taskId);
     }
 
-    private void getTasksFromRemoteDataSource(@NonNull final LoadTasksCallback callback) {
-        mTasksRemoteDataSource.getTasks(new LoadTasksCallback() {
+    private void getTasksFromRemoteDataSource(@NonNull final LoadDesireCallback callback) {
+        mTasksRemoteDataSource.getTasks(new LoadDesireCallback() {
             @Override
-            public void onTasksLoaded(List<Desire> desires) {
+            public void onDesireLoaded(List<Desire> desires) {
                 refreshCache(desires);
                 refreshLocalDataSource(desires);
-                callback.onTasksLoaded(new ArrayList<>(mCachedDesires.values()));
+                callback.onDesireLoaded(new ArrayList<>(mCachedDesires.values()));
             }
 
             @Override

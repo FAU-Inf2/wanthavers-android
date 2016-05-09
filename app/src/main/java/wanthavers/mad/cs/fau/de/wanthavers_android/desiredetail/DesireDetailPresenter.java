@@ -18,9 +18,9 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
     //add Repository
 
     @NonNull
-    private String mDesireId;
+    private long mDesireId;
 
-    public DesireDetailPresenter(@NonNull UseCaseHandler ucHandler, @NonNull String desireId, @NonNull DesireDetailContract.View view,
+    public DesireDetailPresenter(@NonNull UseCaseHandler ucHandler, @NonNull long desireId, @NonNull DesireDetailContract.View view,
                                  @NonNull AcceptDesire acceptDesire, @NonNull GetDesire getDesire){
 
         useCaseHandler = ucHandler;
@@ -44,7 +44,7 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
     public void getDesire(){
 
         //add repo, for now just basic desire
-        useCaseHandler.execute(ucGetDesire, new GetDesire.RequestValues("1"),
+        useCaseHandler.execute(ucGetDesire, new GetDesire.RequestValues(0),
                 new UseCase.UseCaseCallback<GetDesire.ResponseValue>(){
 
 

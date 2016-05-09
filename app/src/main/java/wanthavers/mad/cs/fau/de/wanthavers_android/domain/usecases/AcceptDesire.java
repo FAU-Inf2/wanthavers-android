@@ -3,25 +3,25 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases;
 import android.support.annotation.NonNull;
 
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCase;
-import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.TasksRepository;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.DesireRepository;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 public class AcceptDesire extends UseCase<AcceptDesire.RequestValues, AcceptDesire.ResponseValue> {
 
-    private final TasksRepository mTasksRepository;
+    private final DesireRepository mDesireRepository;
 
 
-    public AcceptDesire(@NonNull TasksRepository tasksRepository) {
-        mTasksRepository = checkNotNull(tasksRepository, "tasksRepository cannot be null!");
+    public AcceptDesire(@NonNull DesireRepository desireRepository) {
+        mDesireRepository = checkNotNull(desireRepository, "desireRepository cannot be null!");
     }
 
 
     @Override
     protected void executeUseCase(final RequestValues values) {
 
-        String acceptedDesire = values.getCompletedTask();
-        mTasksRepository.acceptDesire(acceptedDesire);
+        long acceptedDesire = values.getCompletedTask();
+        mDesireRepository.acceptDesire(acceptedDesire);
         getUseCaseCallback().onSuccess(new ResponseValue());
     }
 
@@ -29,14 +29,14 @@ public class AcceptDesire extends UseCase<AcceptDesire.RequestValues, AcceptDesi
 
     public static final class RequestValues implements UseCase.RequestValues {
 
-        private final String mCompletedTask;
+        private final long mCompletedDesire;
 
-        public RequestValues(@NonNull String completedTask) {
-            mCompletedTask = checkNotNull(completedTask, "completedTask cannot be null!");
+        public RequestValues(@NonNull long completedTask) {
+            mCompletedDesire = checkNotNull(completedTask, "completedTask cannot be null!");
         }
 
-        public String getCompletedTask() {
-            return mCompletedTask;
+        public long getCompletedTask() {
+            return mCompletedDesire;
         }
     }
 

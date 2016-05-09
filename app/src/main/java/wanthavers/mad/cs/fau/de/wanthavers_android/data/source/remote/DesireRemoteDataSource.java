@@ -17,25 +17,21 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.data.source.remote;
 
 import android.os.Handler;
-import android.os.Looper;
 import android.support.annotation.NonNull;
 
 
-import com.google.common.collect.Lists;
-
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import de.fau.cs.mad.wanthavers.common.Desire;
 //import wanthavers.mad.cs.fau.de.wanthavers_android.data.Desire;
-import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.TasksDataSource;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.DesireDataSource;
 
 /**
  * Implementation of the data source that adds a latency simulating network.
  */
-public class TasksRemoteDataSource implements TasksDataSource {
+public class DesireRemoteDataSource implements DesireDataSource {
 
-    private static TasksRemoteDataSource INSTANCE;
+    private static DesireRemoteDataSource INSTANCE;
 
     private static final int SERVICE_LATENCY_IN_MILLIS = 5000;
 
@@ -47,15 +43,15 @@ public class TasksRemoteDataSource implements TasksDataSource {
         //addTask("Finish bridge in Tacoma", "Found awesome girders at half the cost!");
     }
 
-    public static TasksRemoteDataSource getInstance() {
+    public static DesireRemoteDataSource getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new TasksRemoteDataSource();
+            INSTANCE = new DesireRemoteDataSource();
         }
         return INSTANCE;
     }
 
     // Prevent direct instantiation.
-    private TasksRemoteDataSource() {}
+    private DesireRemoteDataSource() {}
 
     private static void addTask(String id, String title, String description) {
         Desire newTask = new Desire("TestLocalDbLayer", "TestLocalDbLayerDesc",null,0,0,null,null,0,0);
@@ -65,32 +61,32 @@ public class TasksRemoteDataSource implements TasksDataSource {
     }
 
     /**
-     * Note: {@link LoadTasksCallback#onDataNotAvailable()} is never fired. In a real remote data
+     * Note: {@link LoadDesireCallback#onDataNotAvailable()} is never fired. In a real remote data
      * source implementation, this would be fired if the server can't be contacted or the server
      * returns an error.
      */
     /*
     @Override
 
-    public void getTasks(final @NonNull LoadTasksCallback callback) {
+    public void getTasks(final @NonNull LoadDesireCallback callback) {
         // Simulate network by delaying the execution.
         Handler handler = new Handler(Looper.getMainLooper());
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                callback.onTasksLoaded(Lists.newArrayList(TASKS_SERVICE_DATA.values()));
+                callback.onDesireLoaded(Lists.newArrayList(TASKS_SERVICE_DATA.values()));
             }
         }, SERVICE_LATENCY_IN_MILLIS);
     }
     */
     /**
-     * Note: {@link GetTaskCallback#onDataNotAvailable()} is never fired. In a real remote data
+     * Note: {@link GetDesireCallback#onDataNotAvailable()} is never fired. In a real remote data
      * source implementation, this would be fired if the server can't be contacted or the server
      * returns an error.
      */
     @Override
-    public void getDesire(@NonNull String taskId, final @NonNull GetTaskCallback callback) {
-        final Desire desire = TASKS_SERVICE_DATA.get(taskId);
+    public void getDesire(@NonNull long desireId, final @NonNull GetDesireCallback callback) {
+        final Desire desire = TASKS_SERVICE_DATA.get(desireId);
 
         // Simulate network by delaying the execution.
         Handler handler = new Handler();
@@ -117,7 +113,7 @@ public class TasksRemoteDataSource implements TasksDataSource {
 
     @Override
     public void completeTask(@NonNull String taskId) {
-        // Not required for the remote data source because the {@link TasksRepository} handles
+        // Not required for the remote data source because the {@link DesireRepository} handles
         // converting from a {@code taskId} to a {@link task} using its cached data.
     }
 
@@ -129,7 +125,7 @@ public class TasksRemoteDataSource implements TasksDataSource {
 
     @Override
     public void activateTask(@NonNull String taskId) {
-        // Not required for the remote data source because the {@link TasksRepository} handles
+        // Not required for the remote data source because the {@link DesireRepository} handles
         // converting from a {@code taskId} to a {@link task} using its cached data.
     }
 
@@ -146,7 +142,7 @@ public class TasksRemoteDataSource implements TasksDataSource {
 
     @Override
     public void refreshTasks() {
-        // Not required because the {@link TasksRepository} handles the logic of refreshing the
+        // Not required because the {@link DesireRepository} handles the logic of refreshing the
         // tasks from all the available data sources.
     }
 

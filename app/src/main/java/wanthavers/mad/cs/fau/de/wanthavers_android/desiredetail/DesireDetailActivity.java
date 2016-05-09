@@ -1,7 +1,6 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.desiredetail;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,9 +8,9 @@ import android.support.v7.widget.Toolbar;
 
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
-import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.TasksRepository;
-import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.local.TasksLocalDataSource;
-import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.remote.TasksRemoteDataSource;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.DesireRepository;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.local.DesireLocalDataSource;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.remote.DesireRemoteDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.AcceptDesire;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetDesire;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.ActivityUtils;
@@ -37,8 +36,8 @@ public class DesireDetailActivity extends AppCompatActivity {
         ab.setDisplayHomeAsUpEnabled(true);
         ab.setDisplayShowHomeEnabled(true);
 
+        long desireId = getIntent().getLongExtra(EXTRA_TASK_ID, 0);
 
-        String desireId = getIntent().getStringExtra(EXTRA_TASK_ID);
 
         DesireDetailFragment desireDetailFragment = (DesireDetailFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.contentFrame);
@@ -57,11 +56,11 @@ public class DesireDetailActivity extends AppCompatActivity {
         Context context = getApplicationContext();
         checkNotNull(context);
 
-        TasksRepository fake = TasksRepository.getInstance(TasksRemoteDataSource.getInstance(), TasksLocalDataSource.getInstance(context));
+        DesireRepository fake = DesireRepository.getInstance(DesireRemoteDataSource.getInstance(), DesireLocalDataSource.getInstance(context));
 
         //create the presenter with Injection of Usecases
         mDesireDetailPresenter = new DesireDetailPresenter(UseCaseHandler.getInstance(),
-                "test123",
+                0,
                 desireDetailFragment,
                 new AcceptDesire(fake), new GetDesire(fake));
 
