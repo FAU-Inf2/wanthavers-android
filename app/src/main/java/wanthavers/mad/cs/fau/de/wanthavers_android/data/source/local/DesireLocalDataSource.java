@@ -50,7 +50,7 @@ public class DesireLocalDataSource implements DesireDataSource {
     @Override
     public void getDesire(@NonNull long desireId, @NonNull GetDesireCallback callback) {
 
-        Desire desire = new Desire("TestLocalDbLayer", "TestLocalDbLayerDesc",null,0,0,null,null,0,0);
+        Desire desire = null; //new Desire("TestLocalDbLayer", "TestLocalDbLayerDesc",null,0,0,null,null,0,0);
 
         if (desire != null) {
             callback.onTaskLoaded(desire);

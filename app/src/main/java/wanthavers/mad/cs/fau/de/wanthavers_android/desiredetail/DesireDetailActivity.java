@@ -36,7 +36,7 @@ public class DesireDetailActivity extends AppCompatActivity {
         ab.setDisplayHomeAsUpEnabled(true);
         ab.setDisplayShowHomeEnabled(true);
 
-        long desireId = getIntent().getLongExtra(EXTRA_TASK_ID, 0);
+        long desireId = 4; //getIntent().getLongExtra(EXTRA_TASK_ID, 4);
 
 
         DesireDetailFragment desireDetailFragment = (DesireDetailFragment) getSupportFragmentManager()
@@ -60,7 +60,7 @@ public class DesireDetailActivity extends AppCompatActivity {
 
         //create the presenter with Injection of Usecases
         mDesireDetailPresenter = new DesireDetailPresenter(UseCaseHandler.getInstance(),
-                0,
+                4,
                 desireDetailFragment,
                 new AcceptDesire(fake), new GetDesire(fake));
 
