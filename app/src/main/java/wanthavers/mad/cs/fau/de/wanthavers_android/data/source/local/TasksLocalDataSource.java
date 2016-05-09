@@ -24,8 +24,8 @@ import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import wanthavers.mad.cs.fau.de.wanthavers_android.data.Desire;
+import de.fau.cs.mad.wanthavers.common.Desire;
+//import wanthavers.mad.cs.fau.de.wanthavers_android.data.Desire;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.TasksDataSource;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -55,7 +55,7 @@ public class TasksLocalDataSource implements TasksDataSource {
     @Override
     public void getDesire(@NonNull String taskId, @NonNull GetTaskCallback callback) {
 
-        Desire desire = new Desire("00000000", "TestLocalDbLayer", "TestLocalDbLayerDesc");
+        Desire desire = new Desire("TestLocalDbLayer", "TestLocalDbLayerDesc",null,0,0,null,null,0,0);
 
         if (desire != null) {
             callback.onTaskLoaded(desire);

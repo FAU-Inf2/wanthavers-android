@@ -4,9 +4,9 @@ import android.support.annotation.NonNull;
 
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCase;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
-import wanthavers.mad.cs.fau.de.wanthavers_android.data.Desire;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.AcceptDesire;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetDesire;
+import de.fau.cs.mad.wanthavers.common.Desire;
 
 public class DesireDetailPresenter implements DesireDetailContract.Presenter {
 

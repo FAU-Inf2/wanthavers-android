@@ -26,8 +26,8 @@ import com.google.common.collect.Lists;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-import wanthavers.mad.cs.fau.de.wanthavers_android.data.Desire;
+import de.fau.cs.mad.wanthavers.common.Desire;
+//import wanthavers.mad.cs.fau.de.wanthavers_android.data.Desire;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.TasksDataSource;
 
 /**
@@ -58,8 +58,10 @@ public class TasksRemoteDataSource implements TasksDataSource {
     private TasksRemoteDataSource() {}
 
     private static void addTask(String id, String title, String description) {
-        Desire newTask = new Desire(id, title, description);
-        TASKS_SERVICE_DATA.put(newTask.getId(), newTask);
+        Desire newTask = new Desire("TestLocalDbLayer", "TestLocalDbLayerDesc",null,0,0,null,null,0,0);
+
+        String taskId = Long.toString(newTask.getID());
+        TASKS_SERVICE_DATA.put(id, newTask);
     }
 
     /**

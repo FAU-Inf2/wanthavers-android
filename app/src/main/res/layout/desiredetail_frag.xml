@@ -5,7 +5,7 @@
 
         <variable
             name="desire"
-            type="wanthavers.mad.cs.fau.de.wanthavers_android.data.Desire" />
+            type="de.fau.cs.mad.wanthavers.common.Desire" />
 
         <variable
             name="presenter"

@@ -25,8 +25,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import wanthavers.mad.cs.fau.de.wanthavers_android.data.Desire;
-
+//import wanthavers.mad.cs.fau.de.wanthavers_android.data.Desire;
+import de.fau.cs.mad.wanthavers.common.Desire;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**

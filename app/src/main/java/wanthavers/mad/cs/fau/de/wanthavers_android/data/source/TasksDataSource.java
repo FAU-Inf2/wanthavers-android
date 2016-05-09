@@ -19,8 +19,8 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.data.source;
 import android.support.annotation.NonNull;
 
 import java.util.List;
-
-import wanthavers.mad.cs.fau.de.wanthavers_android.data.Desire;
+import de.fau.cs.mad.wanthavers.common.Desire;
+//import wanthavers.mad.cs.fau.de.wanthavers_android.data.Desire;
 
 /**
  * Main entry point for accessing tasks data.

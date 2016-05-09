@@ -18,6 +18,14 @@ allprojects {
     }
 }
 
+project(':app') {
+    dependencies {
+        project(':wanthavers-common')
+    }
+}
+
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+

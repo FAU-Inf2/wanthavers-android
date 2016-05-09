@@ -1,12 +1,9 @@
-include ':app'
-rootProject.name = 'de.fau.cs.mad.wanthavers.android'
-
 buildscript {
     repositories { mavenCentral() }
     dependencies { classpath 'org.ajoberstar:gradle-git:0.8.0' }
 }
-
 import org.ajoberstar.grgit.*
+
 
 def grgitserver = Grgit.open('.')
 def serverbranch = grgitserver.branch.getCurrent().name
@@ -29,7 +26,8 @@ if (!dir.exists()) {
 
     grgit.pull()
 }
+include ':app'
+rootProject.name = 'de.fau.cs.mad.wanthavers.android'
 
-include ':android'
 include ':wanthavers-common'
 project(":wanthavers-common").projectDir = file("../wanthavers-common")

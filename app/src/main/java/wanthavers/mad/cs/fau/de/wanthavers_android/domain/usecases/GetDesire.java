@@ -3,7 +3,8 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases;
 import android.support.annotation.NonNull;
 
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCase;
-import wanthavers.mad.cs.fau.de.wanthavers_android.data.Desire;
+//import wanthavers.mad.cs.fau.de.wanthavers_android.data.Desire;
+import de.fau.cs.mad.wanthavers.common.Desire;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.TasksDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.TasksRepository;
 
