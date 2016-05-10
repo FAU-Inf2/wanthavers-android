@@ -50,6 +50,7 @@ public class UserRemoteDataSource implements UserDataSource {
 
     @Override
     public void saveUser(@NonNull User user) {
+        //TODO: we should discriminate between create and update user here
         userEndpoint.createUser(user);
     }
 

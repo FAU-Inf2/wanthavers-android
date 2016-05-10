@@ -50,6 +50,10 @@ public interface UserDataSource {
 
     void getAllUsers(@NonNull GetAllUsers callback);
 
+    //@Discuss:
+    //TODO: maybe rename to create user
+    //TODO: reflect on whether we look up on server/ in db if user already exists and then only update
+    //TODO: or maybe create separate method for creating new users
     void saveUser(@NonNull User user);
 
     void deleteUser(@NonNull User user);
