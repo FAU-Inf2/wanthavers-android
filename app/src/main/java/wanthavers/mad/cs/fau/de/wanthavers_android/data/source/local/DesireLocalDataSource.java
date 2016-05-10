@@ -49,14 +49,16 @@ public class DesireLocalDataSource implements DesireDataSource {
 
     @Override
     public void getDesire(@NonNull long desireId, @NonNull GetDesireCallback callback) {
+        //TODO: alter this method when we decide to store desires locally
+        callback.onDataNotAvailable();
 
-        Desire desire = null; //new Desire("TestLocalDbLayer", "TestLocalDbLayerDesc",null,0,0,null,null,0,0);
+/*        Desire desire = null; //new Desire("TestLocalDbLayer", "TestLocalDbLayerDesc",null,0,0,null,null,0,0);
 
         if (desire != null) {
             callback.onDesireLoaded(desire);
         } else {
             callback.onDataNotAvailable();
-        }
+        }*/
 
         /*
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
