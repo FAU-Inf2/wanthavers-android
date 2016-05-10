@@ -36,11 +36,31 @@ public interface DesireDataSource {
 
     interface GetDesireCallback {
 
-        void onTaskLoaded(Desire task);
+        void onDesireLoaded(Desire desire);
 
         void onDataNotAvailable();
     }
 
+    interface GetDesiresForUser {
+
+        void onDesiresForUserLoaded(List<Desire> desires);
+
+        void onDataNotAvailable();
+
+    }
+
+    interface GetAllDesires {
+
+        void onAllDesiresLoaded(List<Desire> desires);
+
+        void onDataNotAvailable();
+
+    }
+
 
     void getDesire(@NonNull long desireId, @NonNull GetDesireCallback callback);
+
+    void getDesiresForUser(@NonNull long userId, @NonNull GetDesiresForUser callback);
+
+    void getAllDesires(@NonNull GetAllDesires callback);
 }

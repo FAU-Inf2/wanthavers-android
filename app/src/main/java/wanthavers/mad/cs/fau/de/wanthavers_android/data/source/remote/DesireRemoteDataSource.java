@@ -16,26 +16,18 @@
 
 package wanthavers.mad.cs.fau.de.wanthavers_android.data.source.remote;
 
-import android.os.Handler;
 import android.support.annotation.NonNull;
 
-
-import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
-
-import org.glassfish.jersey.client.proxy.WebResourceFactory;
-
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
-import javax.ws.rs.NotFoundException;
 import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.WebTarget;
 
 import de.fau.cs.mad.wanthavers.common.Desire;
-//import wanthavers.mad.cs.fau.de.wanthavers_android.data.Desire;
-import de.fau.cs.mad.wanthavers.common.rest.api.DesireResource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.DesireDataSource;
+import wanthavers.mad.cs.fau.de.wanthavers_android.rest.DesireClient;
+import wanthavers.mad.cs.fau.de.wanthavers_android.rest.UserClient;
 
 /**
  * Implementation of the data source that adds a latency simulating network.
@@ -44,19 +36,12 @@ public class DesireRemoteDataSource implements DesireDataSource {
 
     private static DesireRemoteDataSource INSTANCE;
 
-    private DesireResource endpoint;
+    private DesireClient desireClient = DesireClient.getInstance();
+    private UserClient userClient = UserClient.getInstance();
 
     private static final int SERVICE_LATENCY_IN_MILLIS = 5000;
 
     private static final Map<String, Desire> TASKS_SERVICE_DATA;
-
-    //every instance executes this code
-    {
-        //TODO: get API-URL from shared preferences or something like that
-        final String API_URL = "http://faui21f.informatik.uni-erlangen.de:9090/";
-        WebTarget target = ClientBuilder.newClient().register(JacksonJsonProvider.class).target(API_URL);
-        endpoint = WebResourceFactory.newResource(DesireResource.class, target);
-    }
 
     static {
         TASKS_SERVICE_DATA = new LinkedHashMap<>(2);
@@ -64,15 +49,15 @@ public class DesireRemoteDataSource implements DesireDataSource {
         //addTask("Finish bridge in Tacoma", "Found awesome girders at half the cost!");
     }
 
+    // Prevent direct instantiation.
+    private DesireRemoteDataSource() { }
+
     public static DesireRemoteDataSource getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new DesireRemoteDataSource();
         }
         return INSTANCE;
     }
-
-    // Prevent direct instantiation.
-    private DesireRemoteDataSource() {}
 
     private static void addTask(String id, String title, String description) {
         Desire newTask = new Desire("TestLocalDbLayer", "TestLocalDbLayerDesc",null,0,0,null,null,0,0);
@@ -108,15 +93,35 @@ public class DesireRemoteDataSource implements DesireDataSource {
     @Override
     public void getDesire(@NonNull long desireId, final @NonNull GetDesireCallback callback) {
         try {
-            final Desire desire = endpoint.get(desireId);
-            callback.onTaskLoaded(desire);
-        } catch (WebApplicationException e){
+            final Desire desire = desireClient.get(desireId);
+            callback.onDesireLoaded(desire);
+        } catch (WebApplicationException e) {
             //TODO: undo this... but i can't find the right place to give a certain id to this method
             try {
-                Desire mock = endpoint.get(4);
-                callback.onTaskLoaded(mock);
+                Desire mock = desireClient.get(4);
+                callback.onDesireLoaded(mock);
             } catch (WebApplicationException w){}
 
+            callback.onDataNotAvailable();
+        }
+    }
+
+    @Override
+    public void getDesiresForUser(@NonNull long userId, @NonNull GetDesiresForUser callback) {
+        try {
+            final List<Desire> desiresForUser = userClient.getDesires(userId);
+            callback.onDesiresForUserLoaded(desiresForUser);
+        } catch (WebApplicationException e) {
+            callback.onDataNotAvailable();
+        }
+    }
+
+    @Override
+    public void getAllDesires(@NonNull GetAllDesires callback) {
+        try {
+            final List<Desire> allDesires = desireClient.get();
+            callback.onAllDesiresLoaded(allDesires);
+        } catch(WebApplicationException e) {
             callback.onDataNotAvailable();
         }
     }

@@ -18,6 +18,7 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.data.source;
 
 import android.support.annotation.NonNull;
 
+import java.util.List;
 import java.util.Map;
 
 //import wanthavers.mad.cs.fau.de.wanthavers_android.data.Desire;
@@ -168,29 +169,33 @@ public class DesireRepository implements DesireDataSource {
         checkNotNull(desireId);
         checkNotNull(callback);
 
-        Desire cachedTask = null;  //getDesireWithId(desireId);  TODO just commented this out to test stuff
+        //TODO just commented this out to test stuff
+        //I don't think that we need this because as soon as the local data source has
+        //cached something it will return the callback method for on...Loaded
+
+/*        Desire cachedTask = null;  //getDesireWithId(desireId);
 
         // Respond immediately with cache if available
         if (cachedTask != null) {
-            callback.onTaskLoaded(cachedTask);
+            callback.onDesireLoaded(cachedTask);
             return;
-        }
+        }*/
 
         // Load from server/persisted if needed.
 
         // Is the task in the local data source? If not, query the network.
         mTasksLocalDataSource.getDesire(desireId, new GetDesireCallback() {
             @Override
-            public void onTaskLoaded(Desire desire) {
-                callback.onTaskLoaded(desire);
+            public void onDesireLoaded(Desire desire) {
+                callback.onDesireLoaded(desire);
             }
 
             @Override
             public void onDataNotAvailable() {
                 mTasksRemoteDataSource.getDesire(desireId, new GetDesireCallback() {
                     @Override
-                    public void onTaskLoaded(Desire desire) {
-                        callback.onTaskLoaded(desire);
+                    public void onDesireLoaded(Desire desire) {
+                        callback.onDesireLoaded(desire);
                     }
 
                     @Override
@@ -202,6 +207,65 @@ public class DesireRepository implements DesireDataSource {
         });
 
     }
+
+    @Override
+    public void getDesiresForUser(@NonNull final long userId, @NonNull final GetDesiresForUser callback) {
+        checkNotNull(userId);
+        checkNotNull(callback);
+
+        // Load from server/persisted if needed.
+
+        // Is the task in the local data source? If not, query the network.
+        mTasksLocalDataSource.getDesiresForUser(userId, new GetDesiresForUser() {
+            @Override
+            public void onDesiresForUserLoaded(List<Desire> desires) {
+                callback.onDesiresForUserLoaded(desires);
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+                mTasksRemoteDataSource.getDesiresForUser(userId, new GetDesiresForUser() {
+                    @Override
+                    public void onDesiresForUserLoaded(List<Desire> desires) {
+                        callback.onDesiresForUserLoaded(desires);
+                    }
+
+                    @Override
+                    public void onDataNotAvailable() {
+                        callback.onDataNotAvailable();
+                    }
+                });
+            }
+        });
+    }
+
+    @Override
+    public void getAllDesires(@NonNull final GetAllDesires callback) {
+        checkNotNull(callback);
+
+        mTasksLocalDataSource.getAllDesires(new GetAllDesires() {
+            @Override
+            public void onAllDesiresLoaded(List<Desire> desires) {
+                callback.onAllDesiresLoaded(desires);
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+                mTasksRemoteDataSource.getAllDesires(new GetAllDesires() {
+                    @Override
+                    public void onAllDesiresLoaded(List<Desire> desires) {
+                        callback.onAllDesiresLoaded(desires);
+                    }
+
+                    @Override
+                    public void onDataNotAvailable() {
+                        callback.onDataNotAvailable();
+                    }
+                });
+            }
+        });
+    }
+
     /*
     @Override
     public void refreshTasks() {

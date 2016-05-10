@@ -53,7 +53,7 @@ public class DesireLocalDataSource implements DesireDataSource {
         Desire desire = null; //new Desire("TestLocalDbLayer", "TestLocalDbLayerDesc",null,0,0,null,null,0,0);
 
         if (desire != null) {
-            callback.onTaskLoaded(desire);
+            callback.onDesireLoaded(desire);
         } else {
             callback.onDataNotAvailable();
         }
@@ -93,11 +93,23 @@ public class DesireLocalDataSource implements DesireDataSource {
         db.close();
 
         if (task != null) {
-            callback.onTaskLoaded(task);
+            callback.onDesireLoaded(task);
         } else {
             callback.onDataNotAvailable();
         }
         */
+    }
+
+    @Override
+    public void getDesiresForUser(@NonNull long userId, @NonNull GetDesiresForUser callback) {
+        //TODO: alter this method when we decide to store desires locally
+        callback.onDataNotAvailable();
+    }
+
+    @Override
+    public void getAllDesires(@NonNull GetAllDesires callback) {
+        //TODO: alter this method when we decide to store desires locally
+        callback.onDataNotAvailable();
     }
 
 
@@ -191,7 +203,7 @@ public class DesireLocalDataSource implements DesireDataSource {
         db.close();
 
         if (task != null) {
-            callback.onTaskLoaded(task);
+            callback.onDesireLoaded(task);
         } else {
             callback.onDataNotAvailable();
         }

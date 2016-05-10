@@ -24,7 +24,7 @@ public class GetDesire extends UseCase<GetDesire.RequestValues, GetDesire.Respon
 
         mDesireRepository.getDesire(values.getDesireId(), new DesireDataSource.GetDesireCallback() {
             @Override
-            public void onTaskLoaded(Desire desire) {
+            public void onDesireLoaded(Desire desire) {
                 ResponseValue responseValue = new ResponseValue(desire);
                 getUseCaseCallback().onSuccess(responseValue);
             }
