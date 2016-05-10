@@ -96,10 +96,9 @@ public class DesireRemoteDataSource implements DesireDataSource {
             final Desire desire = desireClient.get(desireId);
             callback.onDesireLoaded(desire);
         } catch (WebApplicationException e) {
-            //TODO: undo this... but i can't find the right place to give a certain id to this method
-            try {
-                Desire mock = desireClient.get(4);
-                callback.onDesireLoaded(mock);
+                try {
+                Desire desire = desireClient.get(desireId);
+                callback.onDesireLoaded(desire);
             } catch (WebApplicationException w){}
 
             callback.onDataNotAvailable();

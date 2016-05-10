@@ -44,7 +44,7 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
     public void getDesire(){
 
         //add repo, for now just basic desire
-        useCaseHandler.execute(ucGetDesire, new GetDesire.RequestValues(0),
+        useCaseHandler.execute(ucGetDesire, new GetDesire.RequestValues(mDesireId),
                 new UseCase.UseCaseCallback<GetDesire.ResponseValue>(){
 
 
