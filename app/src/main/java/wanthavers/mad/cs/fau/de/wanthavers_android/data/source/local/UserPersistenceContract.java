@@ -21,6 +21,9 @@ import android.provider.BaseColumns;
 /**
  * The contract used for the db to save the tasks locally.
  */
+/**
+ * Created by Nico on 10.05.2016.
+ */
 public final class UserPersistenceContract {
 
     // To prevent someone from accidentally instantiating the contract class,

@@ -20,6 +20,9 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+/**
+ * Created by Nico on 10.05.2016.
+ */
 public class UserDbHelper extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
 
@@ -31,7 +34,7 @@ public class UserDbHelper extends SQLiteOpenHelper {
     private static final String TEXT_TYPE = " TEXT";
 
     //SQLite can save dates as TEXT, REAL or INTEGER
-    private static final String DATE_TYPE = " TEXT";
+    private static final String DATE_TYPE = " INTEGER";
 
     private static final String COMMA_SEP = ",";
 

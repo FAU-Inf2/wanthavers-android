@@ -19,47 +19,40 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.data.source;
 import android.support.annotation.NonNull;
 
 import java.util.List;
-import de.fau.cs.mad.wanthavers.common.Desire;
+
+import de.fau.cs.mad.wanthavers.common.User;
 
 /**
- * Main entry point for accessing tasks data.
+ * Main entry point for accessing user data.
  */
-public interface DesireDataSource {
+/**
+ * Created by Nico on 10.05.2016.
+ */
+public interface UserDataSource {
 
-    interface LoadDesireCallback {
+    interface GetUserCallback {
 
-        void onDesireLoaded(List<Desire> tasks);
-
-        void onDataNotAvailable();
-    }
-
-    interface GetDesireCallback {
-
-        void onDesireLoaded(Desire desire);
+        void onUserLoaded(User user);
 
         void onDataNotAvailable();
     }
 
-    interface GetDesiresForUser {
+    interface GetAllUsers {
 
-        void onDesiresForUserLoaded(List<Desire> desires);
-
-        void onDataNotAvailable();
-
-    }
-
-    interface GetAllDesires {
-
-        void onAllDesiresLoaded(List<Desire> desires);
+        void onAllUsersLoaded(List<User> users);
 
         void onDataNotAvailable();
 
     }
 
 
-    void getDesire(@NonNull long desireId, @NonNull GetDesireCallback callback);
+    void getUser(@NonNull long userId, @NonNull GetUserCallback callback);
 
-    void getDesiresForUser(@NonNull long userId, @NonNull GetDesiresForUser callback);
+    void getAllUsers(@NonNull GetAllUsers callback);
 
-    void getAllDesires(@NonNull GetAllDesires callback);
+    void saveUser(@NonNull User user);
+
+    void deleteUser(@NonNull User user);
+
+    void deleteAllUsers();
 }
