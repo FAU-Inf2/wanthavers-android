@@ -26,7 +26,7 @@ public class UserClient implements UserResource {
         userEndpoint = WebResourceFactory.newResource(UserResource.class, target);
     }
 
-    public static UserClient getInstance(){
+    public static UserClient getInstance() {
         if(INSTANCE == null){
             INSTANCE = new UserClient();
         }

@@ -19,7 +19,7 @@ public class DesireClient implements DesireResource {
 
     private DesireResource desireEndpoint;
 
-    private DesireClient(){
+    private DesireClient() {
         //TODO: get API-URL from shared preferences or something like that
         final String API_URL = "http://faui21f.informatik.uni-erlangen.de:9090/";
         WebTarget target = ClientBuilder.newClient().register(JacksonJsonProvider.class).target(API_URL);
