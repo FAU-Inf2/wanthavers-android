@@ -17,6 +17,7 @@
     <string name="logout_title">Ausloggen</string>
     <string name="no_desires">Leider wurden keine Wünsche gefunden</string>
     <string name="loading_desires_error">Fehler beim Laden der Wünsche</string>
+    <string name="listDesires_title">alle Wünsche</string>
 
 
 </resources>
