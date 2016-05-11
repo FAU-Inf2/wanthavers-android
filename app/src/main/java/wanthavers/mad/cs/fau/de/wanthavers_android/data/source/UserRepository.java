@@ -2,10 +2,7 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.data.source;
 
 import android.support.annotation.NonNull;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import de.fau.cs.mad.wanthavers.common.User;
 
@@ -22,20 +19,9 @@ public class UserRepository implements UserDataSource {
 
     private final UserDataSource userLocalDataSource;
 
-    /**
-     * This variable has package local visibility so it can be accessed from tests.
-     */
-    Map<Long, User> cachedUsers;
-
-    /**
-     * Marks the cache as invalid, to force an update the next time data is requested. This variable
-     * has package local visibility so it can be accessed from tests.
-     */
-    boolean cacheIsDirty = false;
-
     // Prevent direct instantiation.
     private UserRepository(@NonNull UserDataSource userRemoteDataSource,
-                             @NonNull UserDataSource userLocalDataSource) {
+                           @NonNull UserDataSource userLocalDataSource) {
         this.userRemoteDataSource = checkNotNull(userRemoteDataSource);
         this.userLocalDataSource = checkNotNull(userLocalDataSource);
     }
@@ -48,7 +34,7 @@ public class UserRepository implements UserDataSource {
      * @return the {@link UserRepository} instance
      */
     public static UserRepository getInstance(UserDataSource userRemoteDataSource,
-                                               UserDataSource userLocalDataSource) {
+                                             UserDataSource userLocalDataSource) {
         if (INSTANCE == null) {
             INSTANCE = new UserRepository(userRemoteDataSource, userLocalDataSource);
         }
@@ -69,106 +55,67 @@ public class UserRepository implements UserDataSource {
         checkNotNull(callback);
 
         User user = null;
-
-        if(cachedUsers != null && cachedUsers.size() > 0 && !cacheIsDirty){
-            user = cachedUsers.get(userId);
-
-            if(user != null){
+        userLocalDataSource.getUser(userId, new GetUserCallback() {
+            @Override
+            public void onUserLoaded(User user) {
                 callback.onUserLoaded(user);
-                return;
             }
-        }
 
-        if(cacheIsDirty){
-            getUserFromRemoteDataSource(userId, callback);
-        } else {
-            userLocalDataSource.getUser(userId, new GetUserCallback() {
-                @Override
-                public void onUserLoaded(User user) {
-                    refreshCache(user);
-                    callback.onUserLoaded(user);
-                }
-
-                @Override
-                public void onDataNotAvailable() {
-                    getUserFromRemoteDataSource(userId, callback);
-                }
-            });
-        }
+            @Override
+            public void onDataNotAvailable() {
+                getUserFromRemoteDataSource(userId, callback);
+            }
+        });
     }
 
     @Override
     public void getAllUsers(@NonNull final GetAllUsers callback) {
         checkNotNull(callback);
 
-        if(cachedUsers != null && !cacheIsDirty){
-            callback.onAllUsersLoaded(new ArrayList<User>(cachedUsers.values()));
-            return;
-        }
+        userLocalDataSource.getAllUsers(new GetAllUsers() {
+            @Override
+            public void onAllUsersLoaded(List<User> users) {
+                callback.onAllUsersLoaded(users);
+            }
 
-        if(cacheIsDirty) {
-            getAllUsersFromRemoteDataSource(callback);
-        } else {
-            userLocalDataSource.getAllUsers(new GetAllUsers() {
-                @Override
-                public void onAllUsersLoaded(List<User> users) {
-                    refreshCache(users);
-                    callback.onAllUsersLoaded(users);
-                }
-
-                @Override
-                public void onDataNotAvailable() {
-                    getAllUsersFromRemoteDataSource(callback);
-                }
-            });
-        }
+            @Override
+            public void onDataNotAvailable() {
+                getAllUsersFromRemoteDataSource(callback);
+            }
+        });
     }
 
     @Override
-    public void saveUser(@NonNull User user) {
+    public void createUser(@NonNull User user, @NonNull CreateUser callback) {
         checkNotNull(user);
+        checkNotNull(callback);
 
-        userRemoteDataSource.saveUser(user);
-        userLocalDataSource.saveUser(user);
-
-        if(cachedUsers == null) {
-            cachedUsers = new LinkedHashMap<>();
-        }
-
-        cachedUsers.put(user.getID(), user);
+        userRemoteDataSource.createUser(user, callback);
+        userLocalDataSource.createUser(user, callback);
     }
 
     @Override
-    public void deleteUser(@NonNull User user) {
+    public void updateUser(@NonNull User user, @NonNull UpdateUser callback) {
         checkNotNull(user);
+        checkNotNull(callback);
 
-        userRemoteDataSource.deleteUser(user);
-        userLocalDataSource.deleteUser(user);
-
-        if(cachedUsers != null) {
-            cachedUsers.remove(user.getID());
-        }
+        userRemoteDataSource.updateUser(user, callback);
+        userLocalDataSource.updateUser(user, callback);
     }
 
     @Override
-    public void deleteAllUsers() {
-        userLocalDataSource.deleteAllUsers();
+    public void deleteUser(@NonNull User user, @NonNull DeleteUser callback) {
+        checkNotNull(user);
+        checkNotNull(callback);
 
-        if(cachedUsers != null) {
-            cachedUsers.clear();
-        }
-    }
-
-    public void refreshUsers(){
-        cacheIsDirty = true;
+        userRemoteDataSource.deleteUser(user, callback);
+        userLocalDataSource.deleteUser(user, callback);
     }
 
     private void getUserFromRemoteDataSource(@NonNull long userId, @NonNull final GetUserCallback callback) {
         userRemoteDataSource.getUser(userId, new GetUserCallback() {
             @Override
             public void onUserLoaded(User user) {
-                refreshCache(user);
-                refreshLocalDataSource(user);
                 callback.onUserLoaded(user);
             }
 
@@ -183,8 +130,6 @@ public class UserRepository implements UserDataSource {
         userRemoteDataSource.getAllUsers(new GetAllUsers() {
             @Override
             public void onAllUsersLoaded(List<User> users) {
-                refreshLocalDataSource(users);
-                refreshLocalDataSource(users);
                 callback.onAllUsersLoaded(users);
             }
 
@@ -193,43 +138,5 @@ public class UserRepository implements UserDataSource {
                 callback.onDataNotAvailable();
             }
         });
-    }
-
-    private void refreshCache(User user) {
-        if (cachedUsers == null) {
-            cachedUsers = new LinkedHashMap<>();
-        }
-
-        cachedUsers.clear();
-
-        cachedUsers.put(user.getID(), user);
-
-        cacheIsDirty = false;
-    }
-
-    private void refreshCache(List<User> users) {
-        if (cachedUsers == null) {
-            cachedUsers = new LinkedHashMap<>();
-        }
-
-        cachedUsers.clear();
-
-        for (User u : users) {
-            cachedUsers.put(u.getID(), u);
-        }
-
-        cacheIsDirty = false;
-    }
-
-    private void refreshLocalDataSource(List<User> users) {
-        userLocalDataSource.deleteAllUsers();
-        for (User u : users) {
-            userLocalDataSource.saveUser(u);
-        }
-    }
-
-    private void refreshLocalDataSource(User user) {
-        userLocalDataSource.deleteUser(user);
-        userLocalDataSource.saveUser(user);
     }
 }

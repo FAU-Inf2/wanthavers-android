@@ -121,7 +121,7 @@ public class UserLocalDataSource implements UserDataSource {
     }
 
     @Override
-    public void saveUser(@NonNull User user) {
+    public void createUser(@NonNull User user, @NonNull CreateUser callback) {
         checkNotNull(user);
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
@@ -137,21 +137,29 @@ public class UserLocalDataSource implements UserDataSource {
     }
 
     @Override
-    public void deleteUser(@NonNull User user) {
+    public void updateUser(@NonNull User user, @NonNull UpdateUser callback) {
+        checkNotNull(user);
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
-        String selection = UserEntry.COLUMN_NAME_USER_ID + " = " + user.getID();
+        ContentValues values = new ContentValues();
+        values.put(UserEntry.COLUMN_NAME_NAME, user.getName());
+        values.put(UserEntry.COLUMN_NAME_EMAIL, user.getEmail());
+        values.put(UserEntry.COLUMN_NAME_BIRTHDAY, user.getBirthday().getTime());
 
-        db.delete(UserEntry.TABLE_NAME, selection, null);
+        String whereClause = UserEntry.COLUMN_NAME_USER_ID + " = " + user.getID();
+
+        db.update(UserEntry.TABLE_NAME, values, whereClause, null);
 
         db.close();
     }
 
     @Override
-    public void deleteAllUsers() {
+    public void deleteUser(@NonNull User user, @NonNull DeleteUser callback) {
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
-        db.delete(UserEntry.TABLE_NAME, null, null);
+        String selection = UserEntry.COLUMN_NAME_USER_ID + " = " + user.getID();
+
+        db.delete(UserEntry.TABLE_NAME, selection, null);
 
         db.close();
     }

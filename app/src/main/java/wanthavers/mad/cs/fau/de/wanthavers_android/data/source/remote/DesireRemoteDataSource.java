@@ -26,6 +26,7 @@ import javax.ws.rs.ProcessingException;
 import javax.ws.rs.WebApplicationException;
 
 import de.fau.cs.mad.wanthavers.common.Desire;
+import de.fau.cs.mad.wanthavers.common.User;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.DesireDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.rest.DesireClient;
 import wanthavers.mad.cs.fau.de.wanthavers_android.rest.UserClient;
@@ -40,16 +41,6 @@ public class DesireRemoteDataSource implements DesireDataSource {
     private DesireClient desireClient = DesireClient.getInstance();
     private UserClient userClient = UserClient.getInstance();
 
-    private static final int SERVICE_LATENCY_IN_MILLIS = 5000;
-
-    private static final Map<String, Desire> TASKS_SERVICE_DATA;
-
-    static {
-        TASKS_SERVICE_DATA = new LinkedHashMap<>(2);
-        //addTask("Build tower in Pisa", "Ground looks good, no foundation work required.");
-        //addTask("Finish bridge in Tacoma", "Found awesome girders at half the cost!");
-    }
-
     // Prevent direct instantiation.
     private DesireRemoteDataSource() { }
 
@@ -60,45 +51,47 @@ public class DesireRemoteDataSource implements DesireDataSource {
         return INSTANCE;
     }
 
-    private static void addTask(String id, String title, String description) {
-        Desire newTask = new Desire("TestLocalDbLayer", "TestLocalDbLayerDesc",null,0,0,null,null,0,0);
-
-        String taskId = Long.toString(newTask.getID());
-        TASKS_SERVICE_DATA.put(id, newTask);
-    }
-
-    /**
-     * Note: {@link LoadDesireCallback#onDataNotAvailable()} is never fired. In a real remote data
-     * source implementation, this would be fired if the server can't be contacted or the server
-     * returns an error.
-     */
-    /*
     @Override
-
-    public void getTasks(final @NonNull LoadDesireCallback callback) {
-        // Simulate network by delaying the execution.
-        Handler handler = new Handler(Looper.getMainLooper());
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                callback.onDesireLoaded(Lists.newArrayList(TASKS_SERVICE_DATA.values()));
-            }
-        }, SERVICE_LATENCY_IN_MILLIS);
+    public void createDesire(@NonNull Desire desire, @NonNull User user, @NonNull CreateDesire callback) {
+        try {
+            Desire ret = desireClient.createDesire(desire, user);
+            callback.onDesireCreated(ret);
+        } catch (Throwable t) {
+            callback.onCreateFailed();
+        }
     }
-    */
-    /**
-     * Note: {@link GetDesireCallback#onDataNotAvailable()} is never fired. In a real remote data
-     * source implementation, this would be fired if the server can't be contacted or the server
-     * returns an error.
-     */
+
+    @Override
+    public void updateDesire(@NonNull Desire desire, @NonNull UpdateDesire callback) {
+        try {
+            Desire ret = desireClient.updateDesire(desire.getID(), desire);
+            callback.onDesireUpdated(ret);
+        } catch (Throwable t) {
+            callback.onUpdateFailed();
+        }
+    }
+
+    @Override
+    public void deleteDesire(@NonNull Desire desire, @NonNull DeleteDesire callback) {
+        deleteDesire(desire.getID(), callback);
+    }
+
+    @Override
+    public void deleteDesire(@NonNull long desireId, @NonNull DeleteDesire callback) {
+        try {
+            desireClient.deleteDesire(desireId);
+            callback.onDesireDeleted();
+        } catch (Throwable t) {
+            callback.onDeleteFailed();
+        }
+    }
+
     @Override
     public void getDesire(@NonNull long desireId, final @NonNull GetDesireCallback callback) {
         try {
             final Desire desire = desireClient.get(desireId);
             callback.onDesireLoaded(desire);
-        } catch (WebApplicationException we) {
-            callback.onDataNotAvailable();
-        } catch (ProcessingException pe) {
+        } catch (Throwable t) {
             callback.onDataNotAvailable();
         }
     }
@@ -108,9 +101,7 @@ public class DesireRemoteDataSource implements DesireDataSource {
         try {
             final List<Desire> desiresForUser = userClient.getDesires(userId);
             callback.onDesiresForUserLoaded(desiresForUser);
-        } catch (WebApplicationException we) {
-            callback.onDataNotAvailable();
-        } catch (ProcessingException pe) {
+        } catch (Throwable t) {
             callback.onDataNotAvailable();
         }
     }
@@ -120,70 +111,18 @@ public class DesireRemoteDataSource implements DesireDataSource {
         try {
             final List<Desire> allDesires = desireClient.get();
             callback.onAllDesiresLoaded(allDesires);
-        } catch(WebApplicationException we) {
-            callback.onDataNotAvailable();
-        } catch (ProcessingException pe) {
+        } catch(Throwable t) {
             callback.onDataNotAvailable();
         }
     }
 
-    /*
     @Override
-    public void saveTask(Desire desire) {
-        TASKS_SERVICE_DATA.put(desire.getId(), desire);
-    }
-
-
-    @Override
-    public void completeTask(Desire desire) {
-        Desire completedTask = new Desire(desire.getId(), desire.getTitle(), desire.getDescription());
-        TASKS_SERVICE_DATA.put(desire.getId(), completedTask);
-    }
-
-    @Override
-    public void completeTask(@NonNull String taskId) {
-        // Not required for the remote data source because the {@link DesireRepository} handles
-        // converting from a {@code taskId} to a {@link task} using its cached data.
-    }
-
-    @Override
-    public void activateTask(Desire desire) {
-        Desire activeTask = new Desire(desire.getTitle(), desire.getDescription(), desire.getId());
-        TASKS_SERVICE_DATA.put(desire.getId(), activeTask);
-    }
-
-    @Override
-    public void activateTask(@NonNull String taskId) {
-        // Not required for the remote data source because the {@link DesireRepository} handles
-        // converting from a {@code taskId} to a {@link task} using its cached data.
-    }
-
-    @Override
-    public void clearCompletedTasks() {
-        Iterator<Map.Entry<String, Desire>> it = TASKS_SERVICE_DATA.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry<String, Desire> entry = it.next();
-            if (entry.getValue().isCompleted()) {
-                it.remove();
-            }
+    public void getDesireByLocation(@NonNull double lat, @NonNull double lon, @NonNull double radius, @NonNull GetDesiresByLocation callback) {
+        try {
+            final List<Desire> desiresByLocation = desireClient.getByLocation(lat, lon, radius);
+            callback.onDesiresByLocationLoaded(desiresByLocation);
+        } catch (Throwable t) {
+            callback.onDataNotAvailable();
         }
     }
-
-    @Override
-    public void refreshTasks() {
-        // Not required because the {@link DesireRepository} handles the logic of refreshing the
-        // tasks from all the available data sources.
-    }
-
-
-    @Override
-    public void deleteAllTasks() {
-        TASKS_SERVICE_DATA.clear();
-    }
-
-    @Override
-    public void deleteTask(String taskId) {
-        TASKS_SERVICE_DATA.remove(taskId);
-    }
-    */
 }
