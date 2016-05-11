@@ -22,6 +22,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.ws.rs.ProcessingException;
 import javax.ws.rs.WebApplicationException;
 
 import de.fau.cs.mad.wanthavers.common.Desire;
@@ -95,12 +96,9 @@ public class DesireRemoteDataSource implements DesireDataSource {
         try {
             final Desire desire = desireClient.get(desireId);
             callback.onDesireLoaded(desire);
-        } catch (WebApplicationException e) {
-                try {
-                Desire desire = desireClient.get(desireId);
-                callback.onDesireLoaded(desire);
-            } catch (WebApplicationException w){}
-
+        } catch (WebApplicationException we) {
+            callback.onDataNotAvailable();
+        } catch (ProcessingException pe) {
             callback.onDataNotAvailable();
         }
     }
@@ -110,7 +108,9 @@ public class DesireRemoteDataSource implements DesireDataSource {
         try {
             final List<Desire> desiresForUser = userClient.getDesires(userId);
             callback.onDesiresForUserLoaded(desiresForUser);
-        } catch (WebApplicationException e) {
+        } catch (WebApplicationException we) {
+            callback.onDataNotAvailable();
+        } catch (ProcessingException pe) {
             callback.onDataNotAvailable();
         }
     }
@@ -120,7 +120,9 @@ public class DesireRemoteDataSource implements DesireDataSource {
         try {
             final List<Desire> allDesires = desireClient.get();
             callback.onAllDesiresLoaded(allDesires);
-        } catch(WebApplicationException e) {
+        } catch(WebApplicationException we) {
+            callback.onDataNotAvailable();
+        } catch (ProcessingException pe) {
             callback.onDataNotAvailable();
         }
     }
