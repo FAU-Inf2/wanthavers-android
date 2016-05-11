@@ -13,7 +13,7 @@ import javax.ws.rs.client.WebTarget;
 import de.fau.cs.mad.wanthavers.common.Rating;
 import de.fau.cs.mad.wanthavers.common.rest.api.RatingResource;
 
-public class RatingClient implements RatingResource {
+public class RatingClient {
     private static RatingClient INSTANCE;
 
     private RatingResource ratingEndpoint;
@@ -32,37 +32,30 @@ public class RatingClient implements RatingResource {
         return INSTANCE;
     }
 
-    @Override
     public List<Rating> getAllRatings(@PathParam("user-id") long l) {
         return ratingEndpoint.getAllRatings(l);
     }
 
-    @Override
     public Rating createRating(@PathParam("user-id") long l, Rating rating) {
         return ratingEndpoint.createRating(l, rating);
     }
 
-    @Override
     public Rating get(@PathParam("user-id") long l, @PathParam("id") long l1) {
         return ratingEndpoint.get(l, l1);
     }
 
-    @Override
     public Rating updateRating(@PathParam("user-id") long l, @PathParam("id") long l1, Rating rating) {
         return ratingEndpoint.updateRating(l, l1, rating);
     }
 
-    @Override
     public void deleteRating(@PathParam("user-id") long l, @PathParam("id") long l1) {
         ratingEndpoint.deleteRating(l, l1);
     }
 
-    @Override
     public Rating avgRating(@PathParam("user-id") long l) {
         return ratingEndpoint.avgRating(l);
     }
 
-    @Override
     public void createDummies(@PathParam("user-id") long l) {
         throw new UnsupportedOperationException();
     }

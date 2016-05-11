@@ -14,7 +14,7 @@ import de.fau.cs.mad.wanthavers.common.Desire;
 import de.fau.cs.mad.wanthavers.common.User;
 import de.fau.cs.mad.wanthavers.common.rest.api.DesireResource;
 
-public class DesireClient implements DesireResource {
+public class DesireClient {
     private static DesireClient INSTANCE;
 
     private DesireResource desireEndpoint;
@@ -33,32 +33,26 @@ public class DesireClient implements DesireResource {
         return INSTANCE;
     }
 
-    @Override
     public List<Desire> get() {
         return desireEndpoint.get();
     }
 
-    @Override
     public Desire get(@PathParam("id") long l) {
         return desireEndpoint.get(l);
     }
 
-    @Override
     public Desire createDesire(Desire desire, User user) {
         return desireEndpoint.createDesire(desire, user);
     }
 
-    @Override
     public Desire updateDesire(@PathParam("id") long l, Desire desire) {
         return desireEndpoint.updateDesire(l, desire);
     }
 
-    @Override
     public void deleteDesire(@PathParam("id") long l) {
         desireEndpoint.deleteDesire(l);
     }
 
-    @Override
     public void createDummies() {
         throw new UnsupportedOperationException();
     }

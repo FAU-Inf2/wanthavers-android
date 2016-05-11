@@ -14,7 +14,7 @@ import de.fau.cs.mad.wanthavers.common.Haver;
 import de.fau.cs.mad.wanthavers.common.User;
 import de.fau.cs.mad.wanthavers.common.rest.api.HaverResource;
 
-public class HaverClient implements HaverResource {
+public class HaverClient {
     private static HaverClient INSTANCE;
 
     private HaverResource haverEndpoint;
@@ -33,27 +33,22 @@ public class HaverClient implements HaverResource {
         return INSTANCE;
     }
 
-    @Override
     public List<Haver> getAllHavers(@PathParam("desire-id") long l) {
         return haverEndpoint.getAllHavers(l);
     }
 
-    @Override
     public Haver createHaver(@PathParam("desire-id") long l, Haver haver, User user) {
         return haverEndpoint.createHaver(l, haver, user);
     }
 
-    @Override
     public Haver get(@PathParam("desire-id") long l, @PathParam("id") long l1) {
         return haverEndpoint.get(l, l1);
     }
 
-    @Override
     public Haver updateHaver(@PathParam("desire-id") long l, @PathParam("id") long l1, Haver haver) {
         return haverEndpoint.updateHaver(l, l1, haver);
     }
 
-    @Override
     public void deleteHaver(@PathParam("desire-id") long l, @PathParam("id") long l1) {
         haverEndpoint.deleteHaver(l, l1);
     }
