@@ -60,9 +60,5 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
                     }
                 });
 
-
-        //Desire desire = new Desire("00000", "Kitzinger beer", "What i need is some kitzinger, pronto!!!");
-        //mDesireDetailView.showDesire(desire);
-
     }
 }

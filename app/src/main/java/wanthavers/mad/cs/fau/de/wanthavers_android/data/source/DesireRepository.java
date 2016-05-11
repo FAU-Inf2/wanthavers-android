@@ -36,9 +36,9 @@ public class DesireRepository implements DesireDataSource {
 
     private static DesireRepository INSTANCE = null;
 
-    private final DesireDataSource mTasksRemoteDataSource;
+    private final DesireDataSource mDesireRemoteDataSource;
 
-    private final DesireDataSource mTasksLocalDataSource;
+    private final DesireDataSource mDesireLocalDataSource;
 
     /**
      * This variable has package local visibility so it can be accessed from tests.
@@ -52,23 +52,23 @@ public class DesireRepository implements DesireDataSource {
     boolean mCacheIsDirty = false;
 
     // Prevent direct instantiation.
-    private DesireRepository(@NonNull DesireDataSource tasksRemoteDataSource,
-                             @NonNull DesireDataSource tasksLocalDataSource) {
-        mTasksRemoteDataSource = checkNotNull(tasksRemoteDataSource);
-        mTasksLocalDataSource = checkNotNull(tasksLocalDataSource);
+    private DesireRepository(@NonNull DesireDataSource desireRemoteDataSource,
+                             @NonNull DesireDataSource desireLocalDataSource) {
+        mDesireRemoteDataSource = checkNotNull(desireRemoteDataSource);
+        mDesireLocalDataSource = checkNotNull(desireLocalDataSource);
     }
 
     /**
      * Returns the single instance of this class, creating it if necessary.
      *
-     * @param tasksRemoteDataSource the backend data source
-     * @param tasksLocalDataSource  the device storage data source
+     * @param desireRemoteDataSource the backend data source
+     * @param desireLocalDataSource  the device storage data source
      * @return the {@link DesireRepository} instance
      */
-    public static DesireRepository getInstance(DesireDataSource tasksRemoteDataSource,
-                                               DesireDataSource tasksLocalDataSource) {
+    public static DesireRepository getInstance(DesireDataSource desireRemoteDataSource,
+                                               DesireDataSource desireLocalDataSource) {
         if (INSTANCE == null) {
-            INSTANCE = new DesireRepository(tasksRemoteDataSource, tasksLocalDataSource);
+            INSTANCE = new DesireRepository(desireRemoteDataSource, desireLocalDataSource);
         }
         return INSTANCE;
     }
@@ -110,7 +110,7 @@ public class DesireRepository implements DesireDataSource {
             getTasksFromRemoteDataSource(callback);
         } else {
             // Query the local storage if available. If not, query the network.
-            mTasksLocalDataSource.getTasks(new LoadDesireCallback() {
+            mDesireLocalDataSource.getTasks(new LoadDesireCallback() {
                 @Override
                 public void onDesireLoaded(List<Desire> desire) {
                     refreshCache(desire);
@@ -128,8 +128,8 @@ public class DesireRepository implements DesireDataSource {
     @Override
     public void saveTask(@NonNull Desire task) {
         checkNotNull(task);
-        mTasksRemoteDataSource.saveTask(task);
-        mTasksLocalDataSource.saveTask(task);
+        mDesireRemoteDataSource.saveTask(task);
+        mDesireLocalDataSource.saveTask(task);
 
         // Do in memory cache update to keep the app UI up to date
         if (mCachedDesires == null) {
@@ -140,8 +140,8 @@ public class DesireRepository implements DesireDataSource {
 
     @Override
     public void clearCompletedTasks() {
-        mTasksRemoteDataSource.clearCompletedTasks();
-        mTasksLocalDataSource.clearCompletedTasks();
+        mDesireRemoteDataSource.clearCompletedTasks();
+        mDesireLocalDataSource.clearCompletedTasks();
 
         // Do in memory cache update to keep the app UI up to date
         if (mCachedDesires == null) {
@@ -184,7 +184,7 @@ public class DesireRepository implements DesireDataSource {
         // Load from server/persisted if needed.
 
         // Is the task in the local data source? If not, query the network.
-        mTasksLocalDataSource.getDesire(desireId, new GetDesireCallback() {
+        mDesireLocalDataSource.getDesire(desireId, new GetDesireCallback() {
             @Override
             public void onDesireLoaded(Desire desire) {
                 callback.onDesireLoaded(desire);
@@ -192,7 +192,7 @@ public class DesireRepository implements DesireDataSource {
 
             @Override
             public void onDataNotAvailable() {
-                mTasksRemoteDataSource.getDesire(desireId, new GetDesireCallback() {
+                mDesireRemoteDataSource.getDesire(desireId, new GetDesireCallback() {
                     @Override
                     public void onDesireLoaded(Desire desire) {
                         callback.onDesireLoaded(desire);
@@ -216,7 +216,7 @@ public class DesireRepository implements DesireDataSource {
         // Load from server/persisted if needed.
 
         // Is the task in the local data source? If not, query the network.
-        mTasksLocalDataSource.getDesiresForUser(userId, new GetDesiresForUser() {
+        mDesireLocalDataSource.getDesiresForUser(userId, new GetDesiresForUser() {
             @Override
             public void onDesiresForUserLoaded(List<Desire> desires) {
                 callback.onDesiresForUserLoaded(desires);
@@ -224,7 +224,7 @@ public class DesireRepository implements DesireDataSource {
 
             @Override
             public void onDataNotAvailable() {
-                mTasksRemoteDataSource.getDesiresForUser(userId, new GetDesiresForUser() {
+                mDesireRemoteDataSource.getDesiresForUser(userId, new GetDesiresForUser() {
                     @Override
                     public void onDesiresForUserLoaded(List<Desire> desires) {
                         callback.onDesiresForUserLoaded(desires);
@@ -243,7 +243,7 @@ public class DesireRepository implements DesireDataSource {
     public void getAllDesires(@NonNull final GetAllDesires callback) {
         checkNotNull(callback);
 
-        mTasksLocalDataSource.getAllDesires(new GetAllDesires() {
+        mDesireLocalDataSource.getAllDesires(new GetAllDesires() {
             @Override
             public void onAllDesiresLoaded(List<Desire> desires) {
                 callback.onAllDesiresLoaded(desires);
@@ -251,7 +251,7 @@ public class DesireRepository implements DesireDataSource {
 
             @Override
             public void onDataNotAvailable() {
-                mTasksRemoteDataSource.getAllDesires(new GetAllDesires() {
+                mDesireRemoteDataSource.getAllDesires(new GetAllDesires() {
                     @Override
                     public void onAllDesiresLoaded(List<Desire> desires) {
                         callback.onAllDesiresLoaded(desires);
@@ -274,8 +274,8 @@ public class DesireRepository implements DesireDataSource {
 
     @Override
     public void deleteAllTasks() {
-        mTasksRemoteDataSource.deleteAllTasks();
-        mTasksLocalDataSource.deleteAllTasks();
+        mDesireRemoteDataSource.deleteAllTasks();
+        mDesireLocalDataSource.deleteAllTasks();
 
         if (mCachedDesires == null) {
             mCachedDesires = new LinkedHashMap<>();
@@ -285,14 +285,14 @@ public class DesireRepository implements DesireDataSource {
 
     @Override
     public void deleteTask(@NonNull String taskId) {
-        mTasksRemoteDataSource.deleteTask(checkNotNull(taskId));
-        mTasksLocalDataSource.deleteTask(checkNotNull(taskId));
+        mDesireRemoteDataSource.deleteTask(checkNotNull(taskId));
+        mDesireLocalDataSource.deleteTask(checkNotNull(taskId));
 
         mCachedDesires.remove(taskId);
     }
 
     private void getTasksFromRemoteDataSource(@NonNull final LoadDesireCallback callback) {
-        mTasksRemoteDataSource.getTasks(new LoadDesireCallback() {
+        mDesireRemoteDataSource.getTasks(new LoadDesireCallback() {
             @Override
             public void onDesireLoaded(List<Desire> desires) {
                 refreshCache(desires);
@@ -319,9 +319,9 @@ public class DesireRepository implements DesireDataSource {
     }
 
     private void refreshLocalDataSource(List<Desire> desires) {
-        mTasksLocalDataSource.deleteAllTasks();
+        mDesireLocalDataSource.deleteAllTasks();
         for (Desire desire : desires) {
-            mTasksLocalDataSource.saveTask(desire);
+            mDesireLocalDataSource.saveTask(desire);
         }
     }
 

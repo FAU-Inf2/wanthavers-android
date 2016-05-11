@@ -9,7 +9,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
@@ -168,7 +167,7 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
         // in it's own Activity, since it makes more sense that way and it gives us the flexibility
         // to show some Intent stubbing.
         Intent intent = new Intent(getContext(), DesireDetailActivity.class);
-        intent.putExtra(DesireDetailActivity.EXTRA_TASK_ID, desireId);
+        intent.putExtra(DesireDetailActivity.EXTRA_DESIRE_ID, desireId);
         startActivity(intent);
     }
 }

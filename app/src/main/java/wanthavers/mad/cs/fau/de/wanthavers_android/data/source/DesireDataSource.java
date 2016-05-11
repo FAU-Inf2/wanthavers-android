@@ -28,7 +28,7 @@ public interface DesireDataSource {
 
     interface LoadDesireCallback {
 
-        void onDesireLoaded(List<Desire> tasks);
+        void onDesireLoaded(List<Desire> desireList);
 
         void onDataNotAvailable();
     }

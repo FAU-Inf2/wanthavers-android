@@ -19,7 +19,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 public class DesireDetailActivity extends AppCompatActivity {
 
-    public static final String EXTRA_TASK_ID = "TASK_ID";
+    public static final String EXTRA_DESIRE_ID = "DESIRE_ID";
     private DesireDetailPresenter mDesireDetailPresenter;
 
     @Override
@@ -36,7 +36,7 @@ public class DesireDetailActivity extends AppCompatActivity {
         ab.setDisplayHomeAsUpEnabled(true);
         ab.setDisplayShowHomeEnabled(true);
 
-        long desireId = getIntent().getLongExtra(EXTRA_TASK_ID, 4);
+        long desireId = getIntent().getLongExtra(EXTRA_DESIRE_ID, 4);
 
 
         DesireDetailFragment desireDetailFragment = (DesireDetailFragment) getSupportFragmentManager()

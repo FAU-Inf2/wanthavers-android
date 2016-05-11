@@ -55,8 +55,8 @@ public class GetDesire extends UseCase<GetDesire.RequestValues, GetDesire.Respon
 
         private Desire mDesire;
 
-        public ResponseValue(@NonNull Desire task) {
-            mDesire = checkNotNull(task, "task cannot be null!");
+        public ResponseValue(@NonNull Desire desire) {
+            mDesire = checkNotNull(desire, "desire cannot be null!");
         }
 
         public Desire getDesire() {
