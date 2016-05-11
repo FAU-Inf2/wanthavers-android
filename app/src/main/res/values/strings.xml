@@ -3,12 +3,20 @@
     <!-- General Resources -->
     <string name="app_name">WantHaver</string>
     <string name="action_settings">Settings</string>
-    <string name="chat">chat</string>
+    <string name="chat">Chat</string>
 
 
     <!-- Resources for deatail view -->
     <string name="desire_detail_itemImage_contentDesc">Aufgaben Bild</string>
-    <string name="desire">Desire</string>
+    <string name="desire">Wunsch</string>
+    <string name="navigation_view_header_title">ToDo: HeaderNavBar</string>
+    <string name="myDesires_title">Meine Wünsche</string>
+    <string name="myTransactions_title">Meine Erfüllungen</string>
+    <string name="createDesire_title">Neuer Wunsch</string>
+    <string name="settings_title">Einstellungen</string>
+    <string name="logout_title">Ausloggen</string>
+    <string name="no_desires">Leider wurden keine Wünsche gefunden</string>
+    <string name="loading_desires_error">Fehler beim Laden der Wünsche</string>
 
 
 </resources>

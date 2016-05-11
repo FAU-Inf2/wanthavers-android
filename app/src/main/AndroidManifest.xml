@@ -6,17 +6,19 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="wanthavers.mad.cs.fau.de.wanthavers_android.desiredetail.DesireDetailActivity">
+            android:name="wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.DesireListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name="wanthavers.mad.cs.fau.de.wanthavers_android.desiredetail.DesireDetailActivity"/>
 
     </application>
 
