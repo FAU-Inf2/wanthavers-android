@@ -14,15 +14,13 @@ import de.fau.cs.mad.wanthavers.common.Desire;
 import de.fau.cs.mad.wanthavers.common.User;
 import de.fau.cs.mad.wanthavers.common.rest.api.DesireResource;
 
-public class DesireClient {
+public class DesireClient extends RestClient {
     private static DesireClient INSTANCE;
 
     private DesireResource desireEndpoint;
 
     private DesireClient() {
-        //TODO: get API-URL from shared preferences or something like that
-        final String API_URL = "http://faui21f.informatik.uni-erlangen.de:9090/";
-        WebTarget target = ClientBuilder.newClient().register(JacksonJsonProvider.class).target(API_URL);
+        super();
         desireEndpoint = WebResourceFactory.newResource(DesireResource.class, target);
     }
 
@@ -37,23 +35,19 @@ public class DesireClient {
         return desireEndpoint.get();
     }
 
-    public Desire get(@PathParam("id") long l) {
-        return desireEndpoint.get(l);
+    public Desire get(long desireId) {
+        return desireEndpoint.get(desireId);
     }
 
     public Desire createDesire(Desire desire, User user) {
         return desireEndpoint.createDesire(desire, user);
     }
 
-    public Desire updateDesire(@PathParam("id") long l, Desire desire) {
-        return desireEndpoint.updateDesire(l, desire);
+    public Desire updateDesire(long desireId, Desire desire) {
+        return desireEndpoint.updateDesire(desireId, desire);
     }
 
-    public void deleteDesire(@PathParam("id") long l) {
-        desireEndpoint.deleteDesire(l);
-    }
-
-    public void createDummies() {
-        throw new UnsupportedOperationException();
+    public void deleteDesire(long desireId) {
+        desireEndpoint.deleteDesire(desireId);
     }
 }

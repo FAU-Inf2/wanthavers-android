@@ -1,27 +1,19 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.rest;
 
-import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
-
 import org.glassfish.jersey.client.proxy.WebResourceFactory;
 
 import java.util.List;
 
-import javax.ws.rs.PathParam;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.WebTarget;
-
 import de.fau.cs.mad.wanthavers.common.Rating;
 import de.fau.cs.mad.wanthavers.common.rest.api.RatingResource;
 
-public class RatingClient {
+public class RatingClient extends RestClient {
     private static RatingClient INSTANCE;
 
     private RatingResource ratingEndpoint;
 
     private RatingClient() {
-        //TODO: get API-URL from shared preferences or something like that
-        final String API_URL = "http://faui21f.informatik.uni-erlangen.de:9090/";
-        WebTarget target = ClientBuilder.newClient().register(JacksonJsonProvider.class).target(API_URL);
+        super();
         ratingEndpoint = WebResourceFactory.newResource(RatingResource.class, target);
     }
 
@@ -32,31 +24,28 @@ public class RatingClient {
         return INSTANCE;
     }
 
-    public List<Rating> getAllRatings(@PathParam("user-id") long l) {
-        return ratingEndpoint.getAllRatings(l);
+    public List<Rating> getAllRatings(long userId) {
+        return ratingEndpoint.getAllRatings(userId);
     }
 
-    public Rating createRating(@PathParam("user-id") long l, Rating rating) {
-        return ratingEndpoint.createRating(l, rating);
+    public Rating createRating(long userId, Rating rating) {
+        return ratingEndpoint.createRating(userId, rating);
     }
 
-    public Rating get(@PathParam("user-id") long l, @PathParam("id") long l1) {
-        return ratingEndpoint.get(l, l1);
+    public Rating get(long userId, long ratingId) {
+        return ratingEndpoint.get(userId, ratingId);
     }
 
-    public Rating updateRating(@PathParam("user-id") long l, @PathParam("id") long l1, Rating rating) {
-        return ratingEndpoint.updateRating(l, l1, rating);
+    public Rating updateRating(long userId, long ratingId, Rating rating) {
+        return ratingEndpoint.updateRating(userId, ratingId, rating);
     }
 
-    public void deleteRating(@PathParam("user-id") long l, @PathParam("id") long l1) {
-        ratingEndpoint.deleteRating(l, l1);
+    public void deleteRating(long userId, long ratingId) {
+        ratingEndpoint.deleteRating(userId, ratingId);
     }
 
-    public Rating avgRating(@PathParam("user-id") long l) {
-        return ratingEndpoint.avgRating(l);
+    public Rating avgRating(long userId) {
+        return ratingEndpoint.avgRating(userId);
     }
 
-    public void createDummies(@PathParam("user-id") long l) {
-        throw new UnsupportedOperationException();
-    }
 }
