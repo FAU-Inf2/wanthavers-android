@@ -3,6 +3,8 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import java.util.Set;
+
 import javax.inject.Inject;
 
 public class SharedPreferencesHelper {
@@ -14,7 +16,7 @@ public class SharedPreferencesHelper {
     //Shared Preferences Names
     public static final String NAME_SETTINGS = "settings";
 
-    //Key Stringsg
+    //Key Strings
     public static final String KEY_API_URL = "api_url";
 
     @Inject
@@ -57,5 +59,14 @@ public class SharedPreferencesHelper {
 
     public Boolean loadBoolean(String key, Boolean defaultValue) {
         return sharedPreferences.getBoolean(key, defaultValue);
+    }
+
+    public void saveStringSet(String key, Set<String> values) {
+        editor.putStringSet(key, values);
+        editor.apply();
+    }
+
+    public Set<String> loadStringSet(String key, Set<String> defaultValues) {
+        return sharedPreferences.getStringSet(key, defaultValues);
     }
 }
