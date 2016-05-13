@@ -8,10 +8,17 @@ import java.util.Set;
 import javax.inject.Inject;
 
 public class SharedPreferencesHelper {
-    protected final String sharedPreferencesName;
-    protected final SharedPreferences sharedPreferences;
-    protected final Context context;
-    protected final SharedPreferences.Editor editor;
+    private final SharedPreferences sharedPreferences;
+    private final SharedPreferences.Editor editor;
+
+    private static SharedPreferencesHelper INSTANCE;
+
+    public static SharedPreferencesHelper getInstance(String sharedPreferencesName, Context context) {
+        if(INSTANCE == null) {
+            INSTANCE = new SharedPreferencesHelper(sharedPreferencesName, context);
+        }
+        return INSTANCE;
+    }
 
     //Shared Preferences Names
     public static final String NAME_SETTINGS = "settings";
@@ -20,7 +27,7 @@ public class SharedPreferencesHelper {
     public static final String KEY_API_URL = "api_url";
 
     @Inject
-    public SharedPreferencesHelper(String sharedPreferencesName, Context context) {
+    private SharedPreferencesHelper(String sharedPreferencesName, Context context) {
         if(context == null) {
             throw new IllegalArgumentException("Context must not be null!");
         }
@@ -28,8 +35,6 @@ public class SharedPreferencesHelper {
             throw new IllegalArgumentException("SharedPreferencesName must not be empty/null!");
         }
 
-        this.sharedPreferencesName = sharedPreferencesName;
-        this.context = context;
         this.sharedPreferences = context.getSharedPreferences(sharedPreferencesName, Context.MODE_PRIVATE);
         this.editor = this.sharedPreferences.edit();
     }
