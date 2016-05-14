@@ -11,7 +11,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="Toolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Toolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:textColorPrimary">@color/colorPrimary</item>
+        <item name="android:background">@color/colorSecondary</item>
+    </style>
 
 
 

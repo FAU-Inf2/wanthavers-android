@@ -22,6 +22,10 @@
             type="de.fau.cs.mad.wanthavers.common.Desire" />
 
         <variable
+            name="desires"
+            type="wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.DesireListViewModel" />
+
+        <variable
             name="actionHandler"
             type="wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.DesireListItemActionHandler" />
     </data>
@@ -30,6 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:orientation="horizontal"
+        android:background="@{desires.getBackgroundColor(1)}"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingBottom="@dimen/list_item_padding"

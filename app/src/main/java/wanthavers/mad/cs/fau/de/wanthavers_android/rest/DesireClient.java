@@ -7,6 +7,7 @@ import org.glassfish.jersey.client.proxy.WebResourceFactory;
 import java.util.List;
 
 import javax.ws.rs.PathParam;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 
@@ -36,6 +37,11 @@ public class DesireClient implements DesireResource {
     @Override
     public List<Desire> get() {
         return desireEndpoint.get();
+    }
+
+    @Override
+    public List<Desire> getByLocation(@QueryParam("lat") double v, @QueryParam("lon") double v1, @QueryParam("radius") double v2) {
+        return null;
     }
 
     @Override

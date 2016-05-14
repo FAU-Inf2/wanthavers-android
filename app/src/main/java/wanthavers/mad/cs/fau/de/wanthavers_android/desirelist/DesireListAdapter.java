@@ -16,10 +16,12 @@ public class DesireListAdapter extends BaseAdapter{
     private List<Desire> mDesireList;
 
     private DesireListContract.Presenter mUserActionsListener;
+    private DesireListViewModel mDesireListViewModel;
 
-    public DesireListAdapter(List<Desire> tasks, DesireListContract.Presenter itemListener) {
+    public DesireListAdapter(List<Desire> tasks, DesireListContract.Presenter itemListener, DesireListViewModel desireListViewModel) {
         setList(tasks);
         mUserActionsListener = itemListener;
+        mDesireListViewModel = desireListViewModel;
     }
 
     public void replaceData(List<Desire> desireList) {
@@ -50,6 +52,7 @@ public class DesireListAdapter extends BaseAdapter{
     public View getView(int i, View view, ViewGroup viewGroup) {
         Desire desire = getItem(i);
         DesireItemBinding binding;
+
         if (view == null) {
             // Inflate
             LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
@@ -66,6 +69,7 @@ public class DesireListAdapter extends BaseAdapter{
                 new DesireListItemActionHandler(mUserActionsListener);
         binding.setActionHandler(itemActionHandler);
         binding.setDesire(desire);
+        binding.setDesires(mDesireListViewModel);
         binding.executePendingBindings();
         return binding.getRoot();
     }

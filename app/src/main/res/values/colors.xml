@@ -4,4 +4,21 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorSecondary">#ffffff</color>
+
+
+
+    <!--set up Background colors -->
+    <color name="desireBg0">#51C4B7</color>
+    <color name="desireBg1">#6083DB</color>
+    <color name="desireBg2">#9DED5C</color>
+    <color name="desireBg3">#523970</color>
+
+
+    <array
+        name="desireBackgroundColors">
+        <item>@color/desireBg0</item>
+        <item>@color/desireBg1</item>
+        <item>@color/desireBg2</item>
+        <item>@color/desireBg3</item>
+    </array>
 </resources>

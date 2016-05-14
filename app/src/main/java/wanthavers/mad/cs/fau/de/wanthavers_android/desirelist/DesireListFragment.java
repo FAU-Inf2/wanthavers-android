@@ -70,7 +70,7 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
         //Set up desire view
         ListView listView = desirelistFragBinding.desiresList;
 
-        mListAdapter = new DesireListAdapter(new ArrayList<Desire>(0),mPresenter);
+        mListAdapter = new DesireListAdapter(new ArrayList<Desire>(0),mPresenter, mDesireListViewModel);
         listView.setAdapter(mListAdapter);
 
         // Set up floating action button

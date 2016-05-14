@@ -17,10 +17,15 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.desirelist;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 
 import wanthavers.mad.cs.fau.de.wanthavers_android.BR;
+import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 
 
 /**
@@ -41,6 +46,7 @@ public class DesireListViewModel extends BaseObservable {
     public DesireListViewModel(Context context, DesireListContract.Presenter presenter) {
         mContext = context;
         mPresenter = presenter;
+
     }
 
     @Bindable
@@ -60,6 +66,13 @@ public class DesireListViewModel extends BaseObservable {
         */
     }
 
+    public int getBackgroundColor(int colorIndex){
+        Resources res = mContext.getResources();
+        TypedArray bgColors = res.obtainTypedArray(R.array.desireBackgroundColors);
+        int color = bgColors.getColor(colorIndex,0);
+        return  color;
+
+    }
 
     /* TODO check if we need any of the filters
     @Bindable
