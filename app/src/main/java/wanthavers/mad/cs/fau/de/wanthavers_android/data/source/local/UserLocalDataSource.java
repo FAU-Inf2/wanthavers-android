@@ -42,7 +42,7 @@ public class UserLocalDataSource implements UserDataSource {
 
     private static UserLocalDataSource INSTANCE;
 
-    private UserDbHelper mDbHelper;
+    private UserDbHelper dbHelper;
 
     private final String[] PROJECTION_ALL_FIELDS = {
             UserEntry.COLUMN_NAME_USER_ID,
@@ -54,7 +54,7 @@ public class UserLocalDataSource implements UserDataSource {
     // Prevent direct instantiation.
     private UserLocalDataSource(@NonNull Context context) {
         checkNotNull(context);
-        mDbHelper = new UserDbHelper(context);
+        dbHelper = new UserDbHelper(context);
     }
 
     public static UserLocalDataSource getInstance(@NonNull Context context) {
@@ -66,7 +66,9 @@ public class UserLocalDataSource implements UserDataSource {
 
     @Override
     public void getUser(@NonNull long userId, @NonNull GetUserCallback callback) {
-        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+        callback.onDataNotAvailable();
+
+/*        SQLiteDatabase db = dbHelper.getReadableDatabase();
 
         String selection = UserEntry.COLUMN_NAME_USER_ID + " = " + userId;
 
@@ -89,12 +91,14 @@ public class UserLocalDataSource implements UserDataSource {
             callback.onUserLoaded(user);
         } else {
             callback.onDataNotAvailable();
-        }
+        }*/
     }
 
     @Override
     public void getAllUsers(@NonNull GetAllUsers callback) {
-        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+        callback.onDataNotAvailable();
+
+/*        SQLiteDatabase db = dbHelper.getReadableDatabase();
 
         List<User> users = new LinkedList<>();
 
@@ -117,13 +121,15 @@ public class UserLocalDataSource implements UserDataSource {
             callback.onAllUsersLoaded(users);
         } else {
             callback.onDataNotAvailable();
-        }
+        }*/
     }
 
     @Override
     public void createUser(@NonNull User user, @NonNull CreateUser callback) {
-        checkNotNull(user);
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+        callback.onCreationFailed();
+
+/*        checkNotNull(user);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(UserEntry.COLUMN_NAME_USER_ID, user.getID());
@@ -133,13 +139,15 @@ public class UserLocalDataSource implements UserDataSource {
 
         db.insert(UserEntry.TABLE_NAME, null, values);
 
-        db.close();
+        db.close();*/
     }
 
     @Override
     public void updateUser(@NonNull User user, @NonNull UpdateUser callback) {
-        checkNotNull(user);
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+        callback.onUpdateFailed();
+
+/*        checkNotNull(user);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(UserEntry.COLUMN_NAME_NAME, user.getName());
@@ -150,18 +158,20 @@ public class UserLocalDataSource implements UserDataSource {
 
         db.update(UserEntry.TABLE_NAME, values, whereClause, null);
 
-        db.close();
+        db.close();*/
     }
 
     @Override
     public void deleteUser(@NonNull User user, @NonNull DeleteUser callback) {
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+        callback.onDeleteFailed();
+
+/*        SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         String selection = UserEntry.COLUMN_NAME_USER_ID + " = " + user.getID();
 
         db.delete(UserEntry.TABLE_NAME, selection, null);
 
-        db.close();
+        db.close();*/
     }
 
     private User getUserFromCursor(Cursor c){
