@@ -20,18 +20,12 @@ import android.support.annotation.NonNull;
 
 import java.util.List;
 import de.fau.cs.mad.wanthavers.common.Desire;
+import de.fau.cs.mad.wanthavers.common.User;
 
 /**
  * Main entry point for accessing tasks data.
  */
 public interface DesireDataSource {
-
-    interface LoadDesireCallback {
-
-        void onDesireLoaded(List<Desire> desireList);
-
-        void onDataNotAvailable();
-    }
 
     interface GetDesireCallback {
 
@@ -56,10 +50,51 @@ public interface DesireDataSource {
 
     }
 
+    interface GetDesiresByLocation {
+
+        void onDesiresByLocationLoaded(List<Desire> desires);
+
+        void onDataNotAvailable();
+
+    }
+
+    interface CreateDesire {
+
+        void onDesireCreated(Desire desire);
+
+        void onCreateFailed();
+
+    }
+
+    interface UpdateDesire {
+
+        void onDesireUpdated(Desire desire);
+
+        void onUpdateFailed();
+
+    }
+    interface DeleteDesire {
+
+        void onDesireDeleted();
+
+        void onDeleteFailed();
+
+    }
+
+
+    void createDesire(@NonNull Desire desire, @NonNull User user, @NonNull CreateDesire callback);
+
+    void updateDesire(@NonNull Desire desire, @NonNull UpdateDesire callback);
+
+    void deleteDesire(@NonNull Desire desire, @NonNull DeleteDesire callback);
+
+    void deleteDesire(@NonNull long desireId, @NonNull DeleteDesire callback);
 
     void getDesire(@NonNull long desireId, @NonNull GetDesireCallback callback);
 
     void getDesiresForUser(@NonNull long userId, @NonNull GetDesiresForUser callback);
 
     void getAllDesires(@NonNull GetAllDesires callback);
+
+    void getDesireByLocation(@NonNull double lat, @NonNull double lon, @NonNull double radius, @NonNull GetDesiresByLocation callback);
 }

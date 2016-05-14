@@ -21,7 +21,8 @@ public class AcceptDesire extends UseCase<AcceptDesire.RequestValues, AcceptDesi
     protected void executeUseCase(final RequestValues values) {
 
         long acceptedDesire = values.getCompletedTask();
-        mDesireRepository.acceptDesire(acceptedDesire);
+        //TODO: implement accept Desire in Client
+        //mDesireRepository.acceptDesire(acceptedDesire);
         getUseCaseCallback().onSuccess(new ResponseValue());
     }
 

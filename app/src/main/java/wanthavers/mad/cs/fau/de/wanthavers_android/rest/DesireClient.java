@@ -15,15 +15,13 @@ import de.fau.cs.mad.wanthavers.common.Desire;
 import de.fau.cs.mad.wanthavers.common.User;
 import de.fau.cs.mad.wanthavers.common.rest.api.DesireResource;
 
-public class DesireClient implements DesireResource {
+public class DesireClient extends RestClient {
     private static DesireClient INSTANCE;
 
     private DesireResource desireEndpoint;
 
     private DesireClient() {
-        //TODO: get API-URL from shared preferences or something like that
-        final String API_URL = "http://faui21f.informatik.uni-erlangen.de:9090/";
-        WebTarget target = ClientBuilder.newClient().register(JacksonJsonProvider.class).target(API_URL);
+        super();
         desireEndpoint = WebResourceFactory.newResource(DesireResource.class, target);
     }
 
@@ -34,38 +32,28 @@ public class DesireClient implements DesireResource {
         return INSTANCE;
     }
 
-    @Override
     public List<Desire> get() {
         return desireEndpoint.get();
     }
+    
+    public Desire get(long desireId) {
+        return desireEndpoint.get(desireId);
 
-    @Override
-    public List<Desire> getByLocation(@QueryParam("lat") double v, @QueryParam("lon") double v1, @QueryParam("radius") double v2) {
-        return null;
     }
 
-    @Override
-    public Desire get(@PathParam("id") long l) {
-        return desireEndpoint.get(l);
+    public List<Desire> getByLocation(double lat, double lon, double radius) {
+        return desireEndpoint.getByLocation(lat, lon, radius);
     }
 
-    @Override
     public Desire createDesire(Desire desire, User user) {
         return desireEndpoint.createDesire(desire, user);
     }
 
-    @Override
-    public Desire updateDesire(@PathParam("id") long l, Desire desire) {
-        return desireEndpoint.updateDesire(l, desire);
+    public Desire updateDesire(long desireId, Desire desire) {
+        return desireEndpoint.updateDesire(desireId, desire);
     }
 
-    @Override
-    public void deleteDesire(@PathParam("id") long l) {
-        desireEndpoint.deleteDesire(l);
-    }
-
-    @Override
-    public void createDummies() {
-        throw new UnsupportedOperationException();
+    public void deleteDesire(long desireId) {
+        desireEndpoint.deleteDesire(desireId);
     }
 }

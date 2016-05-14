@@ -45,18 +45,38 @@ public interface UserDataSource {
 
     }
 
+    interface CreateUser {
+
+        void onUserCreated(User user);
+
+        void onCreationFailed();
+
+    }
+
+    interface UpdateUser {
+
+        void onUserUpdated(User user);
+
+        void onUpdateFailed();
+
+    }
+
+    interface DeleteUser {
+
+        void onUserDeleted();
+
+        void onDeleteFailed();
+
+    }
+
 
     void getUser(@NonNull long userId, @NonNull GetUserCallback callback);
 
     void getAllUsers(@NonNull GetAllUsers callback);
 
-    //@Discuss:
-    //TODO: maybe rename to create user
-    //TODO: reflect on whether we look up on server/ in db if user already exists and then only update
-    //TODO: or maybe create separate method for creating new users
-    void saveUser(@NonNull User user);
+    void createUser(@NonNull User user, @NonNull CreateUser callback);
 
-    void deleteUser(@NonNull User user);
+    void updateUser(@NonNull User user, @NonNull UpdateUser callback);
 
-    void deleteAllUsers();
+    void deleteUser(@NonNull User user, @NonNull DeleteUser callback);
 }

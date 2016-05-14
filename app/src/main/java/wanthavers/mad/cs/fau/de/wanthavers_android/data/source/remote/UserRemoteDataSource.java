@@ -33,7 +33,7 @@ public class UserRemoteDataSource implements UserDataSource {
         try {
             User user = userEndpoint.get(userId);
             callback.onUserLoaded(user);
-        } catch (WebApplicationException e) {
+        } catch (Throwable t) {
             callback.onDataNotAvailable();
         }
     }
@@ -43,24 +43,39 @@ public class UserRemoteDataSource implements UserDataSource {
         try {
             List<User> users = userEndpoint.get();
             callback.onAllUsersLoaded(users);
-        } catch (WebApplicationException e) {
+        } catch (Throwable t) {
             callback.onDataNotAvailable();
         }
     }
 
     @Override
-    public void saveUser(@NonNull User user) {
-        //TODO: we should discriminate between create and update user here
-        userEndpoint.createUser(user);
+    public void createUser(@NonNull User user, @NonNull CreateUser callback) {
+        try {
+            User ret = userEndpoint.createUser(user);
+            callback.onUserCreated(ret);
+        } catch (Throwable t) {
+            callback.onCreationFailed();
+        }
     }
 
     @Override
-    public void deleteUser(@NonNull User user) {
-        userEndpoint.deleteUser(user.getID());
+    public void updateUser(@NonNull User user, @NonNull UpdateUser callback) {
+        try {
+            User ret = userEndpoint.updateUser(user.getID(), user);
+            callback.onUserUpdated(ret);
+        } catch (Throwable t) {
+            callback.onUpdateFailed();
+        }
     }
 
     @Override
-    public void deleteAllUsers() {
-        throw new UnsupportedOperationException("deleting all users via rest client is not allowed!");
+    public void deleteUser(@NonNull User user, @NonNull DeleteUser callback) {
+        try {
+            userEndpoint.deleteUser(user.getID());
+            callback.onUserDeleted();
+        } catch (Throwable t) {
+            callback.onDeleteFailed();
+        }
     }
+
 }
