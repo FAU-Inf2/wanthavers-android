@@ -3,21 +3,25 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import java.util.HashMap;
 import java.util.Set;
-
-import javax.inject.Inject;
 
 public class SharedPreferencesHelper {
     private final SharedPreferences sharedPreferences;
     private final SharedPreferences.Editor editor;
+    private final String sharedPreferencesName;
 
-    private static SharedPreferencesHelper INSTANCE;
+    private static HashMap<String, SharedPreferencesHelper> INSTANCES = new HashMap<>();
 
     public static SharedPreferencesHelper getInstance(String sharedPreferencesName, Context context) {
-        if(INSTANCE == null) {
-            INSTANCE = new SharedPreferencesHelper(sharedPreferencesName, context);
+        SharedPreferencesHelper ret = INSTANCES.get(sharedPreferencesName);
+
+        if(ret == null) {
+            ret = new SharedPreferencesHelper(sharedPreferencesName, context);
+            INSTANCES.put(sharedPreferencesName, ret);
         }
-        return INSTANCE;
+
+        return ret;
     }
 
     //Shared Preferences Names
@@ -26,7 +30,6 @@ public class SharedPreferencesHelper {
     //Key Strings
     public static final String KEY_API_URL = "api_url";
 
-    @Inject
     private SharedPreferencesHelper(String sharedPreferencesName, Context context) {
         if(context == null) {
             throw new IllegalArgumentException("Context must not be null!");
@@ -37,6 +40,11 @@ public class SharedPreferencesHelper {
 
         this.sharedPreferences = context.getSharedPreferences(sharedPreferencesName, Context.MODE_PRIVATE);
         this.editor = this.sharedPreferences.edit();
+        this.sharedPreferencesName = sharedPreferencesName;
+    }
+
+    public String getSharedPreferencesName() {
+        return this.sharedPreferencesName;
     }
 
     public void saveString(String key, String value) {
