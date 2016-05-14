@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.Desire;
+import de.fau.cs.mad.wanthavers.common.User;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.BasePresenter;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.BaseView;
 
@@ -23,6 +24,8 @@ public interface DesireListContract {
 
         void setLoadingIndicator(final boolean active);
 
+        void showChatList(long userId);
+
         //TODO void showNoTasks();
     }
 
@@ -36,7 +39,7 @@ public interface DesireListContract {
 
         void openDesireDetails(@NonNull Desire desire);
 
-        void openChat();
+        void openChat(@NonNull User user);
 
         //TODO - add filter options here
 

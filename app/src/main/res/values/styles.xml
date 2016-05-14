@@ -16,6 +16,9 @@
         <item name="android:background">@color/colorSecondary</item>
     </style>
 
+    <style name="DrawerLayout">
+    </style>
+
 
 
     <!-- Base application theme. >

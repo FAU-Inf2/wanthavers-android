@@ -1,8 +1,7 @@
-package wanthavers.mad.cs.fau.de.wanthavers_android.desirelist;
+package wanthavers.mad.cs.fau.de.wanthavers_android.chatlist;
 
 import android.content.Context;
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,7 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.widget.RatingBar;
-
+import static com.google.common.base.Preconditions.checkNotNull;
 import de.fau.cs.mad.wanthavers.common.User;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
@@ -21,21 +20,23 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.DesireRepository;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.local.DesireLocalDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.remote.DesireRemoteDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.NavHeaderBinding;
-import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetDesireList;
+import wanthavers.mad.cs.fau.de.wanthavers_android.desiredetail.DesireDetailActivity;
+import wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.DesireListActivity;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetChatList;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.ActivityUtils;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 
-public class DesireListActivity extends AppCompatActivity {
+public class ChatListActivity extends AppCompatActivity {
+
 
     private DrawerLayout mDrawerLayout;
-    private DesireListPresenter mDesireListPresenter;
-
+    private ChatListPresenter mChatListPresenter;
+    public static final String USER_ID = "USER_ID";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.desirelist_act);
+        setContentView(R.layout.chatlist_act);
 
 
         // Set up the toolbar.
@@ -65,30 +66,34 @@ public class DesireListActivity extends AppCompatActivity {
 
         }
 
-        DesireListFragment desireListFragment = (DesireListFragment)
+        ChatListFragment chatListFragment = (ChatListFragment)
                 getSupportFragmentManager().findFragmentById(R.id.contentFrame);
 
-        if (desireListFragment == null) {
+        if (chatListFragment == null) {
             // Create the fragment
-            desireListFragment = DesireListFragment.newInstance();
+            chatListFragment = ChatListFragment.newInstance();
             ActivityUtils.addFragmentToActivity(
-                    getSupportFragmentManager(), desireListFragment, R.id.contentFrame);
+                    getSupportFragmentManager(), chatListFragment, R.id.contentFrame);
         }
 
 
-        //create fake task repo
+        //create chatRepo
         Context context = getApplicationContext();
         checkNotNull(context);
 
-        DesireRepository fake = DesireRepository.getInstance(DesireRemoteDataSource.getInstance(), DesireLocalDataSource.getInstance(context));
+        DesireRepository chatRepo = DesireRepository.getInstance(DesireRemoteDataSource.getInstance(), DesireLocalDataSource.getInstance(context));
 
         // Create the presenter
-        mDesireListPresenter = new DesireListPresenter(UseCaseHandler.getInstance(),desireListFragment,new GetDesireList(fake));
+        mChatListPresenter = new ChatListPresenter(UseCaseHandler.getInstance(),chatListFragment,new GetChatList(chatRepo));
 
+
+        /* TODO decide whether viewModel needed
         DesireListViewModel desireListViewModel =
                 new DesireListViewModel(getApplicationContext(), mDesireListPresenter);
 
-        desireListFragment.setViewModel(desireListViewModel);
+        chatListFragment.setViewModel(desireListViewModel);
+
+        */
 
         // Load previously saved state, if available.
         if (savedInstanceState != null) {
@@ -98,8 +103,6 @@ public class DesireListActivity extends AppCompatActivity {
             */
         }
     }
-
-
 
 
     @Override
@@ -113,7 +116,6 @@ public class DesireListActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
     private void setupDrawerContent(NavigationView navigationView) {
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
@@ -121,7 +123,8 @@ public class DesireListActivity extends AppCompatActivity {
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
                         switch (menuItem.getItemId()) {
                             case R.id.listDesires_navigation_menu_item:
-                                // Do nothing, we're already on that screen
+                                Intent intent = new Intent(getApplicationContext(), DesireListActivity.class);
+                                startActivity(intent);
                                 break;
                             case R.id.settings_navigation_menu_item:
                                 /*
@@ -143,5 +146,4 @@ public class DesireListActivity extends AppCompatActivity {
                 });
 
     }
-
 }

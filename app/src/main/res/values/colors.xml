@@ -7,7 +7,12 @@
     <color name="colorMainText">#ffffff</color>
 
 
-    <!--set up Background colors -->
+    <color name="colorRatingStars">#e8dd0c</color>
+
+
+
+
+    <!--set up Background colors for desires -->
     <color name="desireBg0">#51C4B7</color>
     <color name="desireBg1">#6083DB</color>
     <color name="desireBg2">#9DED5C</color>

@@ -1,9 +1,7 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.desirelist;
 
-import android.annotation.TargetApi;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -23,7 +21,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.Desire;
+import de.fau.cs.mad.wanthavers.common.User;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
+import wanthavers.mad.cs.fau.de.wanthavers_android.chatdetail.ChatDetailActivity;
+import wanthavers.mad.cs.fau.de.wanthavers_android.chatlist.ChatListActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.DesirelistFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desiredetail.DesireDetailActivity;
 
@@ -109,7 +110,11 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.menu_chat:
-                mPresenter.openChat();
+
+                //dummy user - TODO get real user here
+                User user = new User("otto","blub@blub.de");
+                user.setId(1234);
+                mPresenter.openChat(user);
                 break;
         }
         return true;
@@ -161,13 +166,29 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
         return isAdded();
     }
 
-    @TargetApi(Build.VERSION_CODES.M)  //TODO should check whether this is ok
     @Override
     public void showDesireDetailsUi(long desireId) {
         // in it's own Activity, since it makes more sense that way and it gives us the flexibility
         // to show some Intent stubbing.
+
         Intent intent = new Intent(getContext(), DesireDetailActivity.class);
         intent.putExtra(DesireDetailActivity.EXTRA_DESIRE_ID, desireId);
+        startActivity(intent);
+    }
+
+    @Override
+    public void showChatList(long userid){
+
+        //TODO change back to going to chat overview
+        /*
+        Intent intent = new Intent(getContext(), ChatListActivity.class);
+        intent.putExtra(ChatListActivity.USER_ID, userid);
+        startActivity(intent);
+        */
+
+        //TODO redirect straight to chat detail view to make implementing chat easier
+        Intent intent = new Intent(getContext(), ChatDetailActivity.class);
+        intent.putExtra(ChatDetailActivity.USER_ID, userid);
         startActivity(intent);
     }
 }

@@ -21,20 +21,11 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 
 import wanthavers.mad.cs.fau.de.wanthavers_android.BR;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 
 
-/**
- * Exposes the data to be used in the {@link DesireListContract.View}.
- * <p>
- * {@link BaseObservable} implements a listener registration mechanism which is notified when a
- * property changes. This is done by assigning a {@link Bindable} annotation to the property's
- * getter method.
- */
 public class DesireListViewModel extends BaseObservable {
 
     int mDesireListSize = 0;
@@ -54,8 +45,8 @@ public class DesireListViewModel extends BaseObservable {
         return mDesireListSize > 0;
     }
 
-    public void setDesireListSize(int taskListSize) {
-        mDesireListSize = taskListSize;
+    public void setDesireListSize(int desireListSize) {
+        mDesireListSize = desireListSize;
         notifyPropertyChanged(BR.notEmpty);
 
     }
@@ -63,7 +54,7 @@ public class DesireListViewModel extends BaseObservable {
     public int getBackgroundColor(int colorIndex){
         Resources res = mContext.getResources();
         TypedArray bgColors = res.obtainTypedArray(R.array.desireBackgroundColors);
-        
+
         int color = bgColors.getColor(colorIndex,0);
         return  color;
 

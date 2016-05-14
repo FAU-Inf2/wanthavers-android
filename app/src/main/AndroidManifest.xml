@@ -19,7 +19,8 @@
         </activity>
 
         <activity android:name="wanthavers.mad.cs.fau.de.wanthavers_android.desiredetail.DesireDetailActivity"/>
-
+        <activity android:name="wanthavers.mad.cs.fau.de.wanthavers_android.chatlist.ChatListActivity"/>
+        <activity android:name="wanthavers.mad.cs.fau.de.wanthavers_android.chatdetail.ChatDetailActivity"/>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />

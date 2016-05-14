@@ -13,27 +13,49 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="user"
+            type="de.fau.cs.mad.wanthavers.common.User"/>
+    </data>
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="192dp"
-    android:background="?attr/colorPrimaryDark"
-    android:gravity="bottom"
+    android:layout_height="250dp"
+    android:background="@color/colorSecondary"
     android:orientation="vertical"
     android:padding="16dp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <ImageView
         android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:src="@drawable/logo" />
+        android:layout_height="150dp"
+        android:layout_gravity="top|center"
+        android:src="@android:drawable/sym_def_app_icon" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center_horizontal"
-        android:text="@string/navigation_view_header_title"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:text="@{user.name}"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimary"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
-</FrameLayout>
+    <RatingBar
+        android:id="@+id/nav_header_temRatingBar"
+        style="?android:ratingBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:isIndicator="true"
+        android:max="5"
+        android:numStars="5"
+        android:stepSize="0.1"
+        android:layout_gravity="center_horizontal"
+        android:scaleX="0.5"
+        android:scaleY="0.5"
+        android:progressBackgroundTint="#c3bebe"
+        android:progressTint="@color/colorRatingStars" />
+
+</LinearLayout>
+</layout>

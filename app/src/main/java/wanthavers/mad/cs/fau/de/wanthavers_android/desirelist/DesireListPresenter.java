@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.Desire;
+import de.fau.cs.mad.wanthavers.common.User;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCase;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desiredetail.DesireDetailContract;
@@ -99,8 +100,10 @@ public class DesireListPresenter implements DesireListContract.Presenter {
     }
 
 
-    public void openChat(){
+    public void openChat(User user){
         //TODO: open chat here;
+        checkNotNull(user, "user cannot be null!");
+        mDesireListView.showChatList(user.getID());
     }
 
 }
