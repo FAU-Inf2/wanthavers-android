@@ -18,6 +18,8 @@
     <string name="no_desires">Leider wurden keine Wünsche gefunden</string>
     <string name="loading_desires_error">Fehler beim Laden der Wünsche</string>
     <string name="listDesires_title">alle Wünsche</string>
+    <string name="no_time_available">keine Zeit verfügbar</string>
+    <string name="no_location_available">keine Location verfügbar</string>
 
 
 </resources>

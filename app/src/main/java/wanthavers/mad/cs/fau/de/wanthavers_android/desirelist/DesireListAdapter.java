@@ -5,10 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.RatingBar;
 
 import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.Desire;
+import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.DesireItemBinding;
 
 public class DesireListAdapter extends BaseAdapter{
@@ -59,8 +61,11 @@ public class DesireListAdapter extends BaseAdapter{
 
             // Create the binding
             binding = DesireItemBinding.inflate(inflater, viewGroup, false);
+
         } else {
             binding = DataBindingUtil.getBinding(view);
+            RatingBar itemRateBar = (RatingBar) view.findViewById(R.id.ItemRatingBar);
+            itemRateBar.setRating(4.0f);  //TODO get rating from Server and insert here
         }
 
         // We might be recycling the binding for another task, so update it.
@@ -73,5 +78,6 @@ public class DesireListAdapter extends BaseAdapter{
         binding.executePendingBindings();
         return binding.getRoot();
     }
+
 }
 

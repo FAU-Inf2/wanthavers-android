@@ -35,7 +35,7 @@ public class DesireClient extends RestClient {
     public List<Desire> get() {
         return desireEndpoint.get();
     }
-    
+
     public Desire get(long desireId) {
         return desireEndpoint.get(desireId);
 

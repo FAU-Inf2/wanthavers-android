@@ -57,22 +57,18 @@ public class DesireListViewModel extends BaseObservable {
     public void setDesireListSize(int taskListSize) {
         mDesireListSize = taskListSize;
         notifyPropertyChanged(BR.notEmpty);
-        /*
-        notifyPropertyChanged(BR.noTaskIconRes);
-        notifyPropertyChanged(BR.noTasksLabel);
-        notifyPropertyChanged(BR.currentFilteringLabel);
 
-        notifyPropertyChanged(BR.tasksAddViewVisible);
-        */
     }
 
     public int getBackgroundColor(int colorIndex){
         Resources res = mContext.getResources();
         TypedArray bgColors = res.obtainTypedArray(R.array.desireBackgroundColors);
+        
         int color = bgColors.getColor(colorIndex,0);
         return  color;
 
     }
+
 
     /* TODO check if we need any of the filters
     @Bindable

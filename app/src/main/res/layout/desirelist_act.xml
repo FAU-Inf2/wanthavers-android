@@ -59,7 +59,7 @@
                 android:src="@drawable/ic_add"
                 app:fabSize="normal"
                 app:layout_anchor="@id/contentFrame"
-                app:layout_anchorGravity="bottom|right|end" />
+                app:layout_anchorGravity="bottom|center" />
         </android.support.design.widget.CoordinatorLayout>
 
     </LinearLayout>
