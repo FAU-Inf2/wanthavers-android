@@ -44,4 +44,9 @@ public class HaverClient extends RestClient {
     public void deleteHaver(long desireId, long haverId) {
         haverEndpoint.deleteHaver(desireId, haverId);
     }
+
+    public Haver acceptHaver(long desireId, long haverId, Haver haver) {
+        haver.setAccepted(true);
+        return updateHaver(desireId, haverId, haver);
+    }
 }

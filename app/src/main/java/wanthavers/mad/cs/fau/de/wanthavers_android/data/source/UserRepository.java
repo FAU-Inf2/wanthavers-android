@@ -69,10 +69,10 @@ public class UserRepository implements UserDataSource {
     }
 
     @Override
-    public void getAllUsers(@NonNull final GetAllUsers callback) {
+    public void getAllUsers(@NonNull final GetAllUsersCallback callback) {
         checkNotNull(callback);
 
-        userLocalDataSource.getAllUsers(new GetAllUsers() {
+        userLocalDataSource.getAllUsers(new GetAllUsersCallback() {
             @Override
             public void onAllUsersLoaded(List<User> users) {
                 callback.onAllUsersLoaded(users);
@@ -86,7 +86,7 @@ public class UserRepository implements UserDataSource {
     }
 
     @Override
-    public void createUser(@NonNull User user, @NonNull CreateUser callback) {
+    public void createUser(@NonNull User user, @NonNull CreateUserCallback callback) {
         checkNotNull(user);
         checkNotNull(callback);
 
@@ -95,7 +95,7 @@ public class UserRepository implements UserDataSource {
     }
 
     @Override
-    public void updateUser(@NonNull User user, @NonNull UpdateUser callback) {
+    public void updateUser(@NonNull User user, @NonNull UpdateUserCallback callback) {
         checkNotNull(user);
         checkNotNull(callback);
 
@@ -104,7 +104,7 @@ public class UserRepository implements UserDataSource {
     }
 
     @Override
-    public void deleteUser(@NonNull User user, @NonNull DeleteUser callback) {
+    public void deleteUser(@NonNull User user, @NonNull DeleteUserCallback callback) {
         checkNotNull(user);
         checkNotNull(callback);
 
@@ -126,8 +126,8 @@ public class UserRepository implements UserDataSource {
         });
     }
 
-    private void getAllUsersFromRemoteDataSource(@NonNull final GetAllUsers callback) {
-        userRemoteDataSource.getAllUsers(new GetAllUsers() {
+    private void getAllUsersFromRemoteDataSource(@NonNull final GetAllUsersCallback callback) {
+        userRemoteDataSource.getAllUsers(new GetAllUsersCallback() {
             @Override
             public void onAllUsersLoaded(List<User> users) {
                 callback.onAllUsersLoaded(users);

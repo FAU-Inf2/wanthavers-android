@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.Desire;
-import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCase;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.DesireDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.DesireRepository;
 
@@ -33,7 +32,7 @@ public class GetMessageList extends UseCase<GetMessageList.RequestValues, GetMes
     */
         //TODO for some reason repo does not work - @Nico please check why
 
-        mDesireRepository.getAllDesires(new DesireDataSource.GetAllDesires(){
+        mDesireRepository.getAllDesires(new DesireDataSource.GetAllDesiresCallback(){
 
 
             @Override

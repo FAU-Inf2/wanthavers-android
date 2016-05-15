@@ -29,37 +29,37 @@ public class RatingLocalDataSource implements RatingDataSource {
     }
 
     @Override
-    public void createRating(@NonNull long userId, @NonNull Rating rating, @NonNull CreateRating callback) {
+    public void createRating(@NonNull long userId, @NonNull Rating rating, @NonNull CreateRatingCallback callback) {
         //TODO: alter this method when we decide to store ratings locally
         callback.onCreateFailed();
     }
 
     @Override
-    public void getRating(@NonNull long userId, @NonNull long ratingId, @NonNull GetRating callback) {
+    public void getRating(@NonNull long userId, @NonNull long ratingId, @NonNull GetRatingCallback callback) {
         //TODO: alter this method when we decide to store ratings locally
         callback.onDataNotAvailable();
     }
 
     @Override
-    public void getAllRatingsForUser(@NonNull long userId, @NonNull GetAllRatingsForUser callback) {
+    public void getAllRatingsForUser(@NonNull long userId, @NonNull GetAllRatingsForUserCallback callback) {
         //TODO: alter this method when we decide to store ratings locally
         callback.onDataNotAvailable();
     }
 
     @Override
-    public void updateRating(@NonNull long userId, @NonNull long ratingId, @NonNull Rating rating, @NonNull UpdateRating callback) {
+    public void updateRating(@NonNull long userId, @NonNull long ratingId, @NonNull Rating rating, @NonNull UpdateRatingCallback callback) {
         //TODO: alter this method when we decide to store ratings locally
         callback.onUpdateFailed();
     }
 
     @Override
-    public void deleteRating(@NonNull long userId, @NonNull long ratingId, @NonNull DeleteRating callback) {
+    public void deleteRating(@NonNull long userId, @NonNull long ratingId, @NonNull DeleteRatingCallback callback) {
         //TODO: alter this method when we decide to store ratings locally
         callback.onDeleteFailed();
     }
 
     @Override
-    public void getAverageRatingForUser(@NonNull long userId, @NonNull GetAverageRatingForUser callback) {
+    public void getAverageRatingForUser(@NonNull long userId, @NonNull GetAverageRatingForUserCallback callback) {
         //TODO: alter this method when we decide to store ratings locally
         callback.onDataNotAvailable();
     }

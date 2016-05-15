@@ -34,7 +34,7 @@ public interface DesireDataSource {
         void onDataNotAvailable();
     }
 
-    interface GetDesiresForUser {
+    interface GetDesiresForUserCallback {
 
         void onDesiresForUserLoaded(List<Desire> desires);
 
@@ -42,7 +42,7 @@ public interface DesireDataSource {
 
     }
 
-    interface GetAllDesires {
+    interface GetAllDesiresCallback {
 
         void onAllDesiresLoaded(List<Desire> desires);
 
@@ -50,7 +50,7 @@ public interface DesireDataSource {
 
     }
 
-    interface GetDesiresByLocation {
+    interface GetDesiresByLocationCallback {
 
         void onDesiresByLocationLoaded(List<Desire> desires);
 
@@ -58,7 +58,7 @@ public interface DesireDataSource {
 
     }
 
-    interface CreateDesire {
+    interface CreateDesireCallback {
 
         void onDesireCreated(Desire desire);
 
@@ -66,14 +66,14 @@ public interface DesireDataSource {
 
     }
 
-    interface UpdateDesire {
+    interface UpdateDesireCallback {
 
         void onDesireUpdated(Desire desire);
 
         void onUpdateFailed();
 
     }
-    interface DeleteDesire {
+    interface DeleteDesireCallback {
 
         void onDesireDeleted();
 
@@ -82,19 +82,19 @@ public interface DesireDataSource {
     }
 
 
-    void createDesire(@NonNull Desire desire, @NonNull User user, @NonNull CreateDesire callback);
+    void createDesire(@NonNull Desire desire, @NonNull User user, @NonNull CreateDesireCallback callback);
 
-    void updateDesire(@NonNull Desire desire, @NonNull UpdateDesire callback);
+    void updateDesire(@NonNull Desire desire, @NonNull UpdateDesireCallback callback);
 
-    void deleteDesire(@NonNull Desire desire, @NonNull DeleteDesire callback);
+    void deleteDesire(@NonNull Desire desire, @NonNull DeleteDesireCallback callback);
 
-    void deleteDesire(@NonNull long desireId, @NonNull DeleteDesire callback);
+    void deleteDesire(@NonNull long desireId, @NonNull DeleteDesireCallback callback);
 
     void getDesire(@NonNull long desireId, @NonNull GetDesireCallback callback);
 
-    void getDesiresForUser(@NonNull long userId, @NonNull GetDesiresForUser callback);
+    void getDesiresForUser(@NonNull long userId, @NonNull GetDesiresForUserCallback callback);
 
-    void getAllDesires(@NonNull GetAllDesires callback);
+    void getAllDesires(@NonNull GetAllDesiresCallback callback);
 
-    void getDesireByLocation(@NonNull double lat, @NonNull double lon, @NonNull double radius, @NonNull GetDesiresByLocation callback);
+    void getDesireByLocation(@NonNull double lat, @NonNull double lon, @NonNull double radius, @NonNull GetDesiresByLocationCallback callback);
 }

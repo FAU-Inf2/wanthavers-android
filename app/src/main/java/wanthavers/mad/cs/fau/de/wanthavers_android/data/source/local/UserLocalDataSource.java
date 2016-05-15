@@ -16,15 +16,11 @@
 
 package wanthavers.mad.cs.fau.de.wanthavers_android.data.source.local;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 
 import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.User;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.UserDataSource;
@@ -95,7 +91,7 @@ public class UserLocalDataSource implements UserDataSource {
     }
 
     @Override
-    public void getAllUsers(@NonNull GetAllUsers callback) {
+    public void getAllUsers(@NonNull GetAllUsersCallback callback) {
         callback.onDataNotAvailable();
 
 /*        SQLiteDatabase db = dbHelper.getReadableDatabase();
@@ -125,7 +121,7 @@ public class UserLocalDataSource implements UserDataSource {
     }
 
     @Override
-    public void createUser(@NonNull User user, @NonNull CreateUser callback) {
+    public void createUser(@NonNull User user, @NonNull CreateUserCallback callback) {
         callback.onCreationFailed();
 
 /*        checkNotNull(user);
@@ -143,7 +139,7 @@ public class UserLocalDataSource implements UserDataSource {
     }
 
     @Override
-    public void updateUser(@NonNull User user, @NonNull UpdateUser callback) {
+    public void updateUser(@NonNull User user, @NonNull UpdateUserCallback callback) {
         callback.onUpdateFailed();
 
 /*        checkNotNull(user);
@@ -162,7 +158,7 @@ public class UserLocalDataSource implements UserDataSource {
     }
 
     @Override
-    public void deleteUser(@NonNull User user, @NonNull DeleteUser callback) {
+    public void deleteUser(@NonNull User user, @NonNull DeleteUserCallback callback) {
         callback.onDeleteFailed();
 
 /*        SQLiteDatabase db = dbHelper.getWritableDatabase();

@@ -35,7 +35,7 @@ public class RatingRepository implements RatingDataSource {
     }
 
     @Override
-    public void createRating(@NonNull long userId, @NonNull Rating rating, @NonNull CreateRating callback) {
+    public void createRating(@NonNull long userId, @NonNull Rating rating, @NonNull CreateRatingCallback callback) {
         checkNotNull(userId);
         checkNotNull(rating);
         checkNotNull(callback);
@@ -45,12 +45,12 @@ public class RatingRepository implements RatingDataSource {
     }
 
     @Override
-    public void getRating(@NonNull final long userId, @NonNull final long ratingId, @NonNull final GetRating callback) {
+    public void getRating(@NonNull final long userId, @NonNull final long ratingId, @NonNull final GetRatingCallback callback) {
         checkNotNull(userId);
         checkNotNull(ratingId);
         checkNotNull(callback);
 
-        ratingLocalDataSource.getRating(userId, ratingId, new GetRating() {
+        ratingLocalDataSource.getRating(userId, ratingId, new GetRatingCallback() {
             @Override
             public void onRatingLoaded(Rating rating) {
                 callback.onRatingLoaded(rating);
@@ -58,7 +58,7 @@ public class RatingRepository implements RatingDataSource {
 
             @Override
             public void onDataNotAvailable() {
-                ratingRemoteDataSource.getRating(userId, ratingId, new GetRating() {
+                ratingRemoteDataSource.getRating(userId, ratingId, new GetRatingCallback() {
                     @Override
                     public void onRatingLoaded(Rating rating) {
                         callback.onRatingLoaded(rating);
@@ -74,11 +74,11 @@ public class RatingRepository implements RatingDataSource {
     }
 
     @Override
-    public void getAllRatingsForUser(@NonNull final long userId, @NonNull final GetAllRatingsForUser callback) {
+    public void getAllRatingsForUser(@NonNull final long userId, @NonNull final GetAllRatingsForUserCallback callback) {
         checkNotNull(userId);
         checkNotNull(callback);
 
-        ratingLocalDataSource.getAllRatingsForUser(userId, new GetAllRatingsForUser() {
+        ratingLocalDataSource.getAllRatingsForUser(userId, new GetAllRatingsForUserCallback() {
             @Override
             public void onAllRatingsForUserLoaded(List<Rating> ratings) {
                 callback.onAllRatingsForUserLoaded(ratings);
@@ -86,7 +86,7 @@ public class RatingRepository implements RatingDataSource {
 
             @Override
             public void onDataNotAvailable() {
-                ratingRemoteDataSource.getAllRatingsForUser(userId, new GetAllRatingsForUser() {
+                ratingRemoteDataSource.getAllRatingsForUser(userId, new GetAllRatingsForUserCallback() {
                     @Override
                     public void onAllRatingsForUserLoaded(List<Rating> ratings) {
                         callback.onAllRatingsForUserLoaded(ratings);
@@ -102,13 +102,13 @@ public class RatingRepository implements RatingDataSource {
     }
 
     @Override
-    public void updateRating(@NonNull final long userId, @NonNull final long ratingId, @NonNull final Rating rating, @NonNull final UpdateRating callback) {
+    public void updateRating(@NonNull final long userId, @NonNull final long ratingId, @NonNull final Rating rating, @NonNull final UpdateRatingCallback callback) {
         checkNotNull(userId);
         checkNotNull(ratingId);
         checkNotNull(rating);
         checkNotNull(callback);
 
-        ratingLocalDataSource.updateRating(userId, ratingId, rating, new UpdateRating() {
+        ratingLocalDataSource.updateRating(userId, ratingId, rating, new UpdateRatingCallback() {
             @Override
             public void onRatingUpdated(Rating rating) {
                 callback.onRatingUpdated(rating);
@@ -116,7 +116,7 @@ public class RatingRepository implements RatingDataSource {
 
             @Override
             public void onUpdateFailed() {
-                ratingRemoteDataSource.updateRating(userId, ratingId, rating, new UpdateRating() {
+                ratingRemoteDataSource.updateRating(userId, ratingId, rating, new UpdateRatingCallback() {
                     @Override
                     public void onRatingUpdated(Rating rating) {
                         callback.onRatingUpdated(rating);
@@ -132,12 +132,12 @@ public class RatingRepository implements RatingDataSource {
     }
 
     @Override
-    public void deleteRating(@NonNull final long userId, @NonNull final long ratingId, @NonNull final DeleteRating callback) {
+    public void deleteRating(@NonNull final long userId, @NonNull final long ratingId, @NonNull final DeleteRatingCallback callback) {
         checkNotNull(userId);
         checkNotNull(ratingId);
         checkNotNull(callback);
 
-        ratingLocalDataSource.deleteRating(userId, ratingId, new DeleteRating() {
+        ratingLocalDataSource.deleteRating(userId, ratingId, new DeleteRatingCallback() {
             @Override
             public void onRatingDeleted() {
                 callback.onRatingDeleted();
@@ -145,7 +145,7 @@ public class RatingRepository implements RatingDataSource {
 
             @Override
             public void onDeleteFailed() {
-                ratingRemoteDataSource.deleteRating(userId, ratingId, new DeleteRating() {
+                ratingRemoteDataSource.deleteRating(userId, ratingId, new DeleteRatingCallback() {
                     @Override
                     public void onRatingDeleted() {
                         callback.onRatingDeleted();
@@ -161,11 +161,11 @@ public class RatingRepository implements RatingDataSource {
     }
 
     @Override
-    public void getAverageRatingForUser(@NonNull final long userId, @NonNull final GetAverageRatingForUser callback) {
+    public void getAverageRatingForUser(@NonNull final long userId, @NonNull final GetAverageRatingForUserCallback callback) {
         checkNotNull(userId);
         checkNotNull(callback);
 
-        ratingLocalDataSource.getAverageRatingForUser(userId, new GetAverageRatingForUser() {
+        ratingLocalDataSource.getAverageRatingForUser(userId, new GetAverageRatingForUserCallback() {
             @Override
             public void onAverageRatingForUserLoaded(Rating rating) {
                 callback.onAverageRatingForUserLoaded(rating);
@@ -173,7 +173,7 @@ public class RatingRepository implements RatingDataSource {
 
             @Override
             public void onDataNotAvailable() {
-                ratingRemoteDataSource.getAverageRatingForUser(userId, new GetAverageRatingForUser() {
+                ratingRemoteDataSource.getAverageRatingForUser(userId, new GetAverageRatingForUserCallback() {
                     @Override
                     public void onAverageRatingForUserLoaded(Rating rating) {
                         callback.onAverageRatingForUserLoaded(rating);

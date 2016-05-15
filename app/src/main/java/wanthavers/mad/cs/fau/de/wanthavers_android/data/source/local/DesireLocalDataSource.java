@@ -48,25 +48,25 @@ public class DesireLocalDataSource implements DesireDataSource {
     }
 
     @Override
-    public void createDesire(@NonNull Desire desire, @NonNull User user, @NonNull CreateDesire callback) {
+    public void createDesire(@NonNull Desire desire, @NonNull User user, @NonNull CreateDesireCallback callback) {
         //TODO: alter this method when we decide to store desires locally
         callback.onCreateFailed();
     }
 
     @Override
-    public void updateDesire(@NonNull Desire desire, @NonNull UpdateDesire callback) {
+    public void updateDesire(@NonNull Desire desire, @NonNull UpdateDesireCallback callback) {
         //TODO: alter this method when we decide to store desires locally
         callback.onUpdateFailed();
     }
 
     @Override
-    public void deleteDesire(@NonNull Desire desire, @NonNull DeleteDesire callback) {
+    public void deleteDesire(@NonNull Desire desire, @NonNull DeleteDesireCallback callback) {
         //TODO: alter this method when we decide to store desires locally
         callback.onDeleteFailed();
     }
 
     @Override
-    public void deleteDesire(@NonNull long desireId, @NonNull DeleteDesire callback) {
+    public void deleteDesire(@NonNull long desireId, @NonNull DeleteDesireCallback callback) {
         //TODO: alter this method when we decide to store desires locally
         callback.onDeleteFailed();
     }
@@ -78,19 +78,19 @@ public class DesireLocalDataSource implements DesireDataSource {
     }
 
     @Override
-    public void getDesiresForUser(@NonNull long userId, @NonNull GetDesiresForUser callback) {
+    public void getDesiresForUser(@NonNull long userId, @NonNull GetDesiresForUserCallback callback) {
         //TODO: alter this method when we decide to store desires locally
         callback.onDataNotAvailable();
     }
 
     @Override
-    public void getAllDesires(@NonNull GetAllDesires callback) {
+    public void getAllDesires(@NonNull GetAllDesiresCallback callback) {
         //TODO: alter this method when we decide to store desires locally
         callback.onDataNotAvailable();
     }
 
     @Override
-    public void getDesireByLocation(@NonNull double lat, @NonNull double lon, @NonNull double radius, @NonNull GetDesiresByLocation callback) {
+    public void getDesireByLocation(@NonNull double lat, @NonNull double lon, @NonNull double radius, @NonNull GetDesiresByLocationCallback callback) {
         //TODO: alter this method when we decide to store desires locally
         callback.onDataNotAvailable();
     }

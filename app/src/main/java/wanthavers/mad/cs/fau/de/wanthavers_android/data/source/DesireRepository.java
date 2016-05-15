@@ -19,7 +19,6 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.data.source;
 import android.support.annotation.NonNull;
 
 import java.util.List;
-import java.util.Map;
 
 //import wanthavers.mad.cs.fau.de.wanthavers_android.data.Desire;
 import de.fau.cs.mad.wanthavers.common.Desire;
@@ -74,7 +73,7 @@ public class DesireRepository implements DesireDataSource {
     }
 
     @Override
-    public void createDesire(@NonNull final Desire desire, @NonNull User user, @NonNull final CreateDesire callback) {
+    public void createDesire(@NonNull final Desire desire, @NonNull User user, @NonNull final CreateDesireCallback callback) {
         checkNotNull(desire);
         checkNotNull(user);
         checkNotNull(callback);
@@ -84,7 +83,7 @@ public class DesireRepository implements DesireDataSource {
     }
 
     @Override
-    public void updateDesire(@NonNull final Desire desire, @NonNull final UpdateDesire callback) {
+    public void updateDesire(@NonNull final Desire desire, @NonNull final UpdateDesireCallback callback) {
         checkNotNull(desire);
         checkNotNull(callback);
 
@@ -93,7 +92,7 @@ public class DesireRepository implements DesireDataSource {
     }
 
     @Override
-    public void deleteDesire(@NonNull Desire desire, @NonNull DeleteDesire callback) {
+    public void deleteDesire(@NonNull Desire desire, @NonNull DeleteDesireCallback callback) {
         checkNotNull(desire);
         checkNotNull(callback);
 
@@ -102,7 +101,7 @@ public class DesireRepository implements DesireDataSource {
     }
 
     @Override
-    public void deleteDesire(@NonNull long desireId, @NonNull final DeleteDesire callback) {
+    public void deleteDesire(@NonNull long desireId, @NonNull final DeleteDesireCallback callback) {
         checkNotNull(desireId);
         checkNotNull(callback);
 
@@ -139,11 +138,11 @@ public class DesireRepository implements DesireDataSource {
     }
 
     @Override
-    public void getDesiresForUser(@NonNull final long userId, @NonNull final GetDesiresForUser callback) {
+    public void getDesiresForUser(@NonNull final long userId, @NonNull final GetDesiresForUserCallback callback) {
         checkNotNull(userId);
         checkNotNull(callback);
 
-        desireLocalDataSource.getDesiresForUser(userId, new GetDesiresForUser() {
+        desireLocalDataSource.getDesiresForUser(userId, new GetDesiresForUserCallback() {
             @Override
             public void onDesiresForUserLoaded(List<Desire> desires) {
                 callback.onDesiresForUserLoaded(desires);
@@ -151,7 +150,7 @@ public class DesireRepository implements DesireDataSource {
 
             @Override
             public void onDataNotAvailable() {
-                desireRemoteDataSource.getDesiresForUser(userId, new GetDesiresForUser() {
+                desireRemoteDataSource.getDesiresForUser(userId, new GetDesiresForUserCallback() {
                     @Override
                     public void onDesiresForUserLoaded(List<Desire> desires) {
                         callback.onDesiresForUserLoaded(desires);
@@ -167,10 +166,10 @@ public class DesireRepository implements DesireDataSource {
     }
 
     @Override
-    public void getAllDesires(@NonNull final GetAllDesires callback) {
+    public void getAllDesires(@NonNull final GetAllDesiresCallback callback) {
         checkNotNull(callback);
 
-        desireLocalDataSource.getAllDesires(new GetAllDesires() {
+        desireLocalDataSource.getAllDesires(new GetAllDesiresCallback() {
             @Override
             public void onAllDesiresLoaded(List<Desire> desires) {
                 callback.onAllDesiresLoaded(desires);
@@ -178,7 +177,7 @@ public class DesireRepository implements DesireDataSource {
 
             @Override
             public void onDataNotAvailable() {
-                desireRemoteDataSource.getAllDesires(new GetAllDesires() {
+                desireRemoteDataSource.getAllDesires(new GetAllDesiresCallback() {
                     @Override
                     public void onAllDesiresLoaded(List<Desire> desires) {
                         callback.onAllDesiresLoaded(desires);
@@ -194,13 +193,13 @@ public class DesireRepository implements DesireDataSource {
     }
 
     @Override
-    public void getDesireByLocation(@NonNull final double lat, @NonNull final double lon, @NonNull final double radius, @NonNull final GetDesiresByLocation callback) {
+    public void getDesireByLocation(@NonNull final double lat, @NonNull final double lon, @NonNull final double radius, @NonNull final GetDesiresByLocationCallback callback) {
         checkNotNull(lat);
         checkNotNull(lon);
         checkNotNull(radius);
         checkNotNull(callback);
 
-        desireLocalDataSource.getDesireByLocation(lat, lon, radius, new GetDesiresByLocation() {
+        desireLocalDataSource.getDesireByLocation(lat, lon, radius, new GetDesiresByLocationCallback() {
             @Override
             public void onDesiresByLocationLoaded(List<Desire> desires) {
                 callback.onDesiresByLocationLoaded(desires);
@@ -208,7 +207,7 @@ public class DesireRepository implements DesireDataSource {
 
             @Override
             public void onDataNotAvailable() {
-                desireRemoteDataSource.getDesireByLocation(lat, lon, radius, new GetDesiresByLocation() {
+                desireRemoteDataSource.getDesireByLocation(lat, lon, radius, new GetDesiresByLocationCallback() {
                     @Override
                     public void onDesiresByLocationLoaded(List<Desire> desires) {
                         callback.onDesiresByLocationLoaded(desires);

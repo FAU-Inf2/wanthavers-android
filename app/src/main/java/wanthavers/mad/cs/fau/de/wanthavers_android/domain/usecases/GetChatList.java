@@ -32,7 +32,7 @@ public class GetChatList extends UseCase<GetChatList.RequestValues, GetChatList.
     */
         //TODO for some reason repo does not work - @Nico please check why
 
-        mDesireRepository.getAllDesires(new DesireDataSource.GetAllDesires(){
+        mDesireRepository.getAllDesires(new DesireDataSource.GetAllDesiresCallback(){
 
 
             @Override

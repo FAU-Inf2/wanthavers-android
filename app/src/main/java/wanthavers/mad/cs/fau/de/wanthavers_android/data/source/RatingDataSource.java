@@ -11,7 +11,7 @@ import de.fau.cs.mad.wanthavers.common.Rating;
  */
 public interface RatingDataSource {
 
-    interface CreateRating {
+    interface CreateRatingCallback {
 
         void onRatingCreated(Rating rating);
 
@@ -19,7 +19,7 @@ public interface RatingDataSource {
 
     }
 
-    interface GetRating {
+    interface GetRatingCallback {
 
         void onRatingLoaded(Rating rating);
 
@@ -27,7 +27,7 @@ public interface RatingDataSource {
 
     }
 
-    interface GetAllRatingsForUser {
+    interface GetAllRatingsForUserCallback {
 
         void onAllRatingsForUserLoaded(List<Rating> ratings);
 
@@ -35,7 +35,7 @@ public interface RatingDataSource {
 
     }
 
-    interface UpdateRating {
+    interface UpdateRatingCallback {
 
         void onRatingUpdated(Rating rating);
 
@@ -43,7 +43,7 @@ public interface RatingDataSource {
 
     }
 
-    interface DeleteRating {
+    interface DeleteRatingCallback {
 
         void onRatingDeleted();
 
@@ -51,7 +51,7 @@ public interface RatingDataSource {
 
     }
 
-    interface GetAverageRatingForUser {
+    interface GetAverageRatingForUserCallback {
 
         void onAverageRatingForUserLoaded(Rating rating);
 
@@ -59,16 +59,16 @@ public interface RatingDataSource {
 
     }
 
-    void createRating(@NonNull long userId, @NonNull Rating rating, @NonNull CreateRating callback);
+    void createRating(@NonNull long userId, @NonNull Rating rating, @NonNull CreateRatingCallback callback);
 
-    void getRating(@NonNull long userId, @NonNull long ratingId, @NonNull GetRating callback);
+    void getRating(@NonNull long userId, @NonNull long ratingId, @NonNull GetRatingCallback callback);
 
-    void getAllRatingsForUser(@NonNull long userId, @NonNull GetAllRatingsForUser callback);
+    void getAllRatingsForUser(@NonNull long userId, @NonNull GetAllRatingsForUserCallback callback);
 
-    void updateRating(@NonNull long userId, @NonNull long ratingId, @NonNull Rating rating, @NonNull UpdateRating callback);
+    void updateRating(@NonNull long userId, @NonNull long ratingId, @NonNull Rating rating, @NonNull UpdateRatingCallback callback);
 
-    void deleteRating(@NonNull long userId, @NonNull long ratingId, @NonNull DeleteRating callback);
+    void deleteRating(@NonNull long userId, @NonNull long ratingId, @NonNull DeleteRatingCallback callback);
 
-    void getAverageRatingForUser(@NonNull long userId, @NonNull GetAverageRatingForUser callback);
+    void getAverageRatingForUser(@NonNull long userId, @NonNull GetAverageRatingForUserCallback callback);
 
 }

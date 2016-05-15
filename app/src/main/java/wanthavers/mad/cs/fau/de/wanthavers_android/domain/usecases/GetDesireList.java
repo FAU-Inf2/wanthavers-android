@@ -2,7 +2,6 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases;
 
 import android.support.annotation.NonNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.Desire;
@@ -33,7 +32,7 @@ public class GetDesireList extends UseCase<GetDesireList.RequestValues, GetDesir
         */
         //TODO for some reason repo does not work - @Nico please check why
 
-        mDesireRepository.getAllDesires(new DesireDataSource.GetAllDesires(){
+        mDesireRepository.getAllDesires(new DesireDataSource.GetAllDesiresCallback(){
 
 
             @Override

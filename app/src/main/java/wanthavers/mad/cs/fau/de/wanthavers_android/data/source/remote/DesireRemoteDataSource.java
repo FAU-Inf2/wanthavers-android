@@ -18,12 +18,7 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.data.source.remote;
 
 import android.support.annotation.NonNull;
 
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
-
-import javax.ws.rs.ProcessingException;
-import javax.ws.rs.WebApplicationException;
 
 import de.fau.cs.mad.wanthavers.common.Desire;
 import de.fau.cs.mad.wanthavers.common.User;
@@ -52,7 +47,7 @@ public class DesireRemoteDataSource implements DesireDataSource {
     }
 
     @Override
-    public void createDesire(@NonNull Desire desire, @NonNull User user, @NonNull CreateDesire callback) {
+    public void createDesire(@NonNull Desire desire, @NonNull User user, @NonNull CreateDesireCallback callback) {
         try {
             Desire ret = desireClient.createDesire(desire, user);
             callback.onDesireCreated(ret);
@@ -62,7 +57,7 @@ public class DesireRemoteDataSource implements DesireDataSource {
     }
 
     @Override
-    public void updateDesire(@NonNull Desire desire, @NonNull UpdateDesire callback) {
+    public void updateDesire(@NonNull Desire desire, @NonNull UpdateDesireCallback callback) {
         try {
             Desire ret = desireClient.updateDesire(desire.getID(), desire);
             callback.onDesireUpdated(ret);
@@ -72,12 +67,12 @@ public class DesireRemoteDataSource implements DesireDataSource {
     }
 
     @Override
-    public void deleteDesire(@NonNull Desire desire, @NonNull DeleteDesire callback) {
+    public void deleteDesire(@NonNull Desire desire, @NonNull DeleteDesireCallback callback) {
         deleteDesire(desire.getID(), callback);
     }
 
     @Override
-    public void deleteDesire(@NonNull long desireId, @NonNull DeleteDesire callback) {
+    public void deleteDesire(@NonNull long desireId, @NonNull DeleteDesireCallback callback) {
         try {
             desireClient.deleteDesire(desireId);
             callback.onDesireDeleted();
@@ -97,7 +92,7 @@ public class DesireRemoteDataSource implements DesireDataSource {
     }
 
     @Override
-    public void getDesiresForUser(@NonNull long userId, @NonNull GetDesiresForUser callback) {
+    public void getDesiresForUser(@NonNull long userId, @NonNull GetDesiresForUserCallback callback) {
         try {
             final List<Desire> desiresForUser = userClient.getDesires(userId);
             callback.onDesiresForUserLoaded(desiresForUser);
@@ -107,7 +102,7 @@ public class DesireRemoteDataSource implements DesireDataSource {
     }
 
     @Override
-    public void getAllDesires(@NonNull GetAllDesires callback) {
+    public void getAllDesires(@NonNull GetAllDesiresCallback callback) {
         try {
             final List<Desire> allDesires = desireClient.get();
             callback.onAllDesiresLoaded(allDesires);
@@ -117,7 +112,7 @@ public class DesireRemoteDataSource implements DesireDataSource {
     }
 
     @Override
-    public void getDesireByLocation(@NonNull double lat, @NonNull double lon, @NonNull double radius, @NonNull GetDesiresByLocation callback) {
+    public void getDesireByLocation(@NonNull double lat, @NonNull double lon, @NonNull double radius, @NonNull GetDesiresByLocationCallback callback) {
         try {
             final List<Desire> desiresByLocation = desireClient.getByLocation(lat, lon, radius);
             callback.onDesiresByLocationLoaded(desiresByLocation);

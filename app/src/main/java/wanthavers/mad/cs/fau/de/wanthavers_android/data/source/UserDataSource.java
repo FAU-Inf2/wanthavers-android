@@ -37,7 +37,7 @@ public interface UserDataSource {
         void onDataNotAvailable();
     }
 
-    interface GetAllUsers {
+    interface GetAllUsersCallback {
 
         void onAllUsersLoaded(List<User> users);
 
@@ -45,7 +45,7 @@ public interface UserDataSource {
 
     }
 
-    interface CreateUser {
+    interface CreateUserCallback {
 
         void onUserCreated(User user);
 
@@ -53,7 +53,7 @@ public interface UserDataSource {
 
     }
 
-    interface UpdateUser {
+    interface UpdateUserCallback {
 
         void onUserUpdated(User user);
 
@@ -61,7 +61,7 @@ public interface UserDataSource {
 
     }
 
-    interface DeleteUser {
+    interface DeleteUserCallback {
 
         void onUserDeleted();
 
@@ -72,11 +72,11 @@ public interface UserDataSource {
 
     void getUser(@NonNull long userId, @NonNull GetUserCallback callback);
 
-    void getAllUsers(@NonNull GetAllUsers callback);
+    void getAllUsers(@NonNull GetAllUsersCallback callback);
 
-    void createUser(@NonNull User user, @NonNull CreateUser callback);
+    void createUser(@NonNull User user, @NonNull CreateUserCallback callback);
 
-    void updateUser(@NonNull User user, @NonNull UpdateUser callback);
+    void updateUser(@NonNull User user, @NonNull UpdateUserCallback callback);
 
-    void deleteUser(@NonNull User user, @NonNull DeleteUser callback);
+    void deleteUser(@NonNull User user, @NonNull DeleteUserCallback callback);
 }

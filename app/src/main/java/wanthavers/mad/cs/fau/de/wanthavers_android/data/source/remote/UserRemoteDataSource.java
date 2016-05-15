@@ -4,8 +4,6 @@ import android.support.annotation.NonNull;
 
 import java.util.List;
 
-import javax.ws.rs.WebApplicationException;
-
 import de.fau.cs.mad.wanthavers.common.User;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.UserDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.rest.UserClient;
@@ -39,7 +37,7 @@ public class UserRemoteDataSource implements UserDataSource {
     }
 
     @Override
-    public void getAllUsers(@NonNull GetAllUsers callback) {
+    public void getAllUsers(@NonNull GetAllUsersCallback callback) {
         try {
             List<User> users = userEndpoint.get();
             callback.onAllUsersLoaded(users);
@@ -49,7 +47,7 @@ public class UserRemoteDataSource implements UserDataSource {
     }
 
     @Override
-    public void createUser(@NonNull User user, @NonNull CreateUser callback) {
+    public void createUser(@NonNull User user, @NonNull CreateUserCallback callback) {
         try {
             User ret = userEndpoint.createUser(user);
             callback.onUserCreated(ret);
@@ -59,7 +57,7 @@ public class UserRemoteDataSource implements UserDataSource {
     }
 
     @Override
-    public void updateUser(@NonNull User user, @NonNull UpdateUser callback) {
+    public void updateUser(@NonNull User user, @NonNull UpdateUserCallback callback) {
         try {
             User ret = userEndpoint.updateUser(user.getID(), user);
             callback.onUserUpdated(ret);
@@ -69,7 +67,7 @@ public class UserRemoteDataSource implements UserDataSource {
     }
 
     @Override
-    public void deleteUser(@NonNull User user, @NonNull DeleteUser callback) {
+    public void deleteUser(@NonNull User user, @NonNull DeleteUserCallback callback) {
         try {
             userEndpoint.deleteUser(user.getID());
             callback.onUserDeleted();

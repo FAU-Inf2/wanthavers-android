@@ -28,7 +28,7 @@ public class RatingRemoteDataSource implements RatingDataSource {
     }
 
     @Override
-    public void createRating(@NonNull long userId, @NonNull Rating rating, @NonNull CreateRating callback) {
+    public void createRating(@NonNull long userId, @NonNull Rating rating, @NonNull CreateRatingCallback callback) {
         try {
             Rating ret = ratingEndpoint.createRating(userId, rating);
             callback.onRatingCreated(ret);
@@ -38,7 +38,7 @@ public class RatingRemoteDataSource implements RatingDataSource {
     }
 
     @Override
-    public void getRating(@NonNull long userId, @NonNull long ratingId, @NonNull GetRating callback) {
+    public void getRating(@NonNull long userId, @NonNull long ratingId, @NonNull GetRatingCallback callback) {
         try {
             Rating ret = ratingEndpoint.get(userId, ratingId);
             callback.onRatingLoaded(ret);
@@ -48,7 +48,7 @@ public class RatingRemoteDataSource implements RatingDataSource {
     }
 
     @Override
-    public void getAllRatingsForUser(@NonNull long userId, @NonNull GetAllRatingsForUser callback) {
+    public void getAllRatingsForUser(@NonNull long userId, @NonNull GetAllRatingsForUserCallback callback) {
         try {
             List<Rating> ret = ratingEndpoint.getAllRatings(userId);
             callback.onAllRatingsForUserLoaded(ret);
@@ -58,7 +58,7 @@ public class RatingRemoteDataSource implements RatingDataSource {
     }
 
     @Override
-    public void updateRating(@NonNull long userId, @NonNull long ratingId, @NonNull Rating rating, @NonNull UpdateRating callback) {
+    public void updateRating(@NonNull long userId, @NonNull long ratingId, @NonNull Rating rating, @NonNull UpdateRatingCallback callback) {
         try {
             Rating ret = ratingEndpoint.updateRating(userId, ratingId, rating);
             callback.onRatingUpdated(ret);
@@ -68,7 +68,7 @@ public class RatingRemoteDataSource implements RatingDataSource {
     }
 
     @Override
-    public void deleteRating(@NonNull long userId, @NonNull long ratingId, @NonNull DeleteRating callback) {
+    public void deleteRating(@NonNull long userId, @NonNull long ratingId, @NonNull DeleteRatingCallback callback) {
         try {
             ratingEndpoint.deleteRating(userId, ratingId);
             callback.onRatingDeleted();
@@ -78,7 +78,7 @@ public class RatingRemoteDataSource implements RatingDataSource {
     }
 
     @Override
-    public void getAverageRatingForUser(@NonNull long userId, @NonNull GetAverageRatingForUser callback) {
+    public void getAverageRatingForUser(@NonNull long userId, @NonNull GetAverageRatingForUserCallback callback) {
         try {
             Rating ret = ratingEndpoint.avgRating(userId);
             callback.onAverageRatingForUserLoaded(ret);
