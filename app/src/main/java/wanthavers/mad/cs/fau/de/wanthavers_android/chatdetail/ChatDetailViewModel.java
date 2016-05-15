@@ -22,7 +22,7 @@ public class ChatDetailViewModel extends BaseObservable {
     @Bindable
     public boolean isNotEmpty() { return mChatListSize > 0; }
 
-    public void setChatListSize(int chatListSize) {
+    public void setMessageListSize(int chatListSize) {
         mChatListSize = chatListSize;
         //notifyPropertyChanged(BR.notEmpty);
 

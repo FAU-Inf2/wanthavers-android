@@ -72,18 +72,23 @@ public class ChatDetailFragment extends Fragment implements  ChatDetailContract.
                              Bundle savedInstanceState) {
 
 
-         mChatDetailFragBinding = ChatdetailFragBinding.inflate(inflater,container,false);
+        mChatDetailFragBinding = ChatdetailFragBinding.inflate(inflater,container,false);
 
         mChatDetailFragBinding.setChats(mChatDetailViewModel);
 
         mChatDetailFragBinding.setPresenter(mPresenter);
 
+        if (ParseUser.getCurrentUser() != null) { // start with existing user
+            startWithCurrentUser();
+        } else { // If not logged in, login as a new anonymous user
+            login();
+        }
 
-
-        //Set up desire view
+        //Set up chat view
         ListView listView = mChatDetailFragBinding.messageList;
+        final String chatUserId = ParseUser.getCurrentUser().getObjectId();
 
-        mListAdapter = new ChatDetailAdapter(new ArrayList<Chat>(0),mPresenter, mChatDetailViewModel);
+        mListAdapter = new ChatDetailAdapter(new ArrayList<Message>(0),chatUserId ,mPresenter, mChatDetailViewModel);
         listView.setAdapter(mListAdapter);
 
 
@@ -101,20 +106,20 @@ public class ChatDetailFragment extends Fragment implements  ChatDetailContract.
 
         setHasOptionsMenu(true);
 
-        if (ParseUser.getCurrentUser() != null) { // start with existing user
-            startWithCurrentUser();
-        } else { // If not logged in, login as a new anonymous user
-            login();
-        }
-
 
         View root = mChatDetailFragBinding.getRoot();
         return root;
     }
 
     @Override
-    public void showMessages(List<Chat> chatList) {
+    public void showMessages(List<Message> messageList) {
+        mListAdapter.replaceData(messageList);
+        //mChatDetailViewModel.setMessageListSize(messageList.size());
+    }
 
+    @Override
+    public boolean isActive() {
+        return isAdded();
     }
 
     @Override
@@ -162,8 +167,8 @@ public class ChatDetailFragment extends Fragment implements  ChatDetailContract.
             public void onClick(View v) {
                 String data = etMessage.getText().toString();
                 ParseObject message = ParseObject.create("Message");
-                message.put(USER_ID_KEY, ParseUser.getCurrentUser().getObjectId());
-                message.put(BODY_KEY, data);
+                message.put(Message.USER_ID_KEY, ParseUser.getCurrentUser().getObjectId());
+                message.put(Message.BODY_KEY, data);
                 message.saveInBackground(new SaveCallback() {
                     @Override
                     public void done(ParseException e) {

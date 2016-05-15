@@ -1,50 +1,52 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.chatdetail;
 
 import android.databinding.DataBindingUtil;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.RatingBar;
+import android.widget.ImageView;
 
+import com.squareup.picasso.Picasso;
+
+import java.math.BigInteger;
+import java.security.MessageDigest;
 import java.util.List;
-
-import wanthavers.mad.cs.fau.de.wanthavers_android.R;
-import wanthavers.mad.cs.fau.de.wanthavers_android.chatlist.Chat;
-import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.ChatItemBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.MessageItemBinding;
 
 public class ChatDetailAdapter extends BaseAdapter {
 
-
-    private List<Chat> mChatList;
+    private String mUserId;
+    private List<Message> mMessageList;
 
     private ChatDetailContract.Presenter mUserActionsListener;
     private ChatDetailViewModel mChatDetailViewModel;
 
-    public ChatDetailAdapter(List<Chat> chats, ChatDetailContract.Presenter itemListener, ChatDetailViewModel chatDetailViewModel) {
-        setList(chats);
+    public ChatDetailAdapter(List<Message> messages, String userId, ChatDetailContract.Presenter itemListener, ChatDetailViewModel chatDetailViewModel) {
+        setList(messages);
+        mUserId = userId;
         mUserActionsListener = itemListener;
         mChatDetailViewModel = chatDetailViewModel;
     }
 
-    public void replaceData(List<Chat> chatList) {
-        setList(chatList);
+    public void replaceData(List<Message> messageList) {
+        setList(messageList);
     }
 
-    private void setList(List<Chat> chatList) {
-        mChatList = chatList;
+    private void setList(List<Message> messageList) {
+        mMessageList = messageList;
         notifyDataSetChanged();
     }
 
     @Override
     public int getCount() {
-        return mChatList != null ? mChatList.size() : 0;
+        return mMessageList != null ? mMessageList.size() : 0;
     }
 
     @Override
-    public Chat getItem(int i) {
-        return mChatList.get(i);
+    public Message getItem(int i) {
+        return mMessageList.get(i);
     }
 
     @Override
@@ -53,8 +55,8 @@ public class ChatDetailAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-        Chat chat = getItem(i);
+    public View getView(int position, View view, ViewGroup viewGroup) {
+        Message message = getItem(position);
         MessageItemBinding binding;
 
         if (view == null) {
@@ -64,6 +66,7 @@ public class ChatDetailAdapter extends BaseAdapter {
             // Create the binding
             binding = MessageItemBinding.inflate(inflater, viewGroup, false);
 
+
         } else {
             binding = DataBindingUtil.getBinding(view);
         }
@@ -71,9 +74,41 @@ public class ChatDetailAdapter extends BaseAdapter {
         // We might be recycling the binding for another task, so update it.
         // Create the action handler for the view
         ChatDetailItemActionHandler itemActionHandler = new ChatDetailItemActionHandler(mUserActionsListener);
-        binding.setActionHandler(itemActionHandler);
+
 
         binding.executePendingBindings();
+
+        //setup rest of ParserChat
+        final boolean isMe = message.getUserId().equals(mUserId);
+
+        if(isMe){
+            binding.ivProfileMe.setVisibility(View.VISIBLE);
+            binding.ivProfileOther.setVisibility(View.GONE);
+            binding.tvBody.setGravity(Gravity.CENTER_VERTICAL | Gravity.RIGHT);
+        }else {
+            binding.ivProfileMe.setVisibility(View.GONE);
+            binding.ivProfileOther.setVisibility(View.VISIBLE);
+            binding.tvBody.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
+        }
+
+        final ImageView profileView = isMe ? binding.ivProfileMe :  binding.ivProfileOther;
+        Picasso.with(viewGroup.getContext()).load(getProfileUrl(message.getUserId())).into(profileView);
+        binding.tvBody.setText(message.getBody());
         return binding.getRoot();
+    }
+
+
+    // Create a gravatar image based on the hash value obtained from userId
+    private static String getProfileUrl(final String userId) {
+        String hex = "";
+        try {
+            final MessageDigest digest = MessageDigest.getInstance("MD5");
+            final byte[] hash = digest.digest(userId.getBytes());
+            final BigInteger bigInt = new BigInteger(hash);
+            hex = bigInt.abs().toString(16);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "http://www.gravatar.com/avatar/" + hex + "?d=identicon";
     }
 }

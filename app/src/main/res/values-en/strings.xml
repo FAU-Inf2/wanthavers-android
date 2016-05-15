@@ -24,6 +24,8 @@
     <string name="message">Message</string>
     <string name="message_hint">Enter message</string>
     <string name="send">Send</string>
+    <string name="profile_me">My Profile Pic</string>
+    <string name="profile_other">Other profile pic</string>
 
 
 </resources>

@@ -12,11 +12,13 @@ public interface ChatDetailContract {
 
     interface View extends BaseView<Presenter> {
 
-        void showMessages(List<Chat> chatList);
+        void showMessages(List<Message> messageList);
 
         void showLoadingChatsError();
 
         void setLoadingIndicator(final boolean active);
+
+        boolean isActive();
 
     }
 

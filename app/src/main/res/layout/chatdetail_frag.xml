@@ -41,7 +41,7 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/desiresListLayout"
+                android:id="@+id/chatListLayout"
                 android:layout_width="match_parent"
                 android:layout_height="450dp"
                 android:orientation="vertical">
@@ -49,6 +49,7 @@
                 <!--TODO put visibility in linear layout tag android:visibility="@{desires.notEmpty ? View.VISIBLE : View.GONE"  -->
                 <ListView
                     android:id="@+id/message_list"
+                    android:transcriptMode="alwaysScroll"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -59,8 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/noDesiresMain"
@@ -78,6 +78,7 @@
 
                 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                     xmlns:tools="http://schemas.android.com/tools"
+                    android:id="@+id/llSend"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     tools:context="${relativePackage}.${activityClass}"

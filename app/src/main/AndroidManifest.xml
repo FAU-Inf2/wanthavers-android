@@ -23,6 +23,13 @@
         <activity android:name="wanthavers.mad.cs.fau.de.wanthavers_android.desiredetail.DesireDetailActivity"/>
         <activity android:name="wanthavers.mad.cs.fau.de.wanthavers_android.chatlist.ChatListActivity"/>
         <activity android:name="wanthavers.mad.cs.fau.de.wanthavers_android.chatdetail.ChatDetailActivity"/>
+        <meta-data
+            android:name="com.parse.APPLICATION_ID"
+            android:value="{APPLICATION_ID}" />
+        <meta-data
+            android:name="com.parse.CLIENT_KEY"
+            android:value="{CLIENT_KEY}" />
+
     </application>
 
 

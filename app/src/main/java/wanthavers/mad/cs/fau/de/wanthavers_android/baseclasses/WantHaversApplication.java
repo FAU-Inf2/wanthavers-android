@@ -5,7 +5,10 @@ import android.content.Context;
 import android.support.multidex.MultiDex;
 
 import com.parse.Parse;
+import com.parse.ParseObject;
 import com.parse.interceptors.ParseLogInterceptor;
+
+import wanthavers.mad.cs.fau.de.wanthavers_android.chatdetail.Message;
 
 public class WantHaversApplication extends Application {
 
@@ -13,8 +16,11 @@ public class WantHaversApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        //TODO test if parse setup works in activity
 
+        //Register parse model
+        ParseObject.registerSubclass(Message.class);
+
+        //initialise Parse Server for Chat  - done here to ensure its only done once in the application
         Parse.initialize(new Parse.Configuration.Builder(this)
                 .applicationId("wanthavers") // should correspond to APP_ID env variable
                 .addNetworkInterceptor(new ParseLogInterceptor())
