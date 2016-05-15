@@ -65,6 +65,9 @@ dependencies {
     compile 'com.parse:parse-android:1.13.0'
     compile 'com.parse:parseinterceptors:0.0.2' // for logging API calls to LogCat
 
+    //add dependency to patch application ClassLoader
+    compile 'com.android.support:multidex:1.0.0'
+
 }
 
 
