@@ -73,13 +73,12 @@ public class DesireRepository implements DesireDataSource {
     }
 
     @Override
-    public void createDesire(@NonNull final Desire desire, @NonNull User user, @NonNull final CreateDesireCallback callback) {
+    public void createDesire(@NonNull final Desire desire, @NonNull final CreateDesireCallback callback) {
         checkNotNull(desire);
-        checkNotNull(user);
         checkNotNull(callback);
 
-        desireRemoteDataSource.createDesire(desire, user, callback);
-        desireLocalDataSource.createDesire(desire, user, callback);
+        desireRemoteDataSource.createDesire(desire, callback);
+        desireLocalDataSource.createDesire(desire, callback);
     }
 
     @Override

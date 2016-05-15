@@ -51,9 +51,9 @@ public class DesireRemoteDataSource implements DesireDataSource {
     }
 
     @Override
-    public void createDesire(@NonNull Desire desire, @NonNull User user, @NonNull CreateDesireCallback callback) {
+    public void createDesire(@NonNull Desire desire, @NonNull CreateDesireCallback callback) {
         try {
-            Desire ret = desireClient.createDesire(desire, user);
+            Desire ret = desireClient.createDesire(desire, null);
             callback.onDesireCreated(ret);
         } catch (Throwable t) {
             callback.onCreateFailed();

@@ -67,7 +67,7 @@ public interface HaverDataSource {
 
     void getAllHaversForDesire(@NonNull long desireId, @NonNull GetAllHaversForDesireCallback callback);
 
-    void createHaver(@NonNull long desireId, @NonNull Haver haver, @NonNull User user, @NonNull CreateHaverCallback callback);
+    void createHaver(@NonNull long desireId, @NonNull Haver haver, @NonNull CreateHaverCallback callback);
 
     void updateHaver(@NonNull long desireId, @NonNull long haverId, @NonNull Haver haver, @NonNull UpdateHaverCallback callback);
 

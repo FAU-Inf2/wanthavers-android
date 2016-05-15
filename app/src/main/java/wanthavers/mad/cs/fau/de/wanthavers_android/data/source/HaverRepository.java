@@ -94,14 +94,13 @@ public class HaverRepository implements HaverDataSource {
     }
 
     @Override
-    public void createHaver(@NonNull long desireId, @NonNull Haver haver, @NonNull User user, @NonNull CreateHaverCallback callback) {
+    public void createHaver(@NonNull long desireId, @NonNull Haver haver, @NonNull CreateHaverCallback callback) {
         checkNotNull(desireId);
         checkNotNull(haver);
-        checkNotNull(user);
         checkNotNull(callback);
 
-        haverLocalDataSource.createHaver(desireId, haver, user, callback);
-        haverRemoteDataSource.createHaver(desireId, haver, user, callback);
+        haverLocalDataSource.createHaver(desireId, haver, callback);
+        haverRemoteDataSource.createHaver(desireId, haver, callback);
     }
 
     @Override

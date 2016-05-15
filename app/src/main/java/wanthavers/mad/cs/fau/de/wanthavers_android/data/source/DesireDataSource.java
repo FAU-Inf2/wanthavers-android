@@ -82,7 +82,7 @@ public interface DesireDataSource {
     }
 
 
-    void createDesire(@NonNull Desire desire, @NonNull User user, @NonNull CreateDesireCallback callback);
+    void createDesire(@NonNull Desire desire, @NonNull CreateDesireCallback callback);
 
     void updateDesire(@NonNull Desire desire, @NonNull UpdateDesireCallback callback);
 

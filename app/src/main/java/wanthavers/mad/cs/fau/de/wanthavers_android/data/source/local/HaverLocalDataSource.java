@@ -43,7 +43,7 @@ public class HaverLocalDataSource implements HaverDataSource {
     }
 
     @Override
-    public void createHaver(@NonNull long desireId, @NonNull Haver haver, @NonNull User user, @NonNull CreateHaverCallback callback) {
+    public void createHaver(@NonNull long desireId, @NonNull Haver haver, @NonNull CreateHaverCallback callback) {
         //TODO: alter this method when we decide to store havers locally
         callback.onCreateFailed();
     }

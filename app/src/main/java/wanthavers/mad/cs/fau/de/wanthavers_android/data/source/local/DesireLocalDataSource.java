@@ -48,7 +48,7 @@ public class DesireLocalDataSource implements DesireDataSource {
     }
 
     @Override
-    public void createDesire(@NonNull Desire desire, @NonNull User user, @NonNull CreateDesireCallback callback) {
+    public void createDesire(@NonNull Desire desire, @NonNull CreateDesireCallback callback) {
         //TODO: alter this method when we decide to store desires locally
         callback.onCreateFailed();
     }
