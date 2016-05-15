@@ -1,0 +1,29 @@
+<resources>
+
+    <!-- General Resources -->
+    <string name="app_name">WantHaver</string>
+    <string name="action_settings">Settings</string>
+    <string name="chat">Chat</string>
+
+
+    <!-- Resources for deatail view -->
+    <string name="desire_detail_itemImage_contentDesc">Desire Image</string>
+    <string name="desire">Desire</string>
+    <string name="navigation_view_header_title">ToDo: HeaderNavBar</string>
+    <string name="myDesires_title">My Desires</string>
+    <string name="myTransactions_title">My Transactions</string>
+    <string name="createDesire_title">Create Desire</string>
+    <string name="settings_title">Settings</string>
+    <string name="logout_title">Logout</string>
+    <string name="no_desires">Unfortunately no desires found</string>
+    <string name="loading_desires_error">Error while loading desires</string>
+    <string name="listDesires_title">All Desires</string>
+    <string name="no_time_available">no time available</string>
+    <string name="no_location_available">no location available</string>
+    <string name="no_messages">No messages to show</string>
+    <string name="message">Message</string>
+    <string name="message_hint">Enter message</string>
+    <string name="send">Send</string>
+
+
+</resources>
