@@ -79,7 +79,7 @@ public class ChatDetailActivity extends AppCompatActivity {
         Context context = getApplicationContext();
         checkNotNull(context);
 
-        DesireRepository chatRepo = DesireRepository.getInstance(DesireRemoteDataSource.getInstance(), DesireLocalDataSource.getInstance(context));
+        DesireRepository chatRepo = DesireRepository.getInstance(DesireRemoteDataSource.getInstance(getApplicationContext()), DesireLocalDataSource.getInstance(context));
 
         // Create the presenter
         mChatDetailPresenter = new ChatDetailPresenter(UseCaseHandler.getInstance(),chatDetailFragment,new GetMessageList(chatRepo));

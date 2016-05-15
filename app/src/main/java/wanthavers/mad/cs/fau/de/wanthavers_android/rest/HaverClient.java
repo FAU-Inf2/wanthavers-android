@@ -1,5 +1,7 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.rest;
 
+import android.content.Context;
+
 import org.glassfish.jersey.client.proxy.WebResourceFactory;
 
 import java.util.List;
@@ -13,14 +15,14 @@ public class HaverClient extends RestClient {
 
     private HaverResource haverEndpoint;
 
-    private HaverClient() {
-        super();
+    private HaverClient(Context context) {
+        super(context);
         haverEndpoint = WebResourceFactory.newResource(HaverResource.class, target);
     }
 
-    public static HaverClient getInstance() {
+    public static HaverClient getInstance(Context context) {
         if(INSTANCE == null){
-            INSTANCE = new HaverClient();
+            INSTANCE = new HaverClient(context);
         }
         return INSTANCE;
     }

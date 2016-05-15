@@ -1,5 +1,7 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.rest;
 
+import android.content.Context;
+
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 
 import org.glassfish.jersey.client.proxy.WebResourceFactory;
@@ -20,14 +22,14 @@ public class DesireClient extends RestClient {
 
     private DesireResource desireEndpoint;
 
-    private DesireClient() {
-        super();
+    private DesireClient(Context context) {
+        super(context);
         desireEndpoint = WebResourceFactory.newResource(DesireResource.class, target);
     }
 
-    public static DesireClient getInstance() {
+    public static DesireClient getInstance(Context context) {
         if (INSTANCE == null) {
-            INSTANCE = new DesireClient();
+            INSTANCE = new DesireClient(context);
         }
         return INSTANCE;
     }

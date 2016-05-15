@@ -1,5 +1,7 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.rest;
 
+import android.content.Context;
+
 import org.glassfish.jersey.client.proxy.WebResourceFactory;
 
 import java.util.List;
@@ -12,14 +14,14 @@ public class RatingClient extends RestClient {
 
     private RatingResource ratingEndpoint;
 
-    private RatingClient() {
-        super();
+    private RatingClient(Context context) {
+        super(context);
         ratingEndpoint = WebResourceFactory.newResource(RatingResource.class, target);
     }
 
-    public static RatingClient getInstance() {
+    public static RatingClient getInstance(Context context) {
         if(INSTANCE == null){
-            INSTANCE = new RatingClient();
+            INSTANCE = new RatingClient(context);
         }
         return INSTANCE;
     }

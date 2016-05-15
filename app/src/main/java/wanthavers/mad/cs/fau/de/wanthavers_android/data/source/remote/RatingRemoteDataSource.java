@@ -1,5 +1,6 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.data.source.remote;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 
 import java.util.List;
@@ -14,15 +15,16 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.rest.RatingClient;
 public class RatingRemoteDataSource implements RatingDataSource {
     private static RatingRemoteDataSource INSTANCE;
 
-    private RatingClient ratingEndpoint = RatingClient.getInstance();
+    private RatingClient ratingEndpoint;
 
     // Prevent direct instantiation.
-    private RatingRemoteDataSource() {
+    private RatingRemoteDataSource(Context context) {
+        ratingEndpoint = RatingClient.getInstance(context);
     }
 
-    public static RatingRemoteDataSource getInstance() {
+    public static RatingRemoteDataSource getInstance(Context context) {
         if (INSTANCE == null) {
-            INSTANCE = new RatingRemoteDataSource();
+            INSTANCE = new RatingRemoteDataSource(context);
         }
         return INSTANCE;
     }

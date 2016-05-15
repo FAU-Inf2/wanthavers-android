@@ -26,9 +26,12 @@ public class SharedPreferencesHelper {
 
     //Shared Preferences Names
     public static final String NAME_SETTINGS = "settings";
+    public static final String NAME_USER = "user";
 
     //Key Strings
     public static final String KEY_API_URL = "api_url";
+    public static final String KEY_USERNAME = "username";
+    public static final String KEY_PASSWORD = "password";
 
     private SharedPreferencesHelper(String sharedPreferencesName, Context context) {
         if(context == null) {

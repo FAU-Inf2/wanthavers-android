@@ -1,5 +1,6 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.data.source.remote;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 
 import java.util.List;
@@ -14,14 +15,16 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.rest.UserClient;
 public class UserRemoteDataSource implements UserDataSource {
     private static UserRemoteDataSource INSTANCE;
 
-    private UserClient userEndpoint = UserClient.getInstance();
+    private UserClient userEndpoint;
 
     // Prevent direct instantiation.
-    private UserRemoteDataSource() {}
+    private UserRemoteDataSource(Context context) {
+        userEndpoint = UserClient.getInstance(context);
+    }
 
-    public static UserRemoteDataSource getInstance(){
+    public static UserRemoteDataSource getInstance(Context context){
         if(INSTANCE == null) {
-            INSTANCE = new UserRemoteDataSource();
+            INSTANCE = new UserRemoteDataSource(context);
         }
         return INSTANCE;
     }

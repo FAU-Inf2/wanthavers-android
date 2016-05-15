@@ -16,6 +16,7 @@
 
 package wanthavers.mad.cs.fau.de.wanthavers_android.data.source.remote;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 
 import java.util.List;
@@ -33,15 +34,18 @@ public class DesireRemoteDataSource implements DesireDataSource {
 
     private static DesireRemoteDataSource INSTANCE;
 
-    private DesireClient desireClient = DesireClient.getInstance();
-    private UserClient userClient = UserClient.getInstance();
+    private DesireClient desireClient;
+    private UserClient userClient;
 
     // Prevent direct instantiation.
-    private DesireRemoteDataSource() { }
+    private DesireRemoteDataSource(Context context) {
+        desireClient = DesireClient.getInstance(context);
+        userClient = UserClient.getInstance(context);
+    }
 
-    public static DesireRemoteDataSource getInstance() {
+    public static DesireRemoteDataSource getInstance(Context context) {
         if (INSTANCE == null) {
-            INSTANCE = new DesireRemoteDataSource();
+            INSTANCE = new DesireRemoteDataSource(context);
         }
         return INSTANCE;
     }

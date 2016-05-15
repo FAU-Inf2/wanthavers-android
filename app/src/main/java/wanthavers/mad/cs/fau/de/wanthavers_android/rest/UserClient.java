@@ -1,5 +1,7 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.rest;
 
+import android.content.Context;
+
 import org.glassfish.jersey.client.proxy.WebResourceFactory;
 
 import java.util.List;
@@ -13,14 +15,14 @@ public class UserClient extends RestClient {
 
     private UserResource userEndpoint;
 
-    private UserClient() {
-        super();
+    private UserClient(Context context) {
+        super(context);
         userEndpoint = WebResourceFactory.newResource(UserResource.class, target);
     }
 
-    public static UserClient getInstance() {
+    public static UserClient getInstance(Context context) {
         if(INSTANCE == null){
-            INSTANCE = new UserClient();
+            INSTANCE = new UserClient(context);
         }
         return INSTANCE;
     }

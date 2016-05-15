@@ -1,5 +1,6 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.data.source.remote;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 
 import java.util.List;
@@ -16,13 +17,15 @@ public class HaverRemoteDataSource implements HaverDataSource {
 
     private static HaverRemoteDataSource INSTANCE;
 
-    private HaverClient haverEndpoint = HaverClient.getInstance();
+    private HaverClient haverEndpoint;
 
-    private HaverRemoteDataSource() { }
+    private HaverRemoteDataSource(Context context) {
+        haverEndpoint = HaverClient.getInstance(context);
+    }
 
-    public static HaverRemoteDataSource getInstance() {
+    public static HaverRemoteDataSource getInstance(Context context) {
         if(INSTANCE == null) {
-            INSTANCE = new HaverRemoteDataSource();
+            INSTANCE = new HaverRemoteDataSource(context);
         }
         return INSTANCE;
     }
