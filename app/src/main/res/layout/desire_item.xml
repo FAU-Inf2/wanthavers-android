@@ -59,7 +59,9 @@
                     android:max="5"
                     android:numStars="5"
                     android:stepSize="0.1"
-                    android:backgroundTint="@color/colorRatingStars"/>
+                    android:progressBackgroundTint="#c3bebe"
+                    android:progressTint="@color/colorRatingStars"
+                    android:secondaryProgressTint="@color/colorRatingStars"/>
 
                 <TextView
                     android:id="@+id/itemUserName"
@@ -167,6 +169,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="0.5"
                     android:gravity="left"
+                    android:textColor="@color/colorMainText"
                     android:text="@string/no_time_available"
                     />
 
@@ -175,6 +178,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="0.5"
                     android:gravity="right"
+                    android:textColor="@color/colorMainText"
                     android:text="@string/no_location_available"
                     />
 

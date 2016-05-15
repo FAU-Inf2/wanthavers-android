@@ -43,13 +43,12 @@
             <LinearLayout
                 android:id="@+id/desiresListLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                >
+                android:layout_height="450dp"
+                android:orientation="vertical">
 
                 <!--TODO put visibility in linear layout tag android:visibility="@{desires.notEmpty ? View.VISIBLE : View.GONE"  -->
                 <ListView
-                    android:id="@+id/desires_list"
+                    android:id="@+id/message_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -63,13 +62,6 @@
                 android:orientation="vertical"
                 >
 
-                <!--ImageView
-                    android:id="@+id/noDesiresIcon"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/" /-->
-
                 <TextView
                     android:id="@+id/noDesiresMain"
                     android:layout_width="wrap_content"
@@ -78,6 +70,40 @@
                     android:text="@string/no_messages"
                     android:layout_marginBottom="@dimen/list_item_padding" />
 
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/desiresListLayout">
+
+                <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:tools="http://schemas.android.com/tools"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:context="${relativePackage}.${activityClass}"
+                    android:gravity="bottom">
+
+                    <EditText
+                        android:id="@+id/etMessage"
+                        android:layout_toLeftOf="@+id/btSend"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/btSend"
+                        android:gravity="top"
+                        android:hint="@string/message_hint"
+                        android:imeOptions="actionSend"/>
+                    <Button
+                        android:id="@+id/btSend"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical|right"
+                        android:paddingRight="10dp"
+                        android:layout_alignParentRight="true"
+                        android:text="@string/send"
+                        android:textSize="18sp" >
+                    </Button>
+
+                </RelativeLayout>
             </LinearLayout>
         </RelativeLayout>
     </wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.ScrollChildSwipeRefreshLayout>

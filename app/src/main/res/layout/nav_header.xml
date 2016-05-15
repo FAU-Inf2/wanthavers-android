@@ -55,7 +55,8 @@
         android:scaleX="0.5"
         android:scaleY="0.5"
         android:progressBackgroundTint="#c3bebe"
-        android:progressTint="@color/colorRatingStars" />
+        android:progressTint="@color/colorRatingStars"
+        android:secondaryProgressTint="@color/colorRatingStars"/>
 
 </LinearLayout>
 </layout>

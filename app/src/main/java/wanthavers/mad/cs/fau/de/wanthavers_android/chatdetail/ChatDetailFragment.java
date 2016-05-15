@@ -5,10 +5,21 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import com.parse.LogInCallback;
+import com.parse.ParseAnonymousUtils;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +39,13 @@ public class ChatDetailFragment extends Fragment implements  ChatDetailContract.
     private ChatDetailContract.Presenter mPresenter;
     private ChatDetailAdapter mListAdapter;
     private ChatDetailViewModel mChatDetailViewModel;
+    private ChatdetailFragBinding mChatDetailFragBinding;
+
+    static final String TAG  = ChatDetailActivity.class.getSimpleName();
+    static final String USER_ID_KEY = "userId";
+    static final String BODY_KEY = "body";
+    EditText etMessage;         //TODO once parse server works use databinding
+    Button btSend;              //TODO once parse server works use databinding
 
     public ChatDetailFragment(){
         //Requires empty public constructor
@@ -54,23 +72,23 @@ public class ChatDetailFragment extends Fragment implements  ChatDetailContract.
                              Bundle savedInstanceState) {
 
 
-        ChatdetailFragBinding chatdetailFragBinding = ChatdetailFragBinding.inflate(inflater,container,false);
+         mChatDetailFragBinding = ChatdetailFragBinding.inflate(inflater,container,false);
 
-        chatdetailFragBinding.setChats(mChatDetailViewModel);
+        mChatDetailFragBinding.setChats(mChatDetailViewModel);
 
-        chatdetailFragBinding.setPresenter(mPresenter);
+        mChatDetailFragBinding.setPresenter(mPresenter);
 
 
 
         //Set up desire view
-        ListView listView = chatdetailFragBinding.desiresList;
+        ListView listView = mChatDetailFragBinding.messageList;
 
         mListAdapter = new ChatDetailAdapter(new ArrayList<Chat>(0),mPresenter, mChatDetailViewModel);
         listView.setAdapter(mListAdapter);
 
 
         // Set up progress indicator  TODO decide whether this is needed
-        final ScrollChildSwipeRefreshLayout swipeRefreshLayout = chatdetailFragBinding.refreshLayout;
+        final ScrollChildSwipeRefreshLayout swipeRefreshLayout = mChatDetailFragBinding.refreshLayout;
         swipeRefreshLayout.setColorSchemeColors(
                 ContextCompat.getColor(getActivity(), R.color.colorPrimary),
                 ContextCompat.getColor(getActivity(), R.color.colorAccent),
@@ -83,7 +101,14 @@ public class ChatDetailFragment extends Fragment implements  ChatDetailContract.
 
         setHasOptionsMenu(true);
 
-        View root = chatdetailFragBinding.getRoot();
+        if (ParseUser.getCurrentUser() != null) { // start with existing user
+            startWithCurrentUser();
+        } else { // If not logged in, login as a new anonymous user
+            login();
+        }
+
+
+        View root = mChatDetailFragBinding.getRoot();
         return root;
     }
 
@@ -102,4 +127,53 @@ public class ChatDetailFragment extends Fragment implements  ChatDetailContract.
 
     }
 
+
+    // Begin parse inclusion
+
+
+    // Create an anonymous user using ParseAnonymousUtils and set sUserId
+    void login() {
+        ParseAnonymousUtils.logIn(new LogInCallback() {
+            @Override
+            public void done(ParseUser user, ParseException e) {
+                if (e != null) {
+                    Log.e(TAG, "Anonymous login failed: ", e);
+                } else {
+                    startWithCurrentUser();
+                }
+            }
+        });
+    }
+
+    // Get the userId from the cached currentUser object
+    void startWithCurrentUser() {
+        setupMessagePosting();
+    }
+
+    // Setup button event handler which posts the entered message to Parse
+    void setupMessagePosting() {
+        // Find the text field and button
+
+        etMessage = (EditText) mChatDetailFragBinding.etMessage;
+        btSend = (Button) mChatDetailFragBinding.btSend;
+        // When send button is clicked, create message object on Parse
+        btSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String data = etMessage.getText().toString();
+                ParseObject message = ParseObject.create("Message");
+                message.put(USER_ID_KEY, ParseUser.getCurrentUser().getObjectId());
+                message.put(BODY_KEY, data);
+                message.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        Toast.makeText(getContext(), "Successfully created message on Parse",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
+                etMessage.setText(null);
+            }
+        });
+
+    }
 }

@@ -9,9 +9,24 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RatingBar;
+import android.widget.Toast;
+
+import com.parse.LogInCallback;
+import com.parse.Parse;
+import com.parse.ParseAnonymousUtils;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
+import com.parse.interceptors.ParseLogInterceptor;
+
 import static com.google.common.base.Preconditions.checkNotNull;
 import de.fau.cs.mad.wanthavers.common.User;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
@@ -39,8 +54,8 @@ public class ChatDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.chatdetail_act);
 
+        setContentView(R.layout.chatdetail_act);
 
         // Set up the toolbar.
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -59,7 +74,6 @@ public class ChatDetailActivity extends AppCompatActivity {
             ActivityUtils.addFragmentToActivity(
                     getSupportFragmentManager(), chatDetailFragment, R.id.contentFrame);
         }
-
 
         //create chatRepo
         Context context = getApplicationContext();
@@ -94,5 +108,7 @@ public class ChatDetailActivity extends AppCompatActivity {
         onBackPressed();
         return true;
     }
+
+
 
 }

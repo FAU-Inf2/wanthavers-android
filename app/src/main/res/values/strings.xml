@@ -22,6 +22,8 @@
     <string name="no_location_available">keine Location verfügbar</string>
     <string name="no_messages">Keine Nachrichten vorhanden</string>
     <string name="message">Nachricht</string>
+    <string name="message_hint">Nachricht eingeben</string>
+    <string name="send">Senden</string>
 
 
 </resources>

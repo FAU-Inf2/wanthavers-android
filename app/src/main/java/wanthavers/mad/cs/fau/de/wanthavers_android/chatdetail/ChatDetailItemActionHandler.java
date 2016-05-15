@@ -19,4 +19,8 @@ public class ChatDetailItemActionHandler {
      */
     public void chatClicked(Chat chat) {/*do nothing as as not applicable here */}
 
+
+    public void setupMessagePosting(){
+
+    }
 }
