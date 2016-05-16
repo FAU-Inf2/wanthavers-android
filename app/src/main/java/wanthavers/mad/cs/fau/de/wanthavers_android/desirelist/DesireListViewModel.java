@@ -51,16 +51,6 @@ public class DesireListViewModel extends BaseObservable {
 
     }
 
-    public int getBackgroundColor(int colorIndex){
-        Resources res = mContext.getResources();
-        TypedArray bgColors = res.obtainTypedArray(R.array.desireBackgroundColors);
-
-        int color = bgColors.getColor(colorIndex,0);
-        return  color;
-
-    }
-
-
     /* TODO check if we need any of the filters
     @Bindable
     public String getCurrentFilteringLabel() {

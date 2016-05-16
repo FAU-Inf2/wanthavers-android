@@ -22,6 +22,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.DesireRepository;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.local.DesireLocalDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.remote.DesireRemoteDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.NavHeaderBinding;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetDesireList;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.ActivityUtils;
 
@@ -90,6 +91,10 @@ public class DesireListActivity extends AppCompatActivity {
                 new DesireListViewModel(getApplicationContext(), mDesireListPresenter);
 
         desireListFragment.setViewModel(desireListViewModel);
+
+        DesireLogic desireLogic = new DesireLogic(getApplicationContext());
+
+        desireListFragment.setDesireLogic(desireLogic);
 
         // Load previously saved state, if available.
         if (savedInstanceState != null) {

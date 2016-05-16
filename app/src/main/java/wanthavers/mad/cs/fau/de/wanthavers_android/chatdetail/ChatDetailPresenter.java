@@ -6,6 +6,7 @@ import android.util.Log;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import java.util.List;
 
@@ -51,6 +52,9 @@ public class ChatDetailPresenter implements ChatDetailContract.Presenter {
         // Construct query to execute
         ParseQuery<Message> query = ParseQuery.getQuery(Message.class);
         // Configure limit and sort order
+
+        //TODO - configure query to only show the current message
+
         query.setLimit(MAX_CHAT_MESSAGES_TO_SHOW);
         query.orderByAscending("createdAt");
         // Execute query to fetch all messages from Parse asynchronously

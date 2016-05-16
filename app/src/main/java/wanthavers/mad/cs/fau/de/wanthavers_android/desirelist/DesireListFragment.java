@@ -28,6 +28,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.chatlist.ChatListActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.DesirelistFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate.DesireCreateActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desiredetail.DesireDetailActivity;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -37,6 +38,7 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
     private DesireListContract.Presenter mPresenter;
     private DesireListAdapter mListAdapter;
     private DesireListViewModel mDesireListViewModel;
+    private DesireLogic mDesireLogic;
 
     public DesireListFragment(){
         //Requires empty public constructor
@@ -69,10 +71,11 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
 
         desirelistFragBinding.setPresenter(mPresenter);
 
+
         //Set up desire view
         ListView listView = desirelistFragBinding.desiresList;
 
-        mListAdapter = new DesireListAdapter(new ArrayList<Desire>(0),mPresenter, mDesireListViewModel);
+        mListAdapter = new DesireListAdapter(new ArrayList<Desire>(0),mPresenter, mDesireListViewModel, mDesireLogic);
         listView.setAdapter(mListAdapter);
 
         // Set up floating action button
@@ -129,6 +132,7 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
 
     public void setViewModel(DesireListViewModel viewModel){mDesireListViewModel = viewModel;}
 
+    public void setDesireLogic(DesireLogic desireLogic){mDesireLogic = desireLogic;}
 
     @Override
     public void setLoadingIndicator(final boolean active) {

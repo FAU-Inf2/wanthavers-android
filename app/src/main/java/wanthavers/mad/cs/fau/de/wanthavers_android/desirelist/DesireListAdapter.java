@@ -12,6 +12,7 @@ import java.util.List;
 import de.fau.cs.mad.wanthavers.common.Desire;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.DesireItemBinding;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
 
 public class DesireListAdapter extends BaseAdapter{
 
@@ -19,11 +20,13 @@ public class DesireListAdapter extends BaseAdapter{
 
     private DesireListContract.Presenter mUserActionsListener;
     private DesireListViewModel mDesireListViewModel;
+    private DesireLogic mDesireLogic;
 
-    public DesireListAdapter(List<Desire> tasks, DesireListContract.Presenter itemListener, DesireListViewModel desireListViewModel) {
+    public DesireListAdapter(List<Desire> tasks, DesireListContract.Presenter itemListener, DesireListViewModel desireListViewModel, DesireLogic desireLogic) {
         setList(tasks);
         mUserActionsListener = itemListener;
         mDesireListViewModel = desireListViewModel;
+        mDesireLogic = desireLogic;
     }
 
     public void replaceData(List<Desire> desireList) {
@@ -75,6 +78,7 @@ public class DesireListAdapter extends BaseAdapter{
         binding.setActionHandler(itemActionHandler);
         binding.setDesire(desire);
         binding.setDesires(mDesireListViewModel);
+        binding.setDesireLogic(mDesireLogic);
         binding.executePendingBindings();
         return binding.getRoot();
     }
