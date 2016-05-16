@@ -38,7 +38,8 @@
             android:id="@+id/desiresContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="@color/colorSecondary">
 
             <LinearLayout
                 android:id="@+id/chatListLayout"
@@ -51,11 +52,12 @@
                     android:id="@+id/message_list"
                     android:transcriptMode="alwaysScroll"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:divider="#00000000"/>
 
             </LinearLayout>
 
-            <LinearLayout
+            <!--LinearLayout
                 android:id="@+id/noChats"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -70,7 +72,7 @@
                     android:text="@string/no_messages"
                     android:layout_marginBottom="@dimen/list_item_padding" />
 
-            </LinearLayout>
+            </LinearLayout-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -87,22 +89,31 @@
                     <EditText
                         android:id="@+id/etMessage"
                         android:layout_toLeftOf="@+id/btSend"
+                        android:layout_alignParentBottom="true"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignBottom="@+id/btSend"
                         android:gravity="top"
                         android:hint="@string/message_hint"
-                        android:imeOptions="actionSend"/>
-                    <Button
+                        android:background="@color/colorSecondary"
+                        android:imeOptions="actionSend"
+                        android:layout_weight="1"
+                        android:maxLines="15"
+                        android:inputType="textMultiLine|textCapSentences"/>
+
+                    <ImageButton
                         android:id="@+id/btSend"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical|right"
+                        android:background="#00ffffff"
                         android:paddingRight="10dp"
                         android:layout_alignParentRight="true"
-                        android:text="@string/send"
-                        android:textSize="18sp" >
-                    </Button>
+                        android:layout_alignParentBottom="true"
+                        android:src="@android:drawable/ic_menu_send"
+                        android:textSize="18sp"
+                        android:focusable="false"
+                        android:tint="@color/colorPrimary">
+                    </ImageButton>
 
                 </RelativeLayout>
             </LinearLayout>

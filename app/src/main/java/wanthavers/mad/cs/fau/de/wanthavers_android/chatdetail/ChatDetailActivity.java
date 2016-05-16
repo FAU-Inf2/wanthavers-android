@@ -43,7 +43,6 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetChatList;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetMessageList;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.ActivityUtils;
 
-
 public class ChatDetailActivity extends AppCompatActivity {
 
 

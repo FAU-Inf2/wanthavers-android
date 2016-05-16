@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -45,7 +46,7 @@ public class ChatDetailFragment extends Fragment implements  ChatDetailContract.
     static final String USER_ID_KEY = "userId";
     static final String BODY_KEY = "body";
     EditText etMessage;         //TODO once parse server works use databinding
-    Button btSend;              //TODO once parse server works use databinding
+    ImageButton btSend;              //TODO once parse server works use databinding
 
     public ChatDetailFragment(){
         //Requires empty public constructor
@@ -160,7 +161,7 @@ public class ChatDetailFragment extends Fragment implements  ChatDetailContract.
         // Find the text field and button
 
         etMessage = (EditText) mChatDetailFragBinding.etMessage;
-        btSend = (Button) mChatDetailFragBinding.btSend;
+        btSend = (ImageButton) mChatDetailFragBinding.btSend;
         // When send button is clicked, create message object on Parse
         btSend.setOnClickListener(new View.OnClickListener() {
             @Override

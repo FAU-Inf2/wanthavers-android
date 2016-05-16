@@ -1,18 +1,22 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.chatdetail;
 
 import android.databinding.DataBindingUtil;
+import android.support.annotation.DrawableRes;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.squareup.picasso.Picasso;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.util.List;
+
+import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.MessageItemBinding;
 
 public class ChatDetailAdapter extends BaseAdapter {
@@ -82,17 +86,30 @@ public class ChatDetailAdapter extends BaseAdapter {
         final boolean isMe = message.getUserId().equals(mUserId);
 
         if(isMe){
-            binding.ivProfileMe.setVisibility(View.VISIBLE);
-            binding.ivProfileOther.setVisibility(View.GONE);
-            binding.tvBody.setGravity(Gravity.CENTER_VERTICAL | Gravity.RIGHT);
+            //binding.ivProfileMe.setVisibility(View.VISIBLE);
+            //binding.ivProfileOther.setVisibility(View.GONE);
+
+            //binding.tvBody.setGravity(Gravity.CENTER_VERTICAL | Gravity.RIGHT);
+            binding.tvBody.setBackground(viewGroup.getResources().getDrawable(R.drawable.chat_border_me));
+            binding.tvBody.setTextColor(viewGroup.getResources().getColor(R.color.colorMainText));
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams)binding.tvBody.getLayoutParams();
+            params.setMargins(200, 0, 0, 0);
+            binding.tvBody.setLayoutParams(params);
+
         }else {
-            binding.ivProfileMe.setVisibility(View.GONE);
-            binding.ivProfileOther.setVisibility(View.VISIBLE);
-            binding.tvBody.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
+            //binding.ivProfileMe.setVisibility(View.GONE);
+            //binding.ivProfileOther.setVisibility(View.VISIBLE);
+            //binding.tvBody.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
+            binding.tvBody.setBackground(viewGroup.getResources().getDrawable(R.drawable.chat_border_other));
+            binding.tvBody.setTextColor(viewGroup.getResources().getColor(R.color.colorPrimary));
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams)binding.tvBody.getLayoutParams();
+            params.setMargins(0, 0, 200, 0);
+            binding.tvBody.setLayoutParams(params);
+
         }
 
-        final ImageView profileView = isMe ? binding.ivProfileMe :  binding.ivProfileOther;
-        Picasso.with(viewGroup.getContext()).load(getProfileUrl(message.getUserId())).into(profileView);
+       // final ImageView profileView = isMe ? binding.ivProfileMe :  binding.ivProfileOther;
+        //Picasso.with(viewGroup.getContext()).load(getProfileUrl(message.getUserId())).into(profileView);
         binding.tvBody.setText(message.getBody());
         return binding.getRoot();
     }
