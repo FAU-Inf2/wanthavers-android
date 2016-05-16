@@ -44,6 +44,7 @@ public class DesireListPresenter implements DesireListContract.Presenter {
     @Override
     public void createNewDesire() {
         //TODO add create new desire Logic here
+        mDesireListView.showNewDesire();
     }
 
     @Override

@@ -26,6 +26,15 @@
     <string name="send">Senden</string>
     <string name="profile_me">Mein Profilbild</string>
     <string name="profile_other">Profilbild Anderer</string>
+    <string name="button_create_desire_first_step">Weiter</string>
+    <string name="button_create_desire_second_step">Weiter zum letzten Schritt</string>
+    <string name="button_create_desire_third_step">Abschließen und Veröffentlichen</string>
+    <string name="button_uploadPictureForDesire">Bild hinzufügen (optional)</string>
+    <string name="create_desire_title_header">Titel</string>
+    <string name="create_desire_discription_header">Beschreibung</string>
+    <string name="create_desire_price_header">Sachwert</string>
+    <string name="create_desire_reward_header">Trinkgeld</string>
+    <string name="create_desire_description_hint">max. 120 Zeichen</string>
 
 
 </resources>

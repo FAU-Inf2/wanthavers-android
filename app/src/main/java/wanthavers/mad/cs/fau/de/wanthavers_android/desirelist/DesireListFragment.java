@@ -26,6 +26,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.chatdetail.ChatDetailActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.chatlist.ChatListActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.DesirelistFragBinding;
+import wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate.DesireCreateActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desiredetail.DesireDetailActivity;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -189,6 +190,12 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
         //TODO redirect straight to chat detail view to make implementing chat easier
         Intent intent = new Intent(getContext(), ChatDetailActivity.class);
         intent.putExtra(ChatDetailActivity.USER_ID, userid);
+        startActivity(intent);
+    }
+
+    @Override
+    public void showNewDesire() {
+        Intent intent = new Intent(getContext(), DesireCreateActivity.class);
         startActivity(intent);
     }
 }

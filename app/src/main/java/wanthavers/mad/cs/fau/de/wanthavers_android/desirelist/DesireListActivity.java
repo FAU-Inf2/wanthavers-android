@@ -133,6 +133,9 @@ public class DesireListActivity extends AppCompatActivity {
                                 startActivity(intent);
                                 */
                                 break;
+                            case R.id.createDesire_navigation_menu_item:
+                                mDesireListPresenter.createNewDesire();
+                                break;
                             default:
                                 break;
                         }

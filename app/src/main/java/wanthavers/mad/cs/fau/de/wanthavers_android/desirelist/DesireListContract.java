@@ -20,11 +20,13 @@ public interface DesireListContract {
 
         boolean isActive();  //TODO check if needed
 
-        public void showDesireDetailsUi(long desireId);
+        void showDesireDetailsUi(long desireId);
 
         void setLoadingIndicator(final boolean active);
 
         void showChatList(long userId);
+
+        void showNewDesire();
 
         //TODO void showNoTasks();
     }
