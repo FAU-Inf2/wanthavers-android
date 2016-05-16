@@ -31,7 +31,7 @@
     <string name="button_create_desire_third_step">Abschließen und Veröffentlichen</string>
     <string name="button_uploadPictureForDesire">Bild hinzufügen (optional)</string>
     <string name="create_desire_title_header">Titel</string>
-    <string name="create_desire_discription_header">Beschreibung</string>
+    <string name="create_desire_description_header">Beschreibung</string>
     <string name="create_desire_price_header">Sachwert</string>
     <string name="create_desire_reward_header">Trinkgeld</string>
     <string name="create_desire_description_hint">max. 120 Zeichen</string>

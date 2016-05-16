@@ -73,7 +73,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/create_desire_discription_header"
+            android:text="@string/create_desire_description_header"
             android:id="@+id/create_desire_description_header"
             android:layout_above="@+id/create_desire_description"
             android:layout_alignParentLeft="true"
