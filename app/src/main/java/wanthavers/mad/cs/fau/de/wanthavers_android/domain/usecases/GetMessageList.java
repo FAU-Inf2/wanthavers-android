@@ -6,8 +6,8 @@ import android.support.annotation.NonNull;
 import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.Desire;
-import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.DesireDataSource;
-import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.DesireRepository;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireDataSource;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireRepository;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 

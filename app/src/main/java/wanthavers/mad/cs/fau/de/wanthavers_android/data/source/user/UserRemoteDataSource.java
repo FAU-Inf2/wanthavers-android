@@ -1,4 +1,4 @@
-package wanthavers.mad.cs.fau.de.wanthavers_android.data.source.remote;
+package wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.User;
-import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.UserDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.rest.UserClient;
 
 /**

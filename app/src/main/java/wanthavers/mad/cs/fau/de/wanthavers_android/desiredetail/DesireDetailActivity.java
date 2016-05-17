@@ -8,9 +8,9 @@ import android.support.v7.widget.Toolbar;
 
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
-import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.DesireRepository;
-import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.local.DesireLocalDataSource;
-import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.remote.DesireRemoteDataSource;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireRepository;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireLocalDataSource;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireRemoteDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.AcceptDesire;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetDesire;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.ActivityUtils;

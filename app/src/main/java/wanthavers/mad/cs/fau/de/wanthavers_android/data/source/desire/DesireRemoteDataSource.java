@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package wanthavers.mad.cs.fau.de.wanthavers_android.data.source.remote;
+package wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -22,8 +22,6 @@ import android.support.annotation.NonNull;
 import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.Desire;
-import de.fau.cs.mad.wanthavers.common.User;
-import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.DesireDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.rest.DesireClient;
 import wanthavers.mad.cs.fau.de.wanthavers_android.rest.UserClient;
 

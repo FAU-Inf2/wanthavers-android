@@ -1,4 +1,4 @@
-package wanthavers.mad.cs.fau.de.wanthavers_android.data.source.remote;
+package wanthavers.mad.cs.fau.de.wanthavers_android.data.source.chat;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -7,7 +7,6 @@ import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.Chat;
 import de.fau.cs.mad.wanthavers.common.Message;
-import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.ChatDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.rest.ChatClient;
 
 /**

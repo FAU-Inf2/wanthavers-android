@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package wanthavers.mad.cs.fau.de.wanthavers_android.data.source.local;
+package wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -23,8 +23,6 @@ import android.support.annotation.NonNull;
 import java.util.Date;
 
 import de.fau.cs.mad.wanthavers.common.User;
-import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.UserDataSource;
-import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.local.UserPersistenceContract.UserEntry;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -41,10 +39,10 @@ public class UserLocalDataSource implements UserDataSource {
     private UserDbHelper dbHelper;
 
     private final String[] PROJECTION_ALL_FIELDS = {
-            UserEntry.COLUMN_NAME_USER_ID,
-            UserEntry.COLUMN_NAME_NAME,
-            UserEntry.COLUMN_NAME_EMAIL,
-            UserEntry.COLUMN_NAME_BIRTHDAY
+            UserPersistenceContract.UserEntry.COLUMN_NAME_USER_ID,
+            UserPersistenceContract.UserEntry.COLUMN_NAME_NAME,
+            UserPersistenceContract.UserEntry.COLUMN_NAME_EMAIL,
+            UserPersistenceContract.UserEntry.COLUMN_NAME_BIRTHDAY
     };
 
     // Prevent direct instantiation.
@@ -173,10 +171,10 @@ public class UserLocalDataSource implements UserDataSource {
     private User getUserFromCursor(Cursor c){
         User ret = null;
 
-        long userId = c.getLong(c.getColumnIndexOrThrow(UserEntry.COLUMN_NAME_USER_ID));
-        String name = c.getString(c.getColumnIndexOrThrow(UserEntry.COLUMN_NAME_NAME));
-        String email = c.getString(c.getColumnIndexOrThrow(UserEntry.COLUMN_NAME_EMAIL));
-        long birthday = c.getLong(c.getColumnIndexOrThrow(UserEntry.COLUMN_NAME_BIRTHDAY));
+        long userId = c.getLong(c.getColumnIndexOrThrow(UserPersistenceContract.UserEntry.COLUMN_NAME_USER_ID));
+        String name = c.getString(c.getColumnIndexOrThrow(UserPersistenceContract.UserEntry.COLUMN_NAME_NAME));
+        String email = c.getString(c.getColumnIndexOrThrow(UserPersistenceContract.UserEntry.COLUMN_NAME_EMAIL));
+        long birthday = c.getLong(c.getColumnIndexOrThrow(UserPersistenceContract.UserEntry.COLUMN_NAME_BIRTHDAY));
 
         ret = new User(name, email);
         ret.setId(userId);

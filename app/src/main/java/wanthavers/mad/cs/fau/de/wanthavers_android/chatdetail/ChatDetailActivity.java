@@ -1,45 +1,19 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.chatdetail;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.RatingBar;
-import android.widget.Toast;
-
-import com.parse.LogInCallback;
-import com.parse.Parse;
-import com.parse.ParseAnonymousUtils;
-import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseUser;
-import com.parse.SaveCallback;
-import com.parse.interceptors.ParseLogInterceptor;
 
 import static com.google.common.base.Preconditions.checkNotNull;
-import de.fau.cs.mad.wanthavers.common.User;
+
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
-import wanthavers.mad.cs.fau.de.wanthavers_android.chatdetail.ChatDetailFragment;
-import wanthavers.mad.cs.fau.de.wanthavers_android.chatdetail.ChatDetailPresenter;
-import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.DesireRepository;
-import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.local.DesireLocalDataSource;
-import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.remote.DesireRemoteDataSource;
-import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.NavHeaderBinding;
-import wanthavers.mad.cs.fau.de.wanthavers_android.desiredetail.DesireDetailActivity;
-import wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.DesireListActivity;
-import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetChatList;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireRepository;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireLocalDataSource;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireRemoteDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetMessageList;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.ActivityUtils;
 
