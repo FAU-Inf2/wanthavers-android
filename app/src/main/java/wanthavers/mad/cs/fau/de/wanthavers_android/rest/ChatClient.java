@@ -23,6 +23,13 @@ public class ChatClient extends RestClient {
         chatEndpoint = WebResourceFactory.newResource(ChatResource.class, target);
     }
 
+    public static ChatClient getInstance(Context context) {
+        if(INSTANCE == null) {
+            INSTANCE = new ChatClient(context);
+        }
+        return INSTANCE;
+    }
+
     public List<Chat> getAllChatsForLoggedInUser() {
         return chatEndpoint.get(null);
     }
