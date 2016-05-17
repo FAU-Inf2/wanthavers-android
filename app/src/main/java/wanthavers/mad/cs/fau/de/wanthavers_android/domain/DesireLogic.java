@@ -3,6 +3,11 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.domain;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.text.format.DateFormat;
+
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 
@@ -20,5 +25,10 @@ public class DesireLogic {
 
         int color = bgColors.getColor(colorIndex,0);
         return  color;
+    }
+
+    public String getDateString(Date date) {
+        SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+        return mSimpleDateFormat.format(date);
     }
 }

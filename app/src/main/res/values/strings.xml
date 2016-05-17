@@ -35,6 +35,9 @@
     <string name="create_desire_price_header">Sachwert</string>
     <string name="create_desire_reward_header">Trinkgeld</string>
     <string name="create_desire_description_hint">max. 120 Zeichen</string>
+    <string name="desire_detail_wanter">Wanter:</string>
+    <string name="button_desire_accept">Auftrag annehmen</string>
+    <string name="button_desire_message">Nachricht senden</string>
 
 
 </resources>

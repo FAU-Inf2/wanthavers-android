@@ -11,6 +11,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.DesireRepository;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.local.DesireLocalDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.remote.DesireRemoteDataSource;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.AcceptDesire;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetDesire;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.ActivityUtils;
@@ -28,7 +29,7 @@ public class DesireDetailActivity extends AppCompatActivity {
         setContentView(R.layout.desiredetail_act);
 
 
-
+        //set up the toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();
@@ -63,6 +64,12 @@ public class DesireDetailActivity extends AppCompatActivity {
                 desireId,
                 desireDetailFragment,
                 new AcceptDesire(fake), new GetDesire(fake));
+
+        //TODO: VIEWMODEL for havers list
+
+        DesireLogic desireLogic = new DesireLogic(getApplicationContext());
+
+        desireDetailFragment.setDesireLogic(desireLogic);
 
     }
 
