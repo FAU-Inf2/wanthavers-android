@@ -20,7 +20,6 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import de.fau.cs.mad.wanthavers.common.Desire;
-import de.fau.cs.mad.wanthavers.common.User;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.DesireDataSource;
 
 import static com.google.common.base.Preconditions.checkNotNull;

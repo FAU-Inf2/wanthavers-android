@@ -1,6 +1,7 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.rest;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 
@@ -11,6 +12,8 @@ import javax.ws.rs.client.WebTarget;
 
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.SharedPreferencesHelper;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 public abstract class RestClient {
     protected final WebTarget target;
 
@@ -19,7 +22,8 @@ public abstract class RestClient {
     //TODO: get API-URL from shared preferences or something like that
     protected final String api_url = "http://faui21f.informatik.uni-erlangen.de:9090/";
 
-    protected RestClient(Context context) {
+    protected RestClient(@NonNull Context context) {
+        checkNotNull(context);
         this.context = context;
 
         SharedPreferencesHelper sharedPreferences = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, context);

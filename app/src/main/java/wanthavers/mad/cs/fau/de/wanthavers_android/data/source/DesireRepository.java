@@ -20,11 +20,8 @@ import android.support.annotation.NonNull;
 
 import java.util.List;
 
-//import wanthavers.mad.cs.fau.de.wanthavers_android.data.Desire;
 import de.fau.cs.mad.wanthavers.common.Desire;
-import de.fau.cs.mad.wanthavers.common.User;
 
-import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
