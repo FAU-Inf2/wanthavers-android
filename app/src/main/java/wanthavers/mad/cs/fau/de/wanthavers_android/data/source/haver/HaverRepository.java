@@ -1,11 +1,10 @@
-package wanthavers.mad.cs.fau.de.wanthavers_android.data.source;
+package wanthavers.mad.cs.fau.de.wanthavers_android.data.source.haver;
 
 import android.support.annotation.NonNull;
 
 import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.Haver;
-import de.fau.cs.mad.wanthavers.common.User;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 

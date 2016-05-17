@@ -14,28 +14,25 @@
  * limitations under the License.
  */
 
-package wanthavers.mad.cs.fau.de.wanthavers_android.data.source.local;
+package wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire;
 
 import android.provider.BaseColumns;
 
 /**
  * The contract used for the db to save the tasks locally.
  */
-/**
- * Created by Nico on 10.05.2016.
- */
-public final class UserPersistenceContract {
+public final class DesirePersistenceContract {
 
     // To prevent someone from accidentally instantiating the contract class,
     // give it an empty constructor.
-    public UserPersistenceContract() {}
+    public DesirePersistenceContract() {}
 
     /* Inner class that defines the table contents */
-    public static abstract class UserEntry implements BaseColumns {
-        public static final String TABLE_NAME = "User";
-        public static final String COLUMN_NAME_USER_ID = "userid";
-        public static final String COLUMN_NAME_NAME = "name";
-        public static final String COLUMN_NAME_EMAIL = "email";
-        public static final String COLUMN_NAME_BIRTHDAY = "birthday";
+    public static abstract class TaskEntry implements BaseColumns {
+        public static final String TABLE_NAME = "task";
+        public static final String COLUMN_NAME_ENTRY_ID = "entryid";
+        public static final String COLUMN_NAME_TITLE = "title";
+        public static final String COLUMN_NAME_DESCRIPTION = "description";
+        public static final String COLUMN_NAME_COMPLETED = "completed";
     }
 }

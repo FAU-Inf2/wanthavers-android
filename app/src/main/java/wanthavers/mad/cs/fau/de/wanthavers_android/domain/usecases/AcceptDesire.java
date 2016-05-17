@@ -3,7 +3,7 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases;
 import android.support.annotation.NonNull;
 
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCase;
-import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.DesireRepository;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireRepository;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 

@@ -1,10 +1,9 @@
-package wanthavers.mad.cs.fau.de.wanthavers_android.data.source.local;
+package wanthavers.mad.cs.fau.de.wanthavers_android.data.source.rating;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
 
 import de.fau.cs.mad.wanthavers.common.Rating;
-import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.RatingDataSource;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 

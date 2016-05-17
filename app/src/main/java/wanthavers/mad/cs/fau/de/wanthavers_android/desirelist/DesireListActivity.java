@@ -1,8 +1,6 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.desirelist;
 
 import android.content.Context;
-import android.content.Intent;
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,15 +10,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.RatingBar;
 
 import de.fau.cs.mad.wanthavers.common.User;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
-import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.DesireRepository;
-import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.local.DesireLocalDataSource;
-import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.remote.DesireRemoteDataSource;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireRepository;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireLocalDataSource;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireRemoteDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.NavHeaderBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetDesireList;

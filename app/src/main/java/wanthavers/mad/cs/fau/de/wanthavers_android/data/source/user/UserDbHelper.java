@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package wanthavers.mad.cs.fau.de.wanthavers_android.data.source.local;
+package wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

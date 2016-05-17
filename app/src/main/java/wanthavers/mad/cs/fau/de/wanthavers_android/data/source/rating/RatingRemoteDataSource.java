@@ -1,4 +1,4 @@
-package wanthavers.mad.cs.fau.de.wanthavers_android.data.source.remote;
+package wanthavers.mad.cs.fau.de.wanthavers_android.data.source.rating;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.Rating;
-import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.RatingDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.rest.RatingClient;
 
 /**

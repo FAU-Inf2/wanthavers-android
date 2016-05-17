@@ -1,4 +1,4 @@
-package wanthavers.mad.cs.fau.de.wanthavers_android.data.source;
+package wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user;
 
 import android.support.annotation.NonNull;
 
