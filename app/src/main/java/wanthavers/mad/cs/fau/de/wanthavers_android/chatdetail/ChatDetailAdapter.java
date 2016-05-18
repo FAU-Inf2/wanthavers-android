@@ -1,20 +1,14 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.chatdetail;
 
 import android.databinding.DataBindingUtil;
-import android.support.annotation.DrawableRes;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-
-import com.squareup.picasso.Picasso;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
-import java.util.ArrayList;
 import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.Message;

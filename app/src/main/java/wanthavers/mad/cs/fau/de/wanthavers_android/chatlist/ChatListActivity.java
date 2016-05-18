@@ -104,6 +104,12 @@ public class ChatListActivity extends AppCompatActivity {
             mTasksPresenter.setFiltering(currentFiltering);
             */
         }
+
+
+        ChatListViewModel chatListViewModel =
+                new ChatListViewModel(getApplicationContext(), mChatListPresenter);
+
+        chatListFragment.setViewModel(chatListViewModel);
     }
 
 

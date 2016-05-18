@@ -93,7 +93,7 @@ public class ChatListPresenter implements ChatListContract.Presenter {
     public void openChatDetails(@NonNull Chat chat) {
         checkNotNull(chat, "Message cannot be null!");
         //TODO implement opening chat details
-        // mChatListView.showChatDetailsUi(chat.);
+        mChatListView.showChatDetailsUi(chat);
     }
 
 }

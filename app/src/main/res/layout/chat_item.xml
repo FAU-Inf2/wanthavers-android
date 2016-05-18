@@ -22,8 +22,16 @@
             type="wanthavers.mad.cs.fau.de.wanthavers_android.chatlist.ChatListViewModel" />
 
         <variable
+            name="user"
+            type="de.fau.cs.mad.wanthavers.common.User" />
+
+        <variable
             name="actionHandler"
             type="wanthavers.mad.cs.fau.de.wanthavers_android.chatlist.ChatListItemActionHandler" />
+
+        <variable
+            name="chat"
+            type="de.fau.cs.mad.wanthavers.common.Chat" />
     </data>
 
     <LinearLayout
@@ -34,7 +42,8 @@
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingBottom="@dimen/list_item_padding"
         android:paddingTop="@dimen/list_item_padding"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:onClick="@{() -> actionHandler.chatClicked(chat)}">
 
         <ImageView
             android:id="@+id/ivProfileOther"
@@ -44,20 +53,15 @@
             android:src="@mipmap/ic_launcher" />
         <TextView
             android:textSize="18sp"
-            android:id="@+id/tvBody"
+            android:id="@+id/userName"
             android:padding="20dp"
             android:lines="3"
+            android:text="@{String.valueOf(chat.user1)}"
             android:layout_marginEnd="64dp"
             android:layout_width="match_parent"
+
             android:layout_height="64dp">
         </TextView>
-        <ImageView
-            android:id="@+id/ivProfileMe"
-            android:contentDescription="@string/profile_me"
-            android:layout_marginStart="-64dp"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:src="@mipmap/ic_launcher" />
 
     </LinearLayout>
 </layout>

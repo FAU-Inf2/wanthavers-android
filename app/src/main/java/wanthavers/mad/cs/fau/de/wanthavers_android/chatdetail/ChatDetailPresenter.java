@@ -23,13 +23,15 @@ public class ChatDetailPresenter implements ChatDetailContract.Presenter {
     private final GetMessageList mGetMessageList;
     private boolean mFirstLoad = true;
     private final UseCaseHandler mUseCaseHandler;
+    private String mChatId;
 
-    public ChatDetailPresenter(@NonNull UseCaseHandler useCaseHandler, @NonNull ChatDetailContract.View chatListView,
+    public ChatDetailPresenter(@NonNull UseCaseHandler useCaseHandler,@NonNull String chatId, @NonNull ChatDetailContract.View chatListView,
                              @NonNull GetMessageList getMessageList){
 
         mUseCaseHandler = checkNotNull(useCaseHandler, "usecaseHandle cannot be null");
         mMessageListView = checkNotNull(chatListView, "desirelist view cannot be null!");
         mGetMessageList = checkNotNull(getMessageList);
+        mChatId = chatId;
 
         mMessageListView.setPresenter(this);
     }
@@ -51,7 +53,7 @@ public class ChatDetailPresenter implements ChatDetailContract.Presenter {
         }
 
 
-        GetMessageList.RequestValues requestValue = new GetMessageList.RequestValues("1");    //TODO pass on chat id
+        GetMessageList.RequestValues requestValue = new GetMessageList.RequestValues(mChatId);    //TODO pass on chat id
 
         mUseCaseHandler.execute(mGetMessageList, requestValue,
                 new UseCase.UseCaseCallback<GetMessageList.ResponseValue>() {

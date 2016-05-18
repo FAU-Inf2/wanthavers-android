@@ -64,8 +64,6 @@ public class ChatListAdapter extends BaseAdapter {
 
         } else {
             binding = DataBindingUtil.getBinding(view);
-            RatingBar itemRateBar = (RatingBar) view.findViewById(R.id.ItemRatingBar);
-            itemRateBar.setRating(4.0f);  //TODO get rating from Server and insert here
         }
 
         // We might be recycling the binding for another task, so update it.
@@ -74,6 +72,7 @@ public class ChatListAdapter extends BaseAdapter {
         binding.setActionHandler(itemActionHandler);
 
         binding.setChats(mChatListViewModel);
+        binding.setChat(chat);
 
         binding.executePendingBindings();
         return binding.getRoot();

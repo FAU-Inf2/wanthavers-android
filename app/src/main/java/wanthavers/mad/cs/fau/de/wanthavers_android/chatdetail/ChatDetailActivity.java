@@ -33,13 +33,19 @@ public class ChatDetailActivity extends AppCompatActivity {
 
         setContentView(R.layout.chatdetail_act);
 
+
+
+
         // Set up the toolbar.
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();
         ab.setTitle(R.string.message);
+
         ab.setDisplayHomeAsUpEnabled(true);
         ab.setDisplayShowHomeEnabled(true);
+
+        String chatId = getIntent().getStringExtra(EXTRA_CHAT_ID);
 
         ChatDetailFragment chatDetailFragment = (ChatDetailFragment)
                 getSupportFragmentManager().findFragmentById(R.id.contentFrame);
@@ -48,7 +54,7 @@ public class ChatDetailActivity extends AppCompatActivity {
 
         if (chatDetailFragment == null) {
             // Create the fragment
-            chatDetailFragment = ChatDetailFragment.newInstance();
+            chatDetailFragment = ChatDetailFragment.newInstance(chatId);
             ActivityUtils.addFragmentToActivity(
                     getSupportFragmentManager(), chatDetailFragment, R.id.contentFrame);
         }
@@ -60,7 +66,7 @@ public class ChatDetailActivity extends AppCompatActivity {
         ChatRepository chatRepo = ChatRepository.getInstance(ChatRemoteDataSource.getInstance(getApplicationContext()), ChatLocalDataSource.getInstance(context));
 
         // Create the presenter
-        mChatDetailPresenter = new ChatDetailPresenter(UseCaseHandler.getInstance(),chatDetailFragment,new GetMessageList(chatRepo));
+        mChatDetailPresenter = new ChatDetailPresenter(UseCaseHandler.getInstance(),chatId, chatDetailFragment,new GetMessageList(chatRepo));
 
 
         /* TODO decide whether viewModel needed
@@ -78,6 +84,11 @@ public class ChatDetailActivity extends AppCompatActivity {
             mTasksPresenter.setFiltering(currentFiltering);
             */
         }
+
+        ChatDetailViewModel chatListViewModel =
+                new ChatDetailViewModel(getApplicationContext(), mChatDetailPresenter);
+
+        chatDetailFragment.setViewModel(chatListViewModel);
     }
 
 

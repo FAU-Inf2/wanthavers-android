@@ -17,6 +17,8 @@
 
     <data>
         <import type="android.view.View"/>
+
+
         <variable
             name="chats"
             type="wanthavers.mad.cs.fau.de.wanthavers_android.chatdetail.ChatDetailViewModel" />

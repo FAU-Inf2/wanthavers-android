@@ -114,6 +114,9 @@ public class ChatListFragment extends Fragment implements  ChatListContract.View
         Snackbar.make(getView(), message, Snackbar.LENGTH_LONG).show();
     }
 
+
+    public void setViewModel(ChatListViewModel viewModel){mChatListViewModel = viewModel;}
+
     public void showChats(List<Chat> chatList){
         mListAdapter.replaceData(chatList);
         mChatListViewModel.setChatListSize(chatList.size());

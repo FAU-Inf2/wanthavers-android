@@ -34,6 +34,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.ChatdetailFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.ChatlistFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.ScrollChildSwipeRefreshLayout;
+import wanthavers.mad.cs.fau.de.wanthavers_android.util.SharedPreferencesHelper;
 
 public class ChatDetailFragment extends Fragment implements  ChatDetailContract.View {
 
@@ -42,6 +43,7 @@ public class ChatDetailFragment extends Fragment implements  ChatDetailContract.
     private ChatDetailAdapter mListAdapter;
     private ChatDetailViewModel mChatDetailViewModel;
     private ChatdetailFragBinding mChatDetailFragBinding;
+    private static final String CHAT_ID = "CHAT_ID";
 
     EditText etMessage;         //TODO once parse server works use databinding
     ImageButton btSend;              //TODO once parse server works use databinding
@@ -80,7 +82,11 @@ public class ChatDetailFragment extends Fragment implements  ChatDetailContract.
 
         //Set up chat view
         ListView listView = mChatDetailFragBinding.messageList;
-        final long chatUserId = 2;   //TODO insert proper user
+
+        SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, getContext().getApplicationContext());
+
+        final long chatUserId = Long.valueOf(sharedPreferencesHelper.loadString(SharedPreferencesHelper.KEY_USERNAME, "1"));
+
 
         mListAdapter = new ChatDetailAdapter(new ArrayList<Message>(0),chatUserId ,mPresenter, mChatDetailViewModel);
         listView.setAdapter(mListAdapter);
@@ -104,6 +110,17 @@ public class ChatDetailFragment extends Fragment implements  ChatDetailContract.
         View root = mChatDetailFragBinding.getRoot();
         return root;
     }
+
+
+    public static ChatDetailFragment newInstance(String chatId){
+        Bundle arguments = new Bundle();
+        arguments.putString(CHAT_ID, chatId);
+        ChatDetailFragment fragment = new ChatDetailFragment();
+        fragment.setArguments(arguments);
+        return fragment;
+    }
+
+
 
     @Override
     public void showMessages(List<Message> messageList) {
@@ -129,6 +146,7 @@ public class ChatDetailFragment extends Fragment implements  ChatDetailContract.
     }
 
 
+    public void setViewModel(ChatDetailViewModel viewModel){mChatDetailViewModel = viewModel;}
 
     private void showMessage(String message) {
         Snackbar.make(getView(), message, Snackbar.LENGTH_LONG).show();
