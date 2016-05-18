@@ -49,7 +49,7 @@
             android:gravity="center"
             android:layout_above="@+id/wanter_bar" />
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/wanter_bar"
             android:layout_width="match_parent"
             android:layout_height="45dp"
@@ -57,7 +57,8 @@
             android:layout_below="@+id/desire_detail_itemImage"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="20dp"
+            android:weightSum="1">
 
             <TextView
                 android:id="@+id/wanter_title"
@@ -67,14 +68,15 @@
                 android:text="@string/desire_detail_wanter"
                 android:gravity="center"
                 android:textColor="@color/colorPrimaryDark"
-                android:layout_weight="0.1"/>
+                android:layout_marginRight="10dp"/>
 
             <ImageView
                 android:id="@+id/image_wanter"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:src="@android:drawable/sym_def_app_icon"
-                android:layout_weight="0.2"/>
+                android:layout_toRightOf="@id/wanter_title"
+                android:layout_marginRight="10dp"/>
 
             <TextView
                 android:id="@+id/wanter_name"
@@ -84,24 +86,30 @@
                 android:text="@{desire.creator.name}"
                 android:gravity="center"
                 android:textColor="@color/colorPrimaryDark"
-                android:layout_weight="0.3"/>
+                android:layout_toRightOf="@id/image_wanter"
+                android:layout_marginRight="10dp"/>
 
             <RatingBar
-                android:id="@+id/haver_ratingbar"
-                style="?android:attr/ratingBarStyleSmall"
-                android:layout_weight="0.4"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
+                android:id="@+id/nav_header_temRatingBar"
+                style="?android:ratingBarStyle"
+                android:layout_width="250dp"
+                android:layout_height="50dp"
                 android:isIndicator="true"
                 android:max="5"
                 android:numStars="5"
                 android:stepSize="0.1"
+                android:scaleX="0.5"
+                android:scaleY="0.5"
                 android:progressBackgroundTint="#c3bebe"
                 android:progressTint="@color/colorRatingStars"
-                android:secondaryProgressTint="@color/colorRatingStars" />
+                android:secondaryProgressTint="@color/colorRatingStars"
+                android:mirrorForRtl="false"
+                android:keepScreenOn="false"
+                android:isScrollContainer="false"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="-50dp" />
 
-        </LinearLayout>
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/desire_detail_description_header"
