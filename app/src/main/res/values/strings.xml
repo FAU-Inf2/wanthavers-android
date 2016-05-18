@@ -39,6 +39,11 @@
     <string name="createDesire_title_2nd_Step">Neuer Wunsch: Schritt 2</string>
     <string name="createDesire_title_3rd_Step">Neuer Wunsch: Lieferort</string>
     <string name="createDesire_Empty_Text">Felder müssen befüllt werden!</string>
+    <string name="desire_detail_wanter">Wanter:</string>
+    <string name="button_desire_accept">Auftrag annehmen</string>
+    <string name="button_desire_message">Nachricht senden</string>
+    <string name="no_chats">keine Nachrichten vorhanden</string>
+    <string name="loading_chats_error">Fehler beim Laden der Chats</string>
 
 
 </resources>

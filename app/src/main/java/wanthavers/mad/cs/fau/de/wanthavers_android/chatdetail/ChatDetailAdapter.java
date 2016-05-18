@@ -14,20 +14,22 @@ import com.squareup.picasso.Picasso;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
+import java.util.ArrayList;
 import java.util.List;
 
+import de.fau.cs.mad.wanthavers.common.Message;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.MessageItemBinding;
 
 public class ChatDetailAdapter extends BaseAdapter {
 
-    private String mUserId;
+    private long mUserId;
     private List<Message> mMessageList;
 
     private ChatDetailContract.Presenter mUserActionsListener;
     private ChatDetailViewModel mChatDetailViewModel;
 
-    public ChatDetailAdapter(List<Message> messages, String userId, ChatDetailContract.Presenter itemListener, ChatDetailViewModel chatDetailViewModel) {
+    public ChatDetailAdapter(List<Message> messages, long userId, ChatDetailContract.Presenter itemListener, ChatDetailViewModel chatDetailViewModel) {
         setList(messages);
         mUserId = userId;
         mUserActionsListener = itemListener;
@@ -83,7 +85,7 @@ public class ChatDetailAdapter extends BaseAdapter {
         binding.executePendingBindings();
 
         //setup rest of ParserChat
-        final boolean isMe = message.getUserId().equals(mUserId);
+        final boolean isMe = (message.getFrom() == mUserId) ? true : false;  //TODO change to something useful
 
         if(isMe){
             //binding.ivProfileMe.setVisibility(View.VISIBLE);
@@ -111,6 +113,10 @@ public class ChatDetailAdapter extends BaseAdapter {
        // final ImageView profileView = isMe ? binding.ivProfileMe :  binding.ivProfileOther;
         //Picasso.with(viewGroup.getContext()).load(getProfileUrl(message.getUserId())).into(profileView);
         binding.tvBody.setText(message.getBody());
+
+        //TODO set rest of bindings if needed
+
+
         return binding.getRoot();
     }
 

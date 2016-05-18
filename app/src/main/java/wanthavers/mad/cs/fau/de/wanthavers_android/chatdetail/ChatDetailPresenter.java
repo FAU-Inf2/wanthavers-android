@@ -10,6 +10,8 @@ import com.parse.ParseUser;
 
 import java.util.List;
 
+import de.fau.cs.mad.wanthavers.common.Message;
+import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCase;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetMessageList;
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -21,7 +23,6 @@ public class ChatDetailPresenter implements ChatDetailContract.Presenter {
     private final GetMessageList mGetMessageList;
     private boolean mFirstLoad = true;
     private final UseCaseHandler mUseCaseHandler;
-    static final int MAX_CHAT_MESSAGES_TO_SHOW = 50;
 
     public ChatDetailPresenter(@NonNull UseCaseHandler useCaseHandler, @NonNull ChatDetailContract.View chatListView,
                              @NonNull GetMessageList getMessageList){
@@ -49,40 +50,14 @@ public class ChatDetailPresenter implements ChatDetailContract.Presenter {
             mMessageListView.setLoadingIndicator(true);
         }
 
-        // Construct query to execute
-        ParseQuery<Message> query = ParseQuery.getQuery(Message.class);
-        // Configure limit and sort order
 
-        //TODO - configure query to only show the current message
+        GetMessageList.RequestValues requestValue = new GetMessageList.RequestValues("1");    //TODO pass on chat id
 
-        query.setLimit(MAX_CHAT_MESSAGES_TO_SHOW);
-        query.orderByAscending("createdAt");
-        // Execute query to fetch all messages from Parse asynchronously
-        // This is equivalent to a SELECT query with SQL
-        query.findInBackground(new FindCallback<Message>() {
-            public void done(List<Message> messageList, ParseException e) {
-                if (e == null) {
-                    processMessages(messageList);
-                } else {
-                    if (!mMessageListView.isActive()) {
-                        return;
-                    }
-                    mMessageListView.showLoadingChatsError();
-                }
-            }
-
-        });
-
-
-
-        /*
-        GetDesireList.RequestValues requestValue = new GetDesireList.RequestValues();
-
-        mUseCaseHandler.execute(mGetDesireList, requestValue,
-                new UseCase.UseCaseCallback<GetDesireList.ResponseValue>() {
+        mUseCaseHandler.execute(mGetMessageList, requestValue,
+                new UseCase.UseCaseCallback<GetMessageList.ResponseValue>() {
                     @Override
-                    public void onSuccess(GetDesireList.ResponseValue response) {
-                        List<Desire> desires = response.getDesires();
+                    public void onSuccess(GetMessageList.ResponseValue response) {
+                        List<Message> messageList = response.getMessages();
                         // The view may not be able to handle UI updates anymore
                         if (!mMessageListView.isActive()) {
                             return;
@@ -91,7 +66,7 @@ public class ChatDetailPresenter implements ChatDetailContract.Presenter {
                             mMessageListView.setLoadingIndicator(false);
                         }
 
-                        processDesires(desires);
+                        processMessages(messageList);
                     }
 
                     @Override
@@ -100,10 +75,10 @@ public class ChatDetailPresenter implements ChatDetailContract.Presenter {
                         if (!mMessageListView.isActive()) {
                             return;
                         }
-                        mMessageListView.showLoadingDesiresError();
+                        mMessageListView.showLoadingMessagesError();
                     }
                 });
-                */
+
     }
 
     private void processMessages(List<Message> messageList) {

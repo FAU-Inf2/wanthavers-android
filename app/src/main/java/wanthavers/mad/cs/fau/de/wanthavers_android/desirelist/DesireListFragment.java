@@ -25,6 +25,7 @@ import de.fau.cs.mad.wanthavers.common.User;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.chatdetail.ChatDetailActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.chatlist.ChatListActivity;
+
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.DesirelistFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate.DesireCreateActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desiredetail.DesireDetailActivity;
@@ -185,16 +186,19 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
     public void showChatList(long userid){
 
         //TODO change back to going to chat overview
-        /*
+
         Intent intent = new Intent(getContext(), ChatListActivity.class);
         intent.putExtra(ChatListActivity.USER_ID, userid);
         startActivity(intent);
+
+
+        /*
+        //TODO cut and paste into ChatListFragment
+        Intent intent = new Intent(getContext(), ChatDetailActivity.class);
+        intent.putExtra(ChatDetailActivity.EXTRA_CHAT_ID, userid);
+        startActivity(intent);
         */
 
-        //TODO redirect straight to chat detail view to make implementing chat easier
-        Intent intent = new Intent(getContext(), ChatDetailActivity.class);
-        intent.putExtra(ChatDetailActivity.USER_ID, userid);
-        startActivity(intent);
     }
 
     @Override

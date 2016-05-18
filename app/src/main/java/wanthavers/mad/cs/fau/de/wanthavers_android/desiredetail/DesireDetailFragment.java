@@ -3,6 +3,7 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.desiredetail;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -14,6 +15,9 @@ import android.view.ViewGroup;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import de.fau.cs.mad.wanthavers.common.Desire;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.DesiredetailFragBinding;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 
 /**
@@ -32,6 +36,9 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
     private DesiredetailFragBinding mViewDataBinding;
     private DesireDetailContract.Presenter mPresenter;
 
+    //maybe unnecessary
+    private DesireLogic mDesireLogic;
+
 
     public static DesireDetailFragment newInstance(long desireId){
         Bundle arguments = new Bundle();
@@ -42,7 +49,9 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
     }
 
     @Override
-    public void setPresenter(DesireDetailContract.Presenter presenter){mPresenter = presenter;}
+    public void setPresenter(@NonNull DesireDetailContract.Presenter presenter){
+        mPresenter = checkNotNull(presenter);
+    }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -67,6 +76,8 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
         View view = inflater.inflate(R.layout.desiredetail_frag, container, false);
 
         mViewDataBinding = DesiredetailFragBinding.bind(view);
+
+        mViewDataBinding.setDesirelogic(mDesireLogic);
 
         setHasOptionsMenu(true);
 
@@ -103,6 +114,9 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
     public void showDesire(Desire desire) {
         mViewDataBinding.setDesire(desire);
     }
+
+
+    public void setDesireLogic(DesireLogic desireLogic){mDesireLogic = desireLogic;}
 
 
     /*

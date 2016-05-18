@@ -39,6 +39,11 @@
     <string name="createDesire_title_2nd_Step">Create Desire: 2nd Step</string>
     <string name="createDesire_title_3rd_Step">Create Desire: Place of Delivery</string>
     <string name="createDesire_Empty_Text">You have to insert some Data!</string>
+    <string name="no_chats">no chats to show</string>
+    <string name="button_desire_accept">accept desire</string>
+    <string name="button_desire_message">send</string>
+    <string name="desire_detail_wanter">Wanter:</string>
+    <string name="loading_chats_error">Error while loading chat</string>
 
 
 </resources>

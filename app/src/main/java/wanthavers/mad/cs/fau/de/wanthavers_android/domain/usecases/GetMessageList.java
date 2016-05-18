@@ -1,43 +1,40 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases;
 
+import de.fau.cs.mad.wanthavers.common.Chat;
+import de.fau.cs.mad.wanthavers.common.Message;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCase;
 import android.support.annotation.NonNull;
 
 import java.util.List;
 
-import de.fau.cs.mad.wanthavers.common.Desire;
-import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireDataSource;
-import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireRepository;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.chat.ChatDataSource;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.chat.ChatRepository;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 public class GetMessageList extends UseCase<GetMessageList.RequestValues, GetMessageList.ResponseValue> {
 
-    private final DesireRepository mDesireRepository;
 
 
-    public GetMessageList(@NonNull DesireRepository desireRepository) {
-        mDesireRepository = checkNotNull(desireRepository, "desireRepository cannot be null!");
+
+    private final ChatRepository mChatRepository;
+
+
+    public GetMessageList(@NonNull ChatRepository chatRepository) {
+        mChatRepository = checkNotNull(chatRepository, "chat repository cannot be null!");
     }
 
 
     @Override
     protected void executeUseCase(final RequestValues values) {
 
-    /*
-    List<Desire> desireList = new ArrayList<Desire>(0);
-    desireList.add(new Desire());
-    ResponseValue responseValue = new ResponseValue(desireList);
-    getUseCaseCallback().onSuccess(responseValue);
-    */
-        //TODO for some reason repo does not work - @Nico please check why
 
-        mDesireRepository.getAllDesires(new DesireDataSource.GetAllDesiresCallback(){
-
+        mChatRepository.getAllMessagesForChat(values.getChatId(), new ChatDataSource.GetAllMessagesForChatCallback()
+        {
 
             @Override
-            public void onAllDesiresLoaded(List<Desire> desireList) {
-                ResponseValue responseValue = new ResponseValue(desireList);
+            public void onAllMessagesForChat(List<Message> messageList) {
+                ResponseValue responseValue = new ResponseValue(messageList);
                 getUseCaseCallback().onSuccess(responseValue);
             }
 
@@ -54,31 +51,32 @@ public class GetMessageList extends UseCase<GetMessageList.RequestValues, GetMes
 
     public static final class RequestValues implements UseCase.RequestValues {
 
-        //TODO add values here if needed for desire query e.g.:private final long mDesireId;
+        private String  mChatid;
 
-        public RequestValues() {
-            //TODO add values here if needed for desire query
+        public RequestValues(String chatId) {
+            mChatid = chatId;
         }
 
 
-    /* TODO add getters here if needed
-    public long getDesireId() {
-        return mDesireId;
-    }
-    */
+        public String getChatId() {
+            return mChatid;
+        }
+
     }
 
     public static final class ResponseValue implements UseCase.ResponseValue {
 
-        private List<Desire> mDesireList;
+        private List<Message> mMessageList;
 
-        public ResponseValue(@NonNull List<Desire> desires) {
-            mDesireList = checkNotNull(desires, "task cannot be null!");
+
+        public ResponseValue(@NonNull List<Message> messageList) {
+            mMessageList = checkNotNull(messageList, "message List cannot be null!");
         }
 
-        public List<Desire> getDesires() {
-            return mDesireList;
+        public List<Message> getMessages() {
+            return mMessageList;
         }
     }
+
 
 }

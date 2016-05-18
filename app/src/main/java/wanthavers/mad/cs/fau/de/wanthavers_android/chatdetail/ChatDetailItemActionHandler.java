@@ -1,6 +1,6 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.chatdetail;
 
-import wanthavers.mad.cs.fau.de.wanthavers_android.chatlist.Chat;
+import de.fau.cs.mad.wanthavers.common.Chat;
 import wanthavers.mad.cs.fau.de.wanthavers_android.chatlist.ChatListContract;
 
 public class ChatDetailItemActionHandler {

@@ -11,6 +11,9 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.chat.ChatLocalDataSource;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.chat.ChatRemoteDataSource;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.chat.ChatRepository;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireRepository;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireLocalDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireRemoteDataSource;
@@ -22,7 +25,7 @@ public class ChatDetailActivity extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;
     private ChatDetailPresenter mChatDetailPresenter;
-    public static final String USER_ID = "USER_ID";
+    public static final String EXTRA_CHAT_ID = "CHAT_ID";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +44,8 @@ public class ChatDetailActivity extends AppCompatActivity {
         ChatDetailFragment chatDetailFragment = (ChatDetailFragment)
                 getSupportFragmentManager().findFragmentById(R.id.contentFrame);
 
+
+
         if (chatDetailFragment == null) {
             // Create the fragment
             chatDetailFragment = ChatDetailFragment.newInstance();
@@ -52,7 +57,7 @@ public class ChatDetailActivity extends AppCompatActivity {
         Context context = getApplicationContext();
         checkNotNull(context);
 
-        DesireRepository chatRepo = DesireRepository.getInstance(DesireRemoteDataSource.getInstance(getApplicationContext()), DesireLocalDataSource.getInstance(context));
+        ChatRepository chatRepo = ChatRepository.getInstance(ChatRemoteDataSource.getInstance(getApplicationContext()), ChatLocalDataSource.getInstance(context));
 
         // Create the presenter
         mChatDetailPresenter = new ChatDetailPresenter(UseCaseHandler.getInstance(),chatDetailFragment,new GetMessageList(chatRepo));

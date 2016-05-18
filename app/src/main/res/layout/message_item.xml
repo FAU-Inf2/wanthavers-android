@@ -17,9 +17,10 @@
 
     <data>
 
-        <variable
+        <!-- TODO needed=
+            variable
             name="chat"
-            type="wanthavers.mad.cs.fau.de.wanthavers_android.chatlist.Chat" />
+            type="de.fau.cs.mad.wanthavers.common.Chat" />
 
 
         <variable
@@ -28,7 +29,7 @@
 
         <variable
             name="actionHandler"
-            type="wanthavers.mad.cs.fau.de.wanthavers_android.chatlist.ChatListItemActionHandler" />
+            type="wanthavers.mad.cs.fau.de.wanthavers_android.chatlist.ChatListItemActionHandler" /-->
     </data>
 
     <LinearLayout

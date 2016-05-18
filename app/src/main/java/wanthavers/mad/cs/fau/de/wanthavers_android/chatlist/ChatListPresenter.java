@@ -2,8 +2,12 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.chatlist;
 
 import android.support.annotation.NonNull;
 
+import de.fau.cs.mad.wanthavers.common.Chat;
+import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCase;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetChatList;
+import java.util.List;
+
 import static com.google.common.base.Preconditions.checkNotNull;
 
 
@@ -41,14 +45,14 @@ public class ChatListPresenter implements ChatListContract.Presenter {
         if (showLoadingUI) {
             mChatListView.setLoadingIndicator(true);
         }
-        /*
-        GetDesireList.RequestValues requestValue = new GetDesireList.RequestValues();
 
-        mUseCaseHandler.execute(mGetDesireList, requestValue,
-                new UseCase.UseCaseCallback<GetDesireList.ResponseValue>() {
+        GetChatList.RequestValues requestValue = new GetChatList.RequestValues();
+
+        mUseCaseHandler.execute(mGetChatList, requestValue,
+                new UseCase.UseCaseCallback<GetChatList.ResponseValue>() {
                     @Override
-                    public void onSuccess(GetDesireList.ResponseValue response) {
-                        List<Desire> desires = response.getDesires();
+                    public void onSuccess(GetChatList.ResponseValue response) {
+                        List<Chat> chatList = response.getChats();
                         // The view may not be able to handle UI updates anymore
                         if (!mChatListView.isActive()) {
                             return;
@@ -57,7 +61,7 @@ public class ChatListPresenter implements ChatListContract.Presenter {
                             mChatListView.setLoadingIndicator(false);
                         }
 
-                        processDesires(desires);
+                        processChats(chatList);
                     }
 
                     @Override
@@ -66,16 +70,30 @@ public class ChatListPresenter implements ChatListContract.Presenter {
                         if (!mChatListView.isActive()) {
                             return;
                         }
-                        mChatListView.showLoadingDesiresError();
+                        mChatListView.showLoadingChatsError();
                     }
                 });
-                */
+
+    }
+
+
+
+    private void processChats(List<Chat> chatList) {
+        if (chatList.isEmpty()) {
+            // Show a message indicating there are no tasks for that filter type.
+            //TODO add what to do if no desires
+        } else {
+            // Show the list of tasks
+            mChatListView.showChats(chatList);
+            // Set the filter label's text.
+        }
     }
 
     @Override
     public void openChatDetails(@NonNull Chat chat) {
-        checkNotNull(chat, "desire cannot be null!");
-        mChatListView.showChatDetailsUi(chat.getID());
+        checkNotNull(chat, "Message cannot be null!");
+        //TODO implement opening chat details
+        // mChatListView.showChatDetailsUi(chat.);
     }
 
 }
