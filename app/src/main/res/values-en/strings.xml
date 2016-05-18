@@ -39,6 +39,10 @@
     <string name="button_desire_accept">Accept desire</string>
     <string name="button_desire_message">Send message</string>
     <string name="no_chats">no chats to show</string>
+    <string name="button_desire_accept">accept desire</string>
+    <string name="button_desire_message">send</string>
+    <string name="desire_detail_wanter">Wanter:</string>
+    <string name="loading_chats_error">Error while loading chat</string>
 
 
 </resources>
