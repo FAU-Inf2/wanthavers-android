@@ -28,7 +28,14 @@ public class DesireLogic {
     }
 
     public String getDateString(Date date) {
-        SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-        return mSimpleDateFormat.format(date);
+
+        String dateString = mContext.getString(R.string.no_time_available);
+
+        if(date != null) {
+            SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            dateString = mSimpleDateFormat.format(date);
+        }
+
+        return dateString;
     }
 }

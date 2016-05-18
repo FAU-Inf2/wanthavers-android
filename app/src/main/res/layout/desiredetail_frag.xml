@@ -142,7 +142,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/no_time_available"
+            android:text="@{desirelogic.getDateString(desire.creation_time)}"
             android:textColor="@color/colorMainText"
             android:layout_below="@+id/desire_detail_description"
             android:layout_marginTop="20dp"/>
