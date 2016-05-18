@@ -30,7 +30,7 @@ public class SharedPreferencesHelper {
 
     //Key Strings
     public static final String KEY_API_URL = "api_url";
-    public static final String KEY_USERNAME = "username";
+    public static final String KEY_USERID = "userid";
     public static final String KEY_PASSWORD = "password";
 
     private SharedPreferencesHelper(String sharedPreferencesName, Context context) {
@@ -84,5 +84,14 @@ public class SharedPreferencesHelper {
 
     public Set<String> loadStringSet(String key, Set<String> defaultValues) {
         return sharedPreferences.getStringSet(key, defaultValues);
+    }
+
+    public void saveLong(String key, long value) {
+        editor.putLong(key, value);
+        editor.apply();
+    }
+
+    public long loadLong(String key, long defaultValue) {
+        return sharedPreferences.getLong(key, defaultValue);
     }
 }
