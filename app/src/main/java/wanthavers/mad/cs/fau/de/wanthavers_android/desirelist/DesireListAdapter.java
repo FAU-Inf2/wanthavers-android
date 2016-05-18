@@ -68,7 +68,7 @@ public class DesireListAdapter extends BaseAdapter{
         } else {
             binding = DataBindingUtil.getBinding(view);
             RatingBar itemRateBar = (RatingBar) view.findViewById(R.id.ItemRatingBar);
-            itemRateBar.setRating(4.0f);  //TODO get rating from Server and insert here
+            itemRateBar.setRating(4.5f);  //TODO get rating from Server and insert here
         }
 
         // We might be recycling the binding for another task, so update it.
@@ -76,9 +76,11 @@ public class DesireListAdapter extends BaseAdapter{
         DesireListItemActionHandler itemActionHandler =
                 new DesireListItemActionHandler(mUserActionsListener);
         binding.setActionHandler(itemActionHandler);
+
         binding.setDesire(desire);
         binding.setDesires(mDesireListViewModel);
         binding.setDesireLogic(mDesireLogic);
+
         binding.executePendingBindings();
         return binding.getRoot();
     }

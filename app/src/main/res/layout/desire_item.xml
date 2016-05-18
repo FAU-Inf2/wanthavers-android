@@ -21,7 +21,6 @@
             name="desire"
             type="de.fau.cs.mad.wanthavers.common.Desire" />
 
-
         <variable
             name="desires"
             type="wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.DesireListViewModel" />
@@ -63,7 +62,7 @@
                     android:max="5"
                     android:numStars="5"
                     android:stepSize="0.1"
-                    android:progressBackgroundTint="#c3bebe"
+                    android:progressBackgroundTint="@color/colorSecondary"
                     android:progressTint="@color/colorRatingStars"
                     android:secondaryProgressTint="@color/colorRatingStars"/>
 
@@ -77,13 +76,13 @@
                     android:textColor="@color/colorMainText"
                     />
 
-                <ImageView
+                <!--ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_toLeftOf="@id/itemUserName"
                     android:id="@+id/ItemImageView"
                     android:src="@android:drawable/sym_def_app_icon"
-                    android:layout_marginRight="10dp"/>
+                    android:layout_marginRight="10dp"/-->
 
             </RelativeLayout>
 
@@ -142,7 +141,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_alignParentBottom="true"
                         android:layout_marginBottom="50dp"
-                        android:text="@{String.valueOf(desire.price)}"
+                        android:text="@{desireLogic.getPriceString(desire.price)}"
                         android:gravity="right"/>
 
                     <TextView
@@ -156,7 +155,7 @@
                         android:textSize="25dp"
                         android:layout_marginBottom="20dp"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                        android:text="@{String.valueOf(desire.reward)}" />
+                        android:text="@{desireLogic.getPriceString(desire.reward)}" />
 
 
                 </RelativeLayout>
@@ -174,8 +173,7 @@
                     android:layout_weight="0.5"
                     android:gravity="left"
                     android:textColor="@color/colorMainText"
-                    android:text="@string/no_time_available"
-                    />
+                    android:text="@{desireLogic.getDateString(desire.creation_time)}"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -183,7 +181,7 @@
                     android:layout_weight="0.5"
                     android:gravity="right"
                     android:textColor="@color/colorMainText"
-                    android:text="@string/no_location_available"
+                    android:text="@{desire.dropzone_string}"
                     />
 
             </LinearLayout>

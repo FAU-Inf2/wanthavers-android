@@ -46,4 +46,9 @@
     <string name="loading_chats_error">Fehler beim Laden der Chats</string>
 
 
+    <!-- currency strings -->
+    <string name="euro_sign">\u20ac</string>
+    <string name="dollar_sign">$</string>
+
+
 </resources>
