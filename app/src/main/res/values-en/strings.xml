@@ -35,9 +35,6 @@
     <string name="create_desire_price_header">Price</string>
     <string name="create_desire_reward_header">Reward</string>
     <string name="create_desire_description_hint">max. 120 Characters</string>
-    <string name="desire_detail_wanter">Wanter:</string>
-    <string name="button_desire_accept">Accept desire</string>
-    <string name="button_desire_message">Send message</string>
     <string name="no_chats">no chats to show</string>
     <string name="button_desire_accept">accept desire</string>
     <string name="button_desire_message">send</string>
