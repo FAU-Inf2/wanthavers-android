@@ -1,5 +1,7 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.chatlist;
 
+import de.fau.cs.mad.wanthavers.common.Chat;
+
 public class ChatListItemActionHandler {
 
 

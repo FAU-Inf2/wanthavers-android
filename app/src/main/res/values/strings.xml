@@ -38,6 +38,8 @@
     <string name="desire_detail_wanter">Wanter:</string>
     <string name="button_desire_accept">Auftrag annehmen</string>
     <string name="button_desire_message">Nachricht senden</string>
+    <string name="no_chats">keine Nachrichten vorhanden</string>
+    <string name="loading_chats_error">Es ist ein Fehler aufgetreten</string>
 
 
 </resources>

@@ -4,9 +4,11 @@ import android.support.annotation.NonNull;
 
 import java.util.List;
 
+import de.fau.cs.mad.wanthavers.common.Chat;
+import de.fau.cs.mad.wanthavers.common.Message;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.BasePresenter;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.BaseView;
-import wanthavers.mad.cs.fau.de.wanthavers_android.chatlist.Chat;
+
 
 public interface ChatDetailContract {
 
@@ -14,11 +16,11 @@ public interface ChatDetailContract {
 
         void showMessages(List<Message> messageList);
 
-        void showLoadingChatsError();
-
         void setLoadingIndicator(final boolean active);
 
         boolean isActive();
+
+        void showLoadingMessagesError();
 
     }
 

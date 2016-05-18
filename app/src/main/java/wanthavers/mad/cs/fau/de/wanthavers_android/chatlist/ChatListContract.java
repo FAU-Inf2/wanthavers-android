@@ -2,7 +2,9 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.chatlist;
 
 import android.support.annotation.NonNull;
 
-import de.fau.cs.mad.wanthavers.common.Desire;
+import java.util.List;
+
+import de.fau.cs.mad.wanthavers.common.Chat;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.BasePresenter;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.BaseView;
 
@@ -13,15 +15,16 @@ public interface ChatListContract {
 
     interface View extends BaseView<Presenter> {
 
-        //void showChats(List<Chat> chatList);
-
         void showLoadingChatsError();
+
+        boolean isActive();
 
         void setLoadingIndicator(final boolean active);
 
-        public void showChatDetailsUi(long chatId);
+        void showChatDetailsUi(Chat chat);
 
-        //TODO void showNoTasks();
+        void showChats(List<Chat> chatList);
+
     }
 
 

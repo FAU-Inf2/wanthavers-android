@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
@@ -12,10 +13,13 @@ import android.view.View;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import de.fau.cs.mad.wanthavers.common.Chat;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
+import wanthavers.mad.cs.fau.de.wanthavers_android.chatdetail.ChatDetailActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.ChatlistFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.ScrollChildSwipeRefreshLayout;
 
@@ -84,8 +88,13 @@ public class ChatListFragment extends Fragment implements  ChatListContract.View
     }
 
     @Override
-    public void showLoadingChatsError() {
+    public boolean isActive() {
+        return isAdded();
+    }
 
+    @Override
+    public void showLoadingChatsError() {
+        showMessage(getString(R.string.loading_chats_error));
     }
 
     @Override
@@ -94,10 +103,19 @@ public class ChatListFragment extends Fragment implements  ChatListContract.View
     }
 
     @Override
-    public void showChatDetailsUi(long chatId) {
+    public void showChatDetailsUi(Chat chat) {
         //TODO open chatDetailsUI
-        //Intent intent = new Intent(getContext(), ChatDetailActivity.class);
-        //intent.putExtra(ChatDetailActivity.EXTRA_DESIRE_ID, desireId);
-        //startActivity(intent);
+        Intent intent = new Intent(getContext(), ChatDetailActivity.class);
+        intent.putExtra(ChatDetailActivity.EXTRA_CHAT_ID, chat.getObjectId());
+        startActivity(intent);
+    }
+
+    private void showMessage(String message) {
+        Snackbar.make(getView(), message, Snackbar.LENGTH_LONG).show();
+    }
+
+    public void showChats(List<Chat> chatList){
+        mListAdapter.replaceData(chatList);
+        mChatListViewModel.setChatListSize(chatList.size());
     }
 }

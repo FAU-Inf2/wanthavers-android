@@ -6,6 +6,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.RatingBar;
 import android.databinding.DataBindingUtil;
+
+import de.fau.cs.mad.wanthavers.common.Chat;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.ChatItemBinding;
 import java.util.List;
@@ -16,12 +18,12 @@ public class ChatListAdapter extends BaseAdapter {
     private List<Chat> mChatList;
 
     private ChatListContract.Presenter mUserActionsListener;
-    private ChatListViewModel mDesireListViewModel;
+    private ChatListViewModel mChatListViewModel;
 
     public ChatListAdapter(List<Chat> chats, ChatListContract.Presenter itemListener, ChatListViewModel chatListViewModel) {
         setList(chats);
         mUserActionsListener = itemListener;
-        mDesireListViewModel = chatListViewModel;
+        mChatListViewModel = chatListViewModel;
     }
 
     public void replaceData(List<Chat> chatList) {
@@ -71,10 +73,8 @@ public class ChatListAdapter extends BaseAdapter {
         ChatListItemActionHandler itemActionHandler = new ChatListItemActionHandler(mUserActionsListener);
         binding.setActionHandler(itemActionHandler);
 
-        /*
-        binding.setDesire(desire);
-        binding.set(mDesireListViewModel);
-        */
+        binding.setChats(mChatListViewModel);
+
         binding.executePendingBindings();
         return binding.getRoot();
     }

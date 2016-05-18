@@ -18,11 +18,6 @@
     <data>
 
         <variable
-            name="chat"
-            type="wanthavers.mad.cs.fau.de.wanthavers_android.chatlist.Chat" />
-
-
-        <variable
             name="chats"
             type="wanthavers.mad.cs.fau.de.wanthavers_android.chatlist.ChatListViewModel" />
 

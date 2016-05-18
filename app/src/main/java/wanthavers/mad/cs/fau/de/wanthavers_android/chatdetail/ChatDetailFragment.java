@@ -3,6 +3,7 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.chatdetail;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
@@ -27,9 +28,9 @@ import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import de.fau.cs.mad.wanthavers.common.Message;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 
-import wanthavers.mad.cs.fau.de.wanthavers_android.chatlist.Chat;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.ChatdetailFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.ChatlistFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.ScrollChildSwipeRefreshLayout;
@@ -42,9 +43,6 @@ public class ChatDetailFragment extends Fragment implements  ChatDetailContract.
     private ChatDetailViewModel mChatDetailViewModel;
     private ChatdetailFragBinding mChatDetailFragBinding;
 
-    static final String TAG  = ChatDetailActivity.class.getSimpleName();
-    static final String USER_ID_KEY = "userId";
-    static final String BODY_KEY = "body";
     EditText etMessage;         //TODO once parse server works use databinding
     ImageButton btSend;              //TODO once parse server works use databinding
 
@@ -79,15 +77,10 @@ public class ChatDetailFragment extends Fragment implements  ChatDetailContract.
 
         mChatDetailFragBinding.setPresenter(mPresenter);
 
-        if (ParseUser.getCurrentUser() != null) { // start with existing user
-            startWithCurrentUser();
-        } else { // If not logged in, login as a new anonymous user
-            login();
-        }
 
         //Set up chat view
         ListView listView = mChatDetailFragBinding.messageList;
-        final String chatUserId = ParseUser.getCurrentUser().getObjectId();
+        final long chatUserId = 2;   //TODO insert proper user
 
         mListAdapter = new ChatDetailAdapter(new ArrayList<Message>(0),chatUserId ,mPresenter, mChatDetailViewModel);
         listView.setAdapter(mListAdapter);
@@ -115,7 +108,7 @@ public class ChatDetailFragment extends Fragment implements  ChatDetailContract.
     @Override
     public void showMessages(List<Message> messageList) {
         mListAdapter.replaceData(messageList);
-        //mChatDetailViewModel.setMessageListSize(messageList.size());
+        mChatDetailViewModel.setMessageListSize(messageList.size());
     }
 
     @Override
@@ -123,20 +116,27 @@ public class ChatDetailFragment extends Fragment implements  ChatDetailContract.
         return isAdded();
     }
 
-    @Override
-    public void showLoadingChatsError() {
 
-    }
 
     @Override
     public void setLoadingIndicator(boolean active) {
 
     }
 
+    @Override
+    public void showLoadingMessagesError() {
+        showMessage(getString(R.string.loading_chats_error));
+    }
 
+
+
+    private void showMessage(String message) {
+        Snackbar.make(getView(), message, Snackbar.LENGTH_LONG).show();
+    }
     // Begin parse inclusion
 
 
+    /*
     // Create an anonymous user using ParseAnonymousUtils and set sUserId
     void login() {
         ParseAnonymousUtils.logIn(new LogInCallback() {
@@ -166,6 +166,7 @@ public class ChatDetailFragment extends Fragment implements  ChatDetailContract.
         btSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /*
                 String data = etMessage.getText().toString();
                 ParseObject message = ParseObject.create("Message");
                 message.put(Message.USER_ID_KEY, ParseUser.getCurrentUser().getObjectId());
@@ -178,8 +179,9 @@ public class ChatDetailFragment extends Fragment implements  ChatDetailContract.
                     }
                 });
                 etMessage.setText(null);
+
             }
         });
 
-    }
+    */
 }
