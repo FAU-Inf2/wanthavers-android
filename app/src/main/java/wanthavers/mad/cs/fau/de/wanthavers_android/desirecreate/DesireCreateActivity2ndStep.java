@@ -11,7 +11,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.util.ActivityUtils;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class DesireCreateActivity extends AppCompatActivity {
+public class DesireCreateActivity2ndStep extends AppCompatActivity {
     private DesireCreatePresenter mDesireCreatePresenter;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,27 +21,21 @@ public class DesireCreateActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();
-        ab.setTitle(R.string.createDesire_title_1st_Step);
+        ab.setTitle(R.string.createDesire_title_2nd_Step);
         ab.setDisplayHomeAsUpEnabled(true);
         ab.setDisplayShowHomeEnabled(true);
 
-        DesireCreateFragment desireCreateFragment = (DesireCreateFragment) getSupportFragmentManager()
+        DesireCreateFragment2ndStep desireCreateFragment = (DesireCreateFragment2ndStep) getSupportFragmentManager()
                 .findFragmentById(R.id.contentFrame);
 
         if (desireCreateFragment == null) {
-            desireCreateFragment = DesireCreateFragment.newInstance(); //TODO
+            desireCreateFragment = DesireCreateFragment2ndStep.newInstance(); //TODO
 
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),
                     desireCreateFragment, R.id.contentFrame);
         }
 
-        //create fake task repo
-        //Context context = getApplicationContext();
-        //checkNotNull(context);
 
-        //DesireRepository fake = DesireRepository.getInstance(DesireRemoteDataSource.getInstance(), DesireLocalDataSource.getInstance(context));
-
-        // Create the presenter
         //TODO
         mDesireCreatePresenter = new DesireCreatePresenter(UseCaseHandler.getInstance(), desireCreateFragment);
     }

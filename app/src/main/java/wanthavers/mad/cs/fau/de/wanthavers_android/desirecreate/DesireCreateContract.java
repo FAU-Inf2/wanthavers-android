@@ -9,15 +9,17 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.BaseView;
 
 public interface DesireCreateContract {
     interface View extends BaseView<Presenter> {
-        String getEnteredText(View v);//TODO
+
+
+        void showNextDesireCreateStep(String[] input);
     }
 
 
-    interface Presenter extends BasePresenter {
-        void createNewDesire(Desire desire);
-        //TODO Rename!
-        //void switchFragment(FragmentManager frag);
 
-        //TODO
+
+    interface Presenter extends BasePresenter {
+       // Desire getEnteredText(Desire desire, String s1, String s2);
+
+        void createNextDesireCreateStep(String[] input);
     }
 }

@@ -35,6 +35,10 @@
     <string name="create_desire_price_header">Price</string>
     <string name="create_desire_reward_header">Reward</string>
     <string name="create_desire_description_hint">max. 120 Characters</string>
+    <string name="createDesire_title_1st_Step">Create Desire: 1st Step</string>
+    <string name="createDesire_title_2nd_Step">Create Desire: 2nd Step</string>
+    <string name="createDesire_title_3rd_Step">Create Desire: Place of Delivery</string>
+    <string name="createDesire_Empty_Text">You have to insert some Data!</string>
 
 
 </resources>

@@ -17,19 +17,24 @@ public class DesireCreatePresenter implements DesireCreateContract.Presenter {
         mDesireCreateView = view;
 
         mDesireCreateView.setPresenter(this);
-        //TODO !
+
     }
 
     public void start() { //TODO;
     }
 
-    public void switchFragment(FragmentManager frag){
 
+    /*@Override
+    public Desire getEnteredText(Desire desire, String s1, String s2){
+        return new Desire();
+    }*/
+
+    @Override
+    public void createNextDesireCreateStep(String[] input) {
+        mDesireCreateView.showNextDesireCreateStep(input);
     }
 
-    public void createNewDesire(Desire desire) {
-        //TODO!
-    }
+
 
 
 

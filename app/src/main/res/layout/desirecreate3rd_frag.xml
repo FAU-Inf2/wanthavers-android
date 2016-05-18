@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+
+        <variable
+            name="desire"
+            type="de.fau.cs.mad.wanthavers.common.Desire" />
+
+        <variable
+            name="presenter"
+            type="wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate.DesireCreateContract.Presenter" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:weightSum="1"
+        android:focusableInTouchMode="true">
+
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_create_desire_third_step"
+            android:id="@+id/button_3rd_step"
+            android:layout_alignParentLeft="false"
+            android:layout_alignParentStart="true"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/colorSecondary"
+            android:textSize="20sp"
+            android:textAlignment="center"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="false"
+            android:layout_alignParentEnd="true" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:id="@+id/create_desire_dropzone"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:maxLength="50"
+            android:layout_alignRight="@+id/button_3rd_step"
+            android:layout_alignEnd="@+id/button_3rd_step" />
+
+
+    </RelativeLayout>
+
+</layout>
+
