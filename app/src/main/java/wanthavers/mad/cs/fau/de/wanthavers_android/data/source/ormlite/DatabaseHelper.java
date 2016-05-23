@@ -108,35 +108,35 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         return ratingDao;
     }
 
-    public RuntimeExceptionDao<User, Long> getUserRuntimeDao() throws SQLException {
+    public RuntimeExceptionDao<User, Long> getUserRuntimeDao() {
         if(userRuntimeDao == null) {
             userRuntimeDao = getRuntimeExceptionDao(User.class);
         }
         return userRuntimeDao;
     }
 
-    public RuntimeExceptionDao<Desire, Long> getDesireRuntimeDao() throws SQLException {
+    public RuntimeExceptionDao<Desire, Long> getDesireRuntimeDao() {
         if(desireRuntimeDao == null) {
             desireRuntimeDao = getRuntimeExceptionDao(Desire.class);
         }
         return desireRuntimeDao;
     }
 
-    public RuntimeExceptionDao<Haver, Long> getHaverRuntimeDao() throws SQLException {
+    public RuntimeExceptionDao<Haver, Long> getHaverRuntimeDao() {
         if(haverRuntimeDao == null) {
             haverRuntimeDao = getRuntimeExceptionDao(Haver.class);
         }
         return haverRuntimeDao;
     }
 
-    public RuntimeExceptionDao<Media, Long> getMediaRuntimeDao() throws SQLException {
+    public RuntimeExceptionDao<Media, Long> getMediaRuntimeDao() {
         if(mediaRuntimeDao == null) {
             mediaRuntimeDao = getRuntimeExceptionDao(Media.class);
         }
         return mediaRuntimeDao;
     }
 
-    public RuntimeExceptionDao<Rating, Long> getRatingRuntimeDao() throws SQLException {
+    public RuntimeExceptionDao<Rating, Long> getRatingRuntimeDao() {
         if(ratingRuntimeDao == null) {
             ratingRuntimeDao = getRuntimeExceptionDao(Rating.class);
         }

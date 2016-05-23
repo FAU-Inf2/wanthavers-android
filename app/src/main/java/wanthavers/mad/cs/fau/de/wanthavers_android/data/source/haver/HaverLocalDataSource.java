@@ -3,7 +3,10 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.data.source.haver;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.j256.ormlite.dao.RuntimeExceptionDao;
+
 import de.fau.cs.mad.wanthavers.common.Haver;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.ormlite.DatabaseHelper;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -14,11 +17,11 @@ public class HaverLocalDataSource implements HaverDataSource {
 
     private static HaverLocalDataSource INSTANCE;
 
-    private Context context;
+    private RuntimeExceptionDao<Haver, Long> haverDao;
 
     private HaverLocalDataSource(Context context) {
         checkNotNull(context);
-        this.context = context;
+        haverDao = DatabaseHelper.getInstance(context).getHaverRuntimeDao();
     }
 
     public static HaverLocalDataSource getInstance(Context context) {

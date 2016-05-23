@@ -3,9 +3,14 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.data.source.media;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.j256.ormlite.dao.RuntimeExceptionDao;
+
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 
 import java.io.InputStream;
+
+import de.fau.cs.mad.wanthavers.common.Media;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.ormlite.DatabaseHelper;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -15,11 +20,11 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class MediaLocalDataSource implements MediaDataSource {
     private static MediaLocalDataSource INSTANCE;
 
-    private Context context;
+    private RuntimeExceptionDao<Media, Long> mediaDao;
 
     private MediaLocalDataSource(Context context) {
         checkNotNull(context);
-        this.context = context;
+        mediaDao = DatabaseHelper.getInstance(context).getMediaRuntimeDao();
     }
 
     public static MediaLocalDataSource getInstance(Context context) {

@@ -3,7 +3,10 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.data.source.rating;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.j256.ormlite.dao.RuntimeExceptionDao;
+
 import de.fau.cs.mad.wanthavers.common.Rating;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.ormlite.DatabaseHelper;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -13,11 +16,11 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class RatingLocalDataSource implements RatingDataSource {
     private static RatingLocalDataSource INSTANCE;
 
-    private Context context;
+    private RuntimeExceptionDao<Rating, Long> ratingDao;
 
     private RatingLocalDataSource(@NonNull Context context) {
         checkNotNull(context);
-        this.context = context;
+        ratingDao = DatabaseHelper.getInstance(context).getRatingRuntimeDao();
     }
 
     public static RatingLocalDataSource getInstance(Context context) {
