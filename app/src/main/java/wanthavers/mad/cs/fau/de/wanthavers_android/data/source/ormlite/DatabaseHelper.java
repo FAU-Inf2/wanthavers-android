@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
@@ -33,6 +34,12 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private Dao<Haver, Long> haverDao = null;
     private Dao<Media, Long> mediaDao = null;
     private Dao<Rating, Long> ratingDao = null;
+
+    private RuntimeExceptionDao<User, Long> userRuntimeDao = null;
+    private RuntimeExceptionDao<Desire, Long> desireRuntimeDao = null;
+    private RuntimeExceptionDao<Haver, Long> haverRuntimeDao = null;
+    private RuntimeExceptionDao<Media, Long> mediaRuntimeDao = null;
+    private RuntimeExceptionDao<Rating, Long> ratingRuntimeDao = null;
 
     private DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION /*R.raw.ormlite_config*/);
@@ -99,6 +106,41 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             ratingDao = getDao(Rating.class);
         }
         return ratingDao;
+    }
+
+    public RuntimeExceptionDao<User, Long> getUserRuntimeDao() throws SQLException {
+        if(userRuntimeDao == null) {
+            userRuntimeDao = getRuntimeExceptionDao(User.class);
+        }
+        return userRuntimeDao;
+    }
+
+    public RuntimeExceptionDao<Desire, Long> getDesireRuntimeDao() throws SQLException {
+        if(desireRuntimeDao == null) {
+            desireRuntimeDao = getRuntimeExceptionDao(Desire.class);
+        }
+        return desireRuntimeDao;
+    }
+
+    public RuntimeExceptionDao<Haver, Long> getHaverRuntimeDao() throws SQLException {
+        if(haverRuntimeDao == null) {
+            haverRuntimeDao = getRuntimeExceptionDao(Haver.class);
+        }
+        return haverRuntimeDao;
+    }
+
+    public RuntimeExceptionDao<Media, Long> getMediaRuntimeDao() throws SQLException {
+        if(mediaRuntimeDao == null) {
+            mediaRuntimeDao = getRuntimeExceptionDao(Media.class);
+        }
+        return mediaRuntimeDao;
+    }
+
+    public RuntimeExceptionDao<Rating, Long> getRatingRuntimeDao() throws SQLException {
+        if(ratingRuntimeDao == null) {
+            ratingRuntimeDao = getRuntimeExceptionDao(Rating.class);
+        }
+        return ratingRuntimeDao;
     }
 
     @Override
