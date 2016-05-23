@@ -79,6 +79,7 @@ public class ChatListPresenter implements ChatListContract.Presenter {
 
 
     private void processChats(List<Chat> chatList) {
+
         if (chatList.isEmpty()) {
             // Show a message indicating there are no tasks for that filter type.
             //TODO add what to do if no desires
@@ -95,5 +96,6 @@ public class ChatListPresenter implements ChatListContract.Presenter {
         //TODO implement opening chat details
         mChatListView.showChatDetailsUi(chat);
     }
+
 
 }

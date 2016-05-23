@@ -18,6 +18,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireRepo
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireLocalDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireRemoteDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetMessageList;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.SendMessage;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.ActivityUtils;
 
 public class ChatDetailActivity extends AppCompatActivity {
@@ -65,8 +66,10 @@ public class ChatDetailActivity extends AppCompatActivity {
 
         ChatRepository chatRepo = ChatRepository.getInstance(ChatRemoteDataSource.getInstance(getApplicationContext()), ChatLocalDataSource.getInstance(context));
 
-        // Create the presenter
-        mChatDetailPresenter = new ChatDetailPresenter(UseCaseHandler.getInstance(),chatId, chatDetailFragment,new GetMessageList(chatRepo));
+        // Create the presenter  also sets the presenter for the view
+        mChatDetailPresenter = new ChatDetailPresenter(UseCaseHandler.getInstance(),chatId, chatDetailFragment,
+                new GetMessageList(chatRepo), new SendMessage(chatRepo));
+
 
 
         /* TODO decide whether viewModel needed

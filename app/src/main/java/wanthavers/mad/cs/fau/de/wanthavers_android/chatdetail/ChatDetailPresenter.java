@@ -14,6 +14,8 @@ import de.fau.cs.mad.wanthavers.common.Message;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCase;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetMessageList;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.SendMessage;
+
 import static com.google.common.base.Preconditions.checkNotNull;
 
 public class ChatDetailPresenter implements ChatDetailContract.Presenter {
@@ -24,13 +26,15 @@ public class ChatDetailPresenter implements ChatDetailContract.Presenter {
     private boolean mFirstLoad = true;
     private final UseCaseHandler mUseCaseHandler;
     private String mChatId;
+    private final SendMessage mSendMessage;
 
     public ChatDetailPresenter(@NonNull UseCaseHandler useCaseHandler,@NonNull String chatId, @NonNull ChatDetailContract.View chatListView,
-                             @NonNull GetMessageList getMessageList){
+                             @NonNull GetMessageList getMessageList, @NonNull SendMessage sendMessage){
 
         mUseCaseHandler = checkNotNull(useCaseHandler, "usecaseHandle cannot be null");
         mMessageListView = checkNotNull(chatListView, "desirelist view cannot be null!");
         mGetMessageList = checkNotNull(getMessageList);
+        mSendMessage = checkNotNull(sendMessage);
         mChatId = chatId;
 
         mMessageListView.setPresenter(this);
@@ -83,6 +87,7 @@ public class ChatDetailPresenter implements ChatDetailContract.Presenter {
 
     }
 
+
     private void processMessages(List<Message> messageList) {
         if (messageList.isEmpty()) {
             // Show a message indicating there are no tasks for that filter type.
@@ -94,4 +99,28 @@ public class ChatDetailPresenter implements ChatDetailContract.Presenter {
         }
     }
 
+
+    public void sendMessage(Message message){
+
+
+        SendMessage.RequestValues requestValue = new SendMessage.RequestValues(mChatId, message);
+
+        mUseCaseHandler.execute(mSendMessage, requestValue,
+                new UseCase.UseCaseCallback<SendMessage.ResponseValue>() {
+                    @Override
+                    public void onSuccess(SendMessage.ResponseValue response) {
+
+                        Message message = response.getResponseMessage();
+                        mMessageListView.showUpdatedMessageListonSendSuccess(message);
+                    }
+
+                    @Override
+                    public void onError() {
+                        mMessageListView.showSendMessageError();
+                    }
+                }
+        );
+
+
+    }
 }

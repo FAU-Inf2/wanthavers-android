@@ -20,8 +20,13 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import de.fau.cs.mad.wanthavers.common.Chat;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.chatdetail.ChatDetailActivity;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserLocalDataSource;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserRemoteDataSource;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserRepository;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.ChatlistFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.ScrollChildSwipeRefreshLayout;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetUser;
+import wanthavers.mad.cs.fau.de.wanthavers_android.util.SharedPreferencesHelper;
 
 public class ChatListFragment extends Fragment implements  ChatListContract.View {
 
@@ -64,8 +69,14 @@ public class ChatListFragment extends Fragment implements  ChatListContract.View
 
         //Set up desire view
         ListView listView = chatListFragBinding.desiresList;
+        UserRepository chatRepo = UserRepository.getInstance(UserRemoteDataSource.getInstance(getContext().getApplicationContext()), UserLocalDataSource.getInstance(getContext()));
+        GetUser userGetter = new GetUser(chatRepo);
 
-        mListAdapter = new ChatListAdapter(new ArrayList<Chat>(0),mPresenter, mChatListViewModel);
+
+        SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, getContext().getApplicationContext());
+        final long loggedInUserId = Long.valueOf(sharedPreferencesHelper.loadString(SharedPreferencesHelper.KEY_USERID, "1"));
+
+        mListAdapter = new ChatListAdapter(new ArrayList<Chat>(0),mPresenter, mChatListViewModel,userGetter, loggedInUserId );
         listView.setAdapter(mListAdapter);
 
 

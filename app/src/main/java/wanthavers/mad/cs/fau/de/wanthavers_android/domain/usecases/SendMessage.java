@@ -1,23 +1,24 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases;
 
+import android.content.res.Resources;
 import android.support.annotation.NonNull;
 
 import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.Chat;
+import de.fau.cs.mad.wanthavers.common.Message;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCase;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.chat.ChatDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.chat.ChatRepository;
-import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireRepository;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class GetChatList extends UseCase<GetChatList.RequestValues, GetChatList.ResponseValue> {
+public class SendMessage extends UseCase<SendMessage.RequestValues, SendMessage.ResponseValue> {
 
     private final ChatRepository mChatRepository;
 
 
-    public GetChatList(@NonNull ChatRepository chatRepository) {
+    public SendMessage(@NonNull ChatRepository chatRepository) {
         mChatRepository = checkNotNull(chatRepository, "chat repository cannot be null!");
     }
 
@@ -26,18 +27,19 @@ public class GetChatList extends UseCase<GetChatList.RequestValues, GetChatList.
     protected void executeUseCase(final RequestValues values) {
 
 
-        mChatRepository.getAllChatsForLoggedInUser(new ChatDataSource.GetAllChatsForLoggedInUserCallback(){
+        mChatRepository.createMessage(values.getChatId(), values.getMessage(),new ChatDataSource.CreateMessageCallback(){
 
             @Override
-            public void onAllChatsForLoggedInUserLoaded(List<Chat> chatList) {
-                ResponseValue responseValue = new ResponseValue(chatList);
+            public void onMessageCreated(Message message) {
+                ResponseValue responseValue = new ResponseValue(message);
                 getUseCaseCallback().onSuccess(responseValue);
             }
 
             @Override
-            public void onDataNotAvailable() {
+            public void onCreateFailed() {
                 getUseCaseCallback().onError();
             }
+
         });
 
 
@@ -47,31 +49,35 @@ public class GetChatList extends UseCase<GetChatList.RequestValues, GetChatList.
 
     public static final class RequestValues implements UseCase.RequestValues {
 
-        //private final long mUserId;
+        private final Message mMessage;
+        private final String mChatId;
 
-        public RequestValues() {
-            //mUserId = userId;
+        public RequestValues(String chatId, Message message) {
+            mMessage = message;
+            mChatId = chatId;
         }
 
 
-    /* TODO add getters here if needed
-    public long getUserid() {
-        return mDesireId;
-    }
-    */
+        public Message getMessage(){
+            return mMessage;
+        }
+
+        public String getChatId(){
+            return mChatId;
+        }
     }
 
     public static final class ResponseValue implements UseCase.ResponseValue {
 
-        private List<Chat> mChatList;
+        private Message mMessage;
 
 
-        public ResponseValue(@NonNull List<Chat> chatList) {
-            mChatList = checkNotNull(chatList, "chatList cannot be null!");
+        public ResponseValue(@NonNull Message message) {
+            mMessage = checkNotNull(message, "chatList cannot be null!");
         }
 
-        public List<Chat> getChats() {
-            return mChatList;
+        public Message getResponseMessage() {
+            return mMessage;
         }
     }
 

@@ -45,9 +45,6 @@ public class ChatDetailFragment extends Fragment implements  ChatDetailContract.
     private ChatdetailFragBinding mChatDetailFragBinding;
     private static final String CHAT_ID = "CHAT_ID";
 
-    EditText etMessage;         //TODO once parse server works use databinding
-    ImageButton btSend;              //TODO once parse server works use databinding
-
     public ChatDetailFragment(){
         //Requires empty public constructor
     }
@@ -80,17 +77,22 @@ public class ChatDetailFragment extends Fragment implements  ChatDetailContract.
         mChatDetailFragBinding.setPresenter(mPresenter);
 
 
+
+
         //Set up chat view
         ListView listView = mChatDetailFragBinding.messageList;
 
         SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, getContext().getApplicationContext());
-
         final long chatUserId = Long.valueOf(sharedPreferencesHelper.loadString(SharedPreferencesHelper.KEY_USERID, "1"));
 
 
         mListAdapter = new ChatDetailAdapter(new ArrayList<Message>(0),chatUserId ,mPresenter, mChatDetailViewModel);
         listView.setAdapter(mListAdapter);
 
+
+        //set up action handler
+        ChatDetailActionHandler chatDetailActionHandler = new ChatDetailActionHandler(chatUserId, mChatDetailFragBinding, mPresenter);
+        mChatDetailFragBinding.setActionHandler(chatDetailActionHandler);
 
         // Set up progress indicator  TODO decide whether this is needed
         final ScrollChildSwipeRefreshLayout swipeRefreshLayout = mChatDetailFragBinding.refreshLayout;
@@ -128,6 +130,12 @@ public class ChatDetailFragment extends Fragment implements  ChatDetailContract.
         mChatDetailViewModel.setMessageListSize(messageList.size());
     }
 
+    public void showUpdatedMessageListonSendSuccess(Message message){
+        List<Message> messages = mListAdapter.getList();
+        messages.add(message);
+        showMessages(messages);
+    }
+
     @Override
     public boolean isActive() {
         return isAdded();
@@ -145,6 +153,11 @@ public class ChatDetailFragment extends Fragment implements  ChatDetailContract.
         showMessage(getString(R.string.loading_chats_error));
     }
 
+
+    @Override
+    public void showSendMessageError() {
+        showMessage(getString(R.string.send_message_error));
+    }
 
     public void setViewModel(ChatDetailViewModel viewModel){mChatDetailViewModel = viewModel;}
 

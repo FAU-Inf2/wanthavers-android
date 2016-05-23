@@ -89,14 +89,6 @@ public class ChatListActivity extends AppCompatActivity {
         mChatListPresenter = new ChatListPresenter(UseCaseHandler.getInstance(),chatListFragment,new GetChatList(chatRepo));
 
 
-        /* TODO decide whether viewModel needed
-        DesireListViewModel desireListViewModel =
-                new DesireListViewModel(getApplicationContext(), mDesireListPresenter);
-
-        chatListFragment.setViewModel(desireListViewModel);
-
-        */
-
         // Load previously saved state, if available.
         if (savedInstanceState != null) {
             /*TasksFilterType currentFiltering =

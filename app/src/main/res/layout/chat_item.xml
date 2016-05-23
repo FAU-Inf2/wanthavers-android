@@ -56,7 +56,7 @@
             android:id="@+id/userName"
             android:padding="20dp"
             android:lines="3"
-            android:text="@{String.valueOf(chat.user1)}"
+            android:text="@{user.name}"
             android:layout_marginEnd="64dp"
             android:layout_width="match_parent"
 

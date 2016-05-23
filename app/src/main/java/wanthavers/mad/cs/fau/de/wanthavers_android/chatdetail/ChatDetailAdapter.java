@@ -39,6 +39,10 @@ public class ChatDetailAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    public List<Message> getList(){
+        return mMessageList;
+    }
+
     @Override
     public int getCount() {
         return mMessageList != null ? mMessageList.size() : 0;

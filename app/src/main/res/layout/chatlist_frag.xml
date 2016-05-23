@@ -22,6 +22,10 @@
             type="wanthavers.mad.cs.fau.de.wanthavers_android.chatlist.ChatListViewModel" />
 
         <variable
+            name="user"
+            type="de.fau.cs.mad.wanthavers.common.User"/>
+
+        <variable
             name="presenter"
             type="wanthavers.mad.cs.fau.de.wanthavers_android.chatlist.ChatListContract.Presenter" />
 

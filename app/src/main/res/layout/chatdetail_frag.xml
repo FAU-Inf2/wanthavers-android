@@ -27,6 +27,10 @@
             name="presenter"
             type="wanthavers.mad.cs.fau.de.wanthavers_android.chatdetail.ChatDetailContract.Presenter" />
 
+        <variable
+            name="actionHandler"
+            type="wanthavers.mad.cs.fau.de.wanthavers_android.chatdetail.ChatDetailActionHandler"/>
+
     </data>
 
     <wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.ScrollChildSwipeRefreshLayout
@@ -102,6 +106,7 @@
                         android:inputType="textMultiLine|textCapSentences"/>
 
                     <ImageButton
+                        android:onClick="@{() -> actionHandler.sendMessage()}"
                         android:id="@+id/btSend"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

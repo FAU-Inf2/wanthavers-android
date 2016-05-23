@@ -48,7 +48,7 @@ public class GetDesireList extends UseCase<GetDesireList.RequestValues, GetDesir
         });
 
 
-        /*mDesireRepository.getDesire(values.getDesireId(), new DesireDataSource.LoadDesireCallback() {
+        /*mDesireRepository.getDesire(values.getUserid(), new DesireDataSource.LoadDesireCallback() {
             @Override
             public void onDesireLoaded(List<Desire> desireList) {
                 ResponseValue responseValue = new ResponseValue(desireList);
@@ -76,7 +76,7 @@ public class GetDesireList extends UseCase<GetDesireList.RequestValues, GetDesir
 
 
         /* TODO add getters here if needed
-        public long getDesireId() {
+        public long getUserid() {
             return mDesireId;
         }
         */

@@ -22,13 +22,16 @@ public interface ChatDetailContract {
 
         void showLoadingMessagesError();
 
-    }
+        void showSendMessageError();
 
+        void showUpdatedMessageListonSendSuccess(Message message);
+    }
 
 
     interface Presenter extends BasePresenter {
 
         void loadMessages(boolean forceUpdate);
 
+        void sendMessage(Message message);
     }
 }

@@ -27,4 +27,6 @@ public class ChatDetailViewModel extends BaseObservable {
         //notifyPropertyChanged(BR.notEmpty);
 
     }
+
+
 }
