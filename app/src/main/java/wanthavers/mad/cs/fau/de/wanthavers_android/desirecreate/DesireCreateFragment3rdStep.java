@@ -1,6 +1,11 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -14,9 +19,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.File;
 import java.util.Date;
 
 import de.fau.cs.mad.wanthavers.common.Desire;
+import de.fau.cs.mad.wanthavers.common.Media;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.Desirecreate3rdFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.DesireListActivity;
@@ -70,8 +77,10 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
                     String description = getActivity().getIntent().getExtras().getString("desireDescription");
                     String price = getActivity().getIntent().getExtras().getString("desirePrice");
                     String reward = getActivity().getIntent().getExtras().getString("desireReward");
-                    setDataforDesire(title, description, Integer.parseInt(price), Integer.parseInt(reward), desireDropzone.getText().toString());
-                    sendDesireToServer(desire);
+                    Bitmap image =  getActivity().getIntent().getExtras().getParcelable("desireImage");
+
+                    setDataForDesire(title, description, Integer.parseInt(price), Integer.parseInt(reward), desireDropzone.getText().toString(), image);
+                    //sendDesireToServer(desire);
 
                     mPresenter.createNextDesireCreateStep(null);
                 }
@@ -97,7 +106,7 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
 
     }
 
-    public void setDataforDesire(String title, String description, int price, int reward, String dropzone){
+    public void setDataForDesire(String title, String description, int price, int reward, String dropzone, Bitmap image){
         desire.setTitle(title);
         desire.setDescription(description);
         desire.setPrice(price);
@@ -107,8 +116,15 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
         int colorNumber = (int) (Math.random() * 4);
         desire.setColorIndex(colorNumber);
         desire.setCreation_time(new Date());
-        //TODO set USER :desire.setCreator();
-        //TODO set DesireID: desire.setId();
+
+        Log.d("test", Integer.toString(image.getHeight()));
+        Log.d("test", Integer.toString(image.getWidth()));
+
+        desire.setImage(null); // TODO
+
+        //will be set by the server
+        desire.setCreator(null);
+        desire.setId(0);
     }
 
 
