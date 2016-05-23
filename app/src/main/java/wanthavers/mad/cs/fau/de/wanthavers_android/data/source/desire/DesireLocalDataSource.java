@@ -22,6 +22,8 @@ import android.support.annotation.NonNull;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 
+import java.util.List;
+
 import de.fau.cs.mad.wanthavers.common.Desire;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.ormlite.DatabaseHelper;
 
@@ -89,6 +91,16 @@ public class DesireLocalDataSource implements DesireDataSource {
     public void getAllDesires(@NonNull GetAllDesiresCallback callback) {
         //TODO: alter this method when we decide to store desires locally
         callback.onDataNotAvailable();
+    }
+
+    public List<Desire> getAllDesires() {
+        return desireDao.queryForAll();
+    }
+
+    public void updateDesires(List<Desire> desires) {
+        for (Desire d : desires) {
+            desireDao.createOrUpdate(d);
+        }
     }
 
     @Override

@@ -19,6 +19,7 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.Desire;
@@ -111,6 +112,17 @@ public class DesireRemoteDataSource implements DesireDataSource {
         } catch(Throwable t) {
             callback.onDataNotAvailable();
         }
+    }
+
+    public List<Desire> getAllDesires() {
+        List<Desire> desires = null;
+        try {
+            desires = desireClient.get();
+        } catch(Throwable t) {
+            desires = new ArrayList<>();
+        }
+
+        return desires;
     }
 
     @Override

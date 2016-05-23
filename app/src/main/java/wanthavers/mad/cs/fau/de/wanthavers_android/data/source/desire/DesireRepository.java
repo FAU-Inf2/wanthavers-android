@@ -35,13 +35,13 @@ public class DesireRepository implements DesireDataSource {
 
     private static DesireRepository INSTANCE = null;
 
-    private final DesireDataSource desireRemoteDataSource;
+    private final DesireRemoteDataSource desireRemoteDataSource;
 
-    private final DesireDataSource desireLocalDataSource;
+    private final DesireLocalDataSource desireLocalDataSource;
 
     // Prevent direct instantiation.
-    private DesireRepository(@NonNull DesireDataSource desireRemoteDataSource,
-                             @NonNull DesireDataSource desireLocalDataSource) {
+    private DesireRepository(@NonNull DesireRemoteDataSource desireRemoteDataSource,
+                             @NonNull DesireLocalDataSource desireLocalDataSource) {
         this.desireRemoteDataSource = checkNotNull(desireRemoteDataSource);
         this.desireLocalDataSource = checkNotNull(desireLocalDataSource);
     }
@@ -53,8 +53,8 @@ public class DesireRepository implements DesireDataSource {
      * @param desireLocalDataSource  the device storage data source
      * @return the {@link DesireRepository} instance
      */
-    public static DesireRepository getInstance(DesireDataSource desireRemoteDataSource,
-                                               DesireDataSource desireLocalDataSource) {
+    public static DesireRepository getInstance(DesireRemoteDataSource desireRemoteDataSource,
+                                               DesireLocalDataSource desireLocalDataSource) {
         if (INSTANCE == null) {
             INSTANCE = new DesireRepository(desireRemoteDataSource, desireLocalDataSource);
         }
@@ -62,7 +62,7 @@ public class DesireRepository implements DesireDataSource {
     }
 
     /**
-     * Used to force {@link #getInstance(DesireDataSource, DesireDataSource)} to create a new instance
+     * Used to force {@link #getInstance(DesireRemoteDataSource, DesireLocalDataSource)} to create a new instance
      * next time it's called.
      */
     public static void destroyInstance() {
@@ -165,7 +165,21 @@ public class DesireRepository implements DesireDataSource {
     public void getAllDesires(@NonNull final GetAllDesiresCallback callback) {
         checkNotNull(callback);
 
-        desireLocalDataSource.getAllDesires(new GetAllDesiresCallback() {
+        List<Desire> desiresRemote = desireRemoteDataSource.getAllDesires();
+
+        if(!desiresRemote.isEmpty()) {
+            desireLocalDataSource.updateDesires(desiresRemote);
+        }
+
+        List<Desire> desiresLocal = desireLocalDataSource.getAllDesires();
+
+        if(!desiresLocal.isEmpty()) {
+            callback.onAllDesiresLoaded(desiresLocal);
+        } else {
+            callback.onDataNotAvailable();
+        }
+
+/*        desireLocalDataSource.getAllDesires(new GetAllDesiresCallback() {
             @Override
             public void onAllDesiresLoaded(List<Desire> desires) {
                 callback.onAllDesiresLoaded(desires);
@@ -185,7 +199,7 @@ public class DesireRepository implements DesireDataSource {
                     }
                 });
             }
-        });
+        });*/
     }
 
     @Override

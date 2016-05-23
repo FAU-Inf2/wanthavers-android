@@ -151,6 +151,11 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         haverDao = null;
         mediaDao = null;
         ratingDao = null;
+        userRuntimeDao = null;
+        desireRuntimeDao = null;
+        haverRuntimeDao = null;
+        mediaRuntimeDao = null;
+        ratingRuntimeDao = null;
     }
 
 }
