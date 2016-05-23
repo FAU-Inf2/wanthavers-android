@@ -83,6 +83,8 @@ dependencies {
         exclude module: 'javax.inject'
     }
 
+    compile 'com.j256.ormlite:ormlite-android:4.48'
+
 }
 
 
