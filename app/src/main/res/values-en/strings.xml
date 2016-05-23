@@ -44,6 +44,14 @@
     <string name="button_desire_message">send</string>
     <string name="desire_detail_wanter">Wanter:</string>
     <string name="loading_chats_error">Error while loading chat</string>
+    <string name="add_image">Add Image!</string>
+    <string name="take_photo">Take Photo</string>
+    <string name="choose_image_gallery">Choose from Gallery</string>
+    <string name="add_image_cancel">Cancel</string>
+
+
+
+
 
 
 </resources>

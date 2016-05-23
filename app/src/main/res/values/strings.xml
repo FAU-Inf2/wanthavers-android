@@ -44,6 +44,10 @@
     <string name="button_desire_message">Nachricht senden</string>
     <string name="no_chats">keine Nachrichten vorhanden</string>
     <string name="loading_chats_error">Fehler beim Laden der Chats</string>
+    <string name="add_image">Bild hinzufügen!</string>
+    <string name="take_photo">Foto aufnehmen</string>
+    <string name="choose_image_gallery">Bild aus Galerie auswählen</string>
+    <string name="add_image_cancel">Abbrechen</string>
 
 
     <!-- currency strings -->

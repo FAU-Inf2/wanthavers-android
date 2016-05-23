@@ -19,7 +19,13 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.dao.RuntimeExceptionDao;
+
+import java.util.List;
+
 import de.fau.cs.mad.wanthavers.common.Desire;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.ormlite.DatabaseHelper;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -30,12 +36,12 @@ public class DesireLocalDataSource implements DesireDataSource {
 
     private static DesireLocalDataSource INSTANCE;
 
-    private DesireDbHelper mDbHelper;
+    private RuntimeExceptionDao<Desire, Long> desireDao;
 
     // Prevent direct instantiation.
     private DesireLocalDataSource(@NonNull Context context) {
         checkNotNull(context);
-        mDbHelper = new DesireDbHelper(context);
+        desireDao = DatabaseHelper.getInstance(context).getDesireRuntimeDao();
     }
 
     public static DesireLocalDataSource getInstance(@NonNull Context context) {
@@ -85,6 +91,16 @@ public class DesireLocalDataSource implements DesireDataSource {
     public void getAllDesires(@NonNull GetAllDesiresCallback callback) {
         //TODO: alter this method when we decide to store desires locally
         callback.onDataNotAvailable();
+    }
+
+    public List<Desire> getAllDesires() {
+        return desireDao.queryForAll();
+    }
+
+    public void updateDesires(List<Desire> desires) {
+        for (Desire d : desires) {
+            desireDao.createOrUpdate(d);
+        }
     }
 
     @Override

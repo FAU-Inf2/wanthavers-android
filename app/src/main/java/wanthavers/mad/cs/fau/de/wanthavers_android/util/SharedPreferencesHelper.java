@@ -27,11 +27,17 @@ public class SharedPreferencesHelper {
     //Shared Preferences Names
     public static final String NAME_SETTINGS = "settings";
     public static final String NAME_USER = "user";
+    public static final String NAME_DB_TIMESTAMPS = "dbtimestamps";
 
     //Key Strings
     public static final String KEY_API_URL = "api_url";
     public static final String KEY_USERID = "userid";
     public static final String KEY_PASSWORD = "password";
+    public static final String KEY_USER = "user";
+    public static final String KEY_DESIRE = "desire";
+    public static final String KEY_HAVER = "haver";
+    public static final String KEY_MEDIA = "media";
+    public static final String KEY_RATING = "rating";
 
     private SharedPreferencesHelper(String sharedPreferencesName, Context context) {
         if(context == null) {
