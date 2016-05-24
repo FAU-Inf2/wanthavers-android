@@ -74,8 +74,17 @@ public class DesireRepository implements DesireDataSource {
         checkNotNull(desire);
         checkNotNull(callback);
 
-        desireRemoteDataSource.createDesire(desire, callback);
-        desireLocalDataSource.createDesire(desire, callback);
+        desireRemoteDataSource.createDesire(desire, new CreateDesireCallback() {
+            @Override
+            public void onDesireCreated(Desire desire) {
+                callback.onDesireCreated(desire);
+            }
+
+            @Override
+            public void onCreateFailed() {
+                callback.onCreateFailed();
+            }
+        });
     }
 
     @Override
@@ -83,17 +92,35 @@ public class DesireRepository implements DesireDataSource {
         checkNotNull(desire);
         checkNotNull(callback);
 
-        desireRemoteDataSource.updateDesire(desire, callback);
-        desireLocalDataSource.updateDesire(desire, callback);
+        desireRemoteDataSource.updateDesire(desire, new UpdateDesireCallback() {
+            @Override
+            public void onDesireUpdated(Desire desire) {
+                callback.onDesireUpdated(desire);
+            }
+
+            @Override
+            public void onUpdateFailed() {
+                callback.onUpdateFailed();
+            }
+        });
     }
 
     @Override
-    public void deleteDesire(@NonNull Desire desire, @NonNull DeleteDesireCallback callback) {
+    public void deleteDesire(@NonNull Desire desire, @NonNull final DeleteDesireCallback callback) {
         checkNotNull(desire);
         checkNotNull(callback);
 
-        desireRemoteDataSource.deleteDesire(desire, callback);
-        desireLocalDataSource.deleteDesire(desire, callback);
+        desireRemoteDataSource.deleteDesire(desire, new DeleteDesireCallback() {
+            @Override
+            public void onDesireDeleted() {
+                callback.onDesireDeleted();
+            }
+
+            @Override
+            public void onDeleteFailed() {
+                callback.onDeleteFailed();
+            }
+        });
     }
 
     @Override
@@ -101,8 +128,17 @@ public class DesireRepository implements DesireDataSource {
         checkNotNull(desireId);
         checkNotNull(callback);
 
-        desireRemoteDataSource.deleteDesire(desireId, callback);
-        desireLocalDataSource.deleteDesire(desireId, callback);
+        desireRemoteDataSource.deleteDesire(desireId, new DeleteDesireCallback() {
+            @Override
+            public void onDesireDeleted() {
+                callback.onDesireDeleted();
+            }
+
+            @Override
+            public void onDeleteFailed() {
+                callback.onDeleteFailed();
+            }
+        });
     }
 
     public void getDesire(@NonNull final long desireId, @NonNull final GetDesireCallback callback) {
@@ -167,13 +203,13 @@ public class DesireRepository implements DesireDataSource {
 
         List<Desire> desiresRemote = desireRemoteDataSource.getAllDesires();
 
-        if(!desiresRemote.isEmpty()) {
+        if (!desiresRemote.isEmpty()) {
             desireLocalDataSource.updateDesires(desiresRemote);
         }
 
         List<Desire> desiresLocal = desireLocalDataSource.getAllDesires();
 
-        if(!desiresLocal.isEmpty()) {
+        if (!desiresLocal.isEmpty()) {
             callback.onAllDesiresLoaded(desiresLocal);
         } else {
             callback.onDataNotAvailable();

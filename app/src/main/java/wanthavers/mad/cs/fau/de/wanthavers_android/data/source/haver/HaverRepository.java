@@ -93,44 +93,80 @@ public class HaverRepository implements HaverDataSource {
     }
 
     @Override
-    public void createHaver(@NonNull long desireId, @NonNull Haver haver, @NonNull CreateHaverCallback callback) {
+    public void createHaver(@NonNull long desireId, @NonNull Haver haver, @NonNull final CreateHaverCallback callback) {
         checkNotNull(desireId);
         checkNotNull(haver);
         checkNotNull(callback);
 
-        haverLocalDataSource.createHaver(desireId, haver, callback);
-        haverRemoteDataSource.createHaver(desireId, haver, callback);
+        haverRemoteDataSource.createHaver(desireId, haver, new CreateHaverCallback() {
+            @Override
+            public void onHaverCreated(Haver haver) {
+                callback.onHaverCreated(haver);
+            }
+
+            @Override
+            public void onCreateFailed() {
+                callback.onCreateFailed();
+            }
+        });
     }
 
     @Override
-    public void updateHaver(@NonNull long desireId, @NonNull long haverId, @NonNull Haver haver, @NonNull UpdateHaverCallback callback) {
+    public void updateHaver(@NonNull long desireId, @NonNull long haverId, @NonNull Haver haver, @NonNull final UpdateHaverCallback callback) {
         checkNotNull(desireId);
         checkNotNull(haverId);
         checkNotNull(haver);
         checkNotNull(callback);
 
-        haverLocalDataSource.updateHaver(desireId, haverId, haver, callback);
-        haverRemoteDataSource.updateHaver(desireId, haverId, haver, callback);
+        haverRemoteDataSource.updateHaver(desireId, haverId, haver, new UpdateHaverCallback() {
+            @Override
+            public void onHaverUpdated(Haver haver) {
+                callback.onHaverUpdated(haver);
+            }
+
+            @Override
+            public void onUpdateFailed() {
+                callback.onUpdateFailed();
+            }
+        });
     }
 
     @Override
-    public void deleteHaver(@NonNull long desireId, @NonNull long haverId, @NonNull DeleteHaverCallback callback) {
+    public void deleteHaver(@NonNull long desireId, @NonNull long haverId, @NonNull final DeleteHaverCallback callback) {
         checkNotNull(desireId);
         checkNotNull(haverId);
         checkNotNull(callback);
 
-        haverLocalDataSource.deleteHaver(desireId, haverId, callback);
-        haverRemoteDataSource.deleteHaver(desireId, haverId, callback);
+        haverRemoteDataSource.deleteHaver(desireId, haverId, new DeleteHaverCallback() {
+            @Override
+            public void onHaverDeleted() {
+                callback.onHaverDeleted();
+            }
+
+            @Override
+            public void onDeleteFailed() {
+                callback.onDeleteFailed();
+            }
+        });
     }
 
     @Override
-    public void acceptHaver(@NonNull long desireId, @NonNull long haverId, @NonNull Haver haver, @NonNull AcceptHaverForDesireCallback callback) {
+    public void acceptHaver(@NonNull long desireId, @NonNull long haverId, @NonNull Haver haver, @NonNull final AcceptHaverForDesireCallback callback) {
         checkNotNull(desireId);
         checkNotNull(haverId);
         checkNotNull(haver);
         checkNotNull(callback);
 
-        haverLocalDataSource.acceptHaver(desireId, haverId, haver, callback);
-        haverRemoteDataSource.acceptHaver(desireId, haverId, haver, callback);
+        haverRemoteDataSource.acceptHaver(desireId, haverId, haver, new AcceptHaverForDesireCallback() {
+            @Override
+            public void onAcceptHaverForDesire(Haver haver) {
+                callback.onAcceptHaverForDesire(haver);
+            }
+
+            @Override
+            public void onAcceptFailed() {
+                callback.onAcceptFailed();
+            }
+        });
     }
 }

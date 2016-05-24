@@ -35,13 +35,22 @@ public class RatingRepository implements RatingDataSource {
     }
 
     @Override
-    public void createRating(@NonNull long userId, @NonNull Rating rating, @NonNull CreateRatingCallback callback) {
+    public void createRating(@NonNull long userId, @NonNull Rating rating, @NonNull final CreateRatingCallback callback) {
         checkNotNull(userId);
         checkNotNull(rating);
         checkNotNull(callback);
 
-        ratingRemoteDataSource.createRating(userId, rating, callback);
-        ratingLocalDataSource.createRating(userId, rating, callback);
+        ratingRemoteDataSource.createRating(userId, rating, new CreateRatingCallback() {
+            @Override
+            public void onRatingCreated(Rating rating) {
+                callback.onRatingCreated(rating);
+            }
+
+            @Override
+            public void onCreateFailed() {
+                callback.onCreateFailed();
+            }
+        });
     }
 
     @Override
@@ -108,7 +117,7 @@ public class RatingRepository implements RatingDataSource {
         checkNotNull(rating);
         checkNotNull(callback);
 
-        ratingLocalDataSource.updateRating(userId, ratingId, rating, new UpdateRatingCallback() {
+        ratingRemoteDataSource.updateRating(userId, ratingId, rating, new UpdateRatingCallback() {
             @Override
             public void onRatingUpdated(Rating rating) {
                 callback.onRatingUpdated(rating);
@@ -116,17 +125,7 @@ public class RatingRepository implements RatingDataSource {
 
             @Override
             public void onUpdateFailed() {
-                ratingRemoteDataSource.updateRating(userId, ratingId, rating, new UpdateRatingCallback() {
-                    @Override
-                    public void onRatingUpdated(Rating rating) {
-                        callback.onRatingUpdated(rating);
-                    }
-
-                    @Override
-                    public void onUpdateFailed() {
-                        callback.onUpdateFailed();
-                    }
-                });
+                callback.onUpdateFailed();
             }
         });
     }
@@ -137,7 +136,7 @@ public class RatingRepository implements RatingDataSource {
         checkNotNull(ratingId);
         checkNotNull(callback);
 
-        ratingLocalDataSource.deleteRating(userId, ratingId, new DeleteRatingCallback() {
+        ratingRemoteDataSource.deleteRating(userId, ratingId, new DeleteRatingCallback() {
             @Override
             public void onRatingDeleted() {
                 callback.onRatingDeleted();
@@ -145,17 +144,7 @@ public class RatingRepository implements RatingDataSource {
 
             @Override
             public void onDeleteFailed() {
-                ratingRemoteDataSource.deleteRating(userId, ratingId, new DeleteRatingCallback() {
-                    @Override
-                    public void onRatingDeleted() {
-                        callback.onRatingDeleted();
-                    }
-
-                    @Override
-                    public void onDeleteFailed() {
-                        callback.onDeleteFailed();
-                    }
-                });
+                callback.onDeleteFailed();
             }
         });
     }

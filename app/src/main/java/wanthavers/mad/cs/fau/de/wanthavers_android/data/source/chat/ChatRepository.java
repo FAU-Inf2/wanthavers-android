@@ -92,21 +92,39 @@ public class ChatRepository implements ChatDataSource {
     }
 
     @Override
-    public void createChat(@NonNull Chat chat, @NonNull CreateChatCallback callback) {
+    public void createChat(@NonNull Chat chat, @NonNull final CreateChatCallback callback) {
         checkNotNull(chat);
         checkNotNull(callback);
 
-        chatLocalDataSource.createChat(chat, callback);
-        chatRemoteDataSource.createChat(chat, callback);
+        chatRemoteDataSource.createChat(chat, new CreateChatCallback() {
+            @Override
+            public void onChatCreated(Chat chat) {
+                callback.onChatCreated(chat);
+            }
+
+            @Override
+            public void onCreateFailed() {
+                callback.onCreateFailed();
+            }
+        });
     }
 
     @Override
-    public void createMessage(@NonNull String chatId, @NonNull Message message, @NonNull CreateMessageCallback callback) {
+    public void createMessage(@NonNull String chatId, @NonNull Message message, @NonNull final CreateMessageCallback callback) {
         checkNotNull(chatId);
         checkNotNull(message);
         checkNotNull(callback);
 
-        chatLocalDataSource.createMessage(chatId, message, callback);
-        chatRemoteDataSource.createMessage(chatId, message, callback);
+        chatRemoteDataSource.createMessage(chatId, message, new CreateMessageCallback() {
+            @Override
+            public void onMessageCreated(Message message) {
+                callback.onMessageCreated(message);
+            }
+
+            @Override
+            public void onCreateFailed() {
+                callback.onCreateFailed();
+            }
+        });
     }
 }

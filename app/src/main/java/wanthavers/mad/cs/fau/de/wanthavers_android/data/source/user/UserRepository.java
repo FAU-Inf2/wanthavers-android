@@ -86,30 +86,57 @@ public class UserRepository implements UserDataSource {
     }
 
     @Override
-    public void createUser(@NonNull User user, @NonNull CreateUserCallback callback) {
+    public void createUser(@NonNull User user, @NonNull final CreateUserCallback callback) {
         checkNotNull(user);
         checkNotNull(callback);
 
-        userRemoteDataSource.createUser(user, callback);
-        userLocalDataSource.createUser(user, callback);
+        userRemoteDataSource.createUser(user, new CreateUserCallback() {
+            @Override
+            public void onUserCreated(User user) {
+                callback.onUserCreated(user);
+            }
+
+            @Override
+            public void onCreationFailed() {
+                callback.onCreationFailed();
+            }
+        });
     }
 
     @Override
-    public void updateUser(@NonNull User user, @NonNull UpdateUserCallback callback) {
+    public void updateUser(@NonNull User user, @NonNull final UpdateUserCallback callback) {
         checkNotNull(user);
         checkNotNull(callback);
 
-        userRemoteDataSource.updateUser(user, callback);
-        userLocalDataSource.updateUser(user, callback);
+        userRemoteDataSource.updateUser(user, new UpdateUserCallback() {
+            @Override
+            public void onUserUpdated(User user) {
+                callback.onUserUpdated(user);
+            }
+
+            @Override
+            public void onUpdateFailed() {
+                callback.onUpdateFailed();
+            }
+        });
     }
 
     @Override
-    public void deleteUser(@NonNull User user, @NonNull DeleteUserCallback callback) {
+    public void deleteUser(@NonNull User user, @NonNull final DeleteUserCallback callback) {
         checkNotNull(user);
         checkNotNull(callback);
 
-        userRemoteDataSource.deleteUser(user, callback);
-        userLocalDataSource.deleteUser(user, callback);
+        userRemoteDataSource.deleteUser(user, new DeleteUserCallback() {
+            @Override
+            public void onUserDeleted() {
+                callback.onUserDeleted();
+            }
+
+            @Override
+            public void onDeleteFailed() {
+                callback.onDeleteFailed();
+            }
+        });
     }
 
     private void getUserFromRemoteDataSource(@NonNull long userId, @NonNull final GetUserCallback callback) {
