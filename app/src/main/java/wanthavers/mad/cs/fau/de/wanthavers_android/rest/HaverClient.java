@@ -31,8 +31,8 @@ public class HaverClient extends RestClient {
         return haverEndpoint.getAllHavers(desireId);
     }
 
-    public Haver createHaver(long desireId, Haver haver, User user) {
-        return haverEndpoint.createHaver(desireId, haver, user);
+    public Haver createHaver(long desireId, Haver haver) {
+        return haverEndpoint.createHaver(null, desireId, haver);
     }
 
     public Haver get(long desireId, long haverId) {

@@ -52,7 +52,7 @@ public class HaverRemoteDataSource implements HaverDataSource {
     @Override
     public void createHaver(@NonNull long desireId, @NonNull Haver haver, @NonNull CreateHaverCallback callback) {
         try {
-            Haver ret = haverEndpoint.createHaver(desireId, haver, null);
+            Haver ret = haverEndpoint.createHaver(desireId, haver);
             callback.onHaverCreated(ret);
         } catch (Throwable t) {
             callback.onCreateFailed();

@@ -47,8 +47,8 @@ public class DesireClient extends RestClient {
         return desireEndpoint.getByLocation(lat, lon, radius);
     }
 
-    public Desire createDesire(Desire desire, User user) {
-        return desireEndpoint.createDesire(desire, user);
+    public Desire createDesire(Desire desire) {
+        return desireEndpoint.createDesire(null, desire);
     }
 
     public Desire updateDesire(long desireId, Desire desire) {

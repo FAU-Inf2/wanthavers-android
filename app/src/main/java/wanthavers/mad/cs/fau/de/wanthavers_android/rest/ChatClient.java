@@ -39,10 +39,10 @@ public class ChatClient extends RestClient {
     }
 
     public Chat createChat(Chat chat) {
-        return chatEndpoint.createChat(chat, null);
+        return chatEndpoint.createChat(null, chat);
     }
 
     public Message createMessage(String chatId, Message message) {
-        return chatEndpoint.createMessage(chatId, message, null);
+        return chatEndpoint.createMessage(null, chatId, message);
     }
 }

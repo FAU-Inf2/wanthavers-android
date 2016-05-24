@@ -52,7 +52,7 @@ public class DesireRemoteDataSource implements DesireDataSource {
     @Override
     public void createDesire(@NonNull Desire desire, @NonNull CreateDesireCallback callback) {
         try {
-            Desire ret = desireClient.createDesire(desire, null);
+            Desire ret = desireClient.createDesire(desire);
             callback.onDesireCreated(ret);
         } catch (Throwable t) {
             callback.onCreateFailed();
