@@ -1,12 +1,14 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.data.source.media;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 
+import java.io.File;
 import java.io.InputStream;
 
 import de.fau.cs.mad.wanthavers.common.Media;
@@ -48,6 +50,12 @@ public class MediaLocalDataSource implements MediaDataSource {
 
     @Override
     public void createMedia(@NonNull InputStream inputStream, @NonNull FormDataContentDisposition contentDispositionHeader, @NonNull CreateMediaCallback callback) {
+        //TODO: alter this method when we decide to store media locally
+        callback.onCreateFailed();
+    }
+
+    @Override
+    public void createMedia(@NonNull File image, @NonNull CreateMediaCallback callback) {
         //TODO: alter this method when we decide to store media locally
         callback.onCreateFailed();
     }

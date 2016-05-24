@@ -20,7 +20,7 @@ public abstract class RestClient {
     protected Context context;
 
     //TODO: get API-URL from shared preferences or something like that
-    protected final String api_url = "http://faui21f.informatik.uni-erlangen.de:9090/";
+    public static final String API_URL = "http://faui21f.informatik.uni-erlangen.de:9090/";
 
     protected RestClient(@NonNull Context context) {
         checkNotNull(context);
@@ -31,11 +31,7 @@ public abstract class RestClient {
         String password = sharedPreferences.loadString(SharedPreferencesHelper.KEY_PASSWORD, "");
 
         HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic(String.valueOf(userId), password);
-        target = ClientBuilder.newClient().register(JacksonJsonProvider.class).target(api_url);
+        target = ClientBuilder.newClient().register(JacksonJsonProvider.class).target(API_URL);
         target.register(feature);
-    }
-
-    public String getApiUrl() {
-        return api_url;
     }
 }

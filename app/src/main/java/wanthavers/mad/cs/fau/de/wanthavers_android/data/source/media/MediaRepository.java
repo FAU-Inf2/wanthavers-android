@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 
+import java.io.File;
 import java.io.InputStream;
 import java.util.List;
 
@@ -99,6 +100,24 @@ public class MediaRepository implements MediaDataSource {
         checkNotNull(callback);
 
         mediaRemoteDataSource.createMedia(inputStream, contentDispositionHeader, new CreateMediaCallback() {
+            @Override
+            public void onMediaCreated(Media media) {
+                callback.onMediaCreated(media);
+            }
+
+            @Override
+            public void onCreateFailed() {
+                callback.onCreateFailed();
+            }
+        });
+    }
+
+    @Override
+    public void createMedia(@NonNull File image, @NonNull final CreateMediaCallback callback) {
+        checkNotNull(image);
+        checkNotNull(callback);
+
+        mediaRemoteDataSource.createMedia(image, new CreateMediaCallback() {
             @Override
             public void onMediaCreated(Media media) {
                 callback.onMediaCreated(media);
