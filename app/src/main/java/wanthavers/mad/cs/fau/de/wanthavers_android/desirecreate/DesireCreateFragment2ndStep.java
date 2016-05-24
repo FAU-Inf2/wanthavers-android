@@ -6,8 +6,6 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -28,9 +26,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.File;
-import java.io.IOException;
-
-import de.fau.cs.mad.wanthavers.common.Media;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.Desirecreate2ndFragBinding;
 
@@ -40,7 +35,7 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
     private Desirecreate2ndFragBinding mViewDataBinding;
     private DesireCreateContract.Presenter mPresenter;
     private static final int SELECT_PICTURE = 1;
-    private Bitmap image = null;
+    private Uri image;
 
 
     public DesireCreateFragment2ndStep(){
@@ -103,7 +98,7 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
                     mPresenter.createNextDesireCreateStep(input);
                 }
 
-                       }
+            }
         });
 
         return view;
@@ -192,18 +187,10 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
         super.onActivityResult(requestCode, resultCode, data);
         if ( resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
 
-            Uri uri = data.getData();
+            image = data.getData();
+            ImageView imageView = (ImageView) getView().findViewById(R.id.image_camera);
+            imageView.setImageURI(image);
 
-            try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uri);
-
-                ImageView imageView = (ImageView) getView().findViewById(R.id.image_camera);
-                imageView.setImageBitmap(bitmap);
-                image = bitmap;
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }//TODO
 
     }

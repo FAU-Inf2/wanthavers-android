@@ -1,10 +1,6 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -77,7 +73,7 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
                     String description = getActivity().getIntent().getExtras().getString("desireDescription");
                     String price = getActivity().getIntent().getExtras().getString("desirePrice");
                     String reward = getActivity().getIntent().getExtras().getString("desireReward");
-                    Bitmap image =  getActivity().getIntent().getExtras().getParcelable("desireImage");
+                    Uri image =  getActivity().getIntent().getExtras().getParcelable("desireImage");
 
                     setDataForDesire(title, description, Integer.parseInt(price), Integer.parseInt(reward), desireDropzone.getText().toString(), image);
                     //sendDesireToServer(desire);
@@ -106,7 +102,7 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
 
     }
 
-    public void setDataForDesire(String title, String description, int price, int reward, String dropzone, Bitmap image){
+    public void setDataForDesire(String title, String description, int price, int reward, String dropzone, Uri image){
         desire.setTitle(title);
         desire.setDescription(description);
         desire.setPrice(price);
@@ -117,10 +113,14 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
         desire.setColorIndex(colorNumber);
         desire.setCreation_time(new Date());
 
-        Log.d("test", Integer.toString(image.getHeight()));
-        Log.d("test", Integer.toString(image.getWidth()));
 
-        desire.setImage(null); // TODO
+        if(image != null) {
+            Log.d("Image", image.getPath());
+            File file = new File(image.getPath());
+            Log.d("Image", file.getPath());
+
+            //desire.setImage(); // TODO
+        }
 
         //will be set by the server
         desire.setCreator(null);
