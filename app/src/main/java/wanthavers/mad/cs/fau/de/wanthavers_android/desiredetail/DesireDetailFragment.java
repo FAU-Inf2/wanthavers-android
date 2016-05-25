@@ -1,20 +1,35 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.desiredetail;
 
 import android.content.Context;
+import android.databinding.Bindable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import de.fau.cs.mad.wanthavers.common.Haver;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import de.fau.cs.mad.wanthavers.common.Desire;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.DesiredetailFragBinding;
+import wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.DesireListViewModel;
+import wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.ScrollChildSwipeRefreshLayout;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -35,10 +50,13 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
 
     private DesiredetailFragBinding mViewDataBinding;
     private DesireDetailContract.Presenter mPresenter;
-
-    //maybe unnecessary
+    private DesireDetailAdapter mListAdapter;
     private DesireLogic mDesireLogic;
+    private DesireDetailViewModel mDesireDetailViewModel;
 
+    public DesireDetailFragment() {
+
+    }
 
     public static DesireDetailFragment newInstance(long desireId){
         Bundle arguments = new Bundle();
@@ -53,13 +71,13 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
         mPresenter = checkNotNull(presenter);
     }
 
-    @Override
+    /*@Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
         mViewDataBinding.setPresenter(mPresenter);
 
-    }
+    }*/
 
     @Override
     public void onResume() {
@@ -75,13 +93,37 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
 
         View view = inflater.inflate(R.layout.desiredetail_frag, container, false);
 
+        //DesiredetailFragBinding desiredetailFragBinding = DesiredetailFragBinding.inflate(inflater, container, false);
+
         mViewDataBinding = DesiredetailFragBinding.bind(view);
 
         mViewDataBinding.setDesirelogic(mDesireLogic);
 
+        //TODO: in xml havers empty
+        //desiredetailFragBinding.setHavers(mDesireDetailViewModel);
+        //desiredetailFragBinding.setDesire();
+        //desiredetailFragBinding.setDesirelogic(mDesireLogic);
+
         setHasOptionsMenu(true);
 
         setRetainInstance(true);
+
+        //Set up havers view
+        ListView listView = mViewDataBinding.haverList;
+        mListAdapter = new DesireDetailAdapter(new ArrayList<Haver>(0));
+        listView.setAdapter(mListAdapter);
+
+        // Set up progress indicator  TODO decide whether this is needed
+        final ScrollChildSwipeRefreshLayout swipeRefreshLayout = mViewDataBinding.refreshLayout;
+        swipeRefreshLayout.setColorSchemeColors(
+                ContextCompat.getColor(getActivity(), R.color.colorPrimary),
+                ContextCompat.getColor(getActivity(), R.color.colorAccent),
+                ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark)
+        );
+
+        // Set the scrolling view in the custom SwipeRefreshLayout
+        swipeRefreshLayout.setScrollUpChild(listView);
+
 
         // Set up floating action button
 
@@ -110,14 +152,48 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
         super.onCreateOptionsMenu(menu, inflater);
     }
 
+    public void setViewModel(DesireDetailViewModel viewModel) {mDesireDetailViewModel = viewModel;}
 
     public void showDesire(Desire desire) {
         mViewDataBinding.setDesire(desire);
     }
 
+    public void showHavers(List<Haver> havers) {
+        mListAdapter.replaceData(havers);
+        mDesireDetailViewModel.setWanterListSize(havers.size());
+    }
 
     public void setDesireLogic(DesireLogic desireLogic){mDesireLogic = desireLogic;}
 
+    @Override
+    public void setLoadingIndicator(final boolean active) {
+        if (getView() == null) {
+            return;
+        }
+        final SwipeRefreshLayout srl = (SwipeRefreshLayout) getView().findViewById(R.id.refresh_layout);
+
+        // Make sure setRefreshing() is called after the layout is done with everything else.
+        srl.post(new Runnable() {
+            @Override
+            public void run() {
+                srl.setRefreshing(active);
+            }
+        });
+    }
+
+    @Override
+    public void showLoadingHaversError() {
+        showMessage(getString(R.string.loading_desires_error));
+    }
+
+    private void showMessage(String message) {
+        Snackbar.make(getView(), message, Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
+    public boolean isActive() {
+        return isAdded();
+    }
 
     /*
     // TODO: Rename and change types of parameters

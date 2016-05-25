@@ -1,5 +1,8 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.desiredetail;
 
+import java.util.List;
+
+import de.fau.cs.mad.wanthavers.common.Haver;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.BasePresenter;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.BaseView;
 //import wanthavers.mad.cs.fau.de.wanthavers_android.data.Desire;
@@ -11,6 +14,13 @@ public interface DesireDetailContract {
 
         void showDesire(Desire desire);
 
+        void showHavers(List<Haver> haver);
+
+        void setLoadingIndicator(final boolean active);
+
+        void showLoadingHaversError();
+
+        boolean isActive();
     }
 
 
@@ -18,6 +28,8 @@ public interface DesireDetailContract {
     interface Presenter extends BasePresenter {
 
         void getDesire();
+
+        void loadHavers(boolean forceUpdate);
 
 
     }
