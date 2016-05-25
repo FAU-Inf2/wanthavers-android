@@ -1,5 +1,6 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -21,6 +22,10 @@ import java.util.Date;
 import de.fau.cs.mad.wanthavers.common.Desire;
 import de.fau.cs.mad.wanthavers.common.Media;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.media.MediaDataSource;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.media.MediaLocalDataSource;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.media.MediaRemoteDataSource;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.media.MediaRepository;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.Desirecreate3rdFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.DesireListActivity;
 
@@ -76,7 +81,7 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
                     Uri image =  getActivity().getIntent().getExtras().getParcelable("desireImage");
 
                     setDataForDesire(title, description, Integer.parseInt(price), Integer.parseInt(reward), desireDropzone.getText().toString(), image);
-                    //sendDesireToServer(desire);
+                    sendDesireToServer(desire);
 
                     mPresenter.createNextDesireCreateStep(null);
                 }
@@ -119,6 +124,13 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
             File file = new File(image.getPath());
             Log.d("Image", file.getPath());
 
+
+            /*MediaDataSource.CreateMediaCallback callback = newInstance();
+            Context context = getActivity().getApplicationContext();
+            MediaRepository mediarepo = MediaRepository.getInstance(MediaRemoteDataSource.getInstance(context), MediaLocalDataSource.getInstance(context));
+            mediarepo.createMedia(file,);*/
+
+            //MediaRepository.createMedia(file, )
             //desire.setImage(); // TODO
         }
 
@@ -129,7 +141,7 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
 
 
     public void sendDesireToServer(Desire desire){
-        //TODO
+        mPresenter.setDesire(desire);//TODO
     }
 
 
