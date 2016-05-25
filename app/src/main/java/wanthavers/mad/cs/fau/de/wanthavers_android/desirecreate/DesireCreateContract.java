@@ -19,6 +19,7 @@ public interface DesireCreateContract {
 
         void createNextDesireCreateStep(String[] input);
 
-       // void setDesire(Desire d);
+
+        void setDesire(Desire desire);
     }
 }

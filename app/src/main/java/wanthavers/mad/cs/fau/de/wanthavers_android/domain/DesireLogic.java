@@ -3,6 +3,8 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.domain;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.databinding.Bindable;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -63,5 +65,19 @@ public class DesireLogic {
         priceString += " " + currency;
 
         return priceString;
+    }
+
+    public boolean isDesireCreator(long id) {
+        //TODO: dependency on user id and desire creator user id
+        /*
+        SharedPreferencesHelper sharedPreferences = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, context);
+          long userId = sharedPreferences.loadLong(SharedPreferencesHelper.KEY_USERID, 1L);
+        tbd by Serverteam...
+         */
+        if (id == 1) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
