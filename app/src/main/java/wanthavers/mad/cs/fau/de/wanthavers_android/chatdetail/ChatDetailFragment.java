@@ -94,17 +94,6 @@ public class ChatDetailFragment extends Fragment implements  ChatDetailContract.
         ChatDetailActionHandler chatDetailActionHandler = new ChatDetailActionHandler(chatUserId, mChatDetailFragBinding, mPresenter);
         mChatDetailFragBinding.setActionHandler(chatDetailActionHandler);
 
-        // Set up progress indicator  TODO decide whether this is needed
-        final ScrollChildSwipeRefreshLayout swipeRefreshLayout = mChatDetailFragBinding.refreshLayout;
-        swipeRefreshLayout.setColorSchemeColors(
-                ContextCompat.getColor(getActivity(), R.color.colorPrimary),
-                ContextCompat.getColor(getActivity(), R.color.colorAccent),
-                ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark)
-        );
-
-        // Set the scrolling view in the custom SwipeRefreshLayout
-        swipeRefreshLayout.setScrollUpChild(listView);
-
 
         setHasOptionsMenu(true);
 

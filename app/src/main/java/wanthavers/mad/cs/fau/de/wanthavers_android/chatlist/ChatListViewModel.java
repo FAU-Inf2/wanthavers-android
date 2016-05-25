@@ -4,6 +4,8 @@ import android.databinding.BaseObservable;
 import android.content.Context;
 import android.databinding.Bindable;
 
+import de.fau.cs.mad.wanthavers.common.User;
+
 public class ChatListViewModel extends BaseObservable {
 
 
@@ -28,4 +30,5 @@ public class ChatListViewModel extends BaseObservable {
         //notifyPropertyChanged(BR.notEmpty);
 
     }
+
 }

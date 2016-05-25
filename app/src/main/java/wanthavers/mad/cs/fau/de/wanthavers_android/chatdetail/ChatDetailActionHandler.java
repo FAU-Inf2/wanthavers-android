@@ -22,6 +22,7 @@ public class ChatDetailActionHandler {
         Message message = new Message();
         message.setFrom(mChatUserId);
         message.setBody(mChatDetailFragBinding.etMessage.getText().toString());
+        mChatDetailFragBinding.etMessage.setText("");
         mListener.sendMessage(message);
     }
 }

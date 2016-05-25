@@ -28,5 +28,4 @@ public class ChatDetailViewModel extends BaseObservable {
 
     }
 
-
 }
