@@ -17,21 +17,10 @@
 
     <data>
 
-        <variable
+        <!--variable
             name="chats"
             type="wanthavers.mad.cs.fau.de.wanthavers_android.chatlist.ChatListViewModel" />
 
-        <variable
-            name="user"
-            type="de.fau.cs.mad.wanthavers.common.User" />
-
-        <variable
-            name="actionHandler"
-            type="wanthavers.mad.cs.fau.de.wanthavers_android.chatlist.ChatListItemActionHandler" />
-
-        <variable
-            name="chat"
-            type="de.fau.cs.mad.wanthavers.common.Chat" />
 
         <variable
             name="chatItemViewModel"
@@ -39,7 +28,28 @@
 
         <variable
             name="profilePic"
-            type="android.widget.ImageView"/>
+            type="android.widget.ImageView"/-->
+
+        <variable
+            name="actionHandler"
+            type="wanthavers.mad.cs.fau.de.wanthavers_android.chatlist.ChatListItemActionHandler" />
+
+
+        <variable
+            name="user"
+            type="de.fau.cs.mad.wanthavers.common.User" />
+
+
+
+        <variable
+            name="chat"
+            type="de.fau.cs.mad.wanthavers.common.Chat" />
+
+        <variable
+            name="desire"
+            type="de.fau.cs.mad.wanthavers.common.Desire"/>
+
+
     </data>
 
     <LinearLayout
@@ -54,7 +64,6 @@
         android:onClick="@{() -> actionHandler.chatClicked(chat)}">
 
         <ImageView
-            android:background="@drawable/profileimage_border_chat"
             android:id="@+id/ivProfileOther"
             android:contentDescription="@string/profile_other"
             android:layout_width="64dp"
@@ -71,7 +80,7 @@
                 android:id="@+id/userName"
                 android:textColor="@color/colorPrimary"
                 android:lines="1"
-                android:text="@{chatItemViewModel.user.name}"
+                android:text="@{user.name}"
                 android:layout_marginEnd="64dp"
                 android:layout_width="match_parent"
                 android:layout_height="30dp">
@@ -81,7 +90,7 @@
                 android:textSize="18sp"
                 android:id="@+id/desireName"
                 android:lines="1"
-                android:text="@{chatItemViewModel.desire.title}"
+                android:text="@{desire.title}"
                 android:layout_marginEnd="64dp"
                 android:layout_width="match_parent"
                 android:layout_height="30dp">

@@ -22,10 +22,16 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.chat.ChatReposito
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireRepository;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireLocalDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireRemoteDataSource;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserLocalDataSource;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserRemoteDataSource;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserRepository;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.NavHeaderBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.DesireListActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetChatList;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetDesire;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetUser;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.ActivityUtils;
+import wanthavers.mad.cs.fau.de.wanthavers_android.util.SharedPreferencesHelper;
 
 
 public class ChatListActivity extends AppCompatActivity {
@@ -34,11 +40,16 @@ public class ChatListActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private ChatListPresenter mChatListPresenter;
     public static final String USER_ID = "USER_ID";
+    private long mLoggedInUserId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chatlist_act);
+
+        SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, getApplicationContext());
+        mLoggedInUserId = Long.valueOf(sharedPreferencesHelper.loadString(SharedPreferencesHelper.KEY_USERID, "1"));
+
 
 
         // Set up the toolbar.
@@ -84,9 +95,17 @@ public class ChatListActivity extends AppCompatActivity {
         checkNotNull(context);
 
         ChatRepository chatRepo = ChatRepository.getInstance(ChatRemoteDataSource.getInstance(getApplicationContext()), ChatLocalDataSource.getInstance(context));
+        UserRepository userRepo = UserRepository.getInstance(UserRemoteDataSource.getInstance(getApplicationContext()),
+                UserLocalDataSource.getInstance(getApplicationContext()));
+        GetUser userGetter = new GetUser(userRepo);
+        DesireRepository desireRepo = DesireRepository.getInstance(DesireRemoteDataSource.getInstance(context),
+                DesireLocalDataSource.getInstance(context));
+        GetDesire desireGetter = new GetDesire(desireRepo);
+
+
 
         // Create the presenter
-        mChatListPresenter = new ChatListPresenter(UseCaseHandler.getInstance(),chatListFragment,new GetChatList(chatRepo));
+        mChatListPresenter = new ChatListPresenter(UseCaseHandler.getInstance(),chatListFragment,new GetChatList(chatRepo),mLoggedInUserId, userGetter,desireGetter );
 
 
         // Load previously saved state, if available.

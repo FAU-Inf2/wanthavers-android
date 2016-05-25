@@ -22,6 +22,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserReposito
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.ChatItemBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetDesire;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetUser;
+import wanthavers.mad.cs.fau.de.wanthavers_android.util.RoundedTransformation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,37 +31,29 @@ public class ChatListAdapter extends BaseAdapter {
 
 
     private List<Chat> mChatList;
-    private List<ChatItemViewModel> chatItemViewModels;
-    private final GetUser mGetUser;
-    private final GetDesire mGetDesire;
-    private User mUser;
-    private long mLoggedInUserId;
-    private ViewGroup mViewGroup;
+    private List<User> mUserList;
+    private List<Desire> mDesireList;
 
     private ChatListContract.Presenter mUserActionsListener;
     private ChatListViewModel mChatListViewModel;
     private UseCaseHandler mUseCaseHandler;
 
-    public ChatListAdapter(List<Chat> chats, ChatListContract.Presenter itemListener,
-                           ChatListViewModel chatListViewModel,
-                           @NonNull GetUser getUser, long loggedInUserId,
-                           @NonNull GetDesire getDesire) {
-        setList(chats);
+    public ChatListAdapter(List<Chat> chats, List<User> userList, List<Desire> desireList, ChatListContract.Presenter itemListener,
+                           ChatListViewModel chatListViewModel) {
+        setList(chats, userList, desireList);
         mUserActionsListener = itemListener;
         mChatListViewModel = chatListViewModel;
-        mGetUser = getUser;
-        mLoggedInUserId = loggedInUserId;
         mUseCaseHandler = UseCaseHandler.getInstance();
-        mGetDesire = getDesire;
-        chatItemViewModels = new ArrayList<>();
     }
 
-    public void replaceData(List<Chat> chatList) {
-        setList(chatList);
+    public void replaceData(List<Chat> chatList, List<User> userList, List<Desire> desireList) {
+        setList(chatList, userList, desireList);
     }
 
-    private void setList(List<Chat> chatList) {
+    private void setList(List<Chat> chatList, List<User> userList, List<Desire> desireList) {
         mChatList = chatList;
+        mUserList = userList;
+        mDesireList = desireList;
         notifyDataSetChanged();
     }
 
@@ -79,9 +72,23 @@ public class ChatListAdapter extends BaseAdapter {
         return i;
     }
 
+
+    public User getUserForItem(int i){
+        return mUserList.get(i);
+    }
+
+    public Desire getDesireForItem(int i){
+        return mDesireList.get(i);
+    }
+
+
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         Chat chat = getItem(i);
+        User user = getUserForItem(i);
+        Desire desire = getDesireForItem(i);
+
+
         ChatItemBinding binding;
 
         if (view == null) {
@@ -92,46 +99,48 @@ public class ChatListAdapter extends BaseAdapter {
             binding = ChatItemBinding.inflate(inflater, viewGroup, false);
 
         } else {
-            binding = DataBindingUtil.getBinding(viewGroup);
+            binding = DataBindingUtil.getBinding(view);
         }
 
         // We might be recycling the binding for another task, so update it.
         // Create the action handler for the view
+
+        //binding.setChats(mChatListViewModel);
+
         ChatListItemActionHandler itemActionHandler = new ChatListItemActionHandler(mUserActionsListener);
         binding.setActionHandler(itemActionHandler);
-
-        binding.setChats(mChatListViewModel);
         binding.setChat(chat);
+        binding.setUser(user);
+        binding.setDesire(desire);
 
-        chatItemViewModels.add(new ChatItemViewModel());
-        binding.setChatItemViewModel(chatItemViewModels.get(i));
+        Media m = user.getImage();
+
+        if (m != null) {
+            final ImageView profileView = (ImageView) binding.ivProfileOther;
+            Picasso.with(viewGroup.getContext()).load(m.getLowRes()).transform(new RoundedTransformation(200,0)).into(profileView);
+            //chatItemViewModels.get(curChat).setProfilePic(profileView);
+        }
+
+
+        //chatItemViewModels.add(new ChatItemViewModel());
+        //binding.setChatItemViewModel(chatItemViewModels.get(i));
 
         // get User and bind to view
-        long otherUserId = getOtherUserId(chat.getUser1(),chat.getUser2());
-        mViewGroup = viewGroup;
-        executeUserUseCase(otherUserId, i);
+
+        //executeUserUseCase(otherUserId, i);
 
         //getDesire and bind to view
-        executeDesireUseCase(chat.getDesireId(), i);
-
-
-
+        //executeDesireUseCase(chat.getDesireId(), i);
 
         binding.executePendingBindings();
         return binding.getRoot();
     }
 
 
-    private long getOtherUserId(long user1Id, long user2Id){
-
-        if(user1Id == mLoggedInUserId){
-            return user2Id;
-        }
-
-        return user1Id;
-    }
 
 
+
+    /*
     private void executeUserUseCase(long userId, final int curChat){
 
 
@@ -163,13 +172,14 @@ public class ChatListAdapter extends BaseAdapter {
                             return;
                         }
                         mChatListView.showLoadingChatsError();
-                        */
+                        /
                     }
 
                 });
     }
+    */
 
-
+    /*
     public void executeDesireUseCase(long desireId, final int curChat){
         mUseCaseHandler.execute(mGetDesire, new GetDesire.RequestValues(desireId),
                 new UseCase.UseCaseCallback<GetDesire.ResponseValue>(){
@@ -192,4 +202,5 @@ public class ChatListAdapter extends BaseAdapter {
                     }
                 });
     }
+    */
 }

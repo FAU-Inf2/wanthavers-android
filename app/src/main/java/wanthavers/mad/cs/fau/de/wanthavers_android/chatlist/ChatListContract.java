@@ -5,6 +5,8 @@ import android.support.annotation.NonNull;
 import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.Chat;
+import de.fau.cs.mad.wanthavers.common.Desire;
+import de.fau.cs.mad.wanthavers.common.User;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.BasePresenter;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.BaseView;
 
@@ -23,7 +25,7 @@ public interface ChatListContract {
 
         void showChatDetailsUi(Chat chat);
 
-        void showChats(List<Chat> chatList);
+        void showChats(List<Chat> chatList, List<User> userList, List<Desire> desireList);
 
     }
 

@@ -192,13 +192,6 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
         startActivity(intent);
 
 
-        /*
-        //TODO cut and paste into ChatListFragment
-        Intent intent = new Intent(getContext(), ChatDetailActivity.class);
-        intent.putExtra(ChatDetailActivity.EXTRA_CHAT_ID, userid);
-        startActivity(intent);
-        */
-
     }
 
     @Override

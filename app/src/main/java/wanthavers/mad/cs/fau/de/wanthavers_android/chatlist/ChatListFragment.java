@@ -19,6 +19,8 @@ import java.util.List;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import de.fau.cs.mad.wanthavers.common.Chat;
+import de.fau.cs.mad.wanthavers.common.Desire;
+import de.fau.cs.mad.wanthavers.common.User;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.chatdetail.ChatDetailActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireLocalDataSource;
@@ -71,22 +73,11 @@ public class ChatListFragment extends Fragment implements  ChatListContract.View
         chatListFragBinding.setPresenter(mPresenter);
 
 
-
         //Set up desire view
         ListView listView = chatListFragBinding.desiresList;
         Context context = getContext().getApplicationContext();
-        UserRepository chatRepo = UserRepository.getInstance(UserRemoteDataSource.getInstance(context),
-                UserLocalDataSource.getInstance(context));
-        GetUser userGetter = new GetUser(chatRepo);
-        DesireRepository desireRepo = DesireRepository.getInstance(DesireRemoteDataSource.getInstance(context),
-                DesireLocalDataSource.getInstance(context));
-        GetDesire desireGetter = new GetDesire(desireRepo);
 
-
-        SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, getContext().getApplicationContext());
-        final long loggedInUserId = Long.valueOf(sharedPreferencesHelper.loadString(SharedPreferencesHelper.KEY_USERID, "1"));
-
-        mListAdapter = new ChatListAdapter(new ArrayList<Chat>(0),mPresenter, mChatListViewModel,userGetter, loggedInUserId, desireGetter );
+        mListAdapter = new ChatListAdapter(new ArrayList<Chat>(0), new ArrayList<User>(0), new ArrayList<Desire>(0),mPresenter, mChatListViewModel);
         listView.setAdapter(mListAdapter);
 
 
@@ -138,8 +129,8 @@ public class ChatListFragment extends Fragment implements  ChatListContract.View
 
     public void setViewModel(ChatListViewModel viewModel){mChatListViewModel = viewModel;}
 
-    public void showChats(List<Chat> chatList){
-        mListAdapter.replaceData(chatList);
+    public void showChats(List<Chat> chatList, List<User> userList, List<Desire> desireList){
+        mListAdapter.replaceData(chatList, userList, desireList);
         mChatListViewModel.setChatListSize(chatList.size());
     }
 }
