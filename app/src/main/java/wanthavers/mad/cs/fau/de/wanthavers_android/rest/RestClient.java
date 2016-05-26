@@ -27,7 +27,7 @@ public abstract class RestClient {
         this.context = context;
 
         SharedPreferencesHelper sharedPreferences = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, context);
-        long userId = sharedPreferences.loadLong(SharedPreferencesHelper.KEY_USERID, 1L);
+        long userId = sharedPreferences.loadLong(SharedPreferencesHelper.KEY_USERID, 6L);
         String password = sharedPreferences.loadString(SharedPreferencesHelper.KEY_PASSWORD, "");
 
         HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic(String.valueOf(userId), password);

@@ -83,7 +83,7 @@ public class ChatDetailFragment extends Fragment implements  ChatDetailContract.
         ListView listView = mChatDetailFragBinding.messageList;
 
         SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, getContext().getApplicationContext());
-        final long chatUserId = Long.valueOf(sharedPreferencesHelper.loadString(SharedPreferencesHelper.KEY_USERID, "1"));
+        final long chatUserId = sharedPreferencesHelper.loadLong(SharedPreferencesHelper.KEY_USERID, 6L); //Long.valueOf(sharedPreferencesHelper.loadString(SharedPreferencesHelper.KEY_USERID, "6"));
 
 
         mListAdapter = new ChatDetailAdapter(new ArrayList<Message>(0),chatUserId ,mPresenter, mChatDetailViewModel);
