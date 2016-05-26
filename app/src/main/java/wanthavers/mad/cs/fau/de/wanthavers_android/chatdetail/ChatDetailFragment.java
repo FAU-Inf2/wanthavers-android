@@ -87,8 +87,6 @@ public class ChatDetailFragment extends Fragment implements  ChatDetailContract.
 
 
         mListAdapter = new ChatDetailAdapter(new ArrayList<Message>(0),chatUserId ,mPresenter, mChatDetailViewModel);
-        listView.setAdapter(mListAdapter);
-
 
         //set up action handler
         ChatDetailActionHandler chatDetailActionHandler = new ChatDetailActionHandler(chatUserId, mChatDetailFragBinding, mPresenter);

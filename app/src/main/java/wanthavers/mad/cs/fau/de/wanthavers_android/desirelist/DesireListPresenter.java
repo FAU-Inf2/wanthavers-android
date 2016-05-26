@@ -3,6 +3,7 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.desirelist;
 import android.app.Activity;
 import android.support.annotation.NonNull;
 
+import java.util.Collections;
 import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.Desire;
@@ -95,6 +96,7 @@ public class DesireListPresenter implements DesireListContract.Presenter {
             //TODO add what to do if no desires
         } else {
             // Show the list of tasks
+            Collections.reverse(desires);
             mDesireListView.showDesires(desires);
             // Set the filter label's text.
         }

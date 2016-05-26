@@ -24,7 +24,6 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.util.ActivityUtils;
 public class ChatDetailActivity extends AppCompatActivity {
 
 
-    private DrawerLayout mDrawerLayout;
     private ChatDetailPresenter mChatDetailPresenter;
     public static final String EXTRA_CHAT_ID = "CHAT_ID";
 

@@ -5,14 +5,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.RatingBar;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.Desire;
+import de.fau.cs.mad.wanthavers.common.Media;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.DesireItemBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
+import wanthavers.mad.cs.fau.de.wanthavers_android.util.RoundedTransformation;
 
 public class DesireListAdapter extends BaseAdapter{
 
@@ -80,6 +85,14 @@ public class DesireListAdapter extends BaseAdapter{
         binding.setDesire(desire);
         binding.setDesires(mDesireListViewModel);
         binding.setDesireLogic(mDesireLogic);
+
+        Media m = desire.getImage();
+
+        if (m != null) {
+            final ImageView profileView = (ImageView) binding.desireListImage;
+            Picasso.with(viewGroup.getContext()).load(m.getLowRes()).transform(new RoundedTransformation(200,0)).into(profileView);
+        }
+
 
         binding.executePendingBindings();
         return binding.getRoot();
