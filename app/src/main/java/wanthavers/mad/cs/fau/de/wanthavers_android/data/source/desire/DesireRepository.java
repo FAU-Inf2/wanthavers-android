@@ -201,7 +201,7 @@ public class DesireRepository implements DesireDataSource {
     public void getAllDesires(@NonNull final GetAllDesiresCallback callback) {
         checkNotNull(callback);
 
-        List<Desire> desiresRemote = desireRemoteDataSource.getAllDesires();
+/*        List<Desire> desiresRemote = desireRemoteDataSource.getAllDesires();
 
         if (!desiresRemote.isEmpty()) {
             desireLocalDataSource.updateDesires(desiresRemote);
@@ -213,9 +213,9 @@ public class DesireRepository implements DesireDataSource {
             callback.onAllDesiresLoaded(desiresLocal);
         } else {
             callback.onDataNotAvailable();
-        }
+        }*/
 
-/*        desireLocalDataSource.getAllDesires(new GetAllDesiresCallback() {
+        desireLocalDataSource.getAllDesires(new GetAllDesiresCallback() {
             @Override
             public void onAllDesiresLoaded(List<Desire> desires) {
                 callback.onAllDesiresLoaded(desires);
@@ -235,7 +235,7 @@ public class DesireRepository implements DesireDataSource {
                     }
                 });
             }
-        });*/
+        });
     }
 
     @Override
