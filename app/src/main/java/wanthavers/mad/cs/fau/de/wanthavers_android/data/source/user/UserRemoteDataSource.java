@@ -14,11 +14,11 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.rest.UserClient;
 public class UserRemoteDataSource implements UserDataSource {
     private static UserRemoteDataSource INSTANCE;
 
-    private UserClient userEndpoint;
+    private UserClient userClient;
 
     // Prevent direct instantiation.
     private UserRemoteDataSource(Context context) {
-        userEndpoint = UserClient.getInstance(context);
+        userClient = UserClient.getInstance(context);
     }
 
     public static UserRemoteDataSource getInstance(Context context){
@@ -31,7 +31,7 @@ public class UserRemoteDataSource implements UserDataSource {
     @Override
     public void getUser(@NonNull long userId, @NonNull GetUserCallback callback) {
         try {
-            User user = userEndpoint.get(userId);
+            User user = userClient.get(userId);
             callback.onUserLoaded(user);
         } catch (Throwable t) {
             callback.onDataNotAvailable();
@@ -41,7 +41,7 @@ public class UserRemoteDataSource implements UserDataSource {
     @Override
     public void getAllUsers(@NonNull GetAllUsersCallback callback) {
         try {
-            List<User> users = userEndpoint.get();
+            List<User> users = userClient.get();
             callback.onAllUsersLoaded(users);
         } catch (Throwable t) {
             callback.onDataNotAvailable();
@@ -51,7 +51,7 @@ public class UserRemoteDataSource implements UserDataSource {
     @Override
     public void createUser(@NonNull User user, @NonNull CreateUserCallback callback) {
         try {
-            User ret = userEndpoint.createUser(user);
+            User ret = userClient.createUser(user);
             callback.onUserCreated(ret);
         } catch (Throwable t) {
             callback.onCreationFailed();
@@ -61,7 +61,7 @@ public class UserRemoteDataSource implements UserDataSource {
     @Override
     public void updateUser(@NonNull User user, @NonNull UpdateUserCallback callback) {
         try {
-            User ret = userEndpoint.updateUser(user.getID(), user);
+            User ret = userClient.updateUser(user.getID(), user);
             callback.onUserUpdated(ret);
         } catch (Throwable t) {
             callback.onUpdateFailed();
@@ -71,7 +71,7 @@ public class UserRemoteDataSource implements UserDataSource {
     @Override
     public void deleteUser(@NonNull User user, @NonNull DeleteUserCallback callback) {
         try {
-            userEndpoint.deleteUser(user.getID());
+            userClient.deleteUser(user.getID());
             callback.onUserDeleted();
         } catch (Throwable t) {
             callback.onDeleteFailed();

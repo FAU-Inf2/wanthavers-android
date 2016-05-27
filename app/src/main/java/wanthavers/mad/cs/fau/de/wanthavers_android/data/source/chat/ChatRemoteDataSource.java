@@ -16,10 +16,10 @@ public class ChatRemoteDataSource implements ChatDataSource {
 
     private static ChatRemoteDataSource INSTANCE;
 
-    private ChatClient chatEndpoint;
+    private ChatClient chatClient;
 
     private ChatRemoteDataSource(Context context) {
-        chatEndpoint = ChatClient.getInstance(context);
+        chatClient = ChatClient.getInstance(context);
     }
 
     public static ChatRemoteDataSource getInstance(Context context) {
@@ -32,7 +32,7 @@ public class ChatRemoteDataSource implements ChatDataSource {
     @Override
     public void getAllChatsForLoggedInUser(@NonNull GetAllChatsForLoggedInUserCallback callback) {
         try {
-            List<Chat> chats = chatEndpoint.getAllChatsForLoggedInUser();
+            List<Chat> chats = chatClient.getAllChatsForLoggedInUser();
             callback.onAllChatsForLoggedInUserLoaded(chats);
         } catch (Throwable t) {
             callback.onDataNotAvailable();
@@ -42,7 +42,7 @@ public class ChatRemoteDataSource implements ChatDataSource {
     @Override
     public void getAllMessagesForChat(@NonNull String chatId, @NonNull GetAllMessagesForChatCallback callback) {
         try {
-            List<Message> messages = chatEndpoint.getAllMessagesForChat(chatId);
+            List<Message> messages = chatClient.getAllMessagesForChat(chatId);
             callback.onAllMessagesForChat(messages);
         } catch (Throwable t) {
             callback.onDataNotAvailable();
@@ -52,7 +52,7 @@ public class ChatRemoteDataSource implements ChatDataSource {
     @Override
     public void createChat(@NonNull Chat chat, @NonNull CreateChatCallback callback) {
         try {
-            Chat ret = chatEndpoint.createChat(chat);
+            Chat ret = chatClient.createChat(chat);
             callback.onChatCreated(ret);
         } catch (Throwable t) {
             callback.onCreateFailed();
@@ -62,7 +62,7 @@ public class ChatRemoteDataSource implements ChatDataSource {
     @Override
     public void createMessage(@NonNull String chatId, @NonNull Message message, @NonNull CreateMessageCallback callback) {
         try {
-            Message ret = chatEndpoint.createMessage(chatId, message);
+            Message ret = chatClient.createMessage(chatId, message);
             callback.onMessageCreated(ret);
         } catch (Throwable t) {
             callback.onCreateFailed();

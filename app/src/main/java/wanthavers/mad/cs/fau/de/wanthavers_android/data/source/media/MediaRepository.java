@@ -94,25 +94,6 @@ public class MediaRepository implements MediaDataSource {
     }
 
     @Override
-    public void createMedia(@NonNull InputStream inputStream, @NonNull FormDataContentDisposition contentDispositionHeader, @NonNull final CreateMediaCallback callback) {
-        checkNotNull(inputStream);
-        checkNotNull(contentDispositionHeader);
-        checkNotNull(callback);
-
-        mediaRemoteDataSource.createMedia(inputStream, contentDispositionHeader, new CreateMediaCallback() {
-            @Override
-            public void onMediaCreated(Media media) {
-                callback.onMediaCreated(media);
-            }
-
-            @Override
-            public void onCreateFailed() {
-                callback.onCreateFailed();
-            }
-        });
-    }
-
-    @Override
     public void createMedia(@NonNull File image, @NonNull final CreateMediaCallback callback) {
         checkNotNull(image);
         checkNotNull(callback);

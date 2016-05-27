@@ -14,11 +14,11 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.rest.RatingClient;
 public class RatingRemoteDataSource implements RatingDataSource {
     private static RatingRemoteDataSource INSTANCE;
 
-    private RatingClient ratingEndpoint;
+    private RatingClient ratingClient;
 
     // Prevent direct instantiation.
     private RatingRemoteDataSource(Context context) {
-        ratingEndpoint = RatingClient.getInstance(context);
+        ratingClient = RatingClient.getInstance(context);
     }
 
     public static RatingRemoteDataSource getInstance(Context context) {
@@ -31,7 +31,7 @@ public class RatingRemoteDataSource implements RatingDataSource {
     @Override
     public void createRating(@NonNull long userId, @NonNull Rating rating, @NonNull CreateRatingCallback callback) {
         try {
-            Rating ret = ratingEndpoint.createRating(userId, rating);
+            Rating ret = ratingClient.createRating(userId, rating);
             callback.onRatingCreated(ret);
         } catch (Throwable t) {
             callback.onCreateFailed();
@@ -41,7 +41,7 @@ public class RatingRemoteDataSource implements RatingDataSource {
     @Override
     public void getRating(@NonNull long userId, @NonNull long ratingId, @NonNull GetRatingCallback callback) {
         try {
-            Rating ret = ratingEndpoint.get(userId, ratingId);
+            Rating ret = ratingClient.get(userId, ratingId);
             callback.onRatingLoaded(ret);
         } catch (Throwable t) {
             callback.onDataNotAvailable();
@@ -51,7 +51,7 @@ public class RatingRemoteDataSource implements RatingDataSource {
     @Override
     public void getAllRatingsForUser(@NonNull long userId, @NonNull GetAllRatingsForUserCallback callback) {
         try {
-            List<Rating> ret = ratingEndpoint.getAllRatings(userId);
+            List<Rating> ret = ratingClient.getAllRatings(userId);
             callback.onAllRatingsForUserLoaded(ret);
         } catch (Throwable t) {
             callback.onDataNotAvailable();
@@ -61,7 +61,7 @@ public class RatingRemoteDataSource implements RatingDataSource {
     @Override
     public void updateRating(@NonNull long userId, @NonNull long ratingId, @NonNull Rating rating, @NonNull UpdateRatingCallback callback) {
         try {
-            Rating ret = ratingEndpoint.updateRating(userId, ratingId, rating);
+            Rating ret = ratingClient.updateRating(userId, ratingId, rating);
             callback.onRatingUpdated(ret);
         } catch (Throwable t) {
             callback.onUpdateFailed();
@@ -71,7 +71,7 @@ public class RatingRemoteDataSource implements RatingDataSource {
     @Override
     public void deleteRating(@NonNull long userId, @NonNull long ratingId, @NonNull DeleteRatingCallback callback) {
         try {
-            ratingEndpoint.deleteRating(userId, ratingId);
+            ratingClient.deleteRating(userId, ratingId);
             callback.onRatingDeleted();
         } catch (Throwable t) {
             callback.onDeleteFailed();
@@ -81,7 +81,7 @@ public class RatingRemoteDataSource implements RatingDataSource {
     @Override
     public void getAverageRatingForUser(@NonNull long userId, @NonNull GetAverageRatingForUserCallback callback) {
         try {
-            Rating ret = ratingEndpoint.avgRating(userId);
+            Rating ret = ratingClient.avgRating(userId);
             callback.onAverageRatingForUserLoaded(ret);
         } catch (Throwable t) {
             callback.onDataNotAvailable();

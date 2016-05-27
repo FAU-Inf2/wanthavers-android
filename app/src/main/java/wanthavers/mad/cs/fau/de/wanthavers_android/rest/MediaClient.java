@@ -39,8 +39,7 @@ public class MediaClient extends RestClient {
         return mediaEndpoint.get(mediaId);
     }
 
-    public Media createMedia(InputStream inputStream, FormDataContentDisposition contentDispositionHeader) {
-        //return mediaEndpoint.createMedia(inputStream, contentDispositionHeader);
-        return null;
+    public Media createMedia(String base64, String filename) {
+        return mediaEndpoint.createMedia(base64, filename);
     }
 }
