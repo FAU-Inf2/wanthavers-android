@@ -40,6 +40,7 @@ public class MediaClient extends RestClient {
     }
 
     public Media createMedia(InputStream inputStream, FormDataContentDisposition contentDispositionHeader) {
-        return mediaEndpoint.createMedia(inputStream, contentDispositionHeader);
+        //return mediaEndpoint.createMedia(inputStream, contentDispositionHeader);
+        return null;
     }
 }
