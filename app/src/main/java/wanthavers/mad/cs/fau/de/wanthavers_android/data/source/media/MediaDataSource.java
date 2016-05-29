@@ -43,8 +43,6 @@ public interface MediaDataSource {
 
     void getMedia(@NonNull long mediaId, @NonNull GetMediaCallback callback);
 
-    void createMedia(@NonNull InputStream inputStream, @NonNull FormDataContentDisposition contentDispositionHeader, @NonNull CreateMediaCallback callback);
-
     void createMedia(@NonNull File image, @NonNull CreateMediaCallback callback);
 
 }

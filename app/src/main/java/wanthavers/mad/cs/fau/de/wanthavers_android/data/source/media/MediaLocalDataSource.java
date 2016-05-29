@@ -49,12 +49,6 @@ public class MediaLocalDataSource implements MediaDataSource {
     }
 
     @Override
-    public void createMedia(@NonNull InputStream inputStream, @NonNull FormDataContentDisposition contentDispositionHeader, @NonNull CreateMediaCallback callback) {
-        //TODO: alter this method when we decide to store media locally
-        callback.onCreateFailed();
-    }
-
-    @Override
     public void createMedia(@NonNull File image, @NonNull CreateMediaCallback callback) {
         //TODO: alter this method when we decide to store media locally
         callback.onCreateFailed();

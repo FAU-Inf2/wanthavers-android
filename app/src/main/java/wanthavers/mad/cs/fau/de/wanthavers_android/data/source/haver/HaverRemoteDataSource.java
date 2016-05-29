@@ -15,10 +15,10 @@ public class HaverRemoteDataSource implements HaverDataSource {
 
     private static HaverRemoteDataSource INSTANCE;
 
-    private HaverClient haverEndpoint;
+    private HaverClient haverClient;
 
     private HaverRemoteDataSource(Context context) {
-        haverEndpoint = HaverClient.getInstance(context);
+        haverClient = HaverClient.getInstance(context);
     }
 
     public static HaverRemoteDataSource getInstance(Context context) {
@@ -32,7 +32,7 @@ public class HaverRemoteDataSource implements HaverDataSource {
     @Override
     public void getHaver(@NonNull long desireId, @NonNull long haverId, @NonNull GetHaverCallback callback) {
         try {
-            Haver haver = haverEndpoint.get(desireId, haverId);
+            Haver haver = haverClient.get(desireId, haverId);
             callback.onHaverLoaded(haver);
         } catch (Throwable t) {
             callback.onDataNotAvailable();
@@ -42,7 +42,7 @@ public class HaverRemoteDataSource implements HaverDataSource {
     @Override
     public void getAllHaversForDesire(@NonNull long desireId, @NonNull GetAllHaversForDesireCallback callback) {
         try {
-            List<Haver> havers = haverEndpoint.getAllHavers(desireId);
+            List<Haver> havers = haverClient.getAllHavers(desireId);
             callback.onAllHaversForDesireLoaded(havers);
         } catch (Throwable t) {
             callback.onDataNotAvailable();
@@ -52,7 +52,7 @@ public class HaverRemoteDataSource implements HaverDataSource {
     @Override
     public void createHaver(@NonNull long desireId, @NonNull Haver haver, @NonNull CreateHaverCallback callback) {
         try {
-            Haver ret = haverEndpoint.createHaver(desireId, haver);
+            Haver ret = haverClient.createHaver(desireId, haver);
             callback.onHaverCreated(ret);
         } catch (Throwable t) {
             callback.onCreateFailed();
@@ -62,7 +62,7 @@ public class HaverRemoteDataSource implements HaverDataSource {
     @Override
     public void updateHaver(@NonNull long desireId, @NonNull long haverId, @NonNull Haver haver, @NonNull UpdateHaverCallback callback) {
         try {
-            Haver ret = haverEndpoint.updateHaver(desireId, haverId, haver);
+            Haver ret = haverClient.updateHaver(desireId, haverId, haver);
             callback.onHaverUpdated(ret);
         } catch (Throwable t) {
             callback.onUpdateFailed();
@@ -72,7 +72,7 @@ public class HaverRemoteDataSource implements HaverDataSource {
     @Override
     public void deleteHaver(@NonNull long desireId, @NonNull long haverId, @NonNull DeleteHaverCallback callback) {
         try {
-            haverEndpoint.deleteHaver(desireId, haverId);
+            haverClient.deleteHaver(desireId, haverId);
             callback.onHaverDeleted();
         } catch (Throwable t) {
             callback.onDeleteFailed();
@@ -82,7 +82,7 @@ public class HaverRemoteDataSource implements HaverDataSource {
     @Override
     public void acceptHaver(@NonNull long desireId, @NonNull long haverId, @NonNull Haver haver, @NonNull AcceptHaverForDesireCallback callback) {
         try {
-            Haver ret = haverEndpoint.acceptHaver(desireId, haverId, haver);
+            Haver ret = haverClient.acceptHaver(desireId, haverId, haver);
             callback.onAcceptHaverForDesire(ret);
         } catch (Throwable t) {
             callback.onAcceptFailed();
