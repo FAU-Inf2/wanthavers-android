@@ -22,6 +22,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.NavHeaderBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetDesireList;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.ActivityUtils;
+import wanthavers.mad.cs.fau.de.wanthavers_android.util.SharedPreferencesHelper;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -55,8 +56,12 @@ public class DesireListActivity extends AppCompatActivity {
             NavHeaderBinding navHeaderBinding = NavHeaderBinding.inflate(LayoutInflater.from(navigationView.getContext()));
             navigationView.addHeaderView(navHeaderBinding.getRoot());
             //TODO - change dummy user to get real logged in user and also get real rating
-            User user = new User("TestUser", "testuser@testuser.de");
-            navHeaderBinding.setUser(user);
+            SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, getApplicationContext());
+            long loggedInUser = sharedPreferencesHelper.loadLong(SharedPreferencesHelper.KEY_USERID, 6L); //Long.valueOf(sharedPreferencesHelper.loadString(SharedPreferencesHelper.KEY_USERID, "6"));
+
+
+            User dummyUser = new User("Test User", "Testmail");
+            navHeaderBinding.setUser(dummyUser);
             RatingBar itemRateBar = (RatingBar) navHeaderBinding.getRoot().findViewById(R.id.nav_header_temRatingBar);
             itemRateBar.setRating(2.0f);
 

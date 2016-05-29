@@ -56,28 +56,8 @@ public class ChatListActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();
-        ab.setHomeAsUpIndicator(R.drawable.ic_menu);
         ab.setDisplayHomeAsUpEnabled(true);
-
-        // Set up the navigation drawer.
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerLayout.setStatusBarBackground(R.color.colorSecondary);
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-
-        if (navigationView != null) {
-
-            NavHeaderBinding navHeaderBinding = NavHeaderBinding.inflate(LayoutInflater.from(navigationView.getContext()));
-            navigationView.addHeaderView(navHeaderBinding.getRoot());
-            //TODO - change dummy user to get real logged in user and also get real rating
-            User user = new User("TestUser", "testuser@testuser.de");
-            navHeaderBinding.setUser(user);
-            RatingBar itemRateBar = (RatingBar) navHeaderBinding.getRoot().findViewById(R.id.nav_header_temRatingBar);
-            itemRateBar.setRating(2.0f);
-
-            setupDrawerContent(navigationView);
-
-        }
+        ab.setDisplayShowHomeEnabled(true);
 
         ChatListFragment chatListFragment = (ChatListFragment)
                 getSupportFragmentManager().findFragmentById(R.id.contentFrame);
@@ -124,45 +104,11 @@ public class ChatListActivity extends AppCompatActivity {
     }
 
 
+
+
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                //Open the navigation drawer when the home icon is selected from the toolbar.
-                mDrawerLayout.openDrawer(GravityCompat.START);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    private void setupDrawerContent(NavigationView navigationView) {
-        navigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        switch (menuItem.getItemId()) {
-                            case R.id.listDesires_navigation_menu_item:
-                                Intent intent = new Intent(getApplicationContext(), DesireListActivity.class);
-                                startActivity(intent);
-                                break;
-                            case R.id.settings_navigation_menu_item:
-                                /*
-                                Intent intent =
-                                        new Intent(DesireListActivity.this, DesireListActivity.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
-                                        | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                startActivity(intent);
-                                */
-                                break;
-                            default:
-                                break;
-                        }
-                        // Close the navigation drawer when an item is selected.
-                        menuItem.setChecked(true);
-                        mDrawerLayout.closeDrawers();
-                        return true;
-                    }
-                });
-
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }

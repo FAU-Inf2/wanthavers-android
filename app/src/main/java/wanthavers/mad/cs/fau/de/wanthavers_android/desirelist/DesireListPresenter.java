@@ -3,6 +3,7 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.desirelist;
 import android.app.Activity;
 import android.support.annotation.NonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -12,6 +13,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCase;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desiredetail.DesireDetailContract;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetDesireList;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetUser;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
