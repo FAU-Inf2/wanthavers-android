@@ -76,6 +76,7 @@ public class DesireListAdapter extends RecyclerView.Adapter<DesireListAdapter.Vi
 
         DesireItemViewModel desireItemViewModel = mDesireList.get(position);
 
+
         //set new content with databinding
         DesireItemBinding desireItemBinding = holder.getDesireItemBinding();
         desireItemBinding.setVariable(BR.desire, desireItemViewModel);
@@ -83,10 +84,7 @@ public class DesireListAdapter extends RecyclerView.Adapter<DesireListAdapter.Vi
                 new DesireListItemActionHandler(mUserActionsListener);
         desireItemBinding.setActionHandler(itemActionHandler);
         desireItemBinding.setDesireLogic(mDesireLogic);
-
         Media m = desireItemViewModel.getDesire().getImage();
-
-
 
 
         if (m != null) {

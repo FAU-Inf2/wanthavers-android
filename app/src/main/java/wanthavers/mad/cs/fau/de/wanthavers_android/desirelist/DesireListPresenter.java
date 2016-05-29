@@ -2,16 +2,19 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.desirelist;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.Desire;
+import de.fau.cs.mad.wanthavers.common.Rating;
 import de.fau.cs.mad.wanthavers.common.User;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCase;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desiredetail.DesireDetailContract;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetAvgRatingForUser;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetDesireList;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetUser;
 
@@ -23,14 +26,19 @@ public class DesireListPresenter implements DesireListContract.Presenter {
     private final GetDesireList mGetDesireList;
     private boolean mFirstLoad = true;
     private final UseCaseHandler mUseCaseHandler;
-
+    private final GetAvgRatingForUser mGetAvgRatingForUser;
+    private final GetUser mGetUser;
+    private List<DesireItemViewModel> mDesireModels = new ArrayList<>();
+    private int counter = 0;
 
     public DesireListPresenter(@NonNull UseCaseHandler useCaseHandler, @NonNull DesireListContract.View desireListView,
-                               @NonNull GetDesireList getDesireList){
+                               @NonNull GetDesireList getDesireList, @NonNull GetAvgRatingForUser getAvgRatingForUser, @NonNull GetUser getUser){
 
         mUseCaseHandler = checkNotNull(useCaseHandler, "usecaseHandle cannot be null");
         mDesireListView = checkNotNull(desireListView, "desirelist view cannot be null!");
         mGetDesireList = checkNotNull(getDesireList);
+        mGetAvgRatingForUser = checkNotNull(getAvgRatingForUser);
+        mGetUser = checkNotNull(getUser);
 
         mDesireListView.setPresenter(this);
     }
@@ -92,6 +100,73 @@ public class DesireListPresenter implements DesireListContract.Presenter {
     }
 
 
+
+    public void getUser(long userId){
+
+        GetUser.RequestValues requestValue = new GetUser.RequestValues(userId);
+
+
+        mUseCaseHandler.execute(mGetUser, requestValue,
+                new UseCase.UseCaseCallback<GetUser.ResponseValue>() {
+                    @Override
+                    public void onSuccess(GetUser.ResponseValue response) {
+                        mDesireListView.setUser(response.getUser());
+                    }
+
+                    @Override
+                    public void onError() {
+                        // The view may not be able to handle UI updates anymore
+                        if (!mDesireListView.isActive()) {
+                            return;
+                        }
+                        mDesireListView.showLoadingDesiresError();
+                    }
+                });
+    }
+
+
+    public void loadRatingsForDesires(final List<DesireItemViewModel> desireList) {
+
+
+
+
+        Desire desire = desireList.get(counter).getDesire();
+
+        GetAvgRatingForUser.RequestValues requestValue = new GetAvgRatingForUser.RequestValues(desire.getCreator().getID());
+
+
+        mUseCaseHandler.execute(mGetAvgRatingForUser, requestValue,
+                new UseCase.UseCaseCallback<GetAvgRatingForUser.ResponseValue>() {
+                    @Override
+                    public void onSuccess(GetAvgRatingForUser.ResponseValue response) {
+                        Rating rating = response.getRating();
+                        // The view may not be able to handle UI updates anymore
+
+
+                        desireList.get(counter).setRating(rating);
+                        if(counter < desireList.size()-1){
+                            counter++;
+                            loadRatingsForDesires(desireList);
+                        }else{
+                            //loadChatsWithUsers(chatList,userList);
+                            counter = 0;
+                            mDesireListView.showDesires(desireList);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError() {
+                        // The view may not be able to handle UI updates anymore
+                        if (!mDesireListView.isActive()) {
+                            return;
+                        }
+                        mDesireListView.showLoadingDesiresError();
+                    }
+                });
+    }
+
+
     private void processDesires(List<Desire> desires) {
         if (desires.isEmpty()) {
             // Show a message indicating there are no tasks for that filter type.
@@ -99,7 +174,17 @@ public class DesireListPresenter implements DesireListContract.Presenter {
         } else {
             // Show the list of tasks
             Collections.reverse(desires);
-            mDesireListView.showDesires(desires);
+
+            List<DesireItemViewModel> desireModels = new ArrayList<>();
+
+            for(Desire desire: desires){
+                desireModels.add(new DesireItemViewModel(desire));
+            }
+
+            counter = 0;
+            loadRatingsForDesires(desireModels);
+
+            //mDesireListView.showDesires(desireModels);
             // Set the filter label's text.
         }
     }

@@ -21,7 +21,6 @@
             name="desire"
             type="wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.DesireItemViewModel" />
 
-
         <variable
             name="actionHandler"
             type="wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.DesireListItemActionHandler" />
@@ -60,6 +59,7 @@
                     android:max="5"
                     android:numStars="5"
                     android:stepSize="0.1"
+                    android:rating="@{desire.userRating.stars}"
                     android:progressBackgroundTint="@color/colorSecondary"
                     android:progressTint="@color/colorRatingStars"
                     android:secondaryProgressTint="@color/colorRatingStars"/>
@@ -94,6 +94,7 @@
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
+                    android:layout_marginRight="10dp"
                     android:id="@+id/desire_list_Image"
                     android:src="@android:drawable/sym_def_app_icon" />
 

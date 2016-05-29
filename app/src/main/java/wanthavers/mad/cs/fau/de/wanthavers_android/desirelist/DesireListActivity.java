@@ -18,9 +18,17 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireRepository;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireLocalDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireRemoteDataSource;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.rating.RatingLocalDataSource;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.rating.RatingRemoteDataSource;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.rating.RatingRepository;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserLocalDataSource;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserRemoteDataSource;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserRepository;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.NavHeaderBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetAvgRatingForUser;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetDesireList;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetUser;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.ActivityUtils;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.SharedPreferencesHelper;
 
@@ -51,19 +59,17 @@ public class DesireListActivity extends AppCompatActivity {
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
 
+        NavHeaderBinding navHeaderBinding = null;
+
         if (navigationView != null) {
 
-            NavHeaderBinding navHeaderBinding = NavHeaderBinding.inflate(LayoutInflater.from(navigationView.getContext()));
+            navHeaderBinding = NavHeaderBinding.inflate(LayoutInflater.from(navigationView.getContext()));
             navigationView.addHeaderView(navHeaderBinding.getRoot());
             //TODO - change dummy user to get real logged in user and also get real rating
-            SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, getApplicationContext());
-            long loggedInUser = sharedPreferencesHelper.loadLong(SharedPreferencesHelper.KEY_USERID, 6L); //Long.valueOf(sharedPreferencesHelper.loadString(SharedPreferencesHelper.KEY_USERID, "6"));
 
-
-            User dummyUser = new User("Test User", "Testmail");
-            navHeaderBinding.setUser(dummyUser);
-            RatingBar itemRateBar = (RatingBar) navHeaderBinding.getRoot().findViewById(R.id.nav_header_temRatingBar);
-            itemRateBar.setRating(2.0f);
+            User noUser = new User(getString(R.string.noUser),getString(R.string.noUser));
+            noUser.setRating(0.0);
+            navHeaderBinding.setUser(noUser);
 
             setupDrawerContent(navigationView);
 
@@ -72,6 +78,7 @@ public class DesireListActivity extends AppCompatActivity {
         DesireListFragment desireListFragment = (DesireListFragment)
                 getSupportFragmentManager().findFragmentById(R.id.contentFrame);
 
+
         if (desireListFragment == null) {
             // Create the fragment
             desireListFragment = DesireListFragment.newInstance();
@@ -79,24 +86,35 @@ public class DesireListActivity extends AppCompatActivity {
                     getSupportFragmentManager(), desireListFragment, R.id.contentFrame);
         }
 
+        if(navHeaderBinding != null) {
+            desireListFragment.setNavBinding(navHeaderBinding);
+        }
 
         //create fake task repo
         Context context = getApplicationContext();
         checkNotNull(context);
 
-        DesireRepository fake = DesireRepository.getInstance(DesireRemoteDataSource.getInstance(getApplicationContext()), DesireLocalDataSource.getInstance(context));
+        DesireRepository desireRepository = DesireRepository.getInstance(DesireRemoteDataSource.getInstance(context), DesireLocalDataSource.getInstance(context));
+        RatingRepository ratingRepository = RatingRepository.getInstance(RatingRemoteDataSource.getInstance(context), RatingLocalDataSource.getInstance(context));
+        UserRepository userRepository = UserRepository.getInstance(UserRemoteDataSource.getInstance(context), UserLocalDataSource.getInstance(context));
 
         // Create the presenter
-        mDesireListPresenter = new DesireListPresenter(UseCaseHandler.getInstance(),desireListFragment,new GetDesireList(fake));
+        mDesireListPresenter = new DesireListPresenter(UseCaseHandler.getInstance(),desireListFragment,new GetDesireList(desireRepository),
+                new GetAvgRatingForUser(ratingRepository), new GetUser(userRepository));
 
-        DesireListViewModel desireListViewModel =
-                new DesireListViewModel(getApplicationContext(), mDesireListPresenter);
+        DesireListViewModel desireListViewModel = new DesireListViewModel(context, mDesireListPresenter);
 
         desireListFragment.setViewModel(desireListViewModel);
 
-        DesireLogic desireLogic = new DesireLogic(getApplicationContext());
+        DesireLogic desireLogic = new DesireLogic(context);
 
         desireListFragment.setDesireLogic(desireLogic);
+
+        SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, getApplicationContext());
+        long loggedInUser = sharedPreferencesHelper.loadLong(SharedPreferencesHelper.KEY_USERID, 6L); //Long.valueOf(sharedPreferencesHelper.loadString(SharedPreferencesHelper.KEY_USERID, "6"));
+        mDesireListPresenter.getUser(loggedInUser);
+
+
 
         // Load previously saved state, if available.
         if (savedInstanceState != null) {

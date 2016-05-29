@@ -17,21 +17,27 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.Desire;
+import de.fau.cs.mad.wanthavers.common.Media;
 import de.fau.cs.mad.wanthavers.common.User;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.chatdetail.ChatDetailActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.chatlist.ChatListActivity;
 
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.DesirelistFragBinding;
+import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.NavHeaderBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate.DesireCreateActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desiredetail.DesireDetailActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
+import wanthavers.mad.cs.fau.de.wanthavers_android.util.RoundedTransformation;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -42,6 +48,7 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
     private DesireListAdapter mListAdapter;
     private DesireListViewModel mDesireListViewModel;
     private DesireLogic mDesireLogic;
+    private NavHeaderBinding mNavHeaderBinding;
 
     public DesireListFragment(){
         //Requires empty public constructor
@@ -55,6 +62,10 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
         mPresenter = checkNotNull(presenter);
     }
 
+
+    public void setNavBinding(NavHeaderBinding navBinding){
+        mNavHeaderBinding = navBinding;
+    }
 
     @Override
     public void onResume()  {
@@ -81,7 +92,7 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
 
         //to improve performance set the layout size as fixed as it is fixed in our case
         recyclerView.setHasFixedSize(true);
-
+        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), R.drawable.list_divider,1));
 
         //use Linear Layout Manager
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -170,17 +181,10 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
         */
     }
 
-    public void showDesires(List<Desire> desires){
-
-        List<DesireItemViewModel> desireModels = new ArrayList<>();
-
-        for(Desire desire: desires){
-            desireModels.add(new DesireItemViewModel(desire));
-        }
-
+    public void showDesires(List<DesireItemViewModel> desireModels){
 
         mListAdapter.replaceData(desireModels);
-        mDesireListViewModel.setDesireListSize(desires.size());
+        mDesireListViewModel.setDesireListSize(desireModels.size());
     }
 
     @Override
@@ -218,6 +222,18 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
 
 
     }
+
+    public void setUser(User user){
+        mNavHeaderBinding.setUser(user);
+        Media m = user.getImage();
+
+
+        if (m != null) {
+            final ImageView profileView = mNavHeaderBinding.navHeaderUserImage;
+            Picasso.with(mNavHeaderBinding.getRoot().getContext()).load(m.getLowRes()).transform(new RoundedTransformation(200,0)).into(profileView);
+        }
+    }
+
 
     @Override
     public void showNewDesire() {
