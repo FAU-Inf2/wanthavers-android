@@ -9,6 +9,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -74,10 +76,20 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
 
 
         //Set up desire view
-        ListView listView = desirelistFragBinding.desiresList;
 
-        mListAdapter = new DesireListAdapter(new ArrayList<Desire>(0),mPresenter, mDesireListViewModel, mDesireLogic);
-        listView.setAdapter(mListAdapter);
+        RecyclerView recyclerView = (RecyclerView) desirelistFragBinding.desiresList;
+
+        //to improve performance set the layout size as fixed as it is fixed in our case
+        recyclerView.setHasFixedSize(true);
+
+
+        //use Linear Layout Manager
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
+
+        mListAdapter = new DesireListAdapter(new ArrayList<DesireItemViewModel>(0),mPresenter, mDesireListViewModel, mDesireLogic);
+
+        recyclerView.setAdapter(mListAdapter);
 
         // Set up floating action button
         FloatingActionButton fabCreateNewDesire =
@@ -92,6 +104,8 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
             }
         });
 
+
+        /*
         // Set up progress indicator  TODO decide whether this is needed
         final ScrollChildSwipeRefreshLayout swipeRefreshLayout = desirelistFragBinding.refreshLayout;
         swipeRefreshLayout.setColorSchemeColors(
@@ -102,7 +116,7 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
 
         // Set the scrolling view in the custom SwipeRefreshLayout
         swipeRefreshLayout.setScrollUpChild(listView);
-
+        */
 
         setHasOptionsMenu(true);
 
@@ -141,6 +155,8 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
         if (getView() == null) {
             return;
         }
+
+        /*
         final SwipeRefreshLayout srl =
                 (SwipeRefreshLayout) getView().findViewById(R.id.refresh_layout);
 
@@ -151,10 +167,19 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
                 srl.setRefreshing(active);
             }
         });
+        */
     }
 
     public void showDesires(List<Desire> desires){
-        mListAdapter.replaceData(desires);
+
+        List<DesireItemViewModel> desireModels = new ArrayList<>();
+
+        for(Desire desire: desires){
+            desireModels.add(new DesireItemViewModel(desire));
+        }
+
+
+        mListAdapter.replaceData(desireModels);
         mDesireListViewModel.setDesireListSize(desires.size());
     }
 

@@ -19,11 +19,8 @@
 
         <variable
             name="desire"
-            type="de.fau.cs.mad.wanthavers.common.Desire" />
+            type="wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.DesireItemViewModel" />
 
-        <variable
-            name="desires"
-            type="wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.DesireListViewModel" />
 
         <variable
             name="actionHandler"
@@ -32,17 +29,18 @@
         <variable
             name="desireLogic"
             type="wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic" />
+
     </data>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:background="@{desireLogic.getBackgroundColor(desire.colorIndex)}"
+            android:background="@{desireLogic.getBackgroundColor(desire.desire.colorIndex)}"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
             android:paddingBottom="@dimen/list_item_padding"
             android:paddingTop="@dimen/list_item_padding"
-            android:onClick="@{() -> actionHandler.desireClicked(desire)}"
+            android:onClick="@{() -> actionHandler.desireClicked(desire.desire)}"
             android:weightSum="1"
             android:orientation="vertical">
 
@@ -71,7 +69,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_toLeftOf="@id/ItemRatingBar"
-                    android:text="@{desire.creator.name}"
+                    android:text="@{desire.desire.creator.name}"
                     android:layout_marginRight="10dp"
                     android:textColor="@color/colorMainText"
                     />
@@ -112,7 +110,7 @@
                         android:layout_gravity="center_vertical"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title"
                         android:textColor="@color/colorMainText"
-                        android:text="@{desire.title}" />
+                        android:text="@{desire.desire.title}" />
 
                     <TextView
                         android:id="@+id/description"
@@ -121,7 +119,7 @@
                         android:layout_gravity="center_vertical"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                         android:textColor="@color/colorMainText"
-                        android:text="@{desire.description}" />
+                        android:text="@{desire.desire.description}" />
 
                 </LinearLayout>
 
@@ -141,7 +139,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_alignParentBottom="true"
                         android:layout_marginBottom="50dp"
-                        android:text="@{desireLogic.getPriceString(desire.price)}"
+                        android:text="@{desireLogic.getPriceString(desire.desire.price)}"
                         android:gravity="right"/>
 
                     <TextView
@@ -155,7 +153,7 @@
                         android:textSize="25dp"
                         android:layout_marginBottom="20dp"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                        android:text="@{desireLogic.getPriceString(desire.reward)}" />
+                        android:text="@{desireLogic.getPriceString(desire.desire.reward)}" />
 
 
                 </RelativeLayout>
@@ -173,7 +171,7 @@
                     android:layout_weight="0.5"
                     android:gravity="left"
                     android:textColor="@color/colorMainText"
-                    android:text="@{desireLogic.getDateString(desire.creation_time)}"/>
+                    android:text="@{desireLogic.getDateString(desire.desire.creation_time)}"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -181,7 +179,7 @@
                     android:layout_weight="0.5"
                     android:gravity="right"
                     android:textColor="@color/colorMainText"
-                    android:text="@{desire.dropzone_string}"
+                    android:text="@{desire.desire.dropzone_string}"
                     />
 
             </LinearLayout>
