@@ -38,7 +38,7 @@ public interface DesireListContract {
 
         void loadDesires(boolean forceUpdate);
 
-        void loadRatingsForDesires(final List<DesireItemViewModel> desireList);
+       // void loadRatingsForDesires(final List<DesireItemViewModel> desireList);
 
         void createNewDesire();
 

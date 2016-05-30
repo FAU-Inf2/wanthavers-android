@@ -8,7 +8,6 @@ import android.databinding.DataBindingUtil;
 
 import com.squareup.picasso.Picasso;
 
-import de.fau.cs.mad.wanthavers.common.Chat;
 import de.fau.cs.mad.wanthavers.common.Media;
 import wanthavers.mad.cs.fau.de.wanthavers_android.BR;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
@@ -77,7 +76,7 @@ public class ChatListAdapter  extends RecyclerView.Adapter<ChatListAdapter.ViewH
             Picasso.with(chatItemBinding.getRoot().getContext()).load(m.getLowRes()).transform(new RoundedTransformation(200,0)).into(profileView);
         } else{
             final ImageView profileView = chatItemBinding.ivProfileOther;
-            profileView.setImageResource(R.drawable.ic_photo_camera_white_36dp);
+            profileView.setImageResource(R.drawable.no_pic);
         }
 
     }

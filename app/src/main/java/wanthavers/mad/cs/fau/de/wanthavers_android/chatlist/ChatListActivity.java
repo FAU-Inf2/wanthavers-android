@@ -12,6 +12,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.widget.RatingBar;
+import android.widget.ScrollView;
+
 import static com.google.common.base.Preconditions.checkNotNull;
 import de.fau.cs.mad.wanthavers.common.User;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
@@ -92,6 +94,7 @@ public class ChatListActivity extends AppCompatActivity {
                 new ChatListViewModel(getApplicationContext(), mChatListPresenter);
 
         chatListFragment.setViewModel(chatListViewModel);
+
     }
 
 

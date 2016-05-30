@@ -81,6 +81,7 @@ public class DesireListPresenter implements DesireListContract.Presenter {
                         if (!mDesireListView.isActive()) {
                             return;
                         }
+
                         if (showLoadingUI) {
                             mDesireListView.setLoadingIndicator(false);
                         }
@@ -105,7 +106,6 @@ public class DesireListPresenter implements DesireListContract.Presenter {
 
         GetUser.RequestValues requestValue = new GetUser.RequestValues(userId);
 
-
         mUseCaseHandler.execute(mGetUser, requestValue,
                 new UseCase.UseCaseCallback<GetUser.ResponseValue>() {
                     @Override
@@ -125,15 +125,13 @@ public class DesireListPresenter implements DesireListContract.Presenter {
     }
 
 
+
+    /*  TODO (TASK_JUG1) keep as discussion base and for future reference
     public void loadRatingsForDesires(final List<DesireItemViewModel> desireList) {
-
-
-
 
         Desire desire = desireList.get(counter).getDesire();
 
         GetAvgRatingForUser.RequestValues requestValue = new GetAvgRatingForUser.RequestValues(desire.getCreator().getID());
-
 
         mUseCaseHandler.execute(mGetAvgRatingForUser, requestValue,
                 new UseCase.UseCaseCallback<GetAvgRatingForUser.ResponseValue>() {
@@ -165,7 +163,7 @@ public class DesireListPresenter implements DesireListContract.Presenter {
                     }
                 });
     }
-
+    */
 
     private void processDesires(List<Desire> desires) {
         if (desires.isEmpty()) {
@@ -181,11 +179,11 @@ public class DesireListPresenter implements DesireListContract.Presenter {
                 desireModels.add(new DesireItemViewModel(desire));
             }
 
+            /* TODO (TASK_JUG1) keep as discussion base and for future reference
             counter = 0;
             loadRatingsForDesires(desireModels);
-
-            //mDesireListView.showDesires(desireModels);
-            // Set the filter label's text.
+            */
+            mDesireListView.showDesires(desireModels);
         }
     }
 

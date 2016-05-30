@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.parse.LogInCallback;
@@ -43,6 +44,7 @@ public class ChatDetailFragment extends Fragment implements  ChatDetailContract.
 
     private ChatDetailContract.Presenter mPresenter;
     private ChatDetailAdapter mListAdapter;
+    private RecyclerView mRecyclerView;
     private ChatDetailViewModel mChatDetailViewModel;
     private ChatdetailFragBinding mChatDetailFragBinding;
     private static final String CHAT_ID = "CHAT_ID";
@@ -82,16 +84,17 @@ public class ChatDetailFragment extends Fragment implements  ChatDetailContract.
 
 
         //Set up chat view
-        RecyclerView recyclerView = mChatDetailFragBinding.messageList;
+        mRecyclerView = mChatDetailFragBinding.messageList;
+
 
         SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, getContext().getApplicationContext());
         final long chatUserId = sharedPreferencesHelper.loadLong(SharedPreferencesHelper.KEY_USERID, 6L); //Long.valueOf(sharedPreferencesHelper.loadString(SharedPreferencesHelper.KEY_USERID, "6"));
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setLayoutManager(layoutManager);
 
         mListAdapter = new ChatDetailAdapter(new ArrayList<Message>(0),chatUserId ,mPresenter);
-        recyclerView.setAdapter(mListAdapter);
+        mRecyclerView.setAdapter(mListAdapter);
 
         //set up action handler
         ChatDetailActionHandler chatDetailActionHandler = new ChatDetailActionHandler(chatUserId, mChatDetailFragBinding, mPresenter);
@@ -120,6 +123,7 @@ public class ChatDetailFragment extends Fragment implements  ChatDetailContract.
     public void showMessages(List<Message> messageList) {
         mListAdapter.replaceData(messageList);
         mChatDetailViewModel.setMessageListSize(messageList.size());
+        mRecyclerView.scrollToPosition(messageList.size()-1);
     }
 
     public void showUpdatedMessageListonSendSuccess(Message message){

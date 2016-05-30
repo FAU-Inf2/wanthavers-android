@@ -116,7 +116,7 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
         });
 
 
-        /*
+
         // Set up progress indicator  TODO decide whether this is needed
         final ScrollChildSwipeRefreshLayout swipeRefreshLayout = desirelistFragBinding.refreshLayout;
         swipeRefreshLayout.setColorSchemeColors(
@@ -126,8 +126,8 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
         );
 
         // Set the scrolling view in the custom SwipeRefreshLayout
-        swipeRefreshLayout.setScrollUpChild(listView);
-        */
+        swipeRefreshLayout.setScrollUpChild(recyclerView);
+
 
         setHasOptionsMenu(true);
 
@@ -167,7 +167,7 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
             return;
         }
 
-        /*
+
         final SwipeRefreshLayout srl =
                 (SwipeRefreshLayout) getView().findViewById(R.id.refresh_layout);
 
@@ -178,7 +178,7 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
                 srl.setRefreshing(active);
             }
         });
-        */
+
     }
 
     public void showDesires(List<DesireItemViewModel> desireModels){

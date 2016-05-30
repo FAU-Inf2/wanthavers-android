@@ -14,10 +14,6 @@ public class DesireItemViewModel extends BaseObservable {
     @Bindable
     private Desire mDesire;
 
-    @Bindable
-    private Rating mUserRating;
-
-
     public DesireItemViewModel(Desire desire){
         mDesire = desire;
     }
@@ -31,10 +27,4 @@ public class DesireItemViewModel extends BaseObservable {
         notifyPropertyChanged(BR.desire);
     }
 
-    public Rating getUserRating() { return mUserRating; }
-
-    public void setRating(Rating userRating){
-        mUserRating = userRating;
-            notifyPropertyChanged(BR.userRating);
-    }
 }

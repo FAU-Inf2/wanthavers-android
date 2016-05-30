@@ -6,6 +6,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.widget.ScrollView;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -91,6 +92,7 @@ public class ChatDetailActivity extends AppCompatActivity {
                 new ChatDetailViewModel(getApplicationContext(), mChatDetailPresenter);
 
         chatDetailFragment.setViewModel(chatListViewModel);
+
     }
 
 

@@ -1,21 +1,15 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.desirelist;
 
 import android.databinding.DataBindingUtil;
-import android.support.annotation.DrawableRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.RatingBar;
-import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import de.fau.cs.mad.wanthavers.common.Desire;
 import de.fau.cs.mad.wanthavers.common.Media;
 import wanthavers.mad.cs.fau.de.wanthavers_android.BR;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
@@ -93,7 +87,7 @@ public class DesireListAdapter extends RecyclerView.Adapter<DesireListAdapter.Vi
         } else{
             //else case is neccessary as the image is otherwise overwritten on scroll
             final ImageView profileView = desireItemBinding.desireListImage;
-            profileView.setImageResource(R.drawable.ic_photo_camera_white_36dp);
+            profileView.setImageResource(R.drawable.no_pic);
         }
 
 
@@ -118,45 +112,6 @@ public class DesireListAdapter extends RecyclerView.Adapter<DesireListAdapter.Vi
     public long getItemId(int i) {
         return i;
     }
-
-
-    /*
-    public View getView(int i, View view, ViewGroup viewGroup) {
-        Desire desire = getItem(i);
-        DesireItemBinding binding;
-
-        if (view == null) {
-            // Inflate
-            LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-
-            // Create the binding
-            binding = DesireItemBinding.inflate(inflater, viewGroup, false);
-
-        } else {
-            binding = DataBindingUtil.getBinding(view);
-            RatingBar itemRateBar = (RatingBar) view.findViewById(R.id.ItemRatingBar);
-            itemRateBar.setRating(4.5f);  //TODO get rating from Server and insert here
-        }
-
-        // We might be recycling the binding for another task, so update it.
-        // Create the action handler for the view
-        DesireListItemActionHandler itemActionHandler =
-                new DesireListItemActionHandler(mUserActionsListener);
-        binding.setActionHandler(itemActionHandler);
-
-        binding.setDesire(desire);
-        binding.setDesires(mDesireListViewModel);
-        binding.setDesireLogic(mDesireLogic);
-
-
-
-
-        binding.executePendingBindings();
-        return binding.getRoot();
-    }
-
-    */
-
 
 }
 

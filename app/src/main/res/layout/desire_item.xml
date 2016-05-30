@@ -59,7 +59,7 @@
                     android:max="5"
                     android:numStars="5"
                     android:stepSize="0.1"
-                    android:rating="@{desire.userRating.stars}"
+                    android:rating="@{(float)desire.desire.creator.rating}"
                     android:progressBackgroundTint="@color/colorSecondary"
                     android:progressTint="@color/colorRatingStars"
                     android:secondaryProgressTint="@color/colorRatingStars"/>
