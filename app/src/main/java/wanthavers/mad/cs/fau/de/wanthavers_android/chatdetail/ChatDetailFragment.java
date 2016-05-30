@@ -6,6 +6,8 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -80,15 +82,16 @@ public class ChatDetailFragment extends Fragment implements  ChatDetailContract.
 
 
         //Set up chat view
-        ListView listView = mChatDetailFragBinding.messageList;
+        RecyclerView recyclerView = mChatDetailFragBinding.messageList;
 
         SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, getContext().getApplicationContext());
         final long chatUserId = sharedPreferencesHelper.loadLong(SharedPreferencesHelper.KEY_USERID, 6L); //Long.valueOf(sharedPreferencesHelper.loadString(SharedPreferencesHelper.KEY_USERID, "6"));
 
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
 
-        mListAdapter = new ChatDetailAdapter(new ArrayList<Message>(0),chatUserId ,mPresenter, mChatDetailViewModel);
-
-        listView.setAdapter(mListAdapter);
+        mListAdapter = new ChatDetailAdapter(new ArrayList<Message>(0),chatUserId ,mPresenter);
+        recyclerView.setAdapter(mListAdapter);
 
         //set up action handler
         ChatDetailActionHandler chatDetailActionHandler = new ChatDetailActionHandler(chatUserId, mChatDetailFragBinding, mPresenter);
@@ -154,55 +157,5 @@ public class ChatDetailFragment extends Fragment implements  ChatDetailContract.
     private void showMessage(String message) {
         Snackbar.make(getView(), message, Snackbar.LENGTH_LONG).show();
     }
-    // Begin parse inclusion
 
-
-    /*
-    // Create an anonymous user using ParseAnonymousUtils and set sUserId
-    void login() {
-        ParseAnonymousUtils.logIn(new LogInCallback() {
-            @Override
-            public void done(ParseUser user, ParseException e) {
-                if (e != null) {
-                    Log.e(TAG, "Anonymous login failed: ", e);
-                } else {
-                    startWithCurrentUser();
-                }
-            }
-        });
-    }
-
-    // Get the userId from the cached currentUser object
-    void startWithCurrentUser() {
-        setupMessagePosting();
-    }
-
-    // Setup button event handler which posts the entered message to Parse
-    void setupMessagePosting() {
-        // Find the text field and button
-
-        etMessage = (EditText) mChatDetailFragBinding.etMessage;
-        btSend = (ImageButton) mChatDetailFragBinding.btSend;
-        // When send button is clicked, create message object on Parse
-        btSend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                /*
-                String data = etMessage.getText().toString();
-                ParseObject message = ParseObject.create("Message");
-                message.put(Message.USER_ID_KEY, ParseUser.getCurrentUser().getObjectId());
-                message.put(Message.BODY_KEY, data);
-                message.saveInBackground(new SaveCallback() {
-                    @Override
-                    public void done(ParseException e) {
-                        Toast.makeText(getContext(), "Successfully created message on Parse",
-                                Toast.LENGTH_SHORT).show();
-                    }
-                });
-                etMessage.setText(null);
-
-            }
-        });
-
-    */
 }
