@@ -8,6 +8,8 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.view.View;
@@ -74,11 +76,15 @@ public class ChatListFragment extends Fragment implements  ChatListContract.View
 
 
         //Set up desire view
-        ListView listView = chatListFragBinding.desiresList;
+        RecyclerView recyclerView = chatListFragBinding.chatList;
         Context context = getContext().getApplicationContext();
 
-        mListAdapter = new ChatListAdapter(new ArrayList<Chat>(0), new ArrayList<User>(0), new ArrayList<Desire>(0),mPresenter, mChatListViewModel);
-        listView.setAdapter(mListAdapter);
+        //use Linear Layout Manager
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
+
+        mListAdapter = new ChatListAdapter(new ArrayList<ChatItemViewModel>(0),mPresenter, mChatListViewModel);
+        recyclerView.setAdapter(mListAdapter);
 
 
         // Set up progress indicator  TODO decide whether this is needed
@@ -90,7 +96,7 @@ public class ChatListFragment extends Fragment implements  ChatListContract.View
         );
 
         // Set the scrolling view in the custom SwipeRefreshLayout
-        swipeRefreshLayout.setScrollUpChild(listView);
+        swipeRefreshLayout.setScrollUpChild(recyclerView);
 
 
         setHasOptionsMenu(true);
@@ -129,8 +135,9 @@ public class ChatListFragment extends Fragment implements  ChatListContract.View
 
     public void setViewModel(ChatListViewModel viewModel){mChatListViewModel = viewModel;}
 
-    public void showChats(List<Chat> chatList, List<User> userList, List<Desire> desireList){
-        mListAdapter.replaceData(chatList, userList, desireList);
+    public void showChats(List<ChatItemViewModel> chatList){
+
+        mListAdapter.replaceData(chatList);
         mChatListViewModel.setChatListSize(chatList.size());
     }
 }

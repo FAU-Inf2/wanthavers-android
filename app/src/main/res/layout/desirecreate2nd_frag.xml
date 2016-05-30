@@ -93,7 +93,7 @@
         <Button
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="45dp"
             android:text="@string/button_uploadPictureForDesire"
             android:id="@+id/button_select_Image"
             android:textColor="@color/colorPrimary"
@@ -101,13 +101,13 @@
             android:layout_centerHorizontal="true" />
 
         <ImageView
-            android:layout_width="180dp"
-            android:layout_height="180dp"
+            android:layout_width="180sp"
+            android:layout_height="160sp"
             android:id="@+id/image_camera"
             android:src="@android:drawable/ic_menu_camera"
             android:layout_below="@+id/create_desire_reward"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="35dp" />
+            android:layout_marginTop="5sp" />
 
 
     </RelativeLayout>

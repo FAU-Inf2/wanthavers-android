@@ -14,7 +14,7 @@ public interface DesireListContract {
 
     interface View extends BaseView<Presenter> {
 
-        void showDesires(List<Desire> desires);
+        void showDesires(List<DesireItemViewModel> desires);
 
         void showLoadingDesiresError();
 
@@ -28,6 +28,7 @@ public interface DesireListContract {
 
         void showNewDesire();
 
+        public void setUser(User user);
         //TODO void showNoTasks();
     }
 
@@ -36,6 +37,8 @@ public interface DesireListContract {
     interface Presenter extends BasePresenter {
 
         void loadDesires(boolean forceUpdate);
+
+        void loadRatingsForDesires(final List<DesireItemViewModel> desireList);
 
         void createNewDesire();
 

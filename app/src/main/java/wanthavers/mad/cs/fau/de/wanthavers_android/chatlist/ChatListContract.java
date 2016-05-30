@@ -25,7 +25,7 @@ public interface ChatListContract {
 
         void showChatDetailsUi(Chat chat);
 
-        void showChats(List<Chat> chatList, List<User> userList, List<Desire> desireList);
+        void showChats(List<ChatItemViewModel> chatList);
 
     }
 

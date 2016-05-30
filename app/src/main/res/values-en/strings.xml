@@ -49,6 +49,7 @@
     <string name="choose_image_gallery">Choose from Gallery</string>
     <string name="add_image_cancel">Cancel</string>
     <string name="send_message_error">message could not be sent</string>
+    <string name="noUser">not logged in</string>
 
 
 </resources>

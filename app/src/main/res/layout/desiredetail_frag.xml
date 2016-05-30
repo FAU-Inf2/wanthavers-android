@@ -85,8 +85,7 @@
                 android:textColor="@color/colorPrimaryDark"
                 android:layout_toRightOf="@id/image_wanter"
                 android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_alignParentBottom="@+id/nav_header_temRatingBar" />
+                android:layout_marginTop="10dp"/>
 
             <RatingBar
                 android:id="@+id/nav_header_RatingBar"

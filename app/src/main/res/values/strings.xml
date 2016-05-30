@@ -54,6 +54,7 @@
     <string name="euro_sign" translatable="false">\u20ac</string>
     <string name="dollar_sign" translatable="false">$</string>
     <string name="send_message_error">Nachricht konnte nicht gesendet werden</string>
+    <string name="noUser">Nicht Eingeloggt</string>
 
 
 </resources>

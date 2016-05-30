@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.databinding.Bindable;
+import android.text.format.DateUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -31,10 +32,14 @@ public class DesireLogic {
 
         String dateString = mContext.getString(R.string.no_time_available);
 
+
+
+        Date curDate = new Date();
+
         if(date != null) {
-            SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-            dateString = mSimpleDateFormat.format(date);
+            return (String) DateUtils.getRelativeTimeSpanString(date.getTime(),curDate.getTime(), DateUtils.MINUTE_IN_MILLIS);
         }
+
 
         return dateString;
     }

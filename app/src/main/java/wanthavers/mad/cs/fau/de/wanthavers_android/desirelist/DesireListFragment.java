@@ -9,27 +9,35 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.Desire;
+import de.fau.cs.mad.wanthavers.common.Media;
 import de.fau.cs.mad.wanthavers.common.User;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.chatdetail.ChatDetailActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.chatlist.ChatListActivity;
 
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.DesirelistFragBinding;
+import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.NavHeaderBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate.DesireCreateActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desiredetail.DesireDetailActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
+import wanthavers.mad.cs.fau.de.wanthavers_android.util.RoundedTransformation;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -40,6 +48,7 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
     private DesireListAdapter mListAdapter;
     private DesireListViewModel mDesireListViewModel;
     private DesireLogic mDesireLogic;
+    private NavHeaderBinding mNavHeaderBinding;
 
     public DesireListFragment(){
         //Requires empty public constructor
@@ -53,6 +62,10 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
         mPresenter = checkNotNull(presenter);
     }
 
+
+    public void setNavBinding(NavHeaderBinding navBinding){
+        mNavHeaderBinding = navBinding;
+    }
 
     @Override
     public void onResume()  {
@@ -74,10 +87,20 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
 
 
         //Set up desire view
-        ListView listView = desirelistFragBinding.desiresList;
 
-        mListAdapter = new DesireListAdapter(new ArrayList<Desire>(0),mPresenter, mDesireListViewModel, mDesireLogic);
-        listView.setAdapter(mListAdapter);
+        RecyclerView recyclerView = (RecyclerView) desirelistFragBinding.desiresList;
+
+        //to improve performance set the layout size as fixed as it is fixed in our case
+        recyclerView.setHasFixedSize(true);
+        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), R.drawable.list_divider,1));
+
+        //use Linear Layout Manager
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
+
+        mListAdapter = new DesireListAdapter(new ArrayList<DesireItemViewModel>(0),mPresenter, mDesireListViewModel, mDesireLogic);
+
+        recyclerView.setAdapter(mListAdapter);
 
         // Set up floating action button
         FloatingActionButton fabCreateNewDesire =
@@ -92,6 +115,8 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
             }
         });
 
+
+        /*
         // Set up progress indicator  TODO decide whether this is needed
         final ScrollChildSwipeRefreshLayout swipeRefreshLayout = desirelistFragBinding.refreshLayout;
         swipeRefreshLayout.setColorSchemeColors(
@@ -102,7 +127,7 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
 
         // Set the scrolling view in the custom SwipeRefreshLayout
         swipeRefreshLayout.setScrollUpChild(listView);
-
+        */
 
         setHasOptionsMenu(true);
 
@@ -141,6 +166,8 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
         if (getView() == null) {
             return;
         }
+
+        /*
         final SwipeRefreshLayout srl =
                 (SwipeRefreshLayout) getView().findViewById(R.id.refresh_layout);
 
@@ -151,11 +178,13 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
                 srl.setRefreshing(active);
             }
         });
+        */
     }
 
-    public void showDesires(List<Desire> desires){
-        mListAdapter.replaceData(desires);
-        mDesireListViewModel.setDesireListSize(desires.size());
+    public void showDesires(List<DesireItemViewModel> desireModels){
+
+        mListAdapter.replaceData(desireModels);
+        mDesireListViewModel.setDesireListSize(desireModels.size());
     }
 
     @Override
@@ -193,6 +222,18 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
 
 
     }
+
+    public void setUser(User user){
+        mNavHeaderBinding.setUser(user);
+        Media m = user.getImage();
+
+
+        if (m != null) {
+            final ImageView profileView = mNavHeaderBinding.navHeaderUserImage;
+            Picasso.with(mNavHeaderBinding.getRoot().getContext()).load(m.getLowRes()).transform(new RoundedTransformation(200,0)).into(profileView);
+        }
+    }
+
 
     @Override
     public void showNewDesire() {

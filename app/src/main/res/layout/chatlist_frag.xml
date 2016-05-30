@@ -51,8 +51,8 @@
                 >
 
                 <!--TODO put visibility in linear layout tag android:visibility="@{desires.notEmpty ? View.VISIBLE : View.GONE"  -->
-                <ListView
-                    android:id="@+id/desires_list"
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/chat_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
