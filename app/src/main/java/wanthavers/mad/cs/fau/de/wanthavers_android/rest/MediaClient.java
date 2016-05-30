@@ -40,6 +40,6 @@ public class MediaClient extends RestClient {
     }
 
     public Media createMedia(String base64, String filename) {
-        return mediaEndpoint.createMedia(base64, filename);
+        return mediaEndpoint.createMedia(null, base64, filename);
     }
 }
