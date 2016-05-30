@@ -84,6 +84,11 @@ dependencies {
 
     compile 'com.j256.ormlite:ormlite-android:4.48'
 
+    // cloud-messaging
+    compile 'com.google.android.gms:play-services-gcm:9.0.1'
+    compile 'com.google.firebase:firebase-messaging:9.0.1'
+
+
 }
 
 
@@ -102,3 +107,5 @@ allprojects {
         }
     }
 }
+
+apply plugin: 'com.google.gms.google-services'

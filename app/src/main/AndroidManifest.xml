@@ -33,6 +33,19 @@
             android:name="com.parse.CLIENT_KEY"
             android:value="{CLIENT_KEY}" />
 
+        <service
+            android:name="wanthavers.mad.cs.fau.de.wanthavers_android.cloudmessaging.RegistrationIntentService"
+            android:exported="false">
+        </service>
+
+        <service
+            android:name="wanthavers.mad.cs.fau.de.wanthavers_android.cloudmessaging.MessageInstanceIdService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
+
+
     </application>
 
     <uses-permission android:name="android.permission.WAKE_LOCK"></uses-permission>

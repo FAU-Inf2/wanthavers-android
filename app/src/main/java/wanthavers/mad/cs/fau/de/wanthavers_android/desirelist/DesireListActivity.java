@@ -1,6 +1,7 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.desirelist;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,9 +13,13 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.widget.RatingBar;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+
 import de.fau.cs.mad.wanthavers.common.User;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
+import wanthavers.mad.cs.fau.de.wanthavers_android.cloudmessaging.RegistrationIntentService;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireRepository;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireLocalDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireRemoteDataSource;
@@ -26,6 +31,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.util.ActivityUtils;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 public class DesireListActivity extends AppCompatActivity {
+    private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 
     private DrawerLayout mDrawerLayout;
     private DesireListPresenter mDesireListPresenter;
@@ -93,6 +99,13 @@ public class DesireListActivity extends AppCompatActivity {
 
         desireListFragment.setDesireLogic(desireLogic);
 
+
+        // TODO: Check for compatible Google Play service API
+        // Uncomment this to get unique token for cloud messaging
+        // Intent intent = new Intent(this, RegistrationIntentService.class);
+        // startService(intent);
+
+
         // Load previously saved state, if available.
         if (savedInstanceState != null) {
             /*TasksFilterType currentFiltering =
@@ -101,8 +114,6 @@ public class DesireListActivity extends AppCompatActivity {
             */
         }
     }
-
-
 
 
     @Override
