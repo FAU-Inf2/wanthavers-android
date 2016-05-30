@@ -117,7 +117,7 @@ public class DesireListActivity extends AppCompatActivity {
         desireListFragment.setDesireLogic(desireLogic);
 
 
-        // TODO: Check for compatible Google Play service API
+        // TODO: Check for compatible Google Play service APK
         // Uncomment this to get unique token for cloud messaging
         // Intent intent = new Intent(this, RegistrationIntentService.class);
         // startService(intent);

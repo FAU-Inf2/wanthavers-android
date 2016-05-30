@@ -34,6 +34,13 @@
             android:value="{CLIENT_KEY}" />
 
         <service
+            android:name="wanthavers.mad.cs.fau.de.wanthavers_android.cloudmessaging.MessageListenerService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+
+        <service
             android:name="wanthavers.mad.cs.fau.de.wanthavers_android.cloudmessaging.RegistrationIntentService"
             android:exported="false">
         </service>
