@@ -1,32 +1,60 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.desiredetail;
 
 import android.databinding.DataBindingUtil;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.RatingBar;
 
 import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.Haver;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.HaverItemBinding;
-import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
 
 /**
  * Created by Oliver Lutz on 24.05.2016.
  */
-public class DesireDetailAdapter extends BaseAdapter{
+public class DesireDetailAdapter extends RecyclerView.Adapter<DesireDetailAdapter.ViewHolder> {
 
+    //private long mUserId;
     private List<Haver> mHaverList;
-    //private DesireDetailViewModel mDesireDetailViewModel;
-    //private DesireLogic mDesireLogic;
 
-    public DesireDetailAdapter(List<Haver> havers/*, DesireDetailViewModel desireDetailViewModel, DesireLogic desireLogic*/) {
+    private DesireDetailContract.Presenter mUserActionsListener;
+
+    public DesireDetailAdapter(List<Haver> havers, DesireDetailContract.Presenter itemListener) {
         setList(havers);
-        //mDesireDetailViewModel = desireDetailViewModel;
-        //mDesireLogic = desireLogic;
+        mUserActionsListener = itemListener;
+    }
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        private HaverItemBinding mhaverItemBinding;
+
+        public ViewHolder(HaverItemBinding haverItemBinding) {
+            super(haverItemBinding.getRoot());
+            mhaverItemBinding = haverItemBinding;
+            mhaverItemBinding.executePendingBindings();
+        }
+
+        public HaverItemBinding getHaverItemBinding() {
+            return mhaverItemBinding;
+        }
+
+    }
+
+    @Override
+    public DesireDetailAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+        HaverItemBinding haverItemBinding = DataBindingUtil.inflate(
+                LayoutInflater.from(viewGroup.getContext()), R.layout.haver_item, viewGroup, false);
+        return new DesireDetailAdapter.ViewHolder(haverItemBinding);
+    }
+
+    @Override
+    public void onBindViewHolder(DesireDetailAdapter.ViewHolder viewHolder, int position) {
+        Haver haver = mHaverList.get(position);
+
+        HaverItemBinding haverItemBinding = viewHolder.getHaverItemBinding();
+
+        haverItemBinding.setHaver(haver);
     }
 
     public void replaceData(List<Haver> haverList) {
@@ -38,23 +66,25 @@ public class DesireDetailAdapter extends BaseAdapter{
         notifyDataSetChanged();
     }
 
-    @Override
-    public int getCount() {
-        return mHaverList != null ? mHaverList.size() : 0;
+    public List<Haver> getList() {
+        return mHaverList;
     }
 
     @Override
-    public Haver getItem(int position) {
-        return mHaverList.get(position);
+    public int getItemCount() {
+        return mHaverList != null ? mHaverList.size() : 0;
     }
+
+    /*public Haver getItem(int position) {
+        return mHaverList.get(position);
+    }*/
 
     @Override
     public long getItemId(int position) {
         return position;
     }
 
-    @Override
-    public View getView(int position, View view, ViewGroup parent) {
+    /*public View getView(int position, View view, ViewGroup parent) {
         Haver haver = getItem(position);
         HaverItemBinding binding;
 
@@ -72,5 +102,5 @@ public class DesireDetailAdapter extends BaseAdapter{
         binding.executePendingBindings();
 
         return binding.getRoot();
-    }
+    }*/
 }

@@ -2,6 +2,9 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.desiredetail;
 
 import android.support.annotation.NonNull;
 
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.Haver;
@@ -16,31 +19,26 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
 
 
     private final DesireDetailContract.View mDesireDetailView;
-    private final AcceptDesire ucAcceptDesire;
+    private final AcceptDesire mAcceptDesire;
     private boolean mFirstLoad = true;
-    private final GetDesire ucGetDesire;
+    private final GetDesire mGetDesire;
     private final GetHaverList mGetHaverList;
-    private final UseCaseHandler useCaseHandler;
-    //add Repository
+    private final UseCaseHandler mUseCaseHandler;
 
     @NonNull
     private long mDesireId;
 
-    public DesireDetailPresenter(@NonNull UseCaseHandler ucHandler, @NonNull long desireId, @NonNull DesireDetailContract.View view,
+    public DesireDetailPresenter(@NonNull UseCaseHandler useCaseHandler, @NonNull long desireId, @NonNull DesireDetailContract.View desireDetailView,
                                  @NonNull AcceptDesire acceptDesire, @NonNull GetDesire getDesire, @NonNull GetHaverList getHaverList){
 
-        useCaseHandler = ucHandler;
-        mDesireDetailView = view;
+        mUseCaseHandler = checkNotNull(useCaseHandler, "useCaseHandler cannot be null");
+        mDesireDetailView = checkNotNull(desireDetailView, "desiredetail view cannot be null");
         mDesireId = desireId;
-        mGetHaverList = getHaverList;
-
-
-
-        ucAcceptDesire = acceptDesire;
-        ucGetDesire = getDesire;
+        mGetHaverList = checkNotNull(getHaverList);
+        mAcceptDesire = checkNotNull(acceptDesire);
+        mGetDesire = checkNotNull(getDesire);
 
         mDesireDetailView.setPresenter(this);
-        //TODO add repo
     }
 
 
@@ -53,8 +51,7 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
     @Override
     public void getDesire(){
 
-        //add repo, for now just basic desire
-        useCaseHandler.execute(ucGetDesire, new GetDesire.RequestValues(mDesireId),
+        mUseCaseHandler.execute(mGetDesire, new GetDesire.RequestValues(mDesireId),
                 new UseCase.UseCaseCallback<GetDesire.ResponseValue>(){
 
 
@@ -85,7 +82,7 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
 
         GetHaverList.RequestValues requestValues = new GetHaverList.RequestValues();
 
-        useCaseHandler.execute(mGetHaverList, requestValues, new UseCase.UseCaseCallback<GetHaverList.ResponseValue>() {
+        mUseCaseHandler.execute(mGetHaverList, requestValues, new UseCase.UseCaseCallback<GetHaverList.ResponseValue>() {
             @Override
             public void onSuccess(GetHaverList.ResponseValue response) {
                 List<Haver> havers = response.getHavers();

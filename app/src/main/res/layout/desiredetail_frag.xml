@@ -239,11 +239,11 @@
             android:layout_below="@+id/desire_detail_location"
             android:layout_marginTop="20dp"
             android:visibility="@{desirelogic.isDesireCreator(desire.creator.getID()) ? View.VISIBLE : View.GONE}">
-            <ListView
+            <android.support.v7.widget.RecyclerView
                 android:id="@+id/haver_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-            </ListView>
+            </android.support.v7.widget.RecyclerView>
 
 
         </wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.ScrollChildSwipeRefreshLayout>

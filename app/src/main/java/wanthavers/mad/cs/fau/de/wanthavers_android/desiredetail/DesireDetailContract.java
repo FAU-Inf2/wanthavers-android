@@ -5,7 +5,6 @@ import java.util.List;
 import de.fau.cs.mad.wanthavers.common.Haver;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.BasePresenter;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.BaseView;
-//import wanthavers.mad.cs.fau.de.wanthavers_android.data.Desire;
 import de.fau.cs.mad.wanthavers.common.Desire;
 public interface DesireDetailContract {
 
@@ -30,7 +29,6 @@ public interface DesireDetailContract {
         void getDesire();
 
         void loadHavers(boolean forceUpdate);
-
 
     }
 }

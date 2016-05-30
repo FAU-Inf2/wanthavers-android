@@ -79,7 +79,7 @@ public class DesireLogic {
           long userId = sharedPreferences.loadLong(SharedPreferencesHelper.KEY_USERID, 1L);
         tbd by Serverteam...
          */
-        if (id == 1) {
+        if (id == 6) {
             return true;
         } else {
             return false;

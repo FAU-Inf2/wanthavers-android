@@ -5,11 +5,7 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
 import wanthavers.mad.cs.fau.de.wanthavers_android.BR;
-import wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.DesireListContract;
 
-/**
- * Created by Olli on 24.05.2016.
- */
 public class DesireDetailViewModel extends BaseObservable {
 
     int mHaverListSize = 0;

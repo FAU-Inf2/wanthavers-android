@@ -5,8 +5,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.widget.LinearLayout;
 
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
@@ -34,8 +32,6 @@ public class DesireDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.desiredetail_act);
 
-
-
         //set up the toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -46,19 +42,14 @@ public class DesireDetailActivity extends AppCompatActivity {
 
         long desireId = getIntent().getLongExtra(EXTRA_DESIRE_ID, 4);
 
-
         DesireDetailFragment desireDetailFragment = (DesireDetailFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.contentFrame);
 
-
-
         if (desireDetailFragment == null) {
             desireDetailFragment = DesireDetailFragment.newInstance(desireId);
-
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),
                     desireDetailFragment, R.id.contentFrame);
         }
-
 
         //create fake task repo
         Context context = getApplicationContext();
@@ -73,7 +64,6 @@ public class DesireDetailActivity extends AppCompatActivity {
                 desireDetailFragment,
                 new AcceptDesire(fake), new GetDesire(fake), new GetHaverList(fake_haver, desireId));
 
-        //TODO: VIEWMODEL for havers list
         DesireDetailViewModel desireDetailViewModel =
                 new DesireDetailViewModel(getApplicationContext(), mDesireDetailPresenter);
 
