@@ -36,8 +36,6 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.util.SharedPreferencesHelper;
 
 public class ChatListActivity extends AppCompatActivity {
 
-
-    private DrawerLayout mDrawerLayout;
     private ChatListPresenter mChatListPresenter;
     public static final String USER_ID = "USER_ID";
     private long mLoggedInUserId;
@@ -75,17 +73,10 @@ public class ChatListActivity extends AppCompatActivity {
         checkNotNull(context);
 
         ChatRepository chatRepo = ChatRepository.getInstance(ChatRemoteDataSource.getInstance(getApplicationContext()), ChatLocalDataSource.getInstance(context));
-        UserRepository userRepo = UserRepository.getInstance(UserRemoteDataSource.getInstance(getApplicationContext()),
-                UserLocalDataSource.getInstance(getApplicationContext()));
-        GetUser userGetter = new GetUser(userRepo);
-        DesireRepository desireRepo = DesireRepository.getInstance(DesireRemoteDataSource.getInstance(context),
-                DesireLocalDataSource.getInstance(context));
-        GetDesire desireGetter = new GetDesire(desireRepo);
-
 
 
         // Create the presenter
-        mChatListPresenter = new ChatListPresenter(UseCaseHandler.getInstance(),chatListFragment,new GetChatList(chatRepo),mLoggedInUserId, userGetter,desireGetter );
+        mChatListPresenter = new ChatListPresenter(UseCaseHandler.getInstance(),chatListFragment,new GetChatList(chatRepo),mLoggedInUserId);
 
 
         // Load previously saved state, if available.

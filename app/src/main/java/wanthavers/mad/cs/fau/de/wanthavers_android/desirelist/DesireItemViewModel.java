@@ -11,7 +11,6 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.BR;
 
 public class DesireItemViewModel extends BaseObservable {
 
-
     @Bindable
     private Desire mDesire;
 

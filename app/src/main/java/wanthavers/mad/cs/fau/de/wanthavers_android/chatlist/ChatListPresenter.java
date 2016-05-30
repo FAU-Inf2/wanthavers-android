@@ -32,26 +32,16 @@ public class ChatListPresenter implements ChatListContract.Presenter {
     private long mLoggedInUserId;
 
     private final GetChatList mGetChatList;
-    private final GetUser mGetUser;
-    private final GetDesire mGetDesire;
-
-    private List<User> mUserList;
-    private List<Chat> mChatList;
-    private int counter = 0;
 
 
     public ChatListPresenter(@NonNull UseCaseHandler useCaseHandler, @NonNull ChatListContract.View chatListView,
-                             @NonNull GetChatList getChatList, @NonNull long loggedInUserId,
-                             @NonNull GetUser getUser, @NonNull GetDesire getDesire){
+                             @NonNull GetChatList getChatList, @NonNull long loggedInUserId){
 
         mUseCaseHandler = checkNotNull(useCaseHandler, "usecaseHandle cannot be null");
-        mChatListView = checkNotNull(chatListView, "desirelist view cannot be null!");
+        mChatListView = checkNotNull(chatListView, "chatlist view cannot be null!");
         mGetChatList = checkNotNull(getChatList);
-        mGetUser = checkNotNull(getUser);
-        mGetDesire = checkNotNull(getDesire);
         mLoggedInUserId = loggedInUserId;
         mChatListView.setPresenter(this);
-        mUserList = new ArrayList<>();
     }
 
 
@@ -100,86 +90,6 @@ public class ChatListPresenter implements ChatListContract.Presenter {
 
     }
 
-    private void loadUsersForChats(final List<Chat> chatList, final List<User> userList){
-
-            Chat chat = chatList.get(counter);
-
-            long otherUserId = getOtherUserId(chat.getUser1(),chat.getUser2());
-
-
-            GetUser.RequestValues requestValue = new GetUser.RequestValues(otherUserId);
-
-            mUseCaseHandler.execute(mGetUser, requestValue,
-                    new UseCase.UseCaseCallback<GetUser.ResponseValue>() {
-                        @Override
-                        public void onSuccess(GetUser.ResponseValue response) {
-                            userList.add(response.getUser());
-
-
-
-                            if(counter < chatList.size()-1){
-                                counter++;
-                                loadUsersForChats(chatList, userList);
-                            }else{
-                                //loadChatsWithUsers(chatList,userList);
-                                List<Desire> desireList = new ArrayList<>();
-                                counter = 0;
-                                loadDesiresForChats(chatList, userList,desireList);
-                            }
-
-
-                        }
-
-                        @Override
-                        public void onError() {
-                            mUserList.add(new User("ERROR", "ERRORMAL"));
-                        /* TODO think about something useful to do on error
-                        // The view may not be able to handle UI updates anymore
-                        if (!mChatListView.isActive()) {
-                            return;
-                        }
-                        mChatListView.showLoadingChatsError();
-                        */
-                        }
-
-                    });
-
-
-    }
-
-    private void loadDesiresForChats(final List<Chat> chatList, final List<User> userList, final List<Desire> desireList){
-
-        Chat chat = chatList.get(counter);
-        long desireId = chat.getDesireId();
-
-        mUseCaseHandler.execute(mGetDesire, new GetDesire.RequestValues(desireId),
-                new UseCase.UseCaseCallback<GetDesire.ResponseValue>(){
-
-
-                    @Override
-                    public void onSuccess(GetDesire.ResponseValue response) {
-
-                        desireList.add(response.getDesire());
-
-                        if(counter < chatList.size()-1){
-                            counter++;
-                            loadDesiresForChats(chatList, userList, desireList);
-                        }else{
-                            //loadChatsWithUsers(chatList,userList);
-                            loadFinishedChats(chatList, userList,desireList);
-                        }
-
-                    }
-
-                    @Override
-                    public void onError() {
-                        //TODO error handling
-
-                    }
-                });
-    }
-
-
 
     private void processChats(List<Chat> chatList) {
 
@@ -187,27 +97,19 @@ public class ChatListPresenter implements ChatListContract.Presenter {
             // Show a message indicating there are no tasks for that filter type.
             //TODO add what to do if no desires
         } else {
-            // Show the list of tasks
-            counter = 0;
-            List<User> userList = new ArrayList<>(0);
-            loadUsersForChats(chatList, userList);
-            //loadDesiresForChats(chatList);
 
-            //mChatListView.showChats(chatList);
-            // Set the filter label's text.
+            List<ChatItemViewModel> chatModels = new ArrayList<>();
+
+            for(Chat chat : chatList){
+                chatModels.add(new ChatItemViewModel(chat, mLoggedInUserId));
+            }
+
+
+            mChatListView.showChats(chatModels);
+
         }
     }
 
-    private void loadFinishedChats(List<Chat> chatList, List<User> userList, List<Desire> desireList){
-
-        if (chatList.isEmpty() || userList.isEmpty() || desireList.isEmpty()) {
-
-        }else{
-            mChatListView.showChats(chatList,userList, desireList);
-        }
-
-
-    }
 
     @Override
     public void openChatDetails(@NonNull Chat chat) {
@@ -216,13 +118,6 @@ public class ChatListPresenter implements ChatListContract.Presenter {
         mChatListView.showChatDetailsUi(chat);
     }
 
-    private long getOtherUserId(long user1Id, long user2Id){
 
-        if(user1Id == mLoggedInUserId){
-            return user2Id;
-        }
-
-        return user1Id;
-    }
 
 }
