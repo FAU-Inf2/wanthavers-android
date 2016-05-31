@@ -65,7 +65,7 @@ public class UserLocalDataSource implements UserDataSource {
     }
 
     @Override
-    public void createUser(@NonNull User user, @NonNull CreateUserCallback callback) {
+    public void createUser(@NonNull User user, @NonNull String password, @NonNull CreateUserCallback callback) {
         callback.onCreationFailed();
     }
 

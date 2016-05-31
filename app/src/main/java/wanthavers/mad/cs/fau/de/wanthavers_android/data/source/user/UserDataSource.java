@@ -74,7 +74,7 @@ public interface UserDataSource {
 
     void getAllUsers(@NonNull GetAllUsersCallback callback);
 
-    void createUser(@NonNull User user, @NonNull CreateUserCallback callback);
+    void createUser(@NonNull User user, @NonNull String password, @NonNull CreateUserCallback callback);
 
     void updateUser(@NonNull User user, @NonNull UpdateUserCallback callback);
 

@@ -86,11 +86,12 @@ public class UserRepository implements UserDataSource {
     }
 
     @Override
-    public void createUser(@NonNull User user, @NonNull final CreateUserCallback callback) {
+    public void createUser(@NonNull User user, @NonNull String password, @NonNull final CreateUserCallback callback) {
         checkNotNull(user);
+        checkNotNull(password);
         checkNotNull(callback);
 
-        userRemoteDataSource.createUser(user, new CreateUserCallback() {
+        userRemoteDataSource.createUser(user, password, new CreateUserCallback() {
             @Override
             public void onUserCreated(User user) {
                 callback.onUserCreated(user);

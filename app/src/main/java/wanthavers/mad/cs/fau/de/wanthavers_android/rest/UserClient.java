@@ -35,8 +35,8 @@ public class UserClient extends RestClient {
         return userEndpoint.get(userId);
     }
 
-    public User createUser(User user) {
-        return userEndpoint.createUser(user);
+    public User createUser(User user, String password) {
+        return userEndpoint.createUser(user, password);
     }
 
     public User updateUser(long userId, User user) {
