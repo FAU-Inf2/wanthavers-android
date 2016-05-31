@@ -28,7 +28,7 @@ public abstract class RestClient {
 
         SharedPreferencesHelper sharedPreferences = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, context);
         long userId = sharedPreferences.loadLong(SharedPreferencesHelper.KEY_USERID, 6L);
-        String password = sharedPreferences.loadString(SharedPreferencesHelper.KEY_PASSWORD, "");
+        String password = sharedPreferences.loadString(SharedPreferencesHelper.KEY_PASSWORD, "test");
 
         HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic(String.valueOf(userId), password);
         target = ClientBuilder.newClient().register(JacksonJsonProvider.class).target(API_URL);
