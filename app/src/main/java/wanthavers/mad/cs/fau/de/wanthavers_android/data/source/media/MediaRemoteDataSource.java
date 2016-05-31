@@ -3,8 +3,7 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.data.source.media;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.google.repacked.apache.commons.io.FileUtils;
-
+import org.apache.commons.io.FileUtils;
 import org.glassfish.jersey.internal.util.Base64;
 
 import java.io.File;
