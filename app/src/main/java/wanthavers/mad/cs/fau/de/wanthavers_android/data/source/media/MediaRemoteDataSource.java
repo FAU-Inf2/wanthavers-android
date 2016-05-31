@@ -2,9 +2,9 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.data.source.media;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.util.Base64;
 
 import org.apache.commons.io.FileUtils;
-import org.glassfish.jersey.internal.util.Base64;
 
 import java.io.File;
 import java.io.IOException;
@@ -58,7 +58,8 @@ public class MediaRemoteDataSource implements MediaDataSource {
     public void createMedia(@NonNull File image, @NonNull CreateMediaCallback callback) {
         String base64 = null;
         try {
-            base64 = Base64.encodeAsString(FileUtils.readFileToByteArray(image));
+            byte[] bytes = FileUtils.readFileToByteArray(image);
+            base64 = Base64.encodeToString(bytes, Base64.DEFAULT);
         } catch (IOException e) {
             callback.onCreateFailed();
             return;
