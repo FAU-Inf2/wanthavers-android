@@ -16,7 +16,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.common.io.Files;
+
+import org.glassfish.jersey.internal.util.Base64;
+
 import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 
 import de.fau.cs.mad.wanthavers.common.Desire;
@@ -29,10 +34,12 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.media.MediaReposi
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.Desirecreate3rdFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.DesireListActivity;
 
+
 public class DesireCreateFragment3rdStep extends Fragment implements DesireCreateContract.View {
     private Desirecreate3rdFragBinding mViewDataBinding;
     private DesireCreateContract.Presenter mPresenter;
     private final Desire desire = new Desire();
+    //private  Media desireImage = new Media();
 
     public DesireCreateFragment3rdStep(){
         //Requires empty public constructor
@@ -125,13 +132,25 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
             Log.d("Image", file.getPath());
 
 
-            /*MediaDataSource.CreateMediaCallback callback = newInstance();
             Context context = getActivity().getApplicationContext();
-            MediaRepository mediarepo = MediaRepository.getInstance(MediaRemoteDataSource.getInstance(context), MediaLocalDataSource.getInstance(context));
-            mediarepo.createMedia(file,);*/
 
-            //MediaRepository.createMedia(file, )
-            //desire.setImage(); // TODO
+            MediaRepository mediaRepo = MediaRepository.getInstance(MediaRemoteDataSource.getInstance(context), MediaLocalDataSource.getInstance(context));
+
+            mediaRepo.createMedia(file, new MediaDataSource.CreateMediaCallback() {
+                @Override
+                public void onMediaCreated(Media media) {
+                    //desireImage = media;
+                    desire.setImage(media);
+                    Log.d("Creating Media", "succesful!");
+                }
+
+                @Override
+                public void onCreateFailed() {
+                    Log.d("Creating Media", "failed!");//Todo
+                }
+            });
+
+           // desire.setImage(desireImage); // TODO
         }
 
         //will be set by the server
@@ -143,6 +162,5 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
     public void sendDesireToServer(Desire desire){
         mPresenter.setDesire(desire);//TODO
     }
-
 
 }
