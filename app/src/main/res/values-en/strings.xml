@@ -50,6 +50,15 @@
     <string name="add_image_cancel">Cancel</string>
     <string name="send_message_error">message could not be sent</string>
     <string name="noUser">not logged in</string>
+    <string name="filtersetting_title">Change Filter</string>
+    <string name="category_title">Category</string>
+    <string name="mail_adress_title">Email address</string>
+    <string name="default_filter_title">Default filter</string>
+    <string name="change_button">change</string>
+    <string name="reset_button">reset</string>
+    <string name="notifications">Notifications</string>
+    <string name="button_change_profile_picture">Change profile picture</string>
+
 
 
 </resources>

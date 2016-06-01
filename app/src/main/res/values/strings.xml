@@ -48,6 +48,14 @@
     <string name="take_photo">Foto aufnehmen</string>
     <string name="choose_image_gallery">Bild aus Galerie auswählen</string>
     <string name="add_image_cancel">Abbrechen</string>
+    <string name="filtersetting_title">Filter anpassen</string>
+    <string name="category_title">Kategorie</string>
+    <string name="mail_adress_title">Email-Adresse</string>
+    <string name="default_filter_title">Standard-Filter</string>
+    <string name="change_button">ändern</string>
+    <string name="reset_button">zurücksetzen</string>
+    <string name="notifications">Benachrichtigungen</string>
+    <string name="button_change_profile_picture">Profilbild ändern</string>
 
 
     <!-- currency strings -->

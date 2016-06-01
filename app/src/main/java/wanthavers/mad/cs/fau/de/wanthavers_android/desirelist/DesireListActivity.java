@@ -160,13 +160,7 @@ public class DesireListActivity extends AppCompatActivity {
                                 // Do nothing, we're already on that screen
                                 break;
                             case R.id.settings_navigation_menu_item:
-                                /*
-                                Intent intent =
-                                        new Intent(DesireListActivity.this, DesireListActivity.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
-                                        | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                startActivity(intent);
-                                */
+                                mDesireListPresenter.openSettings();
                                 break;
                             case R.id.createDesire_navigation_menu_item:
                                 mDesireListPresenter.createNewDesire();
