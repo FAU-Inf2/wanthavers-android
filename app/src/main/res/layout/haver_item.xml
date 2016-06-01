@@ -26,56 +26,70 @@
     <RelativeLayout
         android:id="@+id/haver_bar"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="50dp"
         android:background="@color/colorSecondary"
         android:layout_below="@+id/desire_detail_itemImage"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="20dp"
         android:weightSum="1">
 
 
         <ImageView
             android:id="@+id/image_haver"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:scaleX="0.8"
+            android:scaleY="0.8"
             android:src="@android:drawable/sym_def_app_icon"
-            android:layout_marginRight="10dp"/>
+            android:layout_marginLeft="5dp"/>
 
-        <TextView
-            android:id="@+id/haver_name"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@{haver.user.getName()}"
-            android:gravity="center"
-            android:textColor="@color/colorPrimaryDark"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_toRightOf="@id/image_haver"
-            android:layout_marginRight="10dp"/>
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/message_haver">
 
-        <RatingBar
-            android:id="@+id/HaverRatingBar"
-            style="?android:ratingBarStyle"
-            android:layout_width="240dp"
-            android:layout_height="50dp"
-            android:isIndicator="true"
-            android:max="5"
-            android:numStars="5"
-            android:stepSize="0.1"
-            android:scaleX="0.5"
-            android:scaleY="0.5"
-            android:progressBackgroundTint="#c3bebe"
-            android:progressTint="@color/colorRatingStars"
-            android:secondaryProgressTint="@color/colorRatingStars"
-            android:mirrorForRtl="false"
-            android:keepScreenOn="false"
-            android:isScrollContainer="false"
-            android:layout_alignParentTop="true"
-            android:layout_toLeftOf="@+id/message_haver"
-            android:layout_toStartOf="@+id/message_haver" />
+            <TextView
+                android:id="@+id/haver_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@{haver.user.getName()}"
+                android:textColor="@color/colorPrimaryDark"/>
+
+            <RatingBar
+                android:id="@+id/haver_RatingBar"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:isIndicator="true"
+                android:max="5"
+                android:numStars="5"
+                android:stepSize="0.1"
+                android:rating="@{(float)haver.user.rating}"
+                android:progressBackgroundTint="@color/colorSecondary"
+                android:progressTint="@color/colorRatingStars"
+                android:secondaryProgressTint="@color/colorRatingStars"
+                android:layout_below="@+id/haver_name"
+                android:layout_centerHorizontal="true" />
+
+        </RelativeLayout>
 
         <ImageView
             android:id="@+id/message_haver"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@android:drawable/sym_action_chat"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/accept_desire_haver"
+            android:layout_toStartOf="@+id/accept_desire_haver"
+            android:layout_marginRight="18dp"
+            android:layout_marginEnd="18dp" />
+
+        <ImageView
+            android:id="@+id/accept_desire_haver"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:src="@android:drawable/checkbox_on_background"
@@ -84,19 +98,6 @@
             android:layout_alignParentEnd="true"
             android:layout_marginRight="20dp"
             android:layout_marginEnd="20dp" />
-
-        <ImageView
-            android:id="@+id/accept_desire_haver"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@android:drawable/sym_action_chat"
-            android:layout_alignParentTop="true"
-            android:layout_toLeftOf="@+id/message_haver"
-            android:layout_toStartOf="@+id/message_haver"
-            android:layout_marginRight="18dp"
-            android:layout_marginEnd="18dp" />
-
-
 
     </RelativeLayout>
 

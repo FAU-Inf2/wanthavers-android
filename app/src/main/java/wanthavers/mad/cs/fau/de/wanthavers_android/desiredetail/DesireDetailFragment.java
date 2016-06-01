@@ -13,15 +13,21 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.Haver;
+import de.fau.cs.mad.wanthavers.common.Media;
+import de.fau.cs.mad.wanthavers.common.User;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import de.fau.cs.mad.wanthavers.common.Desire;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.DesiredetailFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
+import wanthavers.mad.cs.fau.de.wanthavers_android.util.RoundedTransformation;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -82,6 +88,8 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
 
         mDesireDetailFragBinding.setDesirelogic(mDesireLogic);
 
+        mDesireDetailFragBinding.setHavers(mDesireDetailViewModel);
+
 
 
         //setRetainInstance(true);
@@ -140,6 +148,32 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
 
     public void showDesire(Desire desire) {
         mDesireDetailFragBinding.setDesire(desire);
+
+        //show desire image
+        Media mediaDesire = desire.getImage();
+        if (mediaDesire != null) {
+            final ImageView profileView = mDesireDetailFragBinding.desireDetailItemImage;
+            Picasso.with(mDesireDetailFragBinding.getRoot().getContext()).load(mediaDesire.getLowRes()).transform(new RoundedTransformation(200,0)).into(profileView);
+        } else{
+            //else case is neccessary as the image is otherwise overwritten on scroll
+            final ImageView profileView = mDesireDetailFragBinding.desireDetailItemImage;
+            profileView.setImageResource(R.drawable.no_pic);
+        }
+
+        //show wanter image
+        User creator = desire.getCreator();
+
+        if (!mDesireLogic.isDesireCreator(creator.getID())) {
+            Media mediaWanter = creator.getImage();
+            if (mediaWanter != null) {
+                final ImageView profileView = mDesireDetailFragBinding.imageWanter;
+                Picasso.with(mDesireDetailFragBinding.getRoot().getContext()).load(mediaWanter.getLowRes()).transform(new RoundedTransformation(200,0)).into(profileView);
+            } else{
+                //else case is neccessary as the image is otherwise overwritten on scroll
+                final ImageView profileView = mDesireDetailFragBinding.imageWanter;
+                profileView.setImageResource(R.drawable.no_pic);
+            }
+        }
     }
 
     public void showHavers(List<Haver> havers) {
