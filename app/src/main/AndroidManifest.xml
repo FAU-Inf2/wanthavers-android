@@ -27,6 +27,7 @@
         <activity android:name="wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate.DesireCreateActivity3rdStep"/>
         <activity android:name="wanthavers.mad.cs.fau.de.wanthavers_android.chatlist.ChatListActivity"/>
         <activity android:name="wanthavers.mad.cs.fau.de.wanthavers_android.chatdetail.ChatDetailActivity"/>
+        <activity android:name="wanthavers.mad.cs.fau.de.wanthavers_android.settings.SettingsActivity"/>
         <meta-data
             android:name="com.parse.APPLICATION_ID"
             android:value="{APPLICATION_ID}" />

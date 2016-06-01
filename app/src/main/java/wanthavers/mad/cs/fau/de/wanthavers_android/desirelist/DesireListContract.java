@@ -30,6 +30,8 @@ public interface DesireListContract {
 
         void showLogout();
 
+        void showSettings();
+
         public void setUser(User user);
         //TODO void showNoTasks();
     }
@@ -49,6 +51,8 @@ public interface DesireListContract {
         void openDesireDetails(@NonNull Desire desire);
 
         void openChat(@NonNull User user);
+
+        void openSettings();
 
         //TODO - add filter options here
 

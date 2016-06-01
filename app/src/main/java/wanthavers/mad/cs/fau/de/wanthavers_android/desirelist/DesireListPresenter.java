@@ -65,6 +65,11 @@ public class DesireListPresenter implements DesireListContract.Presenter {
     }
 
     @Override
+    public void openSettings() {
+        mDesireListView.showSettings();
+    }
+
+    @Override
     public void openDesireDetails(@NonNull Desire desire) {
         checkNotNull(desire, "desire cannot be null!");
         mDesireListView.showDesireDetailsUi(desire.getID());

@@ -38,6 +38,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate.DesireCreateActi
 import wanthavers.mad.cs.fau.de.wanthavers_android.desiredetail.DesireDetailActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
 import wanthavers.mad.cs.fau.de.wanthavers_android.login.LoginActivity;
+import wanthavers.mad.cs.fau.de.wanthavers_android.settings.SettingsActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.RoundedTransformation;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -245,6 +246,12 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
     @Override
     public void showLogout() {
         Intent intent = new Intent(getContext(), LoginActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void showSettings() {
+        Intent intent = new Intent(getContext(), SettingsActivity.class);
         startActivity(intent);
     }
 }

@@ -7,6 +7,7 @@
     <color name="colorAccent">#209722</color>
     <color name="colorSecondary">#ffffff</color>
     <color name="colorMainText">#ffffff</color>
+    <color name="colorMainTextDark">#423f3f</color>
 
 
     <color name="colorRatingStars">#e8dd0c</color>
