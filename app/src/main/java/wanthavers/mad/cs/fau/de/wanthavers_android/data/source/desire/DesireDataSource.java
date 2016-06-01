@@ -89,9 +89,19 @@ public interface DesireDataSource {
 
     }
 
+    interface UpdateDesireStatusCallback {
+
+        void onStatusUpdated(Desire desire);
+
+        void onUpdateFailed();
+
+    }
+
     void createDesire(@NonNull Desire desire, @NonNull CreateDesireCallback callback);
 
     void updateDesire(@NonNull Desire desire, @NonNull UpdateDesireCallback callback);
+
+    void updateDesireStatus(@NonNull long desireId, @NonNull int status, @NonNull UpdateDesireStatusCallback callback);
 
     void deleteDesire(@NonNull Desire desire, @NonNull DeleteDesireCallback callback);
 

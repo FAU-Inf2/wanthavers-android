@@ -106,6 +106,25 @@ public class DesireRepository implements DesireDataSource {
     }
 
     @Override
+    public void updateDesireStatus(@NonNull long desireId, @NonNull int status, @NonNull final UpdateDesireStatusCallback callback) {
+        checkNotNull(desireId);
+        checkNotNull(status);
+        checkNotNull(callback);
+
+        desireRemoteDataSource.updateDesireStatus(desireId, status, new UpdateDesireStatusCallback() {
+            @Override
+            public void onStatusUpdated(Desire desire) {
+                callback.onStatusUpdated(desire);
+            }
+
+            @Override
+            public void onUpdateFailed() {
+                callback.onUpdateFailed();
+            }
+        });
+    }
+
+    @Override
     public void deleteDesire(@NonNull Desire desire, @NonNull final DeleteDesireCallback callback) {
         checkNotNull(desire);
         checkNotNull(callback);
