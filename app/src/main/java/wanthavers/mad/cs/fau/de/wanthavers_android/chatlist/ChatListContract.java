@@ -37,6 +37,7 @@ public interface ChatListContract {
 
         void openChatDetails(@NonNull Chat chat);
 
+        void setLoggedInUser(long userId);
 
     }
 

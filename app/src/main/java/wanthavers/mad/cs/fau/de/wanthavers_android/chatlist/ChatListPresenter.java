@@ -119,5 +119,7 @@ public class ChatListPresenter implements ChatListContract.Presenter {
     }
 
 
+    @Override
+    public void setLoggedInUser(long userId){mLoggedInUserId = userId;}
 
 }

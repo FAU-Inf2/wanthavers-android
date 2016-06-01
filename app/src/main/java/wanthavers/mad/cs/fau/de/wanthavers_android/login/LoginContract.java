@@ -16,6 +16,6 @@ public interface LoginContract {
 
     interface Presenter extends BasePresenter {
 
-        void createDesireList();
+        void login(long userId);
     }
 }

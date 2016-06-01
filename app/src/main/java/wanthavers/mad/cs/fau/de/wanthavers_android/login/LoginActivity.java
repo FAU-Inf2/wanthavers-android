@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
+import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.LoginFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.ActivityUtils;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -35,7 +36,7 @@ public class LoginActivity extends AppCompatActivity {
                     loginFragment, R.id.contentFrame);
         }
 
-        mLoginPresenter = new LoginPresenter(UseCaseHandler.getInstance(), loginFragment);
+        mLoginPresenter = new LoginPresenter(UseCaseHandler.getInstance(), loginFragment, getApplicationContext());
     }
 
     /*@Override

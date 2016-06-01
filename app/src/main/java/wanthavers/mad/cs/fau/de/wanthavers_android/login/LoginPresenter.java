@@ -9,15 +9,18 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCase;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.SendMessage;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.SetDesire;
+import wanthavers.mad.cs.fau.de.wanthavers_android.util.SharedPreferencesHelper;
 
 public class LoginPresenter implements LoginContract.Presenter {
     private final LoginContract.View mLoginView;
     private final UseCaseHandler mUseCaseHandler;
+    private final Context mAppContext;
 
-    public LoginPresenter(@NonNull UseCaseHandler ucHandler, @NonNull LoginContract.View view) {
+    public LoginPresenter(@NonNull UseCaseHandler ucHandler, @NonNull LoginContract.View view, @NonNull Context appContext) {
 
         mUseCaseHandler = ucHandler;
         mLoginView = view;
+        mAppContext = appContext;
         //mSetDesire = setDesire;
 
         mLoginView.setPresenter(this);
@@ -34,8 +37,14 @@ public class LoginPresenter implements LoginContract.Presenter {
     }*/
 
     @Override
-    public void createDesireList() {
+    public void login(long userId) {
+
+        SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, mAppContext);
+        sharedPreferencesHelper.saveLong(SharedPreferencesHelper.KEY_USERID, userId);
+
         mLoginView.showDesireList();
+
+        //mLoginView.showDesireList();
     }
 
 

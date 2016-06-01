@@ -51,41 +51,18 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     }
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.login_frag, container, false);
-        mViewDataBinding = LoginFragBinding.bind(view);
 
+
+        /*View view = inflater.inflate(R.layout.login_frag, container, false);
+        mViewDataBinding = LoginFragBinding.bind(view);
+        */
         //setHasOptionsMenu(true);
         //setRetainInstance(true);
 
+        mViewDataBinding = LoginFragBinding.inflate(inflater, container, false);
+        mViewDataBinding.setPresenter(mPresenter);
 
-        Button user1 = (Button) view.findViewById(R.id.button_user1);
-        Button user2 = (Button) view.findViewById(R.id.button_user2);
-        Button user3 = (Button) view.findViewById(R.id.button_user3);
-        user1.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick (View v){
-                mPresenter.createDesireList();
-            }
-        });
-
-        user2.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick (View v){
-                mPresenter.createDesireList();
-
-            }
-        });
-
-        user3.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick (View v){
-                mPresenter.createDesireList();
-
-            }
-        });
-
-
-        return view;
+        return mViewDataBinding.getRoot();
     }
 
     /*@Override
