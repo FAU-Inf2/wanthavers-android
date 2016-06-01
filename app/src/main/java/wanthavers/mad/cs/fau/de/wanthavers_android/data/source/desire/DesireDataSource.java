@@ -81,6 +81,13 @@ public interface DesireDataSource {
 
     }
 
+    interface GetDesiresAsHaverCallback {
+
+        void onDesiresAsHaverLoaded(List<Desire> desires);
+
+        void onDataNotAvailable();
+
+    }
 
     void createDesire(@NonNull Desire desire, @NonNull CreateDesireCallback callback);
 
@@ -95,6 +102,8 @@ public interface DesireDataSource {
     void getDesiresForUser(@NonNull long userId, @NonNull GetDesiresForUserCallback callback);
 
     void getAllDesires(@NonNull GetAllDesiresCallback callback);
+
+    void getDesiresAsHaver(@NonNull long userId, @NonNull GetDesiresAsHaverCallback callback);
 
     void getDesireByLocation(@NonNull double lat, @NonNull double lon, @NonNull double radius, @NonNull GetDesiresByLocationCallback callback);
 }

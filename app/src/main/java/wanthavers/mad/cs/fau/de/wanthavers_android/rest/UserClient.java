@@ -50,4 +50,6 @@ public class UserClient extends RestClient {
     public List<Desire> getDesires(long userId) {
         return userEndpoint.getDesires(userId);
     }
+
+    public List<Desire> getDesiresAsHaver(long userId) { return userEndpoint.getDesiresAsHaver(userId); }
 }
