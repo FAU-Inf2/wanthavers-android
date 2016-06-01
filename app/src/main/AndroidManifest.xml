@@ -13,13 +13,14 @@
         android:theme="@style/AppTheme">
         <!--receiver android:process=":remote" android:name=".Alarm"></receiver-->
         <activity
-            android:name="wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.DesireListActivity">
+            android:name="wanthavers.mad.cs.fau.de.wanthavers_android.login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
+        <activity android:name="wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.DesireListActivity"/>
         <activity android:name="wanthavers.mad.cs.fau.de.wanthavers_android.desiredetail.DesireDetailActivity"/>
         <activity android:name="wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate.DesireCreateActivity"/>
         <activity android:name="wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate.DesireCreateActivity2ndStep"/>

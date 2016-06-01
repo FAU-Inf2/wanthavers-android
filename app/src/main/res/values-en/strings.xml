@@ -50,6 +50,10 @@
     <string name="add_image_cancel">Cancel</string>
     <string name="send_message_error">message could not be sent</string>
     <string name="noUser">not logged in</string>
+    <string name="user1">Yoda</string>
+    <string name="user2">John Doe</string>
+    <string name="user3">Max Muster</string>
+    <string name="login_header">Login</string>
     <string name="filtersetting_title">Change Filter</string>
     <string name="category_title">Category</string>
     <string name="mail_adress_title">Email address</string>

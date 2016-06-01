@@ -59,6 +59,12 @@ public class DesireListPresenter implements DesireListContract.Presenter {
     }
 
     @Override
+    public void createLogout() {
+        //TODO add create new desire Logic here
+        mDesireListView.showLogout();
+    }
+
+    @Override
     public void openSettings() {
         mDesireListView.showSettings();
     }

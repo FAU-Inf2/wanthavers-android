@@ -37,6 +37,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.NavHeaderBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate.DesireCreateActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desiredetail.DesireDetailActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
+import wanthavers.mad.cs.fau.de.wanthavers_android.login.LoginActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.settings.SettingsActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.RoundedTransformation;
 
@@ -239,6 +240,12 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
     @Override
     public void showNewDesire() {
         Intent intent = new Intent(getContext(), DesireCreateActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void showLogout() {
+        Intent intent = new Intent(getContext(), LoginActivity.class);
         startActivity(intent);
     }
 
