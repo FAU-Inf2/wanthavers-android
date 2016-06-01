@@ -4,16 +4,18 @@ import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.Haver;
+import de.fau.cs.mad.wanthavers.common.Media;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.HaverItemBinding;
+import wanthavers.mad.cs.fau.de.wanthavers_android.util.RoundedTransformation;
 
-/**
- * Created by Oliver Lutz on 24.05.2016.
- */
 public class DesireDetailAdapter extends RecyclerView.Adapter<DesireDetailAdapter.ViewHolder> {
 
     //private long mUserId;
@@ -55,6 +57,18 @@ public class DesireDetailAdapter extends RecyclerView.Adapter<DesireDetailAdapte
         HaverItemBinding haverItemBinding = viewHolder.getHaverItemBinding();
 
         haverItemBinding.setHaver(haver);
+
+        Media m = haverItemBinding.getHaver().getUser().getImage();
+
+
+        if (m != null) {
+            final ImageView profileView = haverItemBinding.imageHaver;
+            Picasso.with(haverItemBinding.getRoot().getContext()).load(m.getLowRes()).transform(new RoundedTransformation(200,0)).into(profileView);
+        } else{
+            //else case is neccessary as the image is otherwise overwritten on scroll
+            final ImageView profileView = haverItemBinding.imageHaver;
+            profileView.setImageResource(R.drawable.no_pic);
+        }
     }
 
     public void replaceData(List<Haver> haverList) {

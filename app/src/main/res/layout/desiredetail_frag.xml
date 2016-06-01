@@ -11,6 +11,10 @@
         <variable
             name="desirelogic"
             type="wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic" />
+
+        <variable
+            name="havers"
+            type="wanthavers.mad.cs.fau.de.wanthavers_android.desiredetail.DesireDetailViewModel" />
     </data>
 
     <RelativeLayout
@@ -24,37 +28,41 @@
         android:weightSum="1"
         android:background="@{desirelogic.getBackgroundColor(desire.colorIndex)}">
 
-        <ImageView
-            android:id="@+id/desire_detail_itemImage"
-            android:layout_width="144dp"
-            android:layout_height="wrap_content"
-            android:src="@android:drawable/sym_def_app_icon"
-            android:contentDescription="@string/desire_detail_itemImage_contentDesc" />
+        <RelativeLayout
+            android:id="@+id/title_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/desire_detail_itemImage"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@android:drawable/sym_def_app_icon"
+                android:contentDescription="@string/desire_detail_itemImage_contentDesc" />
 
-        <TextView
-            android:id="@+id/desire_detail_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@{desire.title}"
-            android:layout_alignTop="@+id/desire_detail_itemImage"
-            android:layout_toRightOf="@+id/desire_detail_itemImage"
-            android:layout_toEndOf="@+id/desire_detail_itemImage"
-            android:textColor="@color/colorMainText"
-            android:gravity="center"
-            android:layout_above="@+id/wanter_bar" />
+            <TextView
+                android:id="@+id/desire_detail_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@{desire.title}"
+                android:layout_toRightOf="@+id/desire_detail_itemImage"
+                android:textColor="@color/colorMainText"
+                android:gravity="center"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/wanter_bar"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="55dp"
             android:background="@color/colorSecondary"
-            android:layout_below="@+id/desire_detail_itemImage"
+            android:layout_below="@+id/title_layout"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_marginTop="20dp"
             android:weightSum="1"
-            android:visibility="@{desirelogic.isDesireCreator(desire.creator.getID()) ? View.GONE : View.VISIBLE}">
+            android:visibility="@{desirelogic.isDesireCreator(desire.creator.getID()) ? View.GONE : View.VISIBLE}"
+            android:layout_marginBottom="20dp">
 
             <TextView
                 android:id="@+id/wanter_title"
@@ -69,44 +77,44 @@
 
             <ImageView
                 android:id="@+id/image_wanter"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:src="@android:drawable/sym_def_app_icon"
                 android:layout_toRightOf="@id/wanter_title"
-                android:layout_marginRight="10dp"/>
+                android:layout_centerVertical="true"/>
 
-            <TextView
-                android:id="@+id/wanter_name"
-                android:layout_width="fill_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_horizontal"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@{desire.creator.name}"
-                android:textColor="@color/colorPrimaryDark"
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/image_wanter"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp"/>
+                android:layout_centerVertical="true">
 
-            <RatingBar
-                android:id="@+id/nav_header_RatingBar"
-                style="?android:ratingBarStyle"
-                android:layout_width="240dp"
-                android:layout_height="50dp"
-                android:isIndicator="true"
-                android:max="5"
-                android:numStars="5"
-                android:stepSize="0.1"
-                android:scaleX="0.5"
-                android:scaleY="0.5"
-                android:progressBackgroundTint="#c3bebe"
-                android:progressTint="@color/colorRatingStars"
-                android:secondaryProgressTint="@color/colorRatingStars"
-                android:mirrorForRtl="false"
-                android:keepScreenOn="false"
-                android:isScrollContainer="false"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="25dp"
-                android:layout_marginRight="0dp" />
+                <TextView
+                    android:id="@+id/wanter_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@{desire.creator.name}"
+                    android:textColor="@color/colorPrimaryDark"/>
+
+                <RatingBar
+                    android:id="@+id/nav_header_RatingBar"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:isIndicator="true"
+                    android:max="5"
+                    android:numStars="5"
+                    android:stepSize="0.1"
+                    android:rating="@{(float)desire.getCreator().rating}"
+                    android:progressBackgroundTint="@color/colorSecondary"
+                    android:progressTint="@color/colorRatingStars"
+                    android:secondaryProgressTint="@color/colorRatingStars"
+                    android:layout_below="@+id/wanter_name"
+                    android:layout_centerHorizontal="true" />
+
+            </RelativeLayout>
 
         </RelativeLayout>
 
@@ -117,8 +125,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/create_desire_description_header"
             android:textColor="@color/colorMainText"
-            android:layout_below="@+id/wanter_bar"
-            android:layout_marginTop="20dp"/>
+            android:layout_below="@+id/wanter_bar" />
 
         <TextView
             android:id="@+id/desire_detail_description"
@@ -239,16 +246,33 @@
             android:layout_below="@+id/desire_detail_location"
             android:layout_marginTop="20dp"
             android:visibility="@{desirelogic.isDesireCreator(desire.creator.getID()) ? View.VISIBLE : View.GONE}">
+
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/haver_list"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/desire_detail_location"
+                android:layout_marginTop="20dp">
             </android.support.v7.widget.RecyclerView>
-
 
         </wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.ScrollChildSwipeRefreshLayout>
 
-
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:background="@color/colorSecondary"
+            android:layout_below="@+id/desire_detail_location"
+            android:layout_marginTop="20dp"
+            android:visibility="@{havers.notEmpty ? View.GONE : View.VISIBLE}">
+            <TextView
+                android:id="@+id/noDesiresMain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="@string/no_havers"
+                android:textColor="@color/colorMainTextDark" />
+        </RelativeLayout>
 
     </RelativeLayout>
 

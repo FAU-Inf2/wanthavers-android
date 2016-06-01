@@ -3,6 +3,7 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.desiredetail;
 import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.Haver;
+import de.fau.cs.mad.wanthavers.common.User;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.BasePresenter;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.BaseView;
 import de.fau.cs.mad.wanthavers.common.Desire;

@@ -62,6 +62,10 @@ public class SettingsFragment extends Fragment implements SettingsContract.View 
         if (m != null) {
             final ImageView profileView = mSettingsFragBinding.profilePicture;
             Picasso.with(mSettingsFragBinding.getRoot().getContext()).load(m.getLowRes()).transform(new RoundedTransformation(200,0)).into(profileView);
+        } else{
+            //else case is neccessary as the image is otherwise overwritten on scroll
+            final ImageView profileView = mSettingsFragBinding.profilePicture;
+            profileView.setImageResource(R.drawable.no_pic);
         }
     }
 }
