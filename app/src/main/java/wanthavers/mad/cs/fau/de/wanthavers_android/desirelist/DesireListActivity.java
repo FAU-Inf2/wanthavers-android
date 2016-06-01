@@ -171,6 +171,9 @@ public class DesireListActivity extends AppCompatActivity {
                             case R.id.createDesire_navigation_menu_item:
                                 mDesireListPresenter.createNewDesire();
                                 break;
+                            case R.id.logout_navigation_menu_item:
+                                mDesireListPresenter.createLogout();
+                                break;
                             default:
                                 break;
                         }

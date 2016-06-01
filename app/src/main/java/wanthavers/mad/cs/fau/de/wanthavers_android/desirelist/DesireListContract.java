@@ -28,6 +28,8 @@ public interface DesireListContract {
 
         void showNewDesire();
 
+        void showLogout();
+
         public void setUser(User user);
         //TODO void showNoTasks();
     }
@@ -41,6 +43,8 @@ public interface DesireListContract {
        // void loadRatingsForDesires(final List<DesireItemViewModel> desireList);
 
         void createNewDesire();
+
+        void createLogout();
 
         void openDesireDetails(@NonNull Desire desire);
 
