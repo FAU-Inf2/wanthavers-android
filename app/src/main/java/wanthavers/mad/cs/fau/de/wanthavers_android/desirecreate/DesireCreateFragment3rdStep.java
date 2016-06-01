@@ -41,8 +41,8 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.util.PathHelper;
 public class DesireCreateFragment3rdStep extends Fragment implements DesireCreateContract.View {
     private Desirecreate3rdFragBinding mViewDataBinding;
     private DesireCreateContract.Presenter mPresenter;
-    private final Desire desire = new Desire();
-    //private  Media desireImage = new Media();
+    private Desire desire = new Desire();
+    private  Media desireImage = new Media();
 
     public DesireCreateFragment3rdStep() {
         //Requires empty public constructor
@@ -96,7 +96,7 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
                     Uri image = getActivity().getIntent().getExtras().getParcelable("desireImage");
 
                     setDataForDesire(title, description, Integer.parseInt(price), Integer.parseInt(reward), desireDropzone.getText().toString(), image);
-                    sendDesireToServer(desire);
+                    //sendDesireToServer(desire);
 
                     mPresenter.createNextDesireCreateStep(null);
                 }
@@ -104,6 +104,25 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
         });
 
         return view;
+    }
+
+    @Override
+    public void showMedia(Desire d){
+        d.setTitle(desire.getTitle());
+        d.setDescription(desire.getDescription());
+        d.setPrice(desire.getPrice());
+        d.setReward(desire.getReward());
+        d.setDropzone_string(desire.getDropzone_string());
+        d.setCreator(null);
+        d.setId(0);
+
+        int colorNumber = (int) (Math.random() * 4);
+        d.setColorIndex(colorNumber);
+        d.setCreation_time(new Date());
+
+        sendDesireToServer(d);
+
+        //desire.setImage(m);
     }
 
 
@@ -139,30 +158,15 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
             File file = new File(PathHelper.getRealPathFromURI(this.getContext().getApplicationContext(), image));
             Log.d("Image", file.getPath());
 
-            Context context = getActivity().getApplicationContext();
-
-            MediaRepository mediaRepo = MediaRepository.getInstance(MediaRemoteDataSource.getInstance(context), MediaLocalDataSource.getInstance(context));
-
-            mediaRepo.createMedia(file, new MediaDataSource.CreateMediaCallback() {
-                @Override
-                public void onMediaCreated(Media media) {
-                    //desireImage = media;
-                    desire.setImage(media);
-                    Log.d("Creating Media", "succesful!");
-                }
-
-                @Override
-                public void onCreateFailed() {
-                    Log.d("Creating Media", "failed!");//Todo
-                }
-            });
-
+            mPresenter.setImage(file);
+            return;
             // desire.setImage(desireImage); // TODO
         }
 
         //will be set by the server
         desire.setCreator(null);
         desire.setId(0);
+        sendDesireToServer(desire);
     }
 
     public void sendDesireToServer(Desire desire) {

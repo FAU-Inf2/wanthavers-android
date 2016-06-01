@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.util.List;
 
+import de.fau.cs.mad.wanthavers.common.Desire;
 import de.fau.cs.mad.wanthavers.common.Media;
 
 /**
@@ -33,7 +34,7 @@ public interface MediaDataSource {
 
     interface CreateMediaCallback {
 
-        void onMediaCreated(Media media);
+        void onMediaCreated(Media media, Desire desire);
 
         void onCreateFailed();
 

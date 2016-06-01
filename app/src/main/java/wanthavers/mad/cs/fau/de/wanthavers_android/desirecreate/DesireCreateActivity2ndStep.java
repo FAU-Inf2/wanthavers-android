@@ -40,7 +40,7 @@ public class DesireCreateActivity2ndStep extends AppCompatActivity {
 
 
         //TODO
-        mDesireCreatePresenter = new DesireCreatePresenter(UseCaseHandler.getInstance(), desireCreateFragment, null);
+        mDesireCreatePresenter = new DesireCreatePresenter(UseCaseHandler.getInstance(), desireCreateFragment, null, null);
     }
 
     @Override

@@ -26,6 +26,9 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.File;
+
+import de.fau.cs.mad.wanthavers.common.Desire;
+import de.fau.cs.mad.wanthavers.common.Media;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.Desirecreate2ndFragBinding;
 
@@ -36,6 +39,11 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
     private DesireCreateContract.Presenter mPresenter;
     private static final int SELECT_PICTURE = 1;
     private Uri image;
+
+    @Override
+    public void showMedia(Desire m){
+
+    }
 
 
     public DesireCreateFragment2ndStep(){

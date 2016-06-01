@@ -15,6 +15,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.media.MediaLocalD
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.media.MediaRemoteDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.media.MediaRepository;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.SetDesire;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.SetImage;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.ActivityUtils;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -49,9 +50,11 @@ public class DesireCreateActivity3rdStep extends AppCompatActivity {
         Context context = getApplicationContext();
         checkNotNull(context);
 
-        DesireRepository desRepo = DesireRepository.getInstance(DesireRemoteDataSource.getInstance(context), DesireLocalDataSource.getInstance(context));
 
-        mDesireCreatePresenter = new DesireCreatePresenter(UseCaseHandler.getInstance(), desireCreateFragment,new SetDesire(desRepo) );
+        DesireRepository desRepo = DesireRepository.getInstance(DesireRemoteDataSource.getInstance(context), DesireLocalDataSource.getInstance(context));
+        MediaRepository mediaRepo = MediaRepository.getInstance(MediaRemoteDataSource.getInstance(context), MediaLocalDataSource.getInstance(context));
+
+        mDesireCreatePresenter = new DesireCreatePresenter(UseCaseHandler.getInstance(), desireCreateFragment,new SetDesire(desRepo), new SetImage(mediaRepo) );
     }
 
     @Override

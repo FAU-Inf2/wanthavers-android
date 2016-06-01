@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import de.fau.cs.mad.wanthavers.common.Desire;
 import de.fau.cs.mad.wanthavers.common.Media;
 import wanthavers.mad.cs.fau.de.wanthavers_android.rest.MediaClient;
 
@@ -72,7 +73,7 @@ public class MediaRemoteDataSource implements MediaDataSource {
 
         try {
             Media ret = mediaClient.createMedia(base64, image.getName());
-            callback.onMediaCreated(ret);
+            callback.onMediaCreated(ret, new Desire());
         } catch (Throwable t) {
             callback.onCreateFailed();
         }

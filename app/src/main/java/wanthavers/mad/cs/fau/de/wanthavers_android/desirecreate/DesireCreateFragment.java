@@ -13,12 +13,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import de.fau.cs.mad.wanthavers.common.Desire;
+import de.fau.cs.mad.wanthavers.common.Media;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.DesirecreateFragBinding;
 
 public class DesireCreateFragment extends Fragment implements DesireCreateContract.View {
     private DesirecreateFragBinding mViewDataBinding;
     private DesireCreateContract.Presenter mPresenter;
+
+    @Override
+    public void showMedia(Desire m){
+
+    }
 
 
     public DesireCreateFragment(){

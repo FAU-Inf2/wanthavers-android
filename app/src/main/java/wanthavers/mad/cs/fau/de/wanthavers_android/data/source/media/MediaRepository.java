@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.util.List;
 
+import de.fau.cs.mad.wanthavers.common.Desire;
 import de.fau.cs.mad.wanthavers.common.Media;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -100,8 +101,8 @@ public class MediaRepository implements MediaDataSource {
 
         mediaRemoteDataSource.createMedia(image, new CreateMediaCallback() {
             @Override
-            public void onMediaCreated(Media media) {
-                callback.onMediaCreated(media);
+            public void onMediaCreated(Media media, Desire desire) {
+                callback.onMediaCreated(media, new Desire());
             }
 
             @Override
