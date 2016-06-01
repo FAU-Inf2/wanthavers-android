@@ -109,4 +109,8 @@ public class ChatDetailAdapter extends RecyclerView.Adapter<ChatDetailAdapter.Vi
         return i;
     }
 
+    public void setLoggedInUser(long userId){
+        mUserId = userId;
+    }
+
 }

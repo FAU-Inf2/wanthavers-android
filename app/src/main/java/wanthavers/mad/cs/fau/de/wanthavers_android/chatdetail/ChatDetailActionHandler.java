@@ -25,4 +25,9 @@ public class ChatDetailActionHandler {
         mChatDetailFragBinding.etMessage.setText("");
         mListener.sendMessage(message);
     }
+
+
+    public void setLoggedInUser(long userId){
+        mChatUserId = userId;
+    }
 }

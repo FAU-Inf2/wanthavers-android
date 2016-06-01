@@ -102,7 +102,6 @@ public class ChatDetailPresenter implements ChatDetailContract.Presenter {
 
     public void sendMessage(Message message){
 
-
         SendMessage.RequestValues requestValue = new SendMessage.RequestValues(mChatId, message);
 
         mUseCaseHandler.execute(mSendMessage, requestValue,
@@ -110,7 +109,12 @@ public class ChatDetailPresenter implements ChatDetailContract.Presenter {
                     @Override
                     public void onSuccess(SendMessage.ResponseValue response) {
 
+                        //TODO : JuG and Nico - find useful way to update rest client after user switch
+                        //TODO: this has to be done as the server currently sets the auth user as message.getFrom
+
                         Message message = response.getResponseMessage();
+
+
                         mMessageListView.showUpdatedMessageListonSendSuccess(message);
                     }
 

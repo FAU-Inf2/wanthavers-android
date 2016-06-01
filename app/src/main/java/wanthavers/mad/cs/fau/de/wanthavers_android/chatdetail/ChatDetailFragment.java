@@ -47,7 +47,9 @@ public class ChatDetailFragment extends Fragment implements  ChatDetailContract.
     private RecyclerView mRecyclerView;
     private ChatDetailViewModel mChatDetailViewModel;
     private ChatdetailFragBinding mChatDetailFragBinding;
+    private ChatDetailActionHandler mChatDetailActionHandler;
     private static final String CHAT_ID = "CHAT_ID";
+    private long mLoggedInUser;
 
     public ChatDetailFragment(){
         //Requires empty public constructor
@@ -63,6 +65,16 @@ public class ChatDetailFragment extends Fragment implements  ChatDetailContract.
 
     @Override
     public void onResume()  {
+        getAndSetUser();
+
+        if(mListAdapter != null){
+            mListAdapter.setLoggedInUser(mLoggedInUser);
+        }
+
+        if(mChatDetailActionHandler != null){
+            mChatDetailActionHandler.setLoggedInUser(mLoggedInUser);
+        }
+
         super.onResume();
         mPresenter.start();
     }
@@ -80,25 +92,18 @@ public class ChatDetailFragment extends Fragment implements  ChatDetailContract.
 
         mChatDetailFragBinding.setPresenter(mPresenter);
 
-
-
-
         //Set up chat view
         mRecyclerView = mChatDetailFragBinding.messageList;
-
-
-        SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, getContext().getApplicationContext());
-        final long chatUserId = sharedPreferencesHelper.loadLong(SharedPreferencesHelper.KEY_USERID, 6L); //Long.valueOf(sharedPreferencesHelper.loadString(SharedPreferencesHelper.KEY_USERID, "6"));
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(layoutManager);
 
-        mListAdapter = new ChatDetailAdapter(new ArrayList<Message>(0),chatUserId ,mPresenter);
+        mListAdapter = new ChatDetailAdapter(new ArrayList<Message>(0),mLoggedInUser ,mPresenter);
         mRecyclerView.setAdapter(mListAdapter);
 
         //set up action handler
-        ChatDetailActionHandler chatDetailActionHandler = new ChatDetailActionHandler(chatUserId, mChatDetailFragBinding, mPresenter);
-        mChatDetailFragBinding.setActionHandler(chatDetailActionHandler);
+        mChatDetailActionHandler = new ChatDetailActionHandler(mLoggedInUser, mChatDetailFragBinding, mPresenter);
+        mChatDetailFragBinding.setActionHandler(mChatDetailActionHandler);
 
 
         setHasOptionsMenu(true);
@@ -106,6 +111,12 @@ public class ChatDetailFragment extends Fragment implements  ChatDetailContract.
 
         View root = mChatDetailFragBinding.getRoot();
         return root;
+    }
+
+
+    public void getAndSetUser(){
+        SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, getContext().getApplicationContext());
+        mLoggedInUser = sharedPreferencesHelper.loadLong(SharedPreferencesHelper.KEY_USERID, 6L);
     }
 
 

@@ -18,7 +18,6 @@
     <data>
         <import type="android.view.View"/>
 
-
         <variable
             name="chats"
             type="wanthavers.mad.cs.fau.de.wanthavers_android.chatdetail.ChatDetailViewModel" />
@@ -49,7 +48,8 @@
             <LinearLayout
                 android:id="@+id/chatListLayout"
                 android:layout_width="match_parent"
-                android:layout_height="450dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="35dp"
                 android:orientation="vertical">
 
                 <android.support.v7.widget.RecyclerView
