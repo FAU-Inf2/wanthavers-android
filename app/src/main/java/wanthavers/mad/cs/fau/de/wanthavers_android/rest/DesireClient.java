@@ -24,6 +24,11 @@ public class DesireClient extends RestClient {
 
     private DesireClient(Context context) {
         super(context);
+    }
+
+    @Override
+    protected void buildNewEndpoint() {
+        desireEndpoint = null;
         desireEndpoint = WebResourceFactory.newResource(DesireResource.class, target);
     }
 

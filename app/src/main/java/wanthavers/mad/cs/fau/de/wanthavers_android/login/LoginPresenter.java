@@ -9,6 +9,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCase;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.SendMessage;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.SetDesire;
+import wanthavers.mad.cs.fau.de.wanthavers_android.rest.RestClient;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.SharedPreferencesHelper;
 
 public class LoginPresenter implements LoginContract.Presenter {
@@ -41,6 +42,9 @@ public class LoginPresenter implements LoginContract.Presenter {
 
         SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, mAppContext);
         sharedPreferencesHelper.saveLong(SharedPreferencesHelper.KEY_USERID, userId);
+        sharedPreferencesHelper.saveString(SharedPreferencesHelper.KEY_PASSWORD, "test");
+
+        RestClient.triggerSetNewBasicAuth();
 
         mLoginView.showDesireList();
 

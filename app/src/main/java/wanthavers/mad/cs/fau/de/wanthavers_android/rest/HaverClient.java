@@ -17,11 +17,16 @@ public class HaverClient extends RestClient {
 
     private HaverClient(Context context) {
         super(context);
+    }
+
+    @Override
+    protected void buildNewEndpoint() {
+        haverEndpoint = null;
         haverEndpoint = WebResourceFactory.newResource(HaverResource.class, target);
     }
 
     public static HaverClient getInstance(Context context) {
-        if(INSTANCE == null){
+        if (INSTANCE == null) {
             INSTANCE = new HaverClient(context);
         }
         return INSTANCE;
