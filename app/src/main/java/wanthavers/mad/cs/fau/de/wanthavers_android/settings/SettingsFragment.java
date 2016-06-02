@@ -47,12 +47,14 @@ public class SettingsFragment extends Fragment implements SettingsContract.View 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.settings_frag, container, false);
-        //mSettingsFragBinding = SettingsFragBinding.inflate(inflater, container, false);
+        //View view = inflater.inflate(R.layout.settings_frag, container, false);
+        mSettingsFragBinding = SettingsFragBinding.inflate(inflater, container, false);
+        //mSettingsFragBinding.setUser();
+
 
         setHasOptionsMenu(true);
 
-        return view;//mSettingsFragBinding.getRoot();
+        return mSettingsFragBinding.getRoot();
     }
 
     public void setUser(User user){

@@ -17,263 +17,263 @@
             type="wanthavers.mad.cs.fau.de.wanthavers_android.desiredetail.DesireDetailViewModel" />
     </data>
 
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        android:weightSum="1"
-        android:background="@{desirelogic.getBackgroundColor(desire.colorIndex)}">
+        android:fillViewport="true">
 
         <RelativeLayout
-            android:id="@+id/title_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:id="@+id/desire_detail_itemImage"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:src="@android:drawable/sym_def_app_icon"
-                android:contentDescription="@string/desire_detail_itemImage_contentDesc" />
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:weightSum="1"
+            android:background="@{desirelogic.getBackgroundColor(desire.colorIndex)}">
+
+            <RelativeLayout
+                android:id="@+id/title_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/desire_detail_itemImage"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@android:drawable/sym_def_app_icon"
+                    android:contentDescription="@string/desire_detail_itemImage_contentDesc" />
+
+                <TextView
+                    android:id="@+id/desire_detail_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="@{desire.title}"
+                    android:layout_toRightOf="@+id/desire_detail_itemImage"
+                    android:textColor="@color/colorMainText"
+                    android:gravity="center"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/wanter_bar"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:background="@color/colorSecondary"
+                android:layout_below="@+id/title_layout"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="20dp"
+                android:weightSum="1"
+                android:visibility="@{desirelogic.isDesireCreator(desire.creator.getID()) ? View.GONE : View.VISIBLE}"
+                android:layout_marginBottom="20dp">
+
+                <TextView
+                    android:id="@+id/wanter_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/desire_detail_wanter"
+                    android:gravity="center"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"/>
+
+                <ImageView
+                    android:id="@+id/image_wanter"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:src="@android:drawable/sym_def_app_icon"
+                    android:layout_toRightOf="@id/wanter_title"
+                    android:layout_centerVertical="true"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/image_wanter"
+                    android:layout_centerVertical="true">
+
+                    <TextView
+                        android:id="@+id/wanter_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@{desire.creator.name}"
+                        android:textColor="@color/colorPrimaryDark"/>
+
+                    <RatingBar
+                        android:id="@+id/nav_header_RatingBar"
+                        style="?android:attr/ratingBarStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:isIndicator="true"
+                        android:max="5"
+                        android:numStars="5"
+                        android:stepSize="0.1"
+                        android:rating="@{(float)desire.getCreator().rating}"
+                        android:progressBackgroundTint="@color/colorSecondary"
+                        android:progressTint="@color/colorRatingStars"
+                        android:secondaryProgressTint="@color/colorRatingStars"
+                        android:layout_below="@+id/wanter_name"
+                        android:layout_centerHorizontal="true" />
+
+                </RelativeLayout>
+
+            </RelativeLayout>
 
             <TextView
-                android:id="@+id/desire_detail_title"
+                android:id="@+id/desire_detail_description_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/create_desire_description_header"
+                android:textColor="@color/colorMainText"
+                android:layout_below="@+id/wanter_bar" />
+
+            <TextView
+                android:id="@+id/desire_detail_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="@{desire.description}"
+                android:layout_below="@+id/desire_detail_description_header"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:textColor="@color/colorMainText"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"/>
+
+            <TextView
+                android:id="@+id/desire_detail_creation_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@{desirelogic.getDateString(desire.creation_time)}"
+                android:textColor="@color/colorMainText"
+                android:layout_below="@+id/desire_detail_description"
+                android:layout_marginTop="20dp"/>
+
+            <TextView
+                android:id="@+id/desire_detail_price_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/create_desire_price_header"
+                android:textColor="@color/colorMainText"
+                android:layout_below="@+id/desire_detail_creation_time"
+                android:layout_marginTop="20dp" />
+
+            <TextView
+                android:id="@+id/desire_detail_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@{desirelogic.getPriceString(desire.price)}"
+                android:textColor="@color/colorMainText"
+                android:layout_alignTop="@+id/desire_detail_price_title"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="20dp"/>
+
+            <TextView
+                android:id="@+id/desire_detail_reward_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/create_desire_reward_header"
+                android:textColor="@color/colorMainText"
+                android:layout_below="@+id/desire_detail_price_title"
+                android:layout_marginTop="20dp" />
+
+            <TextView
+                android:id="@+id/desire_detail_reward"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@{desirelogic.getPriceString(desire.reward)}"
+                android:textColor="@color/colorMainText"
+                android:layout_alignTop="@+id/desire_detail_reward_title"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="20dp"/>
+
+            <TextView
+                android:id="@+id/desire_detail_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/no_location_available"
+                android:textColor="@color/colorMainText"
+                android:layout_below="@+id/desire_detail_reward_title"
+                android:layout_marginTop="20dp" />
+
+            <LinearLayout
+                android:id="@+id/desire_haver_buttons"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="@{desire.title}"
-                android:layout_toRightOf="@+id/desire_detail_itemImage"
-                android:textColor="@color/colorMainText"
-                android:gravity="center"
-                android:layout_centerVertical="true"/>
-        </RelativeLayout>
+                android:layout_below="@+id/desire_detail_location"
+                android:layout_marginTop="20dp"
+                android:visibility="@{desirelogic.isDesireCreator(desire.creator.getID()) ? View.GONE : View.VISIBLE}">
 
-        <RelativeLayout
-            android:id="@+id/wanter_bar"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:background="@color/colorSecondary"
-            android:layout_below="@+id/title_layout"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="20dp"
-            android:weightSum="1"
-            android:visibility="@{desirelogic.isDesireCreator(desire.creator.getID()) ? View.GONE : View.VISIBLE}"
-            android:layout_marginBottom="20dp">
+                <Button
+                    android:id="@+id/button_accept_desire"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_desire_accept"
+                    android:textColor="@color/colorMainText"
+                    android:background="@color/colorPrimary"
+                    android:layout_weight=".45"/>
 
-            <TextView
-                android:id="@+id/wanter_title"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/desire_detail_wanter"
-                android:gravity="center"
-                android:textColor="@color/colorPrimaryDark"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"/>
+                <TextView
+                    android:id="@+id/placeholder"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".1"/>
 
-            <ImageView
-                android:id="@+id/image_wanter"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:src="@android:drawable/sym_def_app_icon"
-                android:layout_toRightOf="@id/wanter_title"
-                android:layout_centerVertical="true"/>
+                <Button
+                    android:id="@+id/button_send_message"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_desire_message"
+                    android:textColor="@color/colorMainText"
+                    android:background="@color/colorPrimary"
+                    android:layout_weight=".45"/>
+
+            </LinearLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/image_wanter"
-                android:layout_centerVertical="true">
-
-                <TextView
-                    android:id="@+id/wanter_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="@{desire.creator.name}"
-                    android:textColor="@color/colorPrimaryDark"/>
-
-                <RatingBar
-                    android:id="@+id/nav_header_RatingBar"
-                    style="?android:attr/ratingBarStyleSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:isIndicator="true"
-                    android:max="5"
-                    android:numStars="5"
-                    android:stepSize="0.1"
-                    android:rating="@{(float)desire.getCreator().rating}"
-                    android:progressBackgroundTint="@color/colorSecondary"
-                    android:progressTint="@color/colorRatingStars"
-                    android:secondaryProgressTint="@color/colorRatingStars"
-                    android:layout_below="@+id/wanter_name"
-                    android:layout_centerHorizontal="true" />
-
-            </RelativeLayout>
-
-        </RelativeLayout>
-
-        <TextView
-            android:id="@+id/desire_detail_description_header"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/create_desire_description_header"
-            android:textColor="@color/colorMainText"
-            android:layout_below="@+id/wanter_bar" />
-
-        <TextView
-            android:id="@+id/desire_detail_description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="@{desire.description}"
-            android:layout_below="@+id/desire_detail_description_header"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:textColor="@color/colorMainText"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"/>
-
-        <TextView
-            android:id="@+id/desire_detail_creation_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@{desirelogic.getDateString(desire.creation_time)}"
-            android:textColor="@color/colorMainText"
-            android:layout_below="@+id/desire_detail_description"
-            android:layout_marginTop="20dp"/>
-
-        <TextView
-            android:id="@+id/desire_detail_price_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/create_desire_price_header"
-            android:textColor="@color/colorMainText"
-            android:layout_below="@+id/desire_detail_creation_time"
-            android:layout_marginTop="20dp" />
-
-        <TextView
-            android:id="@+id/desire_detail_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@{desirelogic.getPriceString(desire.price)}"
-            android:textColor="@color/colorMainText"
-            android:layout_alignTop="@+id/desire_detail_price_title"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="20dp"/>
-
-        <TextView
-            android:id="@+id/desire_detail_reward_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/create_desire_reward_header"
-            android:textColor="@color/colorMainText"
-            android:layout_below="@+id/desire_detail_price_title"
-            android:layout_marginTop="20dp" />
-
-        <TextView
-            android:id="@+id/desire_detail_reward"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@{desirelogic.getPriceString(desire.reward)}"
-            android:textColor="@color/colorMainText"
-            android:layout_alignTop="@+id/desire_detail_reward_title"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="20dp"/>
-
-        <TextView
-            android:id="@+id/desire_detail_location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/no_location_available"
-            android:textColor="@color/colorMainText"
-            android:layout_below="@+id/desire_detail_reward_title"
-            android:layout_marginTop="20dp" />
-
-        <LinearLayout
-            android:id="@+id/desire_haver_buttons"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/desire_detail_location"
-            android:layout_marginTop="20dp"
-            android:visibility="@{desirelogic.isDesireCreator(desire.creator.getID()) ? View.GONE : View.VISIBLE}">
-
-            <Button
-                android:id="@+id/button_accept_desire"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@string/button_desire_accept"
-                android:textColor="@color/colorMainText"
-                android:background="@color/colorPrimary"
-                android:layout_weight=".45"/>
-
-            <TextView
-                android:id="@+id/placeholder"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight=".1"/>
-
-            <Button
-                android:id="@+id/button_send_message"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@string/button_desire_message"
-                android:textColor="@color/colorMainText"
-                android:background="@color/colorPrimary"
-                android:layout_weight=".45"/>
-
-        </LinearLayout>
-
-        <wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.ScrollChildSwipeRefreshLayout
-            android:id="@+id/refresh_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/desire_detail_location"
-            android:layout_marginTop="20dp"
-            android:visibility="@{desirelogic.isDesireCreator(desire.creator.getID()) ? View.VISIBLE : View.GONE}">
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/haver_list"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_below="@+id/desire_detail_location"
-                android:layout_marginTop="20dp">
-            </android.support.v7.widget.RecyclerView>
+                android:layout_marginTop="20dp"
+                android:visibility="@{desirelogic.isDesireCreator(desire.creator.getID()) ? View.VISIBLE : View.GONE}">
 
-        </wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.ScrollChildSwipeRefreshLayout>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/haver_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </android.support.v7.widget.RecyclerView>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="90dp"
-            android:background="@color/colorSecondary"
-            android:layout_below="@+id/desire_detail_location"
-            android:layout_marginTop="20dp"
-            android:visibility="@{havers.notEmpty ? View.GONE : View.VISIBLE}">
-            <TextView
-                android:id="@+id/noDesiresMain"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:text="@string/no_havers"
-                android:textColor="@color/colorMainTextDark" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    android:background="@color/colorSecondary"
+                    android:visibility="@{havers.notEmpty ? View.GONE : View.VISIBLE}">
+                    <TextView
+                        android:id="@+id/noDesiresMain"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:text="@string/no_havers"
+                        android:textColor="@color/colorMainTextDark" />
+                </RelativeLayout>
+            </RelativeLayout>
         </RelativeLayout>
+    </ScrollView>
 
-    </RelativeLayout>
 
 </layout>

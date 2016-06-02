@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
+import wanthavers.mad.cs.fau.de.wanthavers_android.util.SharedPreferencesHelper;
 
 public class DesireLogic {
 
@@ -72,14 +73,10 @@ public class DesireLogic {
         return priceString;
     }
 
-    public boolean isDesireCreator(long id) {
-        //TODO: dependency on user id and desire creator user id
-        /*
-        SharedPreferencesHelper sharedPreferences = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, context);
-          long userId = sharedPreferences.loadLong(SharedPreferencesHelper.KEY_USERID, 1L);
-        tbd by Serverteam...
-         */
-        if (id == 6) {
+    public boolean isDesireCreator(long creatorId) {
+        SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, mContext);
+        long loggedInUser = sharedPreferencesHelper.loadLong(SharedPreferencesHelper.KEY_USERID, 6L);
+        if (creatorId == loggedInUser) {
             return true;
         } else {
             return false;

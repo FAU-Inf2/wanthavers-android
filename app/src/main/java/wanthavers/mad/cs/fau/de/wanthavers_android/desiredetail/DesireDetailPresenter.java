@@ -8,6 +8,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.Haver;
+import de.fau.cs.mad.wanthavers.common.User;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCase;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.AcceptDesire;
@@ -114,4 +115,10 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
             mDesireDetailView.showHavers(havers);
         }
     }
+
+    /*public void openChat(User user){
+        //TODO: open chat here;
+        checkNotNull(user, "user cannot be null!");
+        mDesireDetailView.showChatList(user.getID());
+    }*/
 }

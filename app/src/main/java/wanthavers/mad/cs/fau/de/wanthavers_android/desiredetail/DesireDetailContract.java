@@ -20,6 +20,8 @@ public interface DesireDetailContract {
 
         void showLoadingHaversError();
 
+        //void showChatList(long userid);
+
         boolean isActive();
     }
 
@@ -30,6 +32,8 @@ public interface DesireDetailContract {
         void getDesire();
 
         void loadHavers(boolean forceUpdate);
+
+        //void openChat(User user);
 
     }
 }

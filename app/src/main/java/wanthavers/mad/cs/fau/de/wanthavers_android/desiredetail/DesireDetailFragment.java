@@ -1,5 +1,6 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.desiredetail;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,9 +12,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.squareup.picasso.Picasso;
 
@@ -25,6 +28,7 @@ import de.fau.cs.mad.wanthavers.common.Media;
 import de.fau.cs.mad.wanthavers.common.User;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import de.fau.cs.mad.wanthavers.common.Desire;
+import wanthavers.mad.cs.fau.de.wanthavers_android.chatlist.ChatListActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.DesiredetailFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.RoundedTransformation;
@@ -90,14 +94,17 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
 
         mDesireDetailFragBinding.setHavers(mDesireDetailViewModel);
 
-
-
         //setRetainInstance(true);
 
         //Set up havers view
         mRecyclerView = mDesireDetailFragBinding.haverList;
 
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext()) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
         mRecyclerView.setLayoutManager(layoutManager);
 
         mListAdapter = new DesireDetailAdapter(new ArrayList<Haver>(0), mPresenter);
@@ -143,6 +150,20 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
         inflater.inflate(R.menu.desire_detail_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
+
+    /*@Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.menu_chat:
+
+                //dummy user - TODO get real user here
+                User user = new User("otto","blub@blub.de");
+                user.setId(1234);
+                mPresenter.openChat(user);
+                break;
+        }
+        return true;
+    }*/
 
     public void setViewModel(DesireDetailViewModel viewModel) {mDesireDetailViewModel = viewModel;}
 
@@ -198,7 +219,7 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
         if (getView() == null) {
             return;
         }
-        final SwipeRefreshLayout srl = (SwipeRefreshLayout) getView().findViewById(R.id.refresh_layout);
+        /*final SwipeRefreshLayout srl = (SwipeRefreshLayout) getView().findViewById(R.id.refresh_layout);
 
         // Make sure setRefreshing() is called after the layout is done with everything else.
         srl.post(new Runnable() {
@@ -206,11 +227,23 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
             public void run() {
                 srl.setRefreshing(active);
             }
-        });
+        });*/
     }
 
     @Override
     public boolean isActive() {
         return isAdded();
     }
+
+    /*@Override
+    public void showChatList(long userid){
+
+        //TODO change back to going to chat overview
+
+        Intent intent = new Intent(getContext(), ChatListActivity.class);
+        intent.putExtra(ChatListActivity.USER_ID, userid);
+        startActivity(intent);
+
+
+    }*/
 }
