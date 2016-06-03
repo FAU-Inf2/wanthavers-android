@@ -17,11 +17,16 @@ public class UserClient extends RestClient {
 
     private UserClient(Context context) {
         super(context);
+    }
+
+    @Override
+    protected void buildNewEndpoint() {
+        userEndpoint = null;
         userEndpoint = WebResourceFactory.newResource(UserResource.class, target);
     }
 
     public static UserClient getInstance(Context context) {
-        if(INSTANCE == null){
+        if (INSTANCE == null) {
             INSTANCE = new UserClient(context);
         }
         return INSTANCE;
@@ -51,5 +56,7 @@ public class UserClient extends RestClient {
         return userEndpoint.getDesires(userId);
     }
 
-    public List<Desire> getDesiresAsHaver(long userId) { return userEndpoint.getDesiresAsHaver(userId); }
+    public List<Desire> getDesiresAsHaver(long userId) {
+        return userEndpoint.getDesiresAsHaver(userId);
+    }
 }

@@ -16,11 +16,16 @@ public class CategoryClient extends RestClient {
 
     private CategoryClient(Context context) {
         super(context);
+    }
+
+    @Override
+    protected void buildNewEndpoint() {
+        categoryEndpoint = null;
         categoryEndpoint = WebResourceFactory.newResource(CategoryResource.class, target);
     }
 
     public static CategoryClient getInstance(Context context) {
-        if(INSTANCE == null) {
+        if (INSTANCE == null) {
             INSTANCE = new CategoryClient(context);
         }
         return INSTANCE;

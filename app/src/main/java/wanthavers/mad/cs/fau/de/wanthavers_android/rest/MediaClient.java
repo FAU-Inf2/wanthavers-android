@@ -21,11 +21,16 @@ public class MediaClient extends RestClient {
 
     private MediaClient(Context context) {
         super(context);
+    }
+
+    @Override
+    protected void buildNewEndpoint() {
+        mediaEndpoint = null;
         mediaEndpoint = WebResourceFactory.newResource(MediaResource.class, target);
     }
 
     public static MediaClient getInstance(Context context) {
-        if(INSTANCE == null) {
+        if (INSTANCE == null) {
             INSTANCE = new MediaClient(context);
         }
         return INSTANCE;

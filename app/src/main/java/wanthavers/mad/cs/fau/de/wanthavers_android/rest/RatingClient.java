@@ -16,11 +16,16 @@ public class RatingClient extends RestClient {
 
     private RatingClient(Context context) {
         super(context);
+    }
+
+    @Override
+    protected void buildNewEndpoint() {
+        ratingEndpoint = null;
         ratingEndpoint = WebResourceFactory.newResource(RatingResource.class, target);
     }
 
     public static RatingClient getInstance(Context context) {
-        if(INSTANCE == null){
+        if (INSTANCE == null) {
             INSTANCE = new RatingClient(context);
         }
         return INSTANCE;

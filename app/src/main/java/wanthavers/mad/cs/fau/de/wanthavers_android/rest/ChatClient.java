@@ -20,11 +20,16 @@ public class ChatClient extends RestClient {
 
     private ChatClient(Context context) {
         super(context);
+    }
+
+    @Override
+    protected void buildNewEndpoint() {
+        chatEndpoint = null;
         chatEndpoint = WebResourceFactory.newResource(ChatResource.class, target);
     }
 
     public static ChatClient getInstance(Context context) {
-        if(INSTANCE == null) {
+        if (INSTANCE == null) {
             INSTANCE = new ChatClient(context);
         }
         return INSTANCE;
