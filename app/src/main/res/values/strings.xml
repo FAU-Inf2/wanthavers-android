@@ -70,4 +70,11 @@
     <string name="noUser">Nicht Eingeloggt</string>
 
 
+    <string-array name="currencies">
+        <item>\u20AC</item>
+        <item>\u0024</item>
+        <item>\u00A3</item>
+    </string-array>
+
+
 </resources>
