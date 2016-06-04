@@ -5,32 +5,45 @@ import android.support.annotation.NonNull;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.util.Date;
 import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.Haver;
 import de.fau.cs.mad.wanthavers.common.User;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCase;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.AcceptDesire;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetDesire;
 import de.fau.cs.mad.wanthavers.common.Desire;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetHaverList;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetUser;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.SetHaver;
 
 public class DesireDetailPresenter implements DesireDetailContract.Presenter {
 
 
     private final DesireDetailContract.View mDesireDetailView;
-    private final AcceptDesire mAcceptDesire;
     private boolean mFirstLoad = true;
+    private DesireLogic mDesireLogic;
+
+    //Use Cases
+    private final UseCaseHandler mUseCaseHandler;
     private final GetDesire mGetDesire;
     private final GetHaverList mGetHaverList;
-    private final UseCaseHandler mUseCaseHandler;
+    private final SetHaver mSetHaver;
+    private final AcceptDesire mAcceptDesire;
+    private final GetUser mGetUser;
+
 
     @NonNull
     private long mDesireId;
 
-    public DesireDetailPresenter(@NonNull UseCaseHandler useCaseHandler, @NonNull long desireId, @NonNull DesireDetailContract.View desireDetailView,
-                                 @NonNull AcceptDesire acceptDesire, @NonNull GetDesire getDesire, @NonNull GetHaverList getHaverList){
+    public DesireDetailPresenter(DesireLogic desireLogic, @NonNull UseCaseHandler useCaseHandler, @NonNull long desireId,
+                                 @NonNull DesireDetailContract.View desireDetailView,
+                                 @NonNull AcceptDesire acceptDesire, @NonNull GetDesire getDesire,
+                                 @NonNull GetHaverList getHaverList, @NonNull GetUser getUser,
+                                 @NonNull SetHaver setHaver){
 
         mUseCaseHandler = checkNotNull(useCaseHandler, "useCaseHandler cannot be null");
         mDesireDetailView = checkNotNull(desireDetailView, "desiredetail view cannot be null");
@@ -38,8 +51,11 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
         mGetHaverList = checkNotNull(getHaverList);
         mAcceptDesire = checkNotNull(acceptDesire);
         mGetDesire = checkNotNull(getDesire);
+        mSetHaver = checkNotNull(setHaver);
+        mGetUser = checkNotNull(getUser);
 
         mDesireDetailView.setPresenter(this);
+        mDesireLogic = desireLogic;
     }
 
 
@@ -106,6 +122,50 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
                 mDesireDetailView.showLoadingHaversError();
             }
         });
+    }
+
+    //Get own User instance & create haver
+    //Equals "accept desire" as haver
+    @Override
+    public void setHaver() {
+
+        GetUser.RequestValues requestValues = new GetUser.RequestValues(mDesireLogic.getLoggedInUserId());
+
+        mUseCaseHandler.execute(mGetUser, requestValues,
+                new UseCase.UseCaseCallback<GetUser.ResponseValue>() {
+                    @Override
+                    public void onSuccess(GetUser.ResponseValue response) {
+                        User user = response.getUser();
+                        setHaver(new Haver(user, new Date(), mDesireId));
+                    }
+
+                    @Override
+                    public void onError() {
+                        mDesireDetailView.showSetHaverError();
+                    }
+                });
+
+    }
+
+    private void setHaver(Haver haver) {
+
+        SetHaver.RequestValues requestValues = new SetHaver.RequestValues(mDesireId, haver);
+
+        mUseCaseHandler.execute(mSetHaver, requestValues,
+                new UseCase.UseCaseCallback<SetHaver.ResponseValue>() {
+
+                    @Override
+                    public void onSuccess(SetHaver.ResponseValue response) {
+                        //Haver haver = response.getHaver();
+                    }
+
+                    @Override
+                    public void onError() {
+                        mDesireDetailView.showSetHaverError();
+                    }
+                }
+        );
+
     }
 
     private void processHavers(List<Haver> havers) {

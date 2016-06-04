@@ -20,7 +20,6 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.util.RoundedTransformation;
 
 public class DesireDetailAdapter extends RecyclerView.Adapter<DesireDetailAdapter.ViewHolder> {
 
-    //private long mUserId;
     private List<Haver> mHaverList;
 
     private DesireDetailContract.Presenter mUserActionsListener;
