@@ -35,7 +35,7 @@ public class CategoryClient extends RestClient {
         return categoryEndpoint.get(categoryId);
     }
 
-    public List<Category> getSubcategories(long categoryId) {
-        return categoryEndpoint.getSub(categoryId);
+    public List<Category> getSubcategories(long categoryId, boolean recursive) {
+        return categoryEndpoint.getSub(categoryId, recursive);
     }
 }
