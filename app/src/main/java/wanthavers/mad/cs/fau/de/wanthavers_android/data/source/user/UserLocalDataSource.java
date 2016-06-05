@@ -80,7 +80,7 @@ public class UserLocalDataSource implements UserDataSource {
     }
 
     @Override
-    public void login(@NonNull String email, @NonNull String password, @NonNull LoginCallback callback) {
+    public void login(@NonNull LoginCallback callback) {
         callback.onLoginFailed();
     }
 }

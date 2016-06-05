@@ -88,5 +88,5 @@ public interface UserDataSource {
 
     void deleteUser(@NonNull User user, @NonNull DeleteUserCallback callback);
 
-    void login(@NonNull String email, @NonNull String password, @NonNull LoginCallback callback);
+    void login(@NonNull LoginCallback callback);
 }
