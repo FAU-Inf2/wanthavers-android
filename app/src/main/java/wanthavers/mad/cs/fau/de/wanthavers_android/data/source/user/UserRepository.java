@@ -140,6 +140,26 @@ public class UserRepository implements UserDataSource {
         });
     }
 
+    @Override
+    public void login(@NonNull String email, @NonNull String password, @NonNull final LoginCallback callback) {
+        checkNotNull(email);
+        checkNotNull(password);
+        checkNotNull(callback);
+
+        userRemoteDataSource.login(email, password, new LoginCallback() {
+                    @Override
+                    public void onLoginSuccessful(User user) {
+                        callback.onLoginSuccessful(user);
+                    }
+
+                    @Override
+                    public void onLoginFailed() {
+                        callback.onLoginFailed();
+                    }
+                }
+        );
+    }
+
     private void getUserFromRemoteDataSource(@NonNull long userId, @NonNull final GetUserCallback callback) {
         userRemoteDataSource.getUser(userId, new GetUserCallback() {
             @Override

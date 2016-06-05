@@ -59,4 +59,8 @@ public class UserClient extends RestClient {
     public List<Desire> getDesiresAsHaver(long userId) {
         return userEndpoint.getDesiresAsHaver(userId);
     }
+
+    public User login(String email, String password) {
+        return userEndpoint.login(email, password);
+    }
 }
