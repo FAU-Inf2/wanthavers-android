@@ -121,10 +121,10 @@ public class LoginPresenter implements LoginContract.Presenter {
 
         //put together user object
 
-        User user =  new User(username.toString(),email.toString());
+        User user =  new User(username.getText().toString(),email.getText().toString());
         user.setBirthday(datePicked);
 
-        registerUser(user, password.toString());
+        registerUser(user, password.getText().toString());
     }
 
 
