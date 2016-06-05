@@ -15,6 +15,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserRemoteDa
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserRepository;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.LoginFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.CreateUser;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.LoginUser;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.ActivityUtils;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -23,6 +24,7 @@ public class LoginActivity extends AppCompatActivity {
     private LoginPresenter mLoginPresenter;
 
     private CreateUser mCreateUser;
+    private LoginUser mLoginUser;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,8 +58,9 @@ public class LoginActivity extends AppCompatActivity {
 
         UserRepository userRepository = UserRepository.getInstance(UserRemoteDataSource.getInstance(context), UserLocalDataSource.getInstance(context));
         mCreateUser = new CreateUser(userRepository);
+        mLoginUser = new LoginUser(userRepository);
 
-        mLoginPresenter = new LoginPresenter(UseCaseHandler.getInstance(), startUpFragment, getApplicationContext(), this, mCreateUser);
+        mLoginPresenter = new LoginPresenter(UseCaseHandler.getInstance(), startUpFragment, getApplicationContext(), this, mCreateUser, mLoginUser);
     }
 
     /*@Override
@@ -76,7 +79,7 @@ public class LoginActivity extends AppCompatActivity {
                 .replace(R.id.contentFrame,startUpFragment)
                 .commit();
 
-        mLoginPresenter = new LoginPresenter(UseCaseHandler.getInstance(), startUpFragment, getApplicationContext(), this, mCreateUser);
+        mLoginPresenter = new LoginPresenter(UseCaseHandler.getInstance(), startUpFragment, getApplicationContext(), this, mCreateUser, mLoginUser);
     }
 
     public void setLoginFragment(){
@@ -90,7 +93,7 @@ public class LoginActivity extends AppCompatActivity {
                 .replace(R.id.contentFrame,loginFragment)
                 .commit();
 
-        mLoginPresenter = new LoginPresenter(UseCaseHandler.getInstance(), loginFragment, getApplicationContext(), this, mCreateUser);
+        mLoginPresenter = new LoginPresenter(UseCaseHandler.getInstance(), loginFragment, getApplicationContext(), this, mCreateUser,mLoginUser);
     }
 
     public void setRegisterFragment(){
@@ -102,7 +105,7 @@ public class LoginActivity extends AppCompatActivity {
                 .replace(R.id.contentFrame,registerFragment)
                 .commit();
 
-        mLoginPresenter = new LoginPresenter(UseCaseHandler.getInstance(), registerFragment, getApplicationContext(), this, mCreateUser);
+        mLoginPresenter = new LoginPresenter(UseCaseHandler.getInstance(), registerFragment, getApplicationContext(), this, mCreateUser,mLoginUser);
     }
 
 }

@@ -156,8 +156,6 @@
             android:onClick="@{() -> presenter.registerUser()}"/>
 
 
-
-
     </RelativeLayout>
 
 </layout>

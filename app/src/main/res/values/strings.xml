@@ -81,6 +81,7 @@
     <string name="or">ODER</string>
     <string name="signinFb">über facebook Einloggen</string>
     <string name="login_empty_text">Bitte alle Felder ausfüllen</string>
+    <string name="userLoginFailed">Einloggen fehlgeschlagen</string>
 
 
     <string-array name="currencies">

@@ -20,6 +20,8 @@ public interface LoginContract {
 
         void login(long userId);
 
+        void login(String userMail,String userPw);
+
         void loginUserWithInput();
 
         void openLoginView();

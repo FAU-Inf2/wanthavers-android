@@ -20,6 +20,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCase;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.CreateUser;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.LoginUser;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.SendMessage;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.SetDesire;
 import wanthavers.mad.cs.fau.de.wanthavers_android.rest.RestClient;
@@ -31,9 +32,10 @@ public class LoginPresenter implements LoginContract.Presenter {
     private final Context mAppContext;
     private final LoginActivity mActivity;
     private final CreateUser mCreateUser;
+    private final LoginUser mLoginUser;
 
     public LoginPresenter(@NonNull UseCaseHandler ucHandler, @NonNull LoginContract.View view, @NonNull Context appContext,
-                          @NonNull LoginActivity activity, @NonNull CreateUser createUser) {
+                          @NonNull LoginActivity activity, @NonNull CreateUser createUser, @NonNull LoginUser loginUser) {
 
         mUseCaseHandler = ucHandler;
         mLoginView = view;
@@ -42,6 +44,7 @@ public class LoginPresenter implements LoginContract.Presenter {
         mActivity = activity;
         mLoginView.setPresenter(this);
         mCreateUser = createUser;
+        mLoginUser = loginUser;
 
     }
 
@@ -58,33 +61,55 @@ public class LoginPresenter implements LoginContract.Presenter {
     public void loginUserWithInput(){
 
 
-        EditText email = (EditText) mActivity.findViewById(R.id.email);
-        EditText password = (EditText) mActivity.findViewById(R.id.password);
+        EditText emailView = (EditText) mActivity.findViewById(R.id.email);
+        EditText passwordView = (EditText) mActivity.findViewById(R.id.password);
 
-        if(email.getText().toString().isEmpty() || password.getText().toString().isEmpty() ){
+        String email = emailView.getText().toString();
+        String password = passwordView.getText().toString();
+
+        if(email.isEmpty() || password.isEmpty() ){
             mLoginView.showMessage( mActivity.getResources().getString(R.string.login_empty_text));
             return;
         }
 
-
-
-        login(6);
+        login(email, password);
     }
 
 
+    public void login(long userId){
+        System.out.println("not implemented yet");
+    }
+
 
     @Override
-    public void login(long userId) {
+    public void login(String userMail, String userPw) {
 
-        SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, mAppContext);
-        sharedPreferencesHelper.saveLong(SharedPreferencesHelper.KEY_USERID, userId);
-        sharedPreferencesHelper.saveString(SharedPreferencesHelper.KEY_PASSWORD, "test");
+        final SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, mAppContext);
+        sharedPreferencesHelper.saveString(SharedPreferencesHelper.KEY_USER_EMAIL, userMail);
+        sharedPreferencesHelper.saveString(SharedPreferencesHelper.KEY_PASSWORD, userPw);
 
         RestClient.triggerSetNewBasicAuth();
 
-        mLoginView.showDesireList();
+        LoginUser.RequestValues requestValue = new LoginUser.RequestValues();
 
-        //mLoginView.showDesireList();
+        mUseCaseHandler.execute(mLoginUser, requestValue,
+                new UseCase.UseCaseCallback<LoginUser.ResponseValue>() {
+
+                    @Override
+                    public void onSuccess(LoginUser.ResponseValue response) {
+
+                        User user = response.getUser();
+                        sharedPreferencesHelper.saveLong(SharedPreferencesHelper.KEY_USERID, user.getID());
+                        mLoginView.showDesireList();
+                    }
+
+                    @Override
+                    public void onError() {
+                        // The view may not be able to handle UI updates anymore
+                        mLoginView.showMessage(mActivity.getResources().getString(R.string.userLoginFailed));
+                    }
+                });
+
     }
 
 
@@ -139,7 +164,7 @@ public class LoginPresenter implements LoginContract.Presenter {
                 new UseCase.UseCaseCallback<CreateUser.ResponseValue>() {
                     @Override
                     public void onSuccess(CreateUser.ResponseValue response) {
-                        login(response.getUser().getID());
+                        login(response.getUser().getEmail(), response.getUser().getPassword());
                     }
 
                     @Override
