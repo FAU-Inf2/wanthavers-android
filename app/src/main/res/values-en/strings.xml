@@ -70,7 +70,19 @@
         <item>\u0024</item>
         <item>\u00A3</item>
     </string-array>
-
+    <string name="or">OR</string>
+    <string name="password">Password</string>
+    <string name="signin">Login</string>
+    <string name="signinFb">Login via Facebook</string>
+    <string name="signup">Register</string>
+    <string name="signupNow">Register now</string>
+    <string name="userCreationFailed">User could not be created on Server</string>
+    <string name="wanthavers_text"></string>
+    <string name="name">Name</string>
+    <string name="login_empty_text">Please fill out all fields</string>
+    <string name="forgotPw">forgot password</string>
+    <string name="email">Email</string>
+    <string name="dob">Date of Birth</string>
 
 
 </resources>

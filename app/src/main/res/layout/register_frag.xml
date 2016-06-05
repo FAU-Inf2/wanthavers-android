@@ -16,9 +16,9 @@
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
-        android:background="@color/layout_Background1"
         android:weightSum="1"
         android:focusableInTouchMode="true">
+
 
 
         <TextView
@@ -26,50 +26,19 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/wanthavers_text"
-            android:id="@+id/login_header"
+            android:id="@+id/register_header"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:textColor="@color/colorPrimary"
             android:textSize="40sp"/>
 
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_centerInParent="true"
-            android:background="@android:color/black" />
-
-        <TextView
-            android:layout_width="70dp"
-            android:layout_height="25dp"
-            android:layout_centerInParent="true"
-            android:textAlignment="center"
-            android:id="@+id/or"
-            android:background="@color/layout_Background1"
-            android:text="@string/or"
-            android:textSize="20dp"
-            android:layout_marginTop="80dp"
-            android:layout_marginBottom="40dp"
-            android:textColor="@color/colorMainTextDark"/>
-
-        <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="@string/signinFb"
-            android:id="@+id/loginFb"
-            android:textColor="@color/colorSecondary"
-            android:background="@color/colorFb"
-            android:layout_above="@id/or"
-
-            android:onClick="@{() -> presenter.loginUserWithInput()}"/>
-
 
         <LinearLayout
             android:id="@+id/register_email"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_below="@id/or"
+            android:layout_below="@id/register_header"
             android:weightSum="1">
 
             <TextView
@@ -96,9 +65,9 @@
             android:layout_height="50dp"
             android:layout_below="@id/register_email"
             android:weightSum="1">
-
-
-
+            
+            
+            
             <TextView
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
@@ -117,24 +86,77 @@
 
         </LinearLayout>
 
+
+        <LinearLayout
+            android:id="@+id/register_name"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="40dp"
+            android:layout_below="@id/register_password"
+            android:weightSum="1">
+
+
+
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2"
+                android:text="@string/name"
+                android:gravity="bottom"
+                android:textSize="20dp"
+                android:paddingBottom="12dp"
+                android:textColor="@color/colorMainTextDark"/>
+
+            <EditText
+                android:id="@+id/name"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.8"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/register_dob"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/register_name"
+            android:layout_marginTop="10dp"
+            android:weightSum="1">
+
+            <TextView
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:text="@string/dob"
+                android:gravity="bottom"
+                android:textSize="20dp"
+                android:paddingBottom="12dp"
+                android:textColor="@color/colorMainTextDark"/>
+
+        </LinearLayout>
+
+        <DatePicker
+            android:layout_marginTop="-40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:datePickerMode="spinner"
+            android:layout_centerHorizontal="true"
+            android:calendarViewShown="false"
+            android:layout_below="@id/register_dob"
+            android:id="@+id/RegisterCalender"/>
+
         <Button
             style="?android:attr/buttonStyleSmall"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="10dp"
-            android:text="@string/signin"
-            android:id="@+id/login"
+            android:text="@string/signupNow"
+            android:id="@+id/button_signup"
             android:textColor="@color/colorSecondary"
             android:background="@drawable/border_primary_nocorner"
-            android:layout_below="@id/register_password"
-            android:onClick="@{() -> presenter.loginUserWithInput()}"/>
+            android:layout_alignParentBottom="true"
+            android:onClick="@{() -> presenter.registerUser()}"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:layout_marginTop="10dp"
-            android:text="@string/forgotPw"
-            android:layout_below="@id/login"/>
+
+
 
     </RelativeLayout>
 

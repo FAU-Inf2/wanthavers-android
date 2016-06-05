@@ -68,6 +68,19 @@
     <string name="dollar_sign" translatable="false">$</string>
     <string name="send_message_error">Nachricht konnte nicht gesendet werden</string>
     <string name="noUser">Nicht Eingeloggt</string>
+    <string name="signup">Registrieren</string>
+    <string name="signin">Anmelden</string>
+    <string name="wanthavers_text" translatable="false">WantHaver</string>
+    <string name="name">Name</string>
+    <string name="signupNow">Jetz Registrieren</string>
+    <string name="email">Email</string>
+    <string name="password">Passwort</string>
+    <string name="dob">Geburtsdatum</string>
+    <string name="userCreationFailed">Benutzer konnte nicht auf dem Server Registriert werden</string>
+    <string name="forgotPw">Passwort vergessen</string>
+    <string name="or">ODER</string>
+    <string name="signinFb">über facebook Einloggen</string>
+    <string name="login_empty_text">Bitte alle Felder ausfüllen</string>
 
 
     <string-array name="currencies">
