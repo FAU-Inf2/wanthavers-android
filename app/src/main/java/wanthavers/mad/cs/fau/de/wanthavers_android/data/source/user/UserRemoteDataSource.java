@@ -78,4 +78,14 @@ public class UserRemoteDataSource implements UserDataSource {
         }
     }
 
+    @Override
+    public void login(@NonNull String email, @NonNull String password, @NonNull LoginCallback callback) {
+        try {
+            User ret = userClient.login(email, password);
+            callback.onLoginSuccessful(ret);
+        } catch (Throwable t) {
+            callback.onLoginFailed();
+        }
+    }
+
 }

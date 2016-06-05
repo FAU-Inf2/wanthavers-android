@@ -29,7 +29,13 @@ public class CategoryLocalDataSource implements CategoryDataSource {
     }
 
     @Override
-    public void getSubcategories(@NonNull long categoryId, @NonNull GetSubcategoriesCallback callback) {
+    public void getSubcategories(@NonNull long categoryId, @NonNull boolean recursive, @NonNull GetSubcategoriesCallback callback) {
+        //TODO: alter this method when we decide to store categories locally
+        callback.onDataNotAvailable();
+    }
+
+    @Override
+    public void getAllDesiresForCategory(@NonNull long categoryId, @NonNull boolean recursive, @NonNull GetAllDesiresForCategoryCallback callback) {
         //TODO: alter this method when we decide to store categories locally
         callback.onDataNotAvailable();
     }
