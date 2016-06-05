@@ -11,6 +11,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserLocalDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserRemoteDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserRepository;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetUser;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.ActivityUtils;
 
@@ -40,6 +41,9 @@ public class SettingsActivity extends AppCompatActivity {
             settingsFragment = SettingsFragment.newInstance();
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), settingsFragment, R.id.contentFrame);
         }
+
+        DesireLogic desireLogic = new DesireLogic(getApplicationContext());
+        settingsFragment.setDesireLogic(desireLogic);
 
         //create fake task repo
         Context context = getApplicationContext();

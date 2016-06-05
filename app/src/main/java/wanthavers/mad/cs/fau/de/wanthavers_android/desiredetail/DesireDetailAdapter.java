@@ -20,14 +20,15 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.util.RoundedTransformation;
 
 public class DesireDetailAdapter extends RecyclerView.Adapter<DesireDetailAdapter.ViewHolder> {
 
-    //private long mUserId;
     private List<Haver> mHaverList;
 
     private DesireDetailContract.Presenter mUserActionsListener;
+    private DesireDetailActionHandler mDesireDetailActionHandler;
 
-    public DesireDetailAdapter(List<Haver> havers, DesireDetailContract.Presenter itemListener) {
+    public DesireDetailAdapter(List<Haver> havers, DesireDetailContract.Presenter itemListener, DesireDetailActionHandler desireDetailActionHandler) {
         setList(havers);
         mUserActionsListener = itemListener;
+        mDesireDetailActionHandler = desireDetailActionHandler;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -59,6 +60,8 @@ public class DesireDetailAdapter extends RecyclerView.Adapter<DesireDetailAdapte
         HaverItemBinding haverItemBinding = viewHolder.getHaverItemBinding();
 
         haverItemBinding.setHaver(haver);
+
+        haverItemBinding.setActionHandler(mDesireDetailActionHandler);
 
         Media m = haverItemBinding.getHaver().getUser().getImage();
 

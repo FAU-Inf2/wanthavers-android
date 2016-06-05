@@ -73,10 +73,14 @@ public class DesireLogic {
         return priceString;
     }
 
-    public boolean isDesireCreator(long creatorId) {
+    public long getLoggedInUserId() {
         SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, mContext);
         long loggedInUser = sharedPreferencesHelper.loadLong(SharedPreferencesHelper.KEY_USERID, 6L);
-        if (creatorId == loggedInUser) {
+        return loggedInUser;
+    }
+
+    public boolean isDesireCreator(long creatorId) {
+        if (creatorId == getLoggedInUserId()) {
             return true;
         } else {
             return false;

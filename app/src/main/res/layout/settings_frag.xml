@@ -8,11 +8,16 @@
             name="user"
             type="de.fau.cs.mad.wanthavers.common.User"/>
 
+        <variable
+            name="actionHandler"
+            type="wanthavers.mad.cs.fau.de.wanthavers_android.settings.SettingsActionHandler"/>
+
     </data>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:fillViewport="true">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -98,7 +103,8 @@
                     android:text="@string/change_button"
                     android:textColor="@color/colorPrimary"
                     android:layout_centerHorizontal="true"
-                    android:layout_weight=".4"/>
+                    android:layout_weight=".4"
+                    android:onClick="@{() -> actionHandler.changeFilterClicked()}"/>
 
                 <TextView
                     android:id="@+id/placeholder"

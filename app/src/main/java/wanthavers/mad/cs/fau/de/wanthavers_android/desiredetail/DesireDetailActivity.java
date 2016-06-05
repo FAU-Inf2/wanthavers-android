@@ -14,10 +14,17 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireRemo
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.haver.HaverLocalDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.haver.HaverRemoteDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.haver.HaverRepository;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserLocalDataSource;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserRemoteDataSource;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserRepository;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
-import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.AcceptDesire;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.AcceptHaver;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetDesire;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetHaver;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetHaverList;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetUser;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.SetHaver;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.UpdateHaver;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.ActivityUtils;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -51,27 +58,28 @@ public class DesireDetailActivity extends AppCompatActivity {
                     desireDetailFragment, R.id.contentFrame);
         }
 
+        DesireLogic desireLogic = new DesireLogic(getApplicationContext());
+
+        desireDetailFragment.setDesireLogic(desireLogic);
+
         //create fake task repo
         Context context = getApplicationContext();
         checkNotNull(context);
 
         DesireRepository fake = DesireRepository.getInstance(DesireRemoteDataSource.getInstance(getApplicationContext()), DesireLocalDataSource.getInstance(context));
         HaverRepository fake_haver = HaverRepository.getInstance(HaverRemoteDataSource.getInstance(getApplicationContext()), HaverLocalDataSource.getInstance(context));
+        UserRepository fake_user = UserRepository.getInstance(UserRemoteDataSource.getInstance(getApplicationContext()), UserLocalDataSource.getInstance(context));
 
         //create the presenter with Injection of Usecases
-        mDesireDetailPresenter = new DesireDetailPresenter(UseCaseHandler.getInstance(),
-                desireId,
-                desireDetailFragment,
-                new AcceptDesire(fake), new GetDesire(fake), new GetHaverList(fake_haver, desireId));
+        mDesireDetailPresenter = new DesireDetailPresenter(desireLogic, UseCaseHandler.getInstance(),
+                desireId, desireDetailFragment,new AcceptHaver(fake_haver), new GetDesire(fake),
+                new GetHaverList(fake_haver, desireId),new GetUser(fake_user), new SetHaver(fake_haver),
+                new UpdateHaver(fake_haver), new GetHaver(fake_haver));
 
         DesireDetailViewModel desireDetailViewModel =
                 new DesireDetailViewModel(getApplicationContext(), mDesireDetailPresenter);
 
         desireDetailFragment.setViewModel(desireDetailViewModel);
-
-        DesireLogic desireLogic = new DesireLogic(getApplicationContext());
-
-        desireDetailFragment.setDesireLogic(desireLogic);
 
     }
 

@@ -53,6 +53,7 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
     private DesireLogic mDesireLogic;
     private RecyclerView mRecyclerView;
     private DesireDetailViewModel mDesireDetailViewModel;
+    private DesireDetailActionHandler mDesireDetailActionHandler;
 
     public DesireDetailFragment() {
         //Requires empty public constructor
@@ -107,10 +108,16 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
         };
         mRecyclerView.setLayoutManager(layoutManager);
 
-        mListAdapter = new DesireDetailAdapter(new ArrayList<Haver>(0), mPresenter);
+        setHasOptionsMenu(true);
+
+        //set up action handler
+        //TODO: getDesireId
+        mDesireDetailActionHandler = new DesireDetailActionHandler(0, mDesireDetailFragBinding, mPresenter);
+        mDesireDetailFragBinding.setActionHandler(mDesireDetailActionHandler);
+
+        mListAdapter = new DesireDetailAdapter(new ArrayList<Haver>(0), mPresenter, mDesireDetailActionHandler);
         mRecyclerView.setAdapter(mListAdapter);
 
-        setHasOptionsMenu(true);
         /*
         // Set up progress indicator  TODO decide whether this is needed
         final ScrollChildSwipeRefreshLayout swipeRefreshLayout = mDesireDetailFragBinding.refreshLayout;
@@ -209,6 +216,18 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
 
     private void showMessage(String message) {
         Snackbar.make(getView(), message, Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void showSetHaverError() {
+        //TODO create String
+        //showMessage(getString(R.string.));
+    }
+
+    @Override
+    public void showAcceptHaverError() {
+        //TODO create String
+        //showMessage(getString(R.string.));
     }
 
     public void setDesireLogic(DesireLogic desireLogic){mDesireLogic = desireLogic;}
