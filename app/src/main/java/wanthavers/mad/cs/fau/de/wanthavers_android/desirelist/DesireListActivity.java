@@ -53,11 +53,12 @@ public class DesireListActivity extends AppCompatActivity {
         setContentView(R.layout.desirelist_act);
 
 
-        String fragmentId = getIntent().getStringExtra(EXTRA_FRAGMENT_ID);
-        System.out.println("fragment id = " + fragmentId);
 
-        if(fragmentId == null){
-            fragmentId = "ALL_DESIRES";
+        DesireListType desireListType = (DesireListType) getIntent().getSerializableExtra(EXTRA_FRAGMENT_ID);
+        System.out.println("fragment id = " + desireListType);
+
+        if(desireListType == null){
+            desireListType = DesireListType.ALL_DESIRES;
         }
 
         // Set up the toolbar.
@@ -116,7 +117,7 @@ public class DesireListActivity extends AppCompatActivity {
         mDesireListPresenter = new DesireListPresenter(UseCaseHandler.getInstance(),desireListFragment,new GetDesireList(desireRepository),
                 new GetAvgRatingForUser(ratingRepository), new GetUser(userRepository));
 
-        mDesireListPresenter.setFragementId(fragmentId);
+        mDesireListPresenter.setDesireListType(desireListType);
 
         DesireListViewModel desireListViewModel = new DesireListViewModel(context, mDesireListPresenter);
 
@@ -173,6 +174,9 @@ public class DesireListActivity extends AppCompatActivity {
                                 break;
                             case R.id.myDesires_navigation_menu_item:
                                 mDesireListPresenter.openMyDesires();
+                                break;
+                            case R.id.myTransactions_navigation_menu_item:
+                                mDesireListPresenter.openMyTransactions();
                                 break;
                             case R.id.settings_navigation_menu_item:
                                 mDesireListPresenter.openSettings();

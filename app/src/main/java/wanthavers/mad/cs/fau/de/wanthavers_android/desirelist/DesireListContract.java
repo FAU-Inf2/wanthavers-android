@@ -32,6 +32,8 @@ public interface DesireListContract {
 
         void showMyDesires();
 
+        void showMyTransactions();
+
         void showAllDesires();
 
         void showSettings();
@@ -59,6 +61,8 @@ public interface DesireListContract {
         void openAllDesires();
 
         void openMyDesires();
+
+        void openMyTransactions();
 
         void openSettings();
 
