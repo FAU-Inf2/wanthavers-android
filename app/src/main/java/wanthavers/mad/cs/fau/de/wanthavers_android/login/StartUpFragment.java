@@ -76,6 +76,7 @@ public class StartUpFragment extends Fragment implements LoginContract.View {
 
     @Override
     public void showMessage(String message) {
+        
         Snackbar.make(getView(), message, Snackbar.LENGTH_LONG).show();
     }
     
