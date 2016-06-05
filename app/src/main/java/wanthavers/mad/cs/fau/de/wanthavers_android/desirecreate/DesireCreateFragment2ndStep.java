@@ -20,12 +20,17 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.Desire;
 import de.fau.cs.mad.wanthavers.common.Media;
@@ -80,8 +85,9 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
         final EditText desirePrice   = (EditText) view.findViewById(R.id.create_desire_price);
         final EditText desireReward   = (EditText) view.findViewById(R.id.create_desire_reward);
 
-        Button uploadImage = (Button) view.findViewById(R.id.button_select_Image);
-        uploadImage.setOnClickListener(new View.OnClickListener(){
+
+        ImageView imageView = (ImageView) view.findViewById(R.id.image_camera);
+        imageView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick (View v){
                 if(isStoragePermissionGranted()){
@@ -90,6 +96,24 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
 
             }
         });
+
+
+        /*Button uploadImage = (Button) view.findViewById(R.id.button_select_Image);
+        uploadImage.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick (View v){
+                if(isStoragePermissionGranted()){
+                    selectImageForDesire();
+                }
+
+            }
+        });*/
+
+        final Spinner spinner = (Spinner)view.findViewById(R.id.spinner_currency);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.currencies, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //spinner.setPrompt(getString(R.string.currency_header));
+        spinner.setAdapter(adapter);
 
 
         Button button = (Button) view.findViewById(R.id.button_2nd_step);
@@ -102,7 +126,7 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
                     Toast toast = Toast.makeText(getContext(), R.string.createDesire_Empty_Text, Toast.LENGTH_SHORT);
                     toast.show();
                 }else{
-                    String[] input = {desirePrice.getText().toString(), desireReward.getText().toString()};
+                    String[] input = {desirePrice.getText().toString(), desireReward.getText().toString(), spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString()};
                     mPresenter.createNextDesireCreateStep(input);
                 }
 
@@ -122,6 +146,7 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
         intent.putExtra("desireDescription", description);
         intent.putExtra("desirePrice", input[0]);
         intent.putExtra("desireReward", input[1]);
+        intent.putExtra("desireCurrency", input[2]);
         intent.putExtra("desireImage", image);
         startActivity(intent);
         //getActivity().finish();

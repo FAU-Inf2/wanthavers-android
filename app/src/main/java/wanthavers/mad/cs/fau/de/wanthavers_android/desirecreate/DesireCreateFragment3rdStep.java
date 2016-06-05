@@ -93,9 +93,10 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
                     String description = getActivity().getIntent().getExtras().getString("desireDescription");
                     String price = getActivity().getIntent().getExtras().getString("desirePrice");
                     String reward = getActivity().getIntent().getExtras().getString("desireReward");
+                    String currency = getActivity().getIntent().getExtras().getString("desireCurrency");
                     Uri image = getActivity().getIntent().getExtras().getParcelable("desireImage");
 
-                    setDataForDesire(title, description, Integer.parseInt(price), Integer.parseInt(reward), desireDropzone.getText().toString(), image);
+                    setDataForDesire(title, description, Integer.parseInt(price), Integer.parseInt(reward), desireDropzone.getText().toString(), currency, image);
                     //sendDesireToServer(desire);
 
                     mPresenter.createNextDesireCreateStep(null);
@@ -115,6 +116,7 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
         d.setDropzone_string(desire.getDropzone_string());
         d.setCreator(null);
         d.setId(0);
+        d.setCurrency(desire.getCurrency());
 
         int colorNumber = (int) (Math.random() * 4);
         d.setColorIndex(colorNumber);
@@ -133,6 +135,7 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
         Log.d("DesirePrice:", Double.toString(desire.getPrice()));
         Log.d("DesireReward:", Double.toString(desire.getReward()));
         Log.d("DesireDropzone:", desire.getDropzone_string());
+        Log.d("DesireCurrency:", desire.getCurrency());
         Log.d("DesireColor:", Integer.toString(desire.getColorIndex()));
 
         Intent intent = new Intent(getContext(), DesireListActivity.class);
@@ -141,12 +144,13 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
 
     }
 
-    public void setDataForDesire(String title, String description, int price, int reward, String dropzone, Uri image) {
+    public void setDataForDesire(String title, String description, int price, int reward, String dropzone, String currency, Uri image) {
         desire.setTitle(title);
         desire.setDescription(description);
         desire.setPrice(price);
         desire.setReward(reward);
         desire.setDropzone_string(dropzone);
+        desire.setCurrency(currency);
 
         int colorNumber = (int) (Math.random() * 4);
         desire.setColorIndex(colorNumber);
