@@ -1,5 +1,6 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.settings;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -29,11 +30,12 @@ public class SettingsPresenter implements SettingsContract.Presenter {
                 new UseCase.UseCaseCallback<GetUser.ResponseValue>() {
                     @Override
                     public void onSuccess(GetUser.ResponseValue response) {
-                       // mSettingsView.setUser(response.getUser());
+                       mSettingsView.setUser(response.getUser());
                     }
 
                     @Override
                     public void onError() {
+                        //TODO: make a message
                         // The view may not be able to handle UI updates anymore
                         /*if (!mSettingsView.isActive()) {
                             return;
@@ -46,6 +48,11 @@ public class SettingsPresenter implements SettingsContract.Presenter {
     @Override
     public void start() {
         //TODO
+    }
+
+    @Override
+    public void openFilterSettings() {
+        mSettingsView.showFilterSettings();
     }
 
 }

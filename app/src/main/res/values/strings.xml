@@ -61,6 +61,13 @@
     <string name="notifications">Benachrichtigungen</string>
     <string name="button_change_profile_picture">Profilbild ändern</string>
     <string name="no_havers">Leider noch keine Haver vorhanden</string>
+    <string name="small_price">gering</string>
+    <string name="medium_price">mittel</string>
+    <string name="large_price">hoch</string>
+    <string name="minimal_reward_title">Mindestverdienst</string>
+    <string name="minimal_rating_title">Mindestrating</string>
+    <string name="location_title">Ort</string>
+    <string name="filter_radius_title">Umkreis</string>
 
 
     <!-- currency strings -->

@@ -63,6 +63,13 @@
     <string name="notifications">Notifications</string>
     <string name="button_change_profile_picture">Change profile picture</string>
     <string name="no_havers">Unfortunately no havers yet</string>
+    <string name="small_price">small</string>
+    <string name="medium_price">medium</string>
+    <string name="large_price">large</string>
+    <string name="minimal_reward_title">Minimal reward</string>
+    <string name="minimal_rating_title">Mindestrating</string>
+    <string name="location_title">Location</string>
+    <string name="filter_radius_title">Radius</string>
 
 
     <string-array name="currencies">

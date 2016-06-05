@@ -86,10 +86,4 @@ public class DesireLogic {
             return false;
         }
     }
-
-    public boolean acceptedDesire() {
-        //isCreator
-        //isHaver
-        return false;
-    }
 }

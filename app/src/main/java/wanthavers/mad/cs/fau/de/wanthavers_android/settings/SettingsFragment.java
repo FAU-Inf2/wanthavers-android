@@ -1,6 +1,7 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.settings;
 
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -17,13 +18,18 @@ import de.fau.cs.mad.wanthavers.common.Media;
 import de.fau.cs.mad.wanthavers.common.User;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.SettingsFragBinding;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
+import wanthavers.mad.cs.fau.de.wanthavers_android.filtersetting.FilterSettingActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.RoundedTransformation;
+import wanthavers.mad.cs.fau.de.wanthavers_android.util.SharedPreferencesHelper;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 public class SettingsFragment extends Fragment implements SettingsContract.View {
     private SettingsContract.Presenter mPresenter;
     private SettingsFragBinding mSettingsFragBinding;
+    private SettingsActionHandler mSettingsActionHandler;
+    private DesireLogic mDesireLogic;
 
     public SettingsFragment() {
         //Requires empty public constructor
@@ -49,17 +55,20 @@ public class SettingsFragment extends Fragment implements SettingsContract.View 
 
         //View view = inflater.inflate(R.layout.settings_frag, container, false);
         mSettingsFragBinding = SettingsFragBinding.inflate(inflater, container, false);
-        //mSettingsFragBinding.setUser();
 
+        mPresenter.getUser(mDesireLogic.getLoggedInUserId());
 
         setHasOptionsMenu(true);
+
+        mSettingsActionHandler = new SettingsActionHandler(mPresenter);
+        mSettingsFragBinding.setActionHandler(mSettingsActionHandler);
 
         return mSettingsFragBinding.getRoot();
     }
 
     public void setUser(User user){
+        mSettingsFragBinding.setUser(user);
         Media m = user.getImage();
-
 
         if (m != null) {
             final ImageView profileView = mSettingsFragBinding.profilePicture;
@@ -69,5 +78,15 @@ public class SettingsFragment extends Fragment implements SettingsContract.View 
             final ImageView profileView = mSettingsFragBinding.profilePicture;
             profileView.setImageResource(R.drawable.no_pic);
         }
+    }
+
+    public void setDesireLogic(DesireLogic desireLogic) {
+        mDesireLogic = desireLogic;
+    }
+
+    @Override
+    public void showFilterSettings() {
+        Intent intent = new Intent(getContext(), FilterSettingActivity.class);
+        startActivity(intent);
     }
 }
