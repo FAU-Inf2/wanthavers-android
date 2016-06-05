@@ -108,15 +108,15 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
         };
         mRecyclerView.setLayoutManager(layoutManager);
 
-        mListAdapter = new DesireDetailAdapter(new ArrayList<Haver>(0), mPresenter);
-        mRecyclerView.setAdapter(mListAdapter);
-
         setHasOptionsMenu(true);
 
         //set up action handler
         //TODO: getDesireId
         mDesireDetailActionHandler = new DesireDetailActionHandler(0, mDesireDetailFragBinding, mPresenter);
         mDesireDetailFragBinding.setActionHandler(mDesireDetailActionHandler);
+
+        mListAdapter = new DesireDetailAdapter(new ArrayList<Haver>(0), mPresenter, mDesireDetailActionHandler);
+        mRecyclerView.setAdapter(mListAdapter);
 
         /*
         // Set up progress indicator  TODO decide whether this is needed
@@ -220,6 +220,12 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
 
     @Override
     public void showSetHaverError() {
+        //TODO create String
+        //showMessage(getString(R.string.));
+    }
+
+    @Override
+    public void showAcceptHaverError() {
         //TODO create String
         //showMessage(getString(R.string.));
     }

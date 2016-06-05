@@ -18,11 +18,13 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserLocalDat
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserRemoteDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserRepository;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
-import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.AcceptDesire;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.AcceptHaver;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetDesire;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetHaver;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetHaverList;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetUser;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.SetHaver;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.UpdateHaver;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.ActivityUtils;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -70,8 +72,9 @@ public class DesireDetailActivity extends AppCompatActivity {
 
         //create the presenter with Injection of Usecases
         mDesireDetailPresenter = new DesireDetailPresenter(desireLogic, UseCaseHandler.getInstance(),
-                desireId, desireDetailFragment,new AcceptDesire(fake), new GetDesire(fake),
-                new GetHaverList(fake_haver, desireId),new GetUser(fake_user), new SetHaver(fake_haver));
+                desireId, desireDetailFragment,new AcceptHaver(fake_haver), new GetDesire(fake),
+                new GetHaverList(fake_haver, desireId),new GetUser(fake_user), new SetHaver(fake_haver),
+                new UpdateHaver(fake_haver), new GetHaver(fake_haver));
 
         DesireDetailViewModel desireDetailViewModel =
                 new DesireDetailViewModel(getApplicationContext(), mDesireDetailPresenter);
