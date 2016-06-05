@@ -41,6 +41,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 public class DesireListActivity extends AppCompatActivity {
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+    public static final String EXTRA_FRAGMENT_ID = "FRAGMENT_ID";
 
     private DrawerLayout mDrawerLayout;
     private DesireListPresenter mDesireListPresenter;
@@ -51,6 +52,13 @@ public class DesireListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.desirelist_act);
 
+
+        String fragmentId = getIntent().getStringExtra(EXTRA_FRAGMENT_ID);
+        System.out.println("fragment id = " + fragmentId);
+
+        if(fragmentId == null){
+            fragmentId = "ALL_DESIRES";
+        }
 
         // Set up the toolbar.
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -108,6 +116,8 @@ public class DesireListActivity extends AppCompatActivity {
         mDesireListPresenter = new DesireListPresenter(UseCaseHandler.getInstance(),desireListFragment,new GetDesireList(desireRepository),
                 new GetAvgRatingForUser(ratingRepository), new GetUser(userRepository));
 
+        mDesireListPresenter.setFragementId(fragmentId);
+
         DesireListViewModel desireListViewModel = new DesireListViewModel(context, mDesireListPresenter);
 
         desireListFragment.setViewModel(desireListViewModel);
@@ -127,6 +137,8 @@ public class DesireListActivity extends AppCompatActivity {
         long loggedInUser = sharedPreferencesHelper.loadLong(SharedPreferencesHelper.KEY_USERID, 6L); //Long.valueOf(sharedPreferencesHelper.loadString(SharedPreferencesHelper.KEY_USERID, "6"));
         mDesireListPresenter.getUser(loggedInUser);
 
+
+        mDesireListPresenter.setUser(loggedInUser);
 
         // Load previously saved state, if available.
         if (savedInstanceState != null) {
@@ -157,7 +169,10 @@ public class DesireListActivity extends AppCompatActivity {
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
                         switch (menuItem.getItemId()) {
                             case R.id.listDesires_navigation_menu_item:
-                                // Do nothing, we're already on that screen
+                                mDesireListPresenter.openAllDesires();
+                                break;
+                            case R.id.myDesires_navigation_menu_item:
+                                mDesireListPresenter.openMyDesires();
                                 break;
                             case R.id.settings_navigation_menu_item:
                                 mDesireListPresenter.openSettings();

@@ -32,21 +32,43 @@ public class GetDesireList extends UseCase<GetDesireList.RequestValues, GetDesir
         */
         //TODO for some reason repo does not work - @Nico please check why
 
-        mDesireRepository.getAllDesires(new DesireDataSource.GetAllDesiresCallback(){
+        long userId = values.getUserId();
 
 
-            @Override
-            public void onAllDesiresLoaded(List<Desire> desireList) {
-                ResponseValue responseValue = new ResponseValue(desireList);
-                getUseCaseCallback().onSuccess(responseValue);
-            }
+        if(userId == -1) {
+            mDesireRepository.getAllDesires(new DesireDataSource.GetAllDesiresCallback() {
 
-            @Override
-            public void onDataNotAvailable() {
-                getUseCaseCallback().onError();
-            }
-        });
 
+                @Override
+                public void onAllDesiresLoaded(List<Desire> desireList) {
+                    ResponseValue responseValue = new ResponseValue(desireList);
+                    getUseCaseCallback().onSuccess(responseValue);
+                }
+
+                @Override
+                public void onDataNotAvailable() {
+                    getUseCaseCallback().onError();
+                }
+            });
+
+        }
+
+        if(userId > 0){
+
+            mDesireRepository.getDesiresForUser(userId , new DesireDataSource.GetDesiresForUserCallback() {
+
+                @Override
+                public void onDesiresForUserLoaded(List<Desire> desireList) {
+                    ResponseValue responseValue = new ResponseValue(desireList);
+                    getUseCaseCallback().onSuccess(responseValue);
+                }
+
+                @Override
+                public void onDataNotAvailable() {
+                    getUseCaseCallback().onError();
+                }
+            });
+        }
 
         /*mDesireRepository.getDesire(values.getUserid(), new DesireDataSource.LoadDesireCallback() {
             @Override
@@ -69,6 +91,8 @@ public class GetDesireList extends UseCase<GetDesireList.RequestValues, GetDesir
     public static final class RequestValues implements UseCase.RequestValues {
 
         //TODO add values here if needed for desire query e.g.:private final long mDesireId;
+        long mUserId = -1;
+
 
         public RequestValues() {
             //TODO add values here if needed for desire query
@@ -80,6 +104,14 @@ public class GetDesireList extends UseCase<GetDesireList.RequestValues, GetDesir
             return mDesireId;
         }
         */
+
+        public long getUserId(){
+            return mUserId;
+        }
+
+        public void setUserId(long userId){
+            mUserId = userId;
+        }
     }
 
     public static final class ResponseValue implements UseCase.ResponseValue {

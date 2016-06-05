@@ -30,6 +30,8 @@ public class DesireListPresenter implements DesireListContract.Presenter {
     private final GetUser mGetUser;
     private List<DesireItemViewModel> mDesireModels = new ArrayList<>();
     private int counter = 0;
+    private String mFragmentId;
+    private long mLoggedInUser;
 
     public DesireListPresenter(@NonNull UseCaseHandler useCaseHandler, @NonNull DesireListContract.View desireListView,
                                @NonNull GetDesireList getDesireList, @NonNull GetAvgRatingForUser getAvgRatingForUser, @NonNull GetUser getUser){
@@ -48,7 +50,16 @@ public class DesireListPresenter implements DesireListContract.Presenter {
 
 
     public void loadDesires(boolean forceUpdate){
-        loadDesires(forceUpdate || mFirstLoad, true);
+
+        if(mFragmentId.compareTo("ALL_DESIRES") == 0) {
+            loadAllDesires(forceUpdate || mFirstLoad, true);
+        }
+
+        if(mFragmentId.compareTo("MY_DESIRES") == 0){
+            loadMyDesires(forceUpdate || mFirstLoad, true);
+        }
+
+
         mFirstLoad = false;
     }
 
@@ -70,13 +81,23 @@ public class DesireListPresenter implements DesireListContract.Presenter {
     }
 
     @Override
+    public void openMyDesires(){ mDesireListView.showMyDesires();}
+
+    @Override
+    public void openAllDesires(){ mDesireListView.showAllDesires();}
+
+    @Override
     public void openDesireDetails(@NonNull Desire desire) {
         checkNotNull(desire, "desire cannot be null!");
         mDesireListView.showDesireDetailsUi(desire.getID());
     }
 
 
-    private void loadDesires(boolean forceUpdate, final boolean showLoadingUI) {
+    public void setFragementId(String fragmentId){
+        mFragmentId = fragmentId;
+    }
+
+    private void loadAllDesires(boolean forceUpdate, final boolean showLoadingUI) {
         if (showLoadingUI) {
             mDesireListView.setLoadingIndicator(true);
         }
@@ -111,6 +132,46 @@ public class DesireListPresenter implements DesireListContract.Presenter {
                 });
     }
 
+    public void setUser(long userId){
+        mLoggedInUser = userId;
+    }
+
+    private void loadMyDesires(boolean forceUpdate, final boolean showLoadingUI) {
+        if (showLoadingUI) {
+            mDesireListView.setLoadingIndicator(true);
+        }
+
+        GetDesireList.RequestValues requestValue = new GetDesireList.RequestValues();
+
+        requestValue.setUserId(mLoggedInUser);
+
+        mUseCaseHandler.execute(mGetDesireList, requestValue,
+                new UseCase.UseCaseCallback<GetDesireList.ResponseValue>() {
+                    @Override
+                    public void onSuccess(GetDesireList.ResponseValue response) {
+                        List<Desire> desires = response.getDesires();
+                        // The view may not be able to handle UI updates anymore
+                        if (!mDesireListView.isActive()) {
+                            return;
+                        }
+
+                        if (showLoadingUI) {
+                            mDesireListView.setLoadingIndicator(false);
+                        }
+
+                        processDesires(desires);
+                    }
+
+                    @Override
+                    public void onError() {
+                        // The view may not be able to handle UI updates anymore
+                        if (!mDesireListView.isActive()) {
+                            return;
+                        }
+                        mDesireListView.showLoadingDesiresError();
+                    }
+                });
+    }
 
 
     public void getUser(long userId){
