@@ -77,7 +77,6 @@
     <string name="signup">Register</string>
     <string name="signupNow">Register now</string>
     <string name="userCreationFailed">User could not be created on Server</string>
-    <string name="wanthavers_text"></string>
     <string name="name">Name</string>
     <string name="login_empty_text">Please fill out all fields</string>
     <string name="forgotPw">forgot password</string>
