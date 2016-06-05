@@ -7,6 +7,7 @@ import org.glassfish.jersey.client.proxy.WebResourceFactory;
 import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.Category;
+import de.fau.cs.mad.wanthavers.common.Desire;
 import de.fau.cs.mad.wanthavers.common.rest.api.CategoryResource;
 
 public class CategoryClient extends RestClient {
@@ -35,7 +36,11 @@ public class CategoryClient extends RestClient {
         return categoryEndpoint.get(categoryId);
     }
 
-    public List<Category> getSubcategories(long categoryId) {
-        return categoryEndpoint.getSub(categoryId, false);
+    public List<Category> getSubcategories(long categoryId, boolean recursive) {
+        return categoryEndpoint.getSub(categoryId, recursive);
+    }
+
+    public List<Desire> getAllDesiresForCategory(long categoryId, boolean recursive) {
+        return  categoryEndpoint.getDesires(categoryId, recursive);
     }
 }
