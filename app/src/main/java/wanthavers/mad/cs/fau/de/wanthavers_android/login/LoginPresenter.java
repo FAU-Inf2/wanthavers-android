@@ -77,7 +77,12 @@ public class LoginPresenter implements LoginContract.Presenter {
 
 
     public void login(long userId){
-        System.out.println("not implemented yet");
+
+        //this is just a shortcut implemented for testing
+        final SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, mAppContext);
+        sharedPreferencesHelper.saveLong(SharedPreferencesHelper.KEY_USERID, userId);
+
+        mLoginView.showDesireList();
     }
 
 
