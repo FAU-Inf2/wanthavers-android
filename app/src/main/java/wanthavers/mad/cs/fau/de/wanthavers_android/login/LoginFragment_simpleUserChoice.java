@@ -1,36 +1,26 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.login;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
 
-import wanthavers.mad.cs.fau.de.wanthavers_android.R;
-import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserLocalDataSource;
-import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserRemoteDataSource;
-import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserRepository;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.LoginFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.DesireListActivity;
 
-public class LoginFragment extends Fragment implements LoginContract.View {
+public class LoginFragment_simpleUserChoice extends Fragment implements LoginContract.View {
     private LoginFragBinding mViewDataBinding;
     private LoginContract.Presenter mPresenter;
 
 
-    public LoginFragment(){
+    public LoginFragment_simpleUserChoice(){
         //Requires empty public constructor
     }
-    public static LoginFragment newInstance(){ return new LoginFragment();}
+    public static LoginFragment_simpleUserChoice newInstance(){ return new LoginFragment_simpleUserChoice();}
 
     @Override
     public void setPresenter(@NonNull LoginContract.Presenter presenter) {

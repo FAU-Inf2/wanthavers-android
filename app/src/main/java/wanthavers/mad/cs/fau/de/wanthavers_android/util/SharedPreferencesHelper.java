@@ -32,6 +32,7 @@ public class SharedPreferencesHelper {
     //Key Strings
     public static final String KEY_API_URL = "api_url";
     public static final String KEY_USERID = "userid";
+    public static final String KEY_USER_EMAIL = "user_email";
     public static final String KEY_PASSWORD = "password";
     public static final String KEY_USER = "user";
     public static final String KEY_DESIRE = "desire";

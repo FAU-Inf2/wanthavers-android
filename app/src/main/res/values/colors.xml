@@ -7,12 +7,12 @@
     <color name="colorAccent">#209722</color>
     <color name="colorSecondary">#ffffff</color>
     <color name="colorMainText">#ffffff</color>
-    <color name="colorMainTextDark">#423f3f</color>
-
+    <color name="colorMainTextDark">#030303</color>
+    <color name="layout_Background1">#ffffff</color>
 
     <color name="colorRatingStars">#e8dd0c</color>
 
-
+    <color name="colorFb">#3B5998</color>
 
 
     <!--set up Background colors for desires -->

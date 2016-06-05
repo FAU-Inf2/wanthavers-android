@@ -238,6 +238,28 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
 
 
     @Override
+    public void showMyDesires(){
+        Intent intent = new Intent(getContext(), DesireListActivity.class);
+        intent.putExtra(DesireListActivity.EXTRA_FRAGMENT_ID, DesireListType.MY_DESIRES);
+        startActivity(intent);
+    }
+
+
+    @Override
+    public void showMyTransactions(){
+        Intent intent = new Intent(getContext(), DesireListActivity.class);
+        intent.putExtra(DesireListActivity.EXTRA_FRAGMENT_ID, DesireListType.MY_TRANSACTIONS);
+        startActivity(intent);
+    }
+
+    @Override
+    public void showAllDesires(){
+        Intent intent = new Intent(getContext(), DesireListActivity.class);
+        intent.putExtra(DesireListActivity.EXTRA_FRAGMENT_ID, DesireListType.ALL_DESIRES);
+        startActivity(intent);
+    }
+
+    @Override
     public void showNewDesire() {
         Intent intent = new Intent(getContext(), DesireCreateActivity.class);
         startActivity(intent);

@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.Category;
+import de.fau.cs.mad.wanthavers.common.Desire;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -60,11 +61,11 @@ public class CategoryRepository implements CategoryDataSource {
     }
 
     @Override
-    public void getSubcategories(@NonNull final long categoryId, @NonNull final GetSubcategoriesCallback callback) {
+    public void getSubcategories(@NonNull final long categoryId, @NonNull final boolean recursive, @NonNull final GetSubcategoriesCallback callback) {
         checkNotNull(categoryId);
         checkNotNull(callback);
 
-        categoryLocalDataSource.getSubcategories(categoryId, new GetSubcategoriesCallback() {
+        categoryLocalDataSource.getSubcategories(categoryId, recursive, new GetSubcategoriesCallback() {
             @Override
             public void onSubcategoriesLoaded(List<Category> categories) {
                 callback.onSubcategoriesLoaded(categories);
@@ -72,10 +73,39 @@ public class CategoryRepository implements CategoryDataSource {
 
             @Override
             public void onDataNotAvailable() {
-                categoryRemoteDataSource.getSubcategories(categoryId, new GetSubcategoriesCallback() {
+                categoryRemoteDataSource.getSubcategories(categoryId, recursive, new GetSubcategoriesCallback() {
                     @Override
                     public void onSubcategoriesLoaded(List<Category> categories) {
                         callback.onSubcategoriesLoaded(categories);
+                    }
+
+                    @Override
+                    public void onDataNotAvailable() {
+                        callback.onDataNotAvailable();
+                    }
+                });
+            }
+        });
+    }
+
+    @Override
+    public void getAllDesiresForCategory(@NonNull final long categoryId, @NonNull final boolean recursive, @NonNull final GetAllDesiresForCategoryCallback callback) {
+        checkNotNull(categoryId);
+        checkNotNull(recursive);
+        checkNotNull(callback);
+
+        categoryLocalDataSource.getAllDesiresForCategory(categoryId, recursive, new GetAllDesiresForCategoryCallback() {
+            @Override
+            public void onAllDesiresForCategoryLoaded(List<Desire> desires) {
+                callback.onAllDesiresForCategoryLoaded(desires);
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+                categoryRemoteDataSource.getAllDesiresForCategory(categoryId, recursive, new GetAllDesiresForCategoryCallback() {
+                    @Override
+                    public void onAllDesiresForCategoryLoaded(List<Desire> desires) {
+                        callback.onAllDesiresForCategoryLoaded(desires);
                     }
 
                     @Override

@@ -30,6 +30,12 @@ public interface DesireListContract {
 
         void showLogout();
 
+        void showMyDesires();
+
+        void showMyTransactions();
+
+        void showAllDesires();
+
         void showSettings();
 
         public void setUser(User user);
@@ -51,6 +57,12 @@ public interface DesireListContract {
         void openDesireDetails(@NonNull Desire desire);
 
         void openChat(@NonNull User user);
+
+        void openAllDesires();
+
+        void openMyDesires();
+
+        void openMyTransactions();
 
         void openSettings();
 

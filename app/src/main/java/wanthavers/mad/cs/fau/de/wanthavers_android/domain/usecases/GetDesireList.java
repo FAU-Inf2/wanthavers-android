@@ -8,6 +8,7 @@ import de.fau.cs.mad.wanthavers.common.Desire;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCase;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireRepository;
+import wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.DesireListType;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -24,70 +25,94 @@ public class GetDesireList extends UseCase<GetDesireList.RequestValues, GetDesir
     @Override
     protected void executeUseCase(final RequestValues values) {
 
-        /*
-        List<Desire> desireList = new ArrayList<Desire>(0);
-        desireList.add(new Desire());
-        ResponseValue responseValue = new ResponseValue(desireList);
-        getUseCaseCallback().onSuccess(responseValue);
-        */
-        //TODO for some reason repo does not work - @Nico please check why
+        long userId = values.getUserId();
 
-        mDesireRepository.getAllDesires(new DesireDataSource.GetAllDesiresCallback(){
+        DesireListType desireListType = values.getDesireListType();
 
+        if(desireListType == DesireListType.ALL_DESIRES) {
 
-            @Override
-            public void onAllDesiresLoaded(List<Desire> desireList) {
-                ResponseValue responseValue = new ResponseValue(desireList);
-                getUseCaseCallback().onSuccess(responseValue);
-            }
+            mDesireRepository.getAllDesires(new DesireDataSource.GetAllDesiresCallback() {
 
-            @Override
-            public void onDataNotAvailable() {
-                getUseCaseCallback().onError();
-            }
-        });
+                @Override
+                public void onAllDesiresLoaded(List<Desire> desireList) {
+                    ResponseValue responseValue = new ResponseValue(desireList);
+                    getUseCaseCallback().onSuccess(responseValue);
+                }
 
+                @Override
+                public void onDataNotAvailable() {
+                    getUseCaseCallback().onError();
+                }
+            });
 
-        /*mDesireRepository.getDesire(values.getUserid(), new DesireDataSource.LoadDesireCallback() {
-            @Override
-            public void onDesireLoaded(List<Desire> desireList) {
-                ResponseValue responseValue = new ResponseValue(desireList);
-                getUseCaseCallback().onSuccess(responseValue);
-            }
+        }
 
-            @Override
-            public void onDataNotAvailable() {
-                getUseCaseCallback().onError();
-            }
-        });
-        */
+        if(desireListType == DesireListType.MY_DESIRES){
+
+            mDesireRepository.getDesiresForUser(userId , new DesireDataSource.GetDesiresForUserCallback() {
+
+                @Override
+                public void onDesiresForUserLoaded(List<Desire> desireList) {
+                    ResponseValue responseValue = new ResponseValue(desireList);
+                    getUseCaseCallback().onSuccess(responseValue);
+                }
+
+                @Override
+                public void onDataNotAvailable() {
+                    getUseCaseCallback().onError();
+                }
+            });
+        }
+
+        if(desireListType == DesireListType.MY_TRANSACTIONS){
+
+            mDesireRepository.getDesiresAsHaver(userId , new DesireDataSource.GetDesiresAsHaverCallback() {
+
+                @Override
+                public void onDesiresAsHaverLoaded(List<Desire> desireList) {
+                    ResponseValue responseValue = new ResponseValue(desireList);
+                    getUseCaseCallback().onSuccess(responseValue);
+                }
+
+                @Override
+                public void onDataNotAvailable() {
+                    getUseCaseCallback().onError();
+                }
+            });
+        }
 
     }
-
-
 
     public static final class RequestValues implements UseCase.RequestValues {
 
-        //TODO add values here if needed for desire query e.g.:private final long mDesireId;
+        long mUserId = -1;
+        DesireListType mDesireListType;
 
-        public RequestValues() {
-            //TODO add values here if needed for desire query
+        public RequestValues(DesireListType desireListType) {
+            mDesireListType = desireListType;
         }
 
-
-        /* TODO add getters here if needed
-        public long getUserid() {
-            return mDesireId;
+        public long getUserId(){
+            return mUserId;
         }
-        */
+
+        public void setUserId(long userId){
+            mUserId = userId;
+        }
+
+        public DesireListType getDesireListType(){ return mDesireListType;}
+
+        public void setDesireListType(DesireListType desireListType){mDesireListType = desireListType;}
+
     }
+
 
     public static final class ResponseValue implements UseCase.ResponseValue {
 
         private List<Desire> mDesireList;
 
         public ResponseValue(@NonNull List<Desire> desires) {
-            mDesireList = checkNotNull(desires, "task cannot be null!");
+            mDesireList = checkNotNull(desires, "desire cannot be null!");
         }
 
         public List<Desire> getDesires() {

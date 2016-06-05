@@ -69,6 +69,14 @@ public interface UserDataSource {
 
     }
 
+    interface LoginCallback {
+
+        void onLoginSuccessful(User user);
+
+        void onLoginFailed();
+
+    }
+
 
     void getUser(@NonNull long userId, @NonNull GetUserCallback callback);
 
@@ -79,4 +87,6 @@ public interface UserDataSource {
     void updateUser(@NonNull User user, @NonNull UpdateUserCallback callback);
 
     void deleteUser(@NonNull User user, @NonNull DeleteUserCallback callback);
+
+    void login(@NonNull LoginCallback callback);
 }

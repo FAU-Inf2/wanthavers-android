@@ -9,6 +9,8 @@ public interface LoginContract {
 
         void showDesireList();
 
+        void showMessage(String message);
+
     }
 
 
@@ -17,5 +19,14 @@ public interface LoginContract {
     interface Presenter extends BasePresenter {
 
         void login(long userId);
+
+        void loginUserWithInput();
+
+        void openLoginView();
+
+        void openRegisterView();
+
+        void registerUser();
+
     }
 }

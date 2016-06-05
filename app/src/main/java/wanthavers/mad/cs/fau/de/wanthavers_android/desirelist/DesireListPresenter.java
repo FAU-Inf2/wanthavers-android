@@ -1,19 +1,15 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.desirelist;
 
-import android.app.Activity;
 import android.support.annotation.NonNull;
-import android.view.View;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.Desire;
-import de.fau.cs.mad.wanthavers.common.Rating;
 import de.fau.cs.mad.wanthavers.common.User;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCase;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
-import wanthavers.mad.cs.fau.de.wanthavers_android.desiredetail.DesireDetailContract;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetAvgRatingForUser;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetDesireList;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetUser;
@@ -30,6 +26,8 @@ public class DesireListPresenter implements DesireListContract.Presenter {
     private final GetUser mGetUser;
     private List<DesireItemViewModel> mDesireModels = new ArrayList<>();
     private int counter = 0;
+    private DesireListType mDesireListType;
+    private long mLoggedInUser;
 
     public DesireListPresenter(@NonNull UseCaseHandler useCaseHandler, @NonNull DesireListContract.View desireListView,
                                @NonNull GetDesireList getDesireList, @NonNull GetAvgRatingForUser getAvgRatingForUser, @NonNull GetUser getUser){
@@ -48,7 +46,9 @@ public class DesireListPresenter implements DesireListContract.Presenter {
 
 
     public void loadDesires(boolean forceUpdate){
-        loadDesires(forceUpdate || mFirstLoad, true);
+
+        loadDesiresAccToType(forceUpdate || mFirstLoad, true);
+
         mFirstLoad = false;
     }
 
@@ -70,18 +70,32 @@ public class DesireListPresenter implements DesireListContract.Presenter {
     }
 
     @Override
+    public void openMyDesires(){ mDesireListView.showMyDesires();}
+
+    @Override
+    public void openMyTransactions(){ mDesireListView.showMyTransactions();}
+
+    @Override
+    public void openAllDesires(){ mDesireListView.showAllDesires();}
+
+    @Override
     public void openDesireDetails(@NonNull Desire desire) {
         checkNotNull(desire, "desire cannot be null!");
         mDesireListView.showDesireDetailsUi(desire.getID());
     }
 
 
-    private void loadDesires(boolean forceUpdate, final boolean showLoadingUI) {
+    public void setDesireListType(DesireListType desireListType){
+        mDesireListType = desireListType;
+    }
+
+    private void loadDesiresAccToType(boolean forceUpdate, final boolean showLoadingUI) {
         if (showLoadingUI) {
             mDesireListView.setLoadingIndicator(true);
         }
 
-        GetDesireList.RequestValues requestValue = new GetDesireList.RequestValues();
+        GetDesireList.RequestValues requestValue = new GetDesireList.RequestValues(mDesireListType);
+        requestValue.setUserId(mLoggedInUser);
 
         mUseCaseHandler.execute(mGetDesireList, requestValue,
                 new UseCase.UseCaseCallback<GetDesireList.ResponseValue>() {
@@ -111,7 +125,9 @@ public class DesireListPresenter implements DesireListContract.Presenter {
                 });
     }
 
-
+    public void setUser(long userId){
+        mLoggedInUser = userId;
+    }
 
     public void getUser(long userId){
 

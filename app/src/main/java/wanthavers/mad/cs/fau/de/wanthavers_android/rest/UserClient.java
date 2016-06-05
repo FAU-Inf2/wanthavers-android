@@ -8,12 +8,14 @@ import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.Desire;
 import de.fau.cs.mad.wanthavers.common.User;
+import de.fau.cs.mad.wanthavers.common.rest.api.LoginResource;
 import de.fau.cs.mad.wanthavers.common.rest.api.UserResource;
 
 public class UserClient extends RestClient {
     private static UserClient INSTANCE;
 
     private UserResource userEndpoint;
+    private LoginResource loginEndpoint;
 
     private UserClient(Context context) {
         super(context);
@@ -22,7 +24,9 @@ public class UserClient extends RestClient {
     @Override
     protected void buildNewEndpoint() {
         userEndpoint = null;
+        loginEndpoint = null;
         userEndpoint = WebResourceFactory.newResource(UserResource.class, target);
+        loginEndpoint = WebResourceFactory.newResource(LoginResource.class, target);
     }
 
     public static UserClient getInstance(Context context) {
@@ -58,5 +62,9 @@ public class UserClient extends RestClient {
 
     public List<Desire> getDesiresAsHaver(long userId) {
         return userEndpoint.getDesiresAsHaver(userId);
+    }
+
+    public User login() {
+        return loginEndpoint.login(null);
     }
 }

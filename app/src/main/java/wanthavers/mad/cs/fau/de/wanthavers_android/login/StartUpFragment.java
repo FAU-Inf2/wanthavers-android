@@ -1,36 +1,30 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.login;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
 
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
-import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserLocalDataSource;
-import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserRemoteDataSource;
-import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserRepository;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.LoginFragBinding;
+import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.StartupFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.DesireListActivity;
 
-public class LoginFragment extends Fragment implements LoginContract.View {
-    private LoginFragBinding mViewDataBinding;
+public class StartUpFragment extends Fragment implements LoginContract.View {
+    private StartupFragBinding mViewDataBinding;
     private LoginContract.Presenter mPresenter;
 
 
-    public LoginFragment(){
+    public StartUpFragment(){
         //Requires empty public constructor
     }
-    public static LoginFragment newInstance(){ return new LoginFragment();}
+    public static StartUpFragment newInstance(){ return new StartUpFragment();}
 
     @Override
     public void setPresenter(@NonNull LoginContract.Presenter presenter) {
@@ -60,7 +54,7 @@ public class LoginFragment extends Fragment implements LoginContract.View {
         //setHasOptionsMenu(true);
         //setRetainInstance(true);
 
-        mViewDataBinding = LoginFragBinding.inflate(inflater, container, false);
+        mViewDataBinding = StartupFragBinding.inflate(inflater, container, false);
         mViewDataBinding.setPresenter(mPresenter);
 
         return mViewDataBinding.getRoot();
@@ -82,6 +76,8 @@ public class LoginFragment extends Fragment implements LoginContract.View {
 
     @Override
     public void showMessage(String message) {
+
         Snackbar.make(getView(), message, Snackbar.LENGTH_LONG).show();
     }
+    
 }
