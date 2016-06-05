@@ -89,6 +89,7 @@
     <string name="forgotPw">forgot password</string>
     <string name="email">Email</string>
     <string name="dob">Date of Birth</string>
+    <string name="userLoginFailed">Login failed</string>
 
 
 </resources>
