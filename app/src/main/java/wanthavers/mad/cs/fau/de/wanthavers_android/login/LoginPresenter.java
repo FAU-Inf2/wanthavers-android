@@ -82,6 +82,25 @@ public class LoginPresenter implements LoginContract.Presenter {
         final SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, mAppContext);
         sharedPreferencesHelper.saveLong(SharedPreferencesHelper.KEY_USERID, userId);
 
+        int userIdForSwitchCase = (int) userId;
+
+
+        switch(userIdForSwitchCase){
+            case 6 : sharedPreferencesHelper.saveString(sharedPreferencesHelper.KEY_USER_EMAIL, "com.mail@yoda");
+                     sharedPreferencesHelper.saveString(sharedPreferencesHelper.KEY_PASSWORD, "test");
+                     break;
+            case 7 : sharedPreferencesHelper.saveString(sharedPreferencesHelper.KEY_USER_EMAIL, "jon@doe.com");
+                     sharedPreferencesHelper.saveString(sharedPreferencesHelper.KEY_PASSWORD, "test");
+                     break;
+            case 8 : sharedPreferencesHelper.saveString(sharedPreferencesHelper.KEY_USER_EMAIL, "m.muster@xyz.de");
+                     sharedPreferencesHelper.saveString(sharedPreferencesHelper.KEY_PASSWORD, "test");
+                     break;
+            default: sharedPreferencesHelper.saveString(sharedPreferencesHelper.KEY_USER_EMAIL, "com.mail@yoda");
+                     sharedPreferencesHelper.saveString(sharedPreferencesHelper.KEY_PASSWORD, "test");
+                     break;
+        }
+
+        RestClient.triggerSetNewBasicAuth();
         mLoginView.showDesireList();
     }
 
@@ -150,7 +169,6 @@ public class LoginPresenter implements LoginContract.Presenter {
         }
 
         //put together user object
-
         User user =  new User(username.getText().toString(),email.getText().toString());
         user.setBirthday(datePicked);
 
@@ -160,7 +178,7 @@ public class LoginPresenter implements LoginContract.Presenter {
 
 
 
-    private void registerUser(User user, String password){
+    private void registerUser(User user, final String password){
 
 
         CreateUser.RequestValues requestValue = new CreateUser.RequestValues(user, password);
@@ -169,7 +187,7 @@ public class LoginPresenter implements LoginContract.Presenter {
                 new UseCase.UseCaseCallback<CreateUser.ResponseValue>() {
                     @Override
                     public void onSuccess(CreateUser.ResponseValue response) {
-                        login(response.getUser().getEmail(), response.getUser().getPassword());
+                        login(response.getUser().getEmail(), password);
                     }
 
                     @Override
