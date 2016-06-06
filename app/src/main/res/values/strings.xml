@@ -38,7 +38,7 @@
     <string name="createDesire_title_1st_Step">Neuer Wunsch: Schritt 1</string>
     <string name="createDesire_title_2nd_Step">Neuer Wunsch: Schritt 2</string>
     <string name="createDesire_title_3rd_Step">Neuer Wunsch: Lieferort</string>
-    <string name="createDesire_Empty_Text">Felder müssen befüllt werden!</string>
+    <string name="createDesire_Empty_Text">Bitte alle Felder ausfüllen</string>
     <string name="desire_detail_wanter">Wanter:</string>
     <string name="button_desire_accept">Auftrag annehmen</string>
     <string name="button_desire_message">Nachricht senden</string>

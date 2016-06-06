@@ -13,23 +13,27 @@ public interface DesireCreateContract {
         //void showMedia(Media m);
         void showMedia(Desire d);
 
+        void showMessage(String message);
 
-        void showNextDesireCreateStep(String[] input);
+        void showNextDesireCreateStep();
+
+        boolean isStoragePermissionGranted();
+
+        void selectImageForDesire();
     }
 
 
 
 
     interface Presenter extends BasePresenter {
-       // Desire getEnteredText(Desire desire, String s1, String s2);
 
-        void createNextDesireCreateStep(String[] input);
-
+        void createNextDesireCreateStep();
 
         void setDesire(Desire desire);
 
         void setImage(File file);
 
-        //Media getMedia();
+        void selectImageFromDevice();
+
     }
 }

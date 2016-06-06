@@ -3,30 +3,22 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import de.fau.cs.mad.wanthavers.common.Desire;
-import de.fau.cs.mad.wanthavers.common.Media;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.DesirecreateFragBinding;
 
 public class DesireCreateFragment extends Fragment implements DesireCreateContract.View {
     private DesirecreateFragBinding mViewDataBinding;
     private DesireCreateContract.Presenter mPresenter;
-
-    @Override
-    public void showMedia(Desire m){
-
-    }
-
 
     public DesireCreateFragment(){
         //Requires empty public constructor
@@ -53,49 +45,52 @@ public class DesireCreateFragment extends Fragment implements DesireCreateContra
     }
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.desirecreate_frag, container, false);
-        mViewDataBinding = DesirecreateFragBinding.bind(view);
 
         setHasOptionsMenu(true);
         setRetainInstance(true);
 
-        final EditText desireTitle   = (EditText) view.findViewById(R.id.create_desire_Title);
-        final EditText desireDescription   = (EditText) view.findViewById(R.id.create_desire_description);
+        mViewDataBinding = DesirecreateFragBinding.inflate(inflater, container, false);
+        mViewDataBinding.setPresenter(mPresenter);
 
-
-
-        Button button = (Button) view.findViewById(R.id.button_1st_step);
-        button.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick (View v){
-
-                if (desireTitle.getText().toString().isEmpty() || desireDescription.getText().toString().isEmpty()){
-                    Toast toast = Toast.makeText(getContext(), R.string.createDesire_Empty_Text, Toast.LENGTH_SHORT);
-                    toast.show();
-                }else{
-                    String[] input = {desireTitle.getText().toString(), desireDescription.getText().toString()};
-                    mPresenter.createNextDesireCreateStep(input);
-                }
-            }
-        });
-
-        return view;
+        return mViewDataBinding.getRoot();
     }
 
-    /*@Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.desire_create_menu, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }*/
+    @Override
+    public void showNextDesireCreateStep() {
+        final EditText desireTitle   = (EditText) getView().findViewById(R.id.create_desire_Title);
+        final EditText desireDescription   = (EditText) getView().findViewById(R.id.create_desire_description);
+
+        if(desireTitle.getText().toString().isEmpty() || desireDescription.getText().toString().isEmpty() ){
+            showMessage( getString(R.string.createDesire_Empty_Text));
+            return;
+        }
+        Intent intent = new Intent(getContext(), DesireCreateActivity2ndStep.class);
+        intent.putExtra("desireTitle", desireTitle.getText().toString());
+        intent.putExtra("desireDescription", desireDescription.getText().toString());
+        startActivity(intent);
+    }
+
 
 
     @Override
-    public void showNextDesireCreateStep(String input[]) {
-        Intent intent = new Intent(getContext(), DesireCreateActivity2ndStep.class);
-        intent.putExtra("desireTitle", input[0]);
-        intent.putExtra("desireDescription", input[1]);
-        startActivity(intent);
-        //getActivity().finish();
+    public void showMessage(String message) {
+        Snackbar.make(getView(), message, Snackbar.LENGTH_LONG).show();
+    }
+
+
+    @Override
+    public boolean isStoragePermissionGranted() {
+        return false; // no Permissions in this Step
+    }
+
+    @Override
+    public void selectImageForDesire() {
+        //no selectable Images in this Step
+    }
+
+    @Override
+    public void showMedia(Desire m){
+        //no Medias in this Step
     }
 
 }

@@ -11,6 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -21,19 +22,13 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.Desire;
-import de.fau.cs.mad.wanthavers.common.Media;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.Desirecreate2ndFragBinding;
 
@@ -42,14 +37,8 @@ import static android.support.v4.content.PermissionChecker.checkSelfPermission;
 public class DesireCreateFragment2ndStep extends Fragment implements DesireCreateContract.View {
     private Desirecreate2ndFragBinding mViewDataBinding;
     private DesireCreateContract.Presenter mPresenter;
-    private static final int SELECT_PICTURE = 1;
     private Uri image;
-
-    @Override
-    public void showMedia(Desire m){
-
-    }
-
+    private Spinner spinner;
 
     public DesireCreateFragment2ndStep(){
         //Requires empty public constructor
@@ -76,83 +65,47 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
     }
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.desirecreate2nd_frag, container, false);
-        mViewDataBinding = Desirecreate2ndFragBinding.bind(view);
 
         setHasOptionsMenu(true);
         setRetainInstance(true);
-        //TODO View for Fragment
-        final EditText desirePrice   = (EditText) view.findViewById(R.id.create_desire_price);
-        final EditText desireReward   = (EditText) view.findViewById(R.id.create_desire_reward);
 
 
-        ImageView imageView = (ImageView) view.findViewById(R.id.image_camera);
-        imageView.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick (View v){
-                if(isStoragePermissionGranted()){
-                    selectImageForDesire();
-                }
+        mViewDataBinding = Desirecreate2ndFragBinding.inflate(inflater, container, false);
+        mViewDataBinding.setPresenter(mPresenter);
 
-            }
-        });
-
-
-        /*Button uploadImage = (Button) view.findViewById(R.id.button_select_Image);
-        uploadImage.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick (View v){
-                if(isStoragePermissionGranted()){
-                    selectImageForDesire();
-                }
-
-            }
-        });*/
-
-        final Spinner spinner = (Spinner)view.findViewById(R.id.spinner_currency);
+        spinner = (Spinner) mViewDataBinding.getRoot().findViewById(R.id.spinner_currency);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.currencies, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         //spinner.setPrompt(getString(R.string.currency_header));
         spinner.setAdapter(adapter);
 
-
-        Button button = (Button) view.findViewById(R.id.button_2nd_step);
-        button.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick (View v){
-                //getActivity().finish();
-
-                if (desirePrice.getText().toString().isEmpty() || desireReward.getText().toString().isEmpty()){
-                    Toast toast = Toast.makeText(getContext(), R.string.createDesire_Empty_Text, Toast.LENGTH_SHORT);
-                    toast.show();
-                }else{
-                    String[] input = {desirePrice.getText().toString(), desireReward.getText().toString(), spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString()};
-                    mPresenter.createNextDesireCreateStep(input);
-                }
-
-            }
-        });
-
-        return view;
+        return mViewDataBinding.getRoot();
     }
 
-
     @Override
-    public void showNextDesireCreateStep(String[] input) {
+    public void showNextDesireCreateStep() {
+        final EditText desirePrice   = (EditText) getView().findViewById(R.id.create_desire_price);
+        final EditText desireReward   = (EditText) getView().findViewById(R.id.create_desire_reward);
+
+        if(desirePrice.getText().toString().isEmpty() || desireReward.getText().toString().isEmpty() ){
+            showMessage( getString(R.string.createDesire_Empty_Text));
+            return;
+        }
+
+
         String title = getActivity().getIntent().getExtras().getString("desireTitle");
         String description = getActivity().getIntent().getExtras().getString("desireDescription");
         Intent intent = new Intent(getContext(), DesireCreateActivity3rdStep.class);
         intent.putExtra("desireTitle", title);
         intent.putExtra("desireDescription", description);
-        intent.putExtra("desirePrice", input[0]);
-        intent.putExtra("desireReward", input[1]);
-        intent.putExtra("desireCurrency", input[2]);
+        intent.putExtra("desirePrice", desirePrice.getText().toString());
+        intent.putExtra("desireReward", desireReward.getText().toString());
+        intent.putExtra("desireCurrency", spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString());
         intent.putExtra("desireImage", image);
         startActivity(intent);
-        //getActivity().finish();
     }
 
-    private void selectImageForDesire() {
+    public void selectImageForDesire() {
 
         final CharSequence[] options = { getString(R.string.take_photo) , getString(R.string.choose_image_gallery), getString(R.string.add_image_cancel) };
 
@@ -226,6 +179,16 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
 
         }//TODO
 
+    }
+
+    @Override
+    public void showMessage(String message) {
+        Snackbar.make(getView(), message, Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void showMedia(Desire m){
+        //no Medias in this Step
     }
 
 

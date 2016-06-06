@@ -1,12 +1,10 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate;
 
-import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,25 +12,14 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import com.google.common.io.Files;
-
-import org.glassfish.jersey.internal.util.Base64;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Date;
 
 import de.fau.cs.mad.wanthavers.common.Desire;
-import de.fau.cs.mad.wanthavers.common.Media;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
-import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.media.MediaDataSource;
-import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.media.MediaLocalDataSource;
-import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.media.MediaRemoteDataSource;
-import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.media.MediaRepository;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.Desirecreate3rdFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.DesireListActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.PathHelper;
@@ -42,7 +29,6 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
     private Desirecreate3rdFragBinding mViewDataBinding;
     private DesireCreateContract.Presenter mPresenter;
     private Desire desire = new Desire();
-    private  Media desireImage = new Media();
 
     public DesireCreateFragment3rdStep() {
         //Requires empty public constructor
@@ -74,37 +60,14 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.desirecreate3rd_frag, container, false);
-        mViewDataBinding = Desirecreate3rdFragBinding.bind(view);
 
         setHasOptionsMenu(true);
         setRetainInstance(true);
-        final EditText desireDropzone = (EditText) view.findViewById(R.id.create_desire_dropzone);
-        //TODO View for Fragment
-        Button button = (Button) view.findViewById(R.id.button_3rd_step);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (desireDropzone.getText().toString().isEmpty()) {
-                    Toast toast = Toast.makeText(getContext(), R.string.createDesire_Empty_Text, Toast.LENGTH_SHORT);
-                    toast.show();
-                } else {
-                    String title = getActivity().getIntent().getExtras().getString("desireTitle");
-                    String description = getActivity().getIntent().getExtras().getString("desireDescription");
-                    String price = getActivity().getIntent().getExtras().getString("desirePrice");
-                    String reward = getActivity().getIntent().getExtras().getString("desireReward");
-                    String currency = getActivity().getIntent().getExtras().getString("desireCurrency");
-                    Uri image = getActivity().getIntent().getExtras().getParcelable("desireImage");
 
-                    setDataForDesire(title, description, Integer.parseInt(price), Integer.parseInt(reward), desireDropzone.getText().toString(), currency, image);
-                    //sendDesireToServer(desire);
+        mViewDataBinding = Desirecreate3rdFragBinding.inflate(inflater, container, false);
+        mViewDataBinding.setPresenter(mPresenter);
 
-                    mPresenter.createNextDesireCreateStep(null);
-                }
-            }
-        });
-
-        return view;
+        return mViewDataBinding.getRoot();
     }
 
     @Override
@@ -122,14 +85,39 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
         d.setColorIndex(colorNumber);
         d.setCreation_time(new Date());
 
+        Log.d("DesireImage", d.getImage().getLowRes());
+
         sendDesireToServer(d);
 
         //desire.setImage(m);
     }
 
+    @Override
+    public void showMessage(String message) {
+        Snackbar.make(getView(), message, Snackbar.LENGTH_LONG).show();
+    }
+
 
     @Override
-    public void showNextDesireCreateStep(String[] s) {
+    public void showNextDesireCreateStep() {
+        final EditText desireDropzone = (EditText) getView().findViewById(R.id.create_desire_dropzone);
+
+        if(desireDropzone.getText().toString().isEmpty()){
+            showMessage(getString(R.string.createDesire_Empty_Text));
+            return;
+        }
+
+        String title = getActivity().getIntent().getExtras().getString("desireTitle");
+        String description = getActivity().getIntent().getExtras().getString("desireDescription");
+        String price = getActivity().getIntent().getExtras().getString("desirePrice");
+        String reward = getActivity().getIntent().getExtras().getString("desireReward");
+        String currency = getActivity().getIntent().getExtras().getString("desireCurrency");
+        Uri image = getActivity().getIntent().getExtras().getParcelable("desireImage");
+
+        setDataForDesire(title, description, Integer.parseInt(price), Integer.parseInt(reward), desireDropzone.getText().toString(), currency, image);
+
+
+
         Log.d("DesireTitle:", desire.getTitle());
         Log.d("DesireDesciption:", desire.getDescription());
         Log.d("DesirePrice:", Double.toString(desire.getPrice()));
@@ -143,6 +131,7 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
         //getActivity().finish();
 
     }
+
 
     public void setDataForDesire(String title, String description, int price, int reward, String dropzone, String currency, Uri image) {
         desire.setTitle(title);
@@ -175,6 +164,16 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
 
     public void sendDesireToServer(Desire desire) {
         mPresenter.setDesire(desire);//TODO
+    }
+
+    @Override
+    public boolean isStoragePermissionGranted() {
+        return false; // no Permissions in this Step
+    }
+
+    @Override
+    public void selectImageForDesire() {
+        //no selectable Images in this Step
     }
 
 }
