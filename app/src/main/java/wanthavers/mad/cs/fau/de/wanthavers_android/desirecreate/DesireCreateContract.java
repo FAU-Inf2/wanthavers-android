@@ -10,7 +10,6 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.BaseView;
 public interface DesireCreateContract {
     interface View extends BaseView<Presenter> {
 
-        //void showMedia(Media m);
         void showMedia(Desire d);
 
         void showMessage(String message);
@@ -31,7 +30,7 @@ public interface DesireCreateContract {
 
         void setDesire(Desire desire);
 
-        void setImage(File file);
+        void setImage(File file, Desire desire);
 
         void selectImageFromDevice();
 

@@ -90,6 +90,8 @@
     <string name="email">Email</string>
     <string name="dob">Date of Birth</string>
     <string name="userLoginFailed">Login failed</string>
+    <string name="desire_create_failed">Creating your Desires failed</string>
+    <string name="desire_image_upload_failed">Uploading your Image failed</string>
 
 
 </resources>

@@ -101,8 +101,8 @@ public class MediaRepository implements MediaDataSource {
 
         mediaRemoteDataSource.createMedia(image, new CreateMediaCallback() {
             @Override
-            public void onMediaCreated(Media media, Desire desire) {
-                callback.onMediaCreated(media, new Desire());
+            public void onMediaCreated(Media media) {
+                callback.onMediaCreated(media);
             }
 
             @Override

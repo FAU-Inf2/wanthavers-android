@@ -73,7 +73,7 @@ public class MediaRemoteDataSource implements MediaDataSource {
 
         try {
             Media ret = mediaClient.createMedia(base64, image.getName());
-            callback.onMediaCreated(ret, new Desire());
+            callback.onMediaCreated(ret);
         } catch (Throwable t) {
             callback.onCreateFailed();
         }

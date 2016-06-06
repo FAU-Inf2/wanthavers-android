@@ -34,7 +34,7 @@ public interface MediaDataSource {
 
     interface CreateMediaCallback {
 
-        void onMediaCreated(Media media, Desire desire);
+        void onMediaCreated(Media media);
 
         void onCreateFailed();
 

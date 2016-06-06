@@ -89,6 +89,8 @@
     <string name="signinFb">über facebook Einloggen</string>
     <string name="login_empty_text">Bitte alle Felder ausfüllen</string>
     <string name="userLoginFailed">Einloggen fehlgeschlagen</string>
+    <string name="desire_create_failed">Erstellen des Desires ist fehlgeschlagen</string>
+    <string name="desire_image_upload_failed">Erstellen des Bildes für dein Desire ist fehlgeschlagen</string>
 
 
     <string-array name="currencies">

@@ -30,8 +30,8 @@ public class SetImage extends UseCase<SetImage.RequestValues, SetImage.ResponseV
     protected void executeUseCase(final RequestValues values) {
         mMediaRepository.createMedia(values.getImage(), new MediaDataSource.CreateMediaCallback() {
             @Override
-            public void onMediaCreated(Media media,Desire desire) {
-                ResponseValue responseValue = new ResponseValue(media, desire);
+            public void onMediaCreated(Media media) {
+                ResponseValue responseValue = new ResponseValue(media);
                 getUseCaseCallback().onSuccess(responseValue);
             }
 
@@ -49,13 +49,18 @@ public class SetImage extends UseCase<SetImage.RequestValues, SetImage.ResponseV
     public static final class RequestValues implements UseCase.RequestValues {
 
         private final File mImage;
+        private static Desire mDesire;
 
-        public RequestValues(File image) {
+        public RequestValues(File image, Desire desire) {
             mImage = image;
+            mDesire = desire;
         }
 
         public File getImage(){
             return mImage;
+        }
+        public static Desire getDesire(){
+            return mDesire;
         }
 
     }
@@ -65,9 +70,9 @@ public class SetImage extends UseCase<SetImage.RequestValues, SetImage.ResponseV
         private Media mMedia;
         private Desire mDesire;
 
-        public ResponseValue(@NonNull Media media, @NotNull Desire desire) {
+        public ResponseValue(@NonNull Media media) {
             mMedia = checkNotNull(media, "media cannot be null!");
-            mDesire = checkNotNull(desire, "desire cannot be null!");
+            mDesire = checkNotNull(RequestValues.getDesire(), "desire cannot be null!");
         }
 
         public Desire getDesire() {

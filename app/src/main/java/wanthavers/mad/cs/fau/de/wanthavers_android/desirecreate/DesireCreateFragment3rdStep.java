@@ -29,6 +29,7 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
     private Desirecreate3rdFragBinding mViewDataBinding;
     private DesireCreateContract.Presenter mPresenter;
     private Desire desire = new Desire();
+    private final int DESIRE_COLOR_NUMBER = 4;
 
     public DesireCreateFragment3rdStep() {
         //Requires empty public constructor
@@ -70,32 +71,6 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
         return mViewDataBinding.getRoot();
     }
 
-    @Override
-    public void showMedia(Desire d){
-        d.setTitle(desire.getTitle());
-        d.setDescription(desire.getDescription());
-        d.setPrice(desire.getPrice());
-        d.setReward(desire.getReward());
-        d.setDropzone_string(desire.getDropzone_string());
-        d.setCreator(null);
-        d.setId(0);
-        d.setCurrency(desire.getCurrency());
-
-        int colorNumber = (int) (Math.random() * 4);
-        d.setColorIndex(colorNumber);
-        d.setCreation_time(new Date());
-
-        Log.d("DesireImage", d.getImage().getLowRes());
-
-        sendDesireToServer(d);
-
-        //desire.setImage(m);
-    }
-
-    @Override
-    public void showMessage(String message) {
-        Snackbar.make(getView(), message, Snackbar.LENGTH_LONG).show();
-    }
 
 
     @Override
@@ -115,16 +90,15 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
         Uri image = getActivity().getIntent().getExtras().getParcelable("desireImage");
 
         setDataForDesire(title, description, Integer.parseInt(price), Integer.parseInt(reward), desireDropzone.getText().toString(), currency, image);
+        //includes sendDesireToServer()
 
-
-
-        Log.d("DesireTitle:", desire.getTitle());
+        /*Log.d("DesireTitle:", desire.getTitle());
         Log.d("DesireDesciption:", desire.getDescription());
         Log.d("DesirePrice:", Double.toString(desire.getPrice()));
         Log.d("DesireReward:", Double.toString(desire.getReward()));
         Log.d("DesireDropzone:", desire.getDropzone_string());
         Log.d("DesireCurrency:", desire.getCurrency());
-        Log.d("DesireColor:", Integer.toString(desire.getColorIndex()));
+        Log.d("DesireColor:", Integer.toString(desire.getColorIndex()));*/
 
         Intent intent = new Intent(getContext(), DesireListActivity.class);
         startActivity(intent);
@@ -141,29 +115,39 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
         desire.setDropzone_string(dropzone);
         desire.setCurrency(currency);
 
-        int colorNumber = (int) (Math.random() * 4);
+        int colorNumber = (int) (Math.random() * DESIRE_COLOR_NUMBER);
         desire.setColorIndex(colorNumber);
         desire.setCreation_time(new Date());
 
+        //will be set by the server
+        desire.setCreator(null);
+        desire.setId(0);
 
         if (image != null) {
             Log.d("Image", image.getPath());
             File file = new File(PathHelper.getRealPathFromURI(this.getContext().getApplicationContext(), image));
             Log.d("Image", file.getPath());
 
-            mPresenter.setImage(file);
-            return;
-            // desire.setImage(desireImage); // TODO
+            mPresenter.setImage(file, desire);
+            return; // calls own sendDesireToServer()
         }
 
-        //will be set by the server
-        desire.setCreator(null);
-        desire.setId(0);
         sendDesireToServer(desire);
+
+    }
+
+    @Override
+    public void showMedia(Desire d){
+        sendDesireToServer(d);
+    }
+
+    @Override
+    public void showMessage(String message) {
+        Snackbar.make(getView(), message, Snackbar.LENGTH_LONG).show();
     }
 
     public void sendDesireToServer(Desire desire) {
-        mPresenter.setDesire(desire);//TODO
+        mPresenter.setDesire(desire);
     }
 
     @Override
