@@ -13,6 +13,8 @@ import android.util.Log;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import org.json.JSONObject;
+
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.DesireListActivity;
 
@@ -22,15 +24,22 @@ public class MessageListenerService extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
+
         String message = remoteMessage.getNotification().getBody();
         Log.d(TAG, "From: " + remoteMessage.getFrom());
         Log.d(TAG, "Message: " + message);
 
+        /*
+        switch(remoteMessage.getData().get("subject"))
+            case CloudMessageSubject.NEWMESSAGE ...
+            case CloudMessageSubject.NEWDESIRE ...
+        */
+        
         sendNotification(message);
     }
 
     /**
-     * Creates simple in app notification
+     * Creates simple -->in app<-- notification
      *
      * @param message GCM message received.
      */

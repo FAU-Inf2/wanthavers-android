@@ -6,6 +6,11 @@ import android.util.Log;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.ProtocolException;
+import java.net.URL;
+
 
 public class RegistrationIntentService extends IntentService {
     private static final String TAG = "RegIntentService";
@@ -21,6 +26,10 @@ public class RegistrationIntentService extends IntentService {
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
         Log.i(TAG, "token is " + refreshedToken);
 
-        // sendRegistrationToServer
+        sendRegistrationToServer(refreshedToken);
+    }
+
+    private void sendRegistrationToServer(String refreshedToken) {
+        //TODO: implement
     }
 }
