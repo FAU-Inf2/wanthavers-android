@@ -52,6 +52,10 @@ public class DesireClient extends RestClient {
         return desireEndpoint.getByLocation(lat, lon, radius);
     }
 
+    public List<Desire> getByFilter(long category, double price_min, double price_max, double reward_min, float rating_min, double lat, double lon, double radius) {
+        return desireEndpoint.getByFilters(category, price_min, price_max, reward_min, rating_min, lat, lon, radius);
+    }
+
     public Desire createDesire(Desire desire) {
         return desireEndpoint.createDesire(null, desire);
     }

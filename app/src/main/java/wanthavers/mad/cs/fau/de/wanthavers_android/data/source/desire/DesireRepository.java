@@ -26,7 +26,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Concrete implementation to load tasks from the data sources into a cache.
- * <p>
+ * <p/>
  * For simplicity, this implements a dumb synchronisation between locally persisted data and data
  * obtained from the server, by using the remote data source only if the local database doesn't
  * exist or is empty.
@@ -286,13 +286,13 @@ public class DesireRepository implements DesireDataSource {
     }
 
     @Override
-    public void getDesireByLocation(@NonNull final double lat, @NonNull final double lon, @NonNull final double radius, @NonNull final GetDesiresByLocationCallback callback) {
+    public void getDesiresByLocation(@NonNull final double lat, @NonNull final double lon, @NonNull final double radius, @NonNull final GetDesiresByLocationCallback callback) {
         checkNotNull(lat);
         checkNotNull(lon);
         checkNotNull(radius);
         checkNotNull(callback);
 
-        desireLocalDataSource.getDesireByLocation(lat, lon, radius, new GetDesiresByLocationCallback() {
+        desireLocalDataSource.getDesiresByLocation(lat, lon, radius, new GetDesiresByLocationCallback() {
             @Override
             public void onDesiresByLocationLoaded(List<Desire> desires) {
                 callback.onDesiresByLocationLoaded(desires);
@@ -300,7 +300,7 @@ public class DesireRepository implements DesireDataSource {
 
             @Override
             public void onDataNotAvailable() {
-                desireRemoteDataSource.getDesireByLocation(lat, lon, radius, new GetDesiresByLocationCallback() {
+                desireRemoteDataSource.getDesiresByLocation(lat, lon, radius, new GetDesiresByLocationCallback() {
                     @Override
                     public void onDesiresByLocationLoaded(List<Desire> desires) {
                         callback.onDesiresByLocationLoaded(desires);
@@ -311,6 +311,31 @@ public class DesireRepository implements DesireDataSource {
                         callback.onDataNotAvailable();
                     }
                 });
+            }
+        });
+    }
+
+    @Override
+    public void getDesiresByFilter(@NonNull long category, @NonNull double price_min, @NonNull double price_max, @NonNull double reward_min, @NonNull float rating_min, @NonNull double lat, @NonNull double lon, @NonNull double radius, @NonNull final GetDesiresByFilterCallback callback) {
+        checkNotNull(category);
+        checkNotNull(price_min);
+        checkNotNull(price_max);
+        checkNotNull(reward_min);
+        checkNotNull(rating_min);
+        checkNotNull(lat);
+        checkNotNull(lon);
+        checkNotNull(radius);
+        checkNotNull(callback);
+
+        desireRemoteDataSource.getDesiresByFilter(category, price_min, price_max, reward_min, rating_min, lat, lon, radius, new GetDesiresByFilterCallback() {
+            @Override
+            public void onDesiresByFilterLoaded(List<Desire> desires) {
+                callback.onDesiresByFilterLoaded(desires);
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+                callback.onDataNotAvailable();
             }
         });
     }

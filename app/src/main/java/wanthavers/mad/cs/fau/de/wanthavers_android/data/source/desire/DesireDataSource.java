@@ -58,6 +58,14 @@ public interface DesireDataSource {
 
     }
 
+    interface GetDesiresByFilterCallback {
+
+        void onDesiresByFilterLoaded(List<Desire> desires);
+
+        void onDataNotAvailable();
+
+    }
+
     interface CreateDesireCallback {
 
         void onDesireCreated(Desire desire);
@@ -115,5 +123,7 @@ public interface DesireDataSource {
 
     void getDesiresAsHaver(@NonNull long userId, @NonNull GetDesiresAsHaverCallback callback);
 
-    void getDesireByLocation(@NonNull double lat, @NonNull double lon, @NonNull double radius, @NonNull GetDesiresByLocationCallback callback);
+    void getDesiresByLocation(@NonNull double lat, @NonNull double lon, @NonNull double radius, @NonNull GetDesiresByLocationCallback callback);
+
+    void getDesiresByFilter(@NonNull long category, @NonNull double price_min, @NonNull double price_max, @NonNull double reward_min, @NonNull float rating_min, @NonNull double lat, @NonNull double lon, @NonNull double radius, @NonNull GetDesiresByFilterCallback callback);
 }
