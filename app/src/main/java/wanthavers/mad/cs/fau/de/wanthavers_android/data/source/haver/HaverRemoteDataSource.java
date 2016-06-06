@@ -22,7 +22,7 @@ public class HaverRemoteDataSource implements HaverDataSource {
     }
 
     public static HaverRemoteDataSource getInstance(Context context) {
-        if(INSTANCE == null) {
+        if (INSTANCE == null) {
             INSTANCE = new HaverRemoteDataSource(context);
         }
         return INSTANCE;
@@ -86,6 +86,26 @@ public class HaverRemoteDataSource implements HaverDataSource {
             callback.onAcceptHaverForDesire(ret);
         } catch (Throwable t) {
             callback.onAcceptFailed();
+        }
+    }
+
+    @Override
+    public void getAcceptedHaverForDesire(@NonNull long desireId, @NonNull GetAcceptedHaverForDesireCallback callback) {
+        try {
+            Haver ret = haverClient.getAcceptedHaver(desireId);
+            callback.onHaverLoaded(ret);
+        } catch (Throwable t) {
+            callback.onDataNotAvailable();
+        }
+    }
+
+    @Override
+    public void updateHaverStatus(@NonNull long desireId, @NonNull long haverId, @NonNull Haver haver, @NonNull int status, @NonNull UpdateHaverStatusCallback callback) {
+        try {
+            Haver ret = haverClient.setHaverStatus(desireId, haverId, haver, status);
+            callback.onStatusUpdated(ret);
+        } catch (Throwable t) {
+            callback.onUpdateFailed();
         }
     }
 }

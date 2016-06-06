@@ -63,6 +63,22 @@ public interface HaverDataSource {
 
     }
 
+    interface GetAcceptedHaverForDesireCallback {
+
+        void onHaverLoaded(Haver haver);
+
+        void onDataNotAvailable();
+
+    }
+
+    interface UpdateHaverStatusCallback {
+
+        void onStatusUpdated(Haver haver);
+
+        void onUpdateFailed();
+
+    }
+
     void getHaver(@NonNull long desireId, @NonNull long haverId, @NonNull GetHaverCallback callback);
 
     void getAllHaversForDesire(@NonNull long desireId, @NonNull GetAllHaversForDesireCallback callback);
@@ -74,5 +90,9 @@ public interface HaverDataSource {
     void deleteHaver(@NonNull long desireId, @NonNull long haverId, @NonNull DeleteHaverCallback callback);
 
     void acceptHaver(@NonNull long desireId, @NonNull long haverId, @NonNull Haver haver, @NonNull AcceptHaverForDesireCallback callback);
+
+    void getAcceptedHaverForDesire(@NonNull long desireId, @NonNull GetAcceptedHaverForDesireCallback callback);
+
+    void updateHaverStatus(@NonNull long desireId, @NonNull long haverId, @NonNull Haver haver, @NonNull int status, @NonNull UpdateHaverStatusCallback callback);
 
 }

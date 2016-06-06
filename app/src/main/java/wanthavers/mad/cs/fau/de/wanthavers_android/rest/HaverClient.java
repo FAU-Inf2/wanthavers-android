@@ -7,6 +7,7 @@ import org.glassfish.jersey.client.proxy.WebResourceFactory;
 import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.Haver;
+import de.fau.cs.mad.wanthavers.common.HaverStatus;
 import de.fau.cs.mad.wanthavers.common.User;
 import de.fau.cs.mad.wanthavers.common.rest.api.HaverResource;
 
@@ -53,7 +54,15 @@ public class HaverClient extends RestClient {
     }
 
     public Haver acceptHaver(long desireId, long haverId, Haver haver) {
-        haver.setAccepted(true);
+        return setHaverStatus(desireId, haverId, haver, HaverStatus.ACCEPTED);
+    }
+
+    public Haver setHaverStatus(long desireId, long haverId, Haver haver, int status) {
+        haver.setStatus(status);
         return updateHaver(desireId, haverId, haver);
+    }
+
+    public Haver getAcceptedHaver(long desireId) {
+        return haverEndpoint.getAccepted(desireId);
     }
 }
