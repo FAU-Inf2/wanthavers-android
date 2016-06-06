@@ -1,5 +1,7 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.desiredetail;
 
+import android.view.View;
+
 import de.fau.cs.mad.wanthavers.common.Haver;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.DesiredetailFragBinding;
 
@@ -17,6 +19,8 @@ public class DesireDetailActionHandler {
 
     public void haverAccept() {
         mListener.setHaver();
+        mDesireDetailFragBinding.buttonAcceptDesire.setVisibility(View.GONE);
+        mDesireDetailFragBinding.placeholder.setVisibility(View.GONE);
     }
 
     public void haverSendMessage() {
@@ -24,8 +28,8 @@ public class DesireDetailActionHandler {
     }
 
     public void wanterAccept(long haverId, Haver haver) {
-        //mListener.getHaver(haverId);
         mListener.acceptHaver(haverId, haver);
+        mListener.getAcceptedHaver();
     }
 
     public void wanterSendMessage() {

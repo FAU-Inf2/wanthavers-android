@@ -19,6 +19,10 @@
         <variable
             name="actionHandler"
             type="wanthavers.mad.cs.fau.de.wanthavers_android.desiredetail.DesireDetailActionHandler"/>
+
+        <variable
+            name="haver"
+            type="de.fau.cs.mad.wanthavers.common.Haver"/>
     </data>
 
     <ScrollView
@@ -263,12 +267,13 @@
                 </android.support.v7.widget.RecyclerView>
 
                 <RelativeLayout
+                    android:id="@+id/no_havers"
                     android:layout_width="match_parent"
                     android:layout_height="90dp"
                     android:background="@color/colorSecondary"
                     android:visibility="@{havers.notEmpty ? View.GONE : View.VISIBLE}">
                     <TextView
-                        android:id="@+id/noDesiresMain"
+                        android:id="@+id/no_havers_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
@@ -276,6 +281,72 @@
                         android:text="@string/no_havers"
                         android:textColor="@color/colorMainTextDark" />
                 </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/accepted_haver_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@color/colorSecondary"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="1dp"
+                    android:weightSum="1"
+                    android:visibility="invisible">
+
+                    <ImageView
+                        android:id="@+id/image_accepted_haver"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:scaleX="0.8"
+                        android:scaleY="0.8"
+                        android:src="@android:drawable/sym_def_app_icon"
+                        android:layout_marginLeft="5dp"/>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/image_accepted_haver"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@+id/message_haver">
+
+                        <TextView
+                            android:id="@+id/haver_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="@{haver.user.getName()}"
+                            android:textColor="@color/colorPrimaryDark"/>
+
+                        <RatingBar
+                            android:id="@+id/haver_RatingBar"
+                            style="?android:attr/ratingBarStyleSmall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:isIndicator="true"
+                            android:max="5"
+                            android:numStars="5"
+                            android:stepSize="0.1"
+                            android:rating="@{(float)haver.user.rating}"
+                            android:progressBackgroundTint="@color/colorSecondary"
+                            android:progressTint="@color/colorRatingStars"
+                            android:secondaryProgressTint="@color/colorRatingStars"
+                            android:layout_below="@+id/haver_name"
+                            android:layout_centerHorizontal="true" />
+
+                    </RelativeLayout>
+
+                    <ImageView
+                        android:id="@+id/message_haver"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:src="@android:drawable/sym_action_chat"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginRight="10dp"/>
+
+                </RelativeLayout>
+
             </RelativeLayout>
         </RelativeLayout>
     </ScrollView>

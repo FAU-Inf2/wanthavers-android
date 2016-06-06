@@ -5,8 +5,11 @@ import android.support.annotation.NonNull;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import de.fau.cs.mad.wanthavers.common.DesireStatus;
 import de.fau.cs.mad.wanthavers.common.Haver;
@@ -15,6 +18,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCase;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.AcceptHaver;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetAcceptedHaver;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetDesire;
 import de.fau.cs.mad.wanthavers.common.Desire;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetHaver;
@@ -39,6 +43,7 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
     private final GetUser mGetUser;
     private final UpdateHaver mUpdateHaver;
     private final GetHaver mGetHaver;
+    private final GetAcceptedHaver mGetAcceptedHaver;
 
 
     @NonNull
@@ -49,7 +54,7 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
                                  @NonNull AcceptHaver acceptHaver, @NonNull GetDesire getDesire,
                                  @NonNull GetHaverList getHaverList, @NonNull GetUser getUser,
                                  @NonNull SetHaver setHaver, @NonNull UpdateHaver updateHaver,
-                                 @NonNull GetHaver getHaver){
+                                 @NonNull GetHaver getHaver, @NonNull GetAcceptedHaver getAcceptedHaver){
 
         mUseCaseHandler = checkNotNull(useCaseHandler, "useCaseHandler cannot be null");
         mDesireDetailView = checkNotNull(desireDetailView, "desiredetail view cannot be null");
@@ -61,6 +66,7 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
         mGetUser = checkNotNull(getUser);
         mUpdateHaver = checkNotNull(updateHaver);
         mGetHaver = checkNotNull(getHaver);
+        mGetAcceptedHaver = checkNotNull(getAcceptedHaver);
 
         mDesireDetailView.setPresenter(this);
         mDesireLogic = desireLogic;
@@ -70,7 +76,7 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
     @Override
     public void start(){
         getDesire();
-        loadHavers(false);
+        //loadHavers(false);
     }
 
     @Override
@@ -132,6 +138,27 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
         });
     }
 
+    public void getAcceptedHaver() {
+
+        GetAcceptedHaver.RequestValues requestValues = new GetAcceptedHaver.RequestValues(mDesireId);
+
+        mUseCaseHandler.execute(mGetAcceptedHaver, requestValues,
+                new UseCase.UseCaseCallback<GetAcceptedHaver.ResponseValue>() {
+                    @Override
+                    public void onSuccess(GetAcceptedHaver.ResponseValue response) {
+                        Haver haver = response.getHaver();
+                        mDesireDetailView.showAcceptedHaver(haver);
+                    }
+
+                    @Override
+                    public void onError() {
+                        //TODO
+                    }
+                }
+        );
+
+    }
+
     //Get own User instance & create haver
     //Equals "accept desire" as haver
     @Override
@@ -177,7 +204,7 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
 
     }
 
-    public void getHaver(final long haverId) {
+    /*public void getHaver(final long haverId) {
 
         final GetHaver.RequestValues requestValues = new GetHaver.RequestValues(mDesireId, haverId);
 
@@ -196,7 +223,7 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
                     }
                 }
         );
-    }
+    }*/
 
     @Override
     public void acceptHaver(long haverId, Haver haver) {
@@ -209,10 +236,6 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
                     @Override
                     public void onSuccess(AcceptHaver.ResponseValue response) {
                         Haver haver = response.getHaver();
-                        /*haver.setAccepted(true);
-                        setAcceptedWanter(haver);*/
-                        //desire.setStatus(DesireStatus.STATUS_IN_PROGRESS);
-                        //removeRejectedHaversFromView
                     }
 
                     @Override
@@ -224,7 +247,7 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
         );
     }
 
-    public void setAcceptedWanter(Haver haver) {
+    /*public void setAcceptedWanter(Haver haver) {
         UpdateHaver.RequestValues requestValues = new UpdateHaver.RequestValues(mDesireId, haver.getId(), haver);
 
         mUseCaseHandler.execute(mUpdateHaver, requestValues,
@@ -242,19 +265,15 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
 
                 }
         );
-    }
+    }*/
 
     private void processHavers(List<Haver> havers) {
         if (havers.isEmpty()) {
             //TODO no havers yet
         } else {
             mDesireDetailView.showHavers(havers);
+            mDesireDetailView.showAcceptButton(havers);
         }
-    }
-
-    public boolean acceptedAsHaver() {
-        //TODO
-        return false;
     }
 
     /*public void openChat(User user){

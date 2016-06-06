@@ -26,6 +26,10 @@ public interface DesireDetailContract {
 
         void showAcceptHaverError();
 
+        void showAcceptButton(List<Haver> havers);
+
+        void showAcceptedHaver(Haver haver);
+
         boolean isActive();
     }
 
@@ -41,7 +45,9 @@ public interface DesireDetailContract {
 
         void acceptHaver(long haverId, Haver haver);
 
-        void getHaver(final long haverId);
+        void getAcceptedHaver();
+
+        //void getHaver(final long haverId);
 
         //void openChat(User user);
 

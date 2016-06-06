@@ -15,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -83,19 +84,11 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        //View view = inflater.inflate(R.layout.desiredetail_frag, container, false);
-
-        //DesiredetailFragBinding desiredetailFragBinding = DesiredetailFragBinding.inflate(inflater, container, false);
-
         mDesireDetailFragBinding = DesiredetailFragBinding.inflate(inflater, container, false);
-
-        //mViewDataBinding = DesiredetailFragBinding.bind(view);
 
         mDesireDetailFragBinding.setDesirelogic(mDesireLogic);
 
         mDesireDetailFragBinding.setHavers(mDesireDetailViewModel);
-
-        //setRetainInstance(true);
 
         //Set up havers view
         mRecyclerView = mDesireDetailFragBinding.haverList;
@@ -117,37 +110,6 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
 
         mListAdapter = new DesireDetailAdapter(new ArrayList<Haver>(0), mPresenter, mDesireDetailActionHandler);
         mRecyclerView.setAdapter(mListAdapter);
-
-        /*
-        // Set up progress indicator  TODO decide whether this is needed
-        final ScrollChildSwipeRefreshLayout swipeRefreshLayout = mDesireDetailFragBinding.refreshLayout;
-        swipeRefreshLayout.setColorSchemeColors(
-                ContextCompat.getColor(getActivity(), R.color.colorPrimary),
-                ContextCompat.getColor(getActivity(), R.color.colorAccent),
-                ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark)
-        );
-
-        // Set the scrolling view in the custom SwipeRefreshLayout
-        swipeRefreshLayout.setScrollUpChild(listView);*/
-
-
-        // Set up floating action button
-
-
-        /*
-        FloatingActionButton fab =
-                (FloatingActionButton) getActivity().findViewById(R.id.fab_edit_task);
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String taskId = getArguments().getString(ARGUMENT_TASK_ID);
-                Intent intent = new Intent(getContext(), AddEditTaskActivity.class);
-                intent.putExtra(AddEditTaskFragment.ARGUMENT_EDIT_TASK_ID, taskId);
-                startActivityForResult(intent, REQUEST_EDIT_TASK);
-            }
-        });
-        */
 
         return mDesireDetailFragBinding.getRoot();
     }
@@ -202,11 +164,37 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
                 profileView.setImageResource(R.drawable.no_pic);
             }
         }
+
+        //Show havers
+        if (desire.getStatus() == 1) {
+            mPresenter.loadHavers(false);
+        } else if (desire.getStatus() == 2) {
+            mPresenter.getAcceptedHaver();
+        }
+
     }
 
     public void showHavers(List<Haver> havers) {
         mListAdapter.replaceData(havers);
         mDesireDetailViewModel.setWanterListSize(havers.size());
+    }
+
+    public void showAcceptedHaver(Haver haver) {
+        mDesireDetailFragBinding.haverList.setVisibility(View.GONE);
+        mDesireDetailFragBinding.noHavers.setVisibility(View.GONE);
+        mDesireDetailFragBinding.setHaver(haver);
+        mDesireDetailFragBinding.acceptedHaverBar.setVisibility(View.VISIBLE);
+
+        Media mediaHaver = haver.getUser().getImage();
+        if (mediaHaver != null) {
+            final ImageView profileView = mDesireDetailFragBinding.imageAcceptedHaver;
+            Picasso.with(mDesireDetailFragBinding.getRoot().getContext()).load(mediaHaver.getLowRes()).transform(new RoundedTransformation(200,0)).into(profileView);
+        } else{
+            //else case is neccessary as the image is otherwise overwritten on scroll
+            final ImageView profileView = mDesireDetailFragBinding.imageAcceptedHaver;
+            profileView.setImageResource(R.drawable.no_pic);
+        }
+
     }
 
     @Override
@@ -254,6 +242,23 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
         return isAdded();
     }
 
+    @Override
+    public void showAcceptButton(List<Haver> havers) {
+        if (isHaver(havers)) {
+            mDesireDetailFragBinding.buttonAcceptDesire.setVisibility(View.GONE);
+            mDesireDetailFragBinding.placeholder.setVisibility(View.GONE);
+        }
+    }
+
+    public boolean isHaver(List<Haver> havers) {
+        long loggedInUserId = mDesireLogic.getLoggedInUserId();
+        for (int i = 0; i < havers.size(); i++) {
+            if (havers.get(i).getUser().getID() == loggedInUserId) {
+                return true;
+            }
+        }
+        return false;
+    }
     /*@Override
     public void showChatList(long userid){
 
