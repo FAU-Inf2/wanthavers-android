@@ -2,19 +2,11 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.rest;
 
 import android.content.Context;
 
-import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
-
 import org.glassfish.jersey.client.proxy.WebResourceFactory;
 
 import java.util.List;
 
-import javax.ws.rs.PathParam;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.WebTarget;
-
 import de.fau.cs.mad.wanthavers.common.Desire;
-import de.fau.cs.mad.wanthavers.common.User;
 import de.fau.cs.mad.wanthavers.common.rest.api.DesireResource;
 
 public class DesireClient extends RestClient {
@@ -52,7 +44,7 @@ public class DesireClient extends RestClient {
         return desireEndpoint.getByLocation(lat, lon, radius);
     }
 
-    public List<Desire> getByFilter(long category, double price_min, double price_max, double reward_min, float rating_min, double lat, double lon, double radius) {
+    public List<Desire> getByFilter(Long category, Double price_min, Double price_max, Double reward_min, Float rating_min, Double lat, Double lon, Double radius) {
         return desireEndpoint.getByFilters(category, price_min, price_max, reward_min, rating_min, lat, lon, radius);
     }
 
