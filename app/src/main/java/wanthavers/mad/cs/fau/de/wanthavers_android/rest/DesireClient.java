@@ -40,10 +40,6 @@ public class DesireClient extends RestClient {
 
     }
 
-    public List<Desire> getByLocation(double lat, double lon, double radius) {
-        return desireEndpoint.getByLocation(lat, lon, radius);
-    }
-
     public List<Desire> getByFilter(Long category, Double price_min, Double price_max, Double reward_min, Float rating_min, Double lat, Double lon, Double radius) {
         return desireEndpoint.getByFilters(category, price_min, price_max, reward_min, rating_min, lat, lon, radius);
     }

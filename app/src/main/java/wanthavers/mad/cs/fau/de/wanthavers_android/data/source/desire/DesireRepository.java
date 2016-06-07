@@ -286,36 +286,6 @@ public class DesireRepository implements DesireDataSource {
     }
 
     @Override
-    public void getDesiresByLocation(@NonNull final double lat, @NonNull final double lon, @NonNull final double radius, @NonNull final GetDesiresByLocationCallback callback) {
-        checkNotNull(lat);
-        checkNotNull(lon);
-        checkNotNull(radius);
-        checkNotNull(callback);
-
-        desireLocalDataSource.getDesiresByLocation(lat, lon, radius, new GetDesiresByLocationCallback() {
-            @Override
-            public void onDesiresByLocationLoaded(List<Desire> desires) {
-                callback.onDesiresByLocationLoaded(desires);
-            }
-
-            @Override
-            public void onDataNotAvailable() {
-                desireRemoteDataSource.getDesiresByLocation(lat, lon, radius, new GetDesiresByLocationCallback() {
-                    @Override
-                    public void onDesiresByLocationLoaded(List<Desire> desires) {
-                        callback.onDesiresByLocationLoaded(desires);
-                    }
-
-                    @Override
-                    public void onDataNotAvailable() {
-                        callback.onDataNotAvailable();
-                    }
-                });
-            }
-        });
-    }
-
-    @Override
     public void getDesiresByFilter(Long category, Double price_min, Double price_max, Double reward_min, Float rating_min, Double lat, Double lon, Double radius, @NonNull final GetDesiresByFilterCallback callback) {
         checkNotNull(callback);
 

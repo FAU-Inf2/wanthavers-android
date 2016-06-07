@@ -122,7 +122,5 @@ public interface DesireDataSource {
 
     void getDesiresAsHaver(@NonNull long userId, @NonNull GetDesiresAsHaverCallback callback);
 
-    void getDesiresByLocation(@NonNull double lat, @NonNull double lon, @NonNull double radius, @NonNull GetDesiresByLocationCallback callback);
-
     void getDesiresByFilter(Long category, Double price_min, Double price_max, Double reward_min, Float rating_min, Double lat, Double lon, Double radius, @NonNull GetDesiresByFilterCallback callback);
 }

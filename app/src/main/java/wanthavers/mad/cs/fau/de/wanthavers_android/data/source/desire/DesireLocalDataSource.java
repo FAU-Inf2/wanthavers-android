@@ -115,12 +115,6 @@ public class DesireLocalDataSource implements DesireDataSource {
     }
 
     @Override
-    public void getDesiresByLocation(@NonNull double lat, @NonNull double lon, @NonNull double radius, @NonNull GetDesiresByLocationCallback callback) {
-        //TODO: alter this method when we decide to store desires locally
-        callback.onDataNotAvailable();
-    }
-
-    @Override
     public void getDesiresByFilter(Long category, Double price_min, Double price_max, Double reward_min, Float rating_min, Double lat, Double lon, Double radius, @NonNull GetDesiresByFilterCallback callback) {
         //TODO: alter this method when we decide to store desires locally
         callback.onDataNotAvailable();

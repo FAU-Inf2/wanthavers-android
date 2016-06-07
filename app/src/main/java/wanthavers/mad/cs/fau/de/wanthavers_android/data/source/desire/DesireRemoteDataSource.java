@@ -146,16 +146,6 @@ public class DesireRemoteDataSource implements DesireDataSource {
     }
 
     @Override
-    public void getDesiresByLocation(@NonNull double lat, @NonNull double lon, @NonNull double radius, @NonNull GetDesiresByLocationCallback callback) {
-        try {
-            final List<Desire> desiresByLocation = desireClient.getByLocation(lat, lon, radius);
-            callback.onDesiresByLocationLoaded(desiresByLocation);
-        } catch (Throwable t) {
-            callback.onDataNotAvailable();
-        }
-    }
-
-    @Override
     public void getDesiresByFilter(Long category, Double price_min, Double price_max, Double reward_min, Float rating_min, Double lat, Double lon, Double radius, @NonNull GetDesiresByFilterCallback callback) {
         try {
             List<Desire> ret = desireClient.getByFilter(category, price_min, price_max, reward_min, rating_min, lat, lon, radius);
