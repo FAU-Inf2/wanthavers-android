@@ -11,25 +11,20 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCase;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.haver.HaverDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.haver.HaverRepository;
 
-/**
- * Created by Oliver Lutz on 24.05.2016.
- */
 public class GetHaverList extends UseCase<GetHaverList.RequestValues, GetHaverList.ResponseValue> {
 
     private final HaverRepository mHaverRepository;
-    private long mdesireID;
 
-
-    public GetHaverList(@NonNull HaverRepository haverRepository, long desireID) {
+    //TODO refactoring
+    public GetHaverList(@NonNull HaverRepository haverRepository) {
         mHaverRepository = checkNotNull(haverRepository, "haverRepository cannot be null!");
-        mdesireID = desireID;
     }
 
 
     @Override
     protected void executeUseCase(final RequestValues values) {
 
-        mHaverRepository.getAllHaversForDesire(mdesireID, new HaverDataSource.GetAllHaversForDesireCallback(){
+        mHaverRepository.getAllHaversForDesire(values.getDesireId(), new HaverDataSource.GetAllHaversForDesireCallback(){
 
             @Override
             public void onAllHaversForDesireLoaded(List<Haver> havers) {
@@ -49,9 +44,14 @@ public class GetHaverList extends UseCase<GetHaverList.RequestValues, GetHaverLi
 
     public static final class RequestValues implements UseCase.RequestValues {
 
+        private final long mDesireId;
 
-        public RequestValues() {
-            //TODO add values here if needed for haver query
+        public RequestValues(long desireId) {
+            mDesireId = desireId;
+        }
+
+        public long getDesireId() {
+            return mDesireId;
         }
     }
 

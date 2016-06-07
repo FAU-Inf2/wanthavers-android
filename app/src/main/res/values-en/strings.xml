@@ -70,6 +70,11 @@
     <string name="minimal_rating_title">Mindestrating</string>
     <string name="location_title">Location</string>
     <string name="filter_radius_title">Radius</string>
+    <string name="button_apply_filter">Apply filter</string>
+    <string name="loading_desire_error">Error while loading desire</string>
+    <string name="loading_havers_error">Error while loading havers</string>
+    <string name="setting_haver_error">Error while accepting desire</string>
+    <string name="accepting_haver_error">Error while accepting haver</string>
 
 
     <string-array name="currencies">

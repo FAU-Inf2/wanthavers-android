@@ -104,8 +104,7 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
         setHasOptionsMenu(true);
 
         //set up action handler
-        //TODO: getDesireId
-        mDesireDetailActionHandler = new DesireDetailActionHandler(0, mDesireDetailFragBinding, mPresenter);
+        mDesireDetailActionHandler = new DesireDetailActionHandler(mDesireDetailFragBinding, mPresenter);
         mDesireDetailFragBinding.setActionHandler(mDesireDetailActionHandler);
 
         mListAdapter = new DesireDetailAdapter(new ArrayList<Haver>(0), mPresenter, mDesireDetailActionHandler);
@@ -170,6 +169,9 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
             mPresenter.loadHavers(false);
         } else if (desire.getStatus() == 2) {
             mPresenter.getAcceptedHaver();
+            //no haver can accept
+            mDesireDetailFragBinding.buttonAcceptDesire.setVisibility(View.GONE);
+            mDesireDetailFragBinding.placeholder.setVisibility(View.GONE);
         }
 
     }
@@ -197,25 +199,28 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
 
     }
 
-    @Override
-    public void showLoadingHaversError() {
-        showMessage(getString(R.string.loading_desires_error));
-    }
-
     private void showMessage(String message) {
         Snackbar.make(getView(), message, Snackbar.LENGTH_LONG).show();
     }
 
     @Override
+    public void showLoadingHaversError() {
+        showMessage(getString(R.string.loading_havers_error));
+    }
+
+    @Override
+    public void showLoadingDesireError() {
+        showMessage(getString(R.string.loading_desire_error));
+    }
+
+    @Override
     public void showSetHaverError() {
-        //TODO create String
-        //showMessage(getString(R.string.));
+        showMessage(getString(R.string.setting_haver_error));
     }
 
     @Override
     public void showAcceptHaverError() {
-        //TODO create String
-        //showMessage(getString(R.string.));
+        showMessage(getString(R.string.accepting_haver_error));
     }
 
     public void setDesireLogic(DesireLogic desireLogic){mDesireLogic = desireLogic;}

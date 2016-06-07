@@ -102,24 +102,4 @@ public class DesireDetailAdapter extends RecyclerView.Adapter<DesireDetailAdapte
     public long getItemId(int position) {
         return position;
     }
-
-    /*public View getView(int position, View view, ViewGroup parent) {
-        Haver haver = getItem(position);
-        HaverItemBinding binding;
-
-        if (view == null) {
-            LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-
-            binding = HaverItemBinding.inflate(inflater, parent, false);
-        } else {
-            binding = DataBindingUtil.getBinding(view);
-            RatingBar itemRateBar = (RatingBar) view.findViewById(R.id.HaverRatingBar);
-            itemRateBar.setRating(4.5f); //TODO rating from server
-        }
-
-        binding.setHaver(haver);
-        binding.executePendingBindings();
-
-        return binding.getRoot();
-    }*/
 }

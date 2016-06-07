@@ -68,6 +68,11 @@
     <string name="minimal_rating_title">Mindestrating</string>
     <string name="location_title">Ort</string>
     <string name="filter_radius_title">Umkreis</string>
+    <string name="button_apply_filter">Filter bestätigen</string>
+    <string name="loading_desire_error">Fehler beim Laden des Wunsches</string>
+    <string name="loading_havers_error">Fehler beim Laden der Haver</string>
+    <string name="setting_haver_error">Fehler beim Akzeptieren des Wunsches</string>
+    <string name="accepting_haver_error">Fehler beim Akzeptieren des Havers</string>
 
 
     <!-- currency strings -->

@@ -12,23 +12,25 @@ public interface DesireDetailContract {
 
     interface View extends BaseView<Presenter> {
 
+        void showAcceptButton(List<Haver> havers);
+
+        void showAcceptedHaver(Haver haver);
+
         void showDesire(Desire desire);
 
         void showHavers(List<Haver> haver);
+
+        //void showChatList(long userid);
 
         void setLoadingIndicator(final boolean active);
 
         void showLoadingHaversError();
 
-        //void showChatList(long userid);
-
-        void showSetHaverError();
-
         void showAcceptHaverError();
 
-        void showAcceptButton(List<Haver> havers);
+        void showLoadingDesireError();
 
-        void showAcceptedHaver(Haver haver);
+        void showSetHaverError();
 
         boolean isActive();
     }

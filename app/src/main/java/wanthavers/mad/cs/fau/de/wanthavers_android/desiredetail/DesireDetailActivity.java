@@ -67,15 +67,15 @@ public class DesireDetailActivity extends AppCompatActivity {
         Context context = getApplicationContext();
         checkNotNull(context);
 
-        DesireRepository fake = DesireRepository.getInstance(DesireRemoteDataSource.getInstance(getApplicationContext()), DesireLocalDataSource.getInstance(context));
-        HaverRepository fake_haver = HaverRepository.getInstance(HaverRemoteDataSource.getInstance(getApplicationContext()), HaverLocalDataSource.getInstance(context));
-        UserRepository fake_user = UserRepository.getInstance(UserRemoteDataSource.getInstance(getApplicationContext()), UserLocalDataSource.getInstance(context));
+        DesireRepository desireRepository = DesireRepository.getInstance(DesireRemoteDataSource.getInstance(getApplicationContext()), DesireLocalDataSource.getInstance(context));
+        HaverRepository haverRepository = HaverRepository.getInstance(HaverRemoteDataSource.getInstance(getApplicationContext()), HaverLocalDataSource.getInstance(context));
+        UserRepository userRepository = UserRepository.getInstance(UserRemoteDataSource.getInstance(getApplicationContext()), UserLocalDataSource.getInstance(context));
 
         //create the presenter with Injection of Usecases
         mDesireDetailPresenter = new DesireDetailPresenter(desireLogic, UseCaseHandler.getInstance(),
-                desireId, desireDetailFragment,new AcceptHaver(fake_haver), new GetDesire(fake),
-                new GetHaverList(fake_haver, desireId),new GetUser(fake_user), new SetHaver(fake_haver),
-                new UpdateHaver(fake_haver), new GetHaver(fake_haver), new GetAcceptedHaver(fake_haver));
+                desireId, desireDetailFragment,new AcceptHaver(haverRepository), new GetDesire(desireRepository),
+                new GetHaverList(haverRepository),new GetUser(userRepository), new SetHaver(haverRepository),
+                new GetAcceptedHaver(haverRepository));
 
         DesireDetailViewModel desireDetailViewModel =
                 new DesireDetailViewModel(getApplicationContext(), mDesireDetailPresenter);

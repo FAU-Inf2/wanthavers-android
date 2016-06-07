@@ -41,8 +41,6 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
     private final SetHaver mSetHaver;
     private final AcceptHaver mAcceptHaver;
     private final GetUser mGetUser;
-    private final UpdateHaver mUpdateHaver;
-    private final GetHaver mGetHaver;
     private final GetAcceptedHaver mGetAcceptedHaver;
 
 
@@ -53,8 +51,7 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
                                  @NonNull DesireDetailContract.View desireDetailView,
                                  @NonNull AcceptHaver acceptHaver, @NonNull GetDesire getDesire,
                                  @NonNull GetHaverList getHaverList, @NonNull GetUser getUser,
-                                 @NonNull SetHaver setHaver, @NonNull UpdateHaver updateHaver,
-                                 @NonNull GetHaver getHaver, @NonNull GetAcceptedHaver getAcceptedHaver){
+                                 @NonNull SetHaver setHaver, @NonNull GetAcceptedHaver getAcceptedHaver){
 
         mUseCaseHandler = checkNotNull(useCaseHandler, "useCaseHandler cannot be null");
         mDesireDetailView = checkNotNull(desireDetailView, "desiredetail view cannot be null");
@@ -64,8 +61,6 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
         mGetDesire = checkNotNull(getDesire);
         mSetHaver = checkNotNull(setHaver);
         mGetUser = checkNotNull(getUser);
-        mUpdateHaver = checkNotNull(updateHaver);
-        mGetHaver = checkNotNull(getHaver);
         mGetAcceptedHaver = checkNotNull(getAcceptedHaver);
 
         mDesireDetailView.setPresenter(this);
@@ -94,7 +89,7 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
 
                     @Override
                     public void onError() {
-                        //error handling
+                        mDesireDetailView.showLoadingDesireError();
                     }
                 });
 
@@ -111,7 +106,7 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
             mDesireDetailView.setLoadingIndicator(true);
         }
 
-        GetHaverList.RequestValues requestValues = new GetHaverList.RequestValues();
+        GetHaverList.RequestValues requestValues = new GetHaverList.RequestValues(mDesireId);
 
         mUseCaseHandler.execute(mGetHaverList, requestValues, new UseCase.UseCaseCallback<GetHaverList.ResponseValue>() {
             @Override
@@ -152,7 +147,7 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
 
                     @Override
                     public void onError() {
-                        //TODO
+                        mDesireDetailView.showLoadingHaversError();
                     }
                 }
         );
@@ -192,7 +187,6 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
                     @Override
                     public void onSuccess(SetHaver.ResponseValue response) {
                         //Haver haver = response.getHaver();
-                        //TODO: refresh view
                     }
 
                     @Override
@@ -204,27 +198,6 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
 
     }
 
-    /*public void getHaver(final long haverId) {
-
-        final GetHaver.RequestValues requestValues = new GetHaver.RequestValues(mDesireId, haverId);
-
-        mUseCaseHandler.execute(mGetHaver, requestValues,
-                new UseCase.UseCaseCallback<GetHaver.ResponseValue>() {
-
-                    @Override
-                    public void onSuccess(GetHaver.ResponseValue response) {
-                        Haver haver = response.getHaver();
-                        acceptHaver(haverId, haver);
-                    }
-
-                    @Override
-                    public void onError() {
-
-                    }
-                }
-        );
-    }*/
-
     @Override
     public void acceptHaver(long haverId, Haver haver) {
 
@@ -235,7 +208,7 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
 
                     @Override
                     public void onSuccess(AcceptHaver.ResponseValue response) {
-                        Haver haver = response.getHaver();
+                        //Haver haver = response.getHaver();
                     }
 
                     @Override
@@ -246,26 +219,6 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
                 }
         );
     }
-
-    /*public void setAcceptedWanter(Haver haver) {
-        UpdateHaver.RequestValues requestValues = new UpdateHaver.RequestValues(mDesireId, haver.getId(), haver);
-
-        mUseCaseHandler.execute(mUpdateHaver, requestValues,
-                new UseCase.UseCaseCallback<UpdateHaver.ResponseValue>() {
-
-                    @Override
-                    public void onSuccess(UpdateHaver.ResponseValue response) {
-                        //TODO: refresh view
-                    }
-
-                    @Override
-                    public void onError() {
-                        mDesireDetailView.showAcceptHaverError();
-                    }
-
-                }
-        );
-    }*/
 
     private void processHavers(List<Haver> havers) {
         if (havers.isEmpty()) {
