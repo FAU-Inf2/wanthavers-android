@@ -20,7 +20,6 @@ import android.support.annotation.NonNull;
 
 import java.util.List;
 import de.fau.cs.mad.wanthavers.common.Desire;
-import de.fau.cs.mad.wanthavers.common.User;
 
 /**
  * Main entry point for accessing tasks data.
@@ -125,5 +124,5 @@ public interface DesireDataSource {
 
     void getDesiresByLocation(@NonNull double lat, @NonNull double lon, @NonNull double radius, @NonNull GetDesiresByLocationCallback callback);
 
-    void getDesiresByFilter(@NonNull long category, @NonNull double price_min, @NonNull double price_max, @NonNull double reward_min, @NonNull float rating_min, @NonNull double lat, @NonNull double lon, @NonNull double radius, @NonNull GetDesiresByFilterCallback callback);
+    void getDesiresByFilter(Long category, Double price_min, Double price_max, Double reward_min, Float rating_min, Double lat, Double lon, Double radius, @NonNull GetDesiresByFilterCallback callback);
 }
