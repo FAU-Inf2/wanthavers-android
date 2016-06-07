@@ -99,7 +99,7 @@ public class DesireLocalDataSource implements DesireDataSource {
     }
 
     @Override
-    public void getDesiresAsHaver(@NonNull long userId, @NonNull GetDesiresAsHaverCallback callback) {
+    public void getDesiresAsHaver(@NonNull long userId, Integer status, @NonNull GetDesiresAsHaverCallback callback) {
         //TODO: alter this method when we decide to store desires locally
         callback.onDataNotAvailable();
     }

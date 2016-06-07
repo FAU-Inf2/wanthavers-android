@@ -66,7 +66,8 @@ public class GetDesireList extends UseCase<GetDesireList.RequestValues, GetDesir
 
         if(desireListType == DesireListType.MY_TRANSACTIONS){
 
-            mDesireRepository.getDesiresAsHaver(userId , new DesireDataSource.GetDesiresAsHaverCallback() {
+            //TODO: set status correctly
+            mDesireRepository.getDesiresAsHaver(userId , null, new DesireDataSource.GetDesiresAsHaverCallback() {
 
                 @Override
                 public void onDesiresAsHaverLoaded(List<Desire> desireList) {

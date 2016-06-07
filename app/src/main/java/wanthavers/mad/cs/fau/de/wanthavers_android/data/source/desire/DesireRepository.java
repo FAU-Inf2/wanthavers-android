@@ -258,11 +258,11 @@ public class DesireRepository implements DesireDataSource {
     }
 
     @Override
-    public void getDesiresAsHaver(@NonNull final long userId, @NonNull final GetDesiresAsHaverCallback callback) {
+    public void getDesiresAsHaver(@NonNull final long userId, final Integer status, @NonNull final GetDesiresAsHaverCallback callback) {
         checkNotNull(userId);
         checkNotNull(callback);
 
-        desireLocalDataSource.getDesiresAsHaver(userId, new GetDesiresAsHaverCallback() {
+        desireLocalDataSource.getDesiresAsHaver(userId, status, new GetDesiresAsHaverCallback() {
             @Override
             public void onDesiresAsHaverLoaded(List<Desire> desires) {
                 callback.onDesiresAsHaverLoaded(desires);
@@ -270,7 +270,7 @@ public class DesireRepository implements DesireDataSource {
 
             @Override
             public void onDataNotAvailable() {
-                desireRemoteDataSource.getDesiresAsHaver(userId, new GetDesiresAsHaverCallback() {
+                desireRemoteDataSource.getDesiresAsHaver(userId, status, new GetDesiresAsHaverCallback() {
                     @Override
                     public void onDesiresAsHaverLoaded(List<Desire> desires) {
                         callback.onDesiresAsHaverLoaded(desires);

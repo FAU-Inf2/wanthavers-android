@@ -125,9 +125,9 @@ public class DesireRemoteDataSource implements DesireDataSource {
     }
 
     @Override
-    public void getDesiresAsHaver(@NonNull long userId, @NonNull GetDesiresAsHaverCallback callback) {
+    public void getDesiresAsHaver(@NonNull long userId, Integer status, @NonNull GetDesiresAsHaverCallback callback) {
         try {
-            List<Desire> desires = userClient.getDesiresAsHaver(userId);
+            List<Desire> desires = userClient.getDesiresAsHaver(userId, status);
             callback.onDesiresAsHaverLoaded(desires);
         } catch (Throwable t) {
             callback.onDataNotAvailable();
