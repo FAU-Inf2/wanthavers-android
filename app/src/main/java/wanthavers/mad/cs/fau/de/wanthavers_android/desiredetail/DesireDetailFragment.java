@@ -180,9 +180,9 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
     }
 
     public void showAcceptedHaver(Haver haver) {
+        mDesireDetailFragBinding.setHaver(haver);
         mDesireDetailFragBinding.haverList.setVisibility(View.GONE);
         mDesireDetailFragBinding.noHavers.setVisibility(View.GONE);
-        mDesireDetailFragBinding.setHaver(haver);
         mDesireDetailFragBinding.acceptedHaverBar.setVisibility(View.VISIBLE);
 
         Media mediaHaver = haver.getUser().getImage();
