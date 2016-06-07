@@ -61,7 +61,7 @@ public class UserRemoteDataSource implements UserDataSource {
     @Override
     public void updateUser(@NonNull User user, @NonNull UpdateUserCallback callback) {
         try {
-            User ret = userClient.updateUser(user.getID(), user);
+            User ret = userClient.updateUser(user);
             callback.onUserUpdated(ret);
         } catch (Throwable t) {
             callback.onUpdateFailed();
@@ -69,9 +69,9 @@ public class UserRemoteDataSource implements UserDataSource {
     }
 
     @Override
-    public void deleteUser(@NonNull User user, @NonNull DeleteUserCallback callback) {
+    public void deleteUser(@NonNull DeleteUserCallback callback) {
         try {
-            userClient.deleteUser(user.getID());
+            userClient.deleteUser();
             callback.onUserDeleted();
         } catch (Throwable t) {
             callback.onDeleteFailed();

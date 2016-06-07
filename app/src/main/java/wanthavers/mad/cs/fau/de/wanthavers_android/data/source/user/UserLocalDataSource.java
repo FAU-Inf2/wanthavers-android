@@ -75,7 +75,7 @@ public class UserLocalDataSource implements UserDataSource {
     }
 
     @Override
-    public void deleteUser(@NonNull User user, @NonNull DeleteUserCallback callback) {
+    public void deleteUser(@NonNull DeleteUserCallback callback) {
         callback.onDeleteFailed();
     }
 

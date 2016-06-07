@@ -48,12 +48,12 @@ public class UserClient extends RestClient {
         return userEndpoint.createUser(user, password);
     }
 
-    public User updateUser(long userId, User user) {
-        return userEndpoint.updateUser(userId, user);
+    public User updateUser(User user) {
+        return userEndpoint.updateUser(null, user);
     }
 
-    public void deleteUser(long userId) {
-        userEndpoint.deleteUser(userId);
+    public void deleteUser() {
+        userEndpoint.deleteUser(null);
     }
 
     public List<Desire> getDesires(long userId) {

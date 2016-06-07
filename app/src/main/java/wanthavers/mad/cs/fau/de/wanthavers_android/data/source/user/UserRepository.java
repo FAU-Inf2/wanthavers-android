@@ -123,11 +123,10 @@ public class UserRepository implements UserDataSource {
     }
 
     @Override
-    public void deleteUser(@NonNull User user, @NonNull final DeleteUserCallback callback) {
-        checkNotNull(user);
+    public void deleteUser(@NonNull final DeleteUserCallback callback) {
         checkNotNull(callback);
 
-        userRemoteDataSource.deleteUser(user, new DeleteUserCallback() {
+        userRemoteDataSource.deleteUser(new DeleteUserCallback() {
             @Override
             public void onUserDeleted() {
                 callback.onUserDeleted();
