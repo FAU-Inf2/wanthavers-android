@@ -17,5 +17,7 @@ public interface SettingsContract {
         void openFilterSettings();
 
         void getUser(long userId);
+
+        void getUserForMailUpdate(long userId, final String mail);
     }
 }

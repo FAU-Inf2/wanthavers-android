@@ -60,7 +60,7 @@ public class SettingsFragment extends Fragment implements SettingsContract.View 
 
         setHasOptionsMenu(true);
 
-        mSettingsActionHandler = new SettingsActionHandler(mPresenter);
+        mSettingsActionHandler = new SettingsActionHandler(mPresenter, mSettingsFragBinding);
         mSettingsFragBinding.setActionHandler(mSettingsActionHandler);
 
         return mSettingsFragBinding.getRoot();

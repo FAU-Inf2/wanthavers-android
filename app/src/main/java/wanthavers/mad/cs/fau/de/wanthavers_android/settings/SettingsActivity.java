@@ -13,6 +13,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserRemoteDa
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserRepository;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetUser;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.UpdateUser;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.ActivityUtils;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -51,7 +52,8 @@ public class SettingsActivity extends AppCompatActivity {
 
         UserRepository userRepository = UserRepository.getInstance(UserRemoteDataSource.getInstance(context), UserLocalDataSource.getInstance(context));
 
-        mSettingsPresenter = new SettingsPresenter(UseCaseHandler.getInstance(), settingsFragment, new GetUser(userRepository));
+        mSettingsPresenter = new SettingsPresenter(UseCaseHandler.getInstance(), settingsFragment,
+                new GetUser(userRepository), new UpdateUser(userRepository));
     }
 
     @Override
