@@ -80,21 +80,6 @@ public class DesireRemoteDataSource implements DesireDataSource {
     }
 
     @Override
-    public void deleteDesire(@NonNull Desire desire, @NonNull DeleteDesireCallback callback) {
-        deleteDesire(desire.getID(), callback);
-    }
-
-    @Override
-    public void deleteDesire(@NonNull long desireId, @NonNull DeleteDesireCallback callback) {
-        try {
-            desireClient.deleteDesire(desireId);
-            callback.onDesireDeleted();
-        } catch (Throwable t) {
-            callback.onDeleteFailed();
-        }
-    }
-
-    @Override
     public void getDesire(@NonNull long desireId, final @NonNull GetDesireCallback callback) {
         try {
             final Desire desire = desireClient.get(desireId);

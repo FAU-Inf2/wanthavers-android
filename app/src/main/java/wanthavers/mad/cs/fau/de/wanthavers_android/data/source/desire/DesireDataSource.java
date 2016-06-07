@@ -80,13 +80,6 @@ public interface DesireDataSource {
         void onUpdateFailed();
 
     }
-    interface DeleteDesireCallback {
-
-        void onDesireDeleted();
-
-        void onDeleteFailed();
-
-    }
 
     interface GetDesiresAsHaverCallback {
 
@@ -109,10 +102,6 @@ public interface DesireDataSource {
     void updateDesire(@NonNull Desire desire, @NonNull UpdateDesireCallback callback);
 
     void updateDesireStatus(@NonNull long desireId, @NonNull int status, @NonNull UpdateDesireStatusCallback callback);
-
-    void deleteDesire(@NonNull Desire desire, @NonNull DeleteDesireCallback callback);
-
-    void deleteDesire(@NonNull long desireId, @NonNull DeleteDesireCallback callback);
 
     void getDesire(@NonNull long desireId, @NonNull GetDesireCallback callback);
 

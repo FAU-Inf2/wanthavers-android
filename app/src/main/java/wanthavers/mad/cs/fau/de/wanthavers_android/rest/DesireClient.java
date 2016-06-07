@@ -49,14 +49,10 @@ public class DesireClient extends RestClient {
     }
 
     public Desire updateDesire(long desireId, Desire desire) {
-        return desireEndpoint.updateDesire(desireId, desire);
-    }
-
-    public void deleteDesire(long desireId) {
-        desireEndpoint.deleteDesire(desireId);
+        return desireEndpoint.updateDesire(null, desireId, desire);
     }
 
     public Desire updateDesireStatus(long desireId, int status) {
-        return desireEndpoint.updateDesireStatus(desireId, status);
+        return desireEndpoint.updateDesireStatus(null, desireId, status);
     }
 }
