@@ -99,7 +99,7 @@ public class DesireLocalDataSource implements DesireDataSource {
     }
 
     @Override
-    public void getDesiresAsHaver(@NonNull long userId, Integer status, @NonNull GetDesiresAsHaverCallback callback) {
+    public void getDesiresAsHaver(@NonNull long userId, List<Integer> status, @NonNull GetDesiresAsHaverCallback callback) {
         //TODO: alter this method when we decide to store desires locally
         callback.onDataNotAvailable();
     }
@@ -115,7 +115,7 @@ public class DesireLocalDataSource implements DesireDataSource {
     }
 
     @Override
-    public void getDesiresByFilter(Long category, Double price_min, Double price_max, Double reward_min, Float rating_min, Double lat, Double lon, Double radius, @NonNull GetDesiresByFilterCallback callback) {
+    public void getDesiresByFilter(Long category, Double price_min, Double price_max, Double reward_min, Float rating_min, Double lat, Double lon, Double radius, List<Integer> status, @NonNull GetDesiresByFilterCallback callback) {
         //TODO: alter this method when we decide to store desires locally
         callback.onDataNotAvailable();
     }

@@ -125,7 +125,7 @@ public class DesireRemoteDataSource implements DesireDataSource {
     }
 
     @Override
-    public void getDesiresAsHaver(@NonNull long userId, Integer status, @NonNull GetDesiresAsHaverCallback callback) {
+    public void getDesiresAsHaver(@NonNull long userId, List<Integer> status, @NonNull GetDesiresAsHaverCallback callback) {
         try {
             List<Desire> desires = userClient.getDesiresAsHaver(userId, status);
             callback.onDesiresAsHaverLoaded(desires);
@@ -146,9 +146,9 @@ public class DesireRemoteDataSource implements DesireDataSource {
     }
 
     @Override
-    public void getDesiresByFilter(Long category, Double price_min, Double price_max, Double reward_min, Float rating_min, Double lat, Double lon, Double radius, @NonNull GetDesiresByFilterCallback callback) {
+    public void getDesiresByFilter(Long category, Double price_min, Double price_max, Double reward_min, Float rating_min, Double lat, Double lon, Double radius, List<Integer> status, @NonNull GetDesiresByFilterCallback callback) {
         try {
-            List<Desire> ret = desireClient.getByFilter(category, price_min, price_max, reward_min, rating_min, lat, lon, radius);
+            List<Desire> ret = desireClient.getByFilter(category, price_min, price_max, reward_min, rating_min, lat, lon, radius, status);
             callback.onDesiresByFilterLoaded(ret);
         } catch (Throwable t) {
             callback.onDataNotAvailable();
