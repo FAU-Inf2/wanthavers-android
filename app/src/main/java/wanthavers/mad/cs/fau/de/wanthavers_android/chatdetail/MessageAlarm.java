@@ -10,28 +10,60 @@ import android.widget.Toast;
 
 public class MessageAlarm extends BroadcastReceiver {
 
+
+    private static MessageAlarm mMessageAlarm;
+    private final long POLLING_INTERVAL = 1000;
+
+    public static MessageAlarm getInstance(){
+        if(mMessageAlarm == null){
+           mMessageAlarm = new MessageAlarm();
+        }
+
+        return mMessageAlarm;
+    }
+
+
+
+
+    /*   think about whether singletion good idea hrere
+    public MessageAlarm getInstance(ChatDetailContract.Presenter chatPresenter){
+
+        if(mMessageAlarm == null){
+            mMessageAlarm = new MessageAlarm();
+        }
+
+        return mMessageAlarm;
+    }
+*/
+
     @Override
     public void onReceive(Context context, Intent intent)
     {
         PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-        PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "");
-        wl.acquire();
+        //PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "");
 
+        //wl.acquire();
         // Put here YOUR code.
+
         Toast.makeText(context, "Alarm !!!!!!!!!!", Toast.LENGTH_LONG).show(); // For example
 
-        wl.release();
+        //start polling service
+        Intent intent2 = new Intent(context, MessageService.class);
+        intent2.putExtras(intent);
+        context.startService(intent2);
+
+        //wl.release();
     }
 
-    public void SetAlarm(Context context)
+    public void setAlarm(Context context)
     {
         AlarmManager am =( AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         Intent i = new Intent(context, MessageAlarm.class);
         PendingIntent pi = PendingIntent.getBroadcast(context, 0, i, 0);
-        am.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 1000 * 60 * 10, pi); // Millisec * Second * Minute
+        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), POLLING_INTERVAL, pi); // Millisec * Second * Minute
     }
 
-    public void CancelAlarm(Context context)
+    public void cancelAlarm(Context context)
     {
         Intent intent = new Intent(context, MessageAlarm.class);
         PendingIntent sender = PendingIntent.getBroadcast(context, 0, intent, 0);
