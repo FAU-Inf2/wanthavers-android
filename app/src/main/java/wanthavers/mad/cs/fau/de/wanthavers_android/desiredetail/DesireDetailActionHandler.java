@@ -28,7 +28,7 @@ public class DesireDetailActionHandler {
     }
 
     public void haverSendMessage() {
-
+        mListener.sendMessage();
     }
 
     public void wanterAccept(long haverId, Haver haver) {
@@ -49,8 +49,8 @@ public class DesireDetailActionHandler {
         }
     }
 
-    public void wanterSendMessage() {
-
+    public void wanterSendMessage(long haverId) {
+        mListener.sendMessage();
     }
 
 }

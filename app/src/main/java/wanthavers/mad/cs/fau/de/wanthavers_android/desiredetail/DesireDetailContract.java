@@ -20,7 +20,7 @@ public interface DesireDetailContract {
 
         void showHavers(List<Haver> haver);
 
-        //void showChatList(long userid);
+        void showChatList(long userid);
 
         void setLoadingIndicator(final boolean active);
 
@@ -49,9 +49,11 @@ public interface DesireDetailContract {
 
         void getAcceptedHaver();
 
+        void sendMessage();
+
         //void getHaver(final long haverId);
 
-        //void openChat(User user);
+        void openChat(User user);
 
     }
 }

@@ -119,7 +119,7 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
         super.onCreateOptionsMenu(menu, inflater);
     }
 
-    /*@Override
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.menu_chat:
@@ -131,7 +131,7 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
                 break;
         }
         return true;
-    }*/
+    }
 
     public void setViewModel(DesireDetailViewModel viewModel) {mDesireDetailViewModel = viewModel;}
 
@@ -264,7 +264,7 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
         }
         return false;
     }
-    /*@Override
+    @Override
     public void showChatList(long userid){
 
         //TODO change back to going to chat overview
@@ -274,5 +274,5 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
         startActivity(intent);
 
 
-    }*/
+    }
 }

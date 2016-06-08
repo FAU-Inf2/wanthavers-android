@@ -11,6 +11,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
+import de.fau.cs.mad.wanthavers.common.Chat;
 import de.fau.cs.mad.wanthavers.common.DesireStatus;
 import de.fau.cs.mad.wanthavers.common.Haver;
 import de.fau.cs.mad.wanthavers.common.User;
@@ -229,9 +230,14 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
         }
     }
 
-    /*public void openChat(User user){
+    @Override
+    public void sendMessage() {
+
+    }
+
+    public void openChat(User user){
         //TODO: open chat here;
         checkNotNull(user, "user cannot be null!");
         mDesireDetailView.showChatList(user.getID());
-    }*/
+    }
 }
