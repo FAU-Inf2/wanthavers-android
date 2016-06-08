@@ -45,12 +45,12 @@ public class MessageAlarm extends BroadcastReceiver {
         //wl.acquire();
         // Put here YOUR code.
 
-        Toast.makeText(context, "Alarm !!!!!!!!!!", Toast.LENGTH_LONG).show(); // For example
+        //Toast.makeText(context, "Alarm !!!!!!!!!!", Toast.LENGTH_LONG).show(); // For example
 
         //start polling service
-        Intent intent2 = new Intent(context, MessageService.class);
-        intent2.putExtras(intent);
-        context.startService(intent2);
+        Intent serviceIntent = new Intent(context, MessageService.class);
+        serviceIntent.putExtras(intent);
+        context.startService(serviceIntent);
 
         //wl.release();
     }
