@@ -22,6 +22,7 @@ import android.support.annotation.NonNull;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.fau.cs.mad.wanthavers.common.Chat;
 import de.fau.cs.mad.wanthavers.common.Desire;
 import wanthavers.mad.cs.fau.de.wanthavers_android.rest.DesireClient;
 import wanthavers.mad.cs.fau.de.wanthavers_android.rest.UserClient;
@@ -137,6 +138,16 @@ public class DesireRemoteDataSource implements DesireDataSource {
             callback.onDesiresByFilterLoaded(ret);
         } catch (Throwable t) {
             callback.onDataNotAvailable();
+        }
+    }
+
+    @Override
+    public void getChatForDesire(@NonNull long user2Id, @NonNull long desireId, @NonNull GetChatForDesireCallback callback) {
+        try {
+            Chat ret = desireClient.getChatForDesire(user2Id, desireId);
+            callback.onChatLoaded(ret);
+        } catch (Throwable t) {
+            callback.onLoadFailed();
         }
     }
 }

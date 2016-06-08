@@ -19,6 +19,8 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire;
 import android.support.annotation.NonNull;
 
 import java.util.List;
+
+import de.fau.cs.mad.wanthavers.common.Chat;
 import de.fau.cs.mad.wanthavers.common.Desire;
 
 /**
@@ -97,6 +99,14 @@ public interface DesireDataSource {
 
     }
 
+    interface GetChatForDesireCallback {
+
+        void onChatLoaded(Chat chat);
+
+        void onLoadFailed();
+
+    }
+
     void createDesire(@NonNull Desire desire, @NonNull CreateDesireCallback callback);
 
     void updateDesire(@NonNull Desire desire, @NonNull UpdateDesireCallback callback);
@@ -112,4 +122,6 @@ public interface DesireDataSource {
     void getDesiresAsHaver(@NonNull long userId, List<Integer> status, @NonNull GetDesiresAsHaverCallback callback);
 
     void getDesiresByFilter(Long category, Double price_min, Double price_max, Double reward_min, Float rating_min, Double lat, Double lon, Double radius, List<Integer> status, @NonNull GetDesiresByFilterCallback callback);
+
+    void getChatForDesire(@NonNull long user2Id, @NonNull long desireId, @NonNull GetChatForDesireCallback callback);
 }

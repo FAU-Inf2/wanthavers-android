@@ -20,6 +20,7 @@ import android.support.annotation.NonNull;
 
 import java.util.List;
 
+import de.fau.cs.mad.wanthavers.common.Chat;
 import de.fau.cs.mad.wanthavers.common.Desire;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -262,6 +263,25 @@ public class DesireRepository implements DesireDataSource {
             @Override
             public void onDataNotAvailable() {
                 callback.onDataNotAvailable();
+            }
+        });
+    }
+
+    @Override
+    public void getChatForDesire(@NonNull long user2Id, @NonNull long desireId, @NonNull final GetChatForDesireCallback callback) {
+        checkNotNull(user2Id);
+        checkNotNull(desireId);
+        checkNotNull(callback);
+
+        desireRemoteDataSource.getChatForDesire(user2Id, desireId, new GetChatForDesireCallback() {
+            @Override
+            public void onChatLoaded(Chat chat) {
+                callback.onChatLoaded(chat);
+            }
+
+            @Override
+            public void onLoadFailed() {
+                callback.onLoadFailed();
             }
         });
     }

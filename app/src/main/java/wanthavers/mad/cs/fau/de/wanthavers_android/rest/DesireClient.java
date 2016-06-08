@@ -6,6 +6,7 @@ import org.glassfish.jersey.client.proxy.WebResourceFactory;
 
 import java.util.List;
 
+import de.fau.cs.mad.wanthavers.common.Chat;
 import de.fau.cs.mad.wanthavers.common.Desire;
 import de.fau.cs.mad.wanthavers.common.rest.api.DesireResource;
 
@@ -54,5 +55,9 @@ public class DesireClient extends RestClient {
 
     public Desire updateDesireStatus(long desireId, int status) {
         return desireEndpoint.updateDesireStatus(null, desireId, status);
+    }
+
+    public Chat getChatForDesire(long user2Id, long desireId) {
+        return desireEndpoint.getChat(null, user2Id, desireId);
     }
 }

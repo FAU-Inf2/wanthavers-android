@@ -107,4 +107,10 @@ public class DesireLocalDataSource implements DesireDataSource {
         //TODO: alter this method when we decide to store desires locally
         callback.onDataNotAvailable();
     }
+
+    @Override
+    public void getChatForDesire(@NonNull long user2Id, @NonNull long desireId, @NonNull GetChatForDesireCallback callback) {
+        //TODO: alter this method when we decide to store desires locally
+        callback.onLoadFailed();
+    }
 }
