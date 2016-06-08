@@ -1,6 +1,9 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.chatdetail;
 
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -27,6 +30,7 @@ public class ChatDetailActivity extends AppCompatActivity {
 
     private ChatDetailPresenter mChatDetailPresenter;
     public static final String EXTRA_CHAT_ID = "CHAT_ID";
+    private MessageAlarm mMessageAlarm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,15 +75,6 @@ public class ChatDetailActivity extends AppCompatActivity {
                 new GetMessageList(chatRepo), new SendMessage(chatRepo));
 
 
-
-        /* TODO decide whether viewModel needed
-        DesireListViewModel desireListViewModel =
-                new DesireListViewModel(getApplicationContext(), mDesireListPresenter);
-
-        chatListFragment.setViewModel(desireListViewModel);
-
-        */
-
         // Load previously saved state, if available.
         if (savedInstanceState != null) {
             /*TasksFilterType currentFiltering =
@@ -93,8 +88,25 @@ public class ChatDetailActivity extends AppCompatActivity {
 
         chatDetailFragment.setViewModel(chatListViewModel);
 
+        MessageService.setPresenter(mChatDetailPresenter);
+        MessageService.setActive(true);
+        Intent intent = new Intent(this, MessageService.class);
+        startService(intent);
+
     }
 
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        MessageService.setActive(false);
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        MessageService.setActive(false);
+    }
 
     @Override
     public boolean onSupportNavigateUp() {

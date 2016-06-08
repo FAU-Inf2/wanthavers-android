@@ -2,9 +2,11 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases;
 
 import android.support.annotation.NonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.Desire;
+import de.fau.cs.mad.wanthavers.common.DesireStatus;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCase;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireRepository;
@@ -31,19 +33,24 @@ public class GetDesireList extends UseCase<GetDesireList.RequestValues, GetDesir
 
         if(desireListType == DesireListType.ALL_DESIRES) {
 
-            mDesireRepository.getAllDesires(new DesireDataSource.GetAllDesiresCallback() {
+            List<Integer> statusFilter = new ArrayList<>();
+            statusFilter.add(DesireStatus.STATUS_OPEN);
 
-                @Override
-                public void onAllDesiresLoaded(List<Desire> desireList) {
-                    ResponseValue responseValue = new ResponseValue(desireList);
-                    getUseCaseCallback().onSuccess(responseValue);
-                }
+            mDesireRepository.getDesiresByFilter(null,null,null,null,null,null,null,null,statusFilter,
+                    new DesireDataSource.GetDesiresByFilterCallback(){
 
-                @Override
-                public void onDataNotAvailable() {
-                    getUseCaseCallback().onError();
-                }
-            });
+
+                        @Override
+                        public void onDesiresByFilterLoaded(List<Desire> desireList) {
+                            ResponseValue responseValue = new ResponseValue(desireList);
+                            getUseCaseCallback().onSuccess(responseValue);
+                        }
+
+                        @Override
+                        public void onDataNotAvailable() {
+                            getUseCaseCallback().onError();
+                        }
+                    });
 
         }
 
