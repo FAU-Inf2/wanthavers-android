@@ -2,15 +2,11 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases;
 
 import android.support.annotation.NonNull;
 
-import com.google.repacked.antlr.v4.runtime.misc.NotNull;
-
 import java.io.File;
 
 import de.fau.cs.mad.wanthavers.common.Desire;
 import de.fau.cs.mad.wanthavers.common.Media;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCase;
-import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireDataSource;
-import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireRepository;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.media.MediaDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.media.MediaRepository;
 
