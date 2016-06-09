@@ -20,6 +20,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.AcceptHaver;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetAcceptedHaver;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetChatForDesire;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetDesire;
 import de.fau.cs.mad.wanthavers.common.Desire;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetHaver;
@@ -43,6 +44,7 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
     private final AcceptHaver mAcceptHaver;
     private final GetUser mGetUser;
     private final GetAcceptedHaver mGetAcceptedHaver;
+    private final GetChatForDesire mGetChatForDesire;
 
 
     @NonNull
@@ -52,7 +54,8 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
                                  @NonNull DesireDetailContract.View desireDetailView,
                                  @NonNull AcceptHaver acceptHaver, @NonNull GetDesire getDesire,
                                  @NonNull GetHaverList getHaverList, @NonNull GetUser getUser,
-                                 @NonNull SetHaver setHaver, @NonNull GetAcceptedHaver getAcceptedHaver){
+                                 @NonNull SetHaver setHaver, @NonNull GetAcceptedHaver getAcceptedHaver,
+                                 @NonNull GetChatForDesire getChatForDesire){
 
         mUseCaseHandler = checkNotNull(useCaseHandler, "useCaseHandler cannot be null");
         mDesireDetailView = checkNotNull(desireDetailView, "desiredetail view cannot be null");
@@ -63,6 +66,7 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
         mSetHaver = checkNotNull(setHaver);
         mGetUser = checkNotNull(getUser);
         mGetAcceptedHaver = checkNotNull(getAcceptedHaver);
+        mGetChatForDesire = checkNotNull(getChatForDesire);
 
         mDesireDetailView.setPresenter(this);
         mDesireLogic = desireLogic;
@@ -221,6 +225,28 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
         );
     }
 
+    @Override
+    public void sendMessage(long user2Id) {
+
+        GetChatForDesire.RequestValues requestValues = new GetChatForDesire.RequestValues(user2Id, mDesireId);
+
+        mUseCaseHandler.execute(mGetChatForDesire, requestValues,
+                new UseCase.UseCaseCallback<GetChatForDesire.ResponseValue>() {
+
+                    @Override
+                    public void onSuccess(GetChatForDesire.ResponseValue response) {
+                        openChatDetails(response.getChat());
+                    }
+
+                    @Override
+                    public void onError() {
+                        mDesireDetailView.showGetChatForDesireError();
+                    }
+
+                }
+        );
+    }
+
     private void processHavers(List<Haver> havers) {
         if (havers.isEmpty()) {
             //TODO no havers yet
@@ -230,12 +256,14 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
         }
     }
 
-    @Override
-    public void sendMessage() {
-
+    public void openChatDetails(@NonNull Chat chat) {
+        checkNotNull(chat, "Message cannot be null!");
+        //TODO implement opening chat details
+        mDesireDetailView.showChatDetailsUi(chat);
     }
 
-    public void openChat(User user){
+
+    public void openChatList(User user){
         //TODO: open chat here;
         checkNotNull(user, "user cannot be null!");
         mDesireDetailView.showChatList(user.getID());

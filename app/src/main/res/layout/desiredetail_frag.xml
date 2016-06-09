@@ -249,7 +249,8 @@
                     android:text="@string/button_desire_message"
                     android:textColor="@color/colorMainText"
                     android:background="@color/colorPrimary"
-                    android:layout_weight=".45"/>
+                    android:layout_weight=".45"
+                    android:onClick="@{ () -> actionHandler.sendMessage(desire.creator.getID())}"/>
 
             </LinearLayout>
 
@@ -343,7 +344,8 @@
                         android:src="@android:drawable/sym_action_chat"
                         android:layout_alignParentRight="true"
                         android:layout_alignParentEnd="true"
-                        android:layout_marginRight="10dp"/>
+                        android:layout_marginRight="10dp"
+                        android:onClick="@{() -> actionHandler.sendMessage(haver.getUser().getID())}"/>
 
                 </RelativeLayout>
 

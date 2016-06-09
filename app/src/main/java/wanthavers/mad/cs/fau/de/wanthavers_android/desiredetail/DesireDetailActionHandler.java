@@ -27,8 +27,8 @@ public class DesireDetailActionHandler {
         mDesireDetailFragBinding.placeholder.setVisibility(View.GONE);
     }
 
-    public void haverSendMessage() {
-        mListener.sendMessage();
+    public void sendMessage(long user2Id) {
+        mListener.sendMessage(user2Id);
     }
 
     public void wanterAccept(long haverId, Haver haver) {
@@ -49,8 +49,8 @@ public class DesireDetailActionHandler {
         }
     }
 
-    public void wanterSendMessage(long haverId) {
+    /*public void wanterSendMessage(long haverId) {
         mListener.sendMessage();
-    }
+    }*/
 
 }

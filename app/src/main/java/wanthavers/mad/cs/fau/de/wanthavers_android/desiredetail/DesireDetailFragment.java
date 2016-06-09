@@ -24,11 +24,13 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.fau.cs.mad.wanthavers.common.Chat;
 import de.fau.cs.mad.wanthavers.common.Haver;
 import de.fau.cs.mad.wanthavers.common.Media;
 import de.fau.cs.mad.wanthavers.common.User;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import de.fau.cs.mad.wanthavers.common.Desire;
+import wanthavers.mad.cs.fau.de.wanthavers_android.chatdetail.ChatDetailActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.chatlist.ChatListActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.DesiredetailFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
@@ -127,7 +129,7 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
                 //dummy user - TODO get real user here
                 User user = new User("otto","blub@blub.de");
                 user.setId(1234);
-                mPresenter.openChat(user);
+                mPresenter.openChatList(user);
                 break;
         }
         return true;
@@ -223,6 +225,11 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
         showMessage(getString(R.string.accepting_haver_error));
     }
 
+    @Override
+    public void showGetChatForDesireError() {
+        showMessage(getString(R.string.get_chat_for_desire_error));
+    }
+
     public void setDesireLogic(DesireLogic desireLogic){mDesireLogic = desireLogic;}
 
     //may be modified
@@ -264,6 +271,7 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
         }
         return false;
     }
+
     @Override
     public void showChatList(long userid){
 
@@ -272,7 +280,13 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
         Intent intent = new Intent(getContext(), ChatListActivity.class);
         intent.putExtra(ChatListActivity.USER_ID, userid);
         startActivity(intent);
+    }
 
-
+    @Override
+    public void showChatDetailsUi(Chat chat) {
+        //TODO open chatDetailsUI
+        Intent intent = new Intent(getContext(), ChatDetailActivity.class);
+        intent.putExtra(ChatDetailActivity.EXTRA_CHAT_ID, chat.getObjectId());
+        startActivity(intent);
     }
 }

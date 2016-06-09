@@ -21,6 +21,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserReposito
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.AcceptHaver;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetAcceptedHaver;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetChatForDesire;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetDesire;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetHaver;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetHaverList;
@@ -76,7 +77,7 @@ public class DesireDetailActivity extends AppCompatActivity {
         mDesireDetailPresenter = new DesireDetailPresenter(desireLogic, UseCaseHandler.getInstance(),
                 desireId, desireDetailFragment,new AcceptHaver(haverRepository), new GetDesire(desireRepository),
                 new GetHaverList(haverRepository),new GetUser(userRepository), new SetHaver(haverRepository),
-                new GetAcceptedHaver(haverRepository));
+                new GetAcceptedHaver(haverRepository), new GetChatForDesire(desireRepository));
 
         DesireDetailViewModel desireDetailViewModel =
                 new DesireDetailViewModel(getApplicationContext(), mDesireDetailPresenter);

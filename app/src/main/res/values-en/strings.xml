@@ -78,6 +78,7 @@
     <string name="get_user_error">Error while loading user information</string>
     <string name="update_user_success">Successful user update</string>
     <string name="update_user_error">Error while updating user information</string>
+    <string name="get_chat_for_desire_error">Error while opening chat</string>
 
 
     <string-array name="currencies">
