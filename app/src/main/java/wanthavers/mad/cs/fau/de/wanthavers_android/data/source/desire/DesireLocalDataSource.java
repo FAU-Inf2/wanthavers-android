@@ -24,6 +24,7 @@ import com.j256.ormlite.dao.RuntimeExceptionDao;
 import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.Desire;
+import de.fau.cs.mad.wanthavers.common.DesireFilter;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.ormlite.DatabaseHelper;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -103,7 +104,7 @@ public class DesireLocalDataSource implements DesireDataSource {
     }
 
     @Override
-    public void getDesiresByFilter(Long category, Double price_min, Double price_max, Double reward_min, Float rating_min, Double lat, Double lon, Double radius, List<Integer> status, Long lastCreationTime, Integer limit, @NonNull GetDesiresByFilterCallback callback) {
+    public void getDesiresByFilter(@NonNull DesireFilter desireFilter, @NonNull GetDesiresByFilterCallback callback) {
         //TODO: alter this method when we decide to store desires locally
         callback.onDataNotAvailable();
     }

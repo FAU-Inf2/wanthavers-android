@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.Desire;
+import de.fau.cs.mad.wanthavers.common.DesireFilter;
 import de.fau.cs.mad.wanthavers.common.DesireStatus;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCase;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireDataSource;
@@ -36,7 +37,10 @@ public class GetDesireList extends UseCase<GetDesireList.RequestValues, GetDesir
             List<Integer> statusFilter = new ArrayList<>();
             statusFilter.add(DesireStatus.STATUS_OPEN);
 
-            mDesireRepository.getDesiresByFilter(null,null,null,null,null,null,null,null,statusFilter,null,null,
+            DesireFilter desireFilter = new DesireFilter();
+            desireFilter.setStatus(statusFilter);
+
+            mDesireRepository.getDesiresByFilter(desireFilter,
                     new DesireDataSource.GetDesiresByFilterCallback(){
 
 
