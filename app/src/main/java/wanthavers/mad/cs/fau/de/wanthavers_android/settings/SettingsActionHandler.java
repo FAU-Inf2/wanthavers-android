@@ -1,5 +1,6 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.settings;
 
+import de.fau.cs.mad.wanthavers.common.User;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.SettingsFragBinding;
 
 public class SettingsActionHandler {
@@ -13,8 +14,9 @@ public class SettingsActionHandler {
     }
 
     public void changeMailClicked(long userId) {
-        String mail = mSettingsFragBinding.userMail.getText().toString();
-        mListener.getUserForMailUpdate(userId, mail);
+        String email = mSettingsFragBinding.userMail.getText().toString();
+        mListener.getUserForMailUpdate(userId, email);
+        //mListener.updateUserMail(user, email);
     }
 
     public void changeFilterClicked() {

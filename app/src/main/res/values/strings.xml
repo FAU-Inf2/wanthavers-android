@@ -73,6 +73,9 @@
     <string name="loading_havers_error">Fehler beim Laden der Haver</string>
     <string name="setting_haver_error">Fehler beim Akzeptieren des Wunsches</string>
     <string name="accepting_haver_error">Fehler beim Akzeptieren des Havers</string>
+    <string name="get_user_error">Fehler beim Laden der Nutzerinformationen</string>
+    <string name="update_user_success">Erfolgreiche Aktualisierung des Nutzers</string>
+    <string name="update_user_error">Fehler beim Aktualisieren des Nutzers</string>
 
 
     <!-- currency strings -->

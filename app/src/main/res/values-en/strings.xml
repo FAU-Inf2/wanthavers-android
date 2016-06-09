@@ -75,6 +75,9 @@
     <string name="loading_havers_error">Error while loading havers</string>
     <string name="setting_haver_error">Error while accepting desire</string>
     <string name="accepting_haver_error">Error while accepting haver</string>
+    <string name="get_user_error">Error while loading user information</string>
+    <string name="update_user_success">Successful user update</string>
+    <string name="update_user_error">Error while updating user information</string>
 
 
     <string-array name="currencies">

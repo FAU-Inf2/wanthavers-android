@@ -40,19 +40,14 @@ public class SettingsPresenter implements SettingsContract.Presenter {
 
                     @Override
                     public void onError() {
-                        //TODO: make a message
-                        // The view may not be able to handle UI updates anymore
-                        /*if (!mSettingsView.isActive()) {
-                            return;
-                        }
-                        mSettingsView.showLoadingDesiresError();*/
+                        mSettingsView.showGetUserError();
                     }
                 });
     }
 
     @Override
     public void start() {
-        //TODO
+        //TODO ?
     }
 
     public void getUserForMailUpdate(long userId, final String mail) {
@@ -70,13 +65,13 @@ public class SettingsPresenter implements SettingsContract.Presenter {
 
                     @Override
                     public void onError() {
-                        //TODO: make a message
-
+                        mSettingsView.showUpdateUserError();
                     }
                 });
     }
 
     public void upDateUser(User user) {
+
         UpdateUser.RequestValues requestValue = new UpdateUser.RequestValues(user);
 
         mUseCaseHandler.execute(mUpdateUser, requestValue,
@@ -84,16 +79,39 @@ public class SettingsPresenter implements SettingsContract.Presenter {
 
                     @Override
                     public void onSuccess(UpdateUser.ResponseValue response) {
-                        //TODO: make message
+                        mSettingsView.showUpdateUserSuccess();
                     }
 
                     @Override
                     public void onError() {
-                        //TODO: make message
+                        mSettingsView.showUpdateUserError();
                     }
                 }
         );
     }
+
+    /*public void updateUserMail(User user, String email) {
+
+        final String email = mail;
+        user.setEmail(email);
+
+        UpdateUser.RequestValues requestValue = new UpdateUser.RequestValues(user);
+
+        mUseCaseHandler.execute(mUpdateUser, requestValue,
+                new UseCase.UseCaseCallback<UpdateUser.ResponseValue>() {
+
+                    @Override
+                    public void onSuccess(UpdateUser.ResponseValue response) {
+                        mSettingsView.showUpdateUserSuccess();
+                    }
+
+                    @Override
+                    public void onError() {
+                        mSettingsView.showUpdateUserError();
+                    }
+                }
+        );
+    }*/
 
     @Override
     public void openFilterSettings() {
