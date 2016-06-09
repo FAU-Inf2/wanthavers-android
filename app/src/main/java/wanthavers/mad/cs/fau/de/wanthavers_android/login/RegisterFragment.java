@@ -39,7 +39,6 @@ public class RegisterFragment extends Fragment implements LoginContract.View {
     @Override
     public void onResume()  {
         super.onResume();
-        mPresenter.start();
     }
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

@@ -37,6 +37,7 @@ public class StartUpFragment extends Fragment implements LoginContract.View {
         super.onActivityCreated(savedInstanceState);
 
         mViewDataBinding.setPresenter(mPresenter);
+        mPresenter.start();  //TODO JuG check if needed
 
     }
     @Override

@@ -13,6 +13,8 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetAvgRatingForUser;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetDesireList;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetUser;
+import wanthavers.mad.cs.fau.de.wanthavers_android.rest.RestClient;
+import wanthavers.mad.cs.fau.de.wanthavers_android.util.SharedPreferencesHelper;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -61,6 +63,15 @@ public class DesireListPresenter implements DesireListContract.Presenter {
     @Override
     public void createLogout() {
         //TODO add create new desire Logic here
+
+        //destroy user settings in shared preferences
+        final SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, mAppContext);
+        sharedPreferencesHelper.saveString(SharedPreferencesHelper.KEY_USER_EMAIL, null);
+        sharedPreferencesHelper.saveString(SharedPreferencesHelper.KEY_PASSWORD, null);
+        sharedPreferencesHelper.saveLong(SharedPreferencesHelper.KEY_USERID, -1);
+        RestClient.triggerSetNewBasicAuth();
+
+
         mDesireListView.showLogout();
     }
 

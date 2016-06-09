@@ -56,6 +56,11 @@ public class WantHaversApplication extends Application {
         return mDesireFilter;
     }
 
+
+    public void setCurDesireFilter(DesireFilter desireFilter){
+        mDesireFilter = desireFilter;
+    }
+
     public void setDefaultFilter(DesireFilter desireFilter){
 
         //ensure id of filter set to "0"
@@ -70,7 +75,5 @@ public class WantHaversApplication extends Application {
 
     }
 
-    public void setCurDesireFilter(DesireFilter desireFilter){
-        mDesireFilter = desireFilter;
-    }
+
 }
