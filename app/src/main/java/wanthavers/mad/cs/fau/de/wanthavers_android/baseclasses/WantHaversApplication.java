@@ -41,7 +41,7 @@ public class WantHaversApplication extends Application {
 
     public static DesireFilter getCurDesireFilter(Context context){
 
-        DesireFilter tmpFilter = new DesireFilter();
+        DesireFilter tmpFilter = null;
 
         if(mDesireFilter == null){
             FilterDatabaseHelper filtDataHelper = FilterDatabaseHelper.getInstance(context);
@@ -52,6 +52,13 @@ public class WantHaversApplication extends Application {
                 //do nothing as no default filter is specified
             }
 
+        }
+
+        //TODO: @Julian
+        if(tmpFilter == null) {
+            mDesireFilter = new DesireFilter();
+        } else {
+            mDesireFilter = tmpFilter;
         }
 
         return mDesireFilter;
@@ -71,6 +78,9 @@ public class WantHaversApplication extends Application {
         }
 
         mDesireFilter = desireFilter;
+
+        //TODO: @Julian: now you can/must set your own IDs so that you can ensure that they have the value you expect
+        desireFilter.setId(0);
         FilterDatabaseHelper filtDataHelper = FilterDatabaseHelper.getInstance(context);
         filtDataHelper.createOrUpdate(desireFilter);
 
