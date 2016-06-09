@@ -1,6 +1,8 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.desirelist;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -30,16 +32,18 @@ public class DesireListPresenter implements DesireListContract.Presenter {
     private int counter = 0;
     private DesireListType mDesireListType;
     private long mLoggedInUser;
+    private Context mAppContext;
 
     public DesireListPresenter(@NonNull UseCaseHandler useCaseHandler, @NonNull DesireListContract.View desireListView,
-                               @NonNull GetDesireList getDesireList, @NonNull GetAvgRatingForUser getAvgRatingForUser, @NonNull GetUser getUser){
+                               @NonNull GetDesireList getDesireList, @NonNull GetAvgRatingForUser getAvgRatingForUser, @NonNull GetUser getUser,
+                               @NonNull Context context){
 
         mUseCaseHandler = checkNotNull(useCaseHandler, "usecaseHandle cannot be null");
         mDesireListView = checkNotNull(desireListView, "desirelist view cannot be null!");
         mGetDesireList = checkNotNull(getDesireList);
         mGetAvgRatingForUser = checkNotNull(getAvgRatingForUser);
         mGetUser = checkNotNull(getUser);
-
+        mAppContext = checkNotNull(context, "context cannot be null");
         mDesireListView.setPresenter(this);
     }
 
@@ -65,11 +69,7 @@ public class DesireListPresenter implements DesireListContract.Presenter {
         //TODO add create new desire Logic here
 
         //destroy user settings in shared preferences
-        final SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, mAppContext);
-        sharedPreferencesHelper.saveString(SharedPreferencesHelper.KEY_USER_EMAIL, null);
-        sharedPreferencesHelper.saveString(SharedPreferencesHelper.KEY_PASSWORD, null);
-        sharedPreferencesHelper.saveLong(SharedPreferencesHelper.KEY_USERID, -1);
-        RestClient.triggerSetNewBasicAuth();
+
 
 
         mDesireListView.showLogout();
@@ -105,7 +105,7 @@ public class DesireListPresenter implements DesireListContract.Presenter {
             mDesireListView.setLoadingIndicator(true);
         }
 
-        GetDesireList.RequestValues requestValue = new GetDesireList.RequestValues(mDesireListType);
+        GetDesireList.RequestValues requestValue = new GetDesireList.RequestValues(mDesireListType, mAppContext);
         requestValue.setUserId(mLoggedInUser);
 
         mUseCaseHandler.execute(mGetDesireList, requestValue,
@@ -230,6 +230,11 @@ public class DesireListPresenter implements DesireListContract.Presenter {
         //TODO: open chat here;
         checkNotNull(user, "user cannot be null!");
         mDesireListView.showChatList(user.getID());
+    }
+
+    @Override
+    public void openFilterSettings() {
+        mDesireListView.showFilterSettings();
     }
 
 }

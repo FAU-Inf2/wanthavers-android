@@ -115,7 +115,7 @@ public class DesireListActivity extends AppCompatActivity {
 
         // Create the presenter
         mDesireListPresenter = new DesireListPresenter(UseCaseHandler.getInstance(),desireListFragment,new GetDesireList(desireRepository),
-                new GetAvgRatingForUser(ratingRepository), new GetUser(userRepository));
+                new GetAvgRatingForUser(ratingRepository), new GetUser(userRepository), getApplicationContext());
 
         mDesireListPresenter.setDesireListType(desireListType);
 

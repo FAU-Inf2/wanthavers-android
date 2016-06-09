@@ -6,6 +6,7 @@ import android.support.multidex.MultiDex;
 import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;
 
+import de.fau.cs.mad.wanthavers.common.DesireFilter;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.ormlite.FilterDatabaseHelper;
 
 public class WantHaversApplication extends Application {
@@ -38,12 +39,12 @@ public class WantHaversApplication extends Application {
         MultiDex.install(this);
     }
 
-    public DesireFilter getCurDesireFilter(){
+    public static DesireFilter getCurDesireFilter(Context context){
 
         DesireFilter tmpFilter = new DesireFilter();
 
         if(mDesireFilter == null){
-            FilterDatabaseHelper filtDataHelper = FilterDatabaseHelper.getInstance(getApplicationContext());
+            FilterDatabaseHelper filtDataHelper = FilterDatabaseHelper.getInstance(context);
 
             try {
                tmpFilter = filtDataHelper.getById(0);
@@ -57,20 +58,20 @@ public class WantHaversApplication extends Application {
     }
 
 
-    public void setCurDesireFilter(DesireFilter desireFilter){
+    public static void setCurDesireFilter(DesireFilter desireFilter){
         mDesireFilter = desireFilter;
     }
 
-    public void setDefaultFilter(DesireFilter desireFilter){
+    public static void setDefaultFilter(DesireFilter desireFilter, Context context){
 
         //ensure id of filter set to "0"
-        if(desireFilter.getId != 0){
+        if(desireFilter.getId() != 0){
             System.err.println("Default filter has to have the id 0\n, filter was not set");
             return;
         }
 
         mDesireFilter = desireFilter;
-        FilterDatabaseHelper filtDataHelper = FilterDatabaseHelper.getInstance(getApplicationContext());
+        FilterDatabaseHelper filtDataHelper = FilterDatabaseHelper.getInstance(context);
         filtDataHelper.createOrUpdate(desireFilter);
 
     }

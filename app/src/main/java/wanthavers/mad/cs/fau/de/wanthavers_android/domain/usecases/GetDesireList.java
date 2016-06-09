@@ -1,5 +1,6 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import de.fau.cs.mad.wanthavers.common.Desire;
 import de.fau.cs.mad.wanthavers.common.DesireFilter;
 import de.fau.cs.mad.wanthavers.common.DesireStatus;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCase;
+import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.WantHaversApplication;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireRepository;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.DesireListType;
@@ -37,7 +39,7 @@ public class GetDesireList extends UseCase<GetDesireList.RequestValues, GetDesir
             List<Integer> statusFilter = new ArrayList<>();
             statusFilter.add(DesireStatus.STATUS_OPEN);
 
-            DesireFilter desireFilter = new DesireFilter();
+            DesireFilter desireFilter = WantHaversApplication.getCurDesireFilter(values.getContext());
             desireFilter.setStatus(statusFilter);
 
             mDesireRepository.getDesiresByFilter(desireFilter,
@@ -99,9 +101,11 @@ public class GetDesireList extends UseCase<GetDesireList.RequestValues, GetDesir
 
         long mUserId = -1;
         DesireListType mDesireListType;
+        Context mContext;
 
-        public RequestValues(DesireListType desireListType) {
+        public RequestValues(DesireListType desireListType, Context context) {
             mDesireListType = desireListType;
+            mContext = context;
         }
 
         public long getUserId(){
@@ -113,6 +117,8 @@ public class GetDesireList extends UseCase<GetDesireList.RequestValues, GetDesir
         }
 
         public DesireListType getDesireListType(){ return mDesireListType;}
+
+        public Context getContext(){ return  mContext;}
 
         public void setDesireListType(DesireListType desireListType){mDesireListType = desireListType;}
 

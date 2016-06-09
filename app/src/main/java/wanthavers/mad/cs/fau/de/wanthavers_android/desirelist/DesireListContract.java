@@ -38,6 +38,8 @@ public interface DesireListContract {
 
         void showSettings();
 
+        void showFilterSettings();
+
         public void setUser(User user);
         //TODO void showNoTasks();
     }
@@ -65,6 +67,8 @@ public interface DesireListContract {
         void openMyTransactions();
 
         void openSettings();
+
+        void openFilterSettings();
 
         //TODO - add filter options here
 

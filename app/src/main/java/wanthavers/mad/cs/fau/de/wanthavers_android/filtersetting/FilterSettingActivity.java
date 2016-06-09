@@ -37,7 +37,7 @@ public class FilterSettingActivity extends AppCompatActivity {
 
         //create fake repo for categories
 
-        mFilterSettingPresenter = new FilterSettingPresenter(UseCaseHandler.getInstance(), filterSettingFragment);
+        mFilterSettingPresenter = new FilterSettingPresenter(UseCaseHandler.getInstance(), filterSettingFragment, this);
     }
 
     @Override

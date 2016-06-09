@@ -3,7 +3,9 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-
+        <variable
+            name="presenter"
+            type="wanthavers.mad.cs.fau.de.wanthavers_android.filtersetting.FilterSettingContract.Presenter" />
     </data>
 
     <ScrollView
@@ -127,7 +129,7 @@
                     android:textColor="@color/colorMainTextDark"/>
 
                 <RatingBar
-                    android:id="@+id/nav_header_RatingBar"
+                    android:id="@+id/filter_setting_RatingBar"
                     style="?android:attr/ratingBarStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -202,8 +204,22 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="10dp"
+                android:onClick="@{() -> presenter.setFilterWithInput()}"/>
 
+            <Button
+                android:id="@+id/button_reset_filter"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:text="@string/button_reset_filter"
+                android:textColor="@color/colorPrimary"
+                android:layout_below="@id/button_apply_filter"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="10dp"
+                android:onClick="@{() -> presenter.resetFilter()}"/>
 
         </RelativeLayout>
     </ScrollView>

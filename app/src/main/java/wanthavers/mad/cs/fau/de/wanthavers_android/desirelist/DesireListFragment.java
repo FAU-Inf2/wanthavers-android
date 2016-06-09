@@ -37,9 +37,12 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.NavHeaderBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate.DesireCreateActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desiredetail.DesireDetailActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
+import wanthavers.mad.cs.fau.de.wanthavers_android.filtersetting.FilterSettingActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.login.LoginActivity;
+import wanthavers.mad.cs.fau.de.wanthavers_android.rest.RestClient;
 import wanthavers.mad.cs.fau.de.wanthavers_android.settings.SettingsActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.RoundedTransformation;
+import wanthavers.mad.cs.fau.de.wanthavers_android.util.SharedPreferencesHelper;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -142,12 +145,13 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.menu_chat:
-
                 //dummy user - TODO get real user here
                 User user = new User("otto","blub@blub.de");
                 user.setId(1234);
                 mPresenter.openChat(user);
-                break;
+            break;
+            case R.id.menu_filter:
+                mPresenter.openFilterSettings();
         }
         return true;
     }
@@ -267,6 +271,11 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
 
     @Override
     public void showLogout() {
+        final SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, getContext().getApplicationContext());
+        sharedPreferencesHelper.saveString(SharedPreferencesHelper.KEY_USER_EMAIL, null);
+        sharedPreferencesHelper.saveString(SharedPreferencesHelper.KEY_PASSWORD, null);
+        sharedPreferencesHelper.saveLong(SharedPreferencesHelper.KEY_USERID, -1);
+        RestClient.triggerSetNewBasicAuth();
         Intent intent = new Intent(getContext(), LoginActivity.class);
         startActivity(intent);
     }
@@ -274,6 +283,12 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
     @Override
     public void showSettings() {
         Intent intent = new Intent(getContext(), SettingsActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void showFilterSettings(){
+        Intent intent = new Intent(getContext(), FilterSettingActivity.class);
         startActivity(intent);
     }
 }

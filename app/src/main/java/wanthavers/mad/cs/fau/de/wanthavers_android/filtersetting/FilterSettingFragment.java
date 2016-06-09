@@ -1,5 +1,6 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.filtersetting;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.FiltersettingFragBinding;
+import wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.DesireListActivity;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -48,5 +50,12 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
         setHasOptionsMenu(true);
 
         return view;
+    }
+
+
+    @Override
+    public void showDesireList(){
+        Intent intent = new Intent(getContext(), DesireListActivity.class);
+        startActivity(intent);
     }
 }

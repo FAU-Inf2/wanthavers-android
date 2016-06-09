@@ -53,7 +53,7 @@ public class LoginPresenter implements LoginContract.Presenter {
         String loggedInUserMail =  sharedPreferencesHelper.loadString(SharedPreferencesHelper.KEY_USER_EMAIL,null);
 
         //redirect immediately if user is logged in
-        if(loggedInUserMail == null){
+        if(loggedInUserMail != null){
             mLoginView.showDesireList();
         }
 
