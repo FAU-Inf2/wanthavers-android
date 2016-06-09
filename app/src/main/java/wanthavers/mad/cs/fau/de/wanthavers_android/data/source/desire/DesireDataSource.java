@@ -121,7 +121,7 @@ public interface DesireDataSource {
 
     void getDesiresAsHaver(@NonNull long userId, List<Integer> status, @NonNull GetDesiresAsHaverCallback callback);
 
-    void getDesiresByFilter(Long category, Double price_min, Double price_max, Double reward_min, Float rating_min, Double lat, Double lon, Double radius, List<Integer> status, @NonNull GetDesiresByFilterCallback callback);
+    void getDesiresByFilter(Long category, Double price_min, Double price_max, Double reward_min, Float rating_min, Double lat, Double lon, Double radius, List<Integer> status, Long lastCreationTime, Integer limit, @NonNull GetDesiresByFilterCallback callback);
 
     void getChatForDesire(@NonNull long user2Id, @NonNull long desireId, @NonNull GetChatForDesireCallback callback);
 }

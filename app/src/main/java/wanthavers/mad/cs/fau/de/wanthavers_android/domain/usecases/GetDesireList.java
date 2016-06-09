@@ -36,7 +36,7 @@ public class GetDesireList extends UseCase<GetDesireList.RequestValues, GetDesir
             List<Integer> statusFilter = new ArrayList<>();
             statusFilter.add(DesireStatus.STATUS_OPEN);
 
-            mDesireRepository.getDesiresByFilter(null,null,null,null,null,null,null,null,statusFilter,
+            mDesireRepository.getDesiresByFilter(null,null,null,null,null,null,null,null,statusFilter,null,null,
                     new DesireDataSource.GetDesiresByFilterCallback(){
 
 

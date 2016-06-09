@@ -251,10 +251,10 @@ public class DesireRepository implements DesireDataSource {
     }
 
     @Override
-    public void getDesiresByFilter(Long category, Double price_min, Double price_max, Double reward_min, Float rating_min, Double lat, Double lon, Double radius, List<Integer> status, @NonNull final GetDesiresByFilterCallback callback) {
+    public void getDesiresByFilter(Long category, Double price_min, Double price_max, Double reward_min, Float rating_min, Double lat, Double lon, Double radius, List<Integer> status, Long lastCreationTime, Integer limit, @NonNull final GetDesiresByFilterCallback callback) {
         checkNotNull(callback);
 
-        desireRemoteDataSource.getDesiresByFilter(category, price_min, price_max, reward_min, rating_min, lat, lon, radius, status, new GetDesiresByFilterCallback() {
+        desireRemoteDataSource.getDesiresByFilter(category, price_min, price_max, reward_min, rating_min, lat, lon, radius, status, lastCreationTime, limit, new GetDesiresByFilterCallback() {
             @Override
             public void onDesiresByFilterLoaded(List<Desire> desires) {
                 callback.onDesiresByFilterLoaded(desires);
