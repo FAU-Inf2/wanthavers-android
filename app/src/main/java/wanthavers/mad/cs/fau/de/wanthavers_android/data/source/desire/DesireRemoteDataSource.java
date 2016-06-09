@@ -134,6 +134,7 @@ public class DesireRemoteDataSource implements DesireDataSource {
 
     @Override
     public void getDesiresByFilter(@NonNull DesireFilter desireFilter, @NonNull GetDesiresByFilterCallback callback) {
+        Long lastCreationTime = desireFilter.getLastCreationTime() == null ? null : desireFilter.getLastCreationTime().getTime();
         try {
             List<Desire> ret = desireClient.getByFilter(desireFilter.getCategory(),
                                                         desireFilter.getPrice_min(),
@@ -144,7 +145,7 @@ public class DesireRemoteDataSource implements DesireDataSource {
                                                         desireFilter.getLon(),
                                                         desireFilter.getRadius(),
                                                         desireFilter.getStatus(),
-                                                        desireFilter.getLastCreationTime().getTime(),
+                                                        lastCreationTime,
                                                         desireFilter.getLimit());
             callback.onDesiresByFilterLoaded(ret);
         } catch (Throwable t) {

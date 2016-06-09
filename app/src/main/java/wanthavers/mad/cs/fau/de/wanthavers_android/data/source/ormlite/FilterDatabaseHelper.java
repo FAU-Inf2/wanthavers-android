@@ -25,8 +25,11 @@ public class FilterDatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     private static FilterDatabaseHelper INSTANCE;
 
+    private RuntimeExceptionDao<DesireFilter, Integer> desireFilterRuntimeDao;
+
     private FilterDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        desireFilterRuntimeDao = getRuntimeExceptionDao(DesireFilter.class);
     }
 
     public static FilterDatabaseHelper getInstance(@NonNull Context context) {
@@ -35,8 +38,6 @@ public class FilterDatabaseHelper extends OrmLiteSqliteOpenHelper {
         }
         return INSTANCE;
     }
-
-    private RuntimeExceptionDao<DesireFilter, Integer> desireFilterRuntimeDao = null;
 
     @Override
     public void onCreate(SQLiteDatabase database, ConnectionSource connectionSource) {
@@ -52,19 +53,6 @@ public class FilterDatabaseHelper extends OrmLiteSqliteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase database, ConnectionSource connectionSource, int oldVersion, int newVersion) {
 
-    }
-
-    @Override
-    public void close() {
-        super.close();
-        desireFilterRuntimeDao = null;
-    }
-
-    public RuntimeExceptionDao<DesireFilter, Integer> getDesireFilterRuntimeDao() {
-        if(desireFilterRuntimeDao == null) {
-            desireFilterRuntimeDao = getRuntimeExceptionDao(DesireFilter.class);
-        }
-        return desireFilterRuntimeDao;
     }
 
     public DesireFilter createOrUpdate(DesireFilter desireFilter) {
