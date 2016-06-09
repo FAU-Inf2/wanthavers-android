@@ -56,12 +56,7 @@ public class FilterDatabaseHelper extends OrmLiteSqliteOpenHelper {
     }
 
     public DesireFilter createOrUpdate(DesireFilter desireFilter) {
-        if(desireFilter.getId() == null) {
-            Integer id = desireFilterRuntimeDao.create(desireFilter);
-            desireFilter.setId(id);
-        } else {
-            desireFilterRuntimeDao.update(desireFilter);
-        }
+        desireFilterRuntimeDao.createOrUpdate(desireFilter);
 
         return desireFilter;
     }
