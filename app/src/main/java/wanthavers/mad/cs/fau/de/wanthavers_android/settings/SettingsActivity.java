@@ -52,7 +52,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         UserRepository userRepository = UserRepository.getInstance(UserRemoteDataSource.getInstance(context), UserLocalDataSource.getInstance(context));
 
-        mSettingsPresenter = new SettingsPresenter(UseCaseHandler.getInstance(), settingsFragment,
+        mSettingsPresenter = new SettingsPresenter(getApplicationContext(), UseCaseHandler.getInstance(), settingsFragment,
                 new GetUser(userRepository), new UpdateUser(userRepository));
     }
 
