@@ -1,9 +1,11 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate;
 
 import android.content.Intent;
+import android.databinding.ObservableMap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -15,6 +17,11 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+
 import java.io.File;
 import java.util.Date;
 
@@ -22,6 +29,7 @@ import de.fau.cs.mad.wanthavers.common.Desire;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.Desirecreate3rdFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.DesireListActivity;
+import wanthavers.mad.cs.fau.de.wanthavers_android.test.MainActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.PathHelper;
 
 
@@ -71,8 +79,6 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
         return mViewDataBinding.getRoot();
     }
 
-
-
     @Override
     public void showNextDesireCreateStep() {
         final EditText desireDropzone = (EditText) getView().findViewById(R.id.create_desire_dropzone);
@@ -92,13 +98,13 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
         setDataForDesire(title, description, Integer.parseInt(price), Integer.parseInt(reward), desireDropzone.getText().toString(), currency, image);
         //includes sendDesireToServer()
 
-        /*Log.d("DesireTitle:", desire.getTitle());
+        Log.d("DesireTitle:", desire.getTitle());
         Log.d("DesireDesciption:", desire.getDescription());
         Log.d("DesirePrice:", Double.toString(desire.getPrice()));
         Log.d("DesireReward:", Double.toString(desire.getReward()));
         Log.d("DesireDropzone:", desire.getDropzone_string());
         Log.d("DesireCurrency:", desire.getCurrency());
-        Log.d("DesireColor:", Integer.toString(desire.getColorIndex()));*/
+        Log.d("DesireColor:", Integer.toString(desire.getColorIndex()));
 
         Intent intent = new Intent(getContext(), DesireListActivity.class);
         startActivity(intent);

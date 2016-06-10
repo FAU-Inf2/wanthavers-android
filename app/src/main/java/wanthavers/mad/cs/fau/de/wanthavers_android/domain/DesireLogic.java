@@ -46,6 +46,23 @@ public class DesireLogic {
     }
 
 
+    public String getIsoCurrency(String unicode){
+        String iso;
+        switch(unicode){
+            case "\u20AC":
+                iso = "EUR";
+                break;
+            case "\u0024":
+                iso = "USD";
+                break;
+            case "\u00A3":
+                iso = "GBP";
+                break;
+            default: iso = "EUR";
+        }
+        return iso;
+    }
+
     public String getPriceString(double price){
 
         String priceString = String.valueOf( (int) price);

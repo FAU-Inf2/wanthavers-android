@@ -45,8 +45,8 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:maxLength="6"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignRight="@+id/create_desire_reward_header"
+            android:layout_alignEnd="@+id/create_desire_reward_header" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -58,8 +58,8 @@
             android:layout_below="@+id/create_desire_reward_header"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignRight="@+id/image_camera"
+            android:layout_alignEnd="@+id/image_camera" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -102,9 +102,10 @@
             android:id="@+id/spinner_currency"
             android:spinnerMode="dropdown"
             android:entries="@array/currencies"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignBaseline="@+id/create_desire_price"
+            android:layout_alignBottom="@+id/create_desire_price"
+            android:layout_toRightOf="@+id/create_desire_price"
+            android:layout_toEndOf="@+id/create_desire_price" />
 
 
     </RelativeLayout>
