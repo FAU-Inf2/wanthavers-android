@@ -32,7 +32,6 @@ import de.fau.cs.mad.wanthavers.common.Desire;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.Desirecreate2ndFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
-import wanthavers.mad.cs.fau.de.wanthavers_android.test.MainActivity;
 
 import static android.support.v4.content.PermissionChecker.checkSelfPermission;
 

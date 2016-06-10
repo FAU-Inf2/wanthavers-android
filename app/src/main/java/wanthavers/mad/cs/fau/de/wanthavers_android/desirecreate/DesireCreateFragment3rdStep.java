@@ -1,7 +1,6 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate;
 
 import android.content.Intent;
-import android.databinding.ObservableMap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -17,11 +16,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.LatLng;
-
 import java.io.File;
 import java.util.Date;
 
@@ -29,7 +23,6 @@ import de.fau.cs.mad.wanthavers.common.Desire;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.Desirecreate3rdFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.DesireListActivity;
-import wanthavers.mad.cs.fau.de.wanthavers_android.test.MainActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.PathHelper;
 
 
