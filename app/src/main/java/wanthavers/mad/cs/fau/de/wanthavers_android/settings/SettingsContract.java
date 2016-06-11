@@ -1,5 +1,7 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.settings;
 
+import java.io.File;
+
 import de.fau.cs.mad.wanthavers.common.User;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.BasePresenter;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.BaseView;
@@ -25,6 +27,8 @@ public interface SettingsContract {
         void getUser(long userId);
 
         void getUserForMailUpdate(long userId, final String mail);
+
+        void getUserForImageUpdate(long userId, final File image);
 
         //void updateUserMail(User user, String email);
     }
