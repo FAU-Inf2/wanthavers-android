@@ -107,7 +107,7 @@ public class SettingsPresenter implements SettingsContract.Presenter {
 
     public void getUserForImageUpdate(long userId, final File image) {
 
-        System.out.println("getUserForImageUpdate reached");
+        //System.out.println("getUserForImageUpdate reached");
 
         GetUser.RequestValues requestValue = new GetUser.RequestValues(userId);
 
@@ -121,7 +121,7 @@ public class SettingsPresenter implements SettingsContract.Presenter {
 
                     @Override
                     public void onError() {
-                        System.out.println("getUserForImageUpdate error");
+                        //System.out.println("getUserForImageUpdate error");
                         mSettingsView.showUpdateUserError();
                     }
                 });
@@ -129,7 +129,7 @@ public class SettingsPresenter implements SettingsContract.Presenter {
 
     public void uploadImage(final User user, File image) {
 
-        System.out.println("uploadImage reached");
+        //System.out.println("uploadImage reached");
 
         CreateImage.RequestValues requestValue = new CreateImage.RequestValues(image);
 
@@ -145,16 +145,16 @@ public class SettingsPresenter implements SettingsContract.Presenter {
 
                     @Override
                     public void onError() {
-                        System.out.println("uploadImage error");
+                        //System.out.println("uploadImage error");
                         mSettingsView.showUpdateUserError();
                     }
                 }
         );
     }
 
-    public void upDateUserImage(User user, Media media) {
+    public void upDateUserImage(final User user, Media media) {
 
-        System.out.println("upDateUserImage reached");
+        //System.out.println("upDateUserImage reached");
 
         UpdateUser.RequestValues requestValue = new UpdateUser.RequestValues(user);
 
@@ -164,13 +164,12 @@ public class SettingsPresenter implements SettingsContract.Presenter {
                     @Override
                     public void onSuccess(UpdateUser.ResponseValue response) {
                         mSettingsView.showUpdateUserSuccess();
-                        //TODO: show image in view
-                        mSettingsView.showUpdateUserSuccess();
+                        mSettingsView.setUser(user);
                     }
 
                     @Override
                     public void onError() {
-                        System.out.println("upDateUserImage error");
+                        //System.out.println("upDateUserImage error");
                         mSettingsView.showUpdateUserError();
                     }
                 }
