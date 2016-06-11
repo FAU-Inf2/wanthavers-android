@@ -1,17 +1,24 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.settings;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.content.Context;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.media.MediaLocalDataSource;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.media.MediaRemoteDataSource;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.media.MediaRepository;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserLocalDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserRemoteDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserRepository;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.SelectImageLogic;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.CreateImage;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetUser;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.UpdateUser;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.ActivityUtils;
@@ -46,19 +53,31 @@ public class SettingsActivity extends AppCompatActivity {
         DesireLogic desireLogic = new DesireLogic(getApplicationContext());
         settingsFragment.setDesireLogic(desireLogic);
 
+        SelectImageLogic selectImageLogic = new SelectImageLogic(this);
+        settingsFragment.setSelectImageLogic(selectImageLogic);
+
         //create fake task repo
         Context context = getApplicationContext();
         checkNotNull(context);
 
         UserRepository userRepository = UserRepository.getInstance(UserRemoteDataSource.getInstance(context), UserLocalDataSource.getInstance(context));
+        MediaRepository mediaRepository = MediaRepository.getInstance(MediaRemoteDataSource.getInstance(context), MediaLocalDataSource.getInstance(context));
 
         mSettingsPresenter = new SettingsPresenter(getApplicationContext(), UseCaseHandler.getInstance(), settingsFragment,
-                new GetUser(userRepository), new UpdateUser(userRepository));
+                new GetUser(userRepository), new UpdateUser(userRepository), new CreateImage(mediaRepository));
     }
 
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+            fragment.onActivityResult(requestCode, resultCode, data);
+        }
     }
 }

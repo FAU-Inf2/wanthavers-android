@@ -1,8 +1,11 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.settings;
 
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,12 +18,16 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
+
 import de.fau.cs.mad.wanthavers.common.Media;
 import de.fau.cs.mad.wanthavers.common.User;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.SettingsFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.SelectImageLogic;
 import wanthavers.mad.cs.fau.de.wanthavers_android.filtersetting.FilterSettingActivity;
+import wanthavers.mad.cs.fau.de.wanthavers_android.util.PathHelper;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.RoundedTransformation;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.SharedPreferencesHelper;
 
@@ -31,6 +38,7 @@ public class SettingsFragment extends Fragment implements SettingsContract.View 
     private SettingsFragBinding mSettingsFragBinding;
     private SettingsActionHandler mSettingsActionHandler;
     private DesireLogic mDesireLogic;
+    private SelectImageLogic mSelectImageLogic;
 
     public SettingsFragment() {
         //Requires empty public constructor
@@ -54,14 +62,13 @@ public class SettingsFragment extends Fragment implements SettingsContract.View 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        //View view = inflater.inflate(R.layout.settings_frag, container, false);
         mSettingsFragBinding = SettingsFragBinding.inflate(inflater, container, false);
 
         mPresenter.getUser(mDesireLogic.getLoggedInUserId());
 
         setHasOptionsMenu(true);
 
-        mSettingsActionHandler = new SettingsActionHandler(mPresenter, mSettingsFragBinding);
+        mSettingsActionHandler = new SettingsActionHandler(mPresenter, mSettingsFragBinding, mSelectImageLogic);
         mSettingsFragBinding.setActionHandler(mSettingsActionHandler);
 
         return mSettingsFragBinding.getRoot();
@@ -83,6 +90,34 @@ public class SettingsFragment extends Fragment implements SettingsContract.View 
 
     public void setDesireLogic(DesireLogic desireLogic) {
         mDesireLogic = desireLogic;
+    }
+
+    public void setSelectImageLogic(SelectImageLogic selectImageLogic) {
+        mSelectImageLogic = selectImageLogic;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(grantResults[0]== PackageManager.PERMISSION_GRANTED){
+            mSettingsActionHandler.getSelectImageLogic().selectImageForDesire();
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if ( resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
+            Uri image = data.getData();
+            ImageView imageView = (ImageView) getView().findViewById(R.id.profile_picture);
+            imageView.setImageURI(image);
+
+            File file = new File(PathHelper.getRealPathFromURI(this.getContext().getApplicationContext(), image));
+
+            long loggedInUserId = mDesireLogic.getLoggedInUserId();
+
+            mPresenter.getUserForImageUpdate(loggedInUserId, file);
+        }
     }
 
     @Override

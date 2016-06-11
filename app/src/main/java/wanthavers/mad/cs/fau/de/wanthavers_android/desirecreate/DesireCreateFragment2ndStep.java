@@ -31,8 +31,8 @@ import java.io.File;
 import de.fau.cs.mad.wanthavers.common.Desire;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.Desirecreate2ndFragBinding;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
 
-import static android.support.v4.content.PermissionChecker.checkSelfPermission;
 
 public class DesireCreateFragment2ndStep extends Fragment implements DesireCreateContract.View {
     private Desirecreate2ndFragBinding mViewDataBinding;
@@ -100,60 +100,13 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
         intent.putExtra("desireDescription", description);
         intent.putExtra("desirePrice", desirePrice.getText().toString());
         intent.putExtra("desireReward", desireReward.getText().toString());
-        intent.putExtra("desireCurrency", spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString());
+
+        DesireLogic dsl = new DesireLogic(getContext());
+        String currency = dsl.getIsoCurrency(spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString());
+        intent.putExtra("desireCurrency", currency);
+        //intent.putExtra("desireCurrency", spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString());
         intent.putExtra("desireImage", image);
         startActivity(intent);
-    }
-
-    public void selectImageForDesire() {
-
-        final CharSequence[] options = { getString(R.string.take_photo) , getString(R.string.choose_image_gallery), getString(R.string.add_image_cancel) };
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(R.string.add_image);
-        builder.setItems(options, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int item) {
-                if (options[item].equals(getString(R.string.take_photo)))
-                {
-                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    File f = new File(android.os.Environment.getExternalStorageDirectory(), "temp.jpg");
-                    intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
-                    startActivityForResult(intent, 1);
-                }
-                else if (options[item].equals(getString(R.string.choose_image_gallery)))
-                {
-                    Intent intent = new   Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                    startActivityForResult(intent, 2);
-
-                }
-                else if (options[item].equals(getString(R.string.add_image_cancel))) {
-                    dialog.dismiss();
-                }
-            }
-        });
-        builder.show();
-    }
-
-
-    public  boolean isStoragePermissionGranted() {
-        if (Build.VERSION.SDK_INT >= 23) {
-            if (checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)
-                    == PackageManager.PERMISSION_GRANTED) {
-                Log.d("Permission: ","Permission is granted");
-                return true;
-            } else {
-
-                Log.d("Permission: ","Permission is revoked");
-                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
-                return false;
-            }
-        }
-        else { //permission is automatically granted because sdk<23
-            Log.v("Permission: ","Permission is granted");
-            return true;
-        }
-
     }
 
 
@@ -161,11 +114,9 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if(grantResults[0]== PackageManager.PERMISSION_GRANTED){
-            selectImageForDesire();
+            mPresenter.getImageLogic().selectImageForDesire();
         }
     }
-
-
 
 
     @Override
@@ -177,7 +128,7 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
             ImageView imageView = (ImageView) getView().findViewById(R.id.image_camera);
             imageView.setImageURI(image);
 
-        }//TODO
+        }
 
     }
 

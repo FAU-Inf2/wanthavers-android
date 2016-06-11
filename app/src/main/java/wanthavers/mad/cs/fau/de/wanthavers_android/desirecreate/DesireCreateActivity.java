@@ -43,7 +43,7 @@ public class DesireCreateActivity extends AppCompatActivity {
 
         // Create the presenter
         //TODO
-        mDesireCreatePresenter = new DesireCreatePresenter(UseCaseHandler.getInstance(), desireCreateFragment, null, null, null);
+        mDesireCreatePresenter = new DesireCreatePresenter(UseCaseHandler.getInstance(), desireCreateFragment, null,null, null, null);
     }
 
     @Override

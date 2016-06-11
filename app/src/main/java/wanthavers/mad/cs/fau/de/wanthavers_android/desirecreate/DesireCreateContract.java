@@ -6,6 +6,7 @@ import de.fau.cs.mad.wanthavers.common.Desire;
 import de.fau.cs.mad.wanthavers.common.Media;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.BasePresenter;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.BaseView;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.SelectImageLogic;
 
 public interface DesireCreateContract {
     interface View extends BaseView<Presenter> {
@@ -16,9 +17,9 @@ public interface DesireCreateContract {
 
         void showNextDesireCreateStep();
 
-        boolean isStoragePermissionGranted();
+        //boolean isStoragePermissionGranted();
 
-        void selectImageForDesire();
+        //void selectImageForDesire();
     }
 
 
@@ -33,6 +34,8 @@ public interface DesireCreateContract {
         void setImage(File file, Desire desire);
 
         void selectImageFromDevice();
+
+        SelectImageLogic getImageLogic();
 
     }
 }

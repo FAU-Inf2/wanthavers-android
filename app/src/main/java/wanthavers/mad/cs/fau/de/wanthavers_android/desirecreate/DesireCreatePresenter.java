@@ -9,6 +9,7 @@ import de.fau.cs.mad.wanthavers.common.Media;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCase;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.SelectImageLogic;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.SetDesire;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.SetImage;
 
@@ -18,10 +19,13 @@ public class DesireCreatePresenter implements DesireCreateContract.Presenter {
     private final SetDesire mSetDesire;
     private final SetImage mSetImage;
     private final DesireCreateActivity3rdStep mDesireCreateActivity3rdStep;
+    private final DesireCreateActivity2ndStep mDesireCreateActivity2ndStep;
     //private Media mMedia;
     private Desire mDesire;
+    private SelectImageLogic mImageLogic;
 
-    public DesireCreatePresenter(@NonNull UseCaseHandler ucHandler, @NonNull DesireCreateContract.View view, @NonNull DesireCreateActivity3rdStep desireCreateActivity3rdStep,
+    public DesireCreatePresenter(@NonNull UseCaseHandler ucHandler, @NonNull DesireCreateContract.View view,
+                                 @NonNull DesireCreateActivity3rdStep desireCreateActivity3rdStep, @NonNull DesireCreateActivity2ndStep desireCreateActivity2ndStep,
                                  @NonNull SetDesire setDesire, @NonNull SetImage setImage) {
 
         mUseCaseHandler = ucHandler;
@@ -29,9 +33,15 @@ public class DesireCreatePresenter implements DesireCreateContract.Presenter {
         mSetDesire = setDesire;
         mSetImage = setImage;
         mDesireCreateActivity3rdStep = desireCreateActivity3rdStep;
+        mDesireCreateActivity2ndStep = desireCreateActivity2ndStep;
+        mImageLogic = new SelectImageLogic(desireCreateActivity2ndStep);
 
         mDesireCreateView.setPresenter(this);
 
+    }
+
+    public SelectImageLogic getImageLogic(){
+        return mImageLogic;
     }
 
     public void start() { //TODO;
@@ -44,9 +54,13 @@ public class DesireCreatePresenter implements DesireCreateContract.Presenter {
 
     @Override
     public void selectImageFromDevice(){
-        if(mDesireCreateView.isStoragePermissionGranted()){
+        /*if(mDesireCreateView.isStoragePermissionGranted()){
             mDesireCreateView.selectImageForDesire();
+        }*/
+        if(mImageLogic.isStoragePermissionGranted()){
+            mImageLogic.selectImageForDesire();
         }
+
     }
 
     public void setDesire(Desire desire){
