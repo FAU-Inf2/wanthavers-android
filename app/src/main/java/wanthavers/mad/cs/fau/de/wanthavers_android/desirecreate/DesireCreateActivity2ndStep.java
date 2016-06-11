@@ -1,6 +1,7 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate;
 
 import android.content.Intent;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -40,7 +41,7 @@ public class DesireCreateActivity2ndStep extends AppCompatActivity {
 
 
         //TODO
-        mDesireCreatePresenter = new DesireCreatePresenter(UseCaseHandler.getInstance(), desireCreateFragment, null, null, null);
+        mDesireCreatePresenter = new DesireCreatePresenter(UseCaseHandler.getInstance(), desireCreateFragment, null, this,null, null);
     }
 
     @Override
@@ -53,9 +54,10 @@ public class DesireCreateActivity2ndStep extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        /*for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+        for (Fragment fragment : getSupportFragmentManager().getFragments()) {
             fragment.onActivityResult(requestCode, resultCode, data);
-        }*/
+        }
+
     }
 
 }

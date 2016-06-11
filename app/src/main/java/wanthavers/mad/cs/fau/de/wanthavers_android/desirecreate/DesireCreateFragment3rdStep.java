@@ -149,7 +149,7 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
         mPresenter.setDesire(desire);
     }
 
-    @Override
+    /*@Override
     public boolean isStoragePermissionGranted() {
         return false; // no Permissions in this Step
     }
@@ -157,6 +157,6 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
     @Override
     public void selectImageForDesire() {
         //no selectable Images in this Step
-    }
+    }*/
 
 }

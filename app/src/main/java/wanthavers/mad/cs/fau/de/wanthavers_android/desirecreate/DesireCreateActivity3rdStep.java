@@ -54,7 +54,7 @@ public class DesireCreateActivity3rdStep extends AppCompatActivity {
         DesireRepository desRepo = DesireRepository.getInstance(DesireRemoteDataSource.getInstance(context), DesireLocalDataSource.getInstance(context));
         MediaRepository mediaRepo = MediaRepository.getInstance(MediaRemoteDataSource.getInstance(context), MediaLocalDataSource.getInstance(context));
 
-        mDesireCreatePresenter = new DesireCreatePresenter(UseCaseHandler.getInstance(), desireCreateFragment,this ,new SetDesire(desRepo), new SetImage(mediaRepo) );
+        mDesireCreatePresenter = new DesireCreatePresenter(UseCaseHandler.getInstance(), desireCreateFragment,this,null ,new SetDesire(desRepo), new SetImage(mediaRepo) );
     }
 
     @Override

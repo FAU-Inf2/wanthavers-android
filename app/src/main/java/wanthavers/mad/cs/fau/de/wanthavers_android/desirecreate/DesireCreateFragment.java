@@ -78,7 +78,7 @@ public class DesireCreateFragment extends Fragment implements DesireCreateContra
     }
 
 
-    @Override
+    /*@Override
     public boolean isStoragePermissionGranted() {
         return false; // no Permissions in this Step
     }
@@ -86,7 +86,7 @@ public class DesireCreateFragment extends Fragment implements DesireCreateContra
     @Override
     public void selectImageForDesire() {
         //no selectable Images in this Step
-    }
+    }*/
 
     @Override
     public void showMedia(Desire m){

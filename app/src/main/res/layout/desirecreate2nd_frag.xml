@@ -102,10 +102,9 @@
             android:id="@+id/spinner_currency"
             android:spinnerMode="dropdown"
             android:entries="@array/currencies"
-            android:layout_alignBaseline="@+id/create_desire_price"
-            android:layout_alignBottom="@+id/create_desire_price"
-            android:layout_toRightOf="@+id/create_desire_price"
-            android:layout_toEndOf="@+id/create_desire_price" />
+            android:layout_alignTop="@+id/create_desire_price"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
 
 
     </RelativeLayout>
