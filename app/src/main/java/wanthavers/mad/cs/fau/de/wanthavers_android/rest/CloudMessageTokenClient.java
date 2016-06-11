@@ -4,6 +4,9 @@ import android.content.Context;
 
 import org.glassfish.jersey.client.proxy.WebResourceFactory;
 
+import java.util.List;
+
+import de.fau.cs.mad.wanthavers.common.CloudMessageToken;
 import de.fau.cs.mad.wanthavers.common.rest.api.CloudMessageTokenResource;
 
 /**
@@ -31,5 +34,23 @@ public class CloudMessageTokenClient extends RestClient {
         cloudMessageTokenEndpoint = WebResourceFactory.newResource(CloudMessageTokenResource.class, target);
     }
 
+    public List<CloudMessageToken> getAllTokensForUser() {
+        return cloudMessageTokenEndpoint.getAllTokens(null);
+    }
 
+    public CloudMessageToken createToken(CloudMessageToken token) {
+        return cloudMessageTokenEndpoint.createToken(null, token);
+    }
+
+    public CloudMessageToken getToken(long tokenId) {
+        return cloudMessageTokenEndpoint.get(null, tokenId);
+    }
+
+    public CloudMessageToken updateToken(long tokenId, CloudMessageToken token) {
+        return cloudMessageTokenEndpoint.updateToken(null, tokenId, token);
+    }
+
+    public void deleteToken(long tokenId) {
+        cloudMessageTokenEndpoint.deleteToken(null, tokenId);
+    }
 }
