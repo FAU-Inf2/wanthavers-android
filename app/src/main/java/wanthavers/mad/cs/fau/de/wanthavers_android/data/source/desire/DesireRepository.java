@@ -18,6 +18,7 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire;
 
 import android.support.annotation.NonNull;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.Chat;
@@ -254,6 +255,22 @@ public class DesireRepository implements DesireDataSource {
     @Override
     public void getDesiresByFilter(@NonNull DesireFilter desireFilter, @NonNull final GetDesiresByFilterCallback callback) {
         checkNotNull(callback);
+
+        /* TODO include to debug filter setting
+        DesireFilter abc = desireFilter;
+        System.out.println("*****begin print desireFilter in getDesiresByFilter****");
+        for (Field field : abc.getClass().getDeclaredFields()) {
+            field.setAccessible(true);
+            String name = field.getName();
+            Object value = null;
+            try {
+                value = field.get(abc);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+            System.out.printf("Field name: %s, Field value: %s%n", name, value);
+        }
+        */
 
         desireRemoteDataSource.getDesiresByFilter(desireFilter, new GetDesiresByFilterCallback() {
             @Override

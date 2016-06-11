@@ -55,7 +55,6 @@ public class DesireListActivity extends AppCompatActivity {
 
 
         DesireListType desireListType = (DesireListType) getIntent().getSerializableExtra(EXTRA_FRAGMENT_ID);
-        System.out.println("fragment id = " + desireListType);
 
         if(desireListType == null){
             desireListType = DesireListType.ALL_DESIRES;

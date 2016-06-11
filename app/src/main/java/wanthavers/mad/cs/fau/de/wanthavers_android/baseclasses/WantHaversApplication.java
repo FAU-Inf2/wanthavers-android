@@ -41,27 +41,27 @@ public class WantHaversApplication extends Application {
 
     public static DesireFilter getCurDesireFilter(Context context){
 
-        DesireFilter tmpFilter = null;
+        DesireFilter defaultFilter = null;
 
         if(mDesireFilter == null){
             FilterDatabaseHelper filtDataHelper = FilterDatabaseHelper.getInstance(context);
 
             try {
-               tmpFilter = filtDataHelper.getById(0);
+               defaultFilter = filtDataHelper.getById(0);
             }catch (Exception e){
                 //do nothing as no default filter is specified
             }
 
         }
 
-        //TODO: @Julian
-        if(tmpFilter == null) {
-            mDesireFilter = new DesireFilter();
-        } else {
-            mDesireFilter = tmpFilter;
+        //TODO: @JuG - think about better way to structure this part
+        if(defaultFilter != null){
+            return defaultFilter;
         }
 
+
         return mDesireFilter;
+
     }
 
 

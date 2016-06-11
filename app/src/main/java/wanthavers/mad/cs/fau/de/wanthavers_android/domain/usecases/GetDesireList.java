@@ -40,7 +40,15 @@ public class GetDesireList extends UseCase<GetDesireList.RequestValues, GetDesir
             statusFilter.add(DesireStatus.STATUS_OPEN);
 
             DesireFilter desireFilter = WantHaversApplication.getCurDesireFilter(values.getContext());
+
+
+            //TODO JuG - this should not be neccessary - refactor later
+            if(desireFilter == null){
+                desireFilter = new DesireFilter();
+            }
+
             desireFilter.setStatus(statusFilter);
+
 
             mDesireRepository.getDesiresByFilter(desireFilter,
                     new DesireDataSource.GetDesiresByFilterCallback(){

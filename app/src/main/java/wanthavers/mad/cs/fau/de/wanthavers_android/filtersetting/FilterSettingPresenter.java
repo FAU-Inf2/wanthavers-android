@@ -42,13 +42,12 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
 
         DesireFilter desireFilter = new DesireFilter();
 
-
         //get all Views
         RatingBar minRatingBar = (RatingBar)mActivity.findViewById(R.id.filter_setting_RatingBar);
         EditText minRewardView = (EditText) mActivity.findViewById(R.id.filter_min_reward);
 
         //get all Values
-        float minRating = minRatingBar.getNumStars();
+        float minRating = minRatingBar.getRating();
         Double minReward = Double.valueOf(minRewardView.getText().toString());
 
         //set all filter values

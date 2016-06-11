@@ -49,7 +49,10 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
         //return mFilterSettingFragBinding.getRoot();
         setHasOptionsMenu(true);
 
-        return view;
+        mFilterSettingFragBinding  = FiltersettingFragBinding.inflate(inflater,container,false);
+
+        mFilterSettingFragBinding.setPresenter(mPresenter);
+        return mFilterSettingFragBinding.getRoot();
     }
 
 
