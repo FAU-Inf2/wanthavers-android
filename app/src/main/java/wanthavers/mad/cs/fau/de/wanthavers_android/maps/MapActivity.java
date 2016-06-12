@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.Projection;
 import com.google.android.gms.maps.model.LatLng;
@@ -89,7 +90,7 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
         imageHeight = mMarkerImageView.getHeight();
 
         centerX = imageParentWidth / 2;
-        centerY = (imageParentHeight / 2) ;//+ (imageHeight / 2);
+        centerY = (imageParentHeight / 2);
     }
 
     private void initilizeMap() {
@@ -98,6 +99,7 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
                     .findFragmentById(R.id.map));
             mMapFragment.setOnDragListener(MapActivity.this);
             googleMap = mMapFragment.getMap();
+            googleMap.moveCamera( CameraUpdateFactory.newLatLngZoom(new LatLng(49.573759,11.027389) , 6.0f) ); //computer science tower uni erlangen
             // check if map is created successfully or not
             if (googleMap == null) {
                 showMessage(getString(R.string.maps_error));
