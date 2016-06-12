@@ -129,8 +129,8 @@ public class DesireListActivity extends AppCompatActivity {
 
         // TODO: Check for compatible Google Play service APK
         // Uncomment this to get unique token for cloud messaging
-        // Intent intent = new Intent(this, RegistrationIntentService.class);
-        // startService(intent);
+        Intent intent = new Intent(this, RegistrationIntentService.class);
+        startService(intent);
 		
 		
         SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, getApplicationContext());

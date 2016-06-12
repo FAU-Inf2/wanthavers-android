@@ -6,10 +6,12 @@ import android.util.Log;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.ProtocolException;
-import java.net.URL;
+import de.fau.cs.mad.wanthavers.common.CloudMessageToken;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.cloudmessagetoken.CloudMessageTokenDataSource;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.cloudmessagetoken.CloudMessageTokenLocalDataSource;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.cloudmessagetoken.CloudMessageTokenRemoteDataSource;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.cloudmessagetoken.CloudMessageTokenRepository;
+import wanthavers.mad.cs.fau.de.wanthavers_android.util.SharedPreferencesHelper;
 
 
 public class RegistrationIntentService extends IntentService {
@@ -30,6 +32,30 @@ public class RegistrationIntentService extends IntentService {
     }
 
     private void sendRegistrationToServer(String refreshedToken) {
-        //TODO: implement
+        CloudMessageTokenRepository tokenRepository = CloudMessageTokenRepository.getInstance(
+                CloudMessageTokenRemoteDataSource.getInstance(getApplicationContext()),
+                CloudMessageTokenLocalDataSource.getInstance(getApplicationContext()));
+
+        SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, getApplicationContext());
+        long userId = sharedPreferencesHelper.loadLong(SharedPreferencesHelper.KEY_USERID, 6L);
+
+        CloudMessageToken token = new CloudMessageToken();
+        token.setToken(refreshedToken);
+        token.setUserId(userId);
+
+        tokenRepository.createToken(token, new CloudMessageTokenDataSource.CreateTokenCallback(){
+
+            @Override
+            public void onTokenCreated(CloudMessageToken token) {
+                Log.i(TAG, "Registered CloudMessageToken " + token.getToken() + " for User " + token.getUserId());
+                return;
+            }
+
+            @Override
+            public void onCreateFailed() {
+                Log.i(TAG, "Registration of token failed!");
+                return;
+            }
+        });
     }
 }

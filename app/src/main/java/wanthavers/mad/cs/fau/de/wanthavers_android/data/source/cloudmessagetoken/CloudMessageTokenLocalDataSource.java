@@ -17,7 +17,7 @@ public class CloudMessageTokenLocalDataSource implements CloudMessageTokenDataSo
         this.context = context;
     }
 
-    public CloudMessageTokenLocalDataSource getInstance(@NonNull Context context) {
+    public static CloudMessageTokenLocalDataSource getInstance(@NonNull Context context) {
         if (INSTANCE == null) {
             INSTANCE = new CloudMessageTokenLocalDataSource(context);
         }
