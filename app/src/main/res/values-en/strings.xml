@@ -103,6 +103,9 @@
     <string name="desire_image_upload_failed">Uploading your Image failed</string>
     <string name="button_reset_filter">reset filter</string>
     <string name="filter">filter</string>
+    <string name="use_location">Use current location</string>
+    <string name="set_location">Set Location</string>
+    <string name="maps_error">Unable to create Maps</string>
 
 
 </resources>

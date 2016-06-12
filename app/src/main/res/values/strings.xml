@@ -102,6 +102,9 @@
     <string name="desire_image_upload_failed">Erstellen des Bildes für dein Desire ist fehlgeschlagen</string>
     <string name="filter">Filter</string>
     <string name="button_reset_filter">Filter zurücksetzen</string>
+    <string name="use_location">Standort übernehmen</string>
+    <string name="set_location">Standort setzen</string>
+    <string name="maps_error">Fehler beim Erstellen der Karte</string>
 
 
     <string-array name="currencies">

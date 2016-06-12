@@ -1,21 +1,16 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate;
 
 
-import android.Manifest;
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,12 +21,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
-import java.io.File;
-
 import de.fau.cs.mad.wanthavers.common.Desire;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.Desirecreate2ndFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
+import wanthavers.mad.cs.fau.de.wanthavers_android.maps.MapActivity;
 
 
 public class DesireCreateFragment2ndStep extends Fragment implements DesireCreateContract.View {
@@ -95,7 +89,10 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
 
         String title = getActivity().getIntent().getExtras().getString("desireTitle");
         String description = getActivity().getIntent().getExtras().getString("desireDescription");
-        Intent intent = new Intent(getContext(), DesireCreateActivity3rdStep.class);
+        //Intent intent = new Intent(getContext(), DesireCreateActivity3rdStep.class);
+        Intent intent = new Intent(getContext(), MapActivity.class);
+
+
         intent.putExtra("desireTitle", title);
         intent.putExtra("desireDescription", description);
         intent.putExtra("desirePrice", desirePrice.getText().toString());

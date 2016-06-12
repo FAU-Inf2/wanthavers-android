@@ -13,7 +13,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
+import android.widget.TextView;
 
 
 import java.io.File;
@@ -69,26 +69,28 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
         mViewDataBinding = Desirecreate3rdFragBinding.inflate(inflater, container, false);
         mViewDataBinding.setPresenter(mPresenter);
 
+
+        final TextView desireDropzone = (TextView) mViewDataBinding.getRoot().findViewById(R.id.create_desire_dropzone);
+        desireDropzone.setText(getActivity().getIntent().getExtras().getString("desireLocation"));
+        //just for testing
+
         return mViewDataBinding.getRoot();
     }
 
     @Override
     public void showNextDesireCreateStep() {
-        final EditText desireDropzone = (EditText) getView().findViewById(R.id.create_desire_dropzone);
-
-        if(desireDropzone.getText().toString().isEmpty()){
-            showMessage(getString(R.string.createDesire_Empty_Text));
-            return;
-        }
-
         String title = getActivity().getIntent().getExtras().getString("desireTitle");
         String description = getActivity().getIntent().getExtras().getString("desireDescription");
         String price = getActivity().getIntent().getExtras().getString("desirePrice");
         String reward = getActivity().getIntent().getExtras().getString("desireReward");
         String currency = getActivity().getIntent().getExtras().getString("desireCurrency");
         Uri image = getActivity().getIntent().getExtras().getParcelable("desireImage");
+        String location = getActivity().getIntent().getExtras().getString("desireLocation");
+        double lat = Double.parseDouble(getActivity().getIntent().getExtras().getString("desireLocationLat"));
+        double lng = Double.parseDouble(getActivity().getIntent().getExtras().getString("desireLocationLng"));
 
-        setDataForDesire(title, description, Integer.parseInt(price), Integer.parseInt(reward), desireDropzone.getText().toString(), currency, image);
+        setDataForDesire(title, description, Integer.parseInt(price), Integer.parseInt(reward),
+                location, currency, image, lat, lng);
         //includes sendDesireToServer()
 
         Log.d("DesireTitle:", desire.getTitle());
@@ -106,12 +108,14 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
     }
 
 
-    public void setDataForDesire(String title, String description, int price, int reward, String dropzone, String currency, Uri image) {
+    public void setDataForDesire(String title, String description, int price, int reward, String dropzone, String currency, Uri image, double lat, double lng) {
         desire.setTitle(title);
         desire.setDescription(description);
         desire.setPrice(price);
         desire.setReward(reward);
         desire.setDropzone_string(dropzone);
+        desire.setDropzone_lat(lat);
+        desire.setDropzone_long(lng);
         desire.setCurrency(currency);
 
         int colorNumber = (int) (Math.random() * DESIRE_COLOR_NUMBER);
@@ -148,15 +152,5 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
     public void sendDesireToServer(Desire desire) {
         mPresenter.setDesire(desire);
     }
-
-    /*@Override
-    public boolean isStoragePermissionGranted() {
-        return false; // no Permissions in this Step
-    }
-
-    @Override
-    public void selectImageForDesire() {
-        //no selectable Images in this Step
-    }*/
 
 }

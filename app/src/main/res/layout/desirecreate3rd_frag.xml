@@ -36,17 +36,17 @@
             android:layout_alignParentEnd="true"
             android:onClick="@{() -> presenter.createNextDesireCreateStep()}"/>
 
-        <EditText
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
             android:id="@+id/create_desire_dropzone"
+            android:maxLength="50"
+            android:editable="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:maxLength="50"
             android:layout_alignRight="@+id/button_3rd_step"
             android:layout_alignEnd="@+id/button_3rd_step" />
-
 
     </RelativeLayout>
 
