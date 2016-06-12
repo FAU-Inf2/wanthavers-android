@@ -80,7 +80,7 @@ public class ChatItemViewModel extends BaseObservable {
     @Bindable
     public User getOtherUser(){
 
-        if(mUser1.getID() == mLoggedInUserId){
+        if(mUser1.getId() == mLoggedInUserId){
             return mUser2;
         }
 

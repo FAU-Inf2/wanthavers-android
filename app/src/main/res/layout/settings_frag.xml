@@ -82,7 +82,7 @@
                 android:layout_below="@+id/user_mail"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
-                android:onClick="@{ () -> actionHandler.changeMailClicked(user.getID())}"/>
+                android:onClick="@{ () -> actionHandler.changeMailClicked(user.getId())}"/>
 
             <TextView
                 android:id="@+id/settings_filter_title"

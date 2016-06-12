@@ -74,7 +74,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_marginTop="20dp"
                 android:weightSum="1"
-                android:visibility="@{desirelogic.isDesireCreator(desire.creator.getID()) ? View.GONE : View.VISIBLE}"
+                android:visibility="@{desirelogic.isDesireCreator(desire.creator.getId()) ? View.GONE : View.VISIBLE}"
                 android:layout_marginBottom="20dp">
 
                 <TextView
@@ -224,7 +224,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/desire_detail_location"
                 android:layout_marginTop="20dp"
-                android:visibility="@{desirelogic.isDesireCreator(desire.creator.getID()) ? View.GONE : View.VISIBLE}">
+                android:visibility="@{desirelogic.isDesireCreator(desire.creator.getId()) ? View.GONE : View.VISIBLE}">
 
                 <Button
                     android:id="@+id/button_accept_desire"
@@ -250,7 +250,7 @@
                     android:textColor="@color/colorMainText"
                     android:background="@color/colorPrimary"
                     android:layout_weight=".45"
-                    android:onClick="@{ () -> actionHandler.sendMessage(desire.creator.getID())}"/>
+                    android:onClick="@{ () -> actionHandler.sendMessage(desire.creator.getId())}"/>
 
             </LinearLayout>
 
@@ -259,7 +259,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/desire_detail_location"
                 android:layout_marginTop="20dp"
-                android:visibility="@{desirelogic.isDesireCreator(desire.creator.getID()) ? View.VISIBLE : View.GONE}">
+                android:visibility="@{desirelogic.isDesireCreator(desire.creator.getId()) ? View.VISIBLE : View.GONE}">
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/haver_list"
@@ -345,7 +345,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_alignParentEnd="true"
                         android:layout_marginRight="10dp"
-                        android:onClick="@{() -> actionHandler.sendMessage(haver.getUser().getID())}"/>
+                        android:onClick="@{() -> actionHandler.sendMessage(haver.getUser().getId())}"/>
 
                 </RelativeLayout>
 

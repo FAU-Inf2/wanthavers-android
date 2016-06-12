@@ -154,7 +154,7 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
         //show wanter image
         User creator = desire.getCreator();
 
-        if (!mDesireLogic.isDesireCreator(creator.getID())) {
+        if (!mDesireLogic.isDesireCreator(creator.getId())) {
             Media mediaWanter = creator.getImage();
             if (mediaWanter != null) {
                 final ImageView profileView = mDesireDetailFragBinding.imageWanter;
@@ -265,7 +265,7 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
     public boolean isHaver(List<Haver> havers) {
         long loggedInUserId = mDesireLogic.getLoggedInUserId();
         for (int i = 0; i < havers.size(); i++) {
-            if (havers.get(i).getUser().getID() == loggedInUserId) {
+            if (havers.get(i).getUser().getId() == loggedInUserId) {
                 return true;
             }
         }

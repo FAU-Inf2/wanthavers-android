@@ -131,7 +131,7 @@ public class LoginPresenter implements LoginContract.Presenter {
                     public void onSuccess(LoginUser.ResponseValue response) {
 
                         User user = response.getUser();
-                        sharedPreferencesHelper.saveLong(SharedPreferencesHelper.KEY_USERID, user.getID());
+                        sharedPreferencesHelper.saveLong(SharedPreferencesHelper.KEY_USERID, user.getId());
                         mLoginView.showDesireList();
                     }
 

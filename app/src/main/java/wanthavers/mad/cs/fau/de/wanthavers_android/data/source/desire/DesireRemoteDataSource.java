@@ -64,7 +64,7 @@ public class DesireRemoteDataSource implements DesireDataSource {
     @Override
     public void updateDesire(@NonNull Desire desire, @NonNull UpdateDesireCallback callback) {
         try {
-            Desire ret = desireClient.updateDesire(desire.getID(), desire);
+            Desire ret = desireClient.updateDesire(desire.getId(), desire);
             callback.onDesireUpdated(ret);
         } catch (Throwable t) {
             callback.onUpdateFailed();

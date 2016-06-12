@@ -92,7 +92,7 @@
             android:layout_toStartOf="@+id/accept_desire_haver"
             android:layout_marginRight="18dp"
             android:layout_marginEnd="18dp"
-            android:onClick="@{() -> actionHandler.sendMessage(haver.getUser().getID())}"/>
+            android:onClick="@{() -> actionHandler.sendMessage(haver.getUser().getId())}"/>
 
         <ImageView
             android:id="@+id/accept_desire_haver"

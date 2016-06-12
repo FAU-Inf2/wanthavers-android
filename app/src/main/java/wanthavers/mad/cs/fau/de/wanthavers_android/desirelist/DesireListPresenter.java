@@ -92,7 +92,7 @@ public class DesireListPresenter implements DesireListContract.Presenter {
     @Override
     public void openDesireDetails(@NonNull Desire desire) {
         checkNotNull(desire, "desire cannot be null!");
-        mDesireListView.showDesireDetailsUi(desire.getID());
+        mDesireListView.showDesireDetailsUi(desire.getId());
     }
 
 
@@ -169,7 +169,7 @@ public class DesireListPresenter implements DesireListContract.Presenter {
 
         Desire desire = desireList.get(counter).getDesire();
 
-        GetAvgRatingForUser.RequestValues requestValue = new GetAvgRatingForUser.RequestValues(desire.getCreator().getID());
+        GetAvgRatingForUser.RequestValues requestValue = new GetAvgRatingForUser.RequestValues(desire.getCreator().getId());
 
         mUseCaseHandler.execute(mGetAvgRatingForUser, requestValue,
                 new UseCase.UseCaseCallback<GetAvgRatingForUser.ResponseValue>() {
@@ -229,7 +229,7 @@ public class DesireListPresenter implements DesireListContract.Presenter {
     public void openChat(User user){
         //TODO: open chat here;
         checkNotNull(user, "user cannot be null!");
-        mDesireListView.showChatList(user.getID());
+        mDesireListView.showChatList(user.getId());
     }
 
     @Override

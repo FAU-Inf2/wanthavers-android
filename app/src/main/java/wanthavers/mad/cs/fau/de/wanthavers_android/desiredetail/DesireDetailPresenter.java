@@ -266,6 +266,6 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
     public void openChatList(User user){
         //TODO: open chat here;
         checkNotNull(user, "user cannot be null!");
-        mDesireDetailView.showChatList(user.getID());
+        mDesireDetailView.showChatList(user.getId());
     }
 }
