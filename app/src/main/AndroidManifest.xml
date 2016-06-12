@@ -4,6 +4,10 @@
 
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+
     <application
         android:name=".baseclasses.WantHaversApplication"
         android:allowBackup="true"
@@ -11,8 +15,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <receiver android:process=":remote" android:name=".chatdetail.MessageAlarm"></receiver>
-        <service android:name=".chatdetail.MessageService" />
+        <!--receiver android:process=":remote" android:name=".Alarm"></receiver-->
         <activity
             android:name="wanthavers.mad.cs.fau.de.wanthavers_android.login.LoginActivity">
             <intent-filter>
@@ -30,6 +33,7 @@
         <activity android:name="wanthavers.mad.cs.fau.de.wanthavers_android.chatdetail.ChatDetailActivity"/>
         <activity android:name="wanthavers.mad.cs.fau.de.wanthavers_android.settings.SettingsActivity"/>
         <activity android:name="wanthavers.mad.cs.fau.de.wanthavers_android.filtersetting.FilterSettingActivity"/>
+        <activity android:name="wanthavers.mad.cs.fau.de.wanthavers_android.maps.MapActivity"/>
         <meta-data
             android:name="com.parse.APPLICATION_ID"
             android:value="{APPLICATION_ID}" />
@@ -56,6 +60,14 @@
             </intent-filter>
         </service>
 
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCdM-s8Ud325Akbf5elyqmrZJyfrCGJJPY" />
+
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
 
     </application>
 
@@ -64,5 +76,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
 
 </manifest>
