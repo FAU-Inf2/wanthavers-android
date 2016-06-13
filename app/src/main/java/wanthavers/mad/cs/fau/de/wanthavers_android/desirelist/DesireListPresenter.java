@@ -125,15 +125,11 @@ public class DesireListPresenter implements DesireListContract.Presenter {
                         List<Desire> desires = setDesireListAccToType();
 
                         if(loadOlderDesires){
-                            desires.addAll(response.getDesires());   //TODO JuG: check if desireListIsUpdated
+                            desires.addAll(response.getDesires());
                         }else{
                             desires.clear();
                             desires.addAll(response.getDesires());
                         }
-
-
-
-
 
                         // The view may not be able to handle UI updates anymore
                         if (!mDesireListView.isActive()) {

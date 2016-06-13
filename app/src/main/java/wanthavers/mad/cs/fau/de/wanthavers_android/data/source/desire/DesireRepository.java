@@ -256,7 +256,7 @@ public class DesireRepository implements DesireDataSource {
     public void getDesiresByFilter(@NonNull DesireFilter desireFilter, @NonNull final GetDesiresByFilterCallback callback) {
         checkNotNull(callback);
 
-        /* TODO include to debug filter setting
+        // TODO include to debug filter setting
         DesireFilter abc = desireFilter;
         System.out.println("*****begin print desireFilter in getDesiresByFilter****");
         for (Field field : abc.getClass().getDeclaredFields()) {
@@ -270,7 +270,7 @@ public class DesireRepository implements DesireDataSource {
             }
             System.out.printf("Field name: %s, Field value: %s%n", name, value);
         }
-        */
+
 
         desireRemoteDataSource.getDesiresByFilter(desireFilter, new GetDesiresByFilterCallback() {
             @Override

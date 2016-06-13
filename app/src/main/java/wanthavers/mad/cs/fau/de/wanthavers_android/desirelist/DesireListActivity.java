@@ -16,9 +16,11 @@ import android.widget.RatingBar;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 
+import de.fau.cs.mad.wanthavers.common.DesireFilter;
 import de.fau.cs.mad.wanthavers.common.User;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
+import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.WantHaversApplication;
 import wanthavers.mad.cs.fau.de.wanthavers_android.cloudmessaging.RegistrationIntentService;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireRepository;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireLocalDataSource;
@@ -53,6 +55,9 @@ public class DesireListActivity extends AppCompatActivity {
         setContentView(R.layout.desirelist_act);
 
 
+
+        //Reset Filter
+        WantHaversApplication.setCurDesireFilter(new DesireFilter());
 
         DesireListType desireListType = (DesireListType) getIntent().getSerializableExtra(EXTRA_FRAGMENT_ID);
 

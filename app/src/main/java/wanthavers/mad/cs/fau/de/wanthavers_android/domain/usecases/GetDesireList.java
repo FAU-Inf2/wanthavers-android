@@ -44,16 +44,14 @@ public class GetDesireList extends UseCase<GetDesireList.RequestValues, GetDesir
             desireFilter.setStatus(statusFilter);
         }
 
-            if(desireListType == DesireListType.MY_DESIRES){
-                //todo - add filter according to creator
-                //desireFilter.setCreatorId(userId);
-            }
+        if(desireListType == DesireListType.MY_DESIRES){
+            desireFilter.setCreatorId(userId);
+        }
 
 
-            if(desireListType == DesireListType.MY_DESIRES){
-                //todo - add filter according to creator
-                //desireFilter.setHaverId(userId);
-            }
+        if(desireListType == DesireListType.MY_TRANSACTIONS){
+            desireFilter.setHaverId(userId);
+        }
 
         mDesireRepository.getDesiresByFilter(desireFilter,
                 new DesireDataSource.GetDesiresByFilterCallback(){
