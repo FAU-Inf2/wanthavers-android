@@ -47,7 +47,7 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
             public void onSuccess(GetSubcategories.ResponseValue response) {
                 List<Category> categories = response.getCategories();
                 mFilterSettingView.showCategories(categories);
-                System.out.println("Server sent " + categories.size() + " categories");
+                //System.out.println("Server sent " + categories.size() + " categories");
             }
 
             @Override
