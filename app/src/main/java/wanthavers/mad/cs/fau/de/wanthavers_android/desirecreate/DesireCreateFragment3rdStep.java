@@ -74,6 +74,7 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
         desireDropzone.setText(getActivity().getIntent().getExtras().getString("desireLocation"));
         //just for testing
 
+        mPresenter.createNextDesireCreateStep();
         return mViewDataBinding.getRoot();
     }
 
@@ -146,7 +147,7 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
 
     @Override
     public void showMessage(String message) {
-        Snackbar.make(getView(), message, Snackbar.LENGTH_LONG).show();
+        //no Messages to show here
     }
 
     public void sendDesireToServer(Desire desire) {
