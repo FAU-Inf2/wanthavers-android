@@ -15,7 +15,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -29,6 +28,7 @@ import java.util.Locale;
 
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate.DesireCreateActivity3rdStep;
+import wanthavers.mad.cs.fau.de.wanthavers_android.settings.SettingsActivity;
 
 public class MapActivity extends Activity implements MapWrapperLayout.OnDragListener {
 
@@ -171,25 +171,39 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
 
     public void setLocation(String location, int lat, int lng){
 
-        String title = getIntent().getExtras().getString("desireTitle");
-        String description = getIntent().getExtras().getString("desireDescription");
-        String price = getIntent().getExtras().getString("desirePrice");
-        String reward = getIntent().getExtras().getString("desireReward");
-        String currency = getIntent().getExtras().getString("desireCurrency");
-        Uri image = getIntent().getExtras().getParcelable("desireImage");
+        if(getIntent().getExtras().getString("desireTitle") == null){
+            Intent intent = new Intent(this, SettingsActivity.class);
 
-        Intent intent = new Intent(this, DesireCreateActivity3rdStep.class);
+            intent.putExtra("desireLocation", location);
+            intent.putExtra("desireLocationLat", Integer.toString(lat));
+            intent.putExtra("desireLocationLng", Integer.toString(lng));
 
-        intent.putExtra("desireTitle", title);
-        intent.putExtra("desireDescription", description);
-        intent.putExtra("desirePrice", price);
-        intent.putExtra("desireReward", reward);
-        intent.putExtra("desireCurrency", currency);
-        intent.putExtra("desireImage", image);
-        intent.putExtra("desireLocation", location);
-        intent.putExtra("desireLocationLat", Integer.toString(lat));
-        intent.putExtra("desireLocationLng", Integer.toString(lng));
-        startActivity(intent);
+            startActivity(intent);
+            finish();
+
+        }else{
+            String title = getIntent().getExtras().getString("desireTitle");
+            String description = getIntent().getExtras().getString("desireDescription");
+            String price = getIntent().getExtras().getString("desirePrice");
+            String reward = getIntent().getExtras().getString("desireReward");
+            String currency = getIntent().getExtras().getString("desireCurrency");
+            Uri image = getIntent().getExtras().getParcelable("desireImage");
+
+            Intent intent = new Intent(this, DesireCreateActivity3rdStep.class);
+
+            intent.putExtra("desireTitle", title);
+            intent.putExtra("desireDescription", description);
+            intent.putExtra("desirePrice", price);
+            intent.putExtra("desireReward", reward);
+            intent.putExtra("desireCurrency", currency);
+            intent.putExtra("desireImage", image);
+            intent.putExtra("desireLocation", location);
+            intent.putExtra("desireLocationLat", Integer.toString(lat));
+            intent.putExtra("desireLocationLng", Integer.toString(lng));
+            startActivity(intent);
+        }
+
+
 
     }
 }
