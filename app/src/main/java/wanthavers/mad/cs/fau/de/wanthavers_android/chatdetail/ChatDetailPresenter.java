@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -69,15 +70,16 @@ public class ChatDetailPresenter implements ChatDetailContract.Presenter {
                     @Override
                     public void onSuccess(GetMessageList.ResponseValue response) {
                         List<Message> messageList = response.getMessages();
+                        mMessageList.addAll(messageList);
                         // The view may not be able to handle UI updates anymore
-                        if (!mMessageListView.isActive()) {
-                            return;
-                        }
+                        //if (!mMessageListView.isActive()) {
+                        //    return;
+                        //}
                         if (showLoadingUI) {
                             mMessageListView.setLoadingIndicator(false);
                         }
 
-                        processMessages(messageList);
+                        processMessages(mMessageList);
                     }
 
                     @Override
@@ -99,6 +101,8 @@ public class ChatDetailPresenter implements ChatDetailContract.Presenter {
             //TODO add what to do if no desires
         } else {
             // Show the list of tasks
+
+            Collections.reverse(messageList);
             mMessageListView.showMessages(messageList);
             // Set the filter label's text.
         }

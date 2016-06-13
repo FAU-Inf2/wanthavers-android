@@ -23,6 +23,7 @@ import android.widget.ListView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.Desire;
@@ -198,6 +199,7 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
     }
 
     public void showDesires(List<DesireItemViewModel> desireModels){
+
 
         mListAdapter.replaceData(desireModels);
         mDesireListViewModel.setDesireListSize(desireModels.size());
