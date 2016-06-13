@@ -124,11 +124,23 @@ public class DesireListPresenter implements DesireListContract.Presenter {
                     public void onSuccess(GetDesireList.ResponseValue response) {
                         List<Desire> desires = setDesireListAccToType();
 
+                        List<Desire> newDesires = response.getDesires();
+
+
                         if(loadOlderDesires){
+
+                            int sizeDesires = desires.size();
+                            int sizeNewDesires = newDesires.size();
+
+                            if(sizeDesires > 0 && sizeNewDesires > 0) {
+                                if (desires.get(desires.size() - 1).getId() == newDesires.get(0).getId()) {
+                                    newDesires.remove(0);
+                                }
+                            }
                             desires.addAll(response.getDesires());
                         }else{
                             desires.clear();
-                            desires.addAll(response.getDesires());
+                            desires.addAll(newDesires);
                         }
 
                         // The view may not be able to handle UI updates anymore
