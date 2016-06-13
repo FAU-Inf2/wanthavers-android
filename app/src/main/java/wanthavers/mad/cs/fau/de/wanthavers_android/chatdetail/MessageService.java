@@ -23,7 +23,7 @@ public class MessageService extends Service {
 
             if(mActive) {
                 alarm.setAlarm(this);
-                mPresenter.loadMessages(true);
+                mPresenter.loadMessages(true, false);
                 return START_STICKY;
             }
 
@@ -35,7 +35,7 @@ public class MessageService extends Service {
         {
 
             alarm.setAlarm(this);
-            mPresenter.loadMessages(true);
+            mPresenter.loadMessages(true, false);
         }
 
 

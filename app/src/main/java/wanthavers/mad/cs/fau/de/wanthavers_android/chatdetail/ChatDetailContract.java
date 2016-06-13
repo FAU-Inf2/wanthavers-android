@@ -14,7 +14,7 @@ public interface ChatDetailContract {
 
     interface View extends BaseView<Presenter> {
 
-        void showMessages(List<Message> messageList);
+        void showMessages(List<Message> messageList, boolean loadOldMessages);
 
         void setLoadingIndicator(final boolean active);
 
@@ -30,7 +30,7 @@ public interface ChatDetailContract {
 
     interface Presenter extends BasePresenter {
 
-        void loadMessages(boolean forceUpdate);
+        void loadMessages(boolean forceUpdate, boolean loadOldMessages);
 
         void sendMessage(Message message);
     }

@@ -13,19 +13,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ListView;
-import android.widget.ScrollView;
-import android.widget.Toast;
-
-import com.parse.LogInCallback;
-import com.parse.ParseAnonymousUtils;
-import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseUser;
-import com.parse.SaveCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,8 +23,7 @@ import de.fau.cs.mad.wanthavers.common.Message;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.ChatdetailFragBinding;
-import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.ChatlistFragBinding;
-import wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.ScrollChildSwipeRefreshLayout;
+import wanthavers.mad.cs.fau.de.wanthavers_android.chatdetail.ScrollChildSwipeRefreshLayout;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.SharedPreferencesHelper;
 
 public class ChatDetailFragment extends Fragment implements  ChatDetailContract.View {
@@ -102,6 +88,18 @@ public class ChatDetailFragment extends Fragment implements  ChatDetailContract.
         mListAdapter = new ChatDetailAdapter(new ArrayList<Message>(0),mLoggedInUser ,mPresenter);
         mRecyclerView.setAdapter(mListAdapter);
 
+
+        final ScrollChildSwipeRefreshLayout swipeRefreshLayout = mChatDetailFragBinding.refreshLayout;
+        swipeRefreshLayout.setColorSchemeColors(
+                ContextCompat.getColor(getActivity(), R.color.colorPrimary),
+                ContextCompat.getColor(getActivity(), R.color.colorAccent),
+                ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark)
+        );
+
+
+        swipeRefreshLayout.setScrollUpChild(mRecyclerView);
+
+
         //set up action handler
         mChatDetailActionHandler = new ChatDetailActionHandler(mLoggedInUser, mChatDetailFragBinding, mPresenter);
         mChatDetailFragBinding.setActionHandler(mChatDetailActionHandler);
@@ -132,17 +130,20 @@ public class ChatDetailFragment extends Fragment implements  ChatDetailContract.
 
 
     @Override
-    public void showMessages(List<Message> messageList) {
+    public void showMessages(List<Message> messageList, boolean loadOldMessages) {
         mListAdapter.replaceData(messageList);
+
         mChatDetailViewModel.setMessageListSize(messageList.size());
-        mRecyclerView.scrollToPosition(messageList.size()-1);
+        if(!loadOldMessages) {
+            mRecyclerView.scrollToPosition(messageList.size() - 1);
+        }
     }
 
     public void showUpdatedMessageListonSendSuccess(Message message){
         List<Message> messages = mListAdapter.getList();
 
         messages.add(message);
-        showMessages(messages);
+        showMessages(messages, false);
     }
 
     @Override

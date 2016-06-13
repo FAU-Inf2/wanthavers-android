@@ -42,16 +42,16 @@ public class ChatDetailPresenter implements ChatDetailContract.Presenter {
 
 
     @Override
-    public void start() {loadMessages(false);}
+    public void start() {loadMessages(false, false);}
 
     @Override
-    public void loadMessages(boolean forceUpdate) {
-        loadMessages(forceUpdate || mFirstLoad, true);
+    public void loadMessages(boolean forceUpdate, boolean loadOldMessages) {
+        loadMessages(forceUpdate || mFirstLoad, loadOldMessages , true);
         mFirstLoad = false;
     }
 
 
-    private void loadMessages(boolean forceUpdate, final boolean showLoadingUI) {
+    private void loadMessages(boolean forceUpdate, final boolean loadOldMessages, final boolean showLoadingUI) {
         if (showLoadingUI) {
             mMessageListView.setLoadingIndicator(true);
         }
@@ -60,7 +60,7 @@ public class ChatDetailPresenter implements ChatDetailContract.Presenter {
         Date lastCreatedAt = new Date();
 
         if(mMessageList.size() > 0) {
-            lastCreatedAt = mMessageList.get(mMessageList.size() - 1).getCreatedAt();
+            lastCreatedAt = mMessageList.get(0).getCreatedAt();
         }
 
         GetMessageList.RequestValues requestValue = new GetMessageList.RequestValues(mChatId, lastCreatedAt ,MESSAGE_LOAD_LIMIT);
@@ -70,6 +70,9 @@ public class ChatDetailPresenter implements ChatDetailContract.Presenter {
                     @Override
                     public void onSuccess(GetMessageList.ResponseValue response) {
                         List<Message> messageList = response.getMessages();
+                        Collections.reverse(messageList);
+                        messageList.addAll(mMessageList);
+                        mMessageList.clear();
                         mMessageList.addAll(messageList);
                         // The view may not be able to handle UI updates anymore
                         //if (!mMessageListView.isActive()) {
@@ -79,7 +82,7 @@ public class ChatDetailPresenter implements ChatDetailContract.Presenter {
                             mMessageListView.setLoadingIndicator(false);
                         }
 
-                        processMessages(mMessageList);
+                        processMessages(mMessageList, loadOldMessages);
                     }
 
                     @Override
@@ -95,15 +98,15 @@ public class ChatDetailPresenter implements ChatDetailContract.Presenter {
     }
 
 
-    private void processMessages(List<Message> messageList) {
+    private void processMessages(List<Message> messageList, boolean loadOldMessages) {
         if (messageList.isEmpty()) {
             // Show a message indicating there are no tasks for that filter type.
             //TODO add what to do if no desires
         } else {
             // Show the list of tasks
 
-            Collections.reverse(messageList);
-            mMessageListView.showMessages(messageList);
+
+            mMessageListView.showMessages(messageList, loadOldMessages);
             // Set the filter label's text.
         }
     }

@@ -35,7 +35,7 @@ public class SwipeRefreshLayoutDataBinding {
         view.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                presenter.loadMessages(true);
+                presenter.loadMessages(true, true);
             }
         });
     }
