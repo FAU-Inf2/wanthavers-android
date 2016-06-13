@@ -1,6 +1,5 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases;
 
-import de.fau.cs.mad.wanthavers.common.Chat;
 import de.fau.cs.mad.wanthavers.common.Message;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCase;
 import android.support.annotation.NonNull;
@@ -29,7 +28,7 @@ public class GetMessageList extends UseCase<GetMessageList.RequestValues, GetMes
     protected void executeUseCase(final RequestValues values) {
 
 
-        mChatRepository.getAllMessagesForChat(values.getChatId(), new ChatDataSource.GetAllMessagesForChatCallback()
+        mChatRepository.getMessagesForChat(values.getChatId(), null, null, new ChatDataSource.GetMessagesForChatCallback()
         {
 
             @Override

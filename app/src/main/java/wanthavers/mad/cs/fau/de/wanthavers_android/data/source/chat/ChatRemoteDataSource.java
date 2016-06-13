@@ -40,9 +40,9 @@ public class ChatRemoteDataSource implements ChatDataSource {
     }
 
     @Override
-    public void getAllMessagesForChat(@NonNull String chatId, @NonNull GetAllMessagesForChatCallback callback) {
+    public void getMessagesForChat(@NonNull String chatId, Long lastCreationTime, Integer limit, @NonNull GetMessagesForChatCallback callback) {
         try {
-            List<Message> messages = chatClient.getAllMessagesForChat(chatId);
+            List<Message> messages = chatClient.getMessagesForChat(chatId, lastCreationTime, limit);
             callback.onAllMessagesForChat(messages);
         } catch (Throwable t) {
             callback.onDataNotAvailable();

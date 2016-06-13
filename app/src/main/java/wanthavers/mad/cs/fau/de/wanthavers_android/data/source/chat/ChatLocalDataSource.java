@@ -36,7 +36,7 @@ public class ChatLocalDataSource implements ChatDataSource {
     }
 
     @Override
-    public void getAllMessagesForChat(@NonNull String chatId, @NonNull GetAllMessagesForChatCallback callback) {
+    public void getMessagesForChat(@NonNull String chatId, Long lastCreationTime, Integer limit, @NonNull GetMessagesForChatCallback callback) {
         //TODO: alter this method when we decide to store chats locally
         callback.onDataNotAvailable();
     }
