@@ -3,11 +3,8 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.chatdetail;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.parse.FindCallback;
-import com.parse.ParseException;
-import com.parse.ParseQuery;
-import com.parse.ParseUser;
-
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.Message;
@@ -27,6 +24,8 @@ public class ChatDetailPresenter implements ChatDetailContract.Presenter {
     private final UseCaseHandler mUseCaseHandler;
     private String mChatId;
     private final SendMessage mSendMessage;
+    private static final int MESSAGE_LOAD_LIMIT  = 2;
+    private List<Message> mMessageList = new ArrayList<>();
 
     public ChatDetailPresenter(@NonNull UseCaseHandler useCaseHandler,@NonNull String chatId, @NonNull ChatDetailContract.View chatListView,
                              @NonNull GetMessageList getMessageList, @NonNull SendMessage sendMessage){
@@ -57,7 +56,13 @@ public class ChatDetailPresenter implements ChatDetailContract.Presenter {
         }
 
 
-        GetMessageList.RequestValues requestValue = new GetMessageList.RequestValues(mChatId);    //TODO pass on chat id
+        Date lastCreatedAt = new Date();
+
+        if(mMessageList.size() > 0) {
+            lastCreatedAt = mMessageList.get(mMessageList.size() - 1).getCreatedAt();
+        }
+
+        GetMessageList.RequestValues requestValue = new GetMessageList.RequestValues(mChatId, lastCreatedAt ,MESSAGE_LOAD_LIMIT);
 
         mUseCaseHandler.execute(mGetMessageList, requestValue,
                 new UseCase.UseCaseCallback<GetMessageList.ResponseValue>() {

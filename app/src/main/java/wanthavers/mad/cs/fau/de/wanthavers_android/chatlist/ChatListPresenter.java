@@ -71,6 +71,7 @@ public class ChatListPresenter implements ChatListContract.Presenter {
                         if (!mChatListView.isActive()) {
                             return;
                         }
+
                         if (showLoadingUI) {
                             mChatListView.setLoadingIndicator(false);
                         }

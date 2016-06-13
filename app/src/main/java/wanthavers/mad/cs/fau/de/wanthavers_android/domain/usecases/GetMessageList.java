@@ -4,6 +4,7 @@ import de.fau.cs.mad.wanthavers.common.Message;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCase;
 import android.support.annotation.NonNull;
 
+import java.util.Date;
 import java.util.List;
 
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.chat.ChatDataSource;
@@ -28,7 +29,8 @@ public class GetMessageList extends UseCase<GetMessageList.RequestValues, GetMes
     protected void executeUseCase(final RequestValues values) {
 
 
-        mChatRepository.getMessagesForChat(values.getChatId(), null, null, new ChatDataSource.GetMessagesForChatCallback()
+
+        mChatRepository.getMessagesForChat(values.getChatId(), values.getLastCreationDate(), values.getLimit(), new ChatDataSource.GetMessagesForChatCallback()
         {
 
             @Override
@@ -51,15 +53,23 @@ public class GetMessageList extends UseCase<GetMessageList.RequestValues, GetMes
     public static final class RequestValues implements UseCase.RequestValues {
 
         private String  mChatid;
+        private Date    mLastCreationDate;
+        private int     mLimit;
 
-        public RequestValues(String chatId) {
+        public RequestValues(String chatId,Date lastCreationDate, int limit) {
             mChatid = chatId;
+            mLastCreationDate = lastCreationDate;
+            mLimit = limit;
         }
 
 
         public String getChatId() {
             return mChatid;
         }
+
+        public long getLastCreationDate() { return mLastCreationDate.getTime();}
+
+        public int getLimit() {return mLimit;}
 
     }
 
