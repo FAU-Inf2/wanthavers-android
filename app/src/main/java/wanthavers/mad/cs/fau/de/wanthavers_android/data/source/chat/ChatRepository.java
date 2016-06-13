@@ -64,11 +64,11 @@ public class ChatRepository implements ChatDataSource {
     }
 
     @Override
-    public void getAllMessagesForChat(@NonNull final String chatId, @NonNull final GetAllMessagesForChatCallback callback) {
+    public void getMessagesForChat(@NonNull final String chatId, final Long lastCreationTime, final Integer limit, @NonNull final GetMessagesForChatCallback callback) {
         checkNotNull(chatId);
         checkNotNull(callback);
 
-        chatLocalDataSource.getAllMessagesForChat(chatId, new GetAllMessagesForChatCallback() {
+        chatLocalDataSource.getMessagesForChat(chatId, lastCreationTime, limit, new GetMessagesForChatCallback() {
             @Override
             public void onAllMessagesForChat(List<Message> messages) {
                 callback.onAllMessagesForChat(messages);
@@ -76,7 +76,7 @@ public class ChatRepository implements ChatDataSource {
 
             @Override
             public void onDataNotAvailable() {
-                chatRemoteDataSource.getAllMessagesForChat(chatId, new GetAllMessagesForChatCallback() {
+                chatRemoteDataSource.getMessagesForChat(chatId, lastCreationTime, limit, new GetMessagesForChatCallback() {
                     @Override
                     public void onAllMessagesForChat(List<Message> messages) {
                         callback.onAllMessagesForChat(messages);

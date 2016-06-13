@@ -20,7 +20,7 @@ public interface ChatDataSource {
 
     }
 
-    interface GetAllMessagesForChatCallback {
+    interface GetMessagesForChatCallback {
 
         void onAllMessagesForChat(List<Message> messages);
 
@@ -46,7 +46,7 @@ public interface ChatDataSource {
 
     void getAllChatsForLoggedInUser(@NonNull GetAllChatsForLoggedInUserCallback callback);
 
-    void getAllMessagesForChat(@NonNull String chatId, @NonNull GetAllMessagesForChatCallback callback);
+    void getMessagesForChat(@NonNull String chatId, @NonNull Long lastCreationTime, @NonNull Integer limit, @NonNull GetMessagesForChatCallback callback);
 
     void createChat(@NonNull Chat chat, @NonNull CreateChatCallback callback);
 

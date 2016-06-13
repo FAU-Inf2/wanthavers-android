@@ -39,8 +39,8 @@ public class ChatClient extends RestClient {
         return chatEndpoint.get(null);
     }
 
-    public List<Message> getAllMessagesForChat(String chatId) {
-        return chatEndpoint.getMessages(chatId, null);
+    public List<Message> getMessagesForChat(String chatId, Long lastCreationTime, Integer limit) {
+        return chatEndpoint.getMessages(null, chatId, lastCreationTime, limit);
     }
 
     public Chat createChat(Chat chat) {
