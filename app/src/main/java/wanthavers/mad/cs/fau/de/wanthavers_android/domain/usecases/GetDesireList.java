@@ -34,40 +34,47 @@ public class GetDesireList extends UseCase<GetDesireList.RequestValues, GetDesir
 
         DesireListType desireListType = values.getDesireListType();
 
+        DesireFilter desireFilter = WantHaversApplication.getCurDesireFilter(values.getContext());
+
         if(desireListType == DesireListType.ALL_DESIRES) {
 
             List<Integer> statusFilter = new ArrayList<>();
             statusFilter.add(DesireStatus.STATUS_OPEN);
 
-            DesireFilter desireFilter = WantHaversApplication.getCurDesireFilter(values.getContext());
-
-
-            //TODO JuG - this should not be neccessary - refactor later
-            if(desireFilter == null){
-                desireFilter = new DesireFilter();
-            }
-
             desireFilter.setStatus(statusFilter);
-
-
-            mDesireRepository.getDesiresByFilter(desireFilter,
-                    new DesireDataSource.GetDesiresByFilterCallback(){
-
-
-                        @Override
-                        public void onDesiresByFilterLoaded(List<Desire> desireList) {
-                            ResponseValue responseValue = new ResponseValue(desireList);
-                            getUseCaseCallback().onSuccess(responseValue);
-                        }
-
-                        @Override
-                        public void onDataNotAvailable() {
-                            getUseCaseCallback().onError();
-                        }
-                    });
-
         }
 
+            if(desireListType == DesireListType.MY_DESIRES){
+                //todo - add filter according to creator
+                //desireFilter.setCreatorId(userId);
+            }
+
+
+            if(desireListType == DesireListType.MY_DESIRES){
+                //todo - add filter according to creator
+                //desireFilter.setHaverId(userId);
+            }
+
+        mDesireRepository.getDesiresByFilter(desireFilter,
+                new DesireDataSource.GetDesiresByFilterCallback(){
+
+
+                    @Override
+                    public void onDesiresByFilterLoaded(List<Desire> desireList) {
+                        ResponseValue responseValue = new ResponseValue(desireList);
+                        getUseCaseCallback().onSuccess(responseValue);
+                    }
+
+                    @Override
+                    public void onDataNotAvailable() {
+                        getUseCaseCallback().onError();
+                    }
+                });
+
+
+
+
+        /*
         if(desireListType == DesireListType.MY_DESIRES){
 
             mDesireRepository.getDesiresForUser(userId , new DesireDataSource.GetDesiresForUserCallback() {
@@ -103,6 +110,7 @@ public class GetDesireList extends UseCase<GetDesireList.RequestValues, GetDesir
             });
         }
 
+        */
     }
 
     public static final class RequestValues implements UseCase.RequestValues {

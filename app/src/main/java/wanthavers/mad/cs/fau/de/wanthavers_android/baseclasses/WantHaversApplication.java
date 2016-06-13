@@ -52,13 +52,12 @@ public class WantHaversApplication extends Application {
                 //do nothing as no default filter is specified
             }
 
-        }
+            if(defaultFilter != null){
+                return defaultFilter;
+            }
 
-        //TODO: @JuG - think about better way to structure this part
-        if(defaultFilter != null){
-            return defaultFilter;
+            return new DesireFilter();
         }
-
 
         return mDesireFilter;
 
