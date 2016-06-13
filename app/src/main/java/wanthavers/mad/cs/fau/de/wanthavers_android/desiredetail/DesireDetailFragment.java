@@ -88,8 +88,6 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
 
         mDesireDetailFragBinding = DesiredetailFragBinding.inflate(inflater, container, false);
 
-        mDesireDetailFragBinding.setDesirelogic(mDesireLogic);
-
         mDesireDetailFragBinding.setHavers(mDesireDetailViewModel);
 
         //Set up havers view
@@ -139,6 +137,7 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
 
     public void showDesire(Desire desire) {
         mDesireDetailFragBinding.setDesire(desire);
+        mDesireDetailFragBinding.setDesirelogic(mDesireLogic);
 
         //show desire image
         Media mediaDesire = desire.getImage();
