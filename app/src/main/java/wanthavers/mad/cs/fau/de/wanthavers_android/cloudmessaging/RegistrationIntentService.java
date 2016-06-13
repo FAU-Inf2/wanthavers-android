@@ -1,6 +1,7 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.cloudmessaging;
 
 import android.app.IntentService;
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
@@ -27,6 +28,11 @@ public class RegistrationIntentService extends IntentService {
 
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
         Log.i(TAG, "token is " + refreshedToken);
+
+        // Manual heart beat to Google server for faster receiving of notifications
+        Context context = getApplicationContext();
+        context.sendBroadcast(new Intent("com.google.android.intent.action.GTALK_HEARTBEAT"));
+        context.sendBroadcast(new Intent("com.google.android.intent.action.MCS_HEARTBEAT"));
 
         sendRegistrationToServer(refreshedToken);
     }
