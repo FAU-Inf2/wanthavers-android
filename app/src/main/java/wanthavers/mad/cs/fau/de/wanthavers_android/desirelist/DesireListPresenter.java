@@ -6,12 +6,15 @@ import android.view.View;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.Desire;
+import de.fau.cs.mad.wanthavers.common.DesireFilter;
 import de.fau.cs.mad.wanthavers.common.User;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCase;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
+import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.WantHaversApplication;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetAvgRatingForUser;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetDesireList;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetUser;
@@ -33,6 +36,10 @@ public class DesireListPresenter implements DesireListContract.Presenter {
     private DesireListType mDesireListType;
     private long mLoggedInUser;
     private Context mAppContext;
+    private List<Desire> mDesireListAll = new ArrayList<>();
+    private List<Desire> mDesireListMy = new ArrayList<>();
+    private List<Desire> mDesireListTrans = new ArrayList<>();
+    private static final int DESIRE_LOAD_LIMIT  = 2;
 
     public DesireListPresenter(@NonNull UseCaseHandler useCaseHandler, @NonNull DesireListContract.View desireListView,
                                @NonNull GetDesireList getDesireList, @NonNull GetAvgRatingForUser getAvgRatingForUser, @NonNull GetUser getUser,
@@ -48,12 +55,12 @@ public class DesireListPresenter implements DesireListContract.Presenter {
     }
 
     @Override
-    public void start(){loadDesires(false);}
+    public void start(){loadDesires(false, false);}
 
 
-    public void loadDesires(boolean forceUpdate){
+    public void loadDesires(boolean forceUpdate, boolean loadOlderDesires){
 
-        loadDesiresAccToType(forceUpdate || mFirstLoad, true);
+        loadDesiresAccToType(forceUpdate || mFirstLoad, true, loadOlderDesires);
 
         mFirstLoad = false;
     }
@@ -100,19 +107,30 @@ public class DesireListPresenter implements DesireListContract.Presenter {
         mDesireListType = desireListType;
     }
 
-    private void loadDesiresAccToType(boolean forceUpdate, final boolean showLoadingUI) {
+    private void loadDesiresAccToType(boolean forceUpdate, final boolean showLoadingUI,
+                                      final boolean loadOlderDesires) {
         if (showLoadingUI) {
             mDesireListView.setLoadingIndicator(true);
         }
 
         GetDesireList.RequestValues requestValue = new GetDesireList.RequestValues(mDesireListType, mAppContext);
         requestValue.setUserId(mLoggedInUser);
+        setCurFilterForDesireList(loadOlderDesires);
+
 
         mUseCaseHandler.execute(mGetDesireList, requestValue,
                 new UseCase.UseCaseCallback<GetDesireList.ResponseValue>() {
                     @Override
                     public void onSuccess(GetDesireList.ResponseValue response) {
-                        List<Desire> desires = response.getDesires();
+                        List<Desire> desires = setDesireListAccToType();
+
+                        if(loadOlderDesires){
+                            desires.addAll(response.getDesires());   //TODO JuG: check if desireListIsUpdated
+
+                        }else{
+                            desires = response.getDesires();
+                        }
+
                         // The view may not be able to handle UI updates anymore
                         if (!mDesireListView.isActive()) {
                             return;
@@ -209,7 +227,7 @@ public class DesireListPresenter implements DesireListContract.Presenter {
             //TODO add what to do if no desires
         } else {
             // Show the list of tasks
-            Collections.reverse(desires);
+            Collections.reverse(desires);   //TODO JuG - might need to go as nico changed sort of desirelist on server
 
             List<DesireItemViewModel> desireModels = new ArrayList<>();
 
@@ -236,5 +254,63 @@ public class DesireListPresenter implements DesireListContract.Presenter {
     public void openFilterSettings() {
         mDesireListView.showFilterSettings();
     }
+
+
+    private List<Desire> setDesireListAccToType() {
+        List<Desire> desires = null;
+
+        switch (mDesireListType) {
+            case ALL_DESIRES:
+                desires = mDesireListAll;
+                break;
+            case MY_DESIRES:
+                desires = mDesireListMy;
+                break;
+            case MY_TRANSACTIONS:
+                desires = mDesireListTrans;
+                break;
+            default:
+                desires = mDesireListAll;
+        }
+
+        return desires;
+    }
+
+    private void setCurFilterForDesireList(boolean loadOlderDesires){
+
+        DesireFilter curDesireFilter = WantHaversApplication.getCurDesireFilter(mAppContext);
+
+        if(curDesireFilter == null){
+            curDesireFilter = new DesireFilter();
+        }
+
+        curDesireFilter.setLimit(DESIRE_LOAD_LIMIT);
+
+        Date lastCreationTime = new Date();
+
+        List<Desire> desires;
+
+        switch (mDesireListType) {
+            case ALL_DESIRES:
+                desires = mDesireListAll;
+                break;
+            case MY_DESIRES:
+                desires = mDesireListMy;
+                break;
+            case MY_TRANSACTIONS:
+                desires = mDesireListTrans;
+                break;
+            default:
+                desires = mDesireListAll;
+        }
+
+        if(loadOlderDesires == true) {
+            lastCreationTime = desires.get(desires.size() - 1).getCreation_time();
+        }
+
+        curDesireFilter.setLastCreationTime(lastCreationTime);
+        WantHaversApplication.setCurDesireFilter(curDesireFilter);
+    }
+
 
 }

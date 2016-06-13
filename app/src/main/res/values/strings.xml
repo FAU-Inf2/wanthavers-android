@@ -105,6 +105,7 @@
     <string name="use_location">Standort übernehmen</string>
     <string name="set_location">Standort setzen</string>
     <string name="maps_error">Fehler beim Erstellen der Karte</string>
+    <string name="pound_sign" translatable="false">£</string>
 
 
     <string-array name="currencies">

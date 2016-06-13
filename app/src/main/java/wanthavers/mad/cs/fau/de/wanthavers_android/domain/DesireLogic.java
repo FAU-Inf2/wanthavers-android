@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import de.fau.cs.mad.wanthavers.common.Desire;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.SharedPreferencesHelper;
 
@@ -45,7 +46,7 @@ public class DesireLogic {
         return dateString;
     }
 
-
+    //TODO Marcel Erpenbeck - delete method and its usage in create desire
     public String getIsoCurrency(String unicode){
         String iso;
         switch(unicode){
@@ -63,24 +64,19 @@ public class DesireLogic {
         return iso;
     }
 
-    public String getPriceString(double price){
+    public String getPriceString(Desire desire, double price){
 
         String priceString = String.valueOf( (int) price);
-
-        Resources resources = mContext.getApplicationContext().getResources();
-
-        Locale current = resources.getConfiguration().locale;
-
-        if(current.getCountry().equals("DE")){
-
-        }
+        Resources resources = mContext.getResources();
         String currency = "";
-        String curCountry = current.getCountry();
+        String desireCurrency = desire.getCurrency();
 
-        switch (curCountry){
-            case "DE": currency = resources.getString(R.string.euro_sign);
+        switch (desireCurrency){
+            case "EUR": currency = resources.getString(R.string.euro_sign);
                 break;
-            case "US": currency = resources.getString(R.string.dollar_sign);
+            case "USD": currency = resources.getString(R.string.dollar_sign);
+                break;
+            case "GBP": currency = resources.getString(R.string.pound_sign);
                 break;
             default: currency = resources.getString(R.string.euro_sign);
         }
