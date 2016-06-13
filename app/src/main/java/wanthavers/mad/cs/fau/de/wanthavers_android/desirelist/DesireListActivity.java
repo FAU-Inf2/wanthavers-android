@@ -87,7 +87,7 @@ public class DesireListActivity extends AppCompatActivity {
             //TODO - change dummy user to get real logged in user and also get real rating
 
             User noUser = new User(getString(R.string.noUser),getString(R.string.noUser));
-            noUser.setRating(0.0);
+            noUser.setRating(0);
             navHeaderBinding.setUser(noUser);
 
             setupDrawerContent(navigationView);

@@ -6,6 +6,10 @@
         <variable
             name="presenter"
             type="wanthavers.mad.cs.fau.de.wanthavers_android.filtersetting.FilterSettingContract.Presenter" />
+
+        <variable
+            name="actionHandler"
+            type="wanthavers.mad.cs.fau.de.wanthavers_android.filtersetting.FilterSettingActionHandler"/>
     </data>
 
     <ScrollView
@@ -32,12 +36,14 @@
                 android:text="@string/category_title"
                 android:textColor="@color/colorMainTextDark"/>
 
-            <Spinner
+            <wanthavers.mad.cs.fau.de.wanthavers_android.filtersetting.InstantAutoComplete
                 android:id="@+id/spinner_category"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:spinnerMode="dropdown"
-                android:layout_below="@id/filter_setting_category_title"/>
+                android:layout_below="@id/filter_setting_category_title"
+                android:hint="Search dogs..."
+                android:dropDownWidth="match_parent"
+                android:inputType="textAutoComplete" />
 
             <TextView
                 android:id="@+id/filter_price_title"
