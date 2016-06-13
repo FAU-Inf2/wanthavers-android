@@ -130,9 +130,19 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
                 ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark)
         );
 
-        // Set the scrolling view in the custom SwipeRefreshLayout
+        // dynamically load new desires on scroll down
         swipeRefreshLayout.setScrollUpChild(recyclerView);
 
+       recyclerView.setOnScrollChangeListener(new RecyclerView.OnScrollChangeListener() {
+
+           @Override
+           public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+
+               if(!v.canScrollVertically(1)){
+                   mPresenter.loadDesires(true,false, true);
+               }
+           }
+       });
 
         setHasOptionsMenu(true);
 

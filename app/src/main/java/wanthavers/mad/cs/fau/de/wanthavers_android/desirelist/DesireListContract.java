@@ -48,7 +48,7 @@ public interface DesireListContract {
 
     interface Presenter extends BasePresenter {
 
-        void loadDesires(boolean forceUpdate, boolean loadOlderDesires);
+        void loadDesires(boolean forceUpdate, boolean showLoadingUi, boolean loadOlderDesires);
 
        // void loadRatingsForDesires(final List<DesireItemViewModel> desireList);
 

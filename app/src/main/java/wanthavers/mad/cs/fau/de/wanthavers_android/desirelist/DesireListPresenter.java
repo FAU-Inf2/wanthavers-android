@@ -39,7 +39,7 @@ public class DesireListPresenter implements DesireListContract.Presenter {
     private List<Desire> mDesireListAll = new ArrayList<>();
     private List<Desire> mDesireListMy = new ArrayList<>();
     private List<Desire> mDesireListTrans = new ArrayList<>();
-    private static final int DESIRE_LOAD_LIMIT  = 2;
+    private static final int DESIRE_LOAD_LIMIT  = 4;
 
     public DesireListPresenter(@NonNull UseCaseHandler useCaseHandler, @NonNull DesireListContract.View desireListView,
                                @NonNull GetDesireList getDesireList, @NonNull GetAvgRatingForUser getAvgRatingForUser, @NonNull GetUser getUser,
@@ -55,12 +55,12 @@ public class DesireListPresenter implements DesireListContract.Presenter {
     }
 
     @Override
-    public void start(){loadDesires(false, false);}
+    public void start(){loadDesires(false, true, false);}
 
 
-    public void loadDesires(boolean forceUpdate, boolean loadOlderDesires){
+    public void loadDesires(boolean forceUpdate,boolean showLoadingUi, boolean loadOlderDesires){
 
-        loadDesiresAccToType(forceUpdate || mFirstLoad, true, loadOlderDesires);
+        loadDesiresAccToType(forceUpdate || mFirstLoad, showLoadingUi, loadOlderDesires);
 
         mFirstLoad = false;
     }
@@ -126,10 +126,14 @@ public class DesireListPresenter implements DesireListContract.Presenter {
 
                         if(loadOlderDesires){
                             desires.addAll(response.getDesires());   //TODO JuG: check if desireListIsUpdated
-
                         }else{
-                            desires = response.getDesires();
+                            desires.clear();
+                            desires.addAll(response.getDesires());
                         }
+
+
+
+
 
                         // The view may not be able to handle UI updates anymore
                         if (!mDesireListView.isActive()) {
@@ -226,8 +230,6 @@ public class DesireListPresenter implements DesireListContract.Presenter {
             // Show a message indicating there are no tasks for that filter type.
             //TODO add what to do if no desires
         } else {
-            // Show the list of tasks
-            Collections.reverse(desires);   //TODO JuG - might need to go as nico changed sort of desirelist on server
 
             List<DesireItemViewModel> desireModels = new ArrayList<>();
 
@@ -257,7 +259,7 @@ public class DesireListPresenter implements DesireListContract.Presenter {
 
 
     private List<Desire> setDesireListAccToType() {
-        List<Desire> desires = null;
+        List<Desire> desires;
 
         switch (mDesireListType) {
             case ALL_DESIRES:
@@ -286,7 +288,7 @@ public class DesireListPresenter implements DesireListContract.Presenter {
 
         curDesireFilter.setLimit(DESIRE_LOAD_LIMIT);
 
-        Date lastCreationTime = new Date();
+
 
         List<Desire> desires;
 
@@ -304,8 +306,11 @@ public class DesireListPresenter implements DesireListContract.Presenter {
                 desires = mDesireListAll;
         }
 
-        if(loadOlderDesires == true) {
-            lastCreationTime = desires.get(desires.size() - 1).getCreation_time();
+
+        Date lastCreationTime = new Date();
+
+        if(loadOlderDesires == true && desires.size() > 0) {
+                lastCreationTime = desires.get(desires.size() - 1).getCreation_time();
         }
 
         curDesireFilter.setLastCreationTime(lastCreationTime);
