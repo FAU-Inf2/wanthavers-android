@@ -126,7 +126,6 @@
     <string name="enable_gps_text">Your Locations Settings is turned off. Please Enable GPS to use this app!</string>
     <string name="enable_gps_settings">Location Settings</string>
     <string name="enable_gps_cancel">Cancel</string>
-    <string name="get_categories_error">Error while getting categories</string>
 
 
 </resources>
