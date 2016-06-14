@@ -61,9 +61,9 @@
     <string name="notifications">Benachrichtigungen</string>
     <string name="button_change_profile_picture">Profilbild ändern</string>
     <string name="no_havers">Leider noch keine Haver vorhanden</string>
-    <string name="small_price">gering</string>
-    <string name="medium_price">mittel</string>
-    <string name="large_price">hoch</string>
+    <string name="small_price">GERING</string>
+    <string name="medium_price">MITTEL</string>
+    <string name="large_price">HOCH</string>
     <string name="minimal_reward_title">Mindestverdienst</string>
     <string name="minimal_rating_title">Mindestrating</string>
     <string name="location_title">Ort</string>
@@ -77,6 +77,10 @@
     <string name="update_user_success">Erfolgreiche Aktualisierung des Nutzers</string>
     <string name="update_user_error">Fehler beim Aktualisieren des Nutzers</string>
     <string name="get_chat_for_desire_error">Fehler beim Öffnen des Chats</string>
+    <string name="get_categories_error">Fehler beim Laden der Kategorien</string>
+    <string name="search_categories">Suche Kategorie...</string>
+    <string name="get_no_location_set_error">Bisher kein Ort festgelegt</string>
+    <string name="filter_change_success">Filteränderung gespeichert</string>
 
 
     <!-- currency strings -->
@@ -113,13 +117,20 @@
     <string name="enable_gps_text">Standortdienste sind ausgeschaltet. Bitte GPS für eine genaue Standortbestimmung aktivieren!</string>
     <string name="enable_gps_settings">Standortdienste</string>
     <string name="enable_gps_cancel">Abbruch</string>
-    <string name="get_categories_error">Fehler beim holen der Kategorien</string>
 
 
     <string-array name="currencies">
         <item>\u20AC</item>
         <item>\u0024</item>
         <item>\u00A3</item>
+    </string-array>
+
+    <string-array name="radius">
+        <item>1km</item>
+        <item>2km</item>
+        <item>5km</item>
+        <item>10km</item>
+        <item>&gt; 10km</item>
     </string-array>
 
 

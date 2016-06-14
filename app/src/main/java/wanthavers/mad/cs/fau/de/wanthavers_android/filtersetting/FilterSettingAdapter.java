@@ -19,7 +19,7 @@ public class FilterSettingAdapter extends ArrayAdapter<Category> {
     private List<Category> mCategoryList;
     private List<Category> mFilteredCategories = new ArrayList<>();
     private FilterSettingActionHandler mFilterSettingActionHandler;
-
+    private Category mSelected;
 
     public FilterSettingAdapter(Context context, int resource, List<Category> categoryList, FilterSettingActionHandler filterSettingActionHandler) {
         super(context, 0, categoryList);
@@ -40,6 +40,14 @@ public class FilterSettingAdapter extends ArrayAdapter<Category> {
 
     public List<Category> getList() {
         return mCategoryList;
+    }
+
+    public void setSelected(Category selected) {
+        mSelected = selected;
+    }
+
+    public Category getSelected() {
+        return mSelected;
     }
 
     @Override
