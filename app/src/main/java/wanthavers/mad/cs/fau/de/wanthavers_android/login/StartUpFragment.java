@@ -15,6 +15,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.LoginFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.StartupFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.DesireListActivity;
+import wanthavers.mad.cs.fau.de.wanthavers_android.welcome.WelcomeActivity;
 
 public class StartUpFragment extends Fragment implements LoginContract.View {
     private StartupFragBinding mViewDataBinding;
@@ -74,6 +75,11 @@ public class StartUpFragment extends Fragment implements LoginContract.View {
         startActivity(intent);
     }
 
+    @Override
+    public void showWelcomeView() {
+        Intent intent = new Intent(getContext(), WelcomeActivity.class);
+        startActivity(intent);
+    }
 
     @Override
     public void showMessage(String message) {

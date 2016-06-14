@@ -21,6 +21,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserRemoteDa
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserRepository;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.LoginFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.DesireListActivity;
+import wanthavers.mad.cs.fau.de.wanthavers_android.welcome.WelcomeActivity;
 
 public class LoginFragment extends Fragment implements LoginContract.View {
     private LoginFragBinding mViewDataBinding;
@@ -78,6 +79,12 @@ public class LoginFragment extends Fragment implements LoginContract.View {
         startActivity(intent);
     }
 
+
+    @Override
+    public void showWelcomeView() {
+        Intent intent = new Intent(getContext(), WelcomeActivity.class);
+        startActivity(intent);
+    }
 
     @Override
     public void showMessage(String message) {

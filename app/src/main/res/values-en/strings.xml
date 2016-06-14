@@ -84,6 +84,7 @@
     <string name="get_no_location_set_error">No Location set yet</string>+
     <string name="filter_change_success">Filter changes saved</string>
 
+
     <string-array name="currencies">
         <item>\u20AC</item>
         <item>\u0024</item>
@@ -118,6 +119,14 @@
     <string name="use_location">Use current location</string>
     <string name="set_location">Set Location</string>
     <string name="maps_error">Unable to create Maps</string>
+    <string name="welcomeMessage">Welcome to Wanthavers ! \n you can now upload your profile pictures and get started by creating your first desire.</string>
+    <string name="toDesireList">Desire Overview</string>
+    <string name="user_image_upload_failed">Uploading User Image failed</string>
+    <string name="enable_gps">Enable Location</string>
+    <string name="enable_gps_text">Your Locations Settings is turned off. Please Enable GPS to use this app!</string>
+    <string name="enable_gps_settings">Location Settings</string>
+    <string name="enable_gps_cancel">Cancel</string>
+    <string name="get_categories_error">Error while getting categories</string>
 
 
 </resources>

@@ -39,7 +39,7 @@ public class DesireListPresenter implements DesireListContract.Presenter {
     private List<Desire> mDesireListAll = new ArrayList<>();
     private List<Desire> mDesireListMy = new ArrayList<>();
     private List<Desire> mDesireListTrans = new ArrayList<>();
-    private static final int DESIRE_LOAD_LIMIT  = 4;
+    private static final int DESIRE_LOAD_LIMIT  = 6;
 
     public DesireListPresenter(@NonNull UseCaseHandler useCaseHandler, @NonNull DesireListContract.View desireListView,
                                @NonNull GetDesireList getDesireList, @NonNull GetAvgRatingForUser getAvgRatingForUser, @NonNull GetUser getUser,

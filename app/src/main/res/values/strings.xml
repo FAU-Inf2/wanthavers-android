@@ -82,6 +82,7 @@
     <string name="get_no_location_set_error">Bisher kein Ort festgelegt</string>
     <string name="filter_change_success">Filteränderung gespeichert</string>
 
+
     <!-- currency strings -->
     <string name="euro_sign" translatable="false">\u20ac</string>
     <string name="dollar_sign" translatable="false">$</string>
@@ -109,6 +110,14 @@
     <string name="set_location">Standort setzen</string>
     <string name="maps_error">Fehler beim Erstellen der Karte</string>
     <string name="pound_sign" translatable="false">£</string>
+    <string name="welcomeMessage">Willkommen bei Wanthavers! \n\n Sie können jetzt direkt ein Profilbild hochladen und dann gleich Ihren ersten Wunsch Einstellen</string>
+    <string name="toDesireList">zur Wunschübersicht</string>
+    <string name="user_image_upload_failed">Benutzerbild hochladen fehlgeschlagen</string>
+    <string name="enable_gps">Enable Location</string>
+    <string name="enable_gps_text">Standortdienste sind ausgeschaltet. Bitte GPS für eine genaue Standortbestimmung aktivieren!</string>
+    <string name="enable_gps_settings">Standortdienste</string>
+    <string name="enable_gps_cancel">Abbruch</string>
+    <string name="get_categories_error">Fehler beim holen der Kategorien</string>
 
 
     <string-array name="currencies">

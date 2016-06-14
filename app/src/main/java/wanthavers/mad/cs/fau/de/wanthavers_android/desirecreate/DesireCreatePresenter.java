@@ -85,19 +85,20 @@ public class DesireCreatePresenter implements DesireCreateContract.Presenter {
         );
     }
 
-    public void setImage(File file, Desire desire){
+    public void setImage(File file,final Desire desire){
 
-        SetImage.RequestValues requestValue = new SetImage.RequestValues(file, desire);
+        SetImage.RequestValues requestValue = new SetImage.RequestValues(file);
 
         mUseCaseHandler.execute(mSetImage, requestValue,
                 new UseCase.UseCaseCallback<SetImage.ResponseValue>() {
                 @Override
                 public void onSuccess(SetImage.ResponseValue response) {
 
-                    mDesire = response.getDesire();
-                    mDesireCreateView.showMedia(mDesire);
+                    desire.setImage(response.getMedia());
+                    mDesireCreateView.showMedia(desire);
 
                 }
+
 
             @Override
             public void onError() {

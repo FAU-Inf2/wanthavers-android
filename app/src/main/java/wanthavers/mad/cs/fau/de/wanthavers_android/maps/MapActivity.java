@@ -1,13 +1,21 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.maps;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Point;
 import android.location.Address;
 import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -26,9 +34,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import android.Manifest;
+
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate.DesireCreateActivity3rdStep;
-import wanthavers.mad.cs.fau.de.wanthavers_android.filtersetting.FilterSettingActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.settings.SettingsActivity;
 
 public class MapActivity extends Activity implements MapWrapperLayout.OnDragListener {
@@ -47,15 +56,21 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
     private int centerY = -1;
 
     private TextView mLocationTextView;
+    private LocationManager locationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.map_act);
+        locationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
+
+        if(!isGpsEnabled()){
+            showAlert();
+        }
 
         initializeUI();
 
-        Button  b = (Button) findViewById(R.id.button_select_location);
+        Button b = (Button) findViewById(R.id.button_select_location);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,7 +86,7 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
 
         try {
             // Loading map
-            initilizeMap();
+            initializeMap();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -94,13 +109,14 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
         centerY = (imageParentHeight / 2);
     }
 
-    private void initilizeMap() {
+    private void initializeMap() {
         if (googleMap == null) {
             mMapFragment = ((MyMapFragment) getFragmentManager()
                     .findFragmentById(R.id.map));
             mMapFragment.setOnDragListener(MapActivity.this);
             googleMap = mMapFragment.getMap();
             googleMap.moveCamera( CameraUpdateFactory.newLatLngZoom(new LatLng(49.573759,11.027389) , 6.0f) ); //computer science tower uni erlangen
+
             // check if map is created successfully or not
             if (googleMap == null) {
                 showMessage(getString(R.string.maps_error));
@@ -170,10 +186,34 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
         Snackbar.make(mMarkerParentView , message, Snackbar.LENGTH_LONG).show();
     }
 
+    private boolean isGpsEnabled() {
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);//
+        //locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+    }
+
+    private void showAlert() {
+        final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setTitle(getString(R.string.enable_gps))
+                .setMessage(getString(R.string.enable_gps_text))
+                .setPositiveButton(getString(R.string.enable_gps_settings), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+                        Intent myIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        startActivity(myIntent);
+                    }
+                })
+                .setNegativeButton(getString(R.string.enable_gps_cancel), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+                    }
+                });
+        dialog.show();
+    }
+
     public void setLocation(String location, int lat, int lng){
 
         if(getIntent().getExtras().getString("desireTitle") == null){
-            Intent intent = new Intent(this, FilterSettingActivity.class);
+            Intent intent = new Intent(this, SettingsActivity.class);
 
             intent.putExtra("desireLocation", location);
             intent.putExtra("desireLocationLat", Integer.toString(lat));

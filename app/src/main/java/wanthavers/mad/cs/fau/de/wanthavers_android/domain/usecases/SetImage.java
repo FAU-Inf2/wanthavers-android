@@ -45,18 +45,13 @@ public class SetImage extends UseCase<SetImage.RequestValues, SetImage.ResponseV
     public static final class RequestValues implements UseCase.RequestValues {
 
         private final File mImage;
-        private static Desire mDesire;
 
-        public RequestValues(File image, Desire desire) {
+        public RequestValues(File image) {
             mImage = image;
-            mDesire = desire;
         }
 
         public File getImage(){
             return mImage;
-        }
-        public static Desire getDesire(){
-            return mDesire;
         }
 
     }
@@ -64,16 +59,13 @@ public class SetImage extends UseCase<SetImage.RequestValues, SetImage.ResponseV
     public static final class ResponseValue implements UseCase.ResponseValue {
 
         private Media mMedia;
-        private Desire mDesire;
 
         public ResponseValue(@NonNull Media media) {
             mMedia = checkNotNull(media, "media cannot be null!");
-            mDesire = checkNotNull(RequestValues.getDesire(), "desire cannot be null!");
         }
 
-        public Desire getDesire() {
-            mDesire.setImage(mMedia);
-            return mDesire;
+        public Media getMedia(){
+            return mMedia;
         }
     }
 

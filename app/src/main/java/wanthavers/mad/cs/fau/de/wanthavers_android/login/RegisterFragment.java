@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.RegisterFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.StartupFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.DesireListActivity;
+import wanthavers.mad.cs.fau.de.wanthavers_android.welcome.WelcomeActivity;
 
 public class RegisterFragment extends Fragment implements LoginContract.View {
     private RegisterFragBinding mViewDataBinding;
@@ -64,6 +65,11 @@ public class RegisterFragment extends Fragment implements LoginContract.View {
         startActivity(intent);
     }
 
+    @Override
+    public void showWelcomeView() {
+        Intent intent = new Intent(getContext(), WelcomeActivity.class);
+        startActivity(intent);
+    }
 
     @Override
     public void showMessage(String message) {
