@@ -1,5 +1,6 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.filtersetting;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -7,7 +8,13 @@ import android.support.v7.widget.Toolbar;
 
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.category.CategoryLocalDataSource;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.category.CategoryRemoteDataSource;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.category.CategoryRepository;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetSubcategories;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.ActivityUtils;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 public class FilterSettingActivity extends AppCompatActivity {
 
@@ -36,8 +43,12 @@ public class FilterSettingActivity extends AppCompatActivity {
         }
 
         //create fake repo for categories
+        Context context = getApplicationContext();
+        checkNotNull(context);
 
-        mFilterSettingPresenter = new FilterSettingPresenter(UseCaseHandler.getInstance(), filterSettingFragment, this);
+        CategoryRepository categoryRepository = CategoryRepository.getInstance(CategoryRemoteDataSource.getInstance(getApplicationContext()), CategoryLocalDataSource.getInstance(context));
+
+        mFilterSettingPresenter = new FilterSettingPresenter(UseCaseHandler.getInstance(), filterSettingFragment, this, new GetSubcategories(categoryRepository));
     }
 
     @Override

@@ -70,8 +70,8 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
         mViewDataBinding.setPresenter(mPresenter);
 
 
-        final TextView desireDropzone = (TextView) mViewDataBinding.getRoot().findViewById(R.id.create_desire_dropzone);
-        desireDropzone.setText(getActivity().getIntent().getExtras().getString("desireLocation"));
+        //final TextView desireDropzone = mViewDataBinding.createDesireDropzone;
+        //desireDropzone.setText(getActivity().getIntent().getExtras().getString("desireLocation"));
         //just for testing
 
         mPresenter.createNextDesireCreateStep();

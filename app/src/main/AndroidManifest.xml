@@ -63,7 +63,8 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAylN7LkXGS8VO-1piPemFHo-wsddmGDW4" />
+            android:value="AIzaSyCMLcfkf_WT6DKOj0yvehbKgEjCny71Pz0" />
+        <!-- android:value="AIzaSyAylN7LkXGS8VO-1piPemFHo-wsddmGDW4" /> -->
 
 
         <meta-data
@@ -77,7 +78,10 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <!--Network-based location-->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <!--GPS-based location-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
 
 </manifest>
