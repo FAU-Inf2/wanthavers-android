@@ -113,6 +113,7 @@
     <string name="enable_gps_text">Standortdienste sind ausgeschaltet. Bitte GPS für eine genaue Standortbestimmung aktivieren!</string>
     <string name="enable_gps_settings">Standortdienste</string>
     <string name="enable_gps_cancel">Abbruch</string>
+    <string name="get_categories_error">Fehler beim holen der Kategorien</string>
 
 
     <string-array name="currencies">
