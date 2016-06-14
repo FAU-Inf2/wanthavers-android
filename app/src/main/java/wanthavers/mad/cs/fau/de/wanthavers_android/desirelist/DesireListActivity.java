@@ -74,7 +74,7 @@ public class DesireListActivity extends AppCompatActivity {
 
         // Set up the navigation drawer.
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerLayout.setStatusBarBackground(R.color.colorSecondary);
+        mDrawerLayout.setStatusBarBackground(R.color.colorPrimary);
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
 
