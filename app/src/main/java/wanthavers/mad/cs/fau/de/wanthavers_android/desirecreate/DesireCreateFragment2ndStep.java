@@ -67,7 +67,7 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
         mViewDataBinding = Desirecreate2ndFragBinding.inflate(inflater, container, false);
         mViewDataBinding.setPresenter(mPresenter);
 
-        spinner = (Spinner) mViewDataBinding.getRoot().findViewById(R.id.spinner_currency);
+        spinner = mViewDataBinding.spinnerCurrency;
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.currencies, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         //spinner.setPrompt(getString(R.string.currency_header));
@@ -78,8 +78,8 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
 
     @Override
     public void showNextDesireCreateStep() {
-        final EditText desirePrice   = (EditText) getView().findViewById(R.id.create_desire_price);
-        final EditText desireReward   = (EditText) getView().findViewById(R.id.create_desire_reward);
+        final EditText desirePrice   = mViewDataBinding.createDesirePrice;
+        final EditText desireReward   = mViewDataBinding.createDesireReward;
 
         if(desirePrice.getText().toString().isEmpty() || desireReward.getText().toString().isEmpty() ){
             showMessage( getString(R.string.createDesire_Empty_Text));
@@ -122,7 +122,7 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
         if ( resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
 
             image = data.getData();
-            ImageView imageView = (ImageView) getView().findViewById(R.id.image_camera);
+            ImageView imageView = mViewDataBinding.imageCamera;
             imageView.setImageURI(image);
 
         }

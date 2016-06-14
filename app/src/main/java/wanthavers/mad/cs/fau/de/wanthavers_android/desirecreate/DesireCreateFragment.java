@@ -57,8 +57,8 @@ public class DesireCreateFragment extends Fragment implements DesireCreateContra
 
     @Override
     public void showNextDesireCreateStep() {
-        final EditText desireTitle   = (EditText) getView().findViewById(R.id.create_desire_Title);
-        final EditText desireDescription   = (EditText) getView().findViewById(R.id.create_desire_description);
+        final EditText desireTitle   = mViewDataBinding.createDesireTitle;
+        final EditText desireDescription   =  mViewDataBinding.createDesireDescription;
 
         if(desireTitle.getText().toString().isEmpty() || desireDescription.getText().toString().isEmpty() ){
             showMessage( getString(R.string.createDesire_Empty_Text));
@@ -76,17 +76,6 @@ public class DesireCreateFragment extends Fragment implements DesireCreateContra
     public void showMessage(String message) {
         Snackbar.make(getView(), message, Snackbar.LENGTH_LONG).show();
     }
-
-
-    /*@Override
-    public boolean isStoragePermissionGranted() {
-        return false; // no Permissions in this Step
-    }
-
-    @Override
-    public void selectImageForDesire() {
-        //no selectable Images in this Step
-    }*/
 
     @Override
     public void showMedia(Desire m){
