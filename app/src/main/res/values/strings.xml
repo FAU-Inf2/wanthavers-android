@@ -106,6 +106,10 @@
     <string name="set_location">Standort setzen</string>
     <string name="maps_error">Fehler beim Erstellen der Karte</string>
     <string name="pound_sign" translatable="false">£</string>
+    <string name="enable_gps">Enable Location</string>
+    <string name="enable_gps_text">Standortdienste sind ausgeschaltet. Bitte GPS für eine genaue Standortbestimmung aktivieren!</string>
+    <string name="enable_gps_settings">Standortdienste</string>
+    <string name="enable_gps_cancel">Abbruch</string>
 
 
     <string-array name="currencies">

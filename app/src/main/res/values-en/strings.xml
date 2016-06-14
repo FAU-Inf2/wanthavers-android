@@ -107,6 +107,10 @@
     <string name="use_location">Use current location</string>
     <string name="set_location">Set Location</string>
     <string name="maps_error">Unable to create Maps</string>
+    <string name="enable_gps">Enable Location</string>
+    <string name="enable_gps_text">Your Locations Settings is turned off. Please Enable GPS to use this app!</string>
+    <string name="enable_gps_settings">Location Settings</string>
+    <string name="enable_gps_cancel">Cancel</string>
 
 
 </resources>
