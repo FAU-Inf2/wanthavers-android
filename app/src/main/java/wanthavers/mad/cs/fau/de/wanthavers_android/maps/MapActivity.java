@@ -36,8 +36,11 @@ import java.util.Locale;
 
 import android.Manifest;
 
+import javax.ws.rs.DELETE;
+
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate.DesireCreateActivity3rdStep;
+import wanthavers.mad.cs.fau.de.wanthavers_android.filtersetting.FilterSettingActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.settings.SettingsActivity;
 
 public class MapActivity extends Activity implements MapWrapperLayout.OnDragListener {
@@ -212,14 +215,16 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
 
     public void setLocation(String location, int lat, int lng){
 
-        if(getIntent().getExtras().getString("desireTitle") == null){
-            Intent intent = new Intent(this, SettingsActivity.class);
+        if(getIntent().getExtras().getString("desireTitle").compareTo("") == 0) {
+            System.out.println("Reached");
+            Intent intent = new Intent();
 
             intent.putExtra("desireLocation", location);
             intent.putExtra("desireLocationLat", Integer.toString(lat));
             intent.putExtra("desireLocationLng", Integer.toString(lng));
 
-            startActivity(intent);
+            //startActivity(intent);
+            setResult(0, intent);
             finish();
 
         }else{

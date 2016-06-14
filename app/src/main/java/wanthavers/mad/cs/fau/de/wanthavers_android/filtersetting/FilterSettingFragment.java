@@ -108,22 +108,28 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
     @Override
     public void showMap() {
         Intent intent = new Intent(getContext(), MapActivity.class);
+        intent.putExtra("desireTitle", "");
         startActivity(intent);
     }
 
     @Override
     public Location getLocation() {
-        //System.out.println("Reached1.0");
+        System.out.println("Reached1.0");
         if (getActivity().getIntent().getExtras() == null) {
-            //System.out.println("Reached1.1");
+            System.out.println("Reached1.1");
             showNoLocationSetError();
             return null;
         } else {
-            //System.out.println("Reached1.2");
+            System.out.println("Reached1.2");
             String location = getActivity().getIntent().getExtras().getString("desireLocation");
             double lat = Double.parseDouble(getActivity().getIntent().getExtras().getString("desireLocationLat"));
-            double lng = Double.parseDouble(getActivity().getIntent().getExtras().getString("desireLocationLng"));
-            return null;
+            double lon = Double.parseDouble(getActivity().getIntent().getExtras().getString("desireLocationLng"));
+            Location ret = new Location();
+            ret.setLat(lat);
+            ret.setLon(lon);
+            ret.setFullAddress(location);
+
+            return ret;
         }
     }
 
@@ -164,6 +170,23 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
 
     @Override
     public Category getSelectedCategory() {
-        return mFilterSettingActionHandler.getCategory();
+        InstantAutoComplete instantAutoComplete = mFilterSettingFragBinding.spinnerCategory;
+        String input = instantAutoComplete.getText().toString();
+        if (input.compareTo("") == 0) {
+            Category category = new Category();
+            category.setName("all");
+            return category;
+        }
+
+        for (int i = 0; i < mListAdapter.getCount(); i++) {
+            String tmp = mListAdapter.getItem(i).getName();
+            if (input.compareTo(tmp) == 0) {
+                return mListAdapter.getItem(i);
+            }
+        }
+
+        showMessage(getString(R.string.no_category_match));
+
+        return null;
     }
 }

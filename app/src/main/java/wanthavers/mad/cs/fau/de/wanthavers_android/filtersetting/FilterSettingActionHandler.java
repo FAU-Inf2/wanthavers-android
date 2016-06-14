@@ -13,7 +13,6 @@ public class FilterSettingActionHandler {
     private int priceClicked; //0=no_button; 1=small; 2=middle; 3=large
     private int colorMainText;
     private int colorPrimary;
-    private Category mSelectedCategory;
 
     public FilterSettingActionHandler(FilterSettingContract.Presenter listener, FiltersettingFragBinding filtersettingFragBinding) {
         mListener = listener;
@@ -21,7 +20,6 @@ public class FilterSettingActionHandler {
         priceClicked = 0;
         colorPrimary = mFilterSettingFragBinding.getRoot().getResources().getColor(R.color.colorPrimary);
         colorMainText = mFilterSettingFragBinding.getRoot().getResources().getColor(R.color.colorMainText);
-        mSelectedCategory = null;
     }
 
     public void buttonChangeLocation() {
@@ -73,14 +71,6 @@ public class FilterSettingActionHandler {
             button.setTextColor(colorMainText);
         }
 
-    }
-
-    public void setCategory(Category category) {
-        mSelectedCategory = category;
-    }
-
-    public Category getCategory() {
-        return mSelectedCategory;
     }
 
     public int getPriceClicked() {

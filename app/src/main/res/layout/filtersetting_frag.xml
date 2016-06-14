@@ -41,7 +41,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/filter_setting_category_title"
-                android:hint="@string/search_categories"
+                android:hint="@string/all_categories"
                 android:dropDownWidth="match_parent"
                 android:inputType="textAutoComplete"/>
 
