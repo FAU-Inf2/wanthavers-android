@@ -80,7 +80,7 @@ public class LoginPresenter implements LoginContract.Presenter {
             return;
         }
 
-        login(email, password);
+        login(email, password, false);
     }
 
 
@@ -114,7 +114,7 @@ public class LoginPresenter implements LoginContract.Presenter {
 
 
     @Override
-    public void login(String userMail, String userPw) {
+    public void login(String userMail, String userPw, final boolean isRegistering) {
 
         final SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, mAppContext);
         sharedPreferencesHelper.saveString(SharedPreferencesHelper.KEY_USER_EMAIL, userMail);
@@ -132,6 +132,12 @@ public class LoginPresenter implements LoginContract.Presenter {
 
                         User user = response.getUser();
                         sharedPreferencesHelper.saveLong(SharedPreferencesHelper.KEY_USERID, user.getId());
+
+                        if(isRegistering){
+                            mLoginView.showWelcomeView();
+                            return;
+                        }
+
                         mLoginView.showDesireList();
                     }
 
@@ -195,7 +201,7 @@ public class LoginPresenter implements LoginContract.Presenter {
                 new UseCase.UseCaseCallback<CreateUser.ResponseValue>() {
                     @Override
                     public void onSuccess(CreateUser.ResponseValue response) {
-                        login(response.getUser().getEmail(), password);
+                        login(response.getUser().getEmail(), password, true);
                     }
 
                     @Override

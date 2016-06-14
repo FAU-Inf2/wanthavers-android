@@ -9,6 +9,8 @@ public interface LoginContract {
 
         void showDesireList();
 
+        void showWelcomeView();
+
         void showMessage(String message);
 
     }
@@ -20,7 +22,7 @@ public interface LoginContract {
 
         void login(long userId);
 
-        void login(String userMail,String userPw);
+        void login(String userMail,String userPw, boolean isRegistering);
 
         void loginUserWithInput();
 

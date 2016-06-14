@@ -106,6 +106,9 @@
     <string name="use_location">Use current location</string>
     <string name="set_location">Set Location</string>
     <string name="maps_error">Unable to create Maps</string>
+    <string name="welcomeMessage">Welcome to Wanthavers ! \n you can now upload your profile pictures and get started by creating your first desire.</string>
+    <string name="toDesireList">Desire Overview</string>
+    <string name="user_image_upload_failed">Uploading User Image failed</string>
 
 
 </resources>

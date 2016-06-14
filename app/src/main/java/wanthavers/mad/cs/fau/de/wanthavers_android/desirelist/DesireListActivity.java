@@ -87,7 +87,7 @@ public class DesireListActivity extends AppCompatActivity {
             //TODO - change dummy user to get real logged in user and also get real rating
 
             User noUser = new User(getString(R.string.noUser),getString(R.string.noUser));
-            noUser.setRating(0.0);
+            //noUser.setRating(0.0);
             navHeaderBinding.setUser(noUser);
 
             setupDrawerContent(navigationView);
@@ -141,7 +141,6 @@ public class DesireListActivity extends AppCompatActivity {
         SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, getApplicationContext());
         long loggedInUser = sharedPreferencesHelper.loadLong(SharedPreferencesHelper.KEY_USERID, 6L); //Long.valueOf(sharedPreferencesHelper.loadString(SharedPreferencesHelper.KEY_USERID, "6"));
         mDesireListPresenter.getUser(loggedInUser);
-
 
         mDesireListPresenter.setUser(loggedInUser);
 

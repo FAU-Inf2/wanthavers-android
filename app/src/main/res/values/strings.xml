@@ -106,6 +106,9 @@
     <string name="set_location">Standort setzen</string>
     <string name="maps_error">Fehler beim Erstellen der Karte</string>
     <string name="pound_sign" translatable="false">£</string>
+    <string name="welcomeMessage">Willkommen bei Wanthavers! \n\n Sie können jetzt direkt ein Profilbild hochladen und dann gleich Ihren ersten Wunsch Einstellen</string>
+    <string name="toDesireList">zur Wunschübersicht</string>
+    <string name="user_image_upload_failed">Benutzerbild hochladen fehlgeschlagen</string>
 
 
     <string-array name="currencies">

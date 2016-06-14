@@ -34,6 +34,7 @@
         <activity android:name="wanthavers.mad.cs.fau.de.wanthavers_android.settings.SettingsActivity"/>
         <activity android:name="wanthavers.mad.cs.fau.de.wanthavers_android.filtersetting.FilterSettingActivity"/>
         <activity android:name="wanthavers.mad.cs.fau.de.wanthavers_android.maps.MapActivity"/>
+        <activity android:name="wanthavers.mad.cs.fau.de.wanthavers_android.welcome.WelcomeActivity"/>
         <meta-data
             android:name="com.parse.APPLICATION_ID"
             android:value="{APPLICATION_ID}" />
