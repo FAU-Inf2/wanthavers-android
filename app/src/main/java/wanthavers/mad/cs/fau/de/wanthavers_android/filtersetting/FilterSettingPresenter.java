@@ -78,20 +78,20 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
         DesireFilter desireFilter = new DesireFilter();
 
         //get all Views
-        InstantAutoComplete autoComplete = (InstantAutoComplete) mActivity.findViewById(R.id.spinner_category);
         RatingBar minRatingBar = (RatingBar)mActivity.findViewById(R.id.filterSettingRatingBar);
         EditText minRewardView = (EditText) mActivity.findViewById(R.id.filter_min_reward);
         Spinner radiusView = (Spinner) mActivity.findViewById(R.id.spinner_radius);
 
         //Category
-        /*Category selectedCategory = autoComplete.
-        if (selectedCategory != null) {
+        Category selectedCategory = mFilterSettingView.getSelectedCategory();
+        if (selectedCategory == null) {
+            return;
+        } else if (selectedCategory.getName().equals("all")) {
+            //nothing to do
+        } else {
             desireFilter.setCategory(selectedCategory.getId());
-            System.out.println("Found Category");
-        }*/
-        /*int pos = autoComplete.getListSelection();
-        Category category = (Category) autoComplete.getAdapter().getItem(pos);
-        System.out.println(category.getName());*/
+            System.out.println(desireFilter.getCategory());
+        }
 
         //Price
         int priceClicked = mFilterSettingView.getPriceClicked();
@@ -131,6 +131,9 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
         }
         desireFilter.setLon(location.getLon());
         desireFilter.setLat(location.getLat());
+        System.out.println(desireFilter.getLat());
+        System.out.println(desireFilter.getLon());
+        System.out.println(location.getFullAddress());
 
         //Radius
         //TODO: differ between miles and kilometres
@@ -150,11 +153,13 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
         }
         System.out.println(desireFilter.getRadius());
 
-        setFilter(desireFilter);
+        return;
+
+        /*setFilter(desireFilter);
 
         mFilterSettingView.showFilterChangeSuccess();
 
-        mFilterSettingView.showDesireList();
+        mFilterSettingView.showDesireList();*/
     }
 
     @Override
