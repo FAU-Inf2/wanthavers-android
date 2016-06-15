@@ -209,7 +209,7 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);//
         //locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
     }
-    
+
 
     public boolean isFineLocationPermissionGranted(){
         if (Build.VERSION.SDK_INT >= 23) {
