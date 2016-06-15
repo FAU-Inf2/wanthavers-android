@@ -120,7 +120,7 @@
     <string name="welcomeMessage">Willkommen bei Wanthavers! \n\n Sie können jetzt direkt ein Profilbild hochladen und dann gleich Ihren ersten Wunsch Einstellen</string>
     <string name="toDesireList">zur Wunschübersicht</string>
     <string name="user_image_upload_failed">Benutzerbild hochladen fehlgeschlagen</string>
-    <string name="enable_gps">Enable Location</string>
+    <string name="enable_gps">Standortdienste einschalten</string>
     <string name="enable_gps_text">Standortdienste sind ausgeschaltet. Bitte GPS für eine genaue Standortbestimmung aktivieren!</string>
     <string name="enable_gps_settings">Standortdienste</string>
     <string name="enable_gps_cancel">Abbruch</string>
