@@ -253,6 +253,8 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
 
         UpdateDesireStatus.RequestValues requestValues = new UpdateDesireStatus.RequestValues(mDesireId, DesireStatus.STATUS_DONE);
 
+        System.out.println("loggedinUserId " + mDesireLogic.getLoggedInUserId());
+
         mUseCaseHandler.execute(mUpdateDesireStatus, requestValues,
                 new UseCase.UseCaseCallback<UpdateDesireStatus.ResponseValue>() {
 

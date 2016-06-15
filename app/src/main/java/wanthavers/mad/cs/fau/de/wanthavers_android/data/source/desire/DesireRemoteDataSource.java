@@ -77,6 +77,7 @@ public class DesireRemoteDataSource implements DesireDataSource {
             Desire ret = desireClient.updateDesireStatus(desireId, status);
             callback.onStatusUpdated(ret);
         } catch (Throwable t) {
+            System.out.println("UpdateDesireStatus-Error: " + t);
             callback.onUpdateFailed();
         }
     }
