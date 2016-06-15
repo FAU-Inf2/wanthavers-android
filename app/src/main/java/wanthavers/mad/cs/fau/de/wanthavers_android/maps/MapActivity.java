@@ -78,7 +78,9 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
             @Override
             public void onClick(View v) {
                 Log.d("MapAdresse", mLocationTextView.getText().toString());
-                setLocation(mLocationTextView.getText().toString(), centerX, centerY);
+                LatLng centerLatLng = googleMap.getProjection().fromScreenLocation(new Point(
+                        centerX, centerY));
+                setLocation(mLocationTextView.getText().toString(), centerLatLng.latitude, centerLatLng.longitude);
             }
         });
 
@@ -213,18 +215,18 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
         dialog.show();
     }
 
-    public void setLocation(String location, int lat, int lng){
+    public void setLocation(String location, double lat, double lng){
 
         if(getIntent().getExtras().getString("desireTitle").compareTo("") == 0) {
-            System.out.println("Reached");
             Intent intent = new Intent();
 
             intent.putExtra("desireLocation", location);
-            intent.putExtra("desireLocationLat", Integer.toString(lat));
-            intent.putExtra("desireLocationLng", Integer.toString(lng));
+            intent.putExtra("desireLocationLat", Double.toString(lat));
+            intent.putExtra("desireLocationLng", Double.toString(lng));
 
-            //startActivity(intent);
-            setResult(0, intent);
+            Log.d("1", location);
+
+            setResult(1, intent);
             finish();
 
         }else{
@@ -244,8 +246,8 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
             intent.putExtra("desireCurrency", currency);
             intent.putExtra("desireImage", image);
             intent.putExtra("desireLocation", location);
-            intent.putExtra("desireLocationLat", Integer.toString(lat));
-            intent.putExtra("desireLocationLng", Integer.toString(lng));
+            intent.putExtra("desireLocationLat", Double.toString(lat));
+            intent.putExtra("desireLocationLng", Double.toString(lng));
             startActivity(intent);
         }
 
