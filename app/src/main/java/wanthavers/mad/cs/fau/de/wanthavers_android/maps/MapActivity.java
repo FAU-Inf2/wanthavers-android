@@ -68,12 +68,12 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
         /*if(!isGpsEnabled()){
             showAlert();
         }*/
-        if(isFineLocationPermissionGranted()) {
-            initializeUI(1);
-            Log.d("LocationPermission", "granted");
+       // if(isFineLocationPermissionGranted()) {
+            initializeUI();
+         //   Log.d("LocationPermission", "granted");
         /*}else{
             initializeUI(0);*/
-        }
+       // }
 
 
         Button b = (Button) findViewById(R.id.button_select_location);
@@ -90,11 +90,11 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
 
     }
 
-    private void initializeUI(int i) {
+    private void initializeUI() {
 
         try {
             // Loading map
-            initializeMap(i);
+            initializeMap();
 
 
         } catch (Exception e) {
@@ -118,7 +118,7 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
         centerY = (imageParentHeight / 2);
     }
 
-    private void initializeMap(int i) {
+    private void initializeMap() {
         if (googleMap == null) {
             mMapFragment = ((MyMapFragment) getFragmentManager()
                     .findFragmentById(R.id.map));
@@ -211,14 +211,14 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
     }
 
 
-    public boolean isFineLocationPermissionGranted(){
+    /*public boolean isFineLocationPermissionGranted(){
         if (Build.VERSION.SDK_INT >= 23) {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                 Log.d("Permission: ", "Location Permission is granted");
                 return true;
             } else {
                 Log.d("Permission: ", "Location Permission is revoked");
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
                 return false;
             }
 
@@ -226,9 +226,9 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
             Log.v("Permission: ","Location Permission is granted");
             return true;
         }
-    }
+    }*/
 
-    @Override
+    /*@Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if(grantResults[0]== PackageManager.PERMISSION_GRANTED){
@@ -236,7 +236,7 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
         }else{
             initializeUI(0);
         }
-    }
+    }*/
 
     public void setLocation(String location, double lat, double lng){
 
