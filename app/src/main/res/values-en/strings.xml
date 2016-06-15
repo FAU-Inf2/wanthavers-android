@@ -84,6 +84,11 @@
     <string name="get_no_location_set_error">No Location set yet</string>+
     <string name="filter_change_success">Filter changes saved</string>
     <string name="no_category_match">Invalid Category</string>
+    <string name="button_close_transaction">Close Transaction</string>
+    <string name="closing_transaction_error">Error while closing transaction</string>
+    <string name="haver_status_open">OPEN</string>
+    <string name="haver_status_accepted">ACCEPTED</string>
+    <string name="haver_status_rejected">REJECTED</string>
 
 
     <string-array name="currencies">

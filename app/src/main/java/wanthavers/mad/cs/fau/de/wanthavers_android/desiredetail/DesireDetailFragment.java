@@ -163,6 +163,7 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
                 final ImageView profileView = mDesireDetailFragBinding.imageWanter;
                 profileView.setImageResource(R.drawable.no_pic);
             }
+            mDesireDetailFragBinding.desireHaverStatus.setVisibility(View.VISIBLE);
         }
 
         //Show havers
@@ -170,9 +171,10 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
             mPresenter.loadHavers(false);
         } else if (desire.getStatus() == 2) {
             mPresenter.getAcceptedHaver();
-            //no haver can accept
+            //haver cannot accept
             mDesireDetailFragBinding.buttonAcceptDesire.setVisibility(View.GONE);
             mDesireDetailFragBinding.placeholder.setVisibility(View.GONE);
+            mDesireDetailFragBinding.buttonCloseTransaction.setVisibility(View.VISIBLE);
         }
 
     }
@@ -183,6 +185,17 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
     }
 
     public void showAcceptedHaver(Haver haver) {
+
+        if (mDesireLogic.getLoggedInUserId() == haver.getUser().getId()
+                && mDesireDetailFragBinding.desireHaverStatus.getVisibility() == View.VISIBLE) {
+            mDesireDetailFragBinding.desireHaverStatus.setBackgroundColor(getResources().getColor(R.color.status_accepted));
+            mDesireDetailFragBinding.desireHaverStatus.setText(getString(R.string.haver_status_accepted));
+        } else if (mDesireLogic.getLoggedInUserId() != haver.getUser().getId()
+                && mDesireDetailFragBinding.desireHaverStatus.getVisibility() == View.VISIBLE) {
+            mDesireDetailFragBinding.desireHaverStatus.setBackgroundColor(getResources().getColor(R.color.status_rejected));
+            mDesireDetailFragBinding.desireHaverStatus.setText(getString(R.string.haver_status_rejected));
+        }
+
         mDesireDetailFragBinding.setHaver(haver);
         mDesireDetailFragBinding.haverList.setVisibility(View.GONE);
         mDesireDetailFragBinding.noHavers.setVisibility(View.GONE);
@@ -227,6 +240,11 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
     @Override
     public void showGetChatForDesireError() {
         showMessage(getString(R.string.get_chat_for_desire_error));
+    }
+
+    @Override
+    public void showUpdateDesireStatusError() {
+        showMessage(getString(R.string.closing_transaction_error));
     }
 
     public void setDesireLogic(DesireLogic desireLogic){mDesireLogic = desireLogic;}

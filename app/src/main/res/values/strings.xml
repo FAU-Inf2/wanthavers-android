@@ -82,6 +82,11 @@
     <string name="get_no_location_set_error">Bisher kein Ort festgelegt</string>
     <string name="filter_change_success">Filteränderung gespeichert</string>
     <string name="no_category_match">Ungültige Kategorie</string>
+    <string name="button_close_transaction">Transaktion abschließen</string>
+    <string name="closing_transaction_error">Fehler beim Abschließen der Transaktion</string>
+    <string name="haver_status_open">OFFEN</string>
+    <string name="haver_status_accepted">AKZEPTIERT</string>
+    <string name="haver_status_rejected">ABGELEHNT</string>
 
 
     <!-- currency strings -->

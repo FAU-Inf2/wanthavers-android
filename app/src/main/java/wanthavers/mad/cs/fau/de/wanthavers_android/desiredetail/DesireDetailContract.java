@@ -37,6 +37,8 @@ public interface DesireDetailContract {
 
         void showGetChatForDesireError();
 
+        void showUpdateDesireStatusError();
+
         boolean isActive();
     }
 
@@ -55,6 +57,8 @@ public interface DesireDetailContract {
         void getAcceptedHaver();
 
         void sendMessage(long user2Id);
+
+        void closeTransaction();
 
         //void getHaver(final long haverId);
 

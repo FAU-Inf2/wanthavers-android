@@ -27,6 +27,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetHaver;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetHaverList;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetUser;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.SetHaver;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.UpdateDesireStatus;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.UpdateHaver;
 
 public class DesireDetailPresenter implements DesireDetailContract.Presenter {
@@ -45,7 +46,7 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
     private final GetUser mGetUser;
     private final GetAcceptedHaver mGetAcceptedHaver;
     private final GetChatForDesire mGetChatForDesire;
-
+    private final UpdateDesireStatus mUpdateDesireStatus;
 
     @NonNull
     private long mDesireId;
@@ -55,7 +56,7 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
                                  @NonNull AcceptHaver acceptHaver, @NonNull GetDesire getDesire,
                                  @NonNull GetHaverList getHaverList, @NonNull GetUser getUser,
                                  @NonNull SetHaver setHaver, @NonNull GetAcceptedHaver getAcceptedHaver,
-                                 @NonNull GetChatForDesire getChatForDesire){
+                                 @NonNull GetChatForDesire getChatForDesire, @NonNull UpdateDesireStatus updateDesireStatus){
 
         mUseCaseHandler = checkNotNull(useCaseHandler, "useCaseHandler cannot be null");
         mDesireDetailView = checkNotNull(desireDetailView, "desiredetail view cannot be null");
@@ -67,6 +68,7 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
         mGetUser = checkNotNull(getUser);
         mGetAcceptedHaver = checkNotNull(getAcceptedHaver);
         mGetChatForDesire = checkNotNull(getChatForDesire);
+        mUpdateDesireStatus = checkNotNull(updateDesireStatus);
 
         mDesireDetailView.setPresenter(this);
         mDesireLogic = desireLogic;
@@ -241,6 +243,29 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
                     @Override
                     public void onError() {
                         mDesireDetailView.showGetChatForDesireError();
+                    }
+
+                }
+        );
+    }
+
+    public void closeTransaction() {
+
+        UpdateDesireStatus.RequestValues requestValues = new UpdateDesireStatus.RequestValues(mDesireId, DesireStatus.STATUS_DONE);
+
+        mUseCaseHandler.execute(mUpdateDesireStatus, requestValues,
+                new UseCase.UseCaseCallback<UpdateDesireStatus.ResponseValue>() {
+
+                    @Override
+                    public void onSuccess(UpdateDesireStatus.ResponseValue response) {
+                        Desire updatedDesire = response.getDesire();
+                        mDesireDetailView.showDesire(updatedDesire);
+                        //mDesireDetailView.showRating();
+                    }
+
+                    @Override
+                    public void onError() {
+                        mDesireDetailView.showUpdateDesireStatusError();
                     }
 
                 }
