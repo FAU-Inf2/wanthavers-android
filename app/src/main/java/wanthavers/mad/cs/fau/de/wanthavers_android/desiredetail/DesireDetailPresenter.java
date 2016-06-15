@@ -260,6 +260,7 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
                     public void onSuccess(UpdateDesireStatus.ResponseValue response) {
                         Desire updatedDesire = response.getDesire();
                         mDesireDetailView.showDesire(updatedDesire);
+                        //mDesireDetailView.disableButton();
                         //mDesireDetailView.showRating();
                     }
 

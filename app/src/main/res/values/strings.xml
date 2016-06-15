@@ -87,6 +87,7 @@
     <string name="haver_status_open">OFFEN</string>
     <string name="haver_status_accepted">AKZEPTIERT</string>
     <string name="haver_status_rejected">ABGELEHNT</string>
+    <string name="no_location_selected">Kein Ort ausgewählt</string>
 
 
     <!-- currency strings -->

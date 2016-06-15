@@ -193,6 +193,7 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
         System.out.println("location: " + mLocation);
         System.out.println("lat: " + mLat);
         System.out.println("lon: " + mLon);
-
+        mFilterSettingFragBinding.selectedLocation.setTextColor(getResources().getColor(R.color.colorMainTextDark));
+        mFilterSettingFragBinding.selectedLocation.setText(mLocation);
     }
 }
