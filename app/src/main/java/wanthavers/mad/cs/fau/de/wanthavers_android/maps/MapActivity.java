@@ -36,8 +36,6 @@ import java.util.Locale;
 
 import android.Manifest;
 
-import javax.ws.rs.DELETE;
-
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate.DesireCreateActivity3rdStep;
 import wanthavers.mad.cs.fau.de.wanthavers_android.filtersetting.FilterSettingActivity;
@@ -67,11 +65,16 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
         setContentView(R.layout.map_act);
         locationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
 
-        if(!isGpsEnabled()){
+        /*if(!isGpsEnabled()){
             showAlert();
+        }*/
+        if(isFineLocationPermissionGranted()) {
+            initializeUI(1);
+            Log.d("LocationPermission", "granted");
+        /*}else{
+            initializeUI(0);*/
         }
 
-        initializeUI();
 
         Button b = (Button) findViewById(R.id.button_select_location);
         b.setOnClickListener(new View.OnClickListener() {
@@ -87,11 +90,12 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
 
     }
 
-    private void initializeUI() {
+    private void initializeUI(int i) {
 
         try {
             // Loading map
-            initializeMap();
+            initializeMap(i);
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -114,13 +118,23 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
         centerY = (imageParentHeight / 2);
     }
 
-    private void initializeMap() {
+    private void initializeMap(int i) {
         if (googleMap == null) {
             mMapFragment = ((MyMapFragment) getFragmentManager()
                     .findFragmentById(R.id.map));
             mMapFragment.setOnDragListener(MapActivity.this);
             googleMap = mMapFragment.getMap();
-            googleMap.moveCamera( CameraUpdateFactory.newLatLngZoom(new LatLng(49.573759,11.027389) , 6.0f) ); //computer science tower uni erlangen
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(49.573759, 11.027389), 6.0f)); //computer science tower uni erlangen
+            GpsLocationTracker mGpsLocationTracker = new GpsLocationTracker(MapActivity.this);
+
+            if (mGpsLocationTracker.isGpsEnabled() ){
+                double latitude = mGpsLocationTracker.getLatitude();
+                double longitude = mGpsLocationTracker.getLongitude();
+                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 17.0f)); //users location
+
+            }else{
+                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(49.573759, 11.027389), 15.0f)); //computer science tower uni erlangen
+            }
 
             // check if map is created successfully or not
             if (googleMap == null) {
@@ -196,23 +210,32 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
         //locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
     }
 
-    private void showAlert() {
-        final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-        dialog.setTitle(getString(R.string.enable_gps))
-                .setMessage(getString(R.string.enable_gps_text))
-                .setPositiveButton(getString(R.string.enable_gps_settings), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface paramDialogInterface, int paramInt) {
-                        Intent myIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                        startActivity(myIntent);
-                    }
-                })
-                .setNegativeButton(getString(R.string.enable_gps_cancel), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface paramDialogInterface, int paramInt) {
-                    }
-                });
-        dialog.show();
+
+    public boolean isFineLocationPermissionGranted(){
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                Log.d("Permission: ", "Location Permission is granted");
+                return true;
+            } else {
+                Log.d("Permission: ", "Location Permission is revoked");
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+                return false;
+            }
+
+        }else { //permission is automatically granted because sdk<23
+            Log.v("Permission: ","Location Permission is granted");
+            return true;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(grantResults[0]== PackageManager.PERMISSION_GRANTED){
+            initializeUI(1);
+        }else{
+            initializeUI(0);
+        }
     }
 
     public void setLocation(String location, double lat, double lng){
