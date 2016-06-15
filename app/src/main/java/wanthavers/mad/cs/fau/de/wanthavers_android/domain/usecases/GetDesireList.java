@@ -50,7 +50,7 @@ public class GetDesireList extends UseCase<GetDesireList.RequestValues, GetDesir
 
 
         if(desireListType == DesireListType.MY_TRANSACTIONS){
-            desireFilter.setHaverId(userId);
+            //desireFilter.setHaverId(userId);
         }
 
         mDesireRepository.getDesiresByFilter(desireFilter,
