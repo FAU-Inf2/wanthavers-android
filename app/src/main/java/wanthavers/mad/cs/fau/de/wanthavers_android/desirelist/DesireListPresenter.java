@@ -39,11 +39,11 @@ public class DesireListPresenter implements DesireListContract.Presenter {
     private List<Desire> mDesireListAll = new ArrayList<>();
     private List<Desire> mDesireListMy = new ArrayList<>();
     private List<Desire> mDesireListTrans = new ArrayList<>();
-    private static final int DESIRE_LOAD_LIMIT  = 6;
+    private static final int DESIRE_LOAD_LIMIT = 6;
 
     public DesireListPresenter(@NonNull UseCaseHandler useCaseHandler, @NonNull DesireListContract.View desireListView,
                                @NonNull GetDesireList getDesireList, @NonNull GetAvgRatingForUser getAvgRatingForUser, @NonNull GetUser getUser,
-                               @NonNull Context context){
+                               @NonNull Context context) {
 
         mUseCaseHandler = checkNotNull(useCaseHandler, "usecaseHandle cannot be null");
         mDesireListView = checkNotNull(desireListView, "desirelist view cannot be null!");
@@ -55,10 +55,12 @@ public class DesireListPresenter implements DesireListContract.Presenter {
     }
 
     @Override
-    public void start(){loadDesires(false, true, false);}
+    public void start() {
+        loadDesires(false, true, false);
+    }
 
 
-    public void loadDesires(boolean forceUpdate,boolean showLoadingUi, boolean loadOlderDesires){
+    public void loadDesires(boolean forceUpdate, boolean showLoadingUi, boolean loadOlderDesires) {
 
         loadDesiresAccToType(forceUpdate || mFirstLoad, showLoadingUi, loadOlderDesires);
 
@@ -78,7 +80,6 @@ public class DesireListPresenter implements DesireListContract.Presenter {
         //destroy user settings in shared preferences
 
 
-
         mDesireListView.showLogout();
     }
 
@@ -88,13 +89,19 @@ public class DesireListPresenter implements DesireListContract.Presenter {
     }
 
     @Override
-    public void openMyDesires(){ mDesireListView.showMyDesires();}
+    public void openMyDesires() {
+        mDesireListView.showMyDesires();
+    }
 
     @Override
-    public void openMyTransactions(){ mDesireListView.showMyTransactions();}
+    public void openMyTransactions() {
+        mDesireListView.showMyTransactions();
+    }
 
     @Override
-    public void openAllDesires(){ mDesireListView.showAllDesires();}
+    public void openAllDesires() {
+        mDesireListView.showAllDesires();
+    }
 
     @Override
     public void openDesireDetails(@NonNull Desire desire) {
@@ -103,7 +110,7 @@ public class DesireListPresenter implements DesireListContract.Presenter {
     }
 
 
-    public void setDesireListType(DesireListType desireListType){
+    public void setDesireListType(DesireListType desireListType) {
         mDesireListType = desireListType;
     }
 
@@ -127,18 +134,18 @@ public class DesireListPresenter implements DesireListContract.Presenter {
                         List<Desire> newDesires = response.getDesires();
 
 
-                        if(loadOlderDesires){
+                        if (loadOlderDesires) {
 
                             int sizeDesires = desires.size();
                             int sizeNewDesires = newDesires.size();
 
-                            if(sizeDesires > 0 && sizeNewDesires > 0) {
+                            if (sizeDesires > 0 && sizeNewDesires > 0) {
                                 if (desires.get(desires.size() - 1).getId() == newDesires.get(0).getId()) {
                                     newDesires.remove(0);
                                 }
                             }
                             desires.addAll(response.getDesires());
-                        }else{
+                        } else {
                             desires.clear();
                             desires.addAll(newDesires);
                         }
@@ -166,11 +173,11 @@ public class DesireListPresenter implements DesireListContract.Presenter {
                 });
     }
 
-    public void setUser(long userId){
+    public void setUser(long userId) {
         mLoggedInUser = userId;
     }
 
-    public void getUser(long userId){
+    public void getUser(long userId) {
 
         GetUser.RequestValues requestValue = new GetUser.RequestValues(userId);
 
@@ -241,7 +248,7 @@ public class DesireListPresenter implements DesireListContract.Presenter {
 
             List<DesireItemViewModel> desireModels = new ArrayList<>();
 
-            for(Desire desire: desires){
+            for (Desire desire : desires) {
                 desireModels.add(new DesireItemViewModel(desire));
             }
 
@@ -254,7 +261,7 @@ public class DesireListPresenter implements DesireListContract.Presenter {
     }
 
 
-    public void openChat(User user){
+    public void openChat(User user) {
         //TODO: open chat here;
         checkNotNull(user, "user cannot be null!");
         mDesireListView.showChatList(user.getId());
@@ -286,16 +293,15 @@ public class DesireListPresenter implements DesireListContract.Presenter {
         return desires;
     }
 
-    private void setCurFilterForDesireList(boolean loadOlderDesires){
+    private void setCurFilterForDesireList(boolean loadOlderDesires) {
 
         DesireFilter curDesireFilter = WantHaversApplication.getCurDesireFilter(mAppContext);
 
-        if(curDesireFilter == null){
+        if (curDesireFilter == null) {
             curDesireFilter = new DesireFilter();
         }
 
         curDesireFilter.setLimit(DESIRE_LOAD_LIMIT);
-
 
 
         List<Desire> desires;
@@ -314,14 +320,17 @@ public class DesireListPresenter implements DesireListContract.Presenter {
                 desires = mDesireListAll;
         }
 
+        //TODO: @Julian: check if this adjustment is correct
+        //Date lastCreationTime = new Date();
+        Long lastDesireId = null;
 
-        Date lastCreationTime = new Date();
-
-        if(loadOlderDesires == true && desires.size() > 0) {
-                lastCreationTime = desires.get(desires.size() - 1).getCreation_time();
+        if (loadOlderDesires == true && desires.size() > 0) {
+            //lastCreationTime = desires.get(desires.size() - 1).getCreation_time();
+            lastDesireId = desires.get(desires.size() - 1).getId();
         }
 
-        curDesireFilter.setLastCreationTime(lastCreationTime);
+        //curDesireFilter.setLastCreationTime(lastCreationTime);
+        curDesireFilter.setLastDesireId(lastDesireId);
         WantHaversApplication.setCurDesireFilter(curDesireFilter);
     }
 
