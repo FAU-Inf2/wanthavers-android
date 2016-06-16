@@ -77,7 +77,7 @@
             android:layout_centerVertical="true"
             android:layout_alignParentTop="true"
             android:background="@drawable/border_scondary_nocorner"
-            android:onClick="@{() -> presenter.login(6)}"/>
+            android:onClick="@{() -> presenter.login(1)}"/>
 
         <Button
             style="?android:attr/buttonStyleSmall"
@@ -93,7 +93,7 @@
             android:layout_alignEnd="@+id/button_user1"
             android:layout_marginTop="10dp"
             android:background="@drawable/border_scondary_nocorner"
-            android:onClick="@{() -> presenter.login(7)}"/>
+            android:onClick="@{() -> presenter.login(2)}"/>
 
         <Button
             style="?android:attr/buttonStyleSmall"
@@ -109,7 +109,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:background="@drawable/border_scondary_nocorner"
-            android:onClick="@{() -> presenter.login(8)}"/>
+            android:onClick="@{() -> presenter.login(3)}"/>
         <!-- end fast login  - TODO only for testing - delete later/-->
 
     </RelativeLayout>
