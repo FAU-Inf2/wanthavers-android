@@ -18,7 +18,6 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire;
 
 import android.support.annotation.NonNull;
 
-import java.lang.reflect.Field;
 import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.Chat;
