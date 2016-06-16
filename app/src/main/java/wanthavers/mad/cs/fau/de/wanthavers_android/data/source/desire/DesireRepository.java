@@ -184,47 +184,6 @@ public class DesireRepository implements DesireDataSource {
     }
 
     @Override
-    public void getAllDesires(@NonNull final GetAllDesiresCallback callback) {
-        checkNotNull(callback);
-
-/*        List<Desire> desiresRemote = desireRemoteDataSource.getAllDesires();
-
-        if (!desiresRemote.isEmpty()) {
-            desireLocalDataSource.updateDesires(desiresRemote);
-        }
-
-        List<Desire> desiresLocal = desireLocalDataSource.getAllDesires();
-
-        if (!desiresLocal.isEmpty()) {
-            callback.onAllDesiresLoaded(desiresLocal);
-        } else {
-            callback.onDataNotAvailable();
-        }*/
-
-        desireLocalDataSource.getAllDesires(new GetAllDesiresCallback() {
-            @Override
-            public void onAllDesiresLoaded(List<Desire> desires) {
-                callback.onAllDesiresLoaded(desires);
-            }
-
-            @Override
-            public void onDataNotAvailable() {
-                desireRemoteDataSource.getAllDesires(new GetAllDesiresCallback() {
-                    @Override
-                    public void onAllDesiresLoaded(List<Desire> desires) {
-                        callback.onAllDesiresLoaded(desires);
-                    }
-
-                    @Override
-                    public void onDataNotAvailable() {
-                        callback.onDataNotAvailable();
-                    }
-                });
-            }
-        });
-    }
-
-    @Override
     public void getDesiresAsHaver(@NonNull final long userId, final List<Integer> status, @NonNull final GetDesiresAsHaverCallback callback) {
         checkNotNull(userId);
         checkNotNull(callback);

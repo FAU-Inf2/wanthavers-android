@@ -103,16 +103,6 @@ public class DesireRemoteDataSource implements DesireDataSource {
     }
 
     @Override
-    public void getAllDesires(@NonNull GetAllDesiresCallback callback) {
-        try {
-            final List<Desire> allDesires = desireClient.get();
-            callback.onAllDesiresLoaded(allDesires);
-        } catch (Throwable t) {
-            callback.onDataNotAvailable();
-        }
-    }
-
-    @Override
     public void getDesiresAsHaver(@NonNull long userId, List<Integer> status, @NonNull GetDesiresAsHaverCallback callback) {
         try {
             List<Desire> desires = userClient.getDesiresAsHaver(userId, status);
@@ -120,17 +110,6 @@ public class DesireRemoteDataSource implements DesireDataSource {
         } catch (Throwable t) {
             callback.onDataNotAvailable();
         }
-    }
-
-    public List<Desire> getAllDesires() {
-        List<Desire> desires = null;
-        try {
-            desires = desireClient.get();
-        } catch (Throwable t) {
-            desires = new ArrayList<>();
-        }
-
-        return desires;
     }
 
     @Override
