@@ -126,7 +126,9 @@ public class DesireRemoteDataSource implements DesireDataSource {
                                                         desireFilter.getStatus(),
                                                         desireFilter.getLastDesireId(),
                                                         desireFilter.getLimit(),
-                                                        desireFilter.getCreatorId());
+                                                        desireFilter.getCreatorId(),
+                                                        desireFilter.getHaverId(),
+                                                        desireFilter.getHaverStatus());
             callback.onDesiresByFilterLoaded(ret);
         } catch (Throwable t) {
             callback.onDataNotAvailable();
