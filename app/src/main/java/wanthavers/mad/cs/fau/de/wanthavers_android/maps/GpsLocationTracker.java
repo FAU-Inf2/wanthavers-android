@@ -27,13 +27,15 @@ public class GpsLocationTracker extends Service implements LocationListener {
     private double mLongitude;
 
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATE = 10;
-    private static final long MIN_TIME_FOR_UPDATE = 60000;
+    private static final long MIN_TIME_FOR_UPDATE = 600;
     private LocationManager mLocationManager;
 
 
-    public GpsLocationTracker(Context context) {
+    public GpsLocationTracker(Context context, double startLat, double startLng) {
         mContext = context;
         getLocation();
+        mLatitude = startLat;
+        mLongitude = startLng;
     }
 
 
@@ -54,17 +56,19 @@ public class GpsLocationTracker extends Service implements LocationListener {
                             }
 
 
-                } else if (isNetworkEnabled() && mContext.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                }else if (isNetworkEnabled() && mContext.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
-                        mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME_FOR_UPDATE, MIN_DISTANCE_CHANGE_FOR_UPDATE, this);
-                        mLocation = mLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                    mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME_FOR_UPDATE, MIN_DISTANCE_CHANGE_FOR_UPDATE, this);
+                    mLocation = mLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
 
-                        if (mLocation != null) {
-                            mLatitude = mLocation.getLatitude();
-                            mLongitude = mLocation.getLongitude();
-                            }
-                        }
+                    if (mLocation != null) {
+                        mLatitude = mLocation.getLatitude();
+                        mLongitude = mLocation.getLongitude();
+                    }
+
+                }
+
             }else{
                 if (isGpsEnabled()) {
                 mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME_FOR_UPDATE, MIN_DISTANCE_CHANGE_FOR_UPDATE, this);
@@ -75,17 +79,16 @@ public class GpsLocationTracker extends Service implements LocationListener {
                 }
 
 
-            } else if (isNetworkEnabled()) {
+            }else if (isNetworkEnabled()) {
 
-                mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME_FOR_UPDATE, MIN_DISTANCE_CHANGE_FOR_UPDATE, this);
-                mLocation = mLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                    mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME_FOR_UPDATE, MIN_DISTANCE_CHANGE_FOR_UPDATE, this);
+                    mLocation = mLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
-
-                if (mLocation != null) {
-                    mLatitude = mLocation.getLatitude();
-                    mLongitude = mLocation.getLongitude();
+                    if (mLocation != null) {
+                        mLatitude = mLocation.getLatitude();
+                        mLongitude = mLocation.getLongitude();
+                    }
                 }
-            }
 
             }
 
@@ -99,7 +102,7 @@ public class GpsLocationTracker extends Service implements LocationListener {
     }
 
     public boolean isGpsEnabled() {
-        return mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);//
+        return mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
 
     }
 

@@ -57,23 +57,21 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
     private int centerY = -1;
 
     private TextView mLocationTextView;
-    private LocationManager locationManager;
+    private LocationManager mLocationManager;
+    private GpsLocationTracker mGpsLocationTracker;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.map_act);
-        locationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
+        mLocationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
+        mGpsLocationTracker = new GpsLocationTracker(MapActivity.this, 49.573759d, 11.027389d);
+        if(!mGpsLocationTracker.isGpsEnabled()){
+           showAlert();
+        }
 
-        /*if(!isGpsEnabled()){
-            showAlert();
-        }*/
-       // if(isFineLocationPermissionGranted()) {
-            initializeUI();
-         //   Log.d("LocationPermission", "granted");
-        /*}else{
-            initializeUI(0);*/
-       // }
+        initializeUI();
 
 
         Button b = (Button) findViewById(R.id.button_select_location);
@@ -124,17 +122,13 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
                     .findFragmentById(R.id.map));
             mMapFragment.setOnDragListener(MapActivity.this);
             googleMap = mMapFragment.getMap();
-            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(49.573759, 11.027389), 6.0f)); //computer science tower uni erlangen
-            GpsLocationTracker mGpsLocationTracker = new GpsLocationTracker(MapActivity.this);
 
-            if (mGpsLocationTracker.isGpsEnabled() ){
-                double latitude = mGpsLocationTracker.getLatitude();
-                double longitude = mGpsLocationTracker.getLongitude();
-                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 17.0f)); //users location
+            double latitude = mGpsLocationTracker.getLatitude();
+            double longitude = mGpsLocationTracker.getLongitude();
+            //users location according to GPS or Network
+            //or if permissions are not granted computer science tower uni erlangen
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 16.0f));
 
-            }else{
-                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(49.573759, 11.027389), 15.0f)); //computer science tower uni erlangen
-            }
 
             // check if map is created successfully or not
             if (googleMap == null) {
@@ -205,38 +199,25 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
         Snackbar.make(mMarkerParentView , message, Snackbar.LENGTH_LONG).show();
     }
 
-    private boolean isGpsEnabled() {
-        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);//
-        //locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+    private void showAlert() {
+        final android.app.AlertDialog.Builder dialog = new android.app.AlertDialog.Builder(this);
+        dialog.setTitle(getString(R.string.enable_gps))
+                .setMessage(getString(R.string.enable_gps_text))
+                .setPositiveButton(getString(R.string.enable_gps_settings), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+                        Intent myIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        startActivity(myIntent);
+                    }
+                })
+                .setNegativeButton(getString(R.string.enable_gps_cancel), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+                    }
+                });
+        dialog.show();
     }
 
-
-    /*public boolean isFineLocationPermissionGranted(){
-        if (Build.VERSION.SDK_INT >= 23) {
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                Log.d("Permission: ", "Location Permission is granted");
-                return true;
-            } else {
-                Log.d("Permission: ", "Location Permission is revoked");
-                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-                return false;
-            }
-
-        }else { //permission is automatically granted because sdk<23
-            Log.v("Permission: ","Location Permission is granted");
-            return true;
-        }
-    }*/
-
-    /*@Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(grantResults[0]== PackageManager.PERMISSION_GRANTED){
-            initializeUI(1);
-        }else{
-            initializeUI(0);
-        }
-    }*/
 
     public void setLocation(String location, double lat, double lng){
 
@@ -274,7 +255,12 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
             startActivity(intent);
         }
 
-
-
     }
+    @Override
+        public void onBackPressed(){
+            Intent intent = new Intent();
+            intent.putExtra("desireLocation", "");
+            setResult(1, intent);
+            super.onBackPressed();
+        }
 }

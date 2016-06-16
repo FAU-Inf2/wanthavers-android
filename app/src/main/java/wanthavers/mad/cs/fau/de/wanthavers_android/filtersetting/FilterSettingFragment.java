@@ -187,13 +187,15 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
 
     public void onActivityResult(int requestCode, int resultCode,
                                     Intent data) {
-        mLocation = data.getExtras().getString("desireLocation");
-        mLat = Double.parseDouble(data.getExtras().getString("desireLocationLat"));
-        mLon = Double.parseDouble(data.getExtras().getString("desireLocationLng"));
-        System.out.println("location: " + mLocation);
-        System.out.println("lat: " + mLat);
-        System.out.println("lon: " + mLon);
-        mFilterSettingFragBinding.selectedLocation.setTextColor(getResources().getColor(R.color.colorMainTextDark));
-        mFilterSettingFragBinding.selectedLocation.setText(mLocation);
+        if(!data.getExtras().getString("desireLocation").equals("")) { //checks if backbutton is pressed
+            mLocation = data.getExtras().getString("desireLocation");
+            mLat = Double.parseDouble(data.getExtras().getString("desireLocationLat"));
+            mLon = Double.parseDouble(data.getExtras().getString("desireLocationLng"));
+            System.out.println("location: " + mLocation);
+            System.out.println("lat: " + mLat);
+            System.out.println("lon: " + mLon);
+            mFilterSettingFragBinding.selectedLocation.setTextColor(getResources().getColor(R.color.colorMainTextDark));
+            mFilterSettingFragBinding.selectedLocation.setText(mLocation);
+        }
     }
 }
