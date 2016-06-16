@@ -36,10 +36,6 @@ public class UserClient extends RestClient {
         return INSTANCE;
     }
 
-    public List<User> get() {
-        return userEndpoint.get();
-    }
-
     public User get(long userId) {
         return userEndpoint.get(userId);
     }

@@ -37,14 +37,6 @@ public interface UserDataSource {
         void onDataNotAvailable();
     }
 
-    interface GetAllUsersCallback {
-
-        void onAllUsersLoaded(List<User> users);
-
-        void onDataNotAvailable();
-
-    }
-
     interface CreateUserCallback {
 
         void onUserCreated(User user);
@@ -79,8 +71,6 @@ public interface UserDataSource {
 
 
     void getUser(@NonNull long userId, @NonNull GetUserCallback callback);
-
-    void getAllUsers(@NonNull GetAllUsersCallback callback);
 
     void createUser(@NonNull User user, @NonNull String password, @NonNull CreateUserCallback callback);
 

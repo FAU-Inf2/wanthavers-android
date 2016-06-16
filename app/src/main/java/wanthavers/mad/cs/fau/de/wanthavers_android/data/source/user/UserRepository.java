@@ -54,7 +54,6 @@ public class UserRepository implements UserDataSource {
         checkNotNull(userId);
         checkNotNull(callback);
 
-        User user = null;
         userLocalDataSource.getUser(userId, new GetUserCallback() {
             @Override
             public void onUserLoaded(User user) {
@@ -64,23 +63,6 @@ public class UserRepository implements UserDataSource {
             @Override
             public void onDataNotAvailable() {
                 getUserFromRemoteDataSource(userId, callback);
-            }
-        });
-    }
-
-    @Override
-    public void getAllUsers(@NonNull final GetAllUsersCallback callback) {
-        checkNotNull(callback);
-
-        userLocalDataSource.getAllUsers(new GetAllUsersCallback() {
-            @Override
-            public void onAllUsersLoaded(List<User> users) {
-                callback.onAllUsersLoaded(users);
-            }
-
-            @Override
-            public void onDataNotAvailable() {
-                getAllUsersFromRemoteDataSource(callback);
             }
         });
     }
@@ -162,20 +144,6 @@ public class UserRepository implements UserDataSource {
             @Override
             public void onUserLoaded(User user) {
                 callback.onUserLoaded(user);
-            }
-
-            @Override
-            public void onDataNotAvailable() {
-                callback.onDataNotAvailable();
-            }
-        });
-    }
-
-    private void getAllUsersFromRemoteDataSource(@NonNull final GetAllUsersCallback callback) {
-        userRemoteDataSource.getAllUsers(new GetAllUsersCallback() {
-            @Override
-            public void onAllUsersLoaded(List<User> users) {
-                callback.onAllUsersLoaded(users);
             }
 
             @Override

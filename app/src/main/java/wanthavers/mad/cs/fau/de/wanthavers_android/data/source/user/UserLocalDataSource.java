@@ -60,11 +60,6 @@ public class UserLocalDataSource implements UserDataSource {
     }
 
     @Override
-    public void getAllUsers(@NonNull GetAllUsersCallback callback) {
-        callback.onDataNotAvailable();
-    }
-
-    @Override
     public void createUser(@NonNull User user, @NonNull String password, @NonNull CreateUserCallback callback) {
         callback.onCreationFailed();
     }
