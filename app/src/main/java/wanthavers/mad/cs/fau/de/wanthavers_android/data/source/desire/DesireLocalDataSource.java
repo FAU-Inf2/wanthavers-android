@@ -75,18 +75,6 @@ public class DesireLocalDataSource implements DesireDataSource {
         callback.onDataNotAvailable();
     }
 
-    @Override
-    public void getDesiresForUser(@NonNull long userId, @NonNull GetDesiresForUserCallback callback) {
-        //TODO: alter this method when we decide to store desires locally
-        callback.onDataNotAvailable();
-    }
-
-    @Override
-    public void getDesiresAsHaver(@NonNull long userId, List<Integer> status, @NonNull GetDesiresAsHaverCallback callback) {
-        //TODO: alter this method when we decide to store desires locally
-        callback.onDataNotAvailable();
-    }
-
     public List<Desire> getAllDesires() {
         return desireDao.queryForAll();
     }

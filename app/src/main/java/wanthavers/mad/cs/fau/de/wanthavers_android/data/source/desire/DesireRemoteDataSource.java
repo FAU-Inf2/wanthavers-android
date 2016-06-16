@@ -36,12 +36,10 @@ public class DesireRemoteDataSource implements DesireDataSource {
     private static DesireRemoteDataSource INSTANCE;
 
     private DesireClient desireClient;
-    private UserClient userClient;
 
     // Prevent direct instantiation.
     private DesireRemoteDataSource(Context context) {
         desireClient = DesireClient.getInstance(context);
-        userClient = UserClient.getInstance(context);
     }
 
     public static DesireRemoteDataSource getInstance(Context context) {
@@ -87,26 +85,6 @@ public class DesireRemoteDataSource implements DesireDataSource {
         try {
             final Desire desire = desireClient.get(desireId);
             callback.onDesireLoaded(desire);
-        } catch (Throwable t) {
-            callback.onDataNotAvailable();
-        }
-    }
-
-    @Override
-    public void getDesiresForUser(@NonNull long userId, @NonNull GetDesiresForUserCallback callback) {
-        try {
-            final List<Desire> desiresForUser = userClient.getDesires(userId);
-            callback.onDesiresForUserLoaded(desiresForUser);
-        } catch (Throwable t) {
-            callback.onDataNotAvailable();
-        }
-    }
-
-    @Override
-    public void getDesiresAsHaver(@NonNull long userId, List<Integer> status, @NonNull GetDesiresAsHaverCallback callback) {
-        try {
-            List<Desire> desires = userClient.getDesiresAsHaver(userId, status);
-            callback.onDesiresAsHaverLoaded(desires);
         } catch (Throwable t) {
             callback.onDataNotAvailable();
         }

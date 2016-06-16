@@ -52,14 +52,6 @@ public class UserClient extends RestClient {
         userEndpoint.deleteUser(null);
     }
 
-    public List<Desire> getDesires(long userId) {
-        return userEndpoint.getDesires(userId);
-    }
-
-    public List<Desire> getDesiresAsHaver(long userId, List<Integer> status) {
-        return userEndpoint.getDesiresAsHaver(userId, status);
-    }
-
     public User login() {
         return loginEndpoint.login(null);
     }
