@@ -1,16 +1,20 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.desirelist;
 
+import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.menu.MenuView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -44,17 +48,18 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class DesireListActivity extends AppCompatActivity {
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     public static final String EXTRA_FRAGMENT_ID = "FRAGMENT_ID";
+    private static boolean mNewMessages = false;
+
 
     private DrawerLayout mDrawerLayout;
     private DesireListPresenter mDesireListPresenter;
+    private DesireListFragment mDesireListFragment;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.desirelist_act);
-
-
 
         //Reset Filter
         WantHaversApplication.setCurDesireFilter(new DesireFilter());
@@ -94,19 +99,19 @@ public class DesireListActivity extends AppCompatActivity {
 
         }
 
-        DesireListFragment desireListFragment = (DesireListFragment)
+        mDesireListFragment = (DesireListFragment)
                 getSupportFragmentManager().findFragmentById(R.id.contentFrame);
 
 
-        if (desireListFragment == null) {
+        if (mDesireListFragment == null) {
             // Create the fragment
-            desireListFragment = DesireListFragment.newInstance();
+            mDesireListFragment = DesireListFragment.newInstance();
             ActivityUtils.addFragmentToActivity(
-                    getSupportFragmentManager(), desireListFragment, R.id.contentFrame);
+                    getSupportFragmentManager(), mDesireListFragment, R.id.contentFrame);
         }
 
         if(navHeaderBinding != null) {
-            desireListFragment.setNavBinding(navHeaderBinding);
+            mDesireListFragment.setNavBinding(navHeaderBinding);
         }
 
         //create fake task repo
@@ -118,18 +123,18 @@ public class DesireListActivity extends AppCompatActivity {
         UserRepository userRepository = UserRepository.getInstance(UserRemoteDataSource.getInstance(context), UserLocalDataSource.getInstance(context));
 
         // Create the presenter
-        mDesireListPresenter = new DesireListPresenter(UseCaseHandler.getInstance(),desireListFragment,new GetDesireList(desireRepository),
+        mDesireListPresenter = new DesireListPresenter(UseCaseHandler.getInstance(),mDesireListFragment,new GetDesireList(desireRepository),
                 new GetAvgRatingForUser(ratingRepository), new GetUser(userRepository), getApplicationContext());
 
         mDesireListPresenter.setDesireListType(desireListType);
 
         DesireListViewModel desireListViewModel = new DesireListViewModel(context, mDesireListPresenter);
 
-        desireListFragment.setViewModel(desireListViewModel);
+        mDesireListFragment.setViewModel(desireListViewModel);
 
         DesireLogic desireLogic = new DesireLogic(context);
 
-        desireListFragment.setDesireLogic(desireLogic);
+        mDesireListFragment.setDesireLogic(desireLogic);
 
 
         // TODO: Check for compatible Google Play service APK
@@ -152,6 +157,15 @@ public class DesireListActivity extends AppCompatActivity {
             mTasksPresenter.setFiltering(currentFiltering);
             */
         }
+    }
+
+
+    public static void setNewMessages(boolean newMessages){
+        mNewMessages = newMessages;
+    }
+
+    public static boolean getNewMessages(){
+        return mNewMessages;
     }
 
 
@@ -213,9 +227,21 @@ public class DesireListActivity extends AppCompatActivity {
     public void onResume(){
         super.onResume();
 
+
+        MenuView.ItemView chatItem = (MenuView.ItemView) findViewById(R.id.menu_chat);
+        Drawable iconNewMessage = getResources().getDrawable(R.drawable.wh_chat_icon_new_message,null);
+        Drawable iconNoNewMessage = getResources().getDrawable(R.drawable.wh_chat_icon,null);
+        if(chatItem != null) {
+            if (mNewMessages) {
+                    chatItem.setIcon(iconNewMessage);
+            }else{
+                    chatItem.setIcon(iconNoNewMessage);
+            }
+        }
         SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, getApplicationContext());
         long loggedInUser = sharedPreferencesHelper.loadLong(SharedPreferencesHelper.KEY_USERID, 6L); //Long.valueOf(sharedPreferencesHelper.loadString(SharedPreferencesHelper.KEY_USERID, "6"));
         mDesireListPresenter.getUser(loggedInUser);
+
     }
 
 }
