@@ -36,12 +36,10 @@ public class DesireRemoteDataSource implements DesireDataSource {
     private static DesireRemoteDataSource INSTANCE;
 
     private DesireClient desireClient;
-    private UserClient userClient;
 
     // Prevent direct instantiation.
     private DesireRemoteDataSource(Context context) {
         desireClient = DesireClient.getInstance(context);
-        userClient = UserClient.getInstance(context);
     }
 
     public static DesireRemoteDataSource getInstance(Context context) {
@@ -77,6 +75,7 @@ public class DesireRemoteDataSource implements DesireDataSource {
             Desire ret = desireClient.updateDesireStatus(desireId, status);
             callback.onStatusUpdated(ret);
         } catch (Throwable t) {
+            System.out.println("UpdateDesireStatus-Error: " + t);
             callback.onUpdateFailed();
         }
     }
@@ -92,49 +91,7 @@ public class DesireRemoteDataSource implements DesireDataSource {
     }
 
     @Override
-    public void getDesiresForUser(@NonNull long userId, @NonNull GetDesiresForUserCallback callback) {
-        try {
-            final List<Desire> desiresForUser = userClient.getDesires(userId);
-            callback.onDesiresForUserLoaded(desiresForUser);
-        } catch (Throwable t) {
-            callback.onDataNotAvailable();
-        }
-    }
-
-    @Override
-    public void getAllDesires(@NonNull GetAllDesiresCallback callback) {
-        try {
-            final List<Desire> allDesires = desireClient.get();
-            callback.onAllDesiresLoaded(allDesires);
-        } catch (Throwable t) {
-            callback.onDataNotAvailable();
-        }
-    }
-
-    @Override
-    public void getDesiresAsHaver(@NonNull long userId, List<Integer> status, @NonNull GetDesiresAsHaverCallback callback) {
-        try {
-            List<Desire> desires = userClient.getDesiresAsHaver(userId, status);
-            callback.onDesiresAsHaverLoaded(desires);
-        } catch (Throwable t) {
-            callback.onDataNotAvailable();
-        }
-    }
-
-    public List<Desire> getAllDesires() {
-        List<Desire> desires = null;
-        try {
-            desires = desireClient.get();
-        } catch (Throwable t) {
-            desires = new ArrayList<>();
-        }
-
-        return desires;
-    }
-
-    @Override
     public void getDesiresByFilter(@NonNull DesireFilter desireFilter, @NonNull GetDesiresByFilterCallback callback) {
-        Long lastCreationTime = desireFilter.getLastCreationTime() == null ? null : desireFilter.getLastCreationTime().getTime();
         try {
             List<Desire> ret = desireClient.getByFilter(desireFilter.getCategory(),
                                                         desireFilter.getPrice_min(),
@@ -145,7 +102,7 @@ public class DesireRemoteDataSource implements DesireDataSource {
                                                         desireFilter.getLon(),
                                                         desireFilter.getRadius(),
                                                         desireFilter.getStatus(),
-                                                        lastCreationTime,
+                                                        desireFilter.getLastDesireId(),
                                                         desireFilter.getLimit(),
                                                         desireFilter.getCreatorId(),
                                                         desireFilter.getHaverId(),

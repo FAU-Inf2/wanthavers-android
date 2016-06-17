@@ -94,13 +94,13 @@ public class LoginPresenter implements LoginContract.Presenter {
 
 
         switch(userIdForSwitchCase){
-            case 6 : sharedPreferencesHelper.saveString(sharedPreferencesHelper.KEY_USER_EMAIL, "com.mail@yoda");
+            case 1 : sharedPreferencesHelper.saveString(sharedPreferencesHelper.KEY_USER_EMAIL, "com.mail@yoda");
                      sharedPreferencesHelper.saveString(sharedPreferencesHelper.KEY_PASSWORD, "test");
                      break;
-            case 7 : sharedPreferencesHelper.saveString(sharedPreferencesHelper.KEY_USER_EMAIL, "jon@doe.com");
+            case 2 : sharedPreferencesHelper.saveString(sharedPreferencesHelper.KEY_USER_EMAIL, "jon@doe.com");
                      sharedPreferencesHelper.saveString(sharedPreferencesHelper.KEY_PASSWORD, "test");
                      break;
-            case 8 : sharedPreferencesHelper.saveString(sharedPreferencesHelper.KEY_USER_EMAIL, "m.muster@xyz.de");
+            case 3 : sharedPreferencesHelper.saveString(sharedPreferencesHelper.KEY_USER_EMAIL, "m.muster@xyz.de");
                      sharedPreferencesHelper.saveString(sharedPreferencesHelper.KEY_PASSWORD, "test");
                      break;
             default: sharedPreferencesHelper.saveString(sharedPreferencesHelper.KEY_USER_EMAIL, "com.mail@yoda");

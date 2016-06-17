@@ -5,10 +5,12 @@ import android.support.annotation.NonNull;
 
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 
+import org.glassfish.jersey.client.ClientProperties;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 
 import java.util.ArrayList;
 
+import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 
@@ -42,7 +44,9 @@ public abstract class RestClient {
         String password = sharedPreferences.loadString(SharedPreferencesHelper.KEY_PASSWORD, "");
 
         HttpAuthenticationFeature basicAuthFeature = HttpAuthenticationFeature.basic(email, password);
-        target = ClientBuilder.newClient().register(JacksonJsonProvider.class).register(basicAuthFeature).target(API_URL);
+        Client client = ClientBuilder.newClient();
+        client.property(ClientProperties.SUPPRESS_HTTP_COMPLIANCE_VALIDATION, true);
+        target = client.register(JacksonJsonProvider.class).register(basicAuthFeature).target(API_URL);
         buildNewEndpoint();
     }
 

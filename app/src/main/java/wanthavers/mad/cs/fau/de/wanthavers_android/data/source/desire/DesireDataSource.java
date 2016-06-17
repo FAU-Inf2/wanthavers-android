@@ -36,30 +36,6 @@ public interface DesireDataSource {
         void onDataNotAvailable();
     }
 
-    interface GetDesiresForUserCallback {
-
-        void onDesiresForUserLoaded(List<Desire> desires);
-
-        void onDataNotAvailable();
-
-    }
-
-    interface GetAllDesiresCallback {
-
-        void onAllDesiresLoaded(List<Desire> desires);
-
-        void onDataNotAvailable();
-
-    }
-
-    interface GetDesiresByLocationCallback {
-
-        void onDesiresByLocationLoaded(List<Desire> desires);
-
-        void onDataNotAvailable();
-
-    }
-
     interface GetDesiresByFilterCallback {
 
         void onDesiresByFilterLoaded(List<Desire> desires);
@@ -81,14 +57,6 @@ public interface DesireDataSource {
         void onDesireUpdated(Desire desire);
 
         void onUpdateFailed();
-
-    }
-
-    interface GetDesiresAsHaverCallback {
-
-        void onDesiresAsHaverLoaded(List<Desire> desires);
-
-        void onDataNotAvailable();
 
     }
 
@@ -115,12 +83,6 @@ public interface DesireDataSource {
     void updateDesireStatus(@NonNull long desireId, @NonNull int status, @NonNull UpdateDesireStatusCallback callback);
 
     void getDesire(@NonNull long desireId, @NonNull GetDesireCallback callback);
-
-    void getDesiresForUser(@NonNull long userId, @NonNull GetDesiresForUserCallback callback);
-
-    void getAllDesires(@NonNull GetAllDesiresCallback callback);
-
-    void getDesiresAsHaver(@NonNull long userId, List<Integer> status, @NonNull GetDesiresAsHaverCallback callback);
 
     void getDesiresByFilter(@NonNull DesireFilter desireFilter, @NonNull GetDesiresByFilterCallback callback);
 

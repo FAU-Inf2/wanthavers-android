@@ -39,16 +39,6 @@ public class UserRemoteDataSource implements UserDataSource {
     }
 
     @Override
-    public void getAllUsers(@NonNull GetAllUsersCallback callback) {
-        try {
-            List<User> users = userClient.get();
-            callback.onAllUsersLoaded(users);
-        } catch (Throwable t) {
-            callback.onDataNotAvailable();
-        }
-    }
-
-    @Override
     public void createUser(@NonNull User user, @NonNull String password, @NonNull CreateUserCallback callback) {
         try {
             User ret = userClient.createUser(user, password);

@@ -5,6 +5,7 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
+import de.fau.cs.mad.wanthavers.common.Desire;
 import de.fau.cs.mad.wanthavers.common.Haver;
 import de.fau.cs.mad.wanthavers.common.Media;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
@@ -47,6 +48,10 @@ public class DesireDetailActionHandler {
             final ImageView profileView = mDesireDetailFragBinding.imageAcceptedHaver;
             profileView.setImageResource(R.drawable.no_pic);
         }
+    }
+
+    public void closeTransaction() {
+        mListener.closeTransaction();
     }
 
     /*public void wanterSendMessage(long haverId) {

@@ -36,10 +36,6 @@ public class UserClient extends RestClient {
         return INSTANCE;
     }
 
-    public List<User> get() {
-        return userEndpoint.get();
-    }
-
     public User get(long userId) {
         return userEndpoint.get(userId);
     }
@@ -54,14 +50,6 @@ public class UserClient extends RestClient {
 
     public void deleteUser() {
         userEndpoint.deleteUser(null);
-    }
-
-    public List<Desire> getDesires(long userId) {
-        return userEndpoint.getDesires(userId);
-    }
-
-    public List<Desire> getDesiresAsHaver(long userId, List<Integer> status) {
-        return userEndpoint.getDesiresAsHaver(userId, status);
     }
 
     public User login() {

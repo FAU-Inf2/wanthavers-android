@@ -53,15 +53,28 @@
                     android:contentDescription="@string/desire_detail_itemImage_contentDesc" />
 
                 <TextView
+                    android:id="@+id/desire_haver_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/colorMainText"
+                    android:text="@string/haver_status_open"
+                    android:background="@color/status_open"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:visibility="invisible"/>
+
+                <TextView
                     android:id="@+id/desire_detail_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="@{desire.title}"
-                    android:layout_toRightOf="@+id/desire_detail_itemImage"
                     android:textColor="@color/colorMainText"
-                    android:gravity="center"
+                    android:layout_toRightOf="@+id/desire_detail_itemImage"
                     android:layout_centerVertical="true"/>
+
             </RelativeLayout>
 
             <RelativeLayout
@@ -348,6 +361,18 @@
                         android:onClick="@{() -> actionHandler.sendMessage(haver.getUser().getId())}"/>
 
                 </RelativeLayout>
+
+                <Button
+                    android:id="@+id/button_close_transaction"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_close_transaction"
+                    android:textColor="@color/colorMainText"
+                    android:background="@color/colorPrimary"
+                    android:layout_below="@+id/accepted_haver_bar"
+                    android:layout_marginTop="15dp"
+                    android:visibility="invisible"
+                    android:onClick="@{() -> actionHandler.closeTransaction()}"/>
 
             </RelativeLayout>
         </RelativeLayout>

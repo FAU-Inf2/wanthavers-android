@@ -2,11 +2,15 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate;
 
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -106,6 +110,12 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
         startActivity(intent);
     }
 
+    private boolean isGpsEnabled() {
+        LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);//
+        //locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+    }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -133,6 +143,7 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
     public void showMessage(String message) {
         Snackbar.make(getView(), message, Snackbar.LENGTH_LONG).show();
     }
+
 
     @Override
     public void showMedia(Desire m){

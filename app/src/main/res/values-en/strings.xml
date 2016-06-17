@@ -84,6 +84,12 @@
     <string name="get_no_location_set_error">No Location set yet</string>+
     <string name="filter_change_success">Filter changes saved</string>
     <string name="no_category_match">Invalid Category</string>
+    <string name="button_close_transaction">Close Transaction</string>
+    <string name="closing_transaction_error">Error while closing transaction</string>
+    <string name="haver_status_open">OPEN</string>
+    <string name="haver_status_accepted">ACCEPTED</string>
+    <string name="haver_status_rejected">REJECTED</string>
+    <string name="no_location_selected">No location selected yet</string>
 
 
     <string-array name="currencies">
@@ -127,6 +133,7 @@
     <string name="enable_gps_text">Your Locations Settings is turned off. Please Enable GPS to use this app!</string>
     <string name="enable_gps_settings">Location Settings</string>
     <string name="enable_gps_cancel">Cancel</string>
+    <string name="declined_location_runtime_permission">Please Accept the Location Permissions to use this app</string>
 
 
 </resources>

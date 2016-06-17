@@ -1,5 +1,13 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.desirelist;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.pm.PackageManager;
+import android.location.LocationManager;
+import android.os.Build;
+import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +19,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -55,6 +64,7 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
     private DesireListViewModel mDesireListViewModel;
     private DesireLogic mDesireLogic;
     private NavHeaderBinding mNavHeaderBinding;
+    private int i = 0;
 
     public DesireListFragment(){
         //Requires empty public constructor
@@ -91,6 +101,8 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
 
         desirelistFragBinding.setPresenter(mPresenter);
 
+        //check for Location Runtime Permissions
+        isFineLocationPermissionGranted();
 
         //Set up desire view
 
@@ -304,4 +316,27 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
         Intent intent = new Intent(getContext(), FilterSettingActivity.class);
         startActivity(intent);
     }
+
+
+    public boolean isFineLocationPermissionGranted(){
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                return true;
+            } else {
+                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+                return false;
+            }
+        }else { //permission is automatically granted because sdk<23
+            return true;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(grantResults[0]== PackageManager.PERMISSION_DENIED){
+            showMessage(getString(R.string.declined_location_runtime_permission));
+        }
+    }
+
 }

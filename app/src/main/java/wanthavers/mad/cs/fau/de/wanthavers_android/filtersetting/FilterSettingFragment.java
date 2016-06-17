@@ -9,6 +9,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -39,6 +40,10 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
     private FilterSettingAdapter mListAdapter;
     private FilterSettingActionHandler mFilterSettingActionHandler;
 
+    private String mLocation;
+    private double mLat;
+    private double mLon;
+
     public FilterSettingFragment() {
         //Requires empty public constructor
     }
@@ -65,7 +70,7 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
 
         setHasOptionsMenu(true);
 
-        mFilterSettingFragBinding  = FiltersettingFragBinding.inflate(inflater,container,false);
+        mFilterSettingFragBinding = FiltersettingFragBinding.inflate(inflater, container, false);
 
         mFilterSettingFragBinding.setPresenter(mPresenter);
 
@@ -100,7 +105,7 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
     }
 
     @Override
-    public void showDesireList(){
+    public void showDesireList() {
         Intent intent = new Intent(getContext(), DesireListActivity.class);
         startActivity(intent);
     }
@@ -109,28 +114,18 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
     public void showMap() {
         Intent intent = new Intent(getContext(), MapActivity.class);
         intent.putExtra("desireTitle", "");
-        startActivity(intent);
+        startActivityForResult(intent, 1);
     }
 
     @Override
     public Location getLocation() {
-        System.out.println("Reached1.0");
-        if (getActivity().getIntent().getExtras() == null) {
-            System.out.println("Reached1.1");
-            showNoLocationSetError();
-            return null;
-        } else {
-            System.out.println("Reached1.2");
-            String location = getActivity().getIntent().getExtras().getString("desireLocation");
-            double lat = Double.parseDouble(getActivity().getIntent().getExtras().getString("desireLocationLat"));
-            double lon = Double.parseDouble(getActivity().getIntent().getExtras().getString("desireLocationLng"));
-            Location ret = new Location();
-            ret.setLat(lat);
-            ret.setLon(lon);
-            ret.setFullAddress(location);
+        Location ret = new Location();
+        ret.setLat(mLat);
+        ret.setLon(mLon);
+        ret.setFullAddress( mLocation);
 
-            return ret;
-        }
+        return ret;
+
     }
 
     @Override
@@ -188,5 +183,19 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
         showMessage(getString(R.string.no_category_match));
 
         return null;
+    }
+
+    public void onActivityResult(int requestCode, int resultCode,
+                                    Intent data) {
+        if(!data.getExtras().getString("desireLocation").equals("")) { //checks if backbutton is pressed
+            mLocation = data.getExtras().getString("desireLocation");
+            mLat = Double.parseDouble(data.getExtras().getString("desireLocationLat"));
+            mLon = Double.parseDouble(data.getExtras().getString("desireLocationLng"));
+            System.out.println("location: " + mLocation);
+            System.out.println("lat: " + mLat);
+            System.out.println("lon: " + mLon);
+            mFilterSettingFragBinding.selectedLocation.setTextColor(getResources().getColor(R.color.colorMainTextDark));
+            mFilterSettingFragBinding.selectedLocation.setText(mLocation);
+        }
     }
 }

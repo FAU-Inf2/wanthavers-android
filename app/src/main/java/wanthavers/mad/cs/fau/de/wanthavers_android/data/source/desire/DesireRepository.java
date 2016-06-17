@@ -18,7 +18,6 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire;
 
 import android.support.annotation.NonNull;
 
-import java.lang.reflect.Field;
 import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.Chat;
@@ -153,103 +152,6 @@ public class DesireRepository implements DesireDataSource {
             }
         });
 
-    }
-
-    @Override
-    public void getDesiresForUser(@NonNull final long userId, @NonNull final GetDesiresForUserCallback callback) {
-        checkNotNull(userId);
-        checkNotNull(callback);
-
-        desireLocalDataSource.getDesiresForUser(userId, new GetDesiresForUserCallback() {
-            @Override
-            public void onDesiresForUserLoaded(List<Desire> desires) {
-                callback.onDesiresForUserLoaded(desires);
-            }
-
-            @Override
-            public void onDataNotAvailable() {
-                desireRemoteDataSource.getDesiresForUser(userId, new GetDesiresForUserCallback() {
-                    @Override
-                    public void onDesiresForUserLoaded(List<Desire> desires) {
-                        callback.onDesiresForUserLoaded(desires);
-                    }
-
-                    @Override
-                    public void onDataNotAvailable() {
-                        callback.onDataNotAvailable();
-                    }
-                });
-            }
-        });
-    }
-
-    @Override
-    public void getAllDesires(@NonNull final GetAllDesiresCallback callback) {
-        checkNotNull(callback);
-
-/*        List<Desire> desiresRemote = desireRemoteDataSource.getAllDesires();
-
-        if (!desiresRemote.isEmpty()) {
-            desireLocalDataSource.updateDesires(desiresRemote);
-        }
-
-        List<Desire> desiresLocal = desireLocalDataSource.getAllDesires();
-
-        if (!desiresLocal.isEmpty()) {
-            callback.onAllDesiresLoaded(desiresLocal);
-        } else {
-            callback.onDataNotAvailable();
-        }*/
-
-        desireLocalDataSource.getAllDesires(new GetAllDesiresCallback() {
-            @Override
-            public void onAllDesiresLoaded(List<Desire> desires) {
-                callback.onAllDesiresLoaded(desires);
-            }
-
-            @Override
-            public void onDataNotAvailable() {
-                desireRemoteDataSource.getAllDesires(new GetAllDesiresCallback() {
-                    @Override
-                    public void onAllDesiresLoaded(List<Desire> desires) {
-                        callback.onAllDesiresLoaded(desires);
-                    }
-
-                    @Override
-                    public void onDataNotAvailable() {
-                        callback.onDataNotAvailable();
-                    }
-                });
-            }
-        });
-    }
-
-    @Override
-    public void getDesiresAsHaver(@NonNull final long userId, final List<Integer> status, @NonNull final GetDesiresAsHaverCallback callback) {
-        checkNotNull(userId);
-        checkNotNull(callback);
-
-        desireLocalDataSource.getDesiresAsHaver(userId, status, new GetDesiresAsHaverCallback() {
-            @Override
-            public void onDesiresAsHaverLoaded(List<Desire> desires) {
-                callback.onDesiresAsHaverLoaded(desires);
-            }
-
-            @Override
-            public void onDataNotAvailable() {
-                desireRemoteDataSource.getDesiresAsHaver(userId, status, new GetDesiresAsHaverCallback() {
-                    @Override
-                    public void onDesiresAsHaverLoaded(List<Desire> desires) {
-                        callback.onDesiresAsHaverLoaded(desires);
-                    }
-
-                    @Override
-                    public void onDataNotAvailable() {
-                        callback.onDataNotAvailable();
-                    }
-                });
-            }
-        });
     }
 
     @Override
