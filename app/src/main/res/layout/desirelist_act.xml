@@ -75,6 +75,7 @@
         android:fitsSystemWindows="true"
         app:menu="@menu/drawer_actions"
         style="@style/DrawerLayout"
+        android:backgroundTint="@color/colorSecondary"
         android:addStatesFromChildren="true"
         android:animationCache="false"
         android:alwaysDrawnWithCache="true" />
