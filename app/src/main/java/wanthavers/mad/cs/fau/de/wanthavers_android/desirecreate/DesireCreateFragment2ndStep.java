@@ -77,6 +77,8 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
         //spinner.setPrompt(getString(R.string.currency_header));
         spinner.setAdapter(adapter);
 
+        mViewDataBinding.getRoot().setOnTouchListener(new OnSwipeTouchListener(getActivity(), mPresenter));
+
         return mViewDataBinding.getRoot();
     }
 
