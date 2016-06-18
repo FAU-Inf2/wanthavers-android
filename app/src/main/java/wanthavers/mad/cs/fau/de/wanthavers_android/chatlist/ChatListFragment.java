@@ -85,7 +85,7 @@ public class ChatListFragment extends Fragment implements  ChatListContract.View
 
         // Set the scrolling view in the custom SwipeRefreshLayout
         swipeRefreshLayout.setScrollUpChild(recyclerView);
-
+        //commit to get travis started
 
         setHasOptionsMenu(true);
 
