@@ -43,15 +43,14 @@
             android:text="@string/welcomeMessage"
             android:textSize="20dp"
             android:layout_marginTop="50dp"
-            android:layout_marginBottom="40dp"
             android:textColor="@color/colorMainTextDark"/>
 
         <ImageView
             android:layout_width="200sp"
-            android:layout_height="180sp"
+            android:layout_height="250dp"
             android:id="@+id/image_camera"
             android:src="@android:drawable/ic_menu_camera"
-            android:layout_marginTop="46dp"
+            android:layout_marginTop="10dp"
             android:layout_below="@id/welcome_message"
             android:layout_centerHorizontal="true"
             android:onClick="@{() -> presenter.selectImageFromDevice()}"/>
