@@ -26,6 +26,8 @@ public interface RatingContract {
 
         void getAcceptedHaver();
 
+        void finishRating(Desire desire, Haver haver);
+
     }
 
 }
