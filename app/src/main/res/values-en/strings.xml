@@ -90,6 +90,7 @@
     <string name="haver_status_accepted">ACCEPTED</string>
     <string name="haver_status_rejected">REJECTED</string>
     <string name="no_location_selected">No location selected yet</string>
+    <string name="desire_detail_rating_title">Rating for this transaction</string>
 
 
     <string-array name="currencies">

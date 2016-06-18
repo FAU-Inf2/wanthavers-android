@@ -9,6 +9,7 @@
     <color name="colorMainText">#ffffff</color>
     <color name="colorMainTextDark">#030303</color>
     <color name="layout_Background1">#ffffff</color>
+    <color name="light_grey">#d1d1d1</color>
 
     <color name="colorRatingStars">#e8dd0c</color>
 
