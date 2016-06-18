@@ -46,7 +46,7 @@ public class DesireLogic {
         return dateString;
     }
 
-    //TODO Marcel Erpenbeck - delete method and its usage in create desire
+
     public String getIsoCurrency(String unicode){
         String iso;
         switch(unicode){

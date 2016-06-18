@@ -52,6 +52,8 @@ public class DesireCreateFragment extends Fragment implements DesireCreateContra
         mViewDataBinding = DesirecreateFragBinding.inflate(inflater, container, false);
         mViewDataBinding.setPresenter(mPresenter);
 
+        mViewDataBinding.getRoot().setOnTouchListener(new OnSwipeTouchListener(getActivity(), mPresenter));
+
         return mViewDataBinding.getRoot();
     }
 
