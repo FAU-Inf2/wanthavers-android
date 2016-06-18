@@ -38,7 +38,7 @@
                 android:layout_gravity="top|center"
                 android:src="@android:drawable/sym_def_app_icon"/>
 
-            <Button
+            <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextButton
                 android:id="@+id/button_change_profile_picture"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="match_parent"
@@ -50,7 +50,7 @@
                 android:layout_marginTop="20dp"
                 android:onClick="@{ () -> actionHandler.changePhotoClicked()}"	/>
 
-            <TextView
+            <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                 android:id="@+id/settings_mail_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -72,7 +72,7 @@
                 android:layout_marginLeft="30dp"
                 android:lines="1"/>
 
-            <Button
+            <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                 android:id="@+id/button_change_mail"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
@@ -84,7 +84,7 @@
                 android:layout_marginTop="10dp"
                 android:onClick="@{ () -> actionHandler.changeMailClicked(user.getId())}"/>
 
-            <TextView
+            <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                 android:id="@+id/settings_filter_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -100,7 +100,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_below="@+id/settings_filter_title">
 
-                <Button
+                <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextButton
                     android:id="@+id/button_change_filter"
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="wrap_content"
@@ -111,13 +111,13 @@
                     android:layout_weight=".4"
                     android:onClick="@{() -> actionHandler.changeFilterClicked()}"/>
 
-                <TextView
+                <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                     android:id="@+id/placeholder"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight=".2"/>
 
-                <Button
+                <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextButton
                     android:id="@+id/button_reset_filter"
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="wrap_content"

@@ -42,13 +42,13 @@
         android:paddingTop="@dimen/list_item_padding"
         android:orientation="horizontal">
 
-        <TextView
+        <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
             android:textSize="18sp"
             android:id="@+id/tvBody"
             android:padding="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-        </TextView>
+        </wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView>
 
 
     </LinearLayout>

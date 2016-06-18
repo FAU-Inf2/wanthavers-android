@@ -21,7 +21,7 @@
         android:focusableInTouchMode="true">
 
 
-        <TextView
+        <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
@@ -33,7 +33,7 @@
             android:textSize="40sp"/>
 
 
-        <TextView
+        <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/welcome_header"

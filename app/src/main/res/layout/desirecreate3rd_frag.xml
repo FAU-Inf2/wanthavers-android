@@ -20,7 +20,7 @@
         android:focusableInTouchMode="true">
 
 
-        <Button
+        <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/button_create_desire_third_step"
@@ -36,7 +36,7 @@
             android:layout_alignParentEnd="true"
             android:onClick="@{() -> presenter.createNextDesireCreateStep()}"/>
 
-        <TextView
+        <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"

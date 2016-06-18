@@ -34,8 +34,6 @@ public class DesireLogic {
 
         String dateString = mContext.getString(R.string.no_time_available);
 
-
-
         Date curDate = new Date();
 
         if(date != null) {
@@ -63,6 +61,13 @@ public class DesireLogic {
         }
         return iso;
     }
+
+
+    public String getCombinedPriceString(Desire desire){
+        return getPriceString(desire, desire.getPrice() + desire.getReward());
+    }
+
+
 
     public String getPriceString(Desire desire, double price){
 

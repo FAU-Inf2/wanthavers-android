@@ -107,7 +107,7 @@
                 android:layout_below="@id/wanter_bar"
                 android:padding="10dp">
 
-                <TextView
+                <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                     android:id="@+id/desire_detail_creation_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

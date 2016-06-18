@@ -21,7 +21,7 @@
         android:focusableInTouchMode="true">
 
 
-        <TextView
+        <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
@@ -39,7 +39,7 @@
             android:layout_centerInParent="true"
             android:background="@android:color/black" />
 
-        <TextView
+        <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
             android:layout_width="70dp"
             android:layout_height="25dp"
             android:layout_centerInParent="true"
@@ -72,7 +72,7 @@
             android:layout_below="@id/or"
             android:weightSum="1">
 
-            <TextView
+            <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.2"
@@ -99,7 +99,7 @@
 
 
 
-            <TextView
+            <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.2"
@@ -129,7 +129,7 @@
             android:layout_below="@id/register_password"
             android:onClick="@{() -> presenter.loginUserWithInput()}"/>
 
-        <TextView
+        <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:layout_marginTop="10dp"

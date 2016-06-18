@@ -10,6 +10,10 @@
         <variable
             name="chat"
             type="wanthavers.mad.cs.fau.de.wanthavers_android.chatlist.ChatItemViewModel" />
+
+        <variable
+            name="chatLogic"
+            type="wanthavers.mad.cs.fau.de.wanthavers_android.domain.ChatLogic" />
     </data>
 
     <LinearLayout
@@ -30,12 +34,12 @@
             android:layout_height="64dp"
             android:layout_marginRight="20dp"/>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
+            <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                 android:textSize="18sp"
                 android:id="@+id/userName"
                 android:textColor="@color/colorPrimary"
@@ -44,18 +48,32 @@
                 android:layout_marginEnd="64dp"
                 android:layout_width="match_parent"
                 android:layout_height="30dp">
-            </TextView>
+            </wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView>
 
-            <TextView
+            <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                 android:textSize="18sp"
                 android:id="@+id/desireName"
                 android:lines="1"
                 android:text="@{chat.desire.title}"
                 android:layout_marginEnd="64dp"
                 android:layout_width="match_parent"
-                android:layout_height="30dp">
-            </TextView>
-        </LinearLayout>
+                android:layout_height="30dp"
+                android:layout_below="@id/userName">
+            </wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView>
+
+            <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                android:textSize="18sp"
+                android:id="@+id/chat_lastUpdated"
+                android:lines="1"
+                android:text="@{chatLogic.getDateString(chat.chat.getUpdatedAt())}"
+                android:textColor="@color/colorMainTextMediumDark"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true">
+            </wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView>
+
+        </RelativeLayout>
 
     </LinearLayout>
 </layout>

@@ -59,6 +59,7 @@ public class ChatListActivity extends AppCompatActivity {
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
         ab.setDisplayShowHomeEnabled(true);
+        ab.setTitle("");
 
         ChatListFragment chatListFragment = (ChatListFragment)
                 getSupportFragmentManager().findFragmentById(R.id.contentFrame);
@@ -107,6 +108,7 @@ public class ChatListActivity extends AppCompatActivity {
         SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, getApplicationContext());
         long loggedInUser = sharedPreferencesHelper.loadLong(SharedPreferencesHelper.KEY_USERID, 6L); //Long.valueOf(sharedPreferencesHelper.loadString(SharedPreferencesHelper.KEY_USERID, "6"));
         mChatListPresenter.setLoggedInUser(loggedInUser);
+        mChatListPresenter.loadChats(true);
     }
 
 

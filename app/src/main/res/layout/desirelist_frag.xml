@@ -73,7 +73,7 @@
                     android:layout_gravity="center"
                     android:src="@drawable/" /-->
 
-                <TextView
+                <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                     android:id="@+id/noDesiresMain"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

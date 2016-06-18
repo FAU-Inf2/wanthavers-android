@@ -126,6 +126,7 @@
     <string name="enable_gps_cancel">Abbruch</string>
     <string name="new_message_from">neue Nachricht von</string>
     <string name="declined_location_runtime_permission">Um die App benutzen zu können, stimme bitte den Standortdienst Berechtigungen zu</string>
+    <string name="chat_overview">Chats</string>
 
 
     <string-array name="currencies">

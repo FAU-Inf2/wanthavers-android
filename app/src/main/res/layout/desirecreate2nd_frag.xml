@@ -19,7 +19,7 @@
         android:focusableInTouchMode="true">
 
 
-        <Button
+        <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/button_create_desire_second_step"
@@ -61,7 +61,7 @@
             android:layout_alignRight="@+id/image_camera"
             android:layout_alignEnd="@+id/image_camera" />
 
-        <TextView
+        <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/create_desire_price_header"
@@ -73,7 +73,7 @@
             android:layout_alignRight="@+id/create_desire_price"
             android:layout_alignEnd="@+id/create_desire_price" />
 
-        <TextView
+        <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/create_desire_reward_header"

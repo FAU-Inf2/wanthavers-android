@@ -6,4 +6,5 @@
 
     <dimen name="list_item_padding">8dp</dimen>
     <dimen name="desire_detail_title_size">15dp</dimen>
+    <dimen name="desire_desire_list_text_size">16dp</dimen>
 </resources>

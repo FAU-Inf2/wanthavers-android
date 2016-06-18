@@ -10,10 +10,17 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.widget.ImageView;
 import android.widget.ScrollView;
+import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import de.fau.cs.mad.wanthavers.common.Chat;
+import de.fau.cs.mad.wanthavers.common.Media;
+import de.fau.cs.mad.wanthavers.common.User;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.chat.ChatLocalDataSource;
@@ -25,6 +32,9 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireRemo
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetMessageList;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.SendMessage;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.ActivityUtils;
+import wanthavers.mad.cs.fau.de.wanthavers_android.util.RoundedTransformation;
+import wanthavers.mad.cs.fau.de.wanthavers_android.util.SharedPreferencesHelper;
+import wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView;
 
 public class ChatDetailActivity extends AppCompatActivity {
 
@@ -73,7 +83,7 @@ public class ChatDetailActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();
-        ab.setTitle(R.string.message);
+        ab.setTitle("");
 
         ab.setDisplayHomeAsUpEnabled(true);
         ab.setDisplayShowHomeEnabled(true);
@@ -121,6 +131,31 @@ public class ChatDetailActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MessageService.class);
         startService(intent);
 
+        //WantHaversTextView toolbarTitle = (WantHaversTextView) = findViewById(R.id.toolbar_title);
+
+        Chat chat = (Chat) getIntent().getSerializableExtra("ChatOjbect");
+
+        SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, getApplicationContext());
+        long loggedInUser = sharedPreferencesHelper.loadLong(SharedPreferencesHelper.KEY_USERID, 6L); //Long.valueOf(sharedPreferencesHelper.loadString(SharedPreferencesHelper.KEY_USERID, "6"));
+        User otherUser = getOtherUser(chat.getUserObject1(), chat.getUserObject2(), loggedInUser);
+
+        WantHaversTextView toolbarTitle = (WantHaversTextView) findViewById(R.id.toolbar_title);
+        toolbarTitle.setText(otherUser.getName());
+
+        ImageView otherUserPicture = (ImageView) findViewById(R.id.toolbar_picture);
+        Media m = otherUser.getImage();
+
+        Picasso.with(context).load(m.getLowRes()).transform(new RoundedTransformation(200,0)).into(otherUserPicture);
+
+    }
+
+    public User getOtherUser(User user1, User user2, long loggedInUser){
+
+        if(user1.getId() == loggedInUser){
+            return user2;
+        }
+
+        return user1;
     }
 
 

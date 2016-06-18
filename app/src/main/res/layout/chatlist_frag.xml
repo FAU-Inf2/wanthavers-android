@@ -31,10 +31,11 @@
 
     </data>
 
-    <wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.ScrollChildSwipeRefreshLayout
+    <wanthavers.mad.cs.fau.de.wanthavers_android.chatlist.ScrollChildSwipeRefreshLayout
         android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:onRefresh="@{presenter}">
 
 
         <RelativeLayout
@@ -83,5 +84,5 @@
 
             </LinearLayout-->
         </RelativeLayout>
-    </wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.ScrollChildSwipeRefreshLayout>
+    </wanthavers.mad.cs.fau.de.wanthavers_android.chatlist.ScrollChildSwipeRefreshLayout>
 </layout>

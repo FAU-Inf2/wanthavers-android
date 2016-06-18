@@ -64,14 +64,16 @@
                     android:progressTint="@color/colorRatingStars"
                     android:secondaryProgressTint="@color/colorRatingStars"/>
 
-                <TextView
+                <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                     android:id="@+id/itemUserName"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_toLeftOf="@id/ItemRatingBar"
                     android:text="@{desire.desire.creator.name}"
+                    android:textSize="@dimen/desire_desire_list_text_size"
                     android:layout_marginRight="10dp"
-                    android:textColor="@color/colorMainText"
+                    android:layout_marginTop="-8dp"
+                    android:textColor="@color/colorMainTextMediumDark"
                     />
 
                 <!--ImageView
@@ -104,23 +106,26 @@
                     android:orientation="vertical"
                     android:layout_height="match_parent">
 
-                    <TextView
+                    <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                         android:id="@+id/title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
+                        android:textSize="20dp"
+                        android:textStyle="bold"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title"
                         android:textColor="@color/colorMainText"
                         android:text="@{desire.desire.title}" />
 
-                    <TextView
+                    <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                         android:id="@+id/description"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                         android:textColor="@color/colorMainText"
-                        android:text="@{desire.desire.description}" />
+                        android:text="@{desire.desire.description}"
+                        android:textSize="@dimen/desire_desire_list_text_size"/>
 
                 </LinearLayout>
 
@@ -131,7 +136,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="0.3">
 
-                    <TextView
+                    <!--wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                         android:id="@+id/price"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -143,7 +148,7 @@
                         android:text="@{desireLogic.getPriceString(desire.desire, desire.desire.price)}"
                         android:gravity="right"/>
 
-                    <TextView
+                    <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                         android:id="@+id/reward"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -154,9 +159,20 @@
                         android:textSize="25dp"
                         android:layout_marginBottom="20dp"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                        android:text="@{desireLogic.getPriceString(desire.desire, desire.desire.reward)}" />
+                        android:text="@{desireLogic.getPriceString(desire.desire, desire.desire.reward)}" /-->
 
-
+                    <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                        android:id="@+id/combinedPrice"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
+                        android:gravity="right"
+                        android:textColor="@color/colorMainText"
+                        android:textSize="30dp"
+                        android:layout_marginBottom="15dp"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                        android:text="@{desireLogic.getCombinedPriceString(desire.desire)}" />
                 </RelativeLayout>
             </LinearLayout>
 
@@ -166,20 +182,24 @@
                 android:layout_height="20dp"
                 android:orientation="horizontal">
 
-                <TextView
+                <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="0.5"
                     android:gravity="left"
                     android:textColor="@color/colorMainText"
+                    android:textSize="@dimen/desire_desire_list_text_size"
+                    android:layout_marginTop="-5dp"
                     android:text="@{desireLogic.getDateString(desire.desire.creation_time)}"/>
 
-                <TextView
+                <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="0.5"
                     android:gravity="right"
+                    android:textSize="@dimen/desire_desire_list_text_size"
                     android:textColor="@color/colorMainText"
+                    android:layout_marginTop="-5dp"
                     android:text="@{desire.desire.dropzone_string}"
                     />
 

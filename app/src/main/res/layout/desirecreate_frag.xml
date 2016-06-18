@@ -69,7 +69,7 @@
             android:maxLength="120"
             android:background="@drawable/textbox_border" />
 
-        <TextView
+        <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/create_desire_description_header"
@@ -81,7 +81,7 @@
             android:textSize="20sp"
             android:textIsSelectable="false" />
 
-        <TextView
+        <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/create_desire_title_header"

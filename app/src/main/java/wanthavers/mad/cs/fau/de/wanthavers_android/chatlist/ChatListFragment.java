@@ -8,12 +8,12 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.view.View;
-import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,21 +21,10 @@ import java.util.List;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import de.fau.cs.mad.wanthavers.common.Chat;
-import de.fau.cs.mad.wanthavers.common.Desire;
-import de.fau.cs.mad.wanthavers.common.User;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.chatdetail.ChatDetailActivity;
-import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireLocalDataSource;
-import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireRemoteDataSource;
-import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireRepository;
-import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserLocalDataSource;
-import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserRemoteDataSource;
-import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserRepository;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.ChatlistFragBinding;
-import wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.ScrollChildSwipeRefreshLayout;
-import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetDesire;
-import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetUser;
-import wanthavers.mad.cs.fau.de.wanthavers_android.util.SharedPreferencesHelper;
+import wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.DividerItemDecoration;
 
 public class ChatListFragment extends Fragment implements  ChatListContract.View {
 
@@ -74,11 +63,10 @@ public class ChatListFragment extends Fragment implements  ChatListContract.View
 
         chatListFragBinding.setPresenter(mPresenter);
 
-
         //Set up desire view
         RecyclerView recyclerView = chatListFragBinding.chatList;
         Context context = getContext().getApplicationContext();
-
+        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), R.drawable.list_divider_mediumdark,1));
         //use Linear Layout Manager
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -115,8 +103,24 @@ public class ChatListFragment extends Fragment implements  ChatListContract.View
         showMessage(getString(R.string.loading_chats_error));
     }
 
+
     @Override
-    public void setLoadingIndicator(boolean active) {
+    public void setLoadingIndicator(final boolean active) {
+
+        if (getView() == null) {
+            return;
+        }
+
+        final SwipeRefreshLayout srl =
+                (SwipeRefreshLayout) getView().findViewById(R.id.refresh_layout);
+
+        // Make sure setRefreshing() is called after the layout is done with everything else.
+        srl.post(new Runnable() {
+            @Override
+            public void run() {
+                srl.setRefreshing(active);
+            }
+        });
 
     }
 
@@ -125,6 +129,7 @@ public class ChatListFragment extends Fragment implements  ChatListContract.View
         //TODO open chatDetailsUI
         Intent intent = new Intent(getContext(), ChatDetailActivity.class);
         intent.putExtra(ChatDetailActivity.EXTRA_CHAT_ID, chat.getObjectId());
+        intent.putExtra("ChatOjbect", chat);
         startActivity(intent);
     }
 

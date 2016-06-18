@@ -17,6 +17,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetDesire;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetUser;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -105,6 +106,8 @@ public class ChatListPresenter implements ChatListContract.Presenter {
                 chatModels.add(new ChatItemViewModel(chat, mLoggedInUserId));
             }
 
+
+            Collections.reverse(chatModels);
 
             mChatListView.showChats(chatModels);
 

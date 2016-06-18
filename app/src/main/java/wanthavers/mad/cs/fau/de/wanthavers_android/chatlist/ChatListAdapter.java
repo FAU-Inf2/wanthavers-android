@@ -13,6 +13,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.BR;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.ChatItemBinding;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.ChatLogic;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.RoundedTransformation;
 
 import java.util.List;
@@ -66,6 +67,7 @@ public class ChatListAdapter  extends RecyclerView.Adapter<ChatListAdapter.ViewH
 
         //set new content with databinding
         ChatItemBinding chatItemBinding = holder.getChatItemBinding();
+        chatItemBinding.setChatLogic(new ChatLogic());
         chatItemBinding.setVariable(BR.chat, chatItemViewModel);
         ChatListItemActionHandler itemActionHandler = new ChatListItemActionHandler(mUserActionsListener);
         chatItemBinding.setActionHandler(itemActionHandler);

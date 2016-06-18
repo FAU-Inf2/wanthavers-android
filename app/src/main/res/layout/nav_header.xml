@@ -34,13 +34,14 @@
         android:layout_gravity="top|center"
         android:src="@android:drawable/sym_def_app_icon" />
 
-    <TextView
+    <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
         android:layout_width="match_parent"
-        android:layout_height="20dp"
+        android:layout_height="30dp"
+        android:textSize="20dp"
         android:text="@{user.name}"
         android:textAlignment="center"
         android:textColor="@color/colorPrimary"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
     <RatingBar
         android:id="@+id/nav_header_itemRatingBar"
