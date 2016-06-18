@@ -18,29 +18,29 @@
 
     <item
         android:id="@+id/listDesires_navigation_menu_item"
-        android:icon="@drawable/ic_menu"
+        android:icon="@drawable/wh_all_desires_icon"
         android:title="@string/listDesires_title" />
     <item
         android:id="@+id/myDesires_navigation_menu_item"
-        android:icon="@drawable/ic_menu"
+        android:icon="@drawable/wh_my_desires_icon"
         android:title="@string/myDesires_title" />
     <item
         android:id="@+id/myTransactions_navigation_menu_item"
-        android:icon="@drawable/ic_menu"
+        android:icon="@drawable/wh_my_transactions_icon"
         android:title="@string/myTransactions_title" />
 
     <item
         android:id="@+id/createDesire_navigation_menu_item"
-        android:icon="@drawable/ic_menu"
+        android:icon="@drawable/wh_create_desire_icon"
         android:title="@string/createDesire_title" />
 
     <item
         android:id="@+id/settings_navigation_menu_item"
-        android:icon="@drawable/ic_menu"
+        android:icon="@drawable/wh_settings_icon"
         android:title="@string/settings_title" />
 
     <item
         android:id="@+id/logout_navigation_menu_item"
-        android:icon="@drawable/ic_menu"
+        android:icon="@drawable/wh_logout_icon"
         android:title="@string/logout_title" />
 </menu>

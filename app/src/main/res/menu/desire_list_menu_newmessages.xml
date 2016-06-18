@@ -5,7 +5,7 @@
     <item
         android:id="@+id/menu_filter"
         android:title="@string/filter"
-        android:icon="@android:drawable/ic_dialog_alert"
+        android:icon="@drawable/wh_filter_primarycolor"
         app:showAsAction="always" />
     <item
         android:id="@+id/menu_chat"
