@@ -39,6 +39,8 @@ public class SettingsFragment extends Fragment implements SettingsContract.View 
     private SettingsActionHandler mSettingsActionHandler;
     private DesireLogic mDesireLogic;
     private SelectImageLogic mSelectImageLogic;
+    private int REQUEST_CAMERA = 0;
+    private int REQUEST_GALLERY = 1;
 
     public SettingsFragment() {
         //Requires empty public constructor
@@ -107,17 +109,32 @@ public class SettingsFragment extends Fragment implements SettingsContract.View 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Uri image = null;
+        ImageView imageView = mSettingsFragBinding.profilePicture;
         if ( resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
-            Uri image = data.getData();
-            ImageView imageView = (ImageView) getView().findViewById(R.id.profile_picture);
+            if(requestCode == REQUEST_GALLERY) {
+                image = galleryResult(data);
+            }else if(requestCode == REQUEST_CAMERA){
+                image = cameraResult(data);
+            }
             imageView.setImageURI(image);
-
             File file = new File(PathHelper.getRealPathFromURI(this.getContext().getApplicationContext(), image));
-
             long loggedInUserId = mDesireLogic.getLoggedInUserId();
-
             mPresenter.getUserForImageUpdate(loggedInUserId, file);
         }
+
+
+    }
+
+    private Uri galleryResult(Intent data){
+        Uri image = data.getData();
+        return image;
+    }
+
+    private Uri cameraResult(Intent data){
+        SelectImageLogic imageLogic = mSettingsActionHandler.getSelectImageLogic();
+        Uri image = imageLogic.getImageFromCamera(data);
+        return image;
     }
 
     @Override
