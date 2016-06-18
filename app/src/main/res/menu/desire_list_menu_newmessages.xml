@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_filter"
+        android:title="@string/filter"
+        android:icon="@android:drawable/ic_dialog_alert"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/menu_chat"
+        android:title="@string/chat"
+        android:icon="@drawable/wh_chat_icon_new_message"
+        app:showAsAction="always" />
+</menu>

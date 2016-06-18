@@ -13,6 +13,7 @@ public class WantHaversApplication extends Application {
 
 
     private static DesireFilter mDesireFilter;
+    private static boolean mNewMessages = false;
 
     @Override
     public void onCreate() {
@@ -86,4 +87,11 @@ public class WantHaversApplication extends Application {
     }
 
 
+    public static void setNewMessages(boolean newMessages){
+        mNewMessages = newMessages;
+    }
+
+    public static boolean getNewMessages(){
+        return mNewMessages;
+    }
 }

@@ -39,6 +39,7 @@ import de.fau.cs.mad.wanthavers.common.Desire;
 import de.fau.cs.mad.wanthavers.common.Media;
 import de.fau.cs.mad.wanthavers.common.User;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
+import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.WantHaversApplication;
 import wanthavers.mad.cs.fau.de.wanthavers_android.chatdetail.ChatDetailActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.chatlist.ChatListActivity;
 
@@ -182,8 +183,15 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.desire_list_menu, menu);
+
+        if(WantHaversApplication.getNewMessages()) {
+            inflater.inflate(R.menu.desire_list_menu_newmessages, menu);
+        }else {
+            inflater.inflate(R.menu.desire_list_menu, menu);
+        }
         super.onCreateOptionsMenu(menu, inflater);
+
+
     }
 
     public void setViewModel(DesireListViewModel viewModel){mDesireListViewModel = viewModel;}

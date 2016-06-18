@@ -25,7 +25,7 @@ public class ChatDetailPresenter implements ChatDetailContract.Presenter {
     private final UseCaseHandler mUseCaseHandler;
     private String mChatId;
     private final SendMessage mSendMessage;
-    private static final int MESSAGE_LOAD_LIMIT  = 2;
+    private static final int MESSAGE_LOAD_LIMIT  = 20;
     private List<Message> mMessageList = new ArrayList<>();
 
     public ChatDetailPresenter(@NonNull UseCaseHandler useCaseHandler,@NonNull String chatId, @NonNull ChatDetailContract.View chatListView,
@@ -59,11 +59,13 @@ public class ChatDetailPresenter implements ChatDetailContract.Presenter {
 
         Date lastCreatedAt = new Date();
 
-        if(mMessageList.size() > 0) {
+        if(mMessageList.size() > 0 && loadOldMessages) {
             lastCreatedAt = mMessageList.get(0).getCreatedAt();
         }
 
         GetMessageList.RequestValues requestValue = new GetMessageList.RequestValues(mChatId, lastCreatedAt ,MESSAGE_LOAD_LIMIT);
+
+
 
         mUseCaseHandler.execute(mGetMessageList, requestValue,
                 new UseCase.UseCaseCallback<GetMessageList.ResponseValue>() {
@@ -71,9 +73,15 @@ public class ChatDetailPresenter implements ChatDetailContract.Presenter {
                     public void onSuccess(GetMessageList.ResponseValue response) {
                         List<Message> messageList = response.getMessages();
                         Collections.reverse(messageList);
-                        messageList.addAll(mMessageList);
-                        mMessageList.clear();
-                        mMessageList.addAll(messageList);
+
+                        if(loadOldMessages) {
+
+                            messageList.addAll(mMessageList);
+                            mMessageList.clear();
+                            mMessageList.addAll(messageList);
+                        }else {
+                            mMessageList = messageList;
+                        }
                         // The view may not be able to handle UI updates anymore
                         //if (!mMessageListView.isActive()) {
                         //    return;

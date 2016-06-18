@@ -1,8 +1,10 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.desirelist;
 
+import android.content.BroadcastReceiver;
 import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -48,12 +50,39 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class DesireListActivity extends AppCompatActivity {
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     public static final String EXTRA_FRAGMENT_ID = "FRAGMENT_ID";
-    private static boolean mNewMessages = false;
+
 
 
     private DrawerLayout mDrawerLayout;
     private DesireListPresenter mDesireListPresenter;
     private DesireListFragment mDesireListFragment;
+
+
+    private BroadcastReceiver notificationReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            MenuView.ItemView chatItem = (MenuView.ItemView) findViewById(R.id.menu_chat);
+            Drawable iconNewMessage = getResources().getDrawable(R.drawable.wh_chat_icon_new_message,null);
+            chatItem.setIcon(iconNewMessage);
+        }
+    };
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        IntentFilter filter = new IntentFilter("WH_PUSH_NOTIFICATION_BROADCAST");
+        filter.setPriority(10);
+
+        registerReceiver(notificationReceiver, filter);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unregisterReceiver(notificationReceiver);
+    }
 
 
     @Override
@@ -149,7 +178,7 @@ public class DesireListActivity extends AppCompatActivity {
 
 
         mDesireListPresenter.setUser(loggedInUser);
-
+        updateChatIconOnNewMessageReceived();
         // Load previously saved state, if available.
         if (savedInstanceState != null) {
             /*TasksFilterType currentFiltering =
@@ -157,17 +186,8 @@ public class DesireListActivity extends AppCompatActivity {
             mTasksPresenter.setFiltering(currentFiltering);
             */
         }
+
     }
-
-
-    public static void setNewMessages(boolean newMessages){
-        mNewMessages = newMessages;
-    }
-
-    public static boolean getNewMessages(){
-        return mNewMessages;
-    }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -227,21 +247,29 @@ public class DesireListActivity extends AppCompatActivity {
     public void onResume(){
         super.onResume();
 
+        updateChatIconOnNewMessageReceived();
 
-        MenuView.ItemView chatItem = (MenuView.ItemView) findViewById(R.id.menu_chat);
-        Drawable iconNewMessage = getResources().getDrawable(R.drawable.wh_chat_icon_new_message,null);
-        Drawable iconNoNewMessage = getResources().getDrawable(R.drawable.wh_chat_icon,null);
-        if(chatItem != null) {
-            if (mNewMessages) {
-                    chatItem.setIcon(iconNewMessage);
-            }else{
-                    chatItem.setIcon(iconNoNewMessage);
-            }
-        }
         SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, getApplicationContext());
         long loggedInUser = sharedPreferencesHelper.loadLong(SharedPreferencesHelper.KEY_USERID, 6L); //Long.valueOf(sharedPreferencesHelper.loadString(SharedPreferencesHelper.KEY_USERID, "6"));
         mDesireListPresenter.getUser(loggedInUser);
 
     }
 
+
+    public void updateChatIconOnNewMessageReceived(){
+
+
+        MenuView.ItemView chatItem = (MenuView.ItemView) findViewById(R.id.menu_chat);
+        Drawable iconNewMessage = getResources().getDrawable(R.drawable.wh_chat_icon_new_message,null);
+        Drawable iconNoNewMessage = getResources().getDrawable(R.drawable.wh_chat_icon,null);
+
+        if(chatItem != null) {
+
+            if (WantHaversApplication.getNewMessages()) {
+                chatItem.setIcon(iconNewMessage);
+            }else{
+                chatItem.setIcon(iconNoNewMessage);
+            }
+        }
+    }
 }

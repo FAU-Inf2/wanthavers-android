@@ -1,6 +1,7 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.chatdetail;
 
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -31,6 +32,33 @@ public class ChatDetailActivity extends AppCompatActivity {
     private ChatDetailPresenter mChatDetailPresenter;
     public static final String EXTRA_CHAT_ID = "CHAT_ID";
     private MessageAlarm mMessageAlarm;
+
+
+    private BroadcastReceiver notificationReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            mChatDetailPresenter.loadMessages(true, false);
+            abortBroadcast();
+        }
+    };
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        IntentFilter filter = new IntentFilter("WH_PUSH_NOTIFICATION_BROADCAST");
+        filter.setPriority(1);
+
+        registerReceiver(notificationReceiver, filter);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unregisterReceiver(notificationReceiver);
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

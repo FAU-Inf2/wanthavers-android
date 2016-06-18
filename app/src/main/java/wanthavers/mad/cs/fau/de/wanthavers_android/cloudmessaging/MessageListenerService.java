@@ -15,6 +15,7 @@ import com.google.firebase.messaging.RemoteMessage;
 
 import org.json.JSONObject;
 
+import de.fau.cs.mad.wanthavers.common.CloudMessageSubject;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.DesireListActivity;
 
@@ -25,17 +26,34 @@ public class MessageListenerService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
 
+
+        /*
         String message = remoteMessage.getNotification().getBody();
         Log.d(TAG, "From: " + remoteMessage.getFrom());
         Log.d(TAG, "Message: " + message);
 
-        /*
-        switch(remoteMessage.getData().get("subject"))
-            case CloudMessageSubject.NEWMESSAGE ...
-            case CloudMessageSubject.NEWDESIRE ...
+        String messageSubject = remoteMessage.getData().get("subject");
+
+        if(messageSubject.equals(CloudMessageSubject.NEWMESSAGE)){
+            DesireListActivity.setNewMessages(true);
+        }
         */
-        
-        sendNotification(message);
+
+        String message = remoteMessage.getNotification().getBody();
+        String from = remoteMessage.getFrom();
+
+        Bundle extras = new Bundle();
+        PushMessageNotification pushMessage = new PushMessageNotification(from, message);
+        extras.putParcelable("WH_PUSH_NOTIFICATION", pushMessage);
+
+        //start broadcast
+        Intent intent = new Intent(this, MessagePushIntentService.class);
+        intent.putExtras(extras);
+        startService(intent);
+
+        System.out.println("started MessagePushIntentService");
+
+        //sendNotification(message);
     }
 
     /**
@@ -54,8 +72,8 @@ public class MessageListenerService extends FirebaseMessagingService {
 
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.drawable.logo)
-                .setContentTitle("wanthavers")
+                .setSmallIcon(R.drawable.logo).setColor(getResources().getColor(R.color.colorPrimary))
+                .setContentTitle("wanthavers " + getResources().getString(R.string.new_message_from))
                 .setContentText(message)
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
