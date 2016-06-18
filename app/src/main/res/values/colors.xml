@@ -10,6 +10,7 @@
     <color name="colorMainTextMediumDark">#555</color>
     <color name="colorMainTextDark">#030303</color>
     <color name="layout_Background1">#ffffff</color>
+    <color name="light_grey">#d1d1d1</color>
 
     <color name="colorRatingStars">@color/colorPrimary</color>
 

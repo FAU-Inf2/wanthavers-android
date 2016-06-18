@@ -73,6 +73,7 @@
     <string name="button_apply_filter">Apply filter</string>
     <string name="loading_desire_error">Error while loading desire</string>
     <string name="loading_havers_error">Error while loading havers</string>
+    <string name="loading_haver_error">Error while loading haver</string>
     <string name="setting_haver_error">Error while accepting desire</string>
     <string name="accepting_haver_error">Error while accepting haver</string>
     <string name="get_user_error">Error while loading user information</string>
@@ -80,6 +81,7 @@
     <string name="update_user_error">Error while updating user information</string>
     <string name="get_chat_for_desire_error">Error while opening chat</string>
     <string name="get_categories_error">Error while loading categories</string>
+    <string name="get_categorie_error">Error while loading categorie</string>
     <string name="all_categories">All Categories</string>
     <string name="get_no_location_set_error">No Location set yet</string>+
     <string name="filter_change_success">Filter changes saved</string>
@@ -90,6 +92,14 @@
     <string name="haver_status_accepted">ACCEPTED</string>
     <string name="haver_status_rejected">REJECTED</string>
     <string name="no_location_selected">No location selected yet</string>
+    <string name="desire_detail_rating_title">Rating for this transaction</string>
+    <string name="create_rating_error">Error while submitting the rating</string>
+    <string name="transaction_title">YOUR TRANSACTION</string>
+    <string name="rating_price">Price:&#160;</string>
+    <string name="rating_reward">&#160;Reward:&#160;</string>
+    <string name="transaction_summary">&#160;TRANSACTION SUMMARY&#160;</string>
+    <string name="leave_your_rating_title">LEAVE YOUR RATING</string>
+    <string name="button_submit">SUBMIT</string>
 
 
     <string-array name="currencies">

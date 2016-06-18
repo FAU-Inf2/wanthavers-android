@@ -71,6 +71,7 @@
     <string name="button_apply_filter">Filter bestätigen</string>
     <string name="loading_desire_error">Fehler beim Laden des Wunsches</string>
     <string name="loading_havers_error">Fehler beim Laden der Haver</string>
+    <string name="loading_haver_error">Fehler beim Laden des Havers</string>
     <string name="setting_haver_error">Fehler beim Akzeptieren des Wunsches</string>
     <string name="accepting_haver_error">Fehler beim Akzeptieren des Havers</string>
     <string name="get_user_error">Fehler beim Laden der Nutzerinformationen</string>
@@ -78,6 +79,7 @@
     <string name="update_user_error">Fehler beim Aktualisieren des Nutzers</string>
     <string name="get_chat_for_desire_error">Fehler beim Öffnen des Chats</string>
     <string name="get_categories_error">Fehler beim Laden der Kategorien</string>
+    <string name="get_categorie_error">Fehler beim Laden der Kategorie</string>
     <string name="all_categories">Alle Kategorien</string>
     <string name="get_no_location_set_error">Bisher kein Ort festgelegt</string>
     <string name="filter_change_success">Filteränderung gespeichert</string>
@@ -88,6 +90,13 @@
     <string name="haver_status_accepted">AKZEPTIERT</string>
     <string name="haver_status_rejected">ABGELEHNT</string>
     <string name="no_location_selected">Kein Ort ausgewählt</string>
+    <string name="create_rating_error">Fehler beim Bestätigen des Ratings</string>
+    <string name="transaction_title">DEINE TRANSAKTION</string>
+    <string name="rating_price">Sachwert:&#160;</string>
+    <string name="rating_reward">&#160;Trinkgeld:&#160;</string>
+    <string name="transaction_summary">&#160;TRANSAKTION ZUSAMMENFASSUNG&#160;</string>
+    <string name="leave_your_rating_title">DEINE BEWERTUNG</string>
+    <string name="button_submit">ABSCHLIESSEN</string>
 
 
     <!-- currency strings -->
@@ -126,7 +135,7 @@
     <string name="enable_gps_cancel">Abbruch</string>
     <string name="new_message_from">neue Nachricht von</string>
     <string name="declined_location_runtime_permission">Um die App benutzen zu können, stimme bitte den Standortdienst Berechtigungen zu</string>
-    <string name="chat_overview">Chats</string>
+    <string name="desire_detail_rating_title">Rating für diese Transaktion</string>
 
 
     <string-array name="currencies">

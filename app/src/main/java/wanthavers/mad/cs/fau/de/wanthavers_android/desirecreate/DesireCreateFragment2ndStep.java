@@ -29,6 +29,7 @@ import de.fau.cs.mad.wanthavers.common.Desire;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.Desirecreate2ndFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.SelectImageLogic;
 import wanthavers.mad.cs.fau.de.wanthavers_android.maps.MapActivity;
 
 
@@ -37,6 +38,9 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
     private DesireCreateContract.Presenter mPresenter;
     private Uri image;
     private Spinner spinner;
+    private int REQUEST_CAMERA = 0;
+    private int REQUEST_GALLERY = 1;
+    private ImageView mImageView;
 
     public DesireCreateFragment2ndStep(){
         //Requires empty public constructor
@@ -123,7 +127,8 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if(grantResults[0]== PackageManager.PERMISSION_GRANTED){
-            mPresenter.getImageLogic().selectImageForDesire();
+            SelectImageLogic imageLogic = mPresenter.getImageLogic();
+            imageLogic.selectImageForDesire();
         }
     }
 
@@ -131,14 +136,26 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        mImageView = mViewDataBinding.imageCamera;
         if ( resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
-
-            image = data.getData();
-            ImageView imageView = mViewDataBinding.imageCamera;
-            imageView.setImageURI(image);
-
+            if(requestCode == REQUEST_GALLERY) {
+                galleryResult(data);
+            }else if(requestCode == REQUEST_CAMERA){
+                cameraResult(data);
+            }
         }
 
+    }
+
+    private void galleryResult(Intent data){
+        image = data.getData();
+        mImageView.setImageURI(image);
+    }
+
+    private void cameraResult(Intent data){
+        SelectImageLogic imageLogic = mPresenter.getImageLogic();
+        image = imageLogic.getImageFromCamera(data);
+        mImageView.setImageURI(image);
     }
 
     @Override

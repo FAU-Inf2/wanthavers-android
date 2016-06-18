@@ -275,6 +275,8 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
         );
     }
 
+    //TODO: public void submitRating()
+
     private void processHavers(List<Haver> havers) {
         if (havers.isEmpty()) {
             //TODO no havers yet

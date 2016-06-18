@@ -39,6 +39,8 @@ public class DesireCreateActivity2ndStep extends AppCompatActivity {
                     desireCreateFragment, R.id.contentFrame);
         }
 
+        overridePendingTransition(R.anim.anim_slide_in_left,R.anim.anim_slide_out_right);
+
 
         //TODO
         mDesireCreatePresenter = new DesireCreatePresenter(UseCaseHandler.getInstance(), desireCreateFragment, null, this,null, null);
@@ -58,6 +60,12 @@ public class DesireCreateActivity2ndStep extends AppCompatActivity {
             fragment.onActivityResult(requestCode, resultCode, data);
         }
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.anim_slide_in_right,R.anim.anim_slide_out_left);
     }
 
 }
