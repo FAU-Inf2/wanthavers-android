@@ -7,6 +7,7 @@
     <color name="colorAccent">#209722</color>
     <color name="colorSecondary">#ffffff</color>
     <color name="colorMainText">#ffffff</color>
+    <color name="colorMainTextMediumDark">#f6585656</color>
     <color name="colorMainTextDark">#030303</color>
     <color name="layout_Background1">#ffffff</color>
 
@@ -26,6 +27,7 @@
     <color name="desireBg2">#9DED5C</color>
     <color name="desireBg3">#523970</color>
     <color name="drawerHeaderDivider">#ded4d4d4</color>
+    <color name="desire_detail_layout_items_background">#b3ffffff</color>
 
     <array
         name="desireBackgroundColors">

@@ -173,7 +173,6 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
             mPresenter.getAcceptedHaver();
             //haver cannot accept
             mDesireDetailFragBinding.buttonAcceptDesire.setVisibility(View.GONE);
-            mDesireDetailFragBinding.placeholder.setVisibility(View.GONE);
             mDesireDetailFragBinding.buttonCloseTransaction.setVisibility(View.VISIBLE);
         }
 
@@ -275,7 +274,6 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
     public void showAcceptButton(List<Haver> havers) {
         if (isHaver(havers)) {
             mDesireDetailFragBinding.buttonAcceptDesire.setVisibility(View.GONE);
-            mDesireDetailFragBinding.placeholder.setVisibility(View.GONE);
         }
     }
 
