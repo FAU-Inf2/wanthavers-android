@@ -58,7 +58,7 @@
                     android:src="@android:drawable/sym_def_app_icon"
                     android:layout_centerVertical="true"/>
 
-                <TextView
+                <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                     android:id="@+id/wanter_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -66,7 +66,7 @@
                     android:text="@{desire.creator.name}"
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@id/image_wanter"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="@color/colorMainTextMediumDark"
                     android:layout_marginRight="20dp"/>
 
                 <RatingBar
@@ -118,7 +118,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"/>
 
-                <TextView
+                <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                     android:id="@+id/desire_haver_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -127,7 +127,8 @@
                     android:text="@string/haver_status_open"
                     android:background="@color/status_open"
                     android:layout_below="@id/desire_detail_creation_time"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
                     android:visibility="invisible"/>
 
                 <ImageView
@@ -139,14 +140,14 @@
                     android:src="@android:drawable/sym_def_app_icon"
                     android:contentDescription="@string/desire_detail_itemImage_contentDesc" />
 
-                <TextView
+                <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                     android:id="@+id/desire_detail_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="@{desire.title}"
                     android:textColor="@color/colorMainText"
-                    android:textSize="25dp"
+                    android:textSize="35dp"
                     android:textStyle="bold"
                     android:layout_toRightOf="@+id/desire_detail_itemImage"
                     android:layout_centerVertical="true"/>
@@ -163,7 +164,7 @@
                 android:layout_below="@id/title_layout"
                 android:padding="10dp">
 
-                <TextView
+                <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                     android:id="@+id/desire_detail_description_header"
                     android:textSize="@dimen/desire_detail_title_size"
                     android:layout_width="wrap_content"
@@ -175,11 +176,11 @@
                     android:layout_marginTop="3dp"
                     android:layout_marginBottom="4dp"/>
 
-                <TextView
+                <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                     android:id="@+id/desire_detail_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textSize="18dp"
                     android:text="@{desire.description}"
                     android:textColor="@color/colorMainTextMediumDark"/>
             </LinearLayout>
@@ -206,7 +207,7 @@
                     android:layout_width="140dp"
                     android:layout_height="65dp">
 
-                    <TextView
+                    <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                     android:id="@+id/desire_detail_reward_title"
                     android:textSize="@dimen/desire_detail_title_size"
                     android:layout_width="wrap_content"
@@ -218,7 +219,7 @@
                     android:textAllCaps="true"
                     android:layout_centerHorizontal="true"/>
 
-                    <TextView
+                    <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                         android:id="@+id/desire_detail_reward"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -227,7 +228,7 @@
                         android:textColor="@color/colorMainTextMediumDark"
                         android:layout_alignParentBottom="true"
                         android:layout_centerHorizontal="true"
-                        android:textSize="20dp"
+                        android:textSize="24dp"
                         android:layout_marginBottom="5dp"/>
 
                 </RelativeLayout>
@@ -239,7 +240,7 @@
                     android:layout_toRightOf="@id/desire_detail_price_layout_anchor"
                     android:background="@color/desire_detail_layout_items_background">
 
-                    <TextView
+                    <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                         android:id="@+id/desire_detail_price_title"
                         android:textSize="@dimen/desire_detail_title_size"
                         android:layout_width="wrap_content"
@@ -251,7 +252,7 @@
                         android:layout_marginTop="5dp"
                         android:layout_centerHorizontal="true" />
 
-                    <TextView
+                    <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                         android:layout_marginTop="10dp"
                         android:id="@+id/desire_detail_price"
                         android:layout_width="wrap_content"
@@ -271,11 +272,11 @@
                 android:id="@+id/desire_detail_location_layout"
                 android:layout_width="match_parent"
                 android:layout_height="65dp"
-                android:padding="10dp"
+                android:padding="5dp"
                 android:layout_below="@id/desire_detail_price_layout"
                 android:background="@color/desire_detail_layout_items_background">
 
-                <TextView
+                <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                 android:id="@+id/desire_detail_location_title"
                 android:textSize="@dimen/desire_detail_title_size"
                 android:layout_width="wrap_content"
@@ -285,7 +286,7 @@
                 android:textColor="@color/colorPrimary"
                 android:textAllCaps="true"/>
 
-            <TextView
+            <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                 android:id="@+id/desire_detail_location"
                 android:textSize="15dp"
                 android:layout_width="wrap_content"
@@ -315,16 +316,17 @@
                     android:id="@+id/no_havers"
                     android:layout_width="match_parent"
                     android:layout_height="90dp"
-                    android:background="@color/colorSecondary"
+                    android:background="@color/desire_detail_layout_items_background"
                     android:visibility="@{havers.notEmpty ? View.GONE : View.VISIBLE}">
-                    <TextView
+
+                    <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                         android:id="@+id/no_havers_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
                         android:text="@string/no_havers"
-                        android:textColor="@color/colorMainTextDark" />
+                        android:textColor="@color/colorMainTextMediumDark" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -354,7 +356,7 @@
                         android:layout_centerVertical="true"
                         android:layout_toLeftOf="@+id/message_haver">
 
-                        <TextView
+                        <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                             android:id="@+id/haver_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -414,7 +416,7 @@
                 android:layout_alignParentBottom="true"
                 android:visibility="@{desirelogic.isDesireCreator(desire.creator.getId()) ? View.GONE : View.VISIBLE}">
 
-                <Button
+                <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextButton
                     android:id="@+id/button_accept_desire"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
