@@ -133,15 +133,8 @@
     <string name="enable_gps_text">Your Locations Settings is turned off. Please Enable GPS to use this app!</string>
     <string name="enable_gps_settings">Location Settings</string>
     <string name="enable_gps_cancel">Cancel</string>
-    <string name="declined_location_runtime_permission">Please Accept the Location Permissions to use this app</string>
-    <string name="button_close_transaction">finish transaction</string>
-    <string name="closing_transaction_error">errror finishing the transaction</string>
-    <string name="declined_location_runtime_permission">please allow localization to use this app effectively</string>
-    <string name="haver_status_accepted">ACCEPTED</string>
-    <string name="haver_status_open">OPEN</string>
-    <string name="haver_status_rejected">REJECTED</string>
     <string name="new_message_from">new message from</string>
-    <string name="no_location_selected">no location selected</string>
+    <string name="declined_location_runtime_permission">Um die App benutzen zu können, stimme bitte den Standortdienst Berechtigungen zu</string>
 
 
 </resources>
