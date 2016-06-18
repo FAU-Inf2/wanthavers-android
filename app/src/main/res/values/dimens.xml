@@ -5,5 +5,5 @@
     <dimen name="fab_margin">16dp</dimen>
 
     <dimen name="list_item_padding">8dp</dimen>
-    <dimen name="desire_detail_title_size">14dp</dimen>
+    <dimen name="desire_detail_title_size">15dp</dimen>
 </resources>
