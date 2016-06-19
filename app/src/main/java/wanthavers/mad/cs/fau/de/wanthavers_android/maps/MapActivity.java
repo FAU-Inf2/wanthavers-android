@@ -89,18 +89,22 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
     }
 
     private void initializeUI() {
-
+        mLocationTextView = (TextView) findViewById(R.id.location_text_view);
+        mMarkerParentView = findViewById(R.id.marker_view_incl);
+        mMarkerImageView = (ImageView) findViewById(R.id.marker_icon_view);
+        double latitude = mGpsLocationTracker.getLatitude();
+        double longitude = mGpsLocationTracker.getLongitude();
+        LatLng latLng = new LatLng(latitude, longitude);
+        updateLocation(latLng);
         try {
             // Loading map
-            initializeMap();
+            initializeMap(latLng);
 
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        mLocationTextView = (TextView) findViewById(R.id.location_text_view);
-        mMarkerParentView = findViewById(R.id.marker_view_incl);
-        mMarkerImageView = (ImageView) findViewById(R.id.marker_icon_view);
+
     }
 
     @Override
@@ -116,18 +120,16 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
         centerY = (imageParentHeight / 2);
     }
 
-    private void initializeMap() {
+    private void initializeMap(LatLng latLng) {
         if (googleMap == null) {
             mMapFragment = ((MyMapFragment) getFragmentManager()
                     .findFragmentById(R.id.map));
             mMapFragment.setOnDragListener(MapActivity.this);
             googleMap = mMapFragment.getMap();
 
-            double latitude = mGpsLocationTracker.getLatitude();
-            double longitude = mGpsLocationTracker.getLongitude();
             //users location according to GPS or Network
             //or if permissions are not granted computer science tower uni erlangen
-            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 16.0f));
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16.0f));
 
 
             // check if map is created successfully or not
