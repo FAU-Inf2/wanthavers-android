@@ -94,7 +94,7 @@
             android:textColor="@color/colorMainText"
             android:background="@drawable/chat_border_me"
             android:layout_alignParentRight="true"
-            android:onClick="@{() -> actionHandler.sendMessage(haver.getUser().getId())}"/>
+            android:onClick="@{() -> actionHandler.wanterAccept(haver.id, haver)}"/>
 
 
         <ImageButton
@@ -108,7 +108,7 @@
             android:textColor="@color/colorMainText"
             android:background="@drawable/chat_border_me"
             android:layout_toLeftOf="@id/accept_desire_haver"
-            android:onClick="@{() -> actionHandler.wanterAccept(haver.id, haver)}"/>
+            android:onClick="@{() -> actionHandler.sendMessage(haver.getUser().getId())}"/>
 
     </RelativeLayout>
 

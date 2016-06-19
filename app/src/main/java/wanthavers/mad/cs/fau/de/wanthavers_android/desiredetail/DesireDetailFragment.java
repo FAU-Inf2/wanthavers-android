@@ -302,6 +302,7 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
         //TODO open chatDetailsUI
         Intent intent = new Intent(getContext(), ChatDetailActivity.class);
         intent.putExtra(ChatDetailActivity.EXTRA_CHAT_ID, chat.getObjectId());
+        intent.putExtra("ChatOjbect", chat);
         startActivity(intent);
     }
 }

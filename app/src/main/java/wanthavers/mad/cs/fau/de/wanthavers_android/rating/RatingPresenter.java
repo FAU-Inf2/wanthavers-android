@@ -106,7 +106,7 @@ public class RatingPresenter implements RatingContract.Presenter {
         Rating rating = new Rating (userId, rating_value);
         String comment = "";
         createRating(userId, desire.getId(), rating_value, comment);
-        //TODO: indicator if user has already rated
+            //TODO: indicator if user has already rated
 
         //TODO: Julian open new screen
     }

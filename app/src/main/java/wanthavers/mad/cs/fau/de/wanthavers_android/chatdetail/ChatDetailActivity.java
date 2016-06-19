@@ -134,19 +134,23 @@ public class ChatDetailActivity extends AppCompatActivity {
         //WantHaversTextView toolbarTitle = (WantHaversTextView) = findViewById(R.id.toolbar_title);
 
         Chat chat = (Chat) getIntent().getSerializableExtra("ChatOjbect");
+        
+        if(chat != null) {
+            SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, getApplicationContext());
+            long loggedInUser = sharedPreferencesHelper.loadLong(SharedPreferencesHelper.KEY_USERID, 6L); //Long.valueOf(sharedPreferencesHelper.loadString(SharedPreferencesHelper.KEY_USERID, "6"));
+            User otherUser = getOtherUser(chat.getUserObject1(), chat.getUserObject2(), loggedInUser);
 
-        SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, getApplicationContext());
-        long loggedInUser = sharedPreferencesHelper.loadLong(SharedPreferencesHelper.KEY_USERID, 6L); //Long.valueOf(sharedPreferencesHelper.loadString(SharedPreferencesHelper.KEY_USERID, "6"));
-        User otherUser = getOtherUser(chat.getUserObject1(), chat.getUserObject2(), loggedInUser);
+            WantHaversTextView toolbarTitle = (WantHaversTextView) findViewById(R.id.toolbar_title);
+            toolbarTitle.setText(otherUser.getName());
 
-        WantHaversTextView toolbarTitle = (WantHaversTextView) findViewById(R.id.toolbar_title);
-        toolbarTitle.setText(otherUser.getName());
+            ImageView otherUserPicture = (ImageView) findViewById(R.id.toolbar_picture);
+            Media m = otherUser.getImage();
 
-        ImageView otherUserPicture = (ImageView) findViewById(R.id.toolbar_picture);
-        Media m = otherUser.getImage();
+            if (m != null) {
+                Picasso.with(context).load(m.getLowRes()).transform(new RoundedTransformation(200, 0)).into(otherUserPicture);
+            }
 
-        Picasso.with(context).load(m.getLowRes()).transform(new RoundedTransformation(200,0)).into(otherUserPicture);
-
+        }
     }
 
     public User getOtherUser(User user1, User user2, long loggedInUser){
