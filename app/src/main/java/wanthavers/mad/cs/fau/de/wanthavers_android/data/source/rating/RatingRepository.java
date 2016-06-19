@@ -35,14 +35,14 @@ public class RatingRepository implements RatingDataSource {
     }
 
     @Override
-    public void createRating(@NonNull long userId, @NonNull long desireId, @NonNull float stars, @NonNull String comment, @NonNull final CreateRatingCallback callback) {
-        checkNotNull(userId);
+    public void createRating(@NonNull long rateeId, @NonNull long desireId, @NonNull float stars, @NonNull String comment, @NonNull final CreateRatingCallback callback) {
+        checkNotNull(rateeId);
         checkNotNull(desireId);
         checkNotNull(stars);
         checkNotNull(comment);
         checkNotNull(callback);
 
-        ratingRemoteDataSource.createRating(userId, desireId, stars, comment, new CreateRatingCallback() {
+        ratingRemoteDataSource.createRating(rateeId, desireId, stars, comment, new CreateRatingCallback() {
             @Override
             public void onRatingCreated(Rating rating) {
                 callback.onRatingCreated(rating);
@@ -56,12 +56,12 @@ public class RatingRepository implements RatingDataSource {
     }
 
     @Override
-    public void getRating(@NonNull final long userId, @NonNull final long ratingId, @NonNull final GetRatingCallback callback) {
-        checkNotNull(userId);
+    public void getRating(@NonNull final long rateeId, @NonNull final long ratingId, @NonNull final GetRatingCallback callback) {
+        checkNotNull(rateeId);
         checkNotNull(ratingId);
         checkNotNull(callback);
 
-        ratingLocalDataSource.getRating(userId, ratingId, new GetRatingCallback() {
+        ratingLocalDataSource.getRating(rateeId, ratingId, new GetRatingCallback() {
             @Override
             public void onRatingLoaded(Rating rating) {
                 callback.onRatingLoaded(rating);
@@ -69,7 +69,7 @@ public class RatingRepository implements RatingDataSource {
 
             @Override
             public void onDataNotAvailable() {
-                ratingRemoteDataSource.getRating(userId, ratingId, new GetRatingCallback() {
+                ratingRemoteDataSource.getRating(rateeId, ratingId, new GetRatingCallback() {
                     @Override
                     public void onRatingLoaded(Rating rating) {
                         callback.onRatingLoaded(rating);
@@ -113,14 +113,14 @@ public class RatingRepository implements RatingDataSource {
     }
 
     @Override
-    public void updateRating(@NonNull long userId, @NonNull long ratingId, @NonNull float stars, @NonNull String comment, @NonNull final UpdateRatingCallback callback) {
-        checkNotNull(userId);
+    public void updateRating(@NonNull long rateeId, @NonNull long ratingId, @NonNull float stars, @NonNull String comment, @NonNull final UpdateRatingCallback callback) {
+        checkNotNull(rateeId);
         checkNotNull(ratingId);
         checkNotNull(stars);
         checkNotNull(comment);
         checkNotNull(callback);
 
-        ratingRemoteDataSource.updateRating(userId, ratingId, stars, comment, new UpdateRatingCallback() {
+        ratingRemoteDataSource.updateRating(rateeId, ratingId, stars, comment, new UpdateRatingCallback() {
             @Override
             public void onRatingUpdated(Rating rating) {
                 callback.onRatingUpdated(rating);

@@ -29,9 +29,9 @@ public class RatingRemoteDataSource implements RatingDataSource {
     }
 
     @Override
-    public void createRating(@NonNull long userId, @NonNull long desireId, @NonNull float stars, @NonNull String comment, @NonNull CreateRatingCallback callback) {
+    public void createRating(@NonNull long rateeId, @NonNull long desireId, @NonNull float stars, @NonNull String comment, @NonNull CreateRatingCallback callback) {
         try {
-            Rating ret = ratingClient.createRating(userId, desireId, stars, comment);
+            Rating ret = ratingClient.createRating(rateeId, desireId, stars, comment);
             callback.onRatingCreated(ret);
         } catch (Throwable t) {
             callback.onCreateFailed();
@@ -39,9 +39,9 @@ public class RatingRemoteDataSource implements RatingDataSource {
     }
 
     @Override
-    public void getRating(@NonNull long userId, @NonNull long ratingId, @NonNull GetRatingCallback callback) {
+    public void getRating(@NonNull long rateeId, @NonNull long ratingId, @NonNull GetRatingCallback callback) {
         try {
-            Rating ret = ratingClient.get(userId, ratingId);
+            Rating ret = ratingClient.get(rateeId, ratingId);
             callback.onRatingLoaded(ret);
         } catch (Throwable t) {
             callback.onDataNotAvailable();
@@ -59,9 +59,9 @@ public class RatingRemoteDataSource implements RatingDataSource {
     }
 
     @Override
-    public void updateRating(@NonNull long userId, @NonNull long ratingId, @NonNull float stars, @NonNull String comment, @NonNull UpdateRatingCallback callback) {
+    public void updateRating(@NonNull long rateeId, @NonNull long ratingId, @NonNull float stars, @NonNull String comment, @NonNull UpdateRatingCallback callback) {
         try {
-            Rating ret = ratingClient.updateRating(userId, ratingId, stars, comment);
+            Rating ret = ratingClient.updateRating(rateeId, ratingId, stars, comment);
             callback.onRatingUpdated(ret);
         } catch (Throwable t) {
             callback.onUpdateFailed();

@@ -35,16 +35,16 @@ public class RatingClient extends RestClient {
         return ratingEndpoint.getAllRatings(userId);
     }
 
-    public Rating createRating(long userId, long desireId, float stars, String comment) {
-        return ratingEndpoint.createRating(null, userId, desireId, stars, comment);
+    public Rating createRating(long rateeId, long desireId, float stars, String comment) {
+        return ratingEndpoint.createRating(null, rateeId, desireId, stars, comment);
     }
 
-    public Rating get(long userId, long ratingId) {
-        return ratingEndpoint.get(userId, ratingId);
+    public Rating get(long rateeId, long ratingId) {
+        return ratingEndpoint.get(rateeId, ratingId);
     }
 
-    public Rating updateRating(long userId, long ratingId, float stars, String comment) {
-        return ratingEndpoint.updateRating(null, userId, ratingId, stars, comment);
+    public Rating updateRating(long rateeId, long ratingId, float stars, String comment) {
+        return ratingEndpoint.updateRating(null, rateeId, ratingId, stars, comment);
     }
 
     public Rating avgRating(long userId) {
