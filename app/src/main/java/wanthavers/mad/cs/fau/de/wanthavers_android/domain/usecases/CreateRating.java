@@ -20,7 +20,7 @@ public class CreateRating extends UseCase<CreateRating.RequestValues, CreateRati
     @Override
     protected void executeUseCase(final RequestValues values) {
 
-        mRatingRepository.createRating(values.getUserId(), values.getRating(),
+        mRatingRepository.createRating(values.getUserId(), values.getDesireId(), values.getStars(), values.getComment(),
                 new RatingDataSource.CreateRatingCallback() {
 
                     @Override
@@ -40,19 +40,31 @@ public class CreateRating extends UseCase<CreateRating.RequestValues, CreateRati
     public static final class RequestValues implements UseCase.RequestValues {
 
         private final long mUserId;
-        private final Rating mRating;
+        private final long mDesireId;
+        private final float mStars;
+        private final String mComment;
 
-        public RequestValues(long userId, Rating rating) {
+        public RequestValues(long userId, long desireId, float stars, String comment) {
             mUserId = userId;
-            mRating = rating;
+            mDesireId = desireId;
+            mStars = stars;
+            mComment = comment;
         }
 
         public long getUserId() {
             return mUserId;
         }
 
-        public Rating getRating() {
-            return mRating;
+        public long getDesireId() {
+            return mDesireId;
+        }
+
+        public float getStars() {
+            return mStars;
+        }
+
+        public String getComment() {
+            return mComment;
         }
     }
 

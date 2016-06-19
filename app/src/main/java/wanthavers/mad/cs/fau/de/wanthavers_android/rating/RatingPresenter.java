@@ -104,15 +104,16 @@ public class RatingPresenter implements RatingContract.Presenter {
         RatingBar ratingBar = (RatingBar) mActivity.findViewById(R.id.rating_ratingbar);
         float rating_value = ratingBar.getRating();
         Rating rating = new Rating (userId, rating_value);
-        createRating(userId, rating);
+        String comment = "";
+        createRating(userId, desire.getId(), rating_value, comment);
         //TODO: indicator if user has already rated
 
         //TODO: Julian open new screen
     }
 
-    public void createRating(long userId, Rating rating) {
+    public void createRating(long userId, long desireId, float stars, String comment) {
 
-        final CreateRating.RequestValues requestValues = new CreateRating.RequestValues(userId, rating);
+        final CreateRating.RequestValues requestValues = new CreateRating.RequestValues(userId, desireId, stars, comment);
 
         mUseCaseHandler.execute(mCreateRating, requestValues,
                 new UseCase.UseCaseCallback<CreateRating.ResponseValue>() {

@@ -43,14 +43,6 @@ public interface RatingDataSource {
 
     }
 
-    interface DeleteRatingCallback {
-
-        void onRatingDeleted();
-
-        void onDeleteFailed();
-
-    }
-
     interface GetAverageRatingForUserCallback {
 
         void onAverageRatingForUserLoaded(Rating rating);
@@ -59,15 +51,13 @@ public interface RatingDataSource {
 
     }
 
-    void createRating(@NonNull long userId, @NonNull Rating rating, @NonNull CreateRatingCallback callback);
+    void createRating(@NonNull long userId, @NonNull long desireId, @NonNull float stars, @NonNull String comment, @NonNull CreateRatingCallback callback);
 
     void getRating(@NonNull long userId, @NonNull long ratingId, @NonNull GetRatingCallback callback);
 
     void getAllRatingsForUser(@NonNull long userId, @NonNull GetAllRatingsForUserCallback callback);
 
-    void updateRating(@NonNull long userId, @NonNull long ratingId, @NonNull Rating rating, @NonNull UpdateRatingCallback callback);
-
-    void deleteRating(@NonNull long userId, @NonNull long ratingId, @NonNull DeleteRatingCallback callback);
+    void updateRating(@NonNull long userId, @NonNull long ratingId, @NonNull float stars, @NonNull String comment, @NonNull UpdateRatingCallback callback);
 
     void getAverageRatingForUser(@NonNull long userId, @NonNull GetAverageRatingForUserCallback callback);
 

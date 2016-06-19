@@ -29,9 +29,9 @@ public class RatingRemoteDataSource implements RatingDataSource {
     }
 
     @Override
-    public void createRating(@NonNull long userId, @NonNull Rating rating, @NonNull CreateRatingCallback callback) {
+    public void createRating(@NonNull long userId, @NonNull long desireId, @NonNull float stars, @NonNull String comment, @NonNull CreateRatingCallback callback) {
         try {
-            Rating ret = ratingClient.createRating(userId, rating);
+            Rating ret = ratingClient.createRating(userId, desireId, stars, comment);
             callback.onRatingCreated(ret);
         } catch (Throwable t) {
             callback.onCreateFailed();
@@ -59,22 +59,12 @@ public class RatingRemoteDataSource implements RatingDataSource {
     }
 
     @Override
-    public void updateRating(@NonNull long userId, @NonNull long ratingId, @NonNull Rating rating, @NonNull UpdateRatingCallback callback) {
+    public void updateRating(@NonNull long userId, @NonNull long ratingId, @NonNull float stars, @NonNull String comment, @NonNull UpdateRatingCallback callback) {
         try {
-            Rating ret = ratingClient.updateRating(userId, ratingId, rating);
+            Rating ret = ratingClient.updateRating(userId, ratingId, stars, comment);
             callback.onRatingUpdated(ret);
         } catch (Throwable t) {
             callback.onUpdateFailed();
-        }
-    }
-
-    @Override
-    public void deleteRating(@NonNull long userId, @NonNull long ratingId, @NonNull DeleteRatingCallback callback) {
-        try {
-            ratingClient.deleteRating(userId, ratingId);
-            callback.onRatingDeleted();
-        } catch (Throwable t) {
-            callback.onDeleteFailed();
         }
     }
 

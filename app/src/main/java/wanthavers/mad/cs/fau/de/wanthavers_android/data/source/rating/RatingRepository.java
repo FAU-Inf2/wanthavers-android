@@ -35,12 +35,14 @@ public class RatingRepository implements RatingDataSource {
     }
 
     @Override
-    public void createRating(@NonNull long userId, @NonNull Rating rating, @NonNull final CreateRatingCallback callback) {
+    public void createRating(@NonNull long userId, @NonNull long desireId, @NonNull float stars, @NonNull String comment, @NonNull final CreateRatingCallback callback) {
         checkNotNull(userId);
-        checkNotNull(rating);
+        checkNotNull(desireId);
+        checkNotNull(stars);
+        checkNotNull(comment);
         checkNotNull(callback);
 
-        ratingRemoteDataSource.createRating(userId, rating, new CreateRatingCallback() {
+        ratingRemoteDataSource.createRating(userId, desireId, stars, comment, new CreateRatingCallback() {
             @Override
             public void onRatingCreated(Rating rating) {
                 callback.onRatingCreated(rating);
@@ -111,13 +113,14 @@ public class RatingRepository implements RatingDataSource {
     }
 
     @Override
-    public void updateRating(@NonNull final long userId, @NonNull final long ratingId, @NonNull final Rating rating, @NonNull final UpdateRatingCallback callback) {
+    public void updateRating(@NonNull long userId, @NonNull long ratingId, @NonNull float stars, @NonNull String comment, @NonNull final UpdateRatingCallback callback) {
         checkNotNull(userId);
         checkNotNull(ratingId);
-        checkNotNull(rating);
+        checkNotNull(stars);
+        checkNotNull(comment);
         checkNotNull(callback);
 
-        ratingRemoteDataSource.updateRating(userId, ratingId, rating, new UpdateRatingCallback() {
+        ratingRemoteDataSource.updateRating(userId, ratingId, stars, comment, new UpdateRatingCallback() {
             @Override
             public void onRatingUpdated(Rating rating) {
                 callback.onRatingUpdated(rating);
@@ -126,25 +129,6 @@ public class RatingRepository implements RatingDataSource {
             @Override
             public void onUpdateFailed() {
                 callback.onUpdateFailed();
-            }
-        });
-    }
-
-    @Override
-    public void deleteRating(@NonNull final long userId, @NonNull final long ratingId, @NonNull final DeleteRatingCallback callback) {
-        checkNotNull(userId);
-        checkNotNull(ratingId);
-        checkNotNull(callback);
-
-        ratingRemoteDataSource.deleteRating(userId, ratingId, new DeleteRatingCallback() {
-            @Override
-            public void onRatingDeleted() {
-                callback.onRatingDeleted();
-            }
-
-            @Override
-            public void onDeleteFailed() {
-                callback.onDeleteFailed();
             }
         });
     }
