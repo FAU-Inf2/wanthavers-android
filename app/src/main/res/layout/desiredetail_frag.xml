@@ -96,6 +96,18 @@
                     android:layout_alignParentEnd="true"
                     android:onClick="@{ () -> actionHandler.sendMessage(desire.creator.getId())}"/>
 
+                <ImageButton
+                    android:id="@+id/button_report_desire"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:text="@string/button_desire_message"
+                    android:src="@drawable/wh_report_desire_light"
+                    android:textColor="@color/colorMainText"
+                    android:background="@drawable/chat_border_me"
+                    android:layout_toLeftOf="@id/button_send_message"
+                    android:layout_marginRight="10dp"
+                    android:onClick="@{ () -> actionHandler.sendMessage(desire.creator.getId())}"/>
+
             </RelativeLayout>
 
 

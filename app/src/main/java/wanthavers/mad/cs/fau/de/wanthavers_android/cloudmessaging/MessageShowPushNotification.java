@@ -45,7 +45,8 @@ public class MessageShowPushNotification extends IntentService {
 
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.drawable.logo).setColor(getResources().getColor(R.color.colorPrimary))
+                .setColor(getResources().getColor(R.color.colorPrimary))
+                .setSmallIcon(R.drawable.logo)
                 .setContentTitle("wanthavers " + getResources().getString(R.string.new_message_from))
                 .setContentText(pushMessageNotification.message)
                 .setAutoCancel(true)

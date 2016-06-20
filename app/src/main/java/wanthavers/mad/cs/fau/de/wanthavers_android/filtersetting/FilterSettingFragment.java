@@ -38,6 +38,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.FiltersettingFrag
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.FiltersettingLocationPopupBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.FiltersettingLocationSetnameBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.DesireListActivity;
+import wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.DividerItemDecoration;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
 import wanthavers.mad.cs.fau.de.wanthavers_android.maps.MapActivity;
 
@@ -125,6 +126,7 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
         RecyclerView recyclerView = mFiltersettingLocationPopupBinding.locationList;
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
+        //recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), R.drawable.list_divider_mediumdark,1));
 
         //set up location list
         mLocationListAdapter = new LocationAdapter(new ArrayList<Location>(0), mFilterSettingActionHandler);

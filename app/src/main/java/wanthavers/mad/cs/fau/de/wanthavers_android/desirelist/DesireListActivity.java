@@ -62,7 +62,7 @@ public class DesireListActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             MenuView.ItemView chatItem = (MenuView.ItemView) findViewById(R.id.menu_chat);
-            Drawable iconNewMessage = getResources().getDrawable(R.drawable.wh_chat_icon_new_message,null);
+            Drawable iconNewMessage = getResources().getDrawable(R.drawable.wh_chat_icon_new_message_light,null);
             chatItem.setIcon(iconNewMessage);
         }
     };
@@ -261,8 +261,8 @@ public class DesireListActivity extends AppCompatActivity {
 
 
         MenuView.ItemView chatItem = (MenuView.ItemView) findViewById(R.id.menu_chat);
-        Drawable iconNewMessage = getResources().getDrawable(R.drawable.wh_chat_icon_new_message,null);
-        Drawable iconNoNewMessage = getResources().getDrawable(R.drawable.wh_chat_icon,null);
+        Drawable iconNewMessage = getResources().getDrawable(R.drawable.wh_chat_icon_new_message_light,null);
+        Drawable iconNoNewMessage = getResources().getDrawable(R.drawable.wh_chat_icon_light,null);
 
         if(chatItem != null) {
 

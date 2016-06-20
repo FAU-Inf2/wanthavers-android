@@ -12,8 +12,10 @@
     </data>
 
     <RelativeLayout
-        android:layout_width="300dp"
+        android:id="@+id/location_list_item"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="10dp"
         android:onClick="@{() -> actionHandler.buttonChooseLocation(location)}">
 
         <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
@@ -35,6 +37,36 @@
             android:layout_below="@id/custom_location_name"
             android:textColor="@color/colorMainTextDark"/>
 
+        <ImageButton
+            android:id="@+id/delete_location"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:text="@string/button_desire_message"
+            android:src="@drawable/wh_delete_icon_light"
+            android:textColor="@color/colorMainText"
+            android:background="@drawable/chat_border_me"
+            android:layout_alignParentEnd="true"
+            android:onClick=""/>
+
+        <ImageButton
+            android:id="@+id/update_location"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:text="@string/button_desire_message"
+            android:src="@drawable/wh_update_icon_light"
+            android:textColor="@color/colorMainText"
+            android:background="@drawable/chat_border_me"
+            android:layout_toLeftOf="@id/delete_location"
+            android:layout_marginRight="10dp"
+            android:onClick=""/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorMainTextMediumDark"
+            android:layout_below="@id/location_string"/>
+
     </RelativeLayout>
+
 
 </layout>
