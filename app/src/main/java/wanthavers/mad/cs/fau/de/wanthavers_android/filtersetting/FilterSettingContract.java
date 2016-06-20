@@ -59,7 +59,7 @@ public interface FilterSettingContract {
 
         void setFilter(DesireFilter desireFilter);
 
-        void setFilterWithInput();
+        void setFilterWithInput(Location location);
 
         void resetFilter();
 

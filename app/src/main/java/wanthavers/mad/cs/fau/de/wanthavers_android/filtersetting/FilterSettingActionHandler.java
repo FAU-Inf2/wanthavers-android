@@ -22,7 +22,7 @@ public class FilterSettingActionHandler {
         mFilterSettingFragBinding = filtersettingFragBinding;
         priceClicked = 0;
         colorPrimary = mFilterSettingFragBinding.getRoot().getResources().getColor(R.color.colorPrimary);
-        colorMainText = mFilterSettingFragBinding.getRoot().getResources().getColor(R.color.colorMainText);
+        colorMainText = mFilterSettingFragBinding.getRoot().getResources().getColor(R.color.colorSecondary);
     }
 
     public void buttonChangeLocation() {

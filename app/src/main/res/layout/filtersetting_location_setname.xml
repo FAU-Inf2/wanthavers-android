@@ -22,7 +22,7 @@
         <RelativeLayout
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:background="@color/colorMainText">
+            android:background="@color/colorSecondary">
             <!-- onclick here -->
 
             <EditText
@@ -64,7 +64,7 @@
                     android:text="@string/location_choose_name_submit"
                     android:textAllCaps="true"
                     android:textColor="@color/colorMainTextDark"
-                    android:background="@color/colorMainText"
+                    android:background="@color/colorSecondary"
                     android:layout_below="@+id/chosen_location_string"
                     android:onClick="@{() -> actionHandler.buttonSubmitLocationName(location)}"/>
 
@@ -88,7 +88,7 @@
                     android:text="@string/button_cancel"
                     android:textAllCaps="true"
                     android:textColor="@color/colorMainTextDark"
-                    android:background="@color/colorMainText"
+                    android:background="@color/colorSecondary"
                     android:layout_below="@+id/chosen_location_string"
                     android:onClick="@{() -> actionHandler.buttonCancelLocationName()}"/>
 

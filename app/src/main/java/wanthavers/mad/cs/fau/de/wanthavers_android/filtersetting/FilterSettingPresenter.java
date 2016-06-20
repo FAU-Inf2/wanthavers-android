@@ -85,6 +85,7 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
 
             @Override
             public void onError() {
+                mFilterSettingView.closeLocationList();
                 mFilterSettingView.showGetSavedLocationsError();
             }
         });
@@ -103,6 +104,7 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
 
             @Override
             public void onError() {
+                mFilterSettingView.closeLocationNameDialog();
                 mFilterSettingView.showCreateLocationError();
             }
         });
@@ -130,7 +132,7 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
 
 
     @Override
-    public void setFilterWithInput(){
+    public void setFilterWithInput(Location location){
 
         DesireFilter desireFilter = new DesireFilter();
 
@@ -183,42 +185,39 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
         System.out.println(desireFilter.getRating_min());
 
         //Location
-        /*Location location = mFilterSettingView.getLocation();
-        if (location == null) {
-            return;
+        if (location != null) {
+            desireFilter.setLon(location.getLon());
+            desireFilter.setLat(location.getLat());
+
+            //Radius
+            //TODO: differ between miles and kilometres?
+            //now only km
+            String radius = (String) radiusView.getSelectedItem();
+            String[] array = mFilterSettingView.getRadiusArray();
+            if (radius.equals(array[0])) {
+                desireFilter.setRadius(1.0);
+            } else if (radius.equals(array[1])) {
+                desireFilter.setRadius(2.0);
+            } else if (radius.equals(array[2])) {
+                desireFilter.setRadius(5.0);
+            } else if (radius.equals(array[3])) {
+                desireFilter.setRadius(10.0);
+            } else {
+                //no restriction
+            }
         }
-        desireFilter.setLon(location.getLon());
-        desireFilter.setLat(location.getLat());
+
         System.out.println(desireFilter.getLat());
         System.out.println(desireFilter.getLon());
-        System.out.println(location.getFullAddress());*/
+        //System.out.println(location.getFullAddress());
 
-        //Radius
-        //TODO: differ between miles and kilometres?
-        //now only km
-        String radius = (String) radiusView.getSelectedItem();
-        String[] array = mFilterSettingView.getRadiusArray();
-        if (radius.equals(array[0])) {
-            desireFilter.setRadius(1.0);
-        } else if (radius.equals(array[1])) {
-            desireFilter.setRadius(2.0);
-        } else if (radius.equals(array[2])) {
-            desireFilter.setRadius(5.0);
-        } else if (radius.equals(array[3])) {
-            desireFilter.setRadius(10.0);
-        } else {
-            //no restriction
-        }
         System.out.println(desireFilter.getRadius());
 
         setFilter(desireFilter);
 
-        //mFilterSettingView.showFilterChangeSuccess();
-
-        mFilterSettingView.showDesireList();
         mFilterSettingView.showFilterChangeSuccess();
 
-        //mFilterSettingView.showDesireList();*/
+        mFilterSettingView.showDesireList();
     }
 
     @Override

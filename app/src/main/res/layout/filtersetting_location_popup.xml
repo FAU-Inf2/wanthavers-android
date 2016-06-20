@@ -18,7 +18,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorMainText">
+            android:background="@color/colorSecondary">
 
             <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                 android:id="@+id/location_title"
