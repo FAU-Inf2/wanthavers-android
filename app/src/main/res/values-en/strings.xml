@@ -100,6 +100,13 @@
     <string name="transaction_summary">&#160;TRANSACTION SUMMARY&#160;</string>
     <string name="leave_your_rating_title">LEAVE YOUR RATING</string>
     <string name="button_submit">SUBMIT</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="location_choose_location_title">Choose a location</string>
+    <string name="location_choose_a_name">Choose a name</string>
+    <string name="location_choose_name_submit">Submit</string>
+    <string name="create_location_error">Error while creating new location</string>
+    <string name="get_saved_locations_error">Error while loading saved locations</string>
+    <string name="location_name_not_set">No name set yet</string>
 
 
     <string-array name="currencies">

@@ -15,7 +15,6 @@ public class GetHaverList extends UseCase<GetHaverList.RequestValues, GetHaverLi
 
     private final HaverRepository mHaverRepository;
 
-    //TODO refactoring
     public GetHaverList(@NonNull HaverRepository haverRepository) {
         mHaverRepository = checkNotNull(haverRepository, "haverRepository cannot be null!");
     }

@@ -93,7 +93,6 @@ public class RatingFragment extends Fragment implements RatingContract.View {
             final ImageView profileView = mRatingFragBinding.imageWanter;
             profileView.setImageResource(R.drawable.no_pic);
         }
-        mPresenter.getAcceptedHaver();
     }
 
     @Override

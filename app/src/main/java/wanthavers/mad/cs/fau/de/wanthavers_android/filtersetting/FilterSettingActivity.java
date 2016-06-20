@@ -5,12 +5,18 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.WindowManager;
 
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.category.CategoryLocalDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.category.CategoryRemoteDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.category.CategoryRepository;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.location.LocationLocalDataSource;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.location.LocationRemoteDataSource;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.location.LocationRepository;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.CreateLocation;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetSavedLocations;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetSubcategories;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.ActivityUtils;
 
@@ -47,8 +53,11 @@ public class FilterSettingActivity extends AppCompatActivity {
         checkNotNull(context);
 
         CategoryRepository categoryRepository = CategoryRepository.getInstance(CategoryRemoteDataSource.getInstance(getApplicationContext()), CategoryLocalDataSource.getInstance(context));
+        LocationRepository locationRepository = LocationRepository.getInstance(LocationRemoteDataSource.getInstance(getApplicationContext()), LocationLocalDataSource.getInstance(context));
 
-        mFilterSettingPresenter = new FilterSettingPresenter(UseCaseHandler.getInstance(), filterSettingFragment, this, new GetSubcategories(categoryRepository));
+        mFilterSettingPresenter = new FilterSettingPresenter(UseCaseHandler.getInstance(), filterSettingFragment, this,
+                new GetSubcategories(categoryRepository), new CreateLocation(locationRepository),
+                new GetSavedLocations(locationRepository));
     }
 
     @Override
@@ -56,5 +65,4 @@ public class FilterSettingActivity extends AppCompatActivity {
         onBackPressed();
         return true;
     }
-
 }

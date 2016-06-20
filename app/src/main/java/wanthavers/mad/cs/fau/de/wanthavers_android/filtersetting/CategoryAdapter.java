@@ -14,13 +14,13 @@ import java.util.List;
 import de.fau.cs.mad.wanthavers.common.Category;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.CategoryItemBinding;
 
-public class FilterSettingAdapter extends ArrayAdapter<Category> {
+public class CategoryAdapter extends ArrayAdapter<Category> {
 
     private List<Category> mCategoryList;
     private List<Category> mFilteredCategories = new ArrayList<>();
     private FilterSettingActionHandler mFilterSettingActionHandler;
 
-    public FilterSettingAdapter(Context context, int resource, List<Category> categoryList, FilterSettingActionHandler filterSettingActionHandler) {
+    public CategoryAdapter(Context context, int resource, List<Category> categoryList, FilterSettingActionHandler filterSettingActionHandler) {
         super(context, 0, categoryList);
         setList(categoryList);
 
@@ -82,11 +82,11 @@ public class FilterSettingAdapter extends ArrayAdapter<Category> {
 
     private class CustomFilter extends Filter {
 
-        FilterSettingAdapter mAdapter;
+        CategoryAdapter mAdapter;
         List<Category> mOriginalList;
         List<Category> mFilteredList;
 
-        public CustomFilter(FilterSettingAdapter adapter, List<Category> originalList) {
+        public CustomFilter(CategoryAdapter adapter, List<Category> originalList) {
             super();
             mAdapter = adapter;
             mOriginalList = originalList;
