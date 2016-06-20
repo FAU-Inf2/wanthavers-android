@@ -7,6 +7,7 @@ import org.glassfish.jersey.client.proxy.WebResourceFactory;
 import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.Desire;
+import de.fau.cs.mad.wanthavers.common.Location;
 import de.fau.cs.mad.wanthavers.common.User;
 import de.fau.cs.mad.wanthavers.common.rest.api.LoginResource;
 import de.fau.cs.mad.wanthavers.common.rest.api.UserResource;
@@ -54,5 +55,9 @@ public class UserClient extends RestClient {
 
     public User login() {
         return loginEndpoint.login(null);
+    }
+
+    public List<Location> getSavedLocations() {
+        return userEndpoint.getSavedLocations(null);
     }
 }

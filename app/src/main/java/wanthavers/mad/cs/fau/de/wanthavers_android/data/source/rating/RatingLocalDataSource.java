@@ -31,13 +31,13 @@ public class RatingLocalDataSource implements RatingDataSource {
     }
 
     @Override
-    public void createRating(@NonNull long userId, @NonNull long desireId, @NonNull float stars, @NonNull String comment, @NonNull CreateRatingCallback callback) {
+    public void createRating(@NonNull long rateeId, @NonNull long desireId, @NonNull float stars, @NonNull String comment, @NonNull CreateRatingCallback callback) {
         //TODO: alter this method when we decide to store ratings locally
         callback.onCreateFailed();
     }
 
     @Override
-    public void getRating(@NonNull long userId, @NonNull long ratingId, @NonNull GetRatingCallback callback) {
+    public void getRating(@NonNull long rateeId, @NonNull long ratingId, @NonNull GetRatingCallback callback) {
         //TODO: alter this method when we decide to store ratings locally
         callback.onDataNotAvailable();
     }
@@ -49,7 +49,7 @@ public class RatingLocalDataSource implements RatingDataSource {
     }
 
     @Override
-    public void updateRating(@NonNull long userId, @NonNull long ratingId, @NonNull float stars, @NonNull String comment, @NonNull UpdateRatingCallback callback) {
+    public void updateRating(@NonNull long rateeId, @NonNull long ratingId, @NonNull float stars, @NonNull String comment, @NonNull UpdateRatingCallback callback) {
         //TODO: alter this method when we decide to store ratings locally
         callback.onUpdateFailed();
     }
