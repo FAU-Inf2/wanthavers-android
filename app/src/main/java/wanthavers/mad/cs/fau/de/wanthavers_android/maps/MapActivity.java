@@ -20,8 +20,11 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -35,6 +38,7 @@ import java.util.List;
 import java.util.Locale;
 
 import android.Manifest;
+import android.widget.Toast;
 
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate.DesireCreateActivity3rdStep;
@@ -57,6 +61,7 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
     private int centerY = -1;
 
     private TextView mLocationTextView;
+    private TextView mLocationTextHeaderView;
     private LocationManager mLocationManager;
     private GpsLocationTracker mGpsLocationTracker;
 
@@ -70,6 +75,27 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
         if(!mGpsLocationTracker.isGpsEnabled()){
            showAlert();
         }
+
+        mLocationTextView = (TextView) findViewById(R.id.location_text_view);
+        mLocationTextHeaderView = (TextView) findViewById(R.id.location_text_view_header);
+        mMarkerParentView = findViewById(R.id.marker_view_incl);
+        mMarkerImageView = (ImageView) findViewById(R.id.marker_icon_view);
+
+        mLocationTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Log.d("TextView", "1");
+                editAddress();
+            }
+        });
+
+        mLocationTextHeaderView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               // Log.d("TextView", "2");
+                editAddress();
+            }
+        });
 
         initializeUI();
 
@@ -89,9 +115,7 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
     }
 
     private void initializeUI() {
-        mLocationTextView = (TextView) findViewById(R.id.location_text_view);
-        mMarkerParentView = findViewById(R.id.marker_view_incl);
-        mMarkerImageView = (ImageView) findViewById(R.id.marker_icon_view);
+
         double latitude = mGpsLocationTracker.getLatitude();
         double longitude = mGpsLocationTracker.getLongitude();
         LatLng latLng = new LatLng(latitude, longitude);
@@ -129,7 +153,7 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
 
             //users location according to GPS or Network
             //or if permissions are not granted computer science tower uni erlangen
-            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16.0f));
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15.0f));
 
 
             // check if map is created successfully or not
@@ -197,6 +221,70 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
         }
     }
 
+    private void updateAdress(String loc){
+
+        Geocoder coder = new Geocoder(this);
+        List<Address> address;
+        LatLng latLng = new LatLng(0,0);
+
+        try {
+            address = coder.getFromLocationName(loc,5);
+            if (address==null) {
+                return;
+            }
+            Address location=address.get(0);
+            location.getLatitude();
+            location.getLongitude();
+
+            latLng = new LatLng(location.getLatitude(), location.getLongitude());
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        updateLocation(latLng);
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15.0f));
+        googleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+
+    }
+
+    private void editAddress(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.set_location));
+        builder.setIcon(android.R.drawable.ic_menu_mylocation);
+        //builder.setMessage("");
+
+        // EditText view to get user input
+        final EditText input = new EditText(this);
+        input.setText(mLocationTextView.getText());
+        builder.setView(input);
+
+        builder.setPositiveButton(getString(R.string.Set_location_ok), new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int whichButton) {
+                String address = input.getText().toString();
+                updateAdress(address);
+
+                return;
+            }
+        });
+
+        builder.setNegativeButton(getString(R.string.Set_location_cancel), new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                return;
+            }
+        });
+
+        builder.show();
+
+    }
+
+
+
     public void showMessage(String message) {
         Snackbar.make(mMarkerParentView , message, Snackbar.LENGTH_LONG).show();
     }
@@ -260,9 +348,11 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
     }
     @Override
         public void onBackPressed(){
-            Intent intent = new Intent();
-            intent.putExtra("desireLocation", "");
-            setResult(1, intent);
+            if(getIntent().getExtras().getString("desireTitle").compareTo("") == 0) {
+                Intent intent = new Intent();
+                intent.putExtra("desireLocation", "");
+                setResult(1, intent);
+            }
             super.onBackPressed();
         }
 }
