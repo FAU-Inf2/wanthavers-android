@@ -6,6 +6,8 @@ import android.support.multidex.MultiDex;
 import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;
 
+import java.lang.reflect.Field;
+
 import de.fau.cs.mad.wanthavers.common.DesireFilter;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.ormlite.FilterDatabaseHelper;
 
@@ -27,10 +29,6 @@ public class WantHaversApplication extends Application {
         //built.setIndicatorsEnabled(true);
         //built.setLoggingEnabled(true);
         Picasso.setSingletonInstance(built);
-
-
-
-
     }
 
 

@@ -76,6 +76,16 @@ public class ChatDetailPresenter implements ChatDetailContract.Presenter {
 
                         if(loadOldMessages) {
 
+                            int sizeMessages = mMessageList.size();
+                            int sizeNewMessages = messageList.size();
+
+                            if (sizeMessages > 0 && sizeNewMessages > 0) {
+                                if (messageList.get(sizeNewMessages - 1).getObjectId().equals(mMessageList.get(0).getObjectId())) {
+                                    messageList.remove(0);
+                                }
+                            }
+
+
                             messageList.addAll(mMessageList);
                             mMessageList.clear();
                             mMessageList.addAll(messageList);

@@ -90,9 +90,6 @@ public class DesireListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.desirelist_act);
 
-        //Reset Filter
-        WantHaversApplication.setCurDesireFilter(new DesireFilter());
-
         DesireListType desireListType = (DesireListType) getIntent().getSerializableExtra(EXTRA_FRAGMENT_ID);
 
         if(desireListType == null){
@@ -209,12 +206,15 @@ public class DesireListActivity extends AppCompatActivity {
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
                         switch (menuItem.getItemId()) {
                             case R.id.listDesires_navigation_menu_item:
+                                WantHaversApplication.setCurDesireFilter(new DesireFilter());
                                 mDesireListPresenter.openAllDesires();
                                 break;
                             case R.id.myDesires_navigation_menu_item:
+                                WantHaversApplication.setCurDesireFilter(new DesireFilter());
                                 mDesireListPresenter.openMyDesires();
                                 break;
                             case R.id.myTransactions_navigation_menu_item:
+                                WantHaversApplication.setCurDesireFilter(new DesireFilter());
                                 mDesireListPresenter.openMyTransactions();
                                 break;
                             case R.id.settings_navigation_menu_item:

@@ -97,6 +97,17 @@ public class ChatDetailFragment extends Fragment implements  ChatDetailContract.
         );
 
 
+        mRecyclerView.setOnScrollChangeListener(new RecyclerView.OnScrollChangeListener() {
+
+            @Override
+            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+
+                if(!v.canScrollVertically(1)){
+                    mPresenter.loadMessages(true,false);
+                }
+            }
+        });
+
         swipeRefreshLayout.setScrollUpChild(mRecyclerView);
 
 
