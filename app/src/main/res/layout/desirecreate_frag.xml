@@ -20,25 +20,6 @@
         android:focusableInTouchMode="true">
 
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/button_create_desire_first_step"
-            android:id="@+id/button_1st_step"
-            android:layout_alignParentLeft="false"
-            android:layout_alignParentStart="true"
-            android:background="@color/colorPrimary"
-            android:textColor="@color/colorSecondary"
-            android:textSize="20sp"
-            android:textAlignment="center"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:onClick="@{() -> presenter.createNextDesireCreateStep()}"
-            />
-
-
-
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
