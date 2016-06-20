@@ -74,7 +74,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/small_price"
-                        android:textColor="@color/colorMainText"
+                        android:textColor="@color/colorSecondary"
                         android:background="@color/colorPrimary"
                         android:onClick="@{() -> actionHandler.buttonChangeColor(1)}"/>
                 </FrameLayout>
@@ -96,7 +96,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/medium_price"
-                        android:textColor="@color/colorMainText"
+                        android:textColor="@color/colorSecondary"
                         android:background="@color/colorPrimary"
                         android:onClick="@{() -> actionHandler.buttonChangeColor(2)}"/>
                 </FrameLayout>
@@ -118,7 +118,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/large_price"
-                        android:textColor="@color/colorMainText"
+                        android:textColor="@color/colorSecondary"
                         android:background="@color/colorPrimary"
                         android:onClick="@{() -> actionHandler.buttonChangeColor(3)}"/>
                 </FrameLayout>
@@ -196,8 +196,10 @@
                     android:id="@+id/button_change_location"
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="wrap_content"
-                    android:layout_height="45dp"
+                    android:layout_height="30dp"
                     android:text="@string/change_button"
+                    android:padding="5dp"
+                    android:background="@drawable/border_scondary_nocorner"
                     android:textColor="@color/colorPrimary"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"
@@ -245,6 +247,7 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
+                android:background="@drawable/border_scondary_nocorner"
                 android:text="@string/button_apply_filter"
                 android:textColor="@color/colorPrimary"
                 android:layout_below="@+id/select_radius"
@@ -256,7 +259,7 @@
 
             <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextButton
                 android:id="@+id/button_reset_filter"
-                style="?android:attr/buttonStyleSmall"
+                android:background="@drawable/border_scondary_nocorner"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:text="@string/button_reset_filter"
