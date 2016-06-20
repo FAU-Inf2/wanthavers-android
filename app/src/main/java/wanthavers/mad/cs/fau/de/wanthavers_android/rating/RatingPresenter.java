@@ -50,6 +50,7 @@ public class RatingPresenter implements RatingContract.Presenter {
     @Override
     public void start() {
         getDesire();
+        getAcceptedHaver();
     }
 
     public void getDesire(){
@@ -103,10 +104,11 @@ public class RatingPresenter implements RatingContract.Presenter {
         }
         RatingBar ratingBar = (RatingBar) mActivity.findViewById(R.id.rating_ratingbar);
         float rating_value = ratingBar.getRating();
-        Rating rating = new Rating (userId, rating_value);
+        //TODO: comment
         String comment = "";
         createRating(userId, desire.getId(), rating_value, comment);
-            //TODO: indicator if user has already rated
+
+        //TODO: indicator if user has already rated
 
         //TODO: Julian open new screen
     }

@@ -21,7 +21,10 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCase;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.WantHaversApplication;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.CreateLocation;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetSavedLocations;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetSubcategories;
+import wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView;
 
 public class FilterSettingPresenter implements FilterSettingContract.Presenter {
 
@@ -29,13 +32,18 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
     private final UseCaseHandler mUseCaseHandler;
     private final FilterSettingActivity mActivity;
     private final GetSubcategories mGetSubcategories;
+    private final CreateLocation mCreateLocation;
+    private final GetSavedLocations mGetSavedLocations;
 
     public FilterSettingPresenter(@NonNull UseCaseHandler useCaseHandler, @NonNull FilterSettingContract.View filterSettingView,
-                                  @NonNull FilterSettingActivity filterSettingActivity,  @NonNull GetSubcategories getSubcategories) {
+                                  @NonNull FilterSettingActivity filterSettingActivity,  @NonNull GetSubcategories getSubcategories,
+                                  @NonNull CreateLocation createLocation, @NonNull GetSavedLocations getSavedLocations) {
         mUseCaseHandler = checkNotNull(useCaseHandler, "useCaseHandler cannot be null");
         mFilterSettingView = checkNotNull(filterSettingView, "filtersetting view cannot be null");
         mActivity = checkNotNull(filterSettingActivity, "filtersetting activtiy cannot be null");
         mGetSubcategories = checkNotNull(getSubcategories);
+        mCreateLocation = checkNotNull(createLocation);
+        mGetSavedLocations = checkNotNull(getSavedLocations);
 
         mFilterSettingView.setPresenter(this);
     }
@@ -65,6 +73,56 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
         });
     }
 
+    public void getSavedLocations() {
+
+        GetSavedLocations.RequestValues requestValues = new GetSavedLocations.RequestValues();
+
+        mUseCaseHandler.execute(mGetSavedLocations, requestValues, new UseCase.UseCaseCallback<GetSavedLocations.ResponseValue>() {
+            @Override
+            public void onSuccess(GetSavedLocations.ResponseValue response) {
+                mFilterSettingView.showSavedLocations(response.getLocations());
+            }
+
+            @Override
+            public void onError() {
+                mFilterSettingView.closeLocationList();
+                mFilterSettingView.showGetSavedLocationsError();
+            }
+        });
+
+    }
+
+    public void createLocation(Location location) {
+
+        CreateLocation.RequestValues requestValues = new CreateLocation.RequestValues(location);
+
+        mUseCaseHandler.execute(mCreateLocation, requestValues, new UseCase.UseCaseCallback<CreateLocation.ResponseValue>() {
+            @Override
+            public void onSuccess(CreateLocation.ResponseValue response) {
+                setLocation(response.getLocation());
+            }
+
+            @Override
+            public void onError() {
+                mFilterSettingView.closeLocationNameDialog();
+                mFilterSettingView.showCreateLocationError();
+            }
+        });
+
+    }
+
+    @Override
+    public void finishLocationCreate(Location location) {
+        String locationName = mFilterSettingView.getNameInput();
+        if (locationName == null) {
+            //show no empty string
+            return;
+        }
+        location.setDescription(locationName);
+        createLocation(location);
+        mFilterSettingView.closeLocationNameDialog();
+    }
+
     @Override
     public void resetFilter(){
         DesireFilter desireFilter = new DesireFilter();
@@ -74,7 +132,7 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
 
 
     @Override
-    public void setFilterWithInput(){
+    public void setFilterWithInput(Location location){
 
         DesireFilter desireFilter = new DesireFilter();
 
@@ -121,42 +179,43 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
 
         //Min_Rating
         float minRating = minRatingBar.getRating();
-        desireFilter.setRating_min(minRating);
+        if(minRating != 0.0) {
+            desireFilter.setRating_min(minRating);
+        }
         System.out.println(desireFilter.getRating_min());
 
         //Location
-        //TODO: make local list with names
-        Location location = mFilterSettingView.getLocation();
-        if (location == null) {
-            return;
+        if (location != null) {
+            desireFilter.setLon(location.getLon());
+            desireFilter.setLat(location.getLat());
+
+            //Radius
+            //TODO: differ between miles and kilometres?
+            //now only km
+            String radius = (String) radiusView.getSelectedItem();
+            String[] array = mFilterSettingView.getRadiusArray();
+            if (radius.equals(array[0])) {
+                desireFilter.setRadius(1.0);
+            } else if (radius.equals(array[1])) {
+                desireFilter.setRadius(2.0);
+            } else if (radius.equals(array[2])) {
+                desireFilter.setRadius(5.0);
+            } else if (radius.equals(array[3])) {
+                desireFilter.setRadius(10.0);
+            } else {
+                //no restriction
+            }
         }
-        desireFilter.setLon(location.getLon());
-        desireFilter.setLat(location.getLat());
+
         System.out.println(desireFilter.getLat());
         System.out.println(desireFilter.getLon());
-        System.out.println(location.getFullAddress());
+        //System.out.println(location.getFullAddress());
 
-        //Radius
-        //TODO: differ between miles and kilometres
-        //now only km
-        String radius = (String) radiusView.getSelectedItem();
-        String[] array = mFilterSettingView.getRadiusArray();
-        if (radius.equals(array[0])) {
-            desireFilter.setRadius(1.0);
-        } else if (radius.equals(array[1])) {
-            desireFilter.setRadius(2.0);
-        } else if (radius.equals(array[2])) {
-            desireFilter.setRadius(5.0);
-        } else if (radius.equals(array[3])) {
-            desireFilter.setRadius(10.0);
-        } else {
-            //no restriction
-        }
         System.out.println(desireFilter.getRadius());
 
         setFilter(desireFilter);
 
-        //mFilterSettingView.showFilterChangeSuccess();
+        mFilterSettingView.showFilterChangeSuccess();
 
         mFilterSettingView.showDesireList();
     }
@@ -169,5 +228,31 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
     @Override
     public void openMap() {
         mFilterSettingView.showMap();
+    }
+
+    @Override
+    public void openLocationList() {
+        mFilterSettingView.showLocationList();
+        //TODO: loading start
+        getSavedLocations();
+        //TODO: loading end
+
+    }
+
+    @Override
+    public void closeLocationList() {
+        mFilterSettingView.closeLocationList();
+    }
+
+    @Override
+    public void closeNameSelectionDialog() {
+        mFilterSettingView.closeLocationNameDialog();
+    }
+
+    @Override
+    public void setLocation(Location location) {
+        mFilterSettingView.setLocation(location);
+        mFilterSettingView.showLocationInView();
+        mFilterSettingView.showRadiusOption();
     }
 }

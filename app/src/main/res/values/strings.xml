@@ -137,6 +137,13 @@
     <string name="declined_location_runtime_permission">Um die App benutzen zu können, stimme bitte den Standortdienst Berechtigungen zu</string>
     <string name="desire_detail_rating_title">Rating für diese Transaktion</string>
     <string name="chat_overview">Chats</string>
+    <string name="button_cancel">Abbruch</string>
+    <string name="location_choose_location_title">Wähle einen Ort</string>
+    <string name="location_choose_a_name">Wähle einen Namen</string>
+    <string name="location_choose_name_submit">Bestätigen</string>
+    <string name="create_location_error">Fehler beim Erstellen eines neuen Ortes</string>
+    <string name="get_saved_locations_error">Gehler beim Laden gespeicherter Orte</string>
+    <string name="location_name_not_set">Noch kein Name ausgewählt</string>
     <string name="Set_location_ok">Confirm</string>
     <string name="Set_location_cancel">Cancel</string>
 

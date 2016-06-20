@@ -298,7 +298,8 @@
 
             </RelativeLayout>
 
-            RelativeLayout
+            <RelativeLayout
+                android:id="@+id/wanter_views"
                 android:layout_marginBottom="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

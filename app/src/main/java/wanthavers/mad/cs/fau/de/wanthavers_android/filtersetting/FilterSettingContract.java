@@ -1,5 +1,7 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.filtersetting;
 
+import android.view.View;
+
 import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.Category;
@@ -19,7 +21,7 @@ public interface FilterSettingContract {
 
         void showMap();
 
-        Location getLocation();
+        //Location getLocation();
 
         int getPriceClicked();
 
@@ -31,16 +33,46 @@ public interface FilterSettingContract {
 
         void showFilterChangeSuccess();
 
+        void showLocationList();
+
+        void closeLocationList();
+
+        void showCreateLocationError();
+
+        void showSavedLocations(List<Location> locationList);
+
+        void showGetSavedLocationsError();
+
+        void closeLocationNameDialog();
+
+        String getNameInput();
+
+        void showLocationInView();
+
+        void showRadiusOption();
+
+        void setLocation(Location location);
+
     }
 
     interface Presenter extends BasePresenter {
 
         void setFilter(DesireFilter desireFilter);
 
-        void setFilterWithInput();
+        void setFilterWithInput(Location location);
 
         void resetFilter();
 
         void openMap();
+
+        void openLocationList();
+
+        void closeLocationList();
+
+        void closeNameSelectionDialog();
+
+        void finishLocationCreate(Location location);
+
+        void setLocation(Location location);
     }
 }

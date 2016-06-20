@@ -1,26 +1,32 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.filtersetting;
 
-import android.annotation.SuppressLint;
+import android.app.ActionBar;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
+import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.Button;
-import android.widget.RatingBar;
+import android.widget.FrameLayout;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +35,10 @@ import de.fau.cs.mad.wanthavers.common.Category;
 import de.fau.cs.mad.wanthavers.common.Location;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.FiltersettingFragBinding;
+import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.FiltersettingLocationPopupBinding;
+import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.FiltersettingLocationSetnameBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.DesireListActivity;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
 import wanthavers.mad.cs.fau.de.wanthavers_android.maps.MapActivity;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -37,12 +46,11 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class FilterSettingFragment extends Fragment implements FilterSettingContract.View {
     private FilterSettingContract.Presenter mPresenter;
     private FiltersettingFragBinding mFilterSettingFragBinding;
-    private FilterSettingAdapter mListAdapter;
+    private CategoryAdapter mCategoryListAdapter;
     private FilterSettingActionHandler mFilterSettingActionHandler;
-
-    private String mLocation;
-    private double mLat;
-    private double mLon;
+    private LocationAdapter mLocationListAdapter;
+    private Dialog mLocationList, mSetCustomLocationName;
+    private FiltersettingLocationSetnameBinding mFiltersettingLocationSetnameBinding;
 
     public FilterSettingFragment() {
         //Requires empty public constructor
@@ -75,11 +83,10 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
         mFilterSettingFragBinding.setPresenter(mPresenter);
 
         mFilterSettingActionHandler = new FilterSettingActionHandler(mPresenter, mFilterSettingFragBinding);
-
         mFilterSettingFragBinding.setActionHandler(mFilterSettingActionHandler);
 
         //Set up autocompletetextview
-        mListAdapter = new FilterSettingAdapter(getContext(), R.layout.category_item, new ArrayList<Category>(0), mFilterSettingActionHandler);
+        mCategoryListAdapter = new CategoryAdapter(getContext(), R.layout.category_item, new ArrayList<Category>(0), mFilterSettingActionHandler);
         final InstantAutoComplete autoCompleteTextView = (InstantAutoComplete) mFilterSettingFragBinding.spinnerCategory;
         //autoCompleteTextView.setThreshold(0);
         autoCompleteTextView.setShowAlways(true);
@@ -88,10 +95,10 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Category selected = (Category) parent.getItemAtPosition(position);
-                mListAdapter.setSelected(selected);
+                mCategoryListAdapter.setSelected(selected);
             }
         });*/
-        autoCompleteTextView.setAdapter(mListAdapter);
+        autoCompleteTextView.setAdapter(mCategoryListAdapter);
 
         //Set up radius spinner
         Spinner spinner = (Spinner) mFilterSettingFragBinding.spinnerRadius;
@@ -102,6 +109,37 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
         spinner.setSelection(defaultLocationId);
 
         return mFilterSettingFragBinding.getRoot();
+    }
+
+    @Override
+    public void showLocationList() {
+        mLocationList = new Dialog(getContext());
+
+        FiltersettingLocationPopupBinding mFiltersettingLocationPopupBinding = DataBindingUtil
+                .inflate(LayoutInflater.from(getContext()), R.layout.filtersetting_location_popup, null, false);
+        mLocationList.setContentView(mFiltersettingLocationPopupBinding.getRoot());
+
+        mFiltersettingLocationPopupBinding.setActionHandler(mFilterSettingActionHandler);
+
+        //use Linear Layout Manager
+        RecyclerView recyclerView = mFiltersettingLocationPopupBinding.locationList;
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
+
+        //set up location list
+        mLocationListAdapter = new LocationAdapter(new ArrayList<Location>(0), mFilterSettingActionHandler);
+        recyclerView.setAdapter(mLocationListAdapter);
+
+        mFiltersettingLocationPopupBinding.fabAddLocation.bringToFront();
+
+        mLocationList.show();
+        Window window = mLocationList.getWindow();
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, 1000);
+    }
+
+    @Override
+    public void closeLocationList() {
+        mLocationList.dismiss();
     }
 
     @Override
@@ -117,7 +155,7 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
         startActivityForResult(intent, 1);
     }
 
-    @Override
+    /*@Override
     public Location getLocation() {
         Location ret = new Location();
         ret.setLat(mLat);
@@ -126,7 +164,7 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
 
         return ret;
 
-    }
+    }*/
 
     @Override
     public String[] getRadiusArray() {
@@ -135,8 +173,8 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
 
     @Override
     public void showCategories(List<Category> categories) {
-        mListAdapter.replaceData(categories);
-        mListAdapter.getFilter().filter(null);
+        mCategoryListAdapter.replaceData(categories);
+        mCategoryListAdapter.getFilter().filter(null);
     }
 
     private void showMessage(String message) {
@@ -159,6 +197,16 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
     }
 
     @Override
+    public void showCreateLocationError() {
+        showMessage(getString(R.string.create_location_error));
+    }
+
+    @Override
+    public void showGetSavedLocationsError() {
+        showMessage(getString(R.string.get_saved_locations_error));
+    }
+
+    @Override
     public int getPriceClicked() {
         return mFilterSettingActionHandler.getPriceClicked();
     }
@@ -173,10 +221,10 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
             return category;
         }
 
-        for (int i = 0; i < mListAdapter.getCount(); i++) {
-            String tmp = mListAdapter.getItem(i).getName();
+        for (int i = 0; i < mCategoryListAdapter.getCount(); i++) {
+            String tmp = mCategoryListAdapter.getItem(i).getName();
             if (input.compareTo(tmp) == 0) {
-                return mListAdapter.getItem(i);
+                return mCategoryListAdapter.getItem(i);
             }
         }
 
@@ -185,17 +233,77 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
         return null;
     }
 
+    @Override
+    public void showSavedLocations(List<Location> locationList) {
+        mLocationListAdapter.replaceData(locationList);
+    }
+
     public void onActivityResult(int requestCode, int resultCode,
                                     Intent data) {
         if(!data.getExtras().getString("desireLocation").equals("")) { //checks if backbutton is pressed
-            mLocation = data.getExtras().getString("desireLocation");
-            mLat = Double.parseDouble(data.getExtras().getString("desireLocationLat"));
-            mLon = Double.parseDouble(data.getExtras().getString("desireLocationLng"));
-            System.out.println("location: " + mLocation);
-            System.out.println("lat: " + mLat);
-            System.out.println("lon: " + mLon);
-            mFilterSettingFragBinding.selectedLocation.setTextColor(getResources().getColor(R.color.colorMainTextDark));
-            mFilterSettingFragBinding.selectedLocation.setText(mLocation);
+
+            //get values
+            String locationName = data.getExtras().getString("desireLocation");
+            double lat = Double.parseDouble(data.getExtras().getString("desireLocationLat"));
+            double lon = Double.parseDouble(data.getExtras().getString("desireLocationLng"));
+
+            long userId = new DesireLogic(getContext()).getLoggedInUserId();
+
+            //Create Location object
+            Location location = new Location();
+            location.setFullAddress(locationName);
+            location.setLat(lat);
+            location.setLon(lon);
+            location.setUserId(userId);
+
+            //set custom location name dialog
+            closeLocationList();
+            setCustomLocationName(location);
         }
+    }
+
+    public void setCustomLocationName(Location location) {
+
+        mSetCustomLocationName = new Dialog(getContext());
+
+        mFiltersettingLocationSetnameBinding = DataBindingUtil
+                .inflate(LayoutInflater.from(getContext()), R.layout.filtersetting_location_setname, null, false);
+        mSetCustomLocationName.setContentView(mFiltersettingLocationSetnameBinding.getRoot());
+        mFiltersettingLocationSetnameBinding.setLocation(location);
+        mFiltersettingLocationSetnameBinding.setActionHandler(mFilterSettingActionHandler);
+
+        mSetCustomLocationName.show();
+    }
+
+    @Override
+    public String getNameInput() {
+        String nameInput = mFiltersettingLocationSetnameBinding.setCustomLocationName.getText().toString();
+        if (nameInput.equals("")) {
+            mFiltersettingLocationSetnameBinding.setCustomLocationName.setHint(R.string.location_name_not_set);
+            return null;
+        }
+        return nameInput;
+    }
+
+    @Override
+    public void closeLocationNameDialog() {
+        mSetCustomLocationName.dismiss();
+    }
+
+    @Override
+    public void setLocation(Location location) {
+        mFilterSettingFragBinding.setLocation(location);
+    }
+
+    @Override
+    public void showLocationInView() {
+        mFilterSettingFragBinding.noLocationSelected.setVisibility(View.GONE);
+        mFilterSettingFragBinding.selectedCustomLocationName.setVisibility(View.VISIBLE);
+        mFilterSettingFragBinding.selectedLocationString.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showRadiusOption() {
+        mFilterSettingFragBinding.selectRadius.setVisibility(View.VISIBLE);
     }
 }

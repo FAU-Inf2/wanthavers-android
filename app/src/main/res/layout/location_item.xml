@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="location"
+            type="de.fau.cs.mad.wanthavers.common.Location" />
+
+        <variable
+            name="actionHandler"
+            type="wanthavers.mad.cs.fau.de.wanthavers_android.filtersetting.FilterSettingActionHandler" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:onClick="@{() -> actionHandler.buttonChooseLocation(location)}">
+
+        <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+            android:id="@+id/custom_location_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@{location.getDescription()}"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/colorMainTextDark"/>
+
+        <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+            android:id="@+id/location_string"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@{location.getFullAddress()}"
+            android:layout_marginLeft="10dp"
+            android:layout_below="@id/custom_location_name"
+            android:textColor="@color/colorMainTextDark"/>
+
+    </RelativeLayout>
+
+</layout>

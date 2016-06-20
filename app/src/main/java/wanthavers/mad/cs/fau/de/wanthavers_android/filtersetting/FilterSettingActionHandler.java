@@ -1,10 +1,13 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.filtersetting;
 
+import android.view.View;
 import android.widget.Button;
 
 import de.fau.cs.mad.wanthavers.common.Category;
+import de.fau.cs.mad.wanthavers.common.Location;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.FiltersettingFragBinding;
+import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.FiltersettingLocationPopupBinding;
 
 public class FilterSettingActionHandler {
 
@@ -19,11 +22,32 @@ public class FilterSettingActionHandler {
         mFilterSettingFragBinding = filtersettingFragBinding;
         priceClicked = 0;
         colorPrimary = mFilterSettingFragBinding.getRoot().getResources().getColor(R.color.colorPrimary);
-        colorMainText = mFilterSettingFragBinding.getRoot().getResources().getColor(R.color.colorMainText);
+        colorMainText = mFilterSettingFragBinding.getRoot().getResources().getColor(R.color.colorSecondary);
     }
 
     public void buttonChangeLocation() {
+        mListener.openLocationList();
+    }
+
+    public void buttonAddLocation() {
         mListener.openMap();
+    }
+
+    public void closeLocationList() {
+        mListener.closeLocationList();
+    }
+
+    public void buttonSubmitLocationName(Location location) {
+        mListener.finishLocationCreate(location);
+    }
+
+    public void buttonCancelLocationName() {
+        mListener.closeNameSelectionDialog();
+    }
+
+    public void buttonChooseLocation(Location location) {
+        mListener.setLocation(location);
+        mListener.closeLocationList();
     }
 
     public void buttonChangeColor(int clicked) {

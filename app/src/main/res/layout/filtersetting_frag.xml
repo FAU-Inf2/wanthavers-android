@@ -10,6 +10,10 @@
         <variable
             name="actionHandler"
             type="wanthavers.mad.cs.fau.de.wanthavers_android.filtersetting.FilterSettingActionHandler"/>
+
+        <variable
+            name="location"
+            type="de.fau.cs.mad.wanthavers.common.Location" />
     </data>
 
     <ScrollView
@@ -208,18 +212,49 @@
 
             </RelativeLayout>
 
-            <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+            <RelativeLayout
                 android:id="@+id/selected_location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/filter_location"
-                android:text="@string/no_location_selected"/>
+                android:layout_below="@id/filter_location">
+
+                <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                    android:id="@+id/no_location_selected"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/no_location_selected"/>
+
+                <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                    android:id="@+id/selected_custom_location_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@{location.getDescription()}"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/colorMainTextDark"
+                    android:visibility="gone"/>
+
+                <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                    android:id="@+id/selected_location_string"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="@{location.getFullAddress()}"
+                    android:layout_marginLeft="10dp"
+                    android:layout_below="@id/selected_custom_location_name"
+                    android:textColor="@color/colorMainTextDark"
+                    android:visibility="gone"/>
+
+
+            </RelativeLayout>
+
 
             <RelativeLayout
                 android:id="@+id/select_radius"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/selected_location">
+                android:layout_below="@id/selected_location"
+                android:visibility="gone">
 
                 <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                     android:id="@+id/filter_radius"
@@ -255,7 +290,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginTop="10dp"
-                android:onClick="@{() -> presenter.setFilterWithInput()}"/>
+                android:onClick="@{() -> presenter.setFilterWithInput(location)}"/>
 
             <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextButton
                 android:id="@+id/button_reset_filter"

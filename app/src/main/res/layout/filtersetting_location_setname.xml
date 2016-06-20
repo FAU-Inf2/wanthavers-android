@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="location"
+            type="de.fau.cs.mad.wanthavers.common.Location" />
+
+        <variable
+            name="actionHandler"
+            type="wanthavers.mad.cs.fau.de.wanthavers_android.filtersetting.FilterSettingActionHandler" />
+    </data>
+
+    <FrameLayout
+        android:id="@+id/location_setname_popup"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:padding="1dp"
+        android:background="@color/colorMainTextDark"
+        android:layout_gravity="center">
+
+        <RelativeLayout
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:background="@color/colorSecondary">
+            <!-- onclick here -->
+
+            <EditText
+                android:id="@+id/set_custom_location_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:hint="@string/location_choose_a_name"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:textColor="@color/colorMainTextDark"/>
+
+            <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                android:id="@+id/chosen_location_string"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="@{location.getFullAddress()}"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_below="@id/set_custom_location_name"
+                android:textColor="@color/colorMainTextDark"/>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="1dp"
+                android:background="@color/colorMainTextDark"
+                android:layout_below="@id/chosen_location_string"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_alignParentLeft="true">
+
+                <Button
+                    android:id="@+id/button_submit_name_choice"
+                    android:layout_width="135dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/location_choose_name_submit"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorMainTextDark"
+                    android:background="@color/colorSecondary"
+                    android:layout_below="@+id/chosen_location_string"
+                    android:onClick="@{() -> actionHandler.buttonSubmitLocationName(location)}"/>
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="1dp"
+                android:background="@color/colorMainTextDark"
+                android:layout_below="@id/chosen_location_string"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_alignParentRight="true">
+
+                <Button
+                    android:id="@+id/button_cancel_name_choice"
+                    android:layout_width="135dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_cancel"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorMainTextDark"
+                    android:background="@color/colorSecondary"
+                    android:layout_below="@+id/chosen_location_string"
+                    android:onClick="@{() -> actionHandler.buttonCancelLocationName()}"/>
+
+            </FrameLayout>
+
+        </RelativeLayout>
+
+    </FrameLayout>
+
+</layout>
