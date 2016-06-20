@@ -34,7 +34,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:background="@{desireLogic.getBackgroundColor(desire.desire.colorIndex)}"
+            android:background="@color/colorSecondary"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
             android:paddingBottom="@dimen/list_item_padding"
@@ -114,7 +114,7 @@
                         android:textSize="20dp"
                         android:textStyle="bold"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                        android:textColor="@color/colorMainText"
+                        android:textColor="@color/colorPrimary"
                         android:text="@{desire.desire.title}" />
 
                     <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView

@@ -67,7 +67,7 @@ public class ChatDetailAdapter extends RecyclerView.Adapter<ChatDetailAdapter.Vi
         if(isMe){
             
             messageItemBinding.tvBody.setBackground(messageItemBinding.getRoot().getResources().getDrawable(R.drawable.chat_border_me));
-            messageItemBinding.tvBody.setTextColor(messageItemBinding.getRoot().getResources().getColor(R.color.colorMainText));
+            messageItemBinding.tvBody.setTextColor(messageItemBinding.getRoot().getResources().getColor(R.color.colorSecondary));
             LinearLayout.LayoutParams params = (LinearLayout.LayoutParams)messageItemBinding.tvBody.getLayoutParams();
             params.setMargins(200, 0, 0, 0);
             messageItemBinding.tvBody.setLayoutParams(params);
