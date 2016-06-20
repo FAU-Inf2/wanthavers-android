@@ -35,7 +35,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:weightSum="1"
-            android:background="@color/desireDetailBackground">
+            android:background="@color/layout_Background1">
 
 
             <RelativeLayout
@@ -299,6 +299,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/wanter_views"
                 android:layout_marginBottom="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -413,7 +414,7 @@
                 android:id="@+id/desire_haver_buttons"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
+                android:layout_below="@id/wanter_views"
                 android:visibility="@{desirelogic.isDesireCreator(desire.creator.getId()) ? View.GONE : View.VISIBLE}">
 
                 <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextButton
