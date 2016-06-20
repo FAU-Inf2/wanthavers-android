@@ -40,15 +40,17 @@
                 android:layout_height="wrap_content"
                 android:minHeight="?attr/actionBarSize"
                 android:theme="@style/Toolbar"
+                android:background="@color/colorPrimary"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
 
                 <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/wanthavers_text"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/colorSecondary"
                     android:layout_gravity="center"
                     android:textSize="30dp"
+                    android:background="@color/colorPrimary"
                     android:id="@+id/toolbar_title"/>
 
             </android.support.v7.widget.Toolbar>

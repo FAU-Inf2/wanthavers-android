@@ -134,7 +134,7 @@ public class ChatDetailActivity extends AppCompatActivity {
         //WantHaversTextView toolbarTitle = (WantHaversTextView) = findViewById(R.id.toolbar_title);
 
         Chat chat = (Chat) getIntent().getSerializableExtra("ChatOjbect");
-        
+
         if(chat != null) {
             SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, getApplicationContext());
             long loggedInUser = sharedPreferencesHelper.loadLong(SharedPreferencesHelper.KEY_USERID, 6L); //Long.valueOf(sharedPreferencesHelper.loadString(SharedPreferencesHelper.KEY_USERID, "6"));

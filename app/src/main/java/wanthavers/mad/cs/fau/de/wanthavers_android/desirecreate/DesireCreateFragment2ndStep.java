@@ -18,6 +18,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -169,5 +170,21 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
         //no Medias in this Step
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 
+        inflater.inflate(R.menu.create_desire_step_one, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.next_step:
+                mPresenter.createNextDesireCreateStep();
+        }
+
+        return true;
+    }
 }

@@ -5,23 +5,25 @@
     android:background="@android:color/white" >
 
     <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
-        android:id="@+id/text_view"
+        android:id="@+id/location_text_view_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:text="@string/set_location"
         android:textColor="@color/colorPrimary"
-        android:textSize="12sp" />
+        android:textSize="12sp"
+        android:clickable="true"/>
 
-    <TextView
+    <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
         android:id="@+id/location_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/text_view"
+        android:layout_below="@id/location_text_view_header"
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:textColor="@color/colorMainTextDark"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        android:clickable="true"/>
 
 </RelativeLayout>

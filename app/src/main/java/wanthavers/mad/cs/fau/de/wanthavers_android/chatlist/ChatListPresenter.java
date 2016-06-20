@@ -106,9 +106,6 @@ public class ChatListPresenter implements ChatListContract.Presenter {
                 chatModels.add(new ChatItemViewModel(chat, mLoggedInUserId));
             }
 
-
-            Collections.reverse(chatModels);
-
             mChatListView.showChats(chatModels);
 
         }

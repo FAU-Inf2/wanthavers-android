@@ -144,6 +144,8 @@
     <string name="create_location_error">Fehler beim Erstellen eines neuen Ortes</string>
     <string name="get_saved_locations_error">Gehler beim Laden gespeicherter Orte</string>
     <string name="location_name_not_set">Noch kein Name ausgewählt</string>
+    <string name="Set_location_ok">Confirm</string>
+    <string name="Set_location_cancel">Cancel</string>
 
     <string-array name="currencies">
         <item>\u20AC</item>

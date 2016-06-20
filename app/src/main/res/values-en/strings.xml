@@ -153,6 +153,8 @@
     <string name="new_message_from">new message from</string>
     <string name="declined_location_runtime_permission">Um die App benutzen zu können, stimme bitte den Standortdienst Berechtigungen zu</string>
     <string name="chat_overview">Chats</string>
+    <string name="Set_location_ok">Bestätigen</string>
+    <string name="Set_location_cancel">Abbruch</string>
 
 
 </resources>

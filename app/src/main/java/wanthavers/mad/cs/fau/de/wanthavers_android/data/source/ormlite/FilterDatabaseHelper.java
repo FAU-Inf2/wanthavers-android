@@ -33,7 +33,7 @@ public class FilterDatabaseHelper extends OrmLiteSqliteOpenHelper {
     }
 
     public static FilterDatabaseHelper getInstance(@NonNull Context context) {
-        if(INSTANCE == null) {
+        if (INSTANCE == null) {
             INSTANCE = new FilterDatabaseHelper(context);
         }
         return INSTANCE;

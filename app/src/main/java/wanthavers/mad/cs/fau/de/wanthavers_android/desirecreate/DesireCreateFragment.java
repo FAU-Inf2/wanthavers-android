@@ -8,12 +8,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
 import de.fau.cs.mad.wanthavers.common.Desire;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
+import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.WantHaversApplication;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.DesirecreateFragBinding;
 
 public class DesireCreateFragment extends Fragment implements DesireCreateContract.View {
@@ -84,4 +86,21 @@ public class DesireCreateFragment extends Fragment implements DesireCreateContra
         //no Medias in this Step
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+
+        inflater.inflate(R.menu.create_desire_step_one, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.next_step:
+               mPresenter.createNextDesireCreateStep();
+        }
+
+        return true;
+    }
 }

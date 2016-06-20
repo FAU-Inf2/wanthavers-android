@@ -102,7 +102,7 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
 
         //to improve performance set the layout size as fixed as it is fixed in our case
         recyclerView.setHasFixedSize(true);
-        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), R.drawable.list_divider_light,1));
+        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), R.drawable.list_divider_mediumdark,1));
 
         //use Linear Layout Manager
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());

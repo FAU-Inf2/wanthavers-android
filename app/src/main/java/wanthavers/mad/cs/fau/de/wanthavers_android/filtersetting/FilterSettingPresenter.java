@@ -9,6 +9,7 @@ import android.widget.Spinner;
 import com.j256.ormlite.stmt.query.In;
 
 import java.lang.reflect.Array;
+import java.lang.reflect.Field;
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -210,10 +211,11 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
         }
         System.out.println(desireFilter.getRadius());
 
-        return;
+        setFilter(desireFilter);
 
-        /*setFilter(desireFilter);
+        //mFilterSettingView.showFilterChangeSuccess();
 
+        mFilterSettingView.showDesireList();
         mFilterSettingView.showFilterChangeSuccess();
 
         //mFilterSettingView.showDesireList();*/

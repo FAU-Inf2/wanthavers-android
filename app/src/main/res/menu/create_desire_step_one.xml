@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/next_step"
+        android:title="@string/filter"
+        android:icon="@drawable/wh_next_icon_light"
+        app:showAsAction="always" />
+
+</menu>
