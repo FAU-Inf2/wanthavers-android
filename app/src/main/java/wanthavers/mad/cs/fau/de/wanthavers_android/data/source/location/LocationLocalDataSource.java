@@ -43,4 +43,10 @@ public class LocationLocalDataSource implements LocationDataSource {
         //TODO
         callback.onUpdateFailed();
     }
+
+    @Override
+    public void getSavedLocationsForLoggedInUser(@NonNull GetSavedLocationsForLoggedInUserCallback callback) {
+        //TODO
+        callback.onDataNotAvailable();
+    }
 }

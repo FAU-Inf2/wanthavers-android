@@ -2,6 +2,8 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.data.source.location;
 
 import android.support.annotation.NonNull;
 
+import java.util.List;
+
 import de.fau.cs.mad.wanthavers.common.Location;
 
 /**
@@ -33,10 +35,20 @@ public interface LocationDataSource {
 
     }
 
+    interface GetSavedLocationsForLoggedInUserCallback {
+
+        void onSavedLocationsForLoggedInUserLoaded(List<Location> locations);
+
+        void onDataNotAvailable();
+
+    }
+
     void getReverseGeocoding(@NonNull double lat, @NonNull double lon, @NonNull GetReverseGeocodingCallback callback);
 
     void createLocation(@NonNull Location location, @NonNull CreateLocationCallback callback);
 
     void updateLocation(@NonNull long locationId, @NonNull Location location, @NonNull UpdateLocationCallback callback);
+
+    void getSavedLocationsForLoggedInUser(@NonNull GetSavedLocationsForLoggedInUserCallback callback);
 
 }

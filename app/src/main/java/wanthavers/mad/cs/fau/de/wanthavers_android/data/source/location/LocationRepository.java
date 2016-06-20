@@ -2,6 +2,8 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.data.source.location;
 
 import android.support.annotation.NonNull;
 
+import java.util.List;
+
 import de.fau.cs.mad.wanthavers.common.Location;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -94,6 +96,23 @@ public class LocationRepository implements LocationDataSource {
             @Override
             public void onUpdateFailed() {
                 callback.onUpdateFailed();
+            }
+        });
+    }
+
+    @Override
+    public void getSavedLocationsForLoggedInUser(@NonNull final GetSavedLocationsForLoggedInUserCallback callback) {
+        checkNotNull(callback);
+
+        locationRemoteDataSource.getSavedLocationsForLoggedInUser(new GetSavedLocationsForLoggedInUserCallback() {
+            @Override
+            public void onSavedLocationsForLoggedInUserLoaded(List<Location> locations) {
+                callback.onSavedLocationsForLoggedInUserLoaded(locations);
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+                callback.onDataNotAvailable();
             }
         });
     }

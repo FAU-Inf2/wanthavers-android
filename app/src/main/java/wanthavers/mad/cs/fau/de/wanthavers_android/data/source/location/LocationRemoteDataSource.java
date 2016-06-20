@@ -3,8 +3,11 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.data.source.location;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import java.util.List;
+
 import de.fau.cs.mad.wanthavers.common.Location;
 import wanthavers.mad.cs.fau.de.wanthavers_android.rest.LocationClient;
+import wanthavers.mad.cs.fau.de.wanthavers_android.rest.UserClient;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -15,9 +18,11 @@ public class LocationRemoteDataSource implements LocationDataSource {
     private static LocationRemoteDataSource INSTANCE;
 
     private LocationClient locationClient;
+    private UserClient userClient;
 
     private LocationRemoteDataSource(Context context) {
         locationClient = LocationClient.getInstance(checkNotNull(context));
+        userClient = UserClient.getInstance(checkNotNull(context));
     }
 
     public static LocationRemoteDataSource getInstance(Context context) {
@@ -55,6 +60,16 @@ public class LocationRemoteDataSource implements LocationDataSource {
             callback.onLocationUpdated(ret);
         } catch (Throwable t) {
             callback.onUpdateFailed();
+        }
+    }
+
+    @Override
+    public void getSavedLocationsForLoggedInUser(@NonNull GetSavedLocationsForLoggedInUserCallback callback) {
+        try {
+            List<Location> locations = userClient.getSavedLocations();
+            callback.onSavedLocationsForLoggedInUserLoaded(locations);
+        } catch (Throwable t) {
+            callback.onDataNotAvailable();
         }
     }
 }
