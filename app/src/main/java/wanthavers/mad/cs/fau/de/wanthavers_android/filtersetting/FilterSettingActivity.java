@@ -18,6 +18,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.location.Location
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.CreateLocation;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetSavedLocations;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetSubcategories;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.UpdateLocation;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.ActivityUtils;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -57,7 +58,7 @@ public class FilterSettingActivity extends AppCompatActivity {
 
         mFilterSettingPresenter = new FilterSettingPresenter(UseCaseHandler.getInstance(), filterSettingFragment, this,
                 new GetSubcategories(categoryRepository), new CreateLocation(locationRepository),
-                new GetSavedLocations(locationRepository));
+                new GetSavedLocations(locationRepository), new UpdateLocation(locationRepository));
     }
 
     @Override
