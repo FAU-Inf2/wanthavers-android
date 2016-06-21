@@ -43,6 +43,14 @@ public interface LocationDataSource {
 
     }
 
+    interface DeleteLocationCallback {
+
+        void onLocationDeleted();
+
+        void onDeleteFailed();
+
+    }
+
     void getReverseGeocoding(@NonNull double lat, @NonNull double lon, @NonNull GetReverseGeocodingCallback callback);
 
     void createLocation(@NonNull Location location, @NonNull CreateLocationCallback callback);
@@ -51,4 +59,5 @@ public interface LocationDataSource {
 
     void getSavedLocationsForLoggedInUser(@NonNull GetSavedLocationsForLoggedInUserCallback callback);
 
+    void deleteLocation(@NonNull long locationId, @NonNull DeleteLocationCallback callback);
 }

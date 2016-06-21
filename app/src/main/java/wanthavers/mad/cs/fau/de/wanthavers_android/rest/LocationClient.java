@@ -43,4 +43,8 @@ public class LocationClient extends RestClient {
     public Location updateLocation(long locationId, Location location) {
         return locationEndpoint.updateLocation(null, locationId, location);
     }
+
+    public void deleteLocation(long locationId) {
+        locationEndpoint.deleteLocation(null, locationId);
+    }
 }

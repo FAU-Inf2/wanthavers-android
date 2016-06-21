@@ -116,4 +116,22 @@ public class LocationRepository implements LocationDataSource {
             }
         });
     }
+
+    @Override
+    public void deleteLocation(@NonNull long locationId, @NonNull final DeleteLocationCallback callback) {
+        checkNotNull(locationId);
+        checkNotNull(callback);
+
+        locationRemoteDataSource.deleteLocation(locationId, new DeleteLocationCallback() {
+            @Override
+            public void onLocationDeleted() {
+                callback.onLocationDeleted();
+            }
+
+            @Override
+            public void onDeleteFailed() {
+                callback.onDeleteFailed();
+            }
+        });
+    }
 }
