@@ -71,7 +71,10 @@ public class ChatListAdapter  extends RecyclerView.Adapter<ChatListAdapter.ViewH
         chatItemBinding.setVariable(BR.chat, chatItemViewModel);
         ChatListItemActionHandler itemActionHandler = new ChatListItemActionHandler(mUserActionsListener);
         chatItemBinding.setActionHandler(itemActionHandler);
-        Media m = chatItemViewModel.getOtherUser().getImage();
+        Media m = null;
+        if(chatItemViewModel.getOtherUser() != null) {
+            m = chatItemViewModel.getOtherUser().getImage();
+        }
 
         if (m != null) {
             final ImageView profileView = chatItemBinding.ivProfileOther;
