@@ -47,6 +47,7 @@
                 android:textColor="@color/colorMainTextDark"/>
 
             <FrameLayout
+                android:id="@+id/button_frame_submit_name_choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="1dp"
@@ -67,6 +68,32 @@
                     android:background="@color/colorSecondary"
                     android:layout_below="@+id/chosen_location_string"
                     android:onClick="@{() -> actionHandler.buttonSubmitLocationName(location)}"/>
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/button_frame_update_name_choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="1dp"
+                android:background="@color/colorMainTextDark"
+                android:layout_below="@id/chosen_location_string"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_alignParentLeft="true"
+                android:visibility="invisible">
+
+                <Button
+                    android:id="@+id/button_update_name_choice"
+                    android:layout_width="135dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/location_choose_name_submit"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorMainTextDark"
+                    android:background="@color/colorSecondary"
+                    android:layout_below="@+id/chosen_location_string"
+                    android:onClick="@{() -> actionHandler.buttonUpdateLocation(location)}"/>
 
             </FrameLayout>
 

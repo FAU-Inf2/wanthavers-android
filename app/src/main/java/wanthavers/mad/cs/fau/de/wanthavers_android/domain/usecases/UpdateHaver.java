@@ -1,7 +1,6 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases;
 
 import android.support.annotation.NonNull;
-import android.support.v7.widget.LinearLayoutCompat;
 
 import de.fau.cs.mad.wanthavers.common.Haver;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCase;

@@ -105,6 +105,7 @@
     <string name="location_choose_a_name">Choose a name</string>
     <string name="location_choose_name_submit">Submit</string>
     <string name="create_location_error">Error while creating new location</string>
+    <string name="update_location_error">Error while updating the location</string>
     <string name="get_saved_locations_error">Error while loading saved locations</string>
     <string name="location_name_not_set">No name set yet</string>
 

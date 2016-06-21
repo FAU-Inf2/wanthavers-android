@@ -39,4 +39,8 @@ public class SettingsActionHandler {
         return  mSelectImageLogic;
     }
 
+    public void changePassword(User user, String newPassword) {
+        user.setPassword(newPassword);
+    }
+
 }

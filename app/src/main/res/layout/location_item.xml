@@ -46,7 +46,7 @@
             android:textColor="@color/colorMainText"
             android:background="@drawable/chat_border_me"
             android:layout_alignParentEnd="true"
-            android:onClick=""/>
+            android:onClick="@{() -> actionHandler.buttonDeleteLocation(location)}"/>
 
         <ImageButton
             android:id="@+id/update_location"
@@ -58,7 +58,7 @@
             android:background="@drawable/chat_border_me"
             android:layout_toLeftOf="@id/delete_location"
             android:layout_marginRight="10dp"
-            android:onClick=""/>
+            android:onClick="@{() -> actionHandler.buttonUpdateLocation(location)}"/>
 
         <View
             android:layout_width="match_parent"

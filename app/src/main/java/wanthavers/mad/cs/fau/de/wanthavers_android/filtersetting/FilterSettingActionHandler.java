@@ -30,7 +30,7 @@ public class FilterSettingActionHandler {
     }
 
     public void buttonAddLocation() {
-        mListener.openMap();
+        mListener.openMap(null);
     }
 
     public void closeLocationList() {
@@ -48,6 +48,16 @@ public class FilterSettingActionHandler {
     public void buttonChooseLocation(Location location) {
         mListener.setLocation(location);
         mListener.closeLocationList();
+    }
+
+    public void buttonUpdateLocation(Location location) {
+        mListener.finishLocationUpdate(location);
+    }
+
+    public void buttonDeleteLocation(Location location) {
+        //TODO
+        //delete Location
+        //Reload Locations
     }
 
     public void buttonChangeColor(int clicked) {

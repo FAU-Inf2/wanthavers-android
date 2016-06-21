@@ -19,7 +19,7 @@ public interface FilterSettingContract {
 
         void showGetCategoriesError();
 
-        void showMap();
+        void showMap(Location location);
 
         //Location getLocation();
 
@@ -53,6 +53,8 @@ public interface FilterSettingContract {
 
         void setLocation(Location location);
 
+        void showUpdateLocationError();
+
     }
 
     interface Presenter extends BasePresenter {
@@ -63,7 +65,7 @@ public interface FilterSettingContract {
 
         void resetFilter();
 
-        void openMap();
+        void openMap(Location location);
 
         void openLocationList();
 
@@ -72,6 +74,8 @@ public interface FilterSettingContract {
         void closeNameSelectionDialog();
 
         void finishLocationCreate(Location location);
+
+        void finishLocationUpdate(Location location);
 
         void setLocation(Location location);
     }

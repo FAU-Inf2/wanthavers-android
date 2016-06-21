@@ -151,9 +151,14 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
     }
 
     @Override
-    public void showMap() {
+    public void showMap(Location location) {
         Intent intent = new Intent(getContext(), MapActivity.class);
         intent.putExtra("desireTitle", "");
+        /*TODO: Marcel
+             if location==null, use gps map location start, give back empty name    -> extends createLocation
+             else use location.getLat()/Lon() for map location start, give back location.getDescription()   ->extends updateLocation
+         */
+        //intent.putExtra("location", location);
         startActivityForResult(intent, 1);
     }
 
@@ -204,6 +209,11 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
     }
 
     @Override
+    public void showUpdateLocationError() {
+        showMessage(getString(R.string.update_location_error));
+    }
+
+    @Override
     public void showGetSavedLocationsError() {
         showMessage(getString(R.string.get_saved_locations_error));
     }
@@ -245,18 +255,21 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
         if(!data.getExtras().getString("desireLocation").equals("")) { //checks if backbutton is pressed
 
             //get values
-            String locationName = data.getExtras().getString("desireLocation");
+            String locationAddress = data.getExtras().getString("desireLocation");
             double lat = Double.parseDouble(data.getExtras().getString("desireLocationLat"));
             double lon = Double.parseDouble(data.getExtras().getString("desireLocationLng"));
+            //TODO: Marcel, give empty name if input Location Object was null, else give Location.getDescription();
+            //String locationName = data.getExtras().getString("desireLocationName");
 
             long userId = new DesireLogic(getContext()).getLoggedInUserId();
 
             //Create Location object
             Location location = new Location();
-            location.setFullAddress(locationName);
+            location.setFullAddress(locationAddress);
             location.setLat(lat);
             location.setLon(lon);
             location.setUserId(userId);
+            //location.setDescription(locationName);
 
             //set custom location name dialog
             closeLocationList();
@@ -273,6 +286,12 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
         mSetCustomLocationName.setContentView(mFiltersettingLocationSetnameBinding.getRoot());
         mFiltersettingLocationSetnameBinding.setLocation(location);
         mFiltersettingLocationSetnameBinding.setActionHandler(mFilterSettingActionHandler);
+
+        //TODO: add text location name in xml when extra works
+        if (location.getDescription().equals("")) {
+            mFiltersettingLocationSetnameBinding.buttonFrameSubmitNameChoice.setVisibility(View.GONE);
+            mFiltersettingLocationSetnameBinding.buttonFrameUpdateNameChoice.setVisibility(View.VISIBLE);
+        }
 
         mSetCustomLocationName.show();
     }
