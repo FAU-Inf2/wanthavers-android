@@ -33,9 +33,9 @@ public class GpsLocationTracker extends Service implements LocationListener {
 
     public GpsLocationTracker(Context context, double startLat, double startLng) {
         mContext = context;
-        getLocation();
         mLatitude = startLat;
         mLongitude = startLng;
+        getLocation();
     }
 
 
@@ -53,6 +53,7 @@ public class GpsLocationTracker extends Service implements LocationListener {
                         if (mLocation != null) {
                                 mLatitude = mLocation.getLatitude();
                                 mLongitude = mLocation.getLongitude();
+                                return mLocation;
                             }
 
 
@@ -65,6 +66,7 @@ public class GpsLocationTracker extends Service implements LocationListener {
                     if (mLocation != null) {
                         mLatitude = mLocation.getLatitude();
                         mLongitude = mLocation.getLongitude();
+                        return mLocation;
                     }
 
                 }
@@ -76,6 +78,7 @@ public class GpsLocationTracker extends Service implements LocationListener {
                 if (mLocation != null) {
                     mLatitude = mLocation.getLatitude();
                     mLongitude = mLocation.getLongitude();
+                    return mLocation;
                 }
 
 
@@ -87,6 +90,7 @@ public class GpsLocationTracker extends Service implements LocationListener {
                     if (mLocation != null) {
                         mLatitude = mLocation.getLatitude();
                         mLongitude = mLocation.getLongitude();
+                        return mLocation;
                     }
                 }
 
@@ -132,7 +136,7 @@ public class GpsLocationTracker extends Service implements LocationListener {
     }
 
     public void onLocationChanged(Location location) {
-
+        //getLocation();
     }
 
     public void onProviderDisabled(String provider) {
