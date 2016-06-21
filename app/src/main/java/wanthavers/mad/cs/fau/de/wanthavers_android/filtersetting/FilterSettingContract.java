@@ -25,6 +25,8 @@ public interface FilterSettingContract {
 
         int getPriceClicked();
 
+        void setPriceClicked(int clicked);
+
         String[] getRadiusArray();
 
         Category getSelectedCategory();
@@ -58,6 +60,8 @@ public interface FilterSettingContract {
         void showDeleteLocationError();
 
         void deleteLocationInView();
+
+        String getCurLocationFilter();
 
     }
 

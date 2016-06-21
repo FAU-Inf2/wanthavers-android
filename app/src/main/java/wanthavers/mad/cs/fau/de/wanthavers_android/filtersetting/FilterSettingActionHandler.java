@@ -51,6 +51,10 @@ public class FilterSettingActionHandler {
     }
 
     public void buttonUpdateLocation(Location location) {
+        mListener.openMap(location);
+    }
+
+    public void buttonFinishUpdateLocation(Location location) {
         mListener.finishLocationUpdate(location);
     }
 

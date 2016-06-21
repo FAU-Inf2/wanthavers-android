@@ -92,7 +92,7 @@
                     android:textColor="@color/colorMainTextDark"
                     android:background="@color/colorSecondary"
                     android:layout_below="@+id/chosen_location_string"
-                    android:onClick="@{() -> actionHandler.buttonUpdateLocation(location)}"/>
+                    android:onClick="@{() -> actionHandler.buttonFinishUpdateLocation(location)}"/>
 
             </FrameLayout>
 

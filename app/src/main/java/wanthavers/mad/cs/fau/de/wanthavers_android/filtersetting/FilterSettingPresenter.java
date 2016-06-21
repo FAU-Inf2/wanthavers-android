@@ -23,6 +23,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.WantHaversApplication;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.CreateLocation;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.DeleteLocation;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetCategory;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetSavedLocations;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetSubcategories;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.UpdateLocation;
@@ -34,6 +35,7 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
     private final UseCaseHandler mUseCaseHandler;
     private final FilterSettingActivity mActivity;
     private final GetSubcategories mGetSubcategories;
+    private final GetCategory mGetCategory;
     private final CreateLocation mCreateLocation;
     private final UpdateLocation mUpdateLocation;
     private final GetSavedLocations mGetSavedLocations;
@@ -42,7 +44,8 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
     public FilterSettingPresenter(@NonNull UseCaseHandler useCaseHandler, @NonNull FilterSettingContract.View filterSettingView,
                                   @NonNull FilterSettingActivity filterSettingActivity,  @NonNull GetSubcategories getSubcategories,
                                   @NonNull CreateLocation createLocation, @NonNull GetSavedLocations getSavedLocations,
-                                  @NonNull UpdateLocation updateLocation, @NonNull DeleteLocation deleteLocation) {
+                                  @NonNull UpdateLocation updateLocation, @NonNull DeleteLocation deleteLocation,
+                                  @NonNull GetCategory getCategory) {
         mUseCaseHandler = checkNotNull(useCaseHandler, "useCaseHandler cannot be null");
         mFilterSettingView = checkNotNull(filterSettingView, "filtersetting view cannot be null");
         mActivity = checkNotNull(filterSettingActivity, "filtersetting activtiy cannot be null");
@@ -51,12 +54,75 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
         mGetSavedLocations = checkNotNull(getSavedLocations);
         mUpdateLocation = checkNotNull(updateLocation);
         mDeleteLocation = checkNotNull(deleteLocation);
+        mGetCategory = checkNotNull(getCategory);
 
         mFilterSettingView.setPresenter(this);
     }
     @Override
     public void start() {
+        loadCurFilterSettings();
         loadCategories();
+    }
+
+    public void loadCurFilterSettings() {
+
+        //get views
+        RatingBar minRatingBar = (RatingBar)mActivity.findViewById(R.id.filterSettingRatingBar);
+        EditText minRewardView = (EditText) mActivity.findViewById(R.id.filter_min_reward);
+        Spinner radiusView = (Spinner) mActivity.findViewById(R.id.spinner_radius);
+
+        //get values
+        DesireFilter  curFilter = WantHaversApplication.getCurDesireFilter(mActivity.getApplicationContext());
+
+        Long categoryId = curFilter.getCategory();
+        Double maxPrice = curFilter.getPrice_max();
+        Float minimalRating = curFilter.getRating_min();
+        Double minimalReward = curFilter.getReward_min();
+        //TODO: get current filter location
+        //<Type> location = curFilter.get...
+        Double radius = curFilter.getRadius();
+
+        //set values
+        if (categoryId != null) {
+            getCategory(categoryId);
+        }
+
+        //TODO: prices not hard coded
+        if (maxPrice != null) {
+            if (maxPrice == 10.0) {
+                mFilterSettingView.setPriceClicked(1);
+            } else if (maxPrice == 50.0) {
+                mFilterSettingView.setPriceClicked(2);
+            } else if (maxPrice == 100.0) {
+                mFilterSettingView.setPriceClicked(3);
+            }
+        }
+
+        if (minimalReward != null) {
+            minRewardView.setText(Double.toString(minimalReward));
+        }
+
+        if (minimalRating != null) {
+            minRatingBar.setRating(minimalRating);
+        }
+
+        //TODO: set Location from Filter
+
+        //TODO: Radius not hard coded
+        if (radius != null) {
+            mFilterSettingView.showRadiusOption();
+            if (radius == 1.0) {
+                radiusView.setSelection(0);
+            } else if (radius == 1.0) {
+                radiusView.setSelection(0);
+            } else if (radius == 2.0) {
+                radiusView.setSelection(0);
+            } else if (radius == 5.0) {
+                radiusView.setSelection(0);
+            } else if (radius == 10.0) {
+                radiusView.setSelection(0);
+            }
+        }
     }
 
     public void loadCategories() {
@@ -78,6 +144,28 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
             }
 
         });
+    }
+
+    public void getCategory(long categoryId) {
+        GetCategory.RequestValues requestValues = new GetCategory.RequestValues(categoryId);
+
+        mUseCaseHandler.execute(mGetCategory, requestValues, new UseCase.UseCaseCallback<GetCategory.ResponseValue>() {
+            @Override
+            public void onSuccess(GetCategory.ResponseValue response) {
+                Category category = response.getCategory();
+                setCurFilterCategory(category.getName());
+            }
+
+            @Override
+            public void onError() {
+                mFilterSettingView.showGetCategoriesError();
+            }
+        });
+    }
+
+    public void setCurFilterCategory(String categoryName) {
+        InstantAutoComplete categoryView = (InstantAutoComplete) mActivity.findViewById(R.id.spinner_category);
+        categoryView.setText(categoryName);
     }
 
     public void getSavedLocations() {
@@ -155,8 +243,10 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
             return;
         }
         location.setDescription(locationName);
+        System.out.println("new location name " + location.getDescription());
         updateLocation(location);
         mFilterSettingView.closeLocationNameDialog();
+        mFilterSettingView.showLocationList();
     }
 
     public void deleteLocation(final Location location) {
@@ -178,9 +268,10 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
     }
 
     public void resetLocation(Location location) {
-        //TODO
-        // if string equals!
-        //mFilterSettingView.deleteLocationInView();
+        String curLocationFilter = mFilterSettingView.getCurLocationFilter();
+        if (curLocationFilter.equals(location.getDescription())) {
+            mFilterSettingView.deleteLocationInView();
+        }
     }
 
     @Override
@@ -209,7 +300,7 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
             //nothing to do
         } else {
             desireFilter.setCategory(selectedCategory.getId());
-            System.out.println(desireFilter.getCategory());
+            System.out.println("category: "+desireFilter.getCategory());
         }
 
         //Price
@@ -228,21 +319,21 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
             default:
                 break;
         }
-        System.out.println(desireFilter.getPrice_max());
+        System.out.println("max price: " + desireFilter.getPrice_max());
 
         //Min_Reward
         if (!minRewardView.getText().toString().equals("")) {
             Double minReward = Double.valueOf(minRewardView.getText().toString());
             desireFilter.setReward_min(minReward);
         }
-        System.out.println(desireFilter.getReward_min());
+        System.out.println("minReward: " + desireFilter.getReward_min());
 
         //Min_Rating
         float minRating = minRatingBar.getRating();
         if(minRating != 0.0) {
             desireFilter.setRating_min(minRating);
         }
-        System.out.println(desireFilter.getRating_min());
+        System.out.println("minRating: " + desireFilter.getRating_min());
 
         //Location
         if (location != null) {
@@ -267,11 +358,9 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
             }
         }
 
-        System.out.println(desireFilter.getLat());
-        System.out.println(desireFilter.getLon());
-        //System.out.println(location.getFullAddress());
-
-        System.out.println(desireFilter.getRadius());
+        System.out.println("Lat: " + desireFilter.getLat());
+        System.out.println("Lon: " + desireFilter.getLon());
+        System.out.println("Radius: " + desireFilter.getRadius());
 
         setFilter(desireFilter);
 

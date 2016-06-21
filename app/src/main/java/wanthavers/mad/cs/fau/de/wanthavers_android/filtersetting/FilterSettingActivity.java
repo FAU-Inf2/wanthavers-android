@@ -17,6 +17,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.location.Location
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.location.LocationRepository;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.CreateLocation;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.DeleteLocation;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetCategory;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetSavedLocations;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetSubcategories;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.UpdateLocation;
@@ -60,7 +61,7 @@ public class FilterSettingActivity extends AppCompatActivity {
         mFilterSettingPresenter = new FilterSettingPresenter(UseCaseHandler.getInstance(), filterSettingFragment, this,
                 new GetSubcategories(categoryRepository), new CreateLocation(locationRepository),
                 new GetSavedLocations(locationRepository), new UpdateLocation(locationRepository),
-                new DeleteLocation(locationRepository));
+                new DeleteLocation(locationRepository), new GetCategory(categoryRepository));
     }
 
     @Override

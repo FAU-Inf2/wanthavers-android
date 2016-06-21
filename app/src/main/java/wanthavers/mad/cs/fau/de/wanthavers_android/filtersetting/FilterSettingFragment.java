@@ -225,6 +225,11 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
     }
 
     @Override
+    public void setPriceClicked(int clicked) {
+        mFilterSettingActionHandler.buttonChangeColor(clicked);
+    }
+
+    @Override
     public Category getSelectedCategory() {
         InstantAutoComplete instantAutoComplete = mFilterSettingFragBinding.spinnerCategory;
         String input = instantAutoComplete.getText().toString();
@@ -287,11 +292,11 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
         mFiltersettingLocationSetnameBinding.setLocation(location);
         mFiltersettingLocationSetnameBinding.setActionHandler(mFilterSettingActionHandler);
 
-        //TODO: add text location name in xml when extra works
-        /*if (location.getDescription().equals("")) {
+        if (!location.getDescription().equals("")) {
             mFiltersettingLocationSetnameBinding.buttonFrameSubmitNameChoice.setVisibility(View.GONE);
             mFiltersettingLocationSetnameBinding.buttonFrameUpdateNameChoice.setVisibility(View.VISIBLE);
-        }*/
+            mFiltersettingLocationSetnameBinding.setCustomLocationName.setText(location.getDescription());
+        }
 
         mSetCustomLocationName.show();
     }
@@ -328,10 +333,16 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
         mFilterSettingFragBinding.noLocationSelected.setVisibility(View.VISIBLE);
         mFilterSettingFragBinding.selectedCustomLocationName.setVisibility(View.GONE);
         mFilterSettingFragBinding.selectedLocationString.setVisibility(View.GONE);
+        mFilterSettingFragBinding.selectRadius.setVisibility(View.GONE);
     }
 
     @Override
     public void showRadiusOption() {
         mFilterSettingFragBinding.selectRadius.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public String getCurLocationFilter() {
+        return mFilterSettingFragBinding.selectedCustomLocationName.getText().toString();
     }
 }
