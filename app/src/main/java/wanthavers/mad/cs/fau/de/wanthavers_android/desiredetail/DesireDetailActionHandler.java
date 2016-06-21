@@ -55,4 +55,16 @@ public class DesireDetailActionHandler {
         mDesireDetailFragBinding.buttonCloseTransaction.setVisibility(View.GONE);
     }
 
+    public void openReportPopup() {
+        mListener.openReportPopup();
+    }
+
+    public void buttonSubmitReport() {
+        mListener.finishReport();
+    }
+
+    public void buttonCancelReport() {
+        mListener.closeReportPopup();
+    }
+
 }

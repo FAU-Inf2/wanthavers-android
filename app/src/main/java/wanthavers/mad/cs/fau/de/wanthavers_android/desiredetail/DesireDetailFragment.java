@@ -1,6 +1,8 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.desiredetail;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,9 +17,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 
 import com.squareup.picasso.Picasso;
 
@@ -25,6 +29,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.Chat;
+import de.fau.cs.mad.wanthavers.common.DesireFlag;
+import de.fau.cs.mad.wanthavers.common.FlagReason;
 import de.fau.cs.mad.wanthavers.common.Haver;
 import de.fau.cs.mad.wanthavers.common.Media;
 import de.fau.cs.mad.wanthavers.common.User;
@@ -33,6 +39,7 @@ import de.fau.cs.mad.wanthavers.common.Desire;
 import wanthavers.mad.cs.fau.de.wanthavers_android.chatdetail.ChatDetailActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.chatlist.ChatListActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.DesiredetailFragBinding;
+import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.DesiredetailReportPopupBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.RoundedTransformation;
 
@@ -57,6 +64,8 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
     private RecyclerView mRecyclerView;
     private DesireDetailViewModel mDesireDetailViewModel;
     private DesireDetailActionHandler mDesireDetailActionHandler;
+    private Dialog mReportDialog;
+    private DesiredetailReportPopupBinding mDesiredetailReportPopupBinding;
 
     public DesireDetailFragment() {
         //Requires empty public constructor
@@ -250,6 +259,11 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
         showMessage(getString(R.string.closing_transaction_error));
     }
 
+    @Override
+    public void showFlagDesireError() {
+        showMessage(getString(R.string.flag_desire_error));
+    }
+
     public void setDesireLogic(DesireLogic desireLogic){mDesireLogic = desireLogic;}
 
     //may be modified
@@ -308,5 +322,41 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
         intent.putExtra(ChatDetailActivity.EXTRA_CHAT_ID, chat.getObjectId());
         intent.putExtra("ChatOjbect", chat);
         startActivity(intent);
+    }
+
+    @Override
+    public void showReportPopup() {
+        mReportDialog = new Dialog(getContext());
+
+        mDesiredetailReportPopupBinding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.desiredetail_report_popup, null, false);
+        mReportDialog.setContentView(mDesiredetailReportPopupBinding.getRoot());
+
+        mDesiredetailReportPopupBinding.setActionHandler(mDesireDetailActionHandler);
+
+        //Set up flag reason spinner
+        Spinner mFlagReasonSpinner = mDesiredetailReportPopupBinding.reportReasonSpinner;
+        mFlagReasonSpinner.setAdapter(new ArrayAdapter<FlagReason>(getActivity(), android.R.layout.simple_spinner_item, FlagReason.values()));
+
+        mReportDialog.show();
+    }
+
+    @Override
+    public DesireFlag getReport() {
+        //get values
+        String comment = mDesiredetailReportPopupBinding.reportComment.getText().toString();
+        FlagReason flagReason = (FlagReason) mDesiredetailReportPopupBinding.reportReasonSpinner.getSelectedItem();
+
+        DesireFlag desireFlag = new DesireFlag();
+        if (!comment.equals("")) {
+            desireFlag.setComment(comment);
+        }
+        desireFlag.setFlagReason(flagReason);
+
+        return desireFlag;
+    }
+
+    @Override
+    public void closeReportPopup() {
+        mReportDialog.dismiss();
     }
 }

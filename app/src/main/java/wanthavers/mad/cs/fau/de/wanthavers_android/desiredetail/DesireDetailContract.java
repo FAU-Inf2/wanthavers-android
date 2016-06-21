@@ -3,6 +3,7 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.desiredetail;
 import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.Chat;
+import de.fau.cs.mad.wanthavers.common.DesireFlag;
 import de.fau.cs.mad.wanthavers.common.Haver;
 import de.fau.cs.mad.wanthavers.common.User;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.BasePresenter;
@@ -39,7 +40,15 @@ public interface DesireDetailContract {
 
         void showUpdateDesireStatusError();
 
+        void showFlagDesireError();
+
+        void showReportPopup();
+
         boolean isActive();
+
+        void closeReportPopup();
+
+        DesireFlag getReport();
     }
 
 
@@ -63,6 +72,12 @@ public interface DesireDetailContract {
         //void getHaver(final long haverId);
 
         void openChatList(User user);
+
+        void openReportPopup();
+
+        void finishReport();
+
+        void closeReportPopup();
 
     }
 }
