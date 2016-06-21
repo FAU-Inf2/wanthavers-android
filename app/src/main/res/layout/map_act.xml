@@ -39,4 +39,14 @@
         android:layout_alignParentRight="false"
         android:layout_alignParentEnd="true" />
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/my_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/ic_menu_mylocation"
+        android:layout_marginBottom="29dp"
+        android:layout_above="@+id/button_select_location"
+        android:layout_alignRight="@+id/location_display_incl"
+        android:layout_alignEnd="@+id/location_display_incl" />
+
 </RelativeLayout>
