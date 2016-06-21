@@ -22,6 +22,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCase;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.WantHaversApplication;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.CreateLocation;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.DeleteLocation;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetSavedLocations;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetSubcategories;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.UpdateLocation;
@@ -36,11 +37,12 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
     private final CreateLocation mCreateLocation;
     private final UpdateLocation mUpdateLocation;
     private final GetSavedLocations mGetSavedLocations;
+    private final DeleteLocation mDeleteLocation;
 
     public FilterSettingPresenter(@NonNull UseCaseHandler useCaseHandler, @NonNull FilterSettingContract.View filterSettingView,
                                   @NonNull FilterSettingActivity filterSettingActivity,  @NonNull GetSubcategories getSubcategories,
                                   @NonNull CreateLocation createLocation, @NonNull GetSavedLocations getSavedLocations,
-                                  @NonNull UpdateLocation updateLocation) {
+                                  @NonNull UpdateLocation updateLocation, @NonNull DeleteLocation deleteLocation) {
         mUseCaseHandler = checkNotNull(useCaseHandler, "useCaseHandler cannot be null");
         mFilterSettingView = checkNotNull(filterSettingView, "filtersetting view cannot be null");
         mActivity = checkNotNull(filterSettingActivity, "filtersetting activtiy cannot be null");
@@ -48,6 +50,7 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
         mCreateLocation = checkNotNull(createLocation);
         mGetSavedLocations = checkNotNull(getSavedLocations);
         mUpdateLocation = checkNotNull(updateLocation);
+        mDeleteLocation = checkNotNull(deleteLocation);
 
         mFilterSettingView.setPresenter(this);
     }
@@ -154,6 +157,30 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
         location.setDescription(locationName);
         updateLocation(location);
         mFilterSettingView.closeLocationNameDialog();
+    }
+
+    public void deleteLocation(final Location location) {
+        DeleteLocation.RequestValues requestValues = new DeleteLocation.RequestValues(location.getId());
+
+        mUseCaseHandler.execute(mDeleteLocation, requestValues, new UseCase.UseCaseCallback<DeleteLocation.ResponseValue>() {
+            @Override
+            public void onSuccess(DeleteLocation.ResponseValue response) {
+                getSavedLocations();
+                resetLocation(location);
+            }
+
+            @Override
+            public void onError() {
+                mFilterSettingView.closeLocationList();
+                mFilterSettingView.showDeleteLocationError();
+            }
+        });
+    }
+
+    public void resetLocation(Location location) {
+        //TODO
+        // if string equals!
+        //mFilterSettingView.deleteLocationInView();
     }
 
     @Override

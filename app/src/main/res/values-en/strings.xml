@@ -112,6 +112,7 @@
     <string name="flag_title">Report</string>
     <string name="flag_reason_title">Reason</string>
     <string name="flag_leave_a_comment">Leave a comment</string>
+    <string name="delete_location_error">Error while deleting the location</string>
 
 
     <string-array name="currencies">

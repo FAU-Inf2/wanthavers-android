@@ -219,6 +219,11 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
     }
 
     @Override
+    public void showDeleteLocationError() {
+        showMessage(getString(R.string.delete_location_error));
+    }
+
+    @Override
     public int getPriceClicked() {
         return mFilterSettingActionHandler.getPriceClicked();
     }
@@ -288,10 +293,10 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
         mFiltersettingLocationSetnameBinding.setActionHandler(mFilterSettingActionHandler);
 
         //TODO: add text location name in xml when extra works
-        if (location.getDescription().equals("")) {
+        /*if (location.getDescription().equals("")) {
             mFiltersettingLocationSetnameBinding.buttonFrameSubmitNameChoice.setVisibility(View.GONE);
             mFiltersettingLocationSetnameBinding.buttonFrameUpdateNameChoice.setVisibility(View.VISIBLE);
-        }
+        }*/
 
         mSetCustomLocationName.show();
     }
@@ -321,6 +326,13 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
         mFilterSettingFragBinding.noLocationSelected.setVisibility(View.GONE);
         mFilterSettingFragBinding.selectedCustomLocationName.setVisibility(View.VISIBLE);
         mFilterSettingFragBinding.selectedLocationString.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void deleteLocationInView() {
+        mFilterSettingFragBinding.noLocationSelected.setVisibility(View.VISIBLE);
+        mFilterSettingFragBinding.selectedCustomLocationName.setVisibility(View.GONE);
+        mFilterSettingFragBinding.selectedLocationString.setVisibility(View.GONE);
     }
 
     @Override

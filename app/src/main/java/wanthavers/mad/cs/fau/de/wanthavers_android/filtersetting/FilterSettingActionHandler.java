@@ -55,9 +55,7 @@ public class FilterSettingActionHandler {
     }
 
     public void buttonDeleteLocation(Location location) {
-        //TODO
-        //delete Location
-        //Reload Locations
+        mListener.deleteLocation(location);
     }
 
     public void buttonChangeColor(int clicked) {

@@ -55,6 +55,10 @@ public interface FilterSettingContract {
 
         void showUpdateLocationError();
 
+        void showDeleteLocationError();
+
+        void deleteLocationInView();
+
     }
 
     interface Presenter extends BasePresenter {
@@ -78,5 +82,7 @@ public interface FilterSettingContract {
         void finishLocationUpdate(Location location);
 
         void setLocation(Location location);
+
+        void deleteLocation(final Location location);
     }
 }
