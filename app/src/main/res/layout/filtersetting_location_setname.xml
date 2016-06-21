@@ -23,7 +23,6 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:background="@color/colorSecondary">
-            <!-- onclick here -->
 
             <EditText
                 android:id="@+id/set_custom_location_name"

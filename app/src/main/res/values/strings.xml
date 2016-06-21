@@ -147,6 +147,10 @@
     <string name="Set_location_ok">Confirm</string>
     <string name="Set_location_cancel">Cancel</string>
     <string name="update_location_error">Fehler beim Aktualisieren des Ortes</string>
+    <string name="flag_desire_error">Fehler beim Melden eines Desires</string>
+    <string name="flag_title">Melden</string>
+    <string name="flag_reason_title">Grund</string>
+    <string name="flag_leave_a_comment">Verfasse einen Kommentar</string>
 
     <string-array name="currencies">
         <item>\u20AC</item>

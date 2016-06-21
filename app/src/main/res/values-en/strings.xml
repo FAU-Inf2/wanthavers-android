@@ -108,6 +108,10 @@
     <string name="update_location_error">Error while updating the location</string>
     <string name="get_saved_locations_error">Error while loading saved locations</string>
     <string name="location_name_not_set">No name set yet</string>
+    <string name="flag_desire_error">Error while reporting desire</string>
+    <string name="flag_title">Report</string>
+    <string name="flag_reason_title">Reason</string>
+    <string name="flag_leave_a_comment">Leave a comment</string>
 
 
     <string-array name="currencies">

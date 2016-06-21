@@ -12,6 +12,9 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireRepository;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireLocalDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireRemoteDataSource;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.flag.FlagLocalDataSource;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.flag.FlagRemoteDataSource;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.flag.FlagRepository;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.haver.HaverLocalDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.haver.HaverRemoteDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.haver.HaverRepository;
@@ -20,6 +23,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserRemoteDa
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserRepository;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.AcceptHaver;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.FlagDesire;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetAcceptedHaver;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetChatForDesire;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetDesire;
@@ -73,12 +77,14 @@ public class DesireDetailActivity extends AppCompatActivity {
         DesireRepository desireRepository = DesireRepository.getInstance(DesireRemoteDataSource.getInstance(getApplicationContext()), DesireLocalDataSource.getInstance(context));
         HaverRepository haverRepository = HaverRepository.getInstance(HaverRemoteDataSource.getInstance(getApplicationContext()), HaverLocalDataSource.getInstance(context));
         UserRepository userRepository = UserRepository.getInstance(UserRemoteDataSource.getInstance(getApplicationContext()), UserLocalDataSource.getInstance(context));
+        FlagRepository flagRepository = FlagRepository.getInstance(FlagRemoteDataSource.getInstance(getApplicationContext()), FlagLocalDataSource.getInstance(context));
 
         //create the presenter with Injection of Usecases
         mDesireDetailPresenter = new DesireDetailPresenter(desireLogic, UseCaseHandler.getInstance(),
                 desireId, desireDetailFragment,new AcceptHaver(haverRepository), new GetDesire(desireRepository),
                 new GetHaverList(haverRepository),new GetUser(userRepository), new SetHaver(haverRepository),
-                new GetAcceptedHaver(haverRepository), new GetChatForDesire(desireRepository), new UpdateDesireStatus(desireRepository));
+                new GetAcceptedHaver(haverRepository), new GetChatForDesire(desireRepository), new UpdateDesireStatus(desireRepository),
+                new FlagDesire(flagRepository));
 
         DesireDetailViewModel desireDetailViewModel =
                 new DesireDetailViewModel(getApplicationContext(), mDesireDetailPresenter);

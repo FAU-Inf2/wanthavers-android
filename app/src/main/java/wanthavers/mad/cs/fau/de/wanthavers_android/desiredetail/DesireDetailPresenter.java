@@ -12,13 +12,16 @@ import java.util.List;
 import java.util.ListIterator;
 
 import de.fau.cs.mad.wanthavers.common.Chat;
+import de.fau.cs.mad.wanthavers.common.DesireFlag;
 import de.fau.cs.mad.wanthavers.common.DesireStatus;
+import de.fau.cs.mad.wanthavers.common.FlagReason;
 import de.fau.cs.mad.wanthavers.common.Haver;
 import de.fau.cs.mad.wanthavers.common.User;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCase;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.AcceptHaver;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.FlagDesire;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetAcceptedHaver;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetChatForDesire;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetDesire;
@@ -47,6 +50,7 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
     private final GetAcceptedHaver mGetAcceptedHaver;
     private final GetChatForDesire mGetChatForDesire;
     private final UpdateDesireStatus mUpdateDesireStatus;
+    private final FlagDesire mFlagDesire;
 
     @NonNull
     private long mDesireId;
@@ -56,7 +60,8 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
                                  @NonNull AcceptHaver acceptHaver, @NonNull GetDesire getDesire,
                                  @NonNull GetHaverList getHaverList, @NonNull GetUser getUser,
                                  @NonNull SetHaver setHaver, @NonNull GetAcceptedHaver getAcceptedHaver,
-                                 @NonNull GetChatForDesire getChatForDesire, @NonNull UpdateDesireStatus updateDesireStatus){
+                                 @NonNull GetChatForDesire getChatForDesire, @NonNull UpdateDesireStatus updateDesireStatus,
+                                 @NonNull FlagDesire flagDesire){
 
         mUseCaseHandler = checkNotNull(useCaseHandler, "useCaseHandler cannot be null");
         mDesireDetailView = checkNotNull(desireDetailView, "desiredetail view cannot be null");
@@ -69,6 +74,7 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
         mGetAcceptedHaver = checkNotNull(getAcceptedHaver);
         mGetChatForDesire = checkNotNull(getChatForDesire);
         mUpdateDesireStatus = checkNotNull(updateDesireStatus);
+        mFlagDesire = checkNotNull(flagDesire);
 
         mDesireDetailView.setPresenter(this);
         mDesireLogic = desireLogic;
@@ -275,6 +281,25 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
         );
     }
 
+    public void flagDesire(DesireFlag desireFlag) {
+
+        FlagDesire.RequestValues requestValues = new FlagDesire.RequestValues(mDesireId, desireFlag);
+
+        mUseCaseHandler.execute(mFlagDesire, requestValues,
+                new UseCase.UseCaseCallback<FlagDesire.ResponseValue>() {
+                    @Override
+                    public void onSuccess(FlagDesire.ResponseValue response) {
+
+                    }
+
+                    @Override
+                    public void onError() {
+                        mDesireDetailView.showFlagDesireError();
+                    }
+                }
+        );
+    }
+
     //TODO: public void submitRating()
 
     private void processHavers(List<Haver> havers) {
@@ -297,5 +322,23 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
         //TODO: open chat here;
         checkNotNull(user, "user cannot be null!");
         mDesireDetailView.showChatList(user.getId());
+    }
+
+    @Override
+    public void openReportPopup() {
+        mDesireDetailView.showReportPopup();
+    }
+
+    @Override
+    public void finishReport() {
+        DesireFlag desireFlag = mDesireDetailView.getReport();
+        desireFlag.setDesireId(mDesireId);
+        mDesireDetailView.closeReportPopup();
+        flagDesire(desireFlag);
+    }
+
+    @Override
+    public void closeReportPopup() {
+        mDesireDetailView.closeReportPopup();
     }
 }

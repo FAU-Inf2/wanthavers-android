@@ -106,7 +106,7 @@
                     android:background="@drawable/chat_border_me"
                     android:layout_toLeftOf="@id/button_send_message"
                     android:layout_marginRight="10dp"
-                    android:onClick="@{ () -> actionHandler.sendMessage(desire.creator.getId())}"/>
+                    android:onClick="@{ () -> actionHandler.openReportPopup()}"/>
 
             </RelativeLayout>
 
