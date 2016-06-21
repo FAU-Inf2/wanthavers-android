@@ -8,7 +8,6 @@ import android.content.pm.PackageManager;
 import android.graphics.Point;
 import android.location.Address;
 import android.location.Geocoder;
-import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
@@ -44,6 +43,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate.DesireCreateActivity3rdStep;
 import wanthavers.mad.cs.fau.de.wanthavers_android.filtersetting.FilterSettingActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.settings.SettingsActivity;
+import de.fau.cs.mad.wanthavers.common.Location;
 
 public class MapActivity extends Activity implements MapWrapperLayout.OnDragListener {
 
@@ -64,6 +64,7 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
     private TextView mLocationTextHeaderView;
     private LocationManager mLocationManager;
     private GpsLocationTracker mGpsLocationTracker;
+    private Location mSettingsLocation = null;
 
 
     @Override
@@ -71,7 +72,7 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.map_act);
         mLocationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
-        mGpsLocationTracker = new GpsLocationTracker(MapActivity.this, 49.573759d, 11.027389d);
+        mGpsLocationTracker = new GpsLocationTracker(MapActivity.this, 49.573759d, 11.027389d); // computer science tower uni erlangen
         if(!mGpsLocationTracker.isGpsEnabled()){
            showAlert();
         }
@@ -115,9 +116,23 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
     }
 
     private void initializeUI() {
+        double latitude;
+        double longitude;
+        //Location settingsLocation = new Location();
+        mSettingsLocation = (Location) getIntent().getExtras().getSerializable("location");
 
-        double latitude = mGpsLocationTracker.getLatitude();
-        double longitude = mGpsLocationTracker.getLongitude();
+        if(mSettingsLocation != null){
+            //Location from Settings
+            latitude = mSettingsLocation.getLat();
+            longitude = mSettingsLocation.getLon();
+
+        }else {
+            //Location from GPS, Network
+            latitude = mGpsLocationTracker.getLatitude();
+            longitude = mGpsLocationTracker.getLongitude();
+
+        }
+
         LatLng latLng = new LatLng(latitude, longitude);
         updateLocation(latLng);
         try {
@@ -171,7 +186,7 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
     @Override
     public void onDrag(MotionEvent motionEvent) {
         if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-            Projection projection = (googleMap != null && googleMap.getProjection() != null) ? googleMap.getProjection()
+            Projection projection = (googleMap != null) ? googleMap.getProjection()
                     : null;
             //
             if (projection != null) {
@@ -187,7 +202,7 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
             Geocoder geocoder = new Geocoder(MapActivity.this,
                     Locale.getDefault());
 
-            List<Address> addresses = new ArrayList<Address>();
+            List<Address> addresses = new ArrayList<>();
             try {
                 addresses = geocoder.getFromLocation(centerLatLng.latitude,
                         centerLatLng.longitude, 1);
@@ -317,6 +332,14 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
             intent.putExtra("desireLocation", location);
             intent.putExtra("desireLocationLat", Double.toString(lat));
             intent.putExtra("desireLocationLng", Double.toString(lng));
+
+            if(mSettingsLocation != null) {
+                intent.putExtra("desireLocationName", mSettingsLocation.getDescription());
+
+            }else{
+                intent.putExtra("desireLocationName", "");
+
+            }
 
             Log.d("1", location);
 
