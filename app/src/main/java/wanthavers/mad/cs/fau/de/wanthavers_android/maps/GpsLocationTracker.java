@@ -26,8 +26,8 @@ public class GpsLocationTracker extends Service implements LocationListener {
     private double mLatitude;
     private double mLongitude;
 
-    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATE = 10;
-    private static final long MIN_TIME_FOR_UPDATE = 600;
+    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATE = 5;
+    private static final long MIN_TIME_FOR_UPDATE = 0;
     private LocationManager mLocationManager;
 
 
@@ -136,7 +136,7 @@ public class GpsLocationTracker extends Service implements LocationListener {
     }
 
     public void onLocationChanged(Location location) {
-        //getLocation();
+        getLocation();
     }
 
     public void onProviderDisabled(String provider) {
