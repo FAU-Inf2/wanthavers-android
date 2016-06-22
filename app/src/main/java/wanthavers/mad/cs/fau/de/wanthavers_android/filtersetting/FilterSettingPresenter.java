@@ -218,15 +218,13 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
         mFilterSettingView.closeLocationNameDialog();
     }
 
-    public void updateLocation(Location location) {
+    public void updateLocation(final Location location) {
         UpdateLocation.RequestValues requestValues = new UpdateLocation.RequestValues(location.getId(), location);
-
-        System.out.println("Location id: " +location.getId());
 
         mUseCaseHandler.execute(mUpdateLocation, requestValues, new UseCase.UseCaseCallback<UpdateLocation.ResponseValue>() {
             @Override
             public void onSuccess(UpdateLocation.ResponseValue response) {
-                setLocation(response.getLocation());
+                updateLocationInView(location);
                 mFilterSettingView.showLocationList();
                 getSavedLocations();
             }
@@ -252,6 +250,13 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
         mFilterSettingView.closeLocationNameDialog();
     }
 
+    public void updateLocationInView(Location location) {
+        long curLocationId = mFilterSettingView.getCurLocationFilter().getId();
+        if (curLocationId == location.getId()) {
+            mFilterSettingView.setLocation(location);
+        }
+    }
+
     public void deleteLocation(final Location location) {
         DeleteLocation.RequestValues requestValues = new DeleteLocation.RequestValues(location.getId());
 
@@ -271,8 +276,8 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
     }
 
     public void resetLocation(Location location) {
-        String curLocationFilter = mFilterSettingView.getCurLocationFilter();
-        if (curLocationFilter.equals(location.getDescription())) {
+        long curLocationId = mFilterSettingView.getCurLocationFilter().getId();
+        if (curLocationId == location.getId()) {
             mFilterSettingView.deleteLocationInView();
         }
     }
