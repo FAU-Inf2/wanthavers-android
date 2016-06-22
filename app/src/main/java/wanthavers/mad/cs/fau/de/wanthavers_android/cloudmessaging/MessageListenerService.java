@@ -54,8 +54,6 @@ public class MessageListenerService extends FirebaseMessagingService {
         intent.putExtras(extras);
         startService(intent);
 
-        System.out.println("started MessagePushIntentService");
-
         //sendNotification(message);
     }
 
@@ -72,6 +70,7 @@ public class MessageListenerService extends FirebaseMessagingService {
         // notifications with same IDs will overwrite each other
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
                 PendingIntent.FLAG_ONE_SHOT);
+
 
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)

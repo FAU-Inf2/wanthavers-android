@@ -6,7 +6,11 @@ import android.support.multidex.MultiDex;
 import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;
 
+import java.util.concurrent.TimeUnit;
+
 import de.fau.cs.mad.wanthavers.common.DesireFilter;
+import wanthavers.mad.cs.fau.de.wanthavers_android.cloudmessaging.PollingTask;
+import wanthavers.mad.cs.fau.de.wanthavers_android.cloudmessaging.WantHaverScheduledExecutor;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.ormlite.FilterDatabaseHelper;
 
 public class WantHaversApplication extends Application {
@@ -14,6 +18,8 @@ public class WantHaversApplication extends Application {
 
     private static DesireFilter mDesireFilter;
     private static boolean mNewMessages = false;
+    WantHaverScheduledExecutor mWantHaverScheduledExecutor;
+    private static final int BACKUP_POLLING_DELAY= 30;
 
     @Override
     public void onCreate() {
@@ -29,10 +35,27 @@ public class WantHaversApplication extends Application {
         Picasso.setSingletonInstance(built);
 
 
-
+        startNotificationBackupThread();
 
     }
 
+    @Override
+    public void onTerminate(){
+        super.onTerminate();
+
+        mWantHaverScheduledExecutor.shutdownNow();
+    }
+
+
+    private void startNotificationBackupThread(){
+
+        mWantHaverScheduledExecutor = new WantHaverScheduledExecutor(1);
+
+        PollingTask pollingTask = new PollingTask();
+        pollingTask.setAppContext(getApplicationContext());
+
+        mWantHaverScheduledExecutor.scheduleWithFixedDelay(pollingTask,BACKUP_POLLING_DELAY, BACKUP_POLLING_DELAY, TimeUnit.SECONDS);
+    }
 
 
     protected void  attachBaseContext(Context base){

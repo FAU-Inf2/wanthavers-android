@@ -75,7 +75,6 @@ public class DesireCreateFragment extends Fragment implements DesireCreateContra
     }
 
 
-
     @Override
     public void showMessage(String message) {
         Snackbar.make(getView(), message, Snackbar.LENGTH_LONG).show();

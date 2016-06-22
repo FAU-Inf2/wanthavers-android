@@ -29,11 +29,9 @@ public class MessageShowPushNotification extends IntentService {
 
     private void handleNotification(Bundle extras){
 
-
-
         //TODO check if message is really a message and not some other push notification
         //set newMessagetoTrue as this was reached
-        WantHaversApplication.setNewMessages(true);
+
 
         Intent intent = new Intent(this, DesireListActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -43,6 +41,12 @@ public class MessageShowPushNotification extends IntentService {
                 PendingIntent.FLAG_ONE_SHOT);
 
         PushMessageNotification pushMessageNotification = extras.getParcelable("WH_PUSH_NOTIFICATION");
+
+        if(pushMessageNotification.mBackupNotifier.equals("true")){
+            return;
+        }
+
+        WantHaversApplication.setNewMessages(true);
 
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)

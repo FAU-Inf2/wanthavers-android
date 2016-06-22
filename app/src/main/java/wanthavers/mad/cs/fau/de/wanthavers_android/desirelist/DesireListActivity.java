@@ -27,6 +27,7 @@ import de.fau.cs.mad.wanthavers.common.User;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.WantHaversApplication;
+import wanthavers.mad.cs.fau.de.wanthavers_android.cloudmessaging.PushMessageNotification;
 import wanthavers.mad.cs.fau.de.wanthavers_android.cloudmessaging.RegistrationIntentService;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireRepository;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireLocalDataSource;
@@ -61,9 +62,14 @@ public class DesireListActivity extends AppCompatActivity {
     private BroadcastReceiver notificationReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            MenuView.ItemView chatItem = (MenuView.ItemView) findViewById(R.id.menu_chat);
-            Drawable iconNewMessage = getResources().getDrawable(R.drawable.wh_chat_icon_new_message_light,null);
-            chatItem.setIcon(iconNewMessage);
+
+            PushMessageNotification pushMessageNotification = intent.getExtras().getParcelable("WH_PUSH_NOTIFICATION");
+
+            if(!pushMessageNotification.mBackupNotifier.equals("true")){
+                MenuView.ItemView chatItem = (MenuView.ItemView) findViewById(R.id.menu_chat);
+                Drawable iconNewMessage = getResources().getDrawable(R.drawable.wh_chat_icon_new_message_light,null);
+                chatItem.setIcon(iconNewMessage);
+            }
         }
     };
 
@@ -240,8 +246,8 @@ public class DesireListActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        //disables back button
-
+        finish();
+        System.exit(0);
     }
 
     @Override
