@@ -1,7 +1,9 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.chatlist;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -42,6 +44,31 @@ public class ChatListActivity extends AppCompatActivity {
     private ChatListPresenter mChatListPresenter;
     public static final String USER_ID = "USER_ID";
     private long mLoggedInUserId;
+
+    private BroadcastReceiver notificationReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            mChatListPresenter.loadChats(true);
+            abortBroadcast();
+        }
+    };
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        IntentFilter filter = new IntentFilter("WH_PUSH_NOTIFICATION_BROADCAST");
+        filter.setPriority(10);
+
+        registerReceiver(notificationReceiver, filter);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unregisterReceiver(notificationReceiver);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

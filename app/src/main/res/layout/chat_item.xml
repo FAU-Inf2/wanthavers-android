@@ -73,6 +73,16 @@
                 android:layout_alignParentTop="true">
             </wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView>
 
+            <ImageView
+                android:id="@+id/new_chat_notification"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:visibility="invisible"
+                android:layout_marginBottom="5dp"
+                android:layout_alignParentBottom="true"
+                android:src="@drawable/wh_new_chat_notification_icon"/>
+
         </RelativeLayout>
 
     </LinearLayout>

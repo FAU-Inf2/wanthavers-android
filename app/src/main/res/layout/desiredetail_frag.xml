@@ -346,11 +346,11 @@
                     android:id="@+id/accepted_haver_bar"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:background="@color/colorSecondary"
+                    android:padding="5dp"
+                    android:background="@color/desire_detail_layout_items_background"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_marginTop="1dp"
-                    android:weightSum="1"
                     android:visibility="invisible">
 
                     <ImageView
@@ -360,22 +360,23 @@
                         android:scaleX="0.8"
                         android:scaleY="0.8"
                         android:src="@android:drawable/sym_def_app_icon"
-                        android:layout_marginLeft="5dp"/>
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="10dp"/>
 
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/image_accepted_haver"
                         android:layout_centerVertical="true"
+                        android:layout_toRightOf="@id/image_accepted_haver"
                         android:layout_toLeftOf="@+id/message_haver">
 
                         <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                             android:id="@+id/haver_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
                             android:textAppearance="?android:attr/textAppearanceMedium"
                             android:text="@{haver.user.getName()}"
+                            android:layout_marginTop="-10dp"
                             android:textColor="@color/colorPrimaryDark"/>
 
                         <RatingBar
@@ -388,22 +389,23 @@
                             android:numStars="5"
                             android:stepSize="0.1"
                             android:rating="@{(float)haver.user.rating}"
-                            android:progressBackgroundTint="@color/colorSecondary"
+                            android:progressBackgroundTint="@color/colorMainTextMediumDark"
                             android:progressTint="@color/colorRatingStars"
                             android:secondaryProgressTint="@color/colorRatingStars"
-                            android:layout_below="@+id/haver_name"
-                            android:layout_centerHorizontal="true" />
+                            android:layout_below="@+id/haver_name"/>
 
                     </RelativeLayout>
 
-                    <ImageView
+                    <ImageButton
                         android:id="@+id/message_haver"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:src="@android:drawable/sym_action_chat"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/wh_chat_icon_light"
+                        android:background="@drawable/chat_border_me"
                         android:layout_alignParentRight="true"
                         android:layout_alignParentEnd="true"
-                        android:layout_marginRight="10dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginTop="5dp"
                         android:onClick="@{() -> actionHandler.sendMessage(haver.getUser().getId())}"/>
 
                 </RelativeLayout>

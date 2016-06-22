@@ -15,8 +15,12 @@ import com.google.firebase.messaging.RemoteMessage;
 
 import org.json.JSONObject;
 
+import java.util.Date;
+
+import de.fau.cs.mad.wanthavers.common.AppChatLastSeen;
 import de.fau.cs.mad.wanthavers.common.CloudMessageSubject;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.ormlite.AppChatLastSeenDatabaseHelper;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.DesireListActivity;
 
 
@@ -27,21 +31,20 @@ public class MessageListenerService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
 
 
-        /*
-        String message = remoteMessage.getNotification().getBody();
-        Log.d(TAG, "From: " + remoteMessage.getFrom());
-        Log.d(TAG, "Message: " + message);
 
-        String messageSubject = remoteMessage.getData().get("subject");
-
-        if(messageSubject.equals(CloudMessageSubject.NEWMESSAGE)){
-            DesireListActivity.setNewMessages(true);
-        }
-        */
 
         String message = remoteMessage.getNotification().getBody();
-        String from = remoteMessage.getFrom();
+        String from = remoteMessage.getData().get(CloudMessageSubject.NEWMESSAGE_SENDER);
+        String chatId = remoteMessage.getData().get(CloudMessageSubject.NEWMESSAGE_CHATID);
 
+
+        //save new ChatInfo to Db
+        AppChatLastSeen chatLastSeen = new AppChatLastSeen(chatId, new Date(),message);
+        AppChatLastSeenDatabaseHelper appChatLastSeenDatabaseHelper = AppChatLastSeenDatabaseHelper.getInstance(getApplicationContext());
+        appChatLastSeenDatabaseHelper.createOrUpdate(chatLastSeen);
+
+
+        //push notification
         Bundle extras = new Bundle();
         PushMessageNotification pushMessage = new PushMessageNotification(from, message);
         extras.putParcelable("WH_PUSH_NOTIFICATION", pushMessage);

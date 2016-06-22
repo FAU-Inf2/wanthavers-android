@@ -37,6 +37,7 @@ public class MessageShowPushNotification extends IntentService {
 
         Intent intent = new Intent(this, DesireListActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
         // notifications with same IDs will overwrite each other
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
                 PendingIntent.FLAG_ONE_SHOT);

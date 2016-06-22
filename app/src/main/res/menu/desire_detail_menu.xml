@@ -5,6 +5,6 @@
     <item
         android:id="@+id/menu_chat"
         android:title="@string/chat"
-        android:icon="@android:drawable/sym_action_chat"
+        android:icon="@drawable/wh_chat_icon_light"
         app:showAsAction="always" />
 </menu>

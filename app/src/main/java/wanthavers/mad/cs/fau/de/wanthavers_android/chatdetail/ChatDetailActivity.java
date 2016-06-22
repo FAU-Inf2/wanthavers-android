@@ -10,6 +10,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -18,6 +19,7 @@ import com.squareup.picasso.Picasso;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import de.fau.cs.mad.wanthavers.common.AppChatLastSeen;
 import de.fau.cs.mad.wanthavers.common.Chat;
 import de.fau.cs.mad.wanthavers.common.Media;
 import de.fau.cs.mad.wanthavers.common.User;
@@ -29,6 +31,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.chat.ChatReposito
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireRepository;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireLocalDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireRemoteDataSource;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.ormlite.AppChatLastSeenDatabaseHelper;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetMessageList;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.SendMessage;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.ActivityUtils;
@@ -132,6 +135,12 @@ public class ChatDetailActivity extends AppCompatActivity {
         startService(intent);
 
         //WantHaversTextView toolbarTitle = (WantHaversTextView) = findViewById(R.id.toolbar_title);
+
+
+        //delete LastChat
+        AppChatLastSeenDatabaseHelper appChatLastSeenDatabaseHelper = AppChatLastSeenDatabaseHelper.getInstance(context);
+        appChatLastSeenDatabaseHelper.deleteById(chatId);
+
 
         Chat chat = (Chat) getIntent().getSerializableExtra("ChatOjbect");
 
