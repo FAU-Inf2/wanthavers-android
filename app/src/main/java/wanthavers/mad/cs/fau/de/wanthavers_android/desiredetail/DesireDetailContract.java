@@ -49,6 +49,10 @@ public interface DesireDetailContract {
         void closeReportPopup();
 
         DesireFlag getReport();
+
+        void showLoadingProgress();
+
+        void endLoadingProgress();
     }
 
 

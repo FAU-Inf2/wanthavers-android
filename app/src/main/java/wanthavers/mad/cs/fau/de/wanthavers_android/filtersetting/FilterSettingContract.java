@@ -61,7 +61,7 @@ public interface FilterSettingContract {
 
         void deleteLocationInView();
 
-        String getCurLocationFilter();
+        Location getCurLocationFilter();
 
     }
 

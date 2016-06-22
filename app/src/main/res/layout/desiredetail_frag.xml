@@ -438,7 +438,8 @@
                     android:text="@string/button_desire_accept"
                     android:textColor="@color/colorMainText"
                     android:background="@color/colorPrimary"
-                    android:onClick="@{() -> actionHandler.haverAccept()}"/>
+                    android:onClick="@{() -> actionHandler.haverAccept()}"
+                    android:visibility="gone"/>
 
             </LinearLayout>
         </RelativeLayout>

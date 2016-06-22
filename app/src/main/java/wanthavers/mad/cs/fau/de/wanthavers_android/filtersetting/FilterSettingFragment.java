@@ -158,17 +158,6 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
         startActivityForResult(intent, 1);
     }
 
-    /*@Override
-    public Location getLocation() {
-        Location ret = new Location();
-        ret.setLat(mLat);
-        ret.setLon(mLon);
-        ret.setFullAddress( mLocation);
-
-        return ret;
-
-    }*/
-
     @Override
     public String[] getRadiusArray() {
         return getResources().getStringArray(R.array.radius);
@@ -265,6 +254,7 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
             double lat = Double.parseDouble(data.getExtras().getString("desireLocationLat"));
             double lon = Double.parseDouble(data.getExtras().getString("desireLocationLng"));
             String locationName = data.getExtras().getString("desireLocationName");
+            String locationId = data.getExtras().getString("desireLocationId");
 
             long userId = new DesireLogic(getContext()).getLoggedInUserId();
 
@@ -275,6 +265,10 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
             location.setLon(lon);
             location.setUserId(userId);
             location.setDescription(locationName);
+
+            if (!locationId.equals("")) {
+                location.setId(Long.parseLong(locationId));
+            }
 
             //set custom location name dialog
             closeLocationList();
@@ -342,7 +336,7 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
     }
 
     @Override
-    public String getCurLocationFilter() {
-        return mFilterSettingFragBinding.selectedCustomLocationName.getText().toString();
+    public Location getCurLocationFilter() {
+        return mFilterSettingFragBinding.getLocation();
     }
 }

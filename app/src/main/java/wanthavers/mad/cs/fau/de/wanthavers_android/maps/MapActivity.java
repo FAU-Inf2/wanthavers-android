@@ -367,10 +367,10 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
 
             if(mSettingsLocation != null) {
                 intent.putExtra("desireLocationName", mSettingsLocation.getDescription());
-
+                intent.putExtra("desireLocationId", Long.toString(mSettingsLocation.getId()));
             }else{
                 intent.putExtra("desireLocationName", "");
-
+                intent.putExtra("desireLocationId", "");
             }
 
             Log.d("1", location);

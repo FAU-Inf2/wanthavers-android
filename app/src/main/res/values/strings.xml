@@ -152,6 +152,7 @@
     <string name="flag_reason_title">Grund</string>
     <string name="flag_leave_a_comment">Verfasse einen Kommentar</string>
     <string name="delete_location_error">Fehler beim Löschen des Ortes</string>
+    <string name="loading_desire_title">Laden des gewählten Wunsches</string>
 
     <string-array name="currencies">
         <item>\u20AC</item>
