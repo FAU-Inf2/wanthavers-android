@@ -3,8 +3,6 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import java.util.List;
-
 import de.fau.cs.mad.wanthavers.common.User;
 import wanthavers.mad.cs.fau.de.wanthavers_android.rest.UserClient;
 
@@ -21,8 +19,8 @@ public class UserRemoteDataSource implements UserDataSource {
         userClient = UserClient.getInstance(context);
     }
 
-    public static UserRemoteDataSource getInstance(Context context){
-        if(INSTANCE == null) {
+    public static UserRemoteDataSource getInstance(Context context) {
+        if (INSTANCE == null) {
             INSTANCE = new UserRemoteDataSource(context);
         }
         return INSTANCE;
@@ -75,6 +73,16 @@ public class UserRemoteDataSource implements UserDataSource {
             callback.onLoginSuccessful(ret);
         } catch (Throwable t) {
             callback.onLoginFailed();
+        }
+    }
+
+    @Override
+    public void sendPWResetToken(@NonNull String email, @NonNull SendPWResetTokenCallback callback) {
+        try {
+            userClient.sendToken(email);
+            callback.onTokenSent();
+        } catch (Throwable t) {
+            callback.onSendFailed();
         }
     }
 

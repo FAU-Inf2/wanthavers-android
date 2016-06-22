@@ -18,13 +18,12 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user;
 
 import android.support.annotation.NonNull;
 
-import java.util.List;
-
 import de.fau.cs.mad.wanthavers.common.User;
 
 /**
  * Main entry point for accessing user data.
  */
+
 /**
  * Created by Nico on 10.05.2016.
  */
@@ -69,6 +68,13 @@ public interface UserDataSource {
 
     }
 
+    interface SendPWResetTokenCallback {
+
+        void onTokenSent();
+
+        void onSendFailed();
+
+    }
 
     void getUser(@NonNull long userId, @NonNull GetUserCallback callback);
 
@@ -79,4 +85,6 @@ public interface UserDataSource {
     void deleteUser(@NonNull DeleteUserCallback callback);
 
     void login(@NonNull LoginCallback callback);
+
+    void sendPWResetToken(@NonNull String email, @NonNull SendPWResetTokenCallback callback);
 }

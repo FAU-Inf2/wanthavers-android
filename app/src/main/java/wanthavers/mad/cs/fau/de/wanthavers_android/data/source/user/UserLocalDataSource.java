@@ -17,12 +17,9 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.support.annotation.NonNull;
 
 import com.j256.ormlite.dao.RuntimeExceptionDao;
-
-import java.util.Date;
 
 import de.fau.cs.mad.wanthavers.common.User;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.ormlite.DatabaseHelper;
@@ -32,6 +29,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 /**
  * Concrete implementation of a data source as a db.
  */
+
 /**
  * Created by Nico on 10.05.2016.
  */
@@ -77,5 +75,10 @@ public class UserLocalDataSource implements UserDataSource {
     @Override
     public void login(@NonNull LoginCallback callback) {
         callback.onLoginFailed();
+    }
+
+    @Override
+    public void sendPWResetToken(@NonNull String email, @NonNull SendPWResetTokenCallback callback) {
+        callback.onSendFailed();
     }
 }

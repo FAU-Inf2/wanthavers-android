@@ -2,8 +2,6 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user;
 
 import android.support.annotation.NonNull;
 
-import java.util.List;
-
 import de.fau.cs.mad.wanthavers.common.User;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -126,17 +124,35 @@ public class UserRepository implements UserDataSource {
         checkNotNull(callback);
 
         userRemoteDataSource.login(new LoginCallback() {
-                    @Override
-                    public void onLoginSuccessful(User user) {
-                        callback.onLoginSuccessful(user);
-                    }
+                                       @Override
+                                       public void onLoginSuccessful(User user) {
+                                           callback.onLoginSuccessful(user);
+                                       }
 
-                    @Override
-                    public void onLoginFailed() {
-                        callback.onLoginFailed();
-                    }
-                }
+                                       @Override
+                                       public void onLoginFailed() {
+                                           callback.onLoginFailed();
+                                       }
+                                   }
         );
+    }
+
+    @Override
+    public void sendPWResetToken(@NonNull String email, @NonNull final SendPWResetTokenCallback callback) {
+        checkNotNull(email);
+        checkNotNull(callback);
+
+        userRemoteDataSource.sendPWResetToken(email, new SendPWResetTokenCallback() {
+            @Override
+            public void onTokenSent() {
+                callback.onTokenSent();
+            }
+
+            @Override
+            public void onSendFailed() {
+                callback.onSendFailed();
+            }
+        });
     }
 
     private void getUserFromRemoteDataSource(@NonNull long userId, @NonNull final GetUserCallback callback) {
