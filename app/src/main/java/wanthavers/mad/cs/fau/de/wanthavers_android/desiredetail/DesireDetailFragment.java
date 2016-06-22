@@ -1,6 +1,7 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.desiredetail;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -66,6 +67,7 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
     private DesireDetailActionHandler mDesireDetailActionHandler;
     private Dialog mReportDialog;
     private DesiredetailReportPopupBinding mDesiredetailReportPopupBinding;
+    private ProgressDialog mLoadingDialog;
 
     public DesireDetailFragment() {
         //Requires empty public constructor
@@ -181,12 +183,12 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
         } else if (desire.getStatus() == 2) {
             mPresenter.getAcceptedHaver();
             //haver cannot accept
-            mDesireDetailFragBinding.buttonAcceptDesire.setVisibility(View.GONE);
+            //mDesireDetailFragBinding.buttonAcceptDesire.setVisibility(View.GONE);
             mDesireDetailFragBinding.buttonCloseTransaction.setVisibility(View.VISIBLE);
         } else if (desire.getStatus() == 3) {
             mPresenter.getAcceptedHaver();
             //haver cannot accept
-            mDesireDetailFragBinding.buttonAcceptDesire.setVisibility(View.GONE);
+            //mDesireDetailFragBinding.buttonAcceptDesire.setVisibility(View.GONE);
         }
 
     }
@@ -194,6 +196,8 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
     public void showHavers(List<Haver> havers) {
         mListAdapter.replaceData(havers);
         mDesireDetailViewModel.setWanterListSize(havers.size());
+
+        endLoadingProgress();
     }
 
     public void showAcceptedHaver(Haver haver) {
@@ -222,6 +226,8 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
             final ImageView profileView = mDesireDetailFragBinding.imageAcceptedHaver;
             profileView.setImageResource(R.drawable.no_pic);
         }
+
+        endLoadingProgress();
 
     }
 
@@ -292,6 +298,8 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
     public void showAcceptButton(List<Haver> havers) {
         if (isHaver(havers)) {
             mDesireDetailFragBinding.buttonAcceptDesire.setVisibility(View.GONE);
+        } else {
+            mDesireDetailFragBinding.buttonAcceptDesire.setVisibility(View.VISIBLE);
         }
     }
 
@@ -358,5 +366,18 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
     @Override
     public void closeReportPopup() {
         mReportDialog.dismiss();
+    }
+
+    @Override
+    public void showLoadingProgress() {
+        mLoadingDialog = new ProgressDialog(getActivity());
+        mLoadingDialog.setTitle("Loading");
+        mLoadingDialog.setMessage("Wait while loading...");
+        mLoadingDialog.show();
+    }
+
+    @Override
+    public void endLoadingProgress() {
+        mLoadingDialog.dismiss();
     }
 }
