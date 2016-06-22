@@ -4,9 +4,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.MapFragment;
-import wanthavers.mad.cs.fau.de.wanthavers_android.maps.MapWrapperLayout;
+
+import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 
 public class MyMapFragment extends MapFragment {
 

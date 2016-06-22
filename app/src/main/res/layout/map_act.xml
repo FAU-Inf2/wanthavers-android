@@ -1,52 +1,99 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
 
-    <fragment
-        android:id="@+id/map"
-        android:name="wanthavers.mad.cs.fau.de.wanthavers_android.maps.MyMapFragment"
+        <variable
+            name="presenter"
+            type="wanthavers.mad.cs.fau.de.wanthavers_android.maps.MapContract.Presenter" />
+
+    </data>
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent" >
 
-    <include
-        android:id="@+id/marker_view_incl"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        layout="@layout/marker_view" />
+        <fragment
+            android:id="@+id/map"
+            android:name="wanthavers.mad.cs.fau.de.wanthavers_android.maps.MyMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
-    <include
-        android:id="@+id/location_display_incl"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="7dp"
-        layout="@layout/location_display_view" />
+        <include
+            android:id="@+id/marker_view_incl"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            layout="@layout/marker_view" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/use_location"
-        android:id="@+id/button_select_location"
-        android:layout_alignParentLeft="false"
-        android:layout_alignParentStart="true"
-        android:background="@color/colorPrimary"
-        android:textColor="@color/colorSecondary"
-        android:textSize="20sp"
-        android:textAlignment="center"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="false"
-        android:layout_alignParentEnd="true" />
+        <!-- <include
+            android:id="@+id/location_display_incl"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="7dp"
+            layout="@layout/location_display_view" /> -->
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/my_location"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@android:drawable/ic_menu_mylocation"
-        android:layout_marginBottom="29dp"
-        android:layout_above="@+id/button_select_location"
-        android:layout_alignRight="@+id/location_display_incl"
-        android:layout_alignEnd="@+id/location_display_incl" />
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:id="@+id/relativeLayout"
+            android:background="@color/colorSecondary"
+            android:layout_margin="10sp"
+            android:onClick="@{() -> presenter.createEditAddress()}">
 
-</RelativeLayout>
+
+            <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                android:id="@+id/location_text_view_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:text="@string/set_location"
+                android:textColor="@color/colorPrimary"
+                android:textSize="12sp"
+                android:clickable="true"
+                android:onClick="@{() -> presenter.createEditAddress()}"/>
+
+            <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                android:id="@+id/location_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/location_text_view_header"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:textColor="@color/colorMainTextDark"
+                android:textSize="14sp"
+                android:clickable="true"
+                android:onClick="@{() -> presenter.createEditAddress()}"/>
+
+        </RelativeLayout>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/use_location"
+            android:id="@+id/button_select_location"
+            android:layout_alignParentLeft="false"
+            android:layout_alignParentStart="true"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/colorSecondary"
+            android:textSize="20sp"
+            android:textAlignment="center"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="false"
+            android:layout_alignParentEnd="true"
+            android:onClick="@{() -> presenter.createFinishDesireCreate()}"/>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/my_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_menu_mylocation"
+            android:onClick="@{() -> presenter.createMoveToCurrentGpsPosition()}"
+            android:layout_above="@+id/button_select_location"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="10sp"
+            android:layout_marginBottom="10sp" />
+
+    </RelativeLayout>
+</layout>

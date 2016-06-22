@@ -31,6 +31,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.Projection;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.io.IOException;
@@ -46,8 +47,13 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate.DesireCreateActi
 import wanthavers.mad.cs.fau.de.wanthavers_android.filtersetting.FilterSettingActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.settings.SettingsActivity;
 import de.fau.cs.mad.wanthavers.common.Location;
+import android.databinding.DataBindingUtil;
 
-public class MapActivity extends Activity implements MapWrapperLayout.OnDragListener, OnMapReadyCallback {
+import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.MapActBinding;
+
+public class MapActivity extends Activity implements MapWrapperLayout.OnDragListener, OnMapReadyCallback, MapContract.View{
+
+
 
     // Google Map
     private GoogleMap googleMap;
@@ -69,66 +75,41 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
     private Location mSettingsLocation = null;
     private LatLng mlatLng;
 
+    private MapContract.Presenter mMapPresenter;;
+    private MapActBinding mViewDataBinding;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.map_act);
+
+        MapActBinding binding =
+                DataBindingUtil.setContentView(this, R.layout.map_act);
+        mMapPresenter = new MapPresenter(MapActivity.this);
+        binding.setPresenter(mMapPresenter);
+
+
         mLocationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
         mGpsLocationTracker = new GpsLocationTracker(MapActivity.this, 49.573759d, 11.027389d); // computer science tower uni erlangen
         if (!mGpsLocationTracker.isGpsEnabled()) {
             showAlert();
         }
 
+
+
         mLocationTextView = (TextView) findViewById(R.id.location_text_view);
-        mLocationTextHeaderView = (TextView) findViewById(R.id.location_text_view_header);
+        //mLocationTextHeaderView = (TextView) findViewById(R.id.location_text_view_header);
         mMarkerParentView = findViewById(R.id.marker_view_incl);
         mMarkerImageView = (ImageView) findViewById(R.id.marker_icon_view);
 
-        FloatingActionButton gps = (FloatingActionButton) findViewById(R.id.my_location);
-
-        gps.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mGpsLocationTracker = new GpsLocationTracker(MapActivity.this, mlatLng.latitude, mlatLng.longitude);
-                LatLng tmp = new LatLng(mGpsLocationTracker.getLatitude(),mGpsLocationTracker.getLongitude());
-                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(tmp , 17.0f));
-                googleMap.animateCamera(CameraUpdateFactory.zoomTo(17), 4000, null);
-                updateLocation(mlatLng);
-            }
-        });
-
-
-
-        mLocationTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                editAddress();
-            }
-        });
-
-        mLocationTextHeaderView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                editAddress();
-            }
-        });
 
         initializeUI();
 
+    }
 
-        Button b = (Button) findViewById(R.id.button_select_location);
-        b.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("MapAdresse", mLocationTextView.getText().toString());
-                LatLng centerLatLng = googleMap.getProjection().fromScreenLocation(new Point(
-                        centerX, centerY));
-                setLocation(mLocationTextView.getText().toString(), centerLatLng.latitude, centerLatLng.longitude);
-            }
-        });
-
-
+    @Override
+    public void setPresenter(MapContract.Presenter presenter) {
+        mMapPresenter = presenter;
     }
 
     private void initializeUI() {
@@ -199,8 +180,9 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             //showing yourself on the map, if GPS is enabled
             googleMap.setMyLocationEnabled(true);
-        }
 
+        }
+        googleMap.getUiSettings().setMyLocationButtonEnabled(false);
         //googleMap.setIndoorEnabled(true);
         googleMap.setBuildingsEnabled(true);
 
@@ -213,6 +195,7 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
     @Override
     protected void onResume() {
         super.onResume();
+        mMapPresenter.start();
     }
 
     @Override
@@ -296,7 +279,7 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
 
     }
 
-    private void editAddress(){
+    public void editAddress(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(getString(R.string.set_location));
         builder.setIcon(android.R.drawable.ic_menu_mylocation);
@@ -330,6 +313,16 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
 
     }
 
+    public void moveToCurrentGpsPosition(){
+        mGpsLocationTracker = new GpsLocationTracker(MapActivity.this, mlatLng.latitude, mlatLng.longitude);
+        LatLng tmp = new LatLng(mGpsLocationTracker.getLatitude(),mGpsLocationTracker.getLongitude());
+        //googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(tmp , 17.0f));
+
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(tmp, googleMap.getCameraPosition().zoom));
+
+        updateLocation(mlatLng);
+    }
+
 
 
     public void showMessage(String message) {
@@ -356,7 +349,13 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
     }
 
 
-    public void setLocation(String location, double lat, double lng){
+    public void showFinishDesireCreate(){
+        LatLng centerLatLng = googleMap.getProjection().fromScreenLocation(new Point(
+                centerX, centerY));
+        setLocation(mLocationTextView.getText().toString(), centerLatLng.latitude, centerLatLng.longitude);
+    }
+
+    private void setLocation(String location, double lat, double lng){
 
         if(getIntent().getExtras().getString("desireTitle").compareTo("") == 0) {
             Intent intent = new Intent();
@@ -364,14 +363,16 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
             intent.putExtra("desireLocation", location);
             intent.putExtra("desireLocationLat", Double.toString(lat));
             intent.putExtra("desireLocationLng", Double.toString(lng));
-
             if(mSettingsLocation != null) {
                 intent.putExtra("desireLocationName", mSettingsLocation.getDescription());
                 intent.putExtra("desireLocationId", Long.toString(mSettingsLocation.getId()));
+
             }else{
                 intent.putExtra("desireLocationName", "");
                 intent.putExtra("desireLocationId", "");
+
             }
+
 
             Log.d("1", location);
 
@@ -402,12 +403,14 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
 
     }
     @Override
-        public void onBackPressed(){
-            if(getIntent().getExtras().getString("desireTitle").compareTo("") == 0) {
-                Intent intent = new Intent();
-                intent.putExtra("desireLocation", "");
-                setResult(1, intent);
-            }
-            super.onBackPressed();
+    public void onBackPressed(){
+        if(getIntent().getExtras().getString("desireTitle").compareTo("") == 0) {
+            Intent intent = new Intent();
+            intent.putExtra("desireLocation", "");
+            setResult(1, intent);
         }
+        super.onBackPressed();
+    }
+
+
 }
