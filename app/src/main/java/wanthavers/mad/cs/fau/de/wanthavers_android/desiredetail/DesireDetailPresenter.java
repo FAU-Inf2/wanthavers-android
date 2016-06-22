@@ -305,11 +305,14 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
 
     private void processHavers(List<Haver> havers) {
         if (havers.isEmpty()) {
+            mDesireDetailView.showAcceptButton(havers);
             //TODO no havers yet
         } else {
             mDesireDetailView.showHavers(havers);
             mDesireDetailView.showAcceptButton(havers);
         }
+
+        mDesireDetailView.endLoadingProgress();
     }
 
     public void openChatDetails(@NonNull Chat chat) {

@@ -42,7 +42,7 @@ public class MessageShowPushNotification extends IntentService {
 
         PushMessageNotification pushMessageNotification = extras.getParcelable("WH_PUSH_NOTIFICATION");
 
-        if(pushMessageNotification.mBackupNotifier.equals("true")){
+        if(pushMessageNotification.mBackupNotifier != null && pushMessageNotification.mBackupNotifier.equals("true")){
             return;
         }
 
