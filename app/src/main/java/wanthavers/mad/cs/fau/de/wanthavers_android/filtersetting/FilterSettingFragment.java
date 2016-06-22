@@ -265,6 +265,7 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
             double lat = Double.parseDouble(data.getExtras().getString("desireLocationLat"));
             double lon = Double.parseDouble(data.getExtras().getString("desireLocationLng"));
             String locationName = data.getExtras().getString("desireLocationName");
+            String locationId = data.getExtras().getString("desireLocationId");
 
             long userId = new DesireLogic(getContext()).getLoggedInUserId();
 
@@ -275,6 +276,11 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
             location.setLon(lon);
             location.setUserId(userId);
             location.setDescription(locationName);
+            if (locationId != "") {
+                System.out.println("Reached");
+                location.setId(Long.parseLong(locationId));
+                System.out.println("Reached2");
+            }
 
             //set custom location name dialog
             closeLocationList();

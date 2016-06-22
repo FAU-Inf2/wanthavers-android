@@ -221,10 +221,14 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
     public void updateLocation(Location location) {
         UpdateLocation.RequestValues requestValues = new UpdateLocation.RequestValues(location.getId(), location);
 
+        System.out.println("Location id: " +location.getId());
+
         mUseCaseHandler.execute(mUpdateLocation, requestValues, new UseCase.UseCaseCallback<UpdateLocation.ResponseValue>() {
             @Override
             public void onSuccess(UpdateLocation.ResponseValue response) {
                 setLocation(response.getLocation());
+                mFilterSettingView.showLocationList();
+                getSavedLocations();
             }
 
             @Override
@@ -246,7 +250,6 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
         System.out.println("new location name " + location.getDescription());
         updateLocation(location);
         mFilterSettingView.closeLocationNameDialog();
-        mFilterSettingView.showLocationList();
     }
 
     public void deleteLocation(final Location location) {
