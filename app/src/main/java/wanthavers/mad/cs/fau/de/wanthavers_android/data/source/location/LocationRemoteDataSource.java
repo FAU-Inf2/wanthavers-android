@@ -59,7 +59,6 @@ public class LocationRemoteDataSource implements LocationDataSource {
             Location ret = locationClient.updateLocation(locationId, location);
             callback.onLocationUpdated(ret);
         } catch (Throwable t) {
-            System.out.println(t);
             callback.onUpdateFailed();
         }
     }
