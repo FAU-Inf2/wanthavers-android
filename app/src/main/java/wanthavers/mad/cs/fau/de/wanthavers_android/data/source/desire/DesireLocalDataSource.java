@@ -96,4 +96,10 @@ public class DesireLocalDataSource implements DesireDataSource {
         //TODO: alter this method when we decide to store desires locally
         callback.onLoadFailed();
     }
+
+    @Override
+    public void deleteDesire(@NonNull long desireId, @NonNull DeleteDesireCallback callback) {
+        //TODO
+        callback.onDeleteFailed();
+    }
 }

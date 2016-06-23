@@ -19,14 +19,13 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.Chat;
 import de.fau.cs.mad.wanthavers.common.Desire;
 import de.fau.cs.mad.wanthavers.common.DesireFilter;
+import de.fau.cs.mad.wanthavers.common.DesireStatus;
 import wanthavers.mad.cs.fau.de.wanthavers_android.rest.DesireClient;
-import wanthavers.mad.cs.fau.de.wanthavers_android.rest.UserClient;
 
 /**
  * Implementation of the data source that adds a latency simulating network.
@@ -94,19 +93,19 @@ public class DesireRemoteDataSource implements DesireDataSource {
     public void getDesiresByFilter(@NonNull DesireFilter desireFilter, @NonNull GetDesiresByFilterCallback callback) {
         try {
             List<Desire> ret = desireClient.getByFilter(desireFilter.getCategory(),
-                                                        desireFilter.getPrice_min(),
-                                                        desireFilter.getPrice_max(),
-                                                        desireFilter.getReward_min(),
-                                                        desireFilter.getRating_min(),
-                                                        desireFilter.getLat(),
-                                                        desireFilter.getLon(),
-                                                        desireFilter.getRadius(),
-                                                        desireFilter.getStatus(),
-                                                        desireFilter.getLastDesireId(),
-                                                        desireFilter.getLimit(),
-                                                        desireFilter.getCreatorId(),
-                                                        desireFilter.getHaverId(),
-                                                        desireFilter.getHaverStatus());
+                    desireFilter.getPrice_min(),
+                    desireFilter.getPrice_max(),
+                    desireFilter.getReward_min(),
+                    desireFilter.getRating_min(),
+                    desireFilter.getLat(),
+                    desireFilter.getLon(),
+                    desireFilter.getRadius(),
+                    desireFilter.getStatus(),
+                    desireFilter.getLastDesireId(),
+                    desireFilter.getLimit(),
+                    desireFilter.getCreatorId(),
+                    desireFilter.getHaverId(),
+                    desireFilter.getHaverStatus());
             callback.onDesiresByFilterLoaded(ret);
         } catch (Throwable t) {
             callback.onDataNotAvailable();
@@ -120,6 +119,16 @@ public class DesireRemoteDataSource implements DesireDataSource {
             callback.onChatLoaded(ret);
         } catch (Throwable t) {
             callback.onLoadFailed();
+        }
+    }
+
+    @Override
+    public void deleteDesire(@NonNull long desireId, @NonNull DeleteDesireCallback callback) {
+        try {
+            desireClient.updateDesireStatus(desireId, DesireStatus.STATUS_DELETED);
+            callback.onDesireDeleted();
+        } catch (Throwable t) {
+            callback.onDeleteFailed();
         }
     }
 }

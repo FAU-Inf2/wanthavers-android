@@ -28,7 +28,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Concrete implementation to load tasks from the data sources into a cache.
- * <p/>
+ * <p>
  * For simplicity, this implements a dumb synchronisation between locally persisted data and data
  * obtained from the server, by using the remote data source only if the local database doesn't
  * exist or is empty.
@@ -203,6 +203,24 @@ public class DesireRepository implements DesireDataSource {
             @Override
             public void onLoadFailed() {
                 callback.onLoadFailed();
+            }
+        });
+    }
+
+    @Override
+    public void deleteDesire(@NonNull long desireId, @NonNull final DeleteDesireCallback callback) {
+        checkNotNull(desireId);
+        checkNotNull(callback);
+
+        desireRemoteDataSource.deleteDesire(desireId, new DeleteDesireCallback() {
+            @Override
+            public void onDesireDeleted() {
+                callback.onDesireDeleted();
+            }
+
+            @Override
+            public void onDeleteFailed() {
+                callback.onDeleteFailed();
             }
         });
     }

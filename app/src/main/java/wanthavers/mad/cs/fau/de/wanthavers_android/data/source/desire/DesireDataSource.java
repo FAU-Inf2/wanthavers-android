@@ -76,6 +76,14 @@ public interface DesireDataSource {
 
     }
 
+    interface DeleteDesireCallback {
+
+        void onDesireDeleted();
+
+        void onDeleteFailed();
+
+    }
+
     void createDesire(@NonNull Desire desire, @NonNull CreateDesireCallback callback);
 
     void updateDesire(@NonNull Desire desire, @NonNull UpdateDesireCallback callback);
@@ -87,4 +95,6 @@ public interface DesireDataSource {
     void getDesiresByFilter(@NonNull DesireFilter desireFilter, @NonNull GetDesiresByFilterCallback callback);
 
     void getChatForDesire(@NonNull long user2Id, @NonNull long desireId, @NonNull GetChatForDesireCallback callback);
+
+    void deleteDesire(@NonNull long desireId, @NonNull DeleteDesireCallback callback);
 }
