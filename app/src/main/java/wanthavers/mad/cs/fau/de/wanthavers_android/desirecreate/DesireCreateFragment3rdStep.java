@@ -84,14 +84,14 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
         String title = getActivity().getIntent().getExtras().getString("desireTitle");
         String description = getActivity().getIntent().getExtras().getString("desireDescription");
         String price = getActivity().getIntent().getExtras().getString("desirePrice");
-        String reward = getActivity().getIntent().getExtras().getString("desireReward");
+        //String reward = getActivity().getIntent().getExtras().getString("desireReward");
         String currency = getActivity().getIntent().getExtras().getString("desireCurrency");
         Uri image = getActivity().getIntent().getExtras().getParcelable("desireImage");
         String location = getActivity().getIntent().getExtras().getString("desireLocation");
         double lat = Double.parseDouble(getActivity().getIntent().getExtras().getString("desireLocationLat"));
         double lng = Double.parseDouble(getActivity().getIntent().getExtras().getString("desireLocationLng"));
 
-        setDataForDesire(title, description, Integer.parseInt(price), Integer.parseInt(reward),
+        setDataForDesire(title, description, Integer.parseInt(price),
                 location, currency, image, lat, lng);
         //includes sendDesireToServer()
 
@@ -104,17 +104,18 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
         Log.d("DesireColor:", Integer.toString(desire.getColorIndex()));
 
         Intent intent = new Intent(getContext(), DesireListActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         //getActivity().finish();
 
     }
 
 
-    public void setDataForDesire(String title, String description, int price, int reward, String dropzone, String currency, Uri image, double lat, double lng) {
+    public void setDataForDesire(String title, String description, int price, String dropzone, String currency, Uri image, double lat, double lng) {
         desire.setTitle(title);
         desire.setDescription(description);
         desire.setPrice(price);
-        desire.setReward(reward);
+        //desire.setReward(reward);
         desire.setDropzone_string(dropzone);
         desire.setDropzone_lat(lat);
         desire.setDropzone_long(lng);

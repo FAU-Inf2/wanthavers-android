@@ -25,8 +25,8 @@ public class DesireCreatePresenter implements DesireCreateContract.Presenter {
     private SelectImageLogic mImageLogic;
 
     public DesireCreatePresenter(@NonNull UseCaseHandler ucHandler, @NonNull DesireCreateContract.View view,
-                                 @NonNull DesireCreateActivity3rdStep desireCreateActivity3rdStep, @NonNull DesireCreateActivity2ndStep desireCreateActivity2ndStep,
-                                 @NonNull SetDesire setDesire, @NonNull SetImage setImage) {
+                                 DesireCreateActivity3rdStep desireCreateActivity3rdStep, DesireCreateActivity2ndStep desireCreateActivity2ndStep,
+                                 SetDesire setDesire, SetImage setImage) {
 
         mUseCaseHandler = ucHandler;
         mDesireCreateView = view;
