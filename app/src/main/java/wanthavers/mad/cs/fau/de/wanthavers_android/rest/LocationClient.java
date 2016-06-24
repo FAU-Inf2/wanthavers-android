@@ -47,4 +47,8 @@ public class LocationClient extends RestClient {
     public void deleteLocation(long locationId) {
         locationEndpoint.deleteLocation(null, locationId);
     }
+
+    public Location getLocation(long locationId) {
+        return locationEndpoint.get(null, locationId);
+    }
 }

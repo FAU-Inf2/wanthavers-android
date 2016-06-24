@@ -134,4 +134,22 @@ public class LocationRepository implements LocationDataSource {
             }
         });
     }
+
+    @Override
+    public void getLocation(@NonNull long locationId, @NonNull final GetLocationCallback callback) {
+        checkNotNull(locationId);
+        checkNotNull(callback);
+
+        locationRemoteDataSource.getLocation(locationId, new GetLocationCallback() {
+            @Override
+            public void onLocationLoaded(Location location) {
+                callback.onLocationLoaded(location);
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+                callback.onDataNotAvailable();
+            }
+        });
+    }
 }

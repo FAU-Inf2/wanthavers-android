@@ -55,4 +55,10 @@ public class LocationLocalDataSource implements LocationDataSource {
         //TODO
         callback.onDeleteFailed();
     }
+
+    @Override
+    public void getLocation(@NonNull long locationId, @NonNull GetLocationCallback callback) {
+        //TODO
+        callback.onDataNotAvailable();
+    }
 }

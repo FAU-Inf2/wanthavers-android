@@ -82,4 +82,14 @@ public class LocationRemoteDataSource implements LocationDataSource {
             callback.onDeleteFailed();
         }
     }
+
+    @Override
+    public void getLocation(@NonNull long locationId, @NonNull GetLocationCallback callback) {
+        try {
+            Location ret = locationClient.getLocation(locationId);
+            callback.onLocationLoaded(ret);
+        } catch (Throwable t) {
+            callback.onDataNotAvailable();
+        }
+    }
 }
