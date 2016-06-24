@@ -105,6 +105,14 @@ public class DesireDetailActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onRestart()
+    {
+        super.onRestart();
+        finish();
+        startActivity(getIntent());
+    }
+
     /*
     //Never reached code
     @Override

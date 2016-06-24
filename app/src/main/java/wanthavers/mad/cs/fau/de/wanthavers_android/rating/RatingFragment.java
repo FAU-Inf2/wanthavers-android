@@ -146,7 +146,6 @@ public class RatingFragment extends Fragment implements RatingContract.View {
 
     @Override
     public void closeRatingWindow() {
-        //TODO: fix bug rating button still visible before reload!!!
         getActivity().finish();
     }
 }
