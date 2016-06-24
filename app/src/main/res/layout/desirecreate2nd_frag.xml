@@ -28,26 +28,13 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:maxLength="3"
-            android:layout_alignRight="@+id/create_desire_reward_header"
-            android:layout_alignEnd="@+id/create_desire_reward_header" />
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:ems="10"
-            android:id="@+id/create_desire_reward"
-            android:maxLength="3"
-            android:layout_below="@+id/create_desire_reward_header"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
             android:layout_alignRight="@+id/image_camera"
             android:layout_alignEnd="@+id/image_camera" />
 
         <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/create_desire_price_header"
+            android:text="@string/create_desire_priceReward_header"
             android:id="@+id/create_desire_price_header"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
@@ -56,28 +43,15 @@
             android:layout_alignRight="@+id/create_desire_price"
             android:layout_alignEnd="@+id/create_desire_price" />
 
-        <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/create_desire_reward_header"
-            android:id="@+id/create_desire_reward_header"
-            android:textSize="20sp"
-            android:layout_marginTop="45dp"
-            android:layout_below="@+id/create_desire_price"
-            android:layout_alignRight="@+id/create_desire_reward"
-            android:layout_alignEnd="@+id/create_desire_reward"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
-
         <ImageView
             android:layout_width="200sp"
             android:layout_height="180sp"
             android:id="@+id/image_camera"
             android:src="@android:drawable/ic_menu_camera"
-            android:layout_marginTop="46dp"
-            android:layout_below="@+id/create_desire_reward"
+            android:onClick="@{() -> presenter.selectImageFromDevice()}"
+            android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:onClick="@{() -> presenter.selectImageFromDevice()}"/>
+            android:layout_marginBottom="97dp" />
 
         <Spinner
             android:layout_width="wrap_content"

@@ -83,6 +83,8 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        overridePendingTransition(R.anim.anim_slide_in_left,R.anim.anim_slide_out_right);
+
         MapActBinding binding =
                 DataBindingUtil.setContentView(this, R.layout.map_act);
         mMapPresenter = new MapPresenter(MapActivity.this);
@@ -383,7 +385,7 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
             String title = getIntent().getExtras().getString("desireTitle");
             String description = getIntent().getExtras().getString("desireDescription");
             String price = getIntent().getExtras().getString("desirePrice");
-            String reward = getIntent().getExtras().getString("desireReward");
+            //String reward = getIntent().getExtras().getString("desireReward");
             String currency = getIntent().getExtras().getString("desireCurrency");
             Uri image = getIntent().getExtras().getParcelable("desireImage");
 
@@ -392,7 +394,7 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
             intent.putExtra("desireTitle", title);
             intent.putExtra("desireDescription", description);
             intent.putExtra("desirePrice", price);
-            intent.putExtra("desireReward", reward);
+            //intent.putExtra("desireReward", reward);
             intent.putExtra("desireCurrency", currency);
             intent.putExtra("desireImage", image);
             intent.putExtra("desireLocation", location);
@@ -410,6 +412,7 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
             setResult(1, intent);
         }
         super.onBackPressed();
+        overridePendingTransition(R.anim.anim_slide_in_right,R.anim.anim_slide_out_left);
     }
 
 

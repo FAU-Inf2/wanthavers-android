@@ -77,6 +77,7 @@ public class DesireCreateActivity2ndStep extends AppCompatActivity {
             case android.R.id.home:
                 // app icon in action bar clicked; goto parent activity.
                 System.out.println("reached R.id.home");
+                onBackPressed();
                 this.finish();
                 return true;
             default:

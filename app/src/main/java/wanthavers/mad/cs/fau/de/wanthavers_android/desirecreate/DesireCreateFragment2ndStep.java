@@ -90,9 +90,9 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
     @Override
     public void showNextDesireCreateStep() {
         final EditText desirePrice   = mViewDataBinding.createDesirePrice;
-        final EditText desireReward   = mViewDataBinding.createDesireReward;
+        //final EditText desireReward   = mViewDataBinding.createDesireReward;
 
-        if(desirePrice.getText().toString().isEmpty() || desireReward.getText().toString().isEmpty() ){
+        if(desirePrice.getText().toString().isEmpty() ){
             showMessage( getString(R.string.createDesire_Empty_Text));
             return;
         }
@@ -107,7 +107,7 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
         intent.putExtra("desireTitle", title);
         intent.putExtra("desireDescription", description);
         intent.putExtra("desirePrice", desirePrice.getText().toString());
-        intent.putExtra("desireReward", desireReward.getText().toString());
+        //intent.putExtra("desireReward", desireReward.getText().toString());
 
         DesireLogic dsl = new DesireLogic(getContext());
         String currency = dsl.getIsoCurrency(spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString());
