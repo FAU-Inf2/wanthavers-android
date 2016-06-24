@@ -251,6 +251,10 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
     }
 
     public void updateLocationInView(Location location) {
+        if (location == null) {
+            //no location set in filter
+            return;
+        }
         long curLocationId = mFilterSettingView.getCurLocationFilter().getId();
         if (curLocationId == location.getId()) {
             mFilterSettingView.setLocation(location);
@@ -276,6 +280,10 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
     }
 
     public void resetLocation(Location location) {
+        if (location == null) {
+            //no location set in filter
+            return;
+        }
         long curLocationId = mFilterSettingView.getCurLocationFilter().getId();
         if (curLocationId == location.getId()) {
             mFilterSettingView.deleteLocationInView();
