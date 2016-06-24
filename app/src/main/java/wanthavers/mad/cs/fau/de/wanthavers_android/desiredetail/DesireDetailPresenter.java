@@ -223,6 +223,7 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
                     @Override
                     public void onSuccess(AcceptHaver.ResponseValue response) {
                         //Haver haver = response.getHaver();
+                        openRating();
                     }
 
                     @Override
@@ -313,6 +314,11 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
         }
 
         mDesireDetailView.endLoadingProgress();
+    }
+
+    @Override
+    public void openRating() {
+        mDesireDetailView.showRating(mDesireId);
     }
 
     public void openChatDetails(@NonNull Chat chat) {

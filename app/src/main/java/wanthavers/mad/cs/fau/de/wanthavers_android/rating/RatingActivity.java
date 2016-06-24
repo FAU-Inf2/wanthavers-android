@@ -39,7 +39,8 @@ public class RatingActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();
-        ab.setTitle(R.string.desire);
+        ab.setTitle(R.string.rating);
+
         ab.setDisplayHomeAsUpEnabled(true);
         ab.setDisplayShowHomeEnabled(true);
 
@@ -66,6 +67,14 @@ public class RatingActivity extends AppCompatActivity {
 
         mRatingPresenter = new RatingPresenter(UseCaseHandler.getInstance(), ratingFragment, new GetDesire(desireRepository),
                 new GetAcceptedHaver(haverRepository), new CreateRating(ratingRepository), desireId, desireLogic, this);
+
+        ratingFragment.setPresenter(mRatingPresenter);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
 }

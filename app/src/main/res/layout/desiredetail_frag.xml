@@ -442,6 +442,15 @@
                     android:visibility="gone"/>
 
             </LinearLayout>
+
+            <Button
+                android:id="@+id/button_rating"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="rating to be replaced be icon!!"
+                android:layout_below="@id/desire_detail_location_layout"
+                android:visibility="gone"
+                android:onClick="@{() -> actionHandler.buttonOpenRating()}"/>
         </RelativeLayout>
 
     </ScrollView>

@@ -101,22 +101,6 @@
                         android:layout_toRightOf="@id/price_subtitle"
                         android:text="@{desirelogic.getPriceString(desire, desire.price)}"/>
 
-                    <TextView
-                        android:id="@+id/reward_subtitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:layout_toRightOf="@id/desire_price"
-                        android:text="@string/rating_reward"/>
-
-                    <TextView
-                        android:id="@+id/desire_reward"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:layout_toRightOf="@id/reward_subtitle"
-                        android:text="@{desirelogic.getPriceString(desire, desire.reward)}"/>
-
                 </RelativeLayout>
 
             </RelativeLayout>

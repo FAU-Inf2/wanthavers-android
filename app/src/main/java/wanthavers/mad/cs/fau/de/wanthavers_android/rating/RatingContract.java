@@ -20,6 +20,10 @@ public interface RatingContract {
 
         void showCreateRatingError();
 
+        void showNoRatingSet();
+
+        void closeRatingWindow();
+
     }
 
     interface Presenter extends BasePresenter {

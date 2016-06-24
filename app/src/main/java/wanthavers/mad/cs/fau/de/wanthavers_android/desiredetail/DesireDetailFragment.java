@@ -42,6 +42,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.chatlist.ChatListActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.DesiredetailFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.DesiredetailReportPopupBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
+import wanthavers.mad.cs.fau.de.wanthavers_android.rating.RatingActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.RoundedTransformation;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -193,6 +194,14 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
 
     }
 
+    public void showRatingButton(Desire desire) {
+        if (!desire.getCreatorHasRated() && mDesireLogic.isDesireCreator(desire.getCreator().getId())) {
+            mDesireDetailFragBinding.buttonRating.setVisibility(View.VISIBLE);
+        } else if (!desire.getHaverHasRated() && (mDesireDetailFragBinding.getHaver().getUser().getId() == mDesireLogic.getLoggedInUserId())) {
+            mDesireDetailFragBinding.buttonRating.setVisibility(View.VISIBLE);
+        }
+    }
+
     public void showHavers(List<Haver> havers) {
         mListAdapter.replaceData(havers);
         mDesireDetailViewModel.setWanterListSize(havers.size());
@@ -226,6 +235,8 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
             final ImageView profileView = mDesireDetailFragBinding.imageAcceptedHaver;
             profileView.setImageResource(R.drawable.no_pic);
         }
+
+        showRatingButton(mDesireDetailFragBinding.getDesire());
 
         endLoadingProgress();
 
@@ -329,6 +340,13 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
         Intent intent = new Intent(getContext(), ChatDetailActivity.class);
         intent.putExtra(ChatDetailActivity.EXTRA_CHAT_ID, chat.getObjectId());
         intent.putExtra("ChatOjbect", chat);
+        startActivity(intent);
+    }
+
+    @Override
+    public void showRating(long desireId) {
+        Intent intent = new Intent(getContext(), RatingActivity.class);
+        intent.putExtra(RatingActivity.EXTRA_DESIRE_ID, desireId);
         startActivity(intent);
     }
 

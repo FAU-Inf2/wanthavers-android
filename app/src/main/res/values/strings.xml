@@ -97,6 +97,8 @@
     <string name="transaction_summary">&#160;TRANSAKTION ZUSAMMENFASSUNG&#160;</string>
     <string name="leave_your_rating_title">DEINE BEWERTUNG</string>
     <string name="button_submit">ABSCHLIESSEN</string>
+    <string name="no_rating_set">Noch keine Bewertung ausgewählt</string>
+    <string name="rating">Bewertung</string>
 
 
     <!-- currency strings -->

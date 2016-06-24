@@ -53,6 +53,8 @@ public interface DesireDetailContract {
         void showLoadingProgress();
 
         void endLoadingProgress();
+
+        void showRating(long desireId);
     }
 
 
@@ -80,6 +82,8 @@ public interface DesireDetailContract {
         void openReportPopup();
 
         void finishReport();
+
+        void openRating();
 
         void closeReportPopup();
 

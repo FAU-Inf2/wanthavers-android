@@ -44,6 +44,7 @@
         <activity android:name="wanthavers.mad.cs.fau.de.wanthavers_android.maps.MapActivity"
             android:screenOrientation="portrait"/>
         <activity android:name="wanthavers.mad.cs.fau.de.wanthavers_android.welcome.WelcomeActivity"/>
+        <activity android:name="wanthavers.mad.cs.fau.de.wanthavers_android.rating.RatingActivity" />
         <meta-data
             android:name="com.parse.APPLICATION_ID"
             android:value="{APPLICATION_ID}" />

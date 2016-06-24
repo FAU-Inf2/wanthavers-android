@@ -114,6 +114,8 @@
     <string name="flag_leave_a_comment">Leave a comment</string>
     <string name="delete_location_error">Error while deleting the location</string>
     <string name="loading_desire_title">Loading selected desire</string>
+    <string name="no_rating_set">No Rating set yet</string>
+    <string name="rating">Rating</string>
 
 
     <string-array name="currencies">

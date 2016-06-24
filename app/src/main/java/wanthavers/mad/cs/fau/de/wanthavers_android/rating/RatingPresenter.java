@@ -58,7 +58,6 @@ public class RatingPresenter implements RatingContract.Presenter {
         mUseCaseHandler.execute(mGetDesire, new GetDesire.RequestValues(mDesireId),
                 new UseCase.UseCaseCallback<GetDesire.ResponseValue>(){
 
-
                     @Override
                     public void onSuccess(GetDesire.ResponseValue response) {
                         Desire desire = response.getDesire();
@@ -95,6 +94,7 @@ public class RatingPresenter implements RatingContract.Presenter {
 
     }
 
+    @Override
     public void finishRating(Desire desire, Haver haver) {
         long userId;
         if (mDesireLogic.isDesireCreator(desire.getCreator().getId())) {
@@ -104,13 +104,15 @@ public class RatingPresenter implements RatingContract.Presenter {
         }
         RatingBar ratingBar = (RatingBar) mActivity.findViewById(R.id.rating_ratingbar);
         float rating_value = ratingBar.getRating();
-        //TODO: comment
-        String comment = "";
-        createRating(userId, desire.getId(), rating_value, comment);
+        if (rating_value == 0.0) {
+            mRatingView.showNoRatingSet();
+            return;
+        }
 
-        //TODO: indicator if user has already rated
+        createRating(userId, desire.getId(), rating_value, "");
 
-        //TODO: Julian open new screen
+        //TODO: maybe show rating success
+
     }
 
     public void createRating(long userId, long desireId, float stars, String comment) {
@@ -121,7 +123,7 @@ public class RatingPresenter implements RatingContract.Presenter {
                 new UseCase.UseCaseCallback<CreateRating.ResponseValue>() {
                     @Override
                     public void onSuccess(CreateRating.ResponseValue response) {
-                        //nothing to do
+                        mRatingView.closeRatingWindow();
                     }
 
                     @Override

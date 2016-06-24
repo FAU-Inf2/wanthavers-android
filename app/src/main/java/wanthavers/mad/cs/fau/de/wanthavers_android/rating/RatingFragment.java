@@ -1,5 +1,7 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.rating;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,6 +20,7 @@ import de.fau.cs.mad.wanthavers.common.Media;
 import de.fau.cs.mad.wanthavers.common.User;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.RatingFragBinding;
+import wanthavers.mad.cs.fau.de.wanthavers_android.desiredetail.DesireDetailActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.RoundedTransformation;
 
@@ -67,6 +70,8 @@ public class RatingFragment extends Fragment implements RatingContract.View {
 
     @Override
     public void showDesire(Desire desire) {
+
+        System.out.println("was here");
         mRatingFragBinding.setDesire(desire);
         mRatingFragBinding.setDesirelogic(mDesireLogic);
 
@@ -98,6 +103,8 @@ public class RatingFragment extends Fragment implements RatingContract.View {
     @Override
     public void showAcceptedHaver(Haver haver) {
         //Show Haver image
+        mRatingFragBinding.setHaver(haver);
+
         Media mediaHaver = haver.getUser().getImage();
         if (mediaHaver != null) {
             final ImageView profileView = mRatingFragBinding.imageHaver;
@@ -107,6 +114,11 @@ public class RatingFragment extends Fragment implements RatingContract.View {
             final ImageView profileView = mRatingFragBinding.imageHaver;
             profileView.setImageResource(R.drawable.no_pic);
         }
+    }
+
+    @Override
+    public void showNoRatingSet() {
+        showMessage(getString(R.string.no_rating_set));
     }
 
     private void showMessage(String message) {
@@ -130,5 +142,11 @@ public class RatingFragment extends Fragment implements RatingContract.View {
 
     public void setDesireLogic(DesireLogic desireLogic) {
         mDesireLogic = desireLogic;
+    }
+
+    @Override
+    public void closeRatingWindow() {
+        //TODO: fix bug rating button still visible before reload!!!
+        getActivity().finish();
     }
 }
