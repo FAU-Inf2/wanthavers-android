@@ -31,6 +31,7 @@ import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.Chat;
 import de.fau.cs.mad.wanthavers.common.DesireFlag;
+import de.fau.cs.mad.wanthavers.common.DesireStatus;
 import de.fau.cs.mad.wanthavers.common.FlagReason;
 import de.fau.cs.mad.wanthavers.common.Haver;
 import de.fau.cs.mad.wanthavers.common.Media;
@@ -39,6 +40,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import de.fau.cs.mad.wanthavers.common.Desire;
 import wanthavers.mad.cs.fau.de.wanthavers_android.chatdetail.ChatDetailActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.chatlist.ChatListActivity;
+import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.DesiredetailDeleteDesirePopupBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.DesiredetailFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.DesiredetailReportPopupBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
@@ -66,7 +68,7 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
     private RecyclerView mRecyclerView;
     private DesireDetailViewModel mDesireDetailViewModel;
     private DesireDetailActionHandler mDesireDetailActionHandler;
-    private Dialog mReportDialog;
+    private Dialog mReportDialog, mDeleteDesireDialog;
     private DesiredetailReportPopupBinding mDesiredetailReportPopupBinding;
     private ProgressDialog mLoadingDialog;
 
@@ -179,14 +181,17 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
         }
 
         //Show havers
-        if (desire.getStatus() == 1) {
+        if (desire.getStatus() == DesireStatus.STATUS_OPEN) {
             mPresenter.loadHavers(false);
-        } else if (desire.getStatus() == 2) {
+            if (mDesireLogic.isDesireCreator(creator.getId())) {
+                mDesireDetailFragBinding.buttonDesireDeletion.setVisibility(View.VISIBLE);
+            }
+        } else if (desire.getStatus() == DesireStatus.STATUS_IN_PROGRESS) {
             mPresenter.getAcceptedHaver();
             //haver cannot accept
             //mDesireDetailFragBinding.buttonAcceptDesire.setVisibility(View.GONE);
             mDesireDetailFragBinding.buttonCloseTransaction.setVisibility(View.VISIBLE);
-        } else if (desire.getStatus() == 3) {
+        } else if (desire.getStatus() == DesireStatus.STATUS_DONE) {
             mPresenter.getAcceptedHaver();
             //haver cannot accept
             //mDesireDetailFragBinding.buttonAcceptDesire.setVisibility(View.GONE);
@@ -274,6 +279,11 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
     @Override
     public void showUpdateDesireStatusError() {
         showMessage(getString(R.string.closing_transaction_error));
+    }
+
+    @Override
+    public void showDeleteDesireError() {
+        showMessage(getString(R.string.delete_desire_error));
     }
 
     @Override
@@ -397,5 +407,28 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
     @Override
     public void endLoadingProgress() {
         mLoadingDialog.dismiss();
+    }
+
+    @Override
+    public void openDeletionDialog() {
+
+        mDeleteDesireDialog = new Dialog(getContext());
+
+        DesiredetailDeleteDesirePopupBinding mBinding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.desiredetail_delete_desire_popup, null, false);
+        mDeleteDesireDialog.setContentView(mBinding.getRoot());
+
+        mBinding.setActionHandler(mDesireDetailActionHandler);
+
+        mDeleteDesireDialog.show();
+    }
+
+    @Override
+    public void closeDeletionDialog() {
+        mDeleteDesireDialog.dismiss();
+    }
+
+    @Override
+    public void closeView() {
+        getActivity().finish();
     }
 }

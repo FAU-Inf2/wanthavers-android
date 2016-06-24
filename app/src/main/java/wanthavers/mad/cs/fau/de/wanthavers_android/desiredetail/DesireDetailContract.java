@@ -55,6 +55,14 @@ public interface DesireDetailContract {
         void endLoadingProgress();
 
         void showRating(long desireId);
+
+        void closeView();
+
+        void showDeleteDesireError();
+
+        void openDeletionDialog();
+
+        void closeDeletionDialog();
     }
 
 
@@ -86,6 +94,12 @@ public interface DesireDetailContract {
         void openRating();
 
         void closeReportPopup();
+
+        void deleteDesire();
+
+        void openDeletionDialog();
+
+        void closeDeletionDialog();
 
     }
 }

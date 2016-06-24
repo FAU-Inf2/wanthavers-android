@@ -116,6 +116,8 @@
     <string name="loading_desire_title">Loading selected desire</string>
     <string name="no_rating_set">No Rating set yet</string>
     <string name="rating">Rating</string>
+    <string name="delete_desire_error">Error while deleting the desire</string>
+    <string name="delete_desire_title">Do you really want to delete your desire?</string>
 
 
     <string-array name="currencies">

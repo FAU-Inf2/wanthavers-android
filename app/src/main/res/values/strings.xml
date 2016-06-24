@@ -99,6 +99,7 @@
     <string name="button_submit">ABSCHLIESSEN</string>
     <string name="no_rating_set">Noch keine Bewertung ausgewählt</string>
     <string name="rating">Bewertung</string>
+    <string name="delete_desire_error">Fehler beim Löschen des Wunsches</string>
 
 
     <!-- currency strings -->
@@ -155,6 +156,7 @@
     <string name="flag_leave_a_comment">Verfasse einen Kommentar</string>
     <string name="delete_location_error">Fehler beim Löschen des Ortes</string>
     <string name="loading_desire_title">Laden des gewählten Wunsches</string>
+    <string name="delete_desire_title">Möchten Sie den Wunsch wirklich löschen?</string>
 
     <string-array name="currencies">
         <item>\u20AC</item>

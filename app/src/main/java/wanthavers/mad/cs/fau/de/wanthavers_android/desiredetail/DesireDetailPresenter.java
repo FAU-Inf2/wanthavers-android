@@ -283,6 +283,39 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
         );
     }
 
+    @Override
+    public void openDeletionDialog() {
+        mDesireDetailView.openDeletionDialog();
+    }
+
+    @Override
+    public void closeDeletionDialog() {
+        mDesireDetailView.closeDeletionDialog();
+    }
+
+    @Override
+    public void deleteDesire() {
+
+        UpdateDesireStatus.RequestValues requestValues = new UpdateDesireStatus.RequestValues(mDesireId, DesireStatus.STATUS_DELETED);
+
+        mUseCaseHandler.execute(mUpdateDesireStatus, requestValues,
+                new UseCase.UseCaseCallback<UpdateDesireStatus.ResponseValue>() {
+
+                    @Override
+                    public void onSuccess(UpdateDesireStatus.ResponseValue response) {
+                        mDesireDetailView.closeDeletionDialog();
+                        mDesireDetailView.closeView();
+                    }
+
+                    @Override
+                    public void onError() {
+                        mDesireDetailView.showDeleteDesireError();
+                    }
+
+                }
+        );
+    }
+
     public void flagDesire(DesireFlag desireFlag) {
 
         FlagDesire.RequestValues requestValues = new FlagDesire.RequestValues(mDesireId, desireFlag);

@@ -71,4 +71,14 @@ public class DesireDetailActionHandler {
         mListener.closeReportPopup();
     }
 
+    public void buttonDeleteDesire() {mListener.openDeletionDialog();}
+
+    public void buttonSubmitDeletion() {
+        mListener.deleteDesire();
+    }
+
+    public void buttonCancelDeletion() {
+        mListener.closeDeletionDialog();
+    }
+
 }

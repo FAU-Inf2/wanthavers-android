@@ -451,6 +451,15 @@
                 android:layout_below="@id/desire_detail_location_layout"
                 android:visibility="gone"
                 android:onClick="@{() -> actionHandler.buttonOpenRating()}"/>
+
+            <Button
+                android:id="@+id/button_desire_deletion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="desire deletion to be replaced be icon!!"
+                android:layout_below="@id/desire_detail_location_layout"
+                android:visibility="gone"
+                android:onClick="@{() -> actionHandler.buttonDeleteDesire()}"/>
         </RelativeLayout>
 
     </ScrollView>
