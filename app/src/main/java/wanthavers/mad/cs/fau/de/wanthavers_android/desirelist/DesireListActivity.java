@@ -18,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.RatingBar;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -51,6 +52,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class DesireListActivity extends AppCompatActivity {
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     public static final String EXTRA_FRAGMENT_ID = "FRAGMENT_ID";
+    private int backButtonCount = 0;
 
 
 
@@ -246,13 +248,28 @@ public class DesireListActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        finish();
-        System.exit(0);
+        //finish();
+        //System.exit(0);
+        if(backButtonCount >= 1)
+        {
+            backButtonCount = 0;
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
+        else
+        {
+            Toast.makeText(this, getString(R.string.close_App_on_BackButton), Toast.LENGTH_SHORT).show();
+            backButtonCount++;
+        }
     }
 
     @Override
     public void onResume(){
         super.onResume();
+
+        backButtonCount = 0;
 
         updateChatIconOnNewMessageReceived();
 

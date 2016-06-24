@@ -163,10 +163,11 @@
     <string name="enable_gps_settings">Location Settings</string>
     <string name="enable_gps_cancel">Cancel</string>
     <string name="new_message_from">new message from</string>
-    <string name="declined_location_runtime_permission">Um die App benutzen zu können, stimme bitte den Standortdienst Berechtigungen zu</string>
+    <string name="declined_location_runtime_permission">Please accept the Location Permissions to use this app</string>
     <string name="chat_overview">Chats</string>
-    <string name="Set_location_ok">Bestätigen</string>
-    <string name="Set_location_cancel">Abbruch</string>
+    <string name="Set_location_ok">Confirm</string>
+    <string name="Set_location_cancel">Cancel</string>
+    <string name="close_App_on_BackButton">Press the back button once again to close the application.</string>
 
 
 </resources>
