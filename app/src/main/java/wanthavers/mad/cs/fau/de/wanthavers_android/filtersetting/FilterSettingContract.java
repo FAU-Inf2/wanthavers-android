@@ -21,12 +21,6 @@ public interface FilterSettingContract {
 
         void showMap(Location location);
 
-        //Location getLocation();
-
-        int getPriceClicked();
-
-        void setPriceClicked(int clicked);
-
         String[] getRadiusArray();
 
         Category getSelectedCategory();
@@ -63,13 +57,17 @@ public interface FilterSettingContract {
 
         Location getCurLocationFilter();
 
+        void showCategorySelection();
+
+        void showCategory(Category category);
+
     }
 
     interface Presenter extends BasePresenter {
 
         void setFilter(DesireFilter desireFilter);
 
-        void setFilterWithInput(Location location);
+        void setFilterWithInput(Category category, Location location);
 
         void resetFilter();
 
@@ -88,5 +86,7 @@ public interface FilterSettingContract {
         void setLocation(Location location);
 
         void deleteLocation(final Location location);
+
+        void openCategorySelection();
     }
 }

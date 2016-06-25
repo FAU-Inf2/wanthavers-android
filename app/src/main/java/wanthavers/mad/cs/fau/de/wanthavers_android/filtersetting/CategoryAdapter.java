@@ -70,7 +70,7 @@ public class CategoryAdapter extends ArrayAdapter<Category> {
         }
 
         binding.setCategory(category);
-        binding.setActionHandler(mFilterSettingActionHandler);
+        //binding.setActionHandler(mFilterSettingActionHandler);
 
         return binding.getRoot();
     }

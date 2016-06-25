@@ -165,6 +165,9 @@
     <string name="desire_detail_haver_title">Erfüller</string>
     <string name="dropzone_marker">Lieferort</string>
     <string name="alternative_Location_Button">Zurück</string>
+    <string name="categorylist_title">Wähle eine Kategorie</string>
+    <string name="min_price">Mindestpreis</string>
+    <string name="max_price">Maximalpreis</string>
 
     <string-array name="currencies">
         <item>\u20AC</item>

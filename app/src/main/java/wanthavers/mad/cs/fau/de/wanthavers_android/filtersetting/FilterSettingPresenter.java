@@ -1,9 +1,11 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.filtersetting;
 
 import android.support.annotation.NonNull;
+import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -62,14 +64,14 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
     @Override
     public void start() {
         loadCurFilterSettings();
-        loadCategories();
     }
 
     public void loadCurFilterSettings() {
 
         //get views
         RatingBar minRatingBar = (RatingBar) mActivity.findViewById(R.id.filter_Setting_Rating_Bar);
-        EditText minRewardView = (EditText) mActivity.findViewById(R.id.filter_min_reward);
+        EditText minPriceView = (EditText) mActivity.findViewById(R.id.min_price_input);
+        EditText maxPriceView = (EditText) mActivity.findViewById(R.id.max_price_input);
         Spinner radiusView = (Spinner) mActivity.findViewById(R.id.spinner_radius);
 
         //get values
@@ -78,7 +80,7 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
         Long categoryId = curFilter.getCategory();
         Double maxPrice = curFilter.getPrice_max();
         Float minimalRating = curFilter.getRating_min();
-        Double minimalReward = curFilter.getReward_min();
+        Double minimalPrice = curFilter.getPrice_min();
         Location location = curFilter.getLocation();
         Double radius = curFilter.getRadius();
 
@@ -87,19 +89,12 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
             getCategory(categoryId);
         }
 
-        //TODO: prices not hard coded
-        if (maxPrice != null) {
-            if (maxPrice == 10.0) {
-                mFilterSettingView.setPriceClicked(1);
-            } else if (maxPrice == 50.0) {
-                mFilterSettingView.setPriceClicked(2);
-            } else if (maxPrice == 100.0) {
-                mFilterSettingView.setPriceClicked(3);
-            }
+        if (minimalPrice != null) {
+            minPriceView.setText(Double.toString(minimalPrice));
         }
 
-        if (minimalReward != null) {
-            minRewardView.setText(Double.toString(minimalReward));
+        if (maxPrice != null) {
+            maxPriceView.setText(Double.toString(maxPrice));
         }
 
         if (minimalRating != null) {
@@ -155,7 +150,7 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
             @Override
             public void onSuccess(GetCategory.ResponseValue response) {
                 Category category = response.getCategory();
-                setCurFilterCategory(category.getName());
+                setCurFilterCategory(category);
             }
 
             @Override
@@ -165,9 +160,8 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
         });
     }
 
-    public void setCurFilterCategory(String categoryName) {
-        InstantAutoComplete categoryView = (InstantAutoComplete) mActivity.findViewById(R.id.spinner_category);
-        categoryView.setText(categoryName);
+    public void setCurFilterCategory(Category category) {
+        mFilterSettingView.showCategory(category);
     }
 
     public void getSavedLocations() {
@@ -303,50 +297,32 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
 
 
     @Override
-    public void setFilterWithInput(Location location){
+    public void setFilterWithInput(Category category, Location location){
 
         DesireFilter desireFilter = new DesireFilter();
 
         //get all Views
         RatingBar minRatingBar = (RatingBar)mActivity.findViewById(R.id.filter_Setting_Rating_Bar);
-        EditText minRewardView = (EditText) mActivity.findViewById(R.id.filter_min_reward);
+        EditText minPriceView = (EditText) mActivity.findViewById(R.id.min_price_input);
+        EditText maxPriceView = (EditText) mActivity.findViewById(R.id.max_price_input);
         Spinner radiusView = (Spinner) mActivity.findViewById(R.id.spinner_radius);
 
         //Category
-        Category selectedCategory = mFilterSettingView.getSelectedCategory();
-        if (selectedCategory == null) {
-            return;
-        } else if (selectedCategory.getName().equals("all")) {
-            //nothing to do
-        } else {
-            desireFilter.setCategory(selectedCategory.getId());
-            System.out.println("category: "+desireFilter.getCategory());
+        if (category != null) {
+            desireFilter.setCategory(category.getId());
         }
 
-        //Price
-        int priceClicked = mFilterSettingView.getPriceClicked();
-        //TODO: max price not hard coded!!!
-        switch (priceClicked) {
-            case 1:
-                desireFilter.setPrice_max(10.0);
-                break;
-            case 2:
-                desireFilter.setPrice_max(50.0);
-                break;
-            case 3:
-                desireFilter.setPrice_max(100.0);
-                break;
-            default:
-                break;
+        //Min_Price
+        if (!minPriceView.getText().toString().equals("")) {
+            Double minPrice = Double.valueOf(minPriceView.getText().toString());
+            desireFilter.setPrice_min(minPrice);
         }
-        System.out.println("max price: " + desireFilter.getPrice_max());
 
-        //Min_Reward
-        if (!minRewardView.getText().toString().equals("")) {
-            Double minReward = Double.valueOf(minRewardView.getText().toString());
-            desireFilter.setReward_min(minReward);
+        //Max_Price
+        if (!maxPriceView.getText().toString().equals("")) {
+            Double maxPrice = Double.valueOf(maxPriceView.getText().toString());
+            desireFilter.setPrice_min(maxPrice);
         }
-        System.out.println("minReward: " + desireFilter.getReward_min());
 
         //Min_Rating
         float minRating = minRatingBar.getRating();
@@ -424,5 +400,10 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
         mFilterSettingView.setLocation(location);
         mFilterSettingView.showLocationInView();
         mFilterSettingView.showRadiusOption();
+    }
+
+    @Override
+    public void openCategorySelection() {
+        mFilterSettingView.showCategorySelection();
     }
 }

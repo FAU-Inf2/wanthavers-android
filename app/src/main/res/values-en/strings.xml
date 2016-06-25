@@ -119,6 +119,9 @@
     <string name="rating">Rating</string>
     <string name="delete_desire_error">Error while deleting the desire</string>
     <string name="delete_desire_title">Do you really want to delete your desire?</string>
+    <string name="categorylist_title">Choose a Category</string>
+    <string name="min_price">Minimal Price</string>
+    <string name="max_price">Maximal Price</string>
 
 
     <string-array name="currencies">

@@ -24,16 +24,21 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.Category;
 import de.fau.cs.mad.wanthavers.common.Location;
+import de.fau.cs.mad.wanthavers.common.Media;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
+import wanthavers.mad.cs.fau.de.wanthavers_android.categorylist.CategoryListActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.FiltersettingFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.FiltersettingLocationPopupBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.FiltersettingLocationSetnameBinding;
@@ -41,6 +46,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.DesireListActivity
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.DividerItemDecoration;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
 import wanthavers.mad.cs.fau.de.wanthavers_android.maps.MapActivity;
+import wanthavers.mad.cs.fau.de.wanthavers_android.util.RoundedTransformation;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -85,21 +91,6 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
 
         mFilterSettingActionHandler = new FilterSettingActionHandler(mPresenter, mFilterSettingFragBinding);
         mFilterSettingFragBinding.setActionHandler(mFilterSettingActionHandler);
-
-        //Set up autocompletetextview
-        mCategoryListAdapter = new CategoryAdapter(getContext(), R.layout.category_item, new ArrayList<Category>(0), mFilterSettingActionHandler);
-        final InstantAutoComplete autoCompleteTextView = (InstantAutoComplete) mFilterSettingFragBinding.spinnerCategory;
-        //autoCompleteTextView.setThreshold(0);
-        autoCompleteTextView.setShowAlways(true);
-
-        /*autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Category selected = (Category) parent.getItemAtPosition(position);
-                mCategoryListAdapter.setSelected(selected);
-            }
-        });*/
-        autoCompleteTextView.setAdapter(mCategoryListAdapter);
 
         //Set up radius spinner
         Spinner spinner = (Spinner) mFilterSettingFragBinding.spinnerRadius;
@@ -159,6 +150,12 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
     }
 
     @Override
+    public void showCategorySelection() {
+        Intent intent = new Intent(getContext(), CategoryListActivity.class);
+        startActivityForResult(intent, 1);
+    }
+
+    @Override
     public String[] getRadiusArray() {
         return getResources().getStringArray(R.array.radius);
     }
@@ -209,18 +206,8 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
     }
 
     @Override
-    public int getPriceClicked() {
-        return mFilterSettingActionHandler.getPriceClicked();
-    }
-
-    @Override
-    public void setPriceClicked(int clicked) {
-        mFilterSettingActionHandler.buttonChangeColor(clicked);
-    }
-
-    @Override
     public Category getSelectedCategory() {
-        InstantAutoComplete instantAutoComplete = mFilterSettingFragBinding.spinnerCategory;
+        /*InstantAutoComplete instantAutoComplete = mFilterSettingFragBinding.spinnerCategory;
         String input = instantAutoComplete.getText().toString();
         if (input.compareTo("") == 0) {
             Category category = new Category();
@@ -235,7 +222,7 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
             }
         }
 
-        showMessage(getString(R.string.no_category_match));
+        showMessage(getString(R.string.no_category_match));*/
 
         return null;
     }
@@ -247,6 +234,21 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
 
     public void onActivityResult(int requestCode, int resultCode,
                                     Intent data) {
+
+        //case: category-backpress
+        if (data == null) {
+            return;
+        }
+
+        //case: category set
+        if(data.hasExtra("selectedCategory")) {
+            Category category = (Category) data.getExtras().getSerializable("selectedCategory");
+            showCategory(category);
+            return;
+            //mPresenter.showCategory!!!
+        }
+
+        //case: map
         if(!data.getExtras().getString("desireLocation").equals("")) { //checks if backbutton is pressed
 
             //get values
@@ -338,5 +340,26 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
     @Override
     public Location getCurLocationFilter() {
         return mFilterSettingFragBinding.getLocation();
+    }
+
+    @Override
+    public void showCategory(Category category) {
+
+        mFilterSettingFragBinding.setCategory(category);
+
+        Media media = category.getImage();
+
+        if (media != null) {
+            final ImageView profileView = mFilterSettingFragBinding.selectedImageCategory;
+            Picasso.with(mFilterSettingFragBinding.getRoot().getContext()).load(media.getLowRes()).transform(new RoundedTransformation(200,0)).into(profileView);
+        } else{
+            //else case is neccessary as the image is otherwise overwritten on scroll
+            final ImageView profileView = mFilterSettingFragBinding.selectedImageCategory;
+            profileView.setImageResource(R.drawable.no_pic);
+        }
+
+        mFilterSettingFragBinding.selectedImageCategory.setVisibility(View.VISIBLE);
+        mFilterSettingFragBinding.selectedCategoryName.setVisibility(View.VISIBLE);
+        mFilterSettingFragBinding.noCategorySelected.setVisibility(View.GONE);
     }
 }
