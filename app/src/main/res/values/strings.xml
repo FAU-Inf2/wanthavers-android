@@ -171,6 +171,7 @@
     <string name="max_price">Maximalpreis</string>
     <string name="wrong_price_set">Maximalpreis größer als Minimalpreis</string>
     <string name="network_failure">Fehler beim Herstellen einer Netzwerkverbindung!</string>
+    <string name="no_location_found">Keine passende Adresse gefunden!</string>
 
     <string-array name="currencies">
         <item>\u20AC</item>

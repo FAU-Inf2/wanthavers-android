@@ -318,9 +318,15 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
 
         try {
             address = coder.getFromLocationName(loc,5);
-            if (address==null) {
+
+            if (address==null){
+                return;
+
+            }else if(address.isEmpty()) {
+                showMessage(getString(R.string.no_location_found));
                 return;
             }
+
             Address location=address.get(0);
             location.getLatitude();
             location.getLongitude();

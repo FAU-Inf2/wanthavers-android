@@ -180,6 +180,7 @@
     <string name="alternative_Location_Button">Back</string>
     <string name="alternative_Location_Button2">Use current location</string>
     <string name="network_failure">Network Connection failed!</string>
+    <string name="no_location_found">No addresses were found to match the given location!</string>
 
 
 
