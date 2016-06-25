@@ -47,6 +47,7 @@ public class MessageListenerService extends FirebaseMessagingService {
         //push notification
         Bundle extras = new Bundle();
         PushMessageNotification pushMessage = new PushMessageNotification(from, message);
+        pushMessage.setBackupNotifier("false");
         extras.putParcelable("WH_PUSH_NOTIFICATION", pushMessage);
 
         //start broadcast

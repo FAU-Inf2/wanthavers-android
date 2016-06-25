@@ -13,6 +13,7 @@ import android.widget.EditText;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import de.fau.cs.mad.wanthavers.common.Desire;
 import de.fau.cs.mad.wanthavers.common.User;
@@ -166,6 +167,8 @@ public class LoginPresenter implements LoginContract.Presenter {
     public void registerUser(){
 
         //get fields and check if all fields are there
+        //set locale for user
+
 
         EditText email = (EditText) mActivity.findViewById(R.id.email);
         EditText password = (EditText) mActivity.findViewById(R.id.password);
@@ -184,8 +187,8 @@ public class LoginPresenter implements LoginContract.Presenter {
 
         //put together user object
         User user =  new User(username.getText().toString(),email.getText().toString());
+        user.setLangCode(Locale.getDefault().toString());
         user.setBirthday(datePicked);
-
         registerUser(user, password.getText().toString());
     }
 

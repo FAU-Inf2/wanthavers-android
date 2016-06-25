@@ -45,7 +45,6 @@ public class ChatDetailActivity extends AppCompatActivity {
 
     private ChatDetailPresenter mChatDetailPresenter;
     public static final String EXTRA_CHAT_ID = "CHAT_ID";
-    private MessageAlarm mMessageAlarm;
 
 
     private BroadcastReceiver notificationReceiver = new BroadcastReceiver() {
@@ -129,11 +128,6 @@ public class ChatDetailActivity extends AppCompatActivity {
 
         chatDetailFragment.setViewModel(chatListViewModel);
 
-        MessageService.setPresenter(mChatDetailPresenter);
-        MessageService.setActive(true);
-        Intent intent = new Intent(this, MessageService.class);
-        startService(intent);
-
         //WantHaversTextView toolbarTitle = (WantHaversTextView) = findViewById(R.id.toolbar_title);
 
 
@@ -169,19 +163,6 @@ public class ChatDetailActivity extends AppCompatActivity {
         }
 
         return user1;
-    }
-
-
-    @Override
-    public void onPause(){
-        super.onPause();
-        MessageService.setActive(false);
-    }
-
-    @Override
-    public void onDestroy(){
-        super.onDestroy();
-        MessageService.setActive(false);
     }
 
     @Override
