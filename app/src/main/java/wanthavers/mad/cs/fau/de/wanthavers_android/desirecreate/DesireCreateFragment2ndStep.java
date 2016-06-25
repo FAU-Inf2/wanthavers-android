@@ -15,6 +15,8 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -44,6 +46,7 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
     private int REQUEST_CAMERA = 0;
     private int REQUEST_GALLERY = 1;
     private ImageView mImageView;
+    private EditText mDesirePrice;
 
     public DesireCreateFragment2ndStep(){
         //Requires empty public constructor
@@ -94,17 +97,22 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
         mDesireCreateActionHandler = new DesireCreateActionHandler(mPresenter);
         mViewDataBinding.setActionHandler(mDesireCreateActionHandler);
 
+        mDesirePrice = mViewDataBinding.createDesirePrice;
+
         mViewDataBinding.getRoot().setOnTouchListener(new OnSwipeTouchListener(getActivity(), mPresenter,  mDesireCreateActionHandler));
+
+        CustomTextWatcher myWatcher = new CustomTextWatcher(mDesirePrice);
+        mDesirePrice.addTextChangedListener(myWatcher);
 
         return mViewDataBinding.getRoot();
     }
 
     @Override
     public void showNextDesireCreateStep() {
-        final EditText desirePrice   = mViewDataBinding.createDesirePrice;
+        //final EditText desirePrice   = mViewDataBinding.createDesirePrice;
         //final EditText desireReward   = mViewDataBinding.createDesireReward;
 
-        if(desirePrice.getText().toString().isEmpty() ){
+        if(mDesirePrice.getText().toString().isEmpty() ){
             showMessage( getString(R.string.createDesire_Empty_Text));
             return;
         }
@@ -118,7 +126,7 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
 
         intent.putExtra("desireTitle", title);
         intent.putExtra("desireDescription", description);
-        intent.putExtra("desirePrice", desirePrice.getText().toString());
+        intent.putExtra("desirePrice", mDesirePrice.getText().toString());
         //intent.putExtra("desireReward", desireReward.getText().toString());
 
         DesireLogic dsl = new DesireLogic(getContext());

@@ -231,6 +231,10 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
             MarkerOptions marker = new MarkerOptions().position(mlatLng).title(getString(R.string.dropzone_marker));
             googleMap.addMarker(marker);
 
+        }else if (forFilterSettings()){
+            //change Button Text
+            Button b = (Button) findViewById(R.id.button_select_location);
+            b.setText(getString(R.string.alternative_Location_Button2));
         }
 
         // check if map is created successfully or not

@@ -44,7 +44,7 @@ public class DesireCreatePresenter implements DesireCreateContract.Presenter {
         return mImageLogic;
     }
 
-    public void start() { //TODO;
+    public void start() {
     }
 
     @Override

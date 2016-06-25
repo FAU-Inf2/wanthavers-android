@@ -23,6 +23,9 @@ public class DesireCreateFragment extends Fragment implements DesireCreateContra
     private DesireCreateContract.Presenter mPresenter;
     private DesireCreateActionHandler mDesireCreateActionHandler;
 
+    private EditText mDesireTitle;
+    private EditText mDesireDescription;
+
     public DesireCreateFragment(){
         //Requires empty public constructor
     }
@@ -60,21 +63,29 @@ public class DesireCreateFragment extends Fragment implements DesireCreateContra
 
         mViewDataBinding.getRoot().setOnTouchListener(new OnSwipeTouchListener(getActivity(), mPresenter, mDesireCreateActionHandler));
 
+        mDesireTitle  = mViewDataBinding.createDesireTitle;
+        mDesireDescription  =  mViewDataBinding.createDesireDescription;
+
+        CustomTextWatcher myWatcher = new CustomTextWatcher(mDesireTitle);
+        CustomTextWatcher myWatcher2 = new CustomTextWatcher(mDesireDescription);
+        mDesireTitle.addTextChangedListener(myWatcher);
+        mDesireDescription.addTextChangedListener(myWatcher2);
+
         return mViewDataBinding.getRoot();
     }
 
     @Override
     public void showNextDesireCreateStep() {
-        final EditText desireTitle   = mViewDataBinding.createDesireTitle;
-        final EditText desireDescription   =  mViewDataBinding.createDesireDescription;
 
-        if(desireTitle.getText().toString().isEmpty() || desireDescription.getText().toString().isEmpty() ){
+
+        if(mDesireTitle.getText().toString().isEmpty() || mDesireDescription.getText().toString().isEmpty() ){
             showMessage( getString(R.string.createDesire_Empty_Text));
             return;
         }
+
         Intent intent = new Intent(getContext(), DesireCreateActivity2ndStep.class);
-        intent.putExtra("desireTitle", desireTitle.getText().toString());
-        intent.putExtra("desireDescription", desireDescription.getText().toString());
+        intent.putExtra("desireTitle", mDesireTitle.getText().toString());
+        intent.putExtra("desireDescription", mDesireDescription.getText().toString());
         startActivity(intent);
     }
 

@@ -156,7 +156,7 @@
     <string name="desire_image_upload_failed">Uploading your Image failed</string>
     <string name="button_reset_filter">reset filter</string>
     <string name="filter">filter</string>
-    <string name="use_location">Use current location</string>
+    <string name="use_location">Use current location \n and create Desire</string>
     <string name="set_location">Set Location</string>
     <string name="maps_error">Unable to create Maps</string>
     <string name="welcomeMessage">Welcome to Wanthavers ! \n you can now upload your profile pictures and get started by creating your first desire.</string>
@@ -178,6 +178,7 @@
     <string name="report_desire">report desire</string>
     <string name="dropzone_marker">Dropzone</string>
     <string name="alternative_Location_Button">Back</string>
+    <string name="alternative_Location_Button2">Use current location</string>
     <string name="network_failure">Network Connection failed!</string>
 
 
