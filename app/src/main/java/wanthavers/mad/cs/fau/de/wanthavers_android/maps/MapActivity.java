@@ -2,6 +2,7 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.maps;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -9,6 +10,8 @@ import android.graphics.Point;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -44,7 +47,10 @@ import android.Manifest;
 import android.widget.Toast;
 
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
+import wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate.DesireCreateActivity;
+import wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate.DesireCreateActivity2ndStep;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate.DesireCreateActivity3rdStep;
+import wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate.DesireCreateFragment2ndStep;
 import wanthavers.mad.cs.fau.de.wanthavers_android.filtersetting.FilterSettingActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.settings.SettingsActivity;
 import de.fau.cs.mad.wanthavers.common.Location;
@@ -79,6 +85,7 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
     private MapContract.Presenter mMapPresenter;;
     private MapActBinding mViewDataBinding;
     private MapActionHandler mMapActionHandler;
+    private DesireCreateFragment2ndStep test = DesireCreateFragment2ndStep.newInstance();
 
 
     @Override
@@ -101,6 +108,11 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
 
         mLocationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
         mGpsLocationTracker = new GpsLocationTracker(MapActivity.this, 49.573759d, 11.027389d); // computer science tower uni erlangen
+
+        if (!mGpsLocationTracker.isNetworkAvailable()){
+            onBackPressed();
+            return;
+        }
 
 
         if (!forDesireDetail()) {
@@ -235,6 +247,11 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
 
     @Override
     public void onDrag(MotionEvent motionEvent) {
+        if (networkFailure()){
+            return;
+        }
+
+
         if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
             Projection projection = (googleMap != null) ? googleMap.getProjection()
                     : null;
@@ -289,7 +306,7 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
         }
     }
 
-    private void updateAdress(String loc){
+    private void updateAddress(String loc){
 
         Geocoder coder = new Geocoder(this);
         List<Address> address;
@@ -334,7 +351,7 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
             @Override
             public void onClick(DialogInterface dialog, int whichButton) {
                 String address = input.getText().toString();
-                updateAdress(address);
+                updateAddress(address);
 
                 return;
             }
@@ -352,13 +369,16 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
     }
 
     public void moveToCurrentGpsPosition(){
+        if (networkFailure()){
+            return;
+        }
         mGpsLocationTracker = new GpsLocationTracker(MapActivity.this, mlatLng.latitude, mlatLng.longitude);
         LatLng tmp = new LatLng(mGpsLocationTracker.getLatitude(),mGpsLocationTracker.getLongitude());
         //googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(tmp , 17.0f));
 
         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(tmp, googleMap.getCameraPosition().zoom));
 
-        updateLocation(mlatLng);
+        updateLocation(tmp);
     }
 
 
@@ -390,6 +410,9 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
 
 
     public void showFinishDesireCreate(){
+        if (networkFailure() && !forDesireDetail()){
+            return;
+        }
         LatLng centerLatLng = googleMap.getProjection().fromScreenLocation(new Point(
                 centerX, centerY));
         setLocation(mLocationTextView.getText().toString(), centerLatLng.latitude, centerLatLng.longitude);
@@ -461,6 +484,14 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
 
     public boolean forFilterSettings() {
         return getIntent().getExtras().getString("calledAct").equals("1");
+    }
+
+    private boolean networkFailure(){
+        if (!mGpsLocationTracker.isNetworkAvailable()){
+            showMessage(getString(R.string.network_failure));
+            return true;
+        }
+        return !(mGpsLocationTracker.isNetworkAvailable());
     }
 
 }

@@ -165,6 +165,7 @@
     <string name="desire_detail_haver_title">Erfüller</string>
     <string name="dropzone_marker">Lieferort</string>
     <string name="alternative_Location_Button">Zurück</string>
+    <string name="network_failure">Fehler beim Herstellen einer Netzwerkverbindung!</string>
 
     <string-array name="currencies">
         <item>\u20AC</item>

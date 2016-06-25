@@ -55,6 +55,8 @@
                 android:textColor="@color/colorPrimary"
                 android:textSize="12sp"
                 android:clickable="true"
+                android:lines="1"
+                android:singleLine="true"
                 android:onClick="@{() -> actionHandler.onPressedAddress()}"/>
 
             <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
@@ -67,6 +69,8 @@
                 android:textColor="@color/colorMainTextDark"
                 android:textSize="14sp"
                 android:clickable="true"
+                android:lines="1"
+                android:singleLine="true"
                 android:onClick="@{() -> actionHandler.onPressedAddress()}"/>
 
         </RelativeLayout>
