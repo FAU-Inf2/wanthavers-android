@@ -62,6 +62,8 @@ public class FilterSettingActivity extends AppCompatActivity {
                 new GetSubcategories(categoryRepository), new CreateLocation(locationRepository),
                 new GetSavedLocations(locationRepository), new UpdateLocation(locationRepository),
                 new DeleteLocation(locationRepository), new GetCategory(categoryRepository));
+
+        filterSettingFragment.setPresenter(mFilterSettingPresenter);
     }
 
     @Override

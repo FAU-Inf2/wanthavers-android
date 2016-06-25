@@ -86,6 +86,8 @@ public class DesireDetailActivity extends AppCompatActivity {
                 new GetAcceptedHaver(haverRepository), new GetChatForDesire(desireRepository), new UpdateDesireStatus(desireRepository),
                 new FlagDesire(flagRepository));
 
+        desireDetailFragment.setPresenter(mDesireDetailPresenter);
+
         DesireDetailViewModel desireDetailViewModel =
                 new DesireDetailViewModel(getApplicationContext(), mDesireDetailPresenter);
 
