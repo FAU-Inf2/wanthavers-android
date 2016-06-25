@@ -61,6 +61,8 @@ public interface FilterSettingContract {
 
         void showCategory(Category category);
 
+        void showWrongPricesSet();
+
     }
 
     interface Presenter extends BasePresenter {

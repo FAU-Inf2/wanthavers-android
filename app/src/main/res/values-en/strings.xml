@@ -122,6 +122,7 @@
     <string name="categorylist_title">Choose a Category</string>
     <string name="min_price">Minimal Price</string>
     <string name="max_price">Maximal Price</string>
+    <string name="wrong_price_set">Maximal price is greater than minimal price</string>
 
 
     <string-array name="currencies">

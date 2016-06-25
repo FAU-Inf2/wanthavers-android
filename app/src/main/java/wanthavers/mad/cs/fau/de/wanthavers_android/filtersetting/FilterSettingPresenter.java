@@ -313,15 +313,22 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
         }
 
         //Min_Price
+        Double minPrice = null;
         if (!minPriceView.getText().toString().equals("")) {
-            Double minPrice = Double.valueOf(minPriceView.getText().toString());
+            minPrice = Double.valueOf(minPriceView.getText().toString());
             desireFilter.setPrice_min(minPrice);
         }
 
         //Max_Price
+        Double maxPrice = null;
         if (!maxPriceView.getText().toString().equals("")) {
-            Double maxPrice = Double.valueOf(maxPriceView.getText().toString());
-            desireFilter.setPrice_min(maxPrice);
+            maxPrice = Double.valueOf(maxPriceView.getText().toString());
+            desireFilter.setPrice_max(maxPrice);
+        }
+
+        if (minPrice != null && maxPrice != null && minPrice > maxPrice) {
+            mFilterSettingView.showWrongPricesSet();
+            return;
         }
 
         //Min_Rating

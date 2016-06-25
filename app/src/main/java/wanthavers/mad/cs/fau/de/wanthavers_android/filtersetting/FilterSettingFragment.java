@@ -206,6 +206,11 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
     }
 
     @Override
+    public void showWrongPricesSet() {
+        showMessage(getString(R.string.wrong_price_set));
+    }
+
+    @Override
     public Category getSelectedCategory() {
         /*InstantAutoComplete instantAutoComplete = mFilterSettingFragBinding.spinnerCategory;
         String input = instantAutoComplete.getText().toString();
