@@ -50,6 +50,7 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     public void onResume()  {
         super.onResume();
     }
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 

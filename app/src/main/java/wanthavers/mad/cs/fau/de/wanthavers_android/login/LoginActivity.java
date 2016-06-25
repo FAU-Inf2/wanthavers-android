@@ -26,6 +26,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private CreateUser mCreateUser;
     private LoginUser mLoginUser;
+    private static int curFragment = 0;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,27 +35,16 @@ public class LoginActivity extends AppCompatActivity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
 
-        StartUpFragment startUpFragment = (StartUpFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.contentFrame);
+            LoginContract.View startUpFragment = (LoginContract.View) getSupportFragmentManager()
+                    .findFragmentById(R.id.contentFrame);
 
-        if (startUpFragment == null) {
-            startUpFragment = StartUpFragment.newInstance(); //TODO
+            if (startUpFragment == null) {
+                startUpFragment = StartUpFragment.newInstance(); //TODO
 
-            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),
-                    startUpFragment, R.id.contentFrame);
-        }
+                ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),
+                        (android.support.v4.app.Fragment)startUpFragment, R.id.contentFrame);
+            }
 
-        /*
-        LoginFragment loginFragment = (LoginFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.contentFrame);
-
-        if (loginFragment == null) {
-            loginFragment = LoginFragment.newInstance(); //TODO
-
-            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),
-                    loginFragment, R.id.contentFrame);
-        }
-        */
         Context context = getApplicationContext();
 
         UserRepository userRepository = UserRepository.getInstance(UserRemoteDataSource.getInstance(context), UserLocalDataSource.getInstance(context));
@@ -71,7 +61,6 @@ public class LoginActivity extends AppCompatActivity {
     }*/
     @Override
     public void onBackPressed() {
-        //disables back button
         FragmentManager fragmentManager = getSupportFragmentManager();
 
         StartUpFragment startUpFragment = StartUpFragment.newInstance();
