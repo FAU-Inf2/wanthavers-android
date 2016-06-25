@@ -168,6 +168,9 @@
     <string name="Set_location_ok">Confirm</string>
     <string name="Set_location_cancel">Cancel</string>
     <string name="close_App_on_BackButton">Press the back button once again to close the application.</string>
+    <string name="delete_desire">Delete Desire</string>
+    <string name="desire_detail_haver_title">Havers</string>
+    <string name="finish_desire">finish desire</string>
 
 
 </resources>

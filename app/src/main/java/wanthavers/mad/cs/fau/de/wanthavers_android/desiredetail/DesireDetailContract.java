@@ -18,7 +18,7 @@ public interface DesireDetailContract {
 
         void showAcceptedHaver(Haver haver);
 
-        void showDesire(Desire desire);
+        void showDesire(Desire desire, Haver haver);
 
         void showHavers(List<Haver> haver);
 
@@ -69,7 +69,7 @@ public interface DesireDetailContract {
 
     interface Presenter extends BasePresenter {
 
-        void getDesire();
+        void loadDesire();
 
         void loadHavers(boolean forceUpdate);
 

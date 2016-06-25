@@ -94,19 +94,34 @@
                     android:textColor="@color/colorMainText"
                     android:background="@drawable/chat_border_me"
                     android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
                     android:onClick="@{ () -> actionHandler.sendMessage(desire.creator.getId())}"/>
 
                 <ImageButton
-                    android:id="@+id/button_report_desire"
+                android:id="@+id/button_open_rating"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:text="@string/button_desire_message"
+                android:src="@drawable/wh_rating_button_light"
+                android:layout_marginRight="10dp"
+                android:textColor="@color/colorMainText"
+                android:background="@{desirelogic.canRateUser(desire, haver) ? @drawable/chat_border_me : @drawable/wh_border_button_inactive}"
+                android:layout_toLeftOf="@id/button_send_message"
+                android:onClick="@{ () -> actionHandler.buttonOpenRating()}"
+                android:clickable="@{desirelogic.canRateUser(desire, haver) ? true : false}"/>
+
+                <!--ImageButton
+                    android:id="@+id/button_open_rating_not_allowed"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:text="@string/button_desire_message"
-                    android:src="@drawable/wh_report_desire_light"
+                    android:src="@drawable/wh_rating_button_light"
+                    android:layout_marginRight="10dp"
                     android:textColor="@color/colorMainText"
                     android:background="@drawable/chat_border_me"
                     android:layout_toLeftOf="@id/button_send_message"
-                    android:layout_marginRight="10dp"
-                    android:onClick="@{ () -> actionHandler.openReportPopup()}"/>
+                    android:visibility="@{desirelogic.canRateUser(desire, haver) ? View.GONE : View.VISIBLE}"/-->
+
 
             </RelativeLayout>
 
@@ -120,6 +135,7 @@
                 android:padding="10dp">
 
                 <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                    android:layout_marginTop="-10dp"
                     android:id="@+id/desire_detail_creation_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -131,13 +147,13 @@
                     android:layout_alignParentEnd="true"/>
 
                 <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                    android:layout_marginTop="-10dp"
                     android:id="@+id/desire_haver_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/colorMainText"
                     android:text="@string/haver_status_open"
-                    android:background="@color/status_open"
                     android:layout_below="@id/desire_detail_creation_time"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentLeft="true"
@@ -157,8 +173,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:lineSpacingMultiplier="0.6"
                     android:text="@{desire.title}"
                     android:textColor="@color/colorMainText"
+                    android:layout_marginTop="25dp"
                     android:textSize="35dp"
                     android:textStyle="bold"
                     android:layout_toRightOf="@+id/desire_detail_itemImage"
@@ -185,14 +203,15 @@
                     android:text="@string/create_desire_description_header"
                     android:textColor="@color/colorPrimary"
                     android:textAllCaps="true"
-                    android:layout_marginTop="3dp"
-                    android:layout_marginBottom="4dp"/>
+                    android:layout_marginTop="3dp"/>
 
                 <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                     android:id="@+id/desire_detail_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="18dp"
+                    android:layout_marginTop="-10dp"
+                    android:lineSpacingMultiplier="0.6"
                     android:text="@{desire.description}"
                     android:textColor="@color/colorMainTextMediumDark"/>
             </LinearLayout>
@@ -304,7 +323,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/no_location_available"
+                android:text="@{desire.dropzone_string}"
                 android:textColor="@color/colorMainTextMediumDark"
                 android:layout_below="@id/desire_detail_location_title"/>
 
@@ -312,14 +331,27 @@
 
             <RelativeLayout
                 android:id="@+id/wanter_views"
+                android:padding="5dp"
                 android:layout_marginBottom="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/desire_detail_location_layout"
                 android:layout_marginTop="20dp"
+                android:background="@color/desire_detail_layout_items_background"
                 android:visibility="@{desirelogic.isDesireCreator(desire.creator.getId()) ? View.VISIBLE : View.GONE}">
 
+                <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                    android:id="@+id/desire_detail_haver_title"
+                    android:textSize="@dimen/desire_detail_title_size"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/desire_detail_haver_title"
+                    android:textColor="@color/colorPrimary"
+                    android:textAllCaps="true"/>
+
                 <android.support.v7.widget.RecyclerView
+                    android:layout_below="@id/desire_detail_haver_title"
                     android:id="@+id/haver_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -329,7 +361,6 @@
                     android:id="@+id/no_havers"
                     android:layout_width="match_parent"
                     android:layout_height="90dp"
-                    android:background="@color/desire_detail_layout_items_background"
                     android:visibility="@{havers.notEmpty ? View.GONE : View.VISIBLE}">
 
                     <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
@@ -340,6 +371,9 @@
                         android:layout_centerVertical="true"
                         android:text="@string/no_havers"
                         android:textColor="@color/colorMainTextMediumDark" />
+
+
+
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -425,10 +459,11 @@
             </RelativeLayout>
 
             <LinearLayout
+                android:layout_marginTop="15dp"
                 android:id="@+id/desire_haver_buttons"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
+                android:layout_below="@id/desire_detail_location_layout"
                 android:visibility="@{desirelogic.isDesireCreator(desire.creator.getId()) ? View.GONE : View.VISIBLE}">
 
                 <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextButton
@@ -436,30 +471,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/button_desire_accept"
-                    android:textColor="@color/colorMainText"
+                    android:textColor="@color/colorSecondary"
                     android:background="@color/colorPrimary"
                     android:onClick="@{() -> actionHandler.haverAccept()}"
                     android:visibility="gone"/>
 
             </LinearLayout>
 
-            <Button
-                android:id="@+id/button_rating"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="rating to be replaced be icon!!"
-                android:layout_below="@id/desire_detail_location_layout"
-                android:visibility="gone"
-                android:onClick="@{() -> actionHandler.buttonOpenRating()}"/>
-
-            <Button
-                android:id="@+id/button_desire_deletion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="desire deletion to be replaced be icon!!"
-                android:layout_below="@id/desire_detail_location_layout"
-                android:visibility="gone"
-                android:onClick="@{() -> actionHandler.buttonDeleteDesire()}"/>
         </RelativeLayout>
 
     </ScrollView>

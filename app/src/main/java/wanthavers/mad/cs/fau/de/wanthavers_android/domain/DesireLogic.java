@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import de.fau.cs.mad.wanthavers.common.Desire;
+import de.fau.cs.mad.wanthavers.common.Haver;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.SharedPreferencesHelper;
 
@@ -103,5 +104,19 @@ public class DesireLogic {
         } else {
             return false;
         }
+    }
+
+    public boolean canRateUser(Desire desire, Haver haver){
+
+        long loggedInUserId = getLoggedInUserId();
+
+        if(desire.getCreator().getId() == loggedInUserId && desire.getCreatorHasRated() == false){
+            return true;
+
+        }else if (haver != null && haver.getUser().getId() == loggedInUserId && desire.getHaverHasRated() == false){
+            return true;
+        }
+
+        return false;
     }
 }

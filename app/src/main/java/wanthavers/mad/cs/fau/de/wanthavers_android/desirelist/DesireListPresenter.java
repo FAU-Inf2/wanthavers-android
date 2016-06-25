@@ -56,7 +56,7 @@ public class DesireListPresenter implements DesireListContract.Presenter {
 
     @Override
     public void start() {
-        loadDesires(false, true, false);
+        loadDesires(false, false, false);
     }
 
 
@@ -204,7 +204,7 @@ public class DesireListPresenter implements DesireListContract.Presenter {
     /*  TODO (TASK_JUG1) keep as discussion base and for future reference
     public void loadRatingsForDesires(final List<DesireItemViewModel> desireList) {
 
-        Desire desire = desireList.get(counter).getDesire();
+        Desire desire = desireList.get(counter).loadDesire();
 
         GetAvgRatingForUser.RequestValues requestValue = new GetAvgRatingForUser.RequestValues(desire.getCreator().getId());
 
@@ -320,16 +320,12 @@ public class DesireListPresenter implements DesireListContract.Presenter {
                 desires = mDesireListAll;
         }
 
-        //TODO: @Julian: check if this adjustment is correct
-        //Date lastCreationTime = new Date();
         Long lastDesireId = null;
 
         if (loadOlderDesires == true && desires.size() > 0) {
-            //lastCreationTime = desires.get(desires.size() - 1).getCreation_time();
             lastDesireId = desires.get(desires.size() - 1).getId();
         }
 
-        //curDesireFilter.setLastCreationTime(lastCreationTime);
         curDesireFilter.setLastDesireId(lastDesireId);
         WantHaversApplication.setCurDesireFilter(curDesireFilter);
     }

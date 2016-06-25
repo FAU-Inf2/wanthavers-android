@@ -159,6 +159,10 @@
     <string name="loading_desire_title">Laden des gewählten Wunsches</string>
     <string name="delete_desire_title">Möchten Sie den Wunsch wirklich löschen?</string>
     <string name="close_App_on_BackButton">Drücke den Zurück Knopf noch einmal, um die App zu schließen.</string>
+    <string name="report_desire">Wunsch Melden</string>
+    <string name="delete_desire">Wunsch löschen</string>
+    <string name="finish_desire">Wunsch fertigstellen</string>
+    <string name="desire_detail_haver_title">Erfüller</string>
 
     <string-array name="currencies">
         <item>\u20AC</item>

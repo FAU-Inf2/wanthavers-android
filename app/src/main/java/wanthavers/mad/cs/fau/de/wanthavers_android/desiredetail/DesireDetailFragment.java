@@ -9,7 +9,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -19,9 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import com.squareup.picasso.Picasso;
@@ -46,6 +43,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.DesiredetailRepor
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
 import wanthavers.mad.cs.fau.de.wanthavers_android.rating.RatingActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.RoundedTransformation;
+import wanthavers.mad.cs.fau.de.wanthavers_android.util.SharedPreferencesHelper;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -71,6 +69,8 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
     private Dialog mReportDialog, mDeleteDesireDialog;
     private DesiredetailReportPopupBinding mDesiredetailReportPopupBinding;
     private ProgressDialog mLoadingDialog;
+    private Haver mHaver;
+    private Menu mOptionsMenu;
 
     public DesireDetailFragment() {
         //Requires empty public constructor
@@ -130,28 +130,60 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.desire_detail_menu, menu);
+
+        mOptionsMenu = menu;
         super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
+    public void onPrepareOptionsMenu(Menu menu){
+
+        menu.clear();
+
+        SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, getContext().getApplicationContext());
+        long loggedInUser = sharedPreferencesHelper.loadLong(SharedPreferencesHelper.KEY_USERID, 6L);
+
+
+        if(mDesireDetailFragBinding.getDesire() != null && mDesireDetailFragBinding.getDesire().getCreator().getId() == loggedInUser ){   //add haver here as well
+            getActivity().getMenuInflater().inflate(R.menu.desire_detail_menu_creator, menu);
+        } else if(mHaver != null && mHaver.getUser().getId() == loggedInUser) { //include haver here
+            getActivity().getMenuInflater().inflate(R.menu.desire_detail_menu_haver, menu);
+        } else {
+            getActivity().getMenuInflater().inflate(R.menu.desire_detail_menu, menu);
+        }
+
+        super.onPrepareOptionsMenu(menu);
+    }
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case R.id.menu_chat:
-
-                //dummy user - TODO get real user here
-                User user = new User("otto","blub@blub.de");
-                user.setId(1234);
-                mPresenter.openChatList(user);
+            case R.id.menu_report_desire:
+                mPresenter.openReportPopup();
                 break;
+
+            case R.id.menu_delete_desire:
+                mPresenter.openDeletionDialog();
+                break;
+            case R.id.menu_finish_desire:
+
+                //TODO @Oliver Lutz - load finish desire here
         }
         return true;
     }
 
     public void setViewModel(DesireDetailViewModel viewModel) {mDesireDetailViewModel = viewModel;}
 
-    public void showDesire(Desire desire) {
+    public void showDesire(Desire desire, Haver haver) {
+
+        if(mHaver == null){
+            mHaver = haver;
+            mDesireDetailFragBinding.setHaver(haver);
+        }
+
         mDesireDetailFragBinding.setDesire(desire);
         mDesireDetailFragBinding.setDesirelogic(mDesireLogic);
+
+        onPrepareOptionsMenu(mOptionsMenu);
 
         //show desire image
         Media mediaDesire = desire.getImage();
@@ -183,9 +215,6 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
         //Show havers
         if (desire.getStatus() == DesireStatus.STATUS_OPEN) {
             mPresenter.loadHavers(false);
-            if (mDesireLogic.isDesireCreator(creator.getId())) {
-                mDesireDetailFragBinding.buttonDesireDeletion.setVisibility(View.VISIBLE);
-            }
         } else if (desire.getStatus() == DesireStatus.STATUS_IN_PROGRESS) {
             mPresenter.getAcceptedHaver();
             //haver cannot accept
@@ -200,11 +229,13 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
     }
 
     public void showRatingButton(Desire desire) {
+        /*
         if (!desire.getCreatorHasRated() && mDesireLogic.isDesireCreator(desire.getCreator().getId())) {
             mDesireDetailFragBinding.buttonRating.setVisibility(View.VISIBLE);
-        } else if (!desire.getHaverHasRated() && (mDesireDetailFragBinding.getHaver().getUser().getId() == mDesireLogic.getLoggedInUserId())) {
+        } else if (!desire.getHaverHasRated() && (mHaver != null && mHaver.getUser().getId() == mDesireLogic.getLoggedInUserId())) {
             mDesireDetailFragBinding.buttonRating.setVisibility(View.VISIBLE);
         }
+        */
     }
 
     public void showHavers(List<Haver> havers) {
@@ -218,15 +249,12 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
 
         if (mDesireLogic.getLoggedInUserId() == haver.getUser().getId()
                 && mDesireDetailFragBinding.desireHaverStatus.getVisibility() == View.VISIBLE) {
-            mDesireDetailFragBinding.desireHaverStatus.setBackgroundColor(getResources().getColor(R.color.status_accepted));
             mDesireDetailFragBinding.desireHaverStatus.setText(getString(R.string.haver_status_accepted));
         } else if (mDesireLogic.getLoggedInUserId() != haver.getUser().getId()
                 && mDesireDetailFragBinding.desireHaverStatus.getVisibility() == View.VISIBLE) {
-            mDesireDetailFragBinding.desireHaverStatus.setBackgroundColor(getResources().getColor(R.color.status_rejected));
             mDesireDetailFragBinding.desireHaverStatus.setText(getString(R.string.haver_status_rejected));
         }
 
-        mDesireDetailFragBinding.setHaver(haver);
         mDesireDetailFragBinding.haverList.setVisibility(View.GONE);
         mDesireDetailFragBinding.noHavers.setVisibility(View.GONE);
         mDesireDetailFragBinding.acceptedHaverBar.setVisibility(View.VISIBLE);

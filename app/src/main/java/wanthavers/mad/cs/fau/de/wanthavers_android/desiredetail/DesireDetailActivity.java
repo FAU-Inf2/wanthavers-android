@@ -51,7 +51,7 @@ public class DesireDetailActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();
-        ab.setTitle(R.string.desire);
+        ab.setTitle("");
         ab.setDisplayHomeAsUpEnabled(true);
         ab.setDisplayShowHomeEnabled(true);
 
@@ -112,14 +112,5 @@ public class DesireDetailActivity extends AppCompatActivity {
         finish();
         startActivity(getIntent());
     }
-
-    /*
-    //Never reached code
-    @Override
-    public boolean onSupportNavigateUp() {
-        System.out.println("Reached");
-        onBackPressed();
-        return true;
-    }*/
 
 }

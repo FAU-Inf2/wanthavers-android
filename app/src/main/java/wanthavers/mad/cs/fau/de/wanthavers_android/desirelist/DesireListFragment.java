@@ -212,7 +212,6 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
 
     public void showDesires(List<DesireItemViewModel> desireModels){
 
-
         mListAdapter.replaceData(desireModels);
         mDesireListViewModel.setDesireListSize(desireModels.size());
     }

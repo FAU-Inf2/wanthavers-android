@@ -46,8 +46,10 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetDesireList
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetUser;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.ActivityUtils;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.SharedPreferencesHelper;
+import wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView;
 
 import static com.google.common.base.Preconditions.checkNotNull;
+import static wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.DesireListType.*;
 
 public class DesireListActivity extends AppCompatActivity {
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
@@ -111,6 +113,16 @@ public class DesireListActivity extends AppCompatActivity {
         ab.setHomeAsUpIndicator(R.drawable.wh_menu_icon_light);
         ab.setDisplayHomeAsUpEnabled(true);
         ab.setTitle("");
+
+        WantHaversTextView abTitle = (WantHaversTextView) findViewById(R.id.toolbar_title);
+
+        switch(desireListType){
+            case MY_DESIRES: abTitle.setText(getString(R.string.myDesires_title));
+                break;
+            case MY_TRANSACTIONS: abTitle.setText(getString(R.string.myTransactions_title));
+                break;
+            default: abTitle.setText(getString(R.string.wanthavers_text));
+        }
 
         // Set up the navigation drawer.
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -185,13 +197,6 @@ public class DesireListActivity extends AppCompatActivity {
 
         mDesireListPresenter.setUser(loggedInUser);
         updateChatIconOnNewMessageReceived();
-        // Load previously saved state, if available.
-        if (savedInstanceState != null) {
-            /*TasksFilterType currentFiltering =
-                    (TasksFilterType) savedInstanceState.getSerializable(CURRENT_FILTERING_KEY);
-            mTasksPresenter.setFiltering(currentFiltering);
-            */
-        }
 
     }
 
@@ -238,7 +243,6 @@ public class DesireListActivity extends AppCompatActivity {
                                 break;
                         }
                         // Close the navigation drawer when an item is selected.
-                        menuItem.setChecked(true);
                         mDrawerLayout.closeDrawers();
                         return true;
                     }
@@ -276,7 +280,6 @@ public class DesireListActivity extends AppCompatActivity {
         SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, getApplicationContext());
         long loggedInUser = sharedPreferencesHelper.loadLong(SharedPreferencesHelper.KEY_USERID, 6L); //Long.valueOf(sharedPreferencesHelper.loadString(SharedPreferencesHelper.KEY_USERID, "6"));
         mDesireListPresenter.getUser(loggedInUser);
-
     }
 
 
