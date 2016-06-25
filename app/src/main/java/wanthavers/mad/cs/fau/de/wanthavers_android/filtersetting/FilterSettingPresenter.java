@@ -5,6 +5,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.j256.ormlite.stmt.query.In;
 
@@ -67,7 +68,7 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
     public void loadCurFilterSettings() {
 
         //get views
-        RatingBar minRatingBar = (RatingBar)mActivity.findViewById(R.id.filterSettingRatingBar);
+        RatingBar minRatingBar = (RatingBar) mActivity.findViewById(R.id.filter_Setting_Rating_Bar);
         EditText minRewardView = (EditText) mActivity.findViewById(R.id.filter_min_reward);
         Spinner radiusView = (Spinner) mActivity.findViewById(R.id.spinner_radius);
 
@@ -78,8 +79,7 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
         Double maxPrice = curFilter.getPrice_max();
         Float minimalRating = curFilter.getRating_min();
         Double minimalReward = curFilter.getReward_min();
-        //TODO: get current filter location
-        //<Type> location = curFilter.get...
+        Location location = curFilter.getLocation();
         Double radius = curFilter.getRadius();
 
         //set values
@@ -106,7 +106,9 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
             minRatingBar.setRating(minimalRating);
         }
 
-        //TODO: set Location from Filter
+        if (location != null) {
+            setLocation(location);
+        }
 
         //TODO: Radius not hard coded
         if (radius != null) {
@@ -306,7 +308,7 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
         DesireFilter desireFilter = new DesireFilter();
 
         //get all Views
-        RatingBar minRatingBar = (RatingBar)mActivity.findViewById(R.id.filterSettingRatingBar);
+        RatingBar minRatingBar = (RatingBar)mActivity.findViewById(R.id.filter_Setting_Rating_Bar);
         EditText minRewardView = (EditText) mActivity.findViewById(R.id.filter_min_reward);
         Spinner radiusView = (Spinner) mActivity.findViewById(R.id.spinner_radius);
 
@@ -357,6 +359,7 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
         if (location != null) {
             desireFilter.setLon(location.getLon());
             desireFilter.setLat(location.getLat());
+            desireFilter.setLocation(location);
 
             //Radius
             //TODO: differ between miles and kilometres?
