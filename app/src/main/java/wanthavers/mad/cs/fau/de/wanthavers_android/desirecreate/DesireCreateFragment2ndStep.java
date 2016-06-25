@@ -37,6 +37,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.maps.MapActivity;
 public class DesireCreateFragment2ndStep extends Fragment implements DesireCreateContract.View {
     private Desirecreate2ndFragBinding mViewDataBinding;
     private DesireCreateContract.Presenter mPresenter;
+    private DesireCreateActionHandler mDesireCreateActionHandler;
     private Uri image;
     private Spinner spinner;
     private int REQUEST_CAMERA = 0;
@@ -82,7 +83,10 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
         //spinner.setPrompt(getString(R.string.currency_header));
         spinner.setAdapter(adapter);
 
-        mViewDataBinding.getRoot().setOnTouchListener(new OnSwipeTouchListener(getActivity(), mPresenter));
+        mDesireCreateActionHandler = new DesireCreateActionHandler(mPresenter);
+        mViewDataBinding.setActionHandler(mDesireCreateActionHandler);
+
+        mViewDataBinding.getRoot().setOnTouchListener(new OnSwipeTouchListener(getActivity(), mPresenter,  mDesireCreateActionHandler));
 
         return mViewDataBinding.getRoot();
     }

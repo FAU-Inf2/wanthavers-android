@@ -6,6 +6,11 @@
             name="presenter"
             type="wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate.DesireCreateContract.Presenter" />
 
+        <variable
+            name="actionHandler"
+            type="wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate.DesireCreateActionHandler"/>
+
+
     </data>
     <RelativeLayout
         android:layout_width="match_parent"
@@ -48,7 +53,7 @@
             android:layout_height="180sp"
             android:id="@+id/image_camera"
             android:src="@android:drawable/ic_menu_camera"
-            android:onClick="@{() -> presenter.selectImageFromDevice()}"
+            android:onClick="@{() -> actionHandler.onPressImage()}"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="97dp" />

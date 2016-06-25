@@ -77,6 +77,7 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
 
     private MapContract.Presenter mMapPresenter;;
     private MapActBinding mViewDataBinding;
+    private MapActionHandler mMapActionHandler;
 
 
     @Override
@@ -89,6 +90,9 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
                 DataBindingUtil.setContentView(this, R.layout.map_act);
         mMapPresenter = new MapPresenter(MapActivity.this);
         binding.setPresenter(mMapPresenter);
+
+        mMapActionHandler = new MapActionHandler(mMapPresenter);
+        binding.setActionHandler(mMapActionHandler);
 
 
         mLocationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);

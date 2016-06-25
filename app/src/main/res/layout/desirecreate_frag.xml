@@ -6,6 +6,9 @@
             name="presenter"
             type="wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate.DesireCreateContract.Presenter" />
 
+        <variable
+            name="actionHandler"
+            type="wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate.DesireCreateActionHandler"/>
     </data>
 
     <RelativeLayout
