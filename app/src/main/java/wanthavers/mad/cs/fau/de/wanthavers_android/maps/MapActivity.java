@@ -33,6 +33,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.Projection;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -84,7 +85,10 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        overridePendingTransition(R.anim.anim_slide_in_left,R.anim.anim_slide_out_right);
+        if (getIntent().getExtras().getString("calledAct").equals("0")){
+            //Swipe animations only in CreateDesire
+            overridePendingTransition(R.anim.anim_slide_in_left,R.anim.anim_slide_out_right);
+        }
 
         MapActBinding binding =
                 DataBindingUtil.setContentView(this, R.layout.map_act);
@@ -97,14 +101,19 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
 
         mLocationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
         mGpsLocationTracker = new GpsLocationTracker(MapActivity.this, 49.573759d, 11.027389d); // computer science tower uni erlangen
-        if (!mGpsLocationTracker.isGpsEnabled()) {
-            showAlert();
+
+
+        if (!forDesireDetail()) {
+            //dont ask for GPS in DesireDetail
+            if (!mGpsLocationTracker.isGpsEnabled()) {
+                showAlert();
+            }
+
         }
 
 
-
         mLocationTextView = (TextView) findViewById(R.id.location_text_view);
-        //mLocationTextHeaderView = (TextView) findViewById(R.id.location_text_view_header);
+        mLocationTextHeaderView = (TextView) findViewById(R.id.location_text_view_header);
         mMarkerParentView = findViewById(R.id.marker_view_incl);
         mMarkerImageView = (ImageView) findViewById(R.id.marker_icon_view);
 
@@ -154,12 +163,14 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
         DisplayMetrics displaymetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
 
-        imageParentWidth = mMarkerParentView.getWidth();
-        imageParentHeight = mMarkerParentView.getHeight();
-        imageHeight = mMarkerImageView.getHeight();
+        if (mMarkerParentView!= null && mMarkerImageView!=null) {
+            imageParentWidth = mMarkerParentView.getWidth();
+            imageParentHeight = mMarkerParentView.getHeight();
+            imageHeight = mMarkerImageView.getHeight();
 
-        centerX = imageParentWidth / 2;
-        centerY = (imageParentHeight / 2);
+            centerX = imageParentWidth / 2;
+            centerY = (imageParentHeight / 2);
+        }
     }
 
     private void initializeMap() {
@@ -192,6 +203,24 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
         //googleMap.setIndoorEnabled(true);
         googleMap.setBuildingsEnabled(true);
 
+        if (forDesireDetail()) {
+
+            //remove MarkerImage
+            mMarkerImageView.setImageBitmap(null);
+
+            //edit LocationTextHeader
+            mLocationTextHeaderView.setText(getString(R.string.location_title));
+
+            //change Button Text
+            Button b = (Button) findViewById(R.id.button_select_location);
+            b.setText(getString(R.string.alternative_Location_Button));
+
+            // create marker
+            MarkerOptions marker = new MarkerOptions().position(mlatLng).title(getString(R.string.dropzone_marker));
+            googleMap.addMarker(marker);
+
+        }
+
         // check if map is created successfully or not
         if (googleMap == null) {
             showMessage(getString(R.string.maps_error));
@@ -213,7 +242,10 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
             if (projection != null) {
                 LatLng centerLatLng = projection.fromScreenLocation(new Point(
                         centerX, centerY));
-                updateLocation(centerLatLng);
+                //no changes for DesireDetail
+                if (!forDesireDetail()) {
+                    updateLocation(centerLatLng);
+                }
             }
         }
     }
@@ -286,6 +318,7 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
     }
 
     public void editAddress(){
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(getString(R.string.set_location));
         builder.setIcon(android.R.drawable.ic_menu_mylocation);
@@ -311,8 +344,7 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                return;
-            }
+                return;}
         });
 
         builder.show();
@@ -332,7 +364,9 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
 
 
     public void showMessage(String message) {
-        Snackbar.make(mMarkerParentView , message, Snackbar.LENGTH_LONG).show();
+        if ( mMarkerParentView != null) {
+            Snackbar.make(mMarkerParentView, message, Snackbar.LENGTH_LONG).show();
+        }
     }
 
     private void showAlert() {
@@ -361,31 +395,31 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
         setLocation(mLocationTextView.getText().toString(), centerLatLng.latitude, centerLatLng.longitude);
     }
 
-    private void setLocation(String location, double lat, double lng){
+    private void setLocation(String location, double lat, double lng) {
 
-        if(getIntent().getExtras().getString("desireTitle").compareTo("") == 0) {
+        if (forFilterSettings()) {
             Intent intent = new Intent();
 
             intent.putExtra("desireLocation", location);
             intent.putExtra("desireLocationLat", Double.toString(lat));
             intent.putExtra("desireLocationLng", Double.toString(lng));
-            if(mSettingsLocation != null) {
+            if (mSettingsLocation != null) {
                 intent.putExtra("desireLocationName", mSettingsLocation.getDescription());
                 intent.putExtra("desireLocationId", Long.toString(mSettingsLocation.getId()));
 
-            }else{
+            } else {
                 intent.putExtra("desireLocationName", "");
                 intent.putExtra("desireLocationId", "");
 
             }
 
-
-            Log.d("1", location);
-
             setResult(1, intent);
             finish();
 
-        }else{
+        } else if (forDesireDetail()){
+            finish();
+
+        }else{ // DesireCreate
             String title = getIntent().getExtras().getString("desireTitle");
             String description = getIntent().getExtras().getString("desireDescription");
             String price = getIntent().getExtras().getString("desirePrice");
@@ -410,14 +444,23 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
     }
     @Override
     public void onBackPressed(){
-        if(getIntent().getExtras().getString("desireTitle").compareTo("") == 0) {
+
+        if(forFilterSettings()) {
             Intent intent = new Intent();
             intent.putExtra("desireLocation", "");
             setResult(1, intent);
         }
+
         super.onBackPressed();
         overridePendingTransition(R.anim.anim_slide_in_right,R.anim.anim_slide_out_left);
     }
 
+    public boolean forDesireDetail(){
+        return getIntent().getExtras().getString("calledAct").equals("2");
+    }
+
+    public boolean forFilterSettings() {
+        return getIntent().getExtras().getString("calledAct").equals("1");
+    }
 
 }

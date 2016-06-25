@@ -1,5 +1,6 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.maps;
 
+
 public class MapPresenter implements MapContract.Presenter {
     private MapContract.View mDesireCreateView;
 
@@ -16,7 +17,10 @@ public class MapPresenter implements MapContract.Presenter {
     }
 
     public void createEditAddress(){
-        mDesireCreateView.editAddress();
+        //editing the Adress is not available for DesireDetail
+        if (!(mDesireCreateView.forDesireDetail())) {
+            mDesireCreateView.editAddress();
+        }
 
     }
 

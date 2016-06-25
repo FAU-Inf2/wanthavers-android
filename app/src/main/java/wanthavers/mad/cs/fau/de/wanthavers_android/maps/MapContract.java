@@ -11,6 +11,9 @@ public interface MapContract {
 
         void editAddress();
 
+        boolean forDesireDetail();
+
+        boolean forFilterSettings();
     }
 
 

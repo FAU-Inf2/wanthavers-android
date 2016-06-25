@@ -153,8 +153,8 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
     @Override
     public void showMap(Location location) {
         Intent intent = new Intent(getContext(), MapActivity.class);
-        intent.putExtra("desireTitle", "");
         intent.putExtra("location", location);
+        intent.putExtra("calledAct", "1"); //for distinguishing which activity started the map
         startActivityForResult(intent, 1);
     }
 

@@ -118,6 +118,7 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
         intent.putExtra("desireCurrency", currency);
         //intent.putExtra("desireCurrency", spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString());
         intent.putExtra("desireImage", image);
+        intent.putExtra("calledAct", "0"); //for distinguishing which activity started the map
         startActivity(intent);
     }
 
