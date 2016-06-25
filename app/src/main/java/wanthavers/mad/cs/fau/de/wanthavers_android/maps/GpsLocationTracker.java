@@ -9,6 +9,8 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -23,8 +25,8 @@ public class GpsLocationTracker extends Service implements LocationListener {
 
     private Context mContext;
     private Location mLocation;
-    private double mLatitude;
-    private double mLongitude;
+    private double mLatitude = 49.573759d;
+    private double mLongitude = 11.027389d;
 
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATE = 5;
     private static final long MIN_TIME_FOR_UPDATE = 0;
@@ -38,8 +40,12 @@ public class GpsLocationTracker extends Service implements LocationListener {
         getLocation();
     }
 
+    public GpsLocationTracker (Context context){
+        mContext = context;
+    }
 
-    public Location getLocation() {
+
+    private Location getLocation() {
 
         try {
 
@@ -110,8 +116,18 @@ public class GpsLocationTracker extends Service implements LocationListener {
 
     }
 
-    private boolean isNetworkEnabled() {
+    public boolean isNetworkEnabled() {
         return mLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+    }
+
+    public boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager == null){
+            return false;
+        }
+        NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
+
+        return (activeNetwork != null && activeNetwork.isConnected());
     }
 
 
