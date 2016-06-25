@@ -13,11 +13,13 @@ public class OnSwipeTouchListener implements OnTouchListener {
     private final GestureDetector gestureDetector;
     private final DesireCreateContract.Presenter mPresenter;
     private final Activity mContext;
+    private final DesireCreateActionHandler mActionHandler;
 
-    public OnSwipeTouchListener (Context context, DesireCreateContract.Presenter presenter){
+    public OnSwipeTouchListener (Context context, DesireCreateContract.Presenter presenter , DesireCreateActionHandler actionHandler){
         gestureDetector = new GestureDetector(context, new GestureListener());
         mPresenter = presenter;
         mContext = (Activity) context;
+        mActionHandler = actionHandler;
     }
 
     @Override
@@ -72,7 +74,7 @@ public class OnSwipeTouchListener implements OnTouchListener {
     }
 
     public void onSwipeLeft() {
-        mPresenter.createNextDesireCreateStep();
+        mActionHandler.buttonNextDesireStep();
     }
 
     public void onSwipeTop() {

@@ -21,6 +21,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.DesirecreateFragB
 public class DesireCreateFragment extends Fragment implements DesireCreateContract.View {
     private DesirecreateFragBinding mViewDataBinding;
     private DesireCreateContract.Presenter mPresenter;
+    private DesireCreateActionHandler mDesireCreateActionHandler;
 
     public DesireCreateFragment(){
         //Requires empty public constructor
@@ -54,7 +55,10 @@ public class DesireCreateFragment extends Fragment implements DesireCreateContra
         mViewDataBinding = DesirecreateFragBinding.inflate(inflater, container, false);
         mViewDataBinding.setPresenter(mPresenter);
 
-        mViewDataBinding.getRoot().setOnTouchListener(new OnSwipeTouchListener(getActivity(), mPresenter));
+        mDesireCreateActionHandler = new DesireCreateActionHandler(mPresenter);
+        mViewDataBinding.setActionHandler(mDesireCreateActionHandler);
+
+        mViewDataBinding.getRoot().setOnTouchListener(new OnSwipeTouchListener(getActivity(), mPresenter, mDesireCreateActionHandler));
 
         return mViewDataBinding.getRoot();
     }

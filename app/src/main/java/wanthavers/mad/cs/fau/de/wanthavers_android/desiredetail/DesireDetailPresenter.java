@@ -12,6 +12,7 @@ import de.fau.cs.mad.wanthavers.common.Chat;
 import de.fau.cs.mad.wanthavers.common.DesireFlag;
 import de.fau.cs.mad.wanthavers.common.DesireStatus;
 import de.fau.cs.mad.wanthavers.common.Haver;
+import de.fau.cs.mad.wanthavers.common.Location;
 import de.fau.cs.mad.wanthavers.common.User;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCase;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
@@ -403,5 +404,13 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
     @Override
     public void closeReportPopup() {
         mDesireDetailView.closeReportPopup();
+    }
+
+    @Override
+    public void createMap(double lat, double lng){
+        Location location = new Location();
+        location.setLat(lat);
+        location.setLon(lng);
+        mDesireDetailView.showMap(location);
     }
 }

@@ -305,7 +305,8 @@
                 android:layout_height="65dp"
                 android:padding="5dp"
                 android:layout_below="@id/desire_detail_price_layout"
-                android:background="@color/desire_detail_layout_items_background">
+                android:background="@color/desire_detail_layout_items_background"
+                android:onClick="@{() -> actionHandler.onPressedLocation(desire.getDropzone_lat(), desire.getDropzone_long())}">
 
                 <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                 android:id="@+id/desire_detail_location_title"
@@ -315,7 +316,8 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/location_title"
                 android:textColor="@color/colorPrimary"
-                android:textAllCaps="true"/>
+                android:textAllCaps="true"
+                android:onClick="@{() -> actionHandler.onPressedLocation(desire.getDropzone_lat(), desire.getDropzone_long())}"/>
 
             <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                 android:id="@+id/desire_detail_location"
@@ -325,7 +327,8 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@{desire.dropzone_string}"
                 android:textColor="@color/colorMainTextMediumDark"
-                android:layout_below="@id/desire_detail_location_title"/>
+                android:layout_below="@id/desire_detail_location_title"
+                android:onClick="@{() -> actionHandler.onPressedLocation(desire.getDropzone_lat(), desire.getDropzone_long())}"/>
 
             </RelativeLayout>
 

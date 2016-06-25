@@ -6,6 +6,10 @@
             name="presenter"
             type="wanthavers.mad.cs.fau.de.wanthavers_android.maps.MapContract.Presenter" />
 
+        <variable
+            name="actionHandler"
+            type="wanthavers.mad.cs.fau.de.wanthavers_android.maps.MapActionHandler"/>
+
     </data>
     <RelativeLayout
         android:layout_width="match_parent"
@@ -38,7 +42,7 @@
             android:id="@+id/relativeLayout"
             android:background="@color/colorSecondary"
             android:layout_margin="10sp"
-            android:onClick="@{() -> presenter.createEditAddress()}">
+            android:onClick="@{() -> actionHandler.onPressedAddress()}">
 
 
             <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
@@ -51,7 +55,7 @@
                 android:textColor="@color/colorPrimary"
                 android:textSize="12sp"
                 android:clickable="true"
-                android:onClick="@{() -> presenter.createEditAddress()}"/>
+                android:onClick="@{() -> actionHandler.onPressedAddress()}"/>
 
             <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                 android:id="@+id/location_text_view"
@@ -63,7 +67,7 @@
                 android:textColor="@color/colorMainTextDark"
                 android:textSize="14sp"
                 android:clickable="true"
-                android:onClick="@{() -> presenter.createEditAddress()}"/>
+                android:onClick="@{() -> actionHandler.onPressedAddress()}"/>
 
         </RelativeLayout>
 
@@ -81,14 +85,14 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="false"
             android:layout_alignParentEnd="true"
-            android:onClick="@{() -> presenter.createFinishDesireCreate()}"/>
+            android:onClick="@{() -> actionHandler.buttonSetLocation()}"/>
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/my_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@android:drawable/ic_menu_mylocation"
-            android:onClick="@{() -> presenter.createMoveToCurrentGpsPosition()}"
+            android:onClick="@{() -> actionHandler.buttonMyLocation()}"
             android:layout_above="@+id/button_select_location"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"

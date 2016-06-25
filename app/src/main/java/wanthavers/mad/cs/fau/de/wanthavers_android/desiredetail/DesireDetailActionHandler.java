@@ -81,4 +81,9 @@ public class DesireDetailActionHandler {
         mListener.closeDeletionDialog();
     }
 
+    public void onPressedLocation(double lat, double lng){
+        mListener.createMap(lat,lng);
+
+    }
+
 }

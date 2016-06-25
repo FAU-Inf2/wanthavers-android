@@ -163,6 +163,8 @@
     <string name="delete_desire">Wunsch löschen</string>
     <string name="finish_desire">Wunsch fertigstellen</string>
     <string name="desire_detail_haver_title">Erfüller</string>
+    <string name="dropzone_marker">Lieferort</string>
+    <string name="alternative_Location_Button">Zurück</string>
 
     <string-array name="currencies">
         <item>\u20AC</item>
