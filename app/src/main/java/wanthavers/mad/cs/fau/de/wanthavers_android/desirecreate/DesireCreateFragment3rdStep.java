@@ -19,7 +19,9 @@ import android.widget.TextView;
 
 import java.io.File;
 import java.util.Date;
+import java.util.List;
 
+import de.fau.cs.mad.wanthavers.common.Category;
 import de.fau.cs.mad.wanthavers.common.Desire;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.Desirecreate3rdFragBinding;
@@ -90,9 +92,11 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
         String location = getActivity().getIntent().getExtras().getString("desireLocation");
         double lat = Double.parseDouble(getActivity().getIntent().getExtras().getString("desireLocationLat"));
         double lng = Double.parseDouble(getActivity().getIntent().getExtras().getString("desireLocationLng"));
+        long catId =  Long.parseLong(getActivity().getIntent().getExtras().getString("desireCategoryId"));
+
 
         setDataForDesire(title, description, Integer.parseInt(price),
-                location, currency, image, lat, lng);
+                location, currency, image, lat, lng, catId);
         //includes sendDesireToServer()
 
         Log.d("DesireTitle:", desire.getTitle());
@@ -102,6 +106,7 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
         Log.d("DesireDropzone:", desire.getDropzone_string());
         Log.d("DesireCurrency:", desire.getCurrency());
         Log.d("DesireColor:", Integer.toString(desire.getColorIndex()));
+        Log.d("DesireCategoryId:", Long.toString(desire.getCategoryId()));
 
         Intent intent = new Intent(getContext(), DesireListActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -111,7 +116,8 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
     }
 
 
-    public void setDataForDesire(String title, String description, int price, String dropzone, String currency, Uri image, double lat, double lng) {
+    public void setDataForDesire(String title, String description, int price, String dropzone,
+                                 String currency, Uri image, double lat, double lng, long catId) {
         desire.setTitle(title);
         desire.setDescription(description);
         desire.setPrice(price);
@@ -124,6 +130,8 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
         int colorNumber = (int) (Math.random() * DESIRE_COLOR_NUMBER);
         desire.setColorIndex(colorNumber);
         desire.setCreation_time(new Date());
+
+        desire.setCategoryId(catId);
 
         //will be set by the server
         desire.setCreator(null);
@@ -173,5 +181,26 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
         }
 
         return true;
+    }
+
+
+    @Override
+    public void showCategorySelection() {
+        //no Category Selection in this Step
+    }
+
+    @Override
+    public void showCategory(Category category) {
+        //no Category Selection in this Step
+    }
+
+    @Override
+    public void showGetCategoriesError() {
+        //no Category Selection in this Step
+    }
+
+    @Override
+    public void showCategories(List<Category> categories) {
+        //no Category Selection in this Step
     }
 }

@@ -25,13 +25,23 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+
+import com.squareup.picasso.Picasso;
+
+import java.util.List;
+
+import de.fau.cs.mad.wanthavers.common.Category;
 import de.fau.cs.mad.wanthavers.common.Desire;
+import de.fau.cs.mad.wanthavers.common.Media;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
+import wanthavers.mad.cs.fau.de.wanthavers_android.categorylist.CategoryListActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.Desirecreate2ndFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.SelectImageLogic;
+import wanthavers.mad.cs.fau.de.wanthavers_android.filtersetting.CategoryAdapter;
 import wanthavers.mad.cs.fau.de.wanthavers_android.maps.GpsLocationTracker;
 import wanthavers.mad.cs.fau.de.wanthavers_android.maps.MapActivity;
+import wanthavers.mad.cs.fau.de.wanthavers_android.util.RoundedTransformation;
 
 
 public class DesireCreateFragment2ndStep extends Fragment implements DesireCreateContract.View {
@@ -44,6 +54,8 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
     private int REQUEST_GALLERY = 1;
     private ImageView mImageView;
     private EditText mDesirePrice;
+    private CategoryAdapter mCategoryListAdapter;
+    private long mCategoryId = 0;
 
     public DesireCreateFragment2ndStep(){
         //Requires empty public constructor
@@ -131,7 +143,9 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
         intent.putExtra("desireCurrency", currency);
         //intent.putExtra("desireCurrency", spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString());
         intent.putExtra("desireImage", image);
+        intent.putExtra("desireCategoryId", Long.toString(mCategoryId));
         intent.putExtra("calledAct", "0"); //for distinguishing which activity started the map
+
         startActivity(intent);
     }
 
@@ -155,12 +169,30 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        mImageView = mViewDataBinding.imageCamera;
-        if ( resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
-            if(requestCode == REQUEST_GALLERY) {
-                galleryResult(data);
-            }else if(requestCode == REQUEST_CAMERA){
-                cameraResult(data);
+
+        if (data == null) {
+            return;
+        }
+
+        if(requestCode == 10){ //CategoryList
+
+            if(data.hasExtra("selectedCategory")) {
+                Category category = (Category) data.getExtras().getSerializable("selectedCategory");
+                showCategory(category);
+                return;
+            }
+
+
+
+        }else{
+
+            mImageView = mViewDataBinding.imageCamera;
+            if (resultCode == Activity.RESULT_OK && data.getData() != null) {
+                if (requestCode == REQUEST_GALLERY) {
+                    galleryResult(data);
+                } else if (requestCode == REQUEST_CAMERA) {
+                    cameraResult(data);
+                }
             }
         }
 
@@ -232,4 +264,44 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
 
         return true;
     }
+
+    @Override
+    public void showCategorySelection() {
+        Intent intent = new Intent(getContext(), CategoryListActivity.class);
+        startActivityForResult(intent, 10);
+    }
+
+    @Override
+    public void showCategory(Category category) {
+
+        mCategoryId = category.getId();
+        mViewDataBinding.setCategory(category);
+
+        Media media = category.getImage();
+
+        if (media != null) {
+            final ImageView profileView = mViewDataBinding.selectedImageCategory;
+            Picasso.with(mViewDataBinding.getRoot().getContext()).load(media.getLowRes()).transform(new RoundedTransformation(200,0)).into(profileView);
+        } else{
+            //else case is neccessary as the image is otherwise overwritten on scroll
+            final ImageView profileView = mViewDataBinding.selectedImageCategory;
+            profileView.setImageResource(R.drawable.no_pic);
+        }
+
+        mViewDataBinding.selectedImageCategory.setVisibility(View.VISIBLE);
+        mViewDataBinding.selectedCategoryName.setVisibility(View.VISIBLE);
+        mViewDataBinding.noCategorySelected.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showGetCategoriesError() {
+        showMessage(getString(R.string.get_categories_error));
+    }
+
+    @Override
+    public void showCategories(List<Category> categories) {
+        mCategoryListAdapter.replaceData(categories);
+        mCategoryListAdapter.getFilter().filter(null);
+    }
+
 }

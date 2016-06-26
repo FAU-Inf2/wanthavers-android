@@ -1,7 +1,9 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate;
 
 import java.io.File;
+import java.util.List;
 
+import de.fau.cs.mad.wanthavers.common.Category;
 import de.fau.cs.mad.wanthavers.common.Desire;
 import de.fau.cs.mad.wanthavers.common.Media;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.BasePresenter;
@@ -16,6 +18,14 @@ public interface DesireCreateContract {
         void showMessage(String message);
 
         void showNextDesireCreateStep();
+
+        void showCategorySelection();
+
+        void showCategory(Category category);
+
+        void showGetCategoriesError();
+
+        void showCategories(List<Category> categories);
 
         //boolean isStoragePermissionGranted();
 
@@ -36,6 +46,8 @@ public interface DesireCreateContract {
         void selectImageFromDevice();
 
         SelectImageLogic getImageLogic();
+
+        void openCategorySelection();
 
     }
 }
