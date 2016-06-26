@@ -7,29 +7,30 @@ import android.os.Parcelable;
 @SuppressLint("ParcelCreator")
 public class PushMessageNotification implements Parcelable{
 
-
-    public String title;
+    public String mMessageNotificationType;
     public String message;
-    public String mBackupNotifier;
+    public String mDesireId;
+    public String mDesireTitle;
+    public String mChatId;
+    public String mSender;
 
-    public PushMessageNotification(String title, String message) {
-        this.title = title;
+    public PushMessageNotification(String messageNotificationType, String message) {
+        this.mMessageNotificationType = messageNotificationType;
         this.message = message;
     }
 
 
     public PushMessageNotification(Parcel in){
-        String[] data = new String[3];
+        String[] data = new String[6];
         in.readStringArray(data);
-        this.title = data[0];
+        this.mMessageNotificationType = data[0];
         this.message = data[1];
-        this.mBackupNotifier = data[2];
+        this.mDesireId = data[2];
+        this.mDesireTitle = data[3];
+        this.mChatId = data[4];
+        this.mSender = data[5];
     }
 
-
-    public void setBackupNotifier(String backupNotifier){
-        mBackupNotifier = backupNotifier;
-    }
 
     @Override
     public int describeContents() {
@@ -39,7 +40,7 @@ public class PushMessageNotification implements Parcelable{
     @Override
     public void writeToParcel(Parcel dest, int flags) {
 
-        dest.writeStringArray(new String[] {this.title, this.message, this.mBackupNotifier});
+        dest.writeStringArray(new String[] {mMessageNotificationType,message, mDesireId, mDesireTitle, mChatId, mSender});
     }
 
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {

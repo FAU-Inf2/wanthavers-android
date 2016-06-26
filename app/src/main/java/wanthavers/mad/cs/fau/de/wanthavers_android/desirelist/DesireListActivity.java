@@ -28,6 +28,7 @@ import de.fau.cs.mad.wanthavers.common.User;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.WantHaversApplication;
+import wanthavers.mad.cs.fau.de.wanthavers_android.cloudmessaging.MessageNotificationType;
 import wanthavers.mad.cs.fau.de.wanthavers_android.cloudmessaging.PushMessageNotification;
 import wanthavers.mad.cs.fau.de.wanthavers_android.cloudmessaging.RegistrationIntentService;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireRepository;
@@ -69,7 +70,7 @@ public class DesireListActivity extends AppCompatActivity {
 
             PushMessageNotification pushMessageNotification = intent.getExtras().getParcelable("WH_PUSH_NOTIFICATION");
 
-            if(!pushMessageNotification.mBackupNotifier.equals("true")){
+            if(pushMessageNotification.mMessageNotificationType.equals(MessageNotificationType.CHAT_MESSAGE.toString())){
                 MenuView.ItemView chatItem = (MenuView.ItemView) findViewById(R.id.menu_chat);
                 Drawable iconNewMessage = getResources().getDrawable(R.drawable.wh_chat_icon_new_message_light,null);
                 chatItem.setIcon(iconNewMessage);

@@ -22,8 +22,7 @@ public class PollingTask implements Runnable {
         //push notification
 
         Bundle extras = new Bundle();
-        PushMessageNotification pushMessage = new PushMessageNotification("0", "WH_BACKUP_MESSAGE");
-        pushMessage.setBackupNotifier("true");
+        PushMessageNotification pushMessage = new PushMessageNotification(MessageNotificationType.POLLING_MESSAGE.toString(), "WH_BACKUP_MESSAGE");
 
         extras.putParcelable("WH_PUSH_NOTIFICATION", pushMessage);
 

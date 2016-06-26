@@ -172,6 +172,10 @@
     <string name="wrong_price_set">Maximalpreis größer als Minimalpreis</string>
     <string name="network_failure">Fehler beim Herstellen einer Netzwerkverbindung!</string>
     <string name="no_location_found">Keine passende Adresse gefunden!</string>
+    <string name="cm_haver_accepted">wurde angenommen</string>
+    <string name="cm_haver_rejected">wurde abgelehnt</string>
+    <string name="cm_new_haver">neuer Erfüller für</string>
+    <string name="cm_desire_update">wurde aktualisiert</string>
 
     <string-array name="currencies">
         <item>\u20AC</item>
