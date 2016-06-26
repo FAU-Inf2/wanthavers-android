@@ -4,9 +4,11 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.settings;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -118,6 +120,23 @@ public class SettingsFragment extends Fragment implements SettingsContract.View 
                 image = cameraResult(data);
             }
             imageView.setImageURI(image);
+
+            String[] orientationColumn = {MediaStore.Images.Media.ORIENTATION};
+
+            Cursor cur = getContext().getContentResolver().query(image, orientationColumn, null, null, null);
+            int orientation = -1;
+            if (cur != null && cur.moveToFirst()) {
+                orientation = cur.getInt(cur.getColumnIndex(orientationColumn[0]));
+            }
+
+            imageView.setImageURI(image);
+
+            switch(orientation) {
+                case 90:
+                    imageView.setRotation(90);
+                    break;
+            }
+
             File file = new File(PathHelper.getRealPathFromURI(this.getContext().getApplicationContext(), image));
             long loggedInUserId = mDesireLogic.getLoggedInUserId();
             mPresenter.getUserForImageUpdate(loggedInUserId, file);

@@ -2,9 +2,10 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.welcome;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.media.ExifInterface;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -14,14 +15,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import java.io.File;
-import java.io.IOException;
 
-import de.fau.cs.mad.wanthavers.common.User;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
-import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.LoginFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.WelcomeFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.DesireListActivity;
-import wanthavers.mad.cs.fau.de.wanthavers_android.login.LoginContract;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.PathHelper;
 
 public class WelcomeFragment extends Fragment implements WelcomeContract.View {
@@ -85,23 +82,20 @@ public class WelcomeFragment extends Fragment implements WelcomeContract.View {
             ImageView imageView = (ImageView) getView().findViewById(R.id.image_camera);
             imageView.setImageURI(image);
 
-            ExifInterface ei = null;
-            try {
-                ei = new ExifInterface(image.getEncodedPath());
+            String[] orientationColumn = {MediaStore.Images.Media.ORIENTATION};
 
-                int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
+            Cursor cur = getContext().getContentResolver().query(image, orientationColumn, null, null, null);
+            int orientation = -1;
+            if (cur != null && cur.moveToFirst()) {
+                orientation = cur.getInt(cur.getColumnIndex(orientationColumn[0]));
+            }
 
-                switch(orientation) {
-                    case ExifInterface.ORIENTATION_ROTATE_90:
-                        imageView.setRotation(90);
-                        break;
-                    case ExifInterface.ORIENTATION_ROTATE_180:
-                        imageView.setRotation(180);
-                        break;
-                }
+            imageView.setImageURI(image);
 
-            } catch (IOException e) {
-                e.printStackTrace();
+            switch(orientation) {
+                case 90:
+                    imageView.setRotation(90);
+                    break;
             }
 
             File file = new File(PathHelper.getRealPathFromURI(this.getContext().getApplicationContext(), image));

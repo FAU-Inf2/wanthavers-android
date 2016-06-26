@@ -3,23 +3,18 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.location.LocationManager;
-import android.media.ExifInterface;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -30,9 +25,6 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-
-import java.io.IOException;
-
 import de.fau.cs.mad.wanthavers.common.Desire;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.Desirecreate2ndFragBinding;
@@ -177,29 +169,21 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
     private void galleryResult(Intent data){
         image = data.getData();
 
-        mImageView.setImageURI(image);
+        String[] orientationColumn = {MediaStore.Images.Media.ORIENTATION};
 
-        ExifInterface ei = null;
-        try {
-            ei = new ExifInterface(image.getEncodedPath());
-
-            int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
-
-            switch(orientation) {
-                case ExifInterface.ORIENTATION_ROTATE_90:
-                    mImageView.setRotation(90);
-                    break;
-                case ExifInterface.ORIENTATION_ROTATE_180:
-                    mImageView.setRotation(180);
-                    break;
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
+        Cursor cur = getContext().getContentResolver().query(image, orientationColumn, null, null, null);
+        int orientation = -1;
+        if (cur != null && cur.moveToFirst()) {
+            orientation = cur.getInt(cur.getColumnIndex(orientationColumn[0]));
         }
 
+        mImageView.setImageURI(image);
 
-
+        switch(orientation) {
+            case 90:
+                mImageView.setRotation(90);
+                break;
+        }
 
     }
 
