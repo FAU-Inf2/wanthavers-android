@@ -44,14 +44,17 @@
                 android:text="@string/category_title"
                 android:textColor="@color/colorMainTextDark"/>
 
-            <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextButton
+            <ImageButton
                 android:id="@+id/button_choose_category"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="TODO choose category"
-                android:onClick="@{() -> actionHandler.openCategorySelection()}"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"/>
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="5dp"
+                android:text="@string/button_desire_message"
+                android:src="@drawable/wh_edit_primary"
+                android:background="@color/colorSecondary"
+                android:textColor="@color/colorMainText"
+                android:layout_toRightOf="@id/filter_setting_category_title"
+                android:onClick="@{ () -> actionHandler.openCategorySelection()}"/>
 
             <RelativeLayout
                 android:id="@+id/selected_category_item"
@@ -183,19 +186,19 @@
                     android:textColor="@color/colorMainTextDark"
                     android:layout_centerVertical="true"/>
 
-                <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextButton
+
+                <ImageButton
                     android:id="@+id/button_change_location"
-                    style="?android:attr/buttonStyleSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:text="@string/change_button"
-                    android:padding="5dp"
-                    android:background="@drawable/border_scondary_nocorner"
-                    android:textColor="@color/colorPrimary"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:onClick="@{() -> actionHandler.buttonChangeLocation()}"/>
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="5dp"
+                    android:text="@string/button_desire_message"
+                    android:src="@drawable/wh_edit_primary"
+                    android:background="@color/colorSecondary"
+                    android:textColor="@color/colorMainText"
+                    android:layout_toRightOf="@id/filter_location_title"
+                    android:onClick="@{ () -> actionHandler.buttonChangeLocation()}"/>
+
 
             </RelativeLayout>
 
@@ -265,33 +268,29 @@
 
 
             <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextButton
-                android:id="@+id/button_apply_filter"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:background="@drawable/border_scondary_nocorner"
-                android:text="@string/button_apply_filter"
-                android:textColor="@color/colorPrimary"
-                android:layout_below="@+id/select_radius"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginTop="10dp"
-                android:onClick="@{() -> presenter.setFilterWithInput(category, location)}"/>
-
-            <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextButton
                 android:id="@+id/button_reset_filter"
                 android:background="@drawable/border_scondary_nocorner"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_height="35dp"
                 android:text="@string/button_reset_filter"
                 android:textColor="@color/colorPrimary"
-                android:layout_below="@id/button_apply_filter"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginTop="10dp"
+                android:layout_below="@id/select_radius"
+                android:layout_marginTop="20dp"
                 android:onClick="@{() -> presenter.resetFilter()}"/>
+
+            <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextButton
+                android:id="@+id/button_apply_filter"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:background="@drawable/border_primary_nocorner"
+                android:text="@string/button_apply_filter"
+                android:textColor="@color/colorSecondary"
+                android:layout_below="@id/button_reset_filter"
+                android:layout_marginTop="10dp"
+                android:onClick="@{() -> presenter.setFilterWithInput(category, location)}"/>
+
+
 
         </RelativeLayout>
     </ScrollView>

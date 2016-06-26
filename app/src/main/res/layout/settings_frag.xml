@@ -16,8 +16,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fillViewport="true">
+        android:layout_height="match_parent"
+        android:background="@color/colorSecondary">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -36,20 +36,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:layout_gravity="top|center"
-                android:src="@android:drawable/sym_def_app_icon"/>
-
-            <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextButton
-                android:id="@+id/button_change_profile_picture"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:text="@string/button_change_profile_picture"
-                android:background="@drawable/border_scondary_nocorner"
-                android:textColor="@color/colorPrimary"
-                android:layout_below="@+id/profile_picture"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
-                android:onClick="@{ () -> actionHandler.changePhotoClicked()}"	/>
+                android:src="@android:drawable/sym_def_app_icon"
+                android:onClick="@{ () -> actionHandler.changePhotoClicked()}"/>
 
             <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                 android:id="@+id/settings_mail_title"
@@ -58,8 +46,8 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/mail_adress_title"
                 android:textColor="@color/colorMainTextDark"
-                android:layout_below="@+id/button_change_profile_picture"
-                android:layout_marginTop="20dp"/>
+                android:layout_below="@+id/profile_picture"
+                android:layout_marginTop="40dp"/>
 
             <EditText
                 android:id="@+id/user_mail"
@@ -68,23 +56,21 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@{user.email}"
                 android:textColor="@color/colorMainTextDark"
-                android:layout_below="@+id/settings_mail_title"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="30dp"
+                android:layout_below="@id/settings_mail_title"
                 android:lines="1"/>
 
-            <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+            <ImageButton
                 android:id="@+id/button_change_mail"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="45dp"
-                android:text="@string/change_button"
-                android:background="@drawable/border_scondary_nocorner"
-                android:textColor="@color/colorPrimary"
-                android:layout_below="@+id/user_mail"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
+                android:layout_width="35dp"
+                android:layout_height="40dp"
+                android:text="@string/button_desire_message"
+                android:src="@drawable/wh_accept_icon_primary"
+                android:background="@color/colorSecondary"
+                android:textColor="@color/colorMainText"
+                android:layout_alignTop="@id/user_mail"
+                android:layout_alignRight="@id/user_mail"
                 android:onClick="@{ () -> actionHandler.changeMailClicked(user.getId())}"/>
+
 
             <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                 android:id="@+id/settings_filter_title"
@@ -93,10 +79,23 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/default_filter_title"
                 android:textColor="@color/colorMainTextDark"
-                android:layout_below="@+id/button_change_mail"
+                android:layout_below="@+id/user_mail"
                 android:layout_marginTop="20dp"/>
 
-            <LinearLayout
+            <ImageButton
+                android:id="@+id/button_change_filter"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="5dp"
+                android:text="@string/button_desire_message"
+                android:src="@drawable/wh_edit_primary"
+                android:background="@color/colorSecondary"
+                android:textColor="@color/colorMainText"
+                android:layout_alignTop="@id/settings_filter_title"
+                android:layout_toRightOf="@id/settings_filter_title"
+                android:onClick="@{ () -> actionHandler.changeFilterClicked()}"/>
+
+            <!--LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -132,7 +131,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_weight=".4"/>
 
-            </LinearLayout>
+            </LinearLayout-->
 
         </RelativeLayout>
 
