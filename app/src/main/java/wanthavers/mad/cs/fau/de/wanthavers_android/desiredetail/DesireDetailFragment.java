@@ -354,7 +354,9 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
     public void showAcceptButton(List<Haver> havers) {
         if (isHaver(havers)) {
             MenuItem acceptDesireMitem =  mOptionsMenu.findItem(R.id.menu_accept_desire);
-            acceptDesireMitem.setVisible(false);
+            if(acceptDesireMitem != null) {
+                acceptDesireMitem.setVisible(false);
+            }
         }
     }
 
