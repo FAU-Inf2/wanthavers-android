@@ -92,11 +92,11 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
         String location = getActivity().getIntent().getExtras().getString("desireLocation");
         double lat = Double.parseDouble(getActivity().getIntent().getExtras().getString("desireLocationLat"));
         double lng = Double.parseDouble(getActivity().getIntent().getExtras().getString("desireLocationLng"));
-        long catId =  Long.parseLong(getActivity().getIntent().getExtras().getString("desireCategoryId"));
+        Category cat = (Category) getActivity().getIntent().getSerializableExtra("desireCategory");
 
 
         setDataForDesire(title, description, Integer.parseInt(price),
-                location, currency, image, lat, lng, catId);
+                location, currency, image, lat, lng, cat);
         //includes sendDesireToServer()
 
         Log.d("DesireTitle:", desire.getTitle());
@@ -117,7 +117,7 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
 
 
     public void setDataForDesire(String title, String description, int price, String dropzone,
-                                 String currency, Uri image, double lat, double lng, long catId) {
+                                 String currency, Uri image, double lat, double lng, Category cat) {
         desire.setTitle(title);
         desire.setDescription(description);
         desire.setPrice(price);
@@ -131,7 +131,7 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
         desire.setColorIndex(colorNumber);
         desire.setCreation_time(new Date());
 
-        desire.setCategoryId(catId);
+        desire.setCategoryId(cat.getId());
 
         //will be set by the server
         desire.setCreator(null);
@@ -146,6 +146,7 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
             return; // calls own sendDesireToServer()
         }
 
+        desire.setImage(cat.getImage());
         sendDesireToServer(desire);
 
     }

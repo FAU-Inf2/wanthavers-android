@@ -185,5 +185,8 @@
     <string name="cm_haver_rejected">was rejected</string>
     <string name="cm_new_haver">new Haver for</string>
     <string name="cm_desire_update">was updated</string>
+    <string name="empty_price">You have to enter a price!</string>
+    <string name="empty_category">You have to choose a Category!</string>
+
 
 </resources>

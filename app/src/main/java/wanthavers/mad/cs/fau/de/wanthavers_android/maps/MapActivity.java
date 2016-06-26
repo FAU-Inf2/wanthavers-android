@@ -460,7 +460,7 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
             //String reward = getIntent().getExtras().getString("desireReward");
             String currency = getIntent().getExtras().getString("desireCurrency");
             Uri image = getIntent().getExtras().getParcelable("desireImage");
-            String catId = getIntent().getExtras().getString("desireCategoryId");
+            Category cat = (Category) getIntent().getSerializableExtra("desireCategory");
 
             Intent intent = new Intent(this, DesireCreateActivity3rdStep.class);
 
@@ -473,7 +473,7 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
             intent.putExtra("desireLocation", location);
             intent.putExtra("desireLocationLat", Double.toString(lat));
             intent.putExtra("desireLocationLng", Double.toString(lng));
-            intent.putExtra("desireCategoryId", catId);
+            intent.putExtra("desireCategory", cat);
 
             startActivity(intent);
         }

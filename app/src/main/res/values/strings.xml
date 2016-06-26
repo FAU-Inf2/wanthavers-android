@@ -176,6 +176,8 @@
     <string name="cm_haver_rejected">wurde abgelehnt</string>
     <string name="cm_new_haver">neuer Erfüller für</string>
     <string name="cm_desire_update">wurde aktualisiert</string>
+    <string name="empty_price">Es muss ein Preis angeben werden!</string>
+    <string name="empty_category">Es muss eine Kategorie angeben werden!</string>
 
     <string-array name="currencies">
         <item>\u20AC</item>

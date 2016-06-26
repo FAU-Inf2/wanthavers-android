@@ -55,7 +55,7 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
     private ImageView mImageView;
     private EditText mDesirePrice;
     private CategoryAdapter mCategoryListAdapter;
-    private long mCategoryId = 0;
+    private Category mCategory;
 
     public DesireCreateFragment2ndStep(){
         //Requires empty public constructor
@@ -113,6 +113,8 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
         CustomTextWatcher myWatcher = new CustomTextWatcher(mDesirePrice);
         mDesirePrice.addTextChangedListener(myWatcher);
 
+        //mCategory.setId(-1L);
+
         return mViewDataBinding.getRoot();
     }
 
@@ -122,7 +124,12 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
         //final EditText desireReward   = mViewDataBinding.createDesireReward;
 
         if(mDesirePrice.getText().toString().isEmpty() ){
-            showMessage( getString(R.string.createDesire_Empty_Text));
+            showMessage( getString(R.string.empty_price));
+            return;
+        }
+
+        if (mCategory == null){
+            showMessage(getString(R.string.empty_category));
             return;
         }
 
@@ -143,7 +150,7 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
         intent.putExtra("desireCurrency", currency);
         //intent.putExtra("desireCurrency", spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString());
         intent.putExtra("desireImage", image);
-        intent.putExtra("desireCategoryId", Long.toString(mCategoryId));
+        intent.putExtra("desireCategory", mCategory);
         intent.putExtra("calledAct", "0"); //for distinguishing which activity started the map
 
         startActivity(intent);
@@ -274,7 +281,7 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
     @Override
     public void showCategory(Category category) {
 
-        mCategoryId = category.getId();
+        mCategory = category;
         mViewDataBinding.setCategory(category);
 
         Media media = category.getImage();
