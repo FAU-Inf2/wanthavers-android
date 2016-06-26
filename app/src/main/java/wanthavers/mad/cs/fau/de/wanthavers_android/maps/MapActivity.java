@@ -15,6 +15,8 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -24,6 +26,8 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
+import android.view.animation.Interpolator;
+import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -36,6 +40,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.Projection;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
@@ -229,7 +234,7 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
             b.setText(getString(R.string.alternative_Location_Button));
 
             // create marker
-            MarkerOptions marker = new MarkerOptions().position(mlatLng).title(getString(R.string.dropzone_marker));
+            MarkerOptions marker = new MarkerOptions().position(mlatLng).title(mLocationTextView.getText().toString());
             googleMap.addMarker(marker);
 
         }else if (forFilterSettings()){

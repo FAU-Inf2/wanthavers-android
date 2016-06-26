@@ -187,6 +187,7 @@
     <string name="cm_desire_update">was updated</string>
     <string name="empty_price">You have to enter a price!</string>
     <string name="empty_category">You have to choose a Category!</string>
+    <string name="select_category">&#160;&#160;Select a Category</string>
 
 
 </resources>

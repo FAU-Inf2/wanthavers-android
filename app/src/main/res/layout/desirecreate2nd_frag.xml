@@ -27,6 +27,8 @@
         android:weightSum="1"
         android:focusableInTouchMode="true">
 
+
+
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -74,7 +76,7 @@
 
 
         <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
-            android:id="@+id/filter_setting_category_title"
+            android:id="@+id/category_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
@@ -119,17 +121,20 @@
                 android:layout_centerVertical="true"
                 android:onClick="@{() -> actionHandler.openCategoryList()}"/>
 
-        </RelativeLayout>
+            <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                android:id="@+id/no_category_selected"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/select_category"
+                android:textSize="17dp"
+                android:onClick="@{() -> actionHandler.openCategoryList()}"
+                android:layout_toRightOf="@+id/selected_image_category"
+                android:layout_toEndOf="@+id/selected_image_category"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"/>
 
-        <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
-            android:id="@+id/no_category_selected"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/all_categories"
-            android:onClick="@{() -> actionHandler.openCategoryList()}"
-            android:layout_below="@+id/selected_category_item"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+        </RelativeLayout>
 
 
     </RelativeLayout>
