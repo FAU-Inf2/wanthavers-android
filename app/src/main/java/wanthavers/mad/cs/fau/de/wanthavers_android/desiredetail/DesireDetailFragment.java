@@ -2,6 +2,7 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.desiredetail;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.ClipData;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -163,12 +164,15 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
             case R.id.menu_report_desire:
                 mPresenter.openReportPopup();
                 break;
-
             case R.id.menu_delete_desire:
                 mPresenter.openDeletionDialog();
                 break;
+            case R.id.menu_accept_desire:
+                mPresenter.setHaver();
+                item.setVisible(false);
+                break;
             case R.id.menu_finish_desire:
-
+                break;
                 //TODO @Oliver Lutz - load finish desire here
         }
         return true;
@@ -349,9 +353,8 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
     @Override
     public void showAcceptButton(List<Haver> havers) {
         if (isHaver(havers)) {
-            mDesireDetailFragBinding.buttonAcceptDesire.setVisibility(View.GONE);
-        } else {
-            mDesireDetailFragBinding.buttonAcceptDesire.setVisibility(View.VISIBLE);
+            MenuItem acceptDesireMitem =  mOptionsMenu.findItem(R.id.menu_accept_desire);
+            acceptDesireMitem.setVisible(false);
         }
     }
 

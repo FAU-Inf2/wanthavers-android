@@ -22,11 +22,6 @@ public class DesireDetailActionHandler {
         mDesireDetailFragBinding = desireDetailFragment;
     }
 
-    public void haverAccept() {
-        mListener.setHaver();
-        mDesireDetailFragBinding.buttonAcceptDesire.setVisibility(View.GONE);
-    }
-
     public void sendMessage(long user2Id) {
         mListener.sendMessage(user2Id);
     }

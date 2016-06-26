@@ -102,7 +102,6 @@ public class WantHaversApplication extends Application {
 
         mDesireFilter = desireFilter;
 
-        //TODO: @Julian: now you can/must set your own IDs so that you can ensure that they have the value you expect
         desireFilter.setId(0);
         FilterDatabaseHelper filtDataHelper = FilterDatabaseHelper.getInstance(context);
         filtDataHelper.createOrUpdate(desireFilter);

@@ -461,26 +461,6 @@
 
             </RelativeLayout>
 
-            <LinearLayout
-                android:layout_marginTop="15dp"
-                android:id="@+id/desire_haver_buttons"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/desire_detail_location_layout"
-                android:visibility="@{desirelogic.isDesireCreator(desire.creator.getId()) ? View.GONE : View.VISIBLE}">
-
-                <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextButton
-                    android:id="@+id/button_accept_desire"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/button_desire_accept"
-                    android:textColor="@color/colorSecondary"
-                    android:background="@color/colorPrimary"
-                    android:onClick="@{() -> actionHandler.haverAccept()}"
-                    android:visibility="gone"/>
-
-            </LinearLayout>
-
         </RelativeLayout>
 
     </ScrollView>
