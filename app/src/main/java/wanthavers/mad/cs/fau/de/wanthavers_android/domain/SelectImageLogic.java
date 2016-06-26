@@ -67,6 +67,7 @@ public class SelectImageLogic {
     private void selectImageFromGallery(){
         Intent intent = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         intent.setType("image/*");
+
         mAct.startActivityForResult(intent, REQUEST_GALLERY);
     }
 

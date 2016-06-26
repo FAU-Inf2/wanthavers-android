@@ -2,6 +2,7 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.welcome;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import java.io.File;
+import java.io.IOException;
 
 import de.fau.cs.mad.wanthavers.common.User;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
@@ -82,6 +84,25 @@ public class WelcomeFragment extends Fragment implements WelcomeContract.View {
             image = data.getData();
             ImageView imageView = (ImageView) getView().findViewById(R.id.image_camera);
             imageView.setImageURI(image);
+
+            ExifInterface ei = null;
+            try {
+                ei = new ExifInterface(image.getEncodedPath());
+
+                int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
+
+                switch(orientation) {
+                    case ExifInterface.ORIENTATION_ROTATE_90:
+                        imageView.setRotation(90);
+                        break;
+                    case ExifInterface.ORIENTATION_ROTATE_180:
+                        imageView.setRotation(180);
+                        break;
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
             File file = new File(PathHelper.getRealPathFromURI(this.getContext().getApplicationContext(), image));
             mPresenter.setImage(file);

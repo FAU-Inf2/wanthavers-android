@@ -6,7 +6,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.location.LocationManager;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -27,6 +30,8 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+
+import java.io.IOException;
 
 import de.fau.cs.mad.wanthavers.common.Desire;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
@@ -171,8 +176,43 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
 
     private void galleryResult(Intent data){
         image = data.getData();
+
         mImageView.setImageURI(image);
+
+        ExifInterface ei = null;
+        try {
+            ei = new ExifInterface(image.getEncodedPath());
+
+            int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
+
+            switch(orientation) {
+                case ExifInterface.ORIENTATION_ROTATE_90:
+                    mImageView.setRotation(90);
+                    break;
+                case ExifInterface.ORIENTATION_ROTATE_180:
+                    mImageView.setRotation(180);
+                    break;
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
+
     }
+
+    public static Bitmap rotateImage(Bitmap source, float angle) {
+        Bitmap retVal;
+
+        Matrix matrix = new Matrix();
+        matrix.postRotate(angle);
+        retVal = Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
+
+        return retVal;
+    }
+
 
     private void cameraResult(Intent data){
         SelectImageLogic imageLogic = mPresenter.getImageLogic();
