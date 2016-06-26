@@ -10,8 +10,12 @@
             name="actionHandler"
             type="wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate.DesireCreateActionHandler"/>
 
+        <variable
+            name="category"
+            type="de.fau.cs.mad.wanthavers.common.Category" />
 
     </data>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -22,7 +26,7 @@
         android:paddingTop="@dimen/activity_vertical_margin"
         android:weightSum="1"
         android:focusableInTouchMode="true">
-        
+
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -67,6 +71,65 @@
             android:layout_alignTop="@+id/create_desire_price"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
+
+
+        <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+            android:id="@+id/filter_setting_category_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/category_title"
+            android:textColor="@color/colorMainTextDark"
+            android:layout_below="@+id/create_desire_price"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="30dp" />
+
+
+        <RelativeLayout
+            android:id="@+id/selected_category_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/light_grey"
+            android:layout_marginTop="70dp"
+            android:layout_below="@+id/create_desire_price"
+            android:onClick="@{() -> actionHandler.openCategoryList()}">
+
+            <ImageView
+                android:id="@+id/selected_image_category"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:scaleX="0.8"
+                android:scaleY="0.8"
+                android:src="@android:drawable/sym_def_app_icon"
+                android:layout_marginLeft="5dp"
+                android:visibility="gone"
+                android:onClick="@{() -> actionHandler.openCategoryList()}"/>
+
+            <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                android:id="@+id/selected_category_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:gravity="center"
+                android:text="@{category.getName()}"
+                android:layout_toRightOf="@+id/selected_image_category"
+                android:layout_toEndOf="@+id/selected_image_category"
+                android:visibility="gone"
+                android:layout_centerVertical="true"
+                android:onClick="@{() -> actionHandler.openCategoryList()}"/>
+
+        </RelativeLayout>
+
+        <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+            android:id="@+id/no_category_selected"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/all_categories"
+            android:onClick="@{() -> actionHandler.openCategoryList()}"
+            android:layout_below="@+id/selected_category_item"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
 
     </RelativeLayout>

@@ -1,5 +1,6 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
@@ -12,6 +13,14 @@ import android.widget.ImageView;
 
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.category.CategoryLocalDataSource;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.category.CategoryRemoteDataSource;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.category.CategoryRepository;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.location.LocationLocalDataSource;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.location.LocationRemoteDataSource;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.location.LocationRepository;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetCategory;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetSubcategories;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.ActivityUtils;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -43,8 +52,16 @@ public class DesireCreateActivity2ndStep extends AppCompatActivity {
         overridePendingTransition(R.anim.anim_slide_in_left,R.anim.anim_slide_out_right);
 
 
-        //TODO
-        mDesireCreatePresenter = new DesireCreatePresenter(UseCaseHandler.getInstance(), desireCreateFragment, null, this,null, null);
+
+        //create fake repo for categories
+        Context context = getApplicationContext();
+        checkNotNull(context);
+
+        CategoryRepository categoryRepository = CategoryRepository.getInstance(CategoryRemoteDataSource.getInstance(getApplicationContext()), CategoryLocalDataSource.getInstance(context));
+        LocationRepository locationRepository = LocationRepository.getInstance(LocationRemoteDataSource.getInstance(getApplicationContext()), LocationLocalDataSource.getInstance(context));
+
+        mDesireCreatePresenter = new DesireCreatePresenter(UseCaseHandler.getInstance(), desireCreateFragment,
+                null, this,null, null, new GetSubcategories(categoryRepository), new GetCategory(categoryRepository));
     }
 
     @Override

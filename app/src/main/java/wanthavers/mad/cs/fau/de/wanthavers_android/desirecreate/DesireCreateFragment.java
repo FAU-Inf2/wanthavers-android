@@ -13,6 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import java.util.List;
+
+import de.fau.cs.mad.wanthavers.common.Category;
 import de.fau.cs.mad.wanthavers.common.Desire;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.WantHaversApplication;
@@ -112,9 +115,30 @@ public class DesireCreateFragment extends Fragment implements DesireCreateContra
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.next_step:
-               mPresenter.createNextDesireCreateStep();
+                mPresenter.createNextDesireCreateStep();
         }
 
         return true;
     }
+
+    @Override
+    public void showCategorySelection() {
+        //no Category Selection in this Step
+    }
+
+    @Override
+    public void showCategory(Category category) {
+        //no Category Selection in this Step
+    }
+
+    @Override
+    public void showGetCategoriesError() {
+        //no Category Selection in this Step
+    }
+
+    @Override
+    public void showCategories(List<Category> categories) {
+        //no Category Selection in this Step
+    }
+
 }

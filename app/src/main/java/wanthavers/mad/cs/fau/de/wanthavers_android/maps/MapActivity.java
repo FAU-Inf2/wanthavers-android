@@ -46,6 +46,7 @@ import java.util.Locale;
 import android.Manifest;
 import android.widget.Toast;
 
+import de.fau.cs.mad.wanthavers.common.Category;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate.DesireCreateActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate.DesireCreateActivity2ndStep;
@@ -459,6 +460,7 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
             //String reward = getIntent().getExtras().getString("desireReward");
             String currency = getIntent().getExtras().getString("desireCurrency");
             Uri image = getIntent().getExtras().getParcelable("desireImage");
+            String catId = getIntent().getExtras().getString("desireCategoryId");
 
             Intent intent = new Intent(this, DesireCreateActivity3rdStep.class);
 
@@ -471,6 +473,8 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
             intent.putExtra("desireLocation", location);
             intent.putExtra("desireLocationLat", Double.toString(lat));
             intent.putExtra("desireLocationLng", Double.toString(lng));
+            intent.putExtra("desireCategoryId", catId);
+
             startActivity(intent);
         }
 
