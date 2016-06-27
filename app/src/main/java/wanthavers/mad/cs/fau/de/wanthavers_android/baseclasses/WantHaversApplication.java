@@ -3,6 +3,8 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses;
 import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
+import android.support.multidex.MultiDexApplication;
+
 import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;
 
@@ -13,7 +15,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.cloudmessaging.PollingTask;
 import wanthavers.mad.cs.fau.de.wanthavers_android.cloudmessaging.WantHaverScheduledExecutor;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.ormlite.FilterDatabaseHelper;
 
-public class WantHaversApplication extends Application {
+public class WantHaversApplication extends MultiDexApplication {
 
 
     private static DesireFilter mDesireFilter;
@@ -55,12 +57,6 @@ public class WantHaversApplication extends Application {
         pollingTask.setAppContext(getApplicationContext());
 
         mWantHaverScheduledExecutor.scheduleWithFixedDelay(pollingTask,BACKUP_POLLING_DELAY, BACKUP_POLLING_DELAY, TimeUnit.SECONDS);
-    }
-
-
-    protected void  attachBaseContext(Context base){
-        super.attachBaseContext(base);
-        MultiDex.install(this);
     }
 
     public static DesireFilter getCurDesireFilter(Context context){

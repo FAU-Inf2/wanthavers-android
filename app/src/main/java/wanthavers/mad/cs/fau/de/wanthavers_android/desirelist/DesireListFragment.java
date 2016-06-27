@@ -139,16 +139,18 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
         swipeRefreshLayout.setScrollUpChild(recyclerView);
 
         // dynamically load new desires on scroll down
-       recyclerView.setOnScrollChangeListener(new RecyclerView.OnScrollChangeListener() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            recyclerView.setOnScrollChangeListener(new RecyclerView.OnScrollChangeListener() {
 
-           @Override
-           public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                @Override
+                public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
 
-               if(!v.canScrollVertically(1)){
-                   mPresenter.loadDesires(true,false, true);
-               }
-           }
-       });
+                    if(!v.canScrollVertically(1)){
+                        mPresenter.loadDesires(true,false, true);
+                    }
+                }
+            });
+        }
 
         setHasOptionsMenu(true);
 
