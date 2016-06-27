@@ -39,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="textMultiLine"
-            android:lines="7"
+            android:lines="8"
             android:ems="10"
             android:id="@+id/create_desire_description"
             android:layout_centerVertical="true"
@@ -50,7 +50,7 @@
             android:layout_alignEnd="@+id/create_desire_Title"
             android:hint= "@string/create_desire_description_hint"
             android:gravity="top|left"
-            android:maxLength="200"
+            android:maxLength="300"
             android:background="@drawable/textbox_border" />
 
         <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView

@@ -92,13 +92,16 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
     private MapActBinding mViewDataBinding;
     private MapActionHandler mMapActionHandler;
     private DesireCreateFragment2ndStep test = DesireCreateFragment2ndStep.newInstance();
+    private int mCalledAct;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (getIntent().getExtras().getString("calledAct").equals("0")){
+        mCalledAct = Integer.parseInt(getIntent().getExtras().getString("calledAct"));
+
+        if (mCalledAct == 0){
             //Swipe animations only in CreateDesire
             overridePendingTransition(R.anim.anim_slide_in_left,R.anim.anim_slide_out_right);
         }
@@ -498,11 +501,11 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
     }
 
     public boolean forDesireDetail(){
-        return getIntent().getExtras().getString("calledAct").equals("2");
+        return (mCalledAct == 2);
     }
 
     public boolean forFilterSettings() {
-        return getIntent().getExtras().getString("calledAct").equals("1");
+        return (mCalledAct == 1);
     }
 
     private boolean networkFailure(){

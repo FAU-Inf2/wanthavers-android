@@ -151,8 +151,9 @@ public class SettingsFragment extends Fragment implements SettingsContract.View 
     }
 
     private Uri cameraResult(Intent data){
-        SelectImageLogic imageLogic = mSettingsActionHandler.getSelectImageLogic();
-        Uri image = imageLogic.getImageFromCamera(data);
+        //SelectImageLogic imageLogic = mSettingsActionHandler.getSelectImageLogic();
+        //Uri image = imageLogic.getImageFromCamera(data);
+        Uri image = data.getData();
         return image;
     }
 

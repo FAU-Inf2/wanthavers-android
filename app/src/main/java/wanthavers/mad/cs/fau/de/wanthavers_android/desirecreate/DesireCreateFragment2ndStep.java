@@ -237,11 +237,31 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
     }
 
 
-    private void cameraResult(Intent data){
+    private void cameraResult(Intent intent){
+        image = intent.getData();
+
+        String[] orientationColumn = {MediaStore.Images.Media.ORIENTATION};
+
+        Cursor cur = getContext().getContentResolver().query(image, orientationColumn, null, null, null);
+        int orientation = -1;
+        if (cur != null && cur.moveToFirst()) {
+            orientation = cur.getInt(cur.getColumnIndex(orientationColumn[0]));
+        }
+
+        mImageView.setImageURI(image);
+
+        switch(orientation) {
+            case 90:
+                mImageView.setRotation(90);
+                break;
+        }
+    }
+
+    /*private void cameraResult(Intent data){
         SelectImageLogic imageLogic = mPresenter.getImageLogic();
         image = imageLogic.getImageFromCamera(data);
         mImageView.setImageURI(image);
-    }
+    }*/
 
     @Override
     public void showMessage(String message) {
