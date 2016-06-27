@@ -150,6 +150,17 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
                     }
                 }
             });
+        } else {
+            recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                    super.onScrolled(recyclerView, dx, dy);
+
+                    if(!recyclerView.canScrollVertically(1)){
+                        mPresenter.loadDesires(true, false, true);
+                    }
+                }
+            });
         }
 
         setHasOptionsMenu(true);
