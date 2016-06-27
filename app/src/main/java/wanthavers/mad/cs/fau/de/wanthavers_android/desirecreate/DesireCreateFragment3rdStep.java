@@ -1,5 +1,6 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -33,6 +34,7 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
     private Desirecreate3rdFragBinding mViewDataBinding;
     private DesireCreateContract.Presenter mPresenter;
     private Desire desire = new Desire();
+    private ProgressDialog mLoadingDialog;
     private final int DESIRE_COLOR_NUMBER = 4;
 
     public DesireCreateFragment3rdStep() {
@@ -77,6 +79,9 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
         //desireDropzone.setText(getActivity().getIntent().getExtras().getString("desireLocation"));
         //just for testing
 
+        showLoadingProgress();
+        //waitForUpload(mViewDataBinding.getRoot());
+
         mPresenter.createNextDesireCreateStep();
         return mViewDataBinding.getRoot();
     }
@@ -97,7 +102,7 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
 
         setDataForDesire(title, description, Integer.parseInt(price),
                 location, currency, image, lat, lng, cat);
-        //includes sendDesireToServer()
+        //includes publishDesire()
 
         Log.d("DesireTitle:", desire.getTitle());
         Log.d("DesireDesciption:", desire.getDescription());
@@ -108,9 +113,9 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
         Log.d("DesireColor:", Integer.toString(desire.getColorIndex()));
         Log.d("DesireCategoryId:", Long.toString(desire.getCategoryId()));
 
-        Intent intent = new Intent(getContext(), DesireListActivity.class);
+        /*Intent intent = new Intent(getContext(), DesireListActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
+        startActivity(intent);*/
         //getActivity().finish();
 
     }
@@ -143,17 +148,17 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
             Log.d("Image", file.getPath());
 
             mPresenter.setImage(file, desire);
-            return; // calls own sendDesireToServer()
+            return; // calls own publishDesire()
         }
 
         desire.setImage(cat.getImage());
-        sendDesireToServer(desire);
+        publishDesire(desire);
 
     }
 
     @Override
     public void showMedia(Desire d){
-        sendDesireToServer(d);
+        publishDesire(d);
     }
 
     @Override
@@ -161,16 +166,11 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
         //no Messages to show here
     }
 
-    public void sendDesireToServer(Desire desire) {
+    public void publishDesire(Desire desire) {
         mPresenter.setDesire(desire);
-    }
 
+        endLoadingProgress();
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-
-        inflater.inflate(R.menu.create_desire_step_one, menu);
-        super.onCreateOptionsMenu(menu, inflater);
     }
 
 
@@ -182,6 +182,25 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
         }
 
         return true;
+    }
+
+
+    public void showLoadingProgress() {
+        mLoadingDialog = new ProgressDialog(getActivity());
+        mLoadingDialog.setTitle(getString(R.string.createDesire_loadingProgress_title));
+        mLoadingDialog.setMessage(getString(R.string.createDesire_loadingProgress_message));
+        mLoadingDialog.show();
+        mLoadingDialog.setCancelable(false);
+        mLoadingDialog.setCanceledOnTouchOutside(false);
+    }
+
+
+    public void endLoadingProgress() {
+        mLoadingDialog.dismiss();
+
+        Intent intent = new Intent(getContext(), DesireListActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 
 

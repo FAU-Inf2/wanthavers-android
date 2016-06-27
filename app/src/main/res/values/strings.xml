@@ -38,7 +38,7 @@
     <string name="create_desire_description_hint">max. 200 Zeichen</string>
     <string name="createDesire_title_1st_Step">Neuer Wunsch: Schritt 1</string>
     <string name="createDesire_title_2nd_Step">Neuer Wunsch: Schritt 2</string>
-    <string name="createDesire_title_3rd_Step">Neuer Wunsch: Lieferort</string>
+    <string name="createDesire_title_3rd_Step">Wunsch wird erstellt ...</string>
     <string name="createDesire_Empty_Text">Bitte alle Felder ausfüllen</string>
     <string name="desire_detail_wanter">Wanter:</string>
     <string name="button_desire_accept">Auftrag annehmen</string>
@@ -179,6 +179,9 @@
     <string name="empty_price">Es muss ein Preis angeben werden!</string>
     <string name="empty_category">Es muss eine Kategorie angeben werden!</string>
     <string name="select_category">&#160;&#160;Wähle eine Kategorie</string>
+    <string name="createDesire_loadingProgress_title">Dein Wunsch wird erstellt</string>
+    <string name="createDesire_loadingProgress_message">Bitte warten ...</string>
+
     <string name="password_reset_title">Passwort Zurücksetzen</string>
     <string name="password_reset_subtitle">Sie erhalten eine Email zum Ändern des Passworts</string>
     <string name="password_reset_button">Mein Passwort zurücksetzen</string>
