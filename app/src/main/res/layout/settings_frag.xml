@@ -71,6 +71,37 @@
                 android:layout_alignRight="@id/user_mail"
                 android:onClick="@{ () -> actionHandler.changeMailClicked(user.getId())}"/>
 
+            <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                android:id="@+id/settings_password_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/password_reset_title"
+                android:textColor="@color/colorMainTextDark"
+                android:layout_below="@+id/user_mail"
+                android:layout_marginTop="40dp"/>
+
+            <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                android:id="@+id/settings_password_subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="@string/password_reset_subtitle"
+                android:textColor="@color/colorMainTextDark"
+                android:layout_below="@+id/settings_password_title" />
+
+            <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextButton
+                android:id="@+id/settings_reset_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:textColor="@color/colorSecondary"
+                android:text="@string/password_reset_button"
+                android:layout_below="@id/settings_password_subtitle"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:onClick="@{() -> actionHandler.resetPassword(user.email)}"/>
+
 
             <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                 android:id="@+id/settings_filter_title"
@@ -79,7 +110,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/default_filter_title"
                 android:textColor="@color/colorMainTextDark"
-                android:layout_below="@+id/user_mail"
+                android:layout_below="@+id/settings_reset_password"
                 android:layout_marginTop="20dp"/>
 
             <ImageButton

@@ -123,6 +123,11 @@
     <string name="min_price">Minimal Price</string>
     <string name="max_price">Maximal Price</string>
     <string name="wrong_price_set">Maximal price is greater than minimal price</string>
+    <string name="password_reset_title">Password Reset</string>
+    <string name="password_reset_subtitle">To reset your password, an email will be sent</string>
+    <string name="password_reset_button">Reset my password</string>
+    <string name="password_reset_success">Password reset mail was sent successfully</string>
+    <string name="password_reset_error">Error while reseting your password</string>
 
 
     <string-array name="currencies">

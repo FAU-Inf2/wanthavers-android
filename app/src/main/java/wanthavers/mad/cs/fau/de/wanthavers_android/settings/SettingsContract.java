@@ -18,6 +18,10 @@ public interface SettingsContract {
         void showUpdateUserError();
 
         void showUpdateUserSuccess();
+
+        void showResetPasswordSuccess();
+
+        void showResetPasswordError();
     }
 
     interface Presenter extends BasePresenter {
@@ -29,6 +33,8 @@ public interface SettingsContract {
         void getUserForMailUpdate(long userId, final String mail);
 
         void getUserForImageUpdate(long userId, final File image);
+
+        void sendPWResetToken(String email);
 
         //void updateUserMail(User user, String email);
     }

@@ -14,6 +14,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCase;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.CreateImage;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetUser;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.SendPWResetToken;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.UpdateUser;
 import wanthavers.mad.cs.fau.de.wanthavers_android.rest.RestClient;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.SharedPreferencesHelper;
@@ -26,15 +27,18 @@ public class SettingsPresenter implements SettingsContract.Presenter {
     private final GetUser mGetUser;
     private final UpdateUser mUpdateUser;
     private final CreateImage mCreateImage;
+    private final SendPWResetToken mSendPWResetToken;
 
     public SettingsPresenter(@NonNull Context appContext, @NonNull UseCaseHandler useCaseHandler, @NonNull SettingsContract.View settingsView,
-                             @NonNull GetUser getUser, @NonNull UpdateUser updateUser, @NonNull CreateImage createImage) {
+                             @NonNull GetUser getUser, @NonNull UpdateUser updateUser, @NonNull CreateImage createImage,
+                             @NonNull SendPWResetToken sendPWResetToken) {
         mAppContext = checkNotNull(appContext);
         mUseCaseHandler = checkNotNull(useCaseHandler, "useCaseHandler cannot be null");
         mSettingsView = checkNotNull(settingsView, "settings view cannont be null");
         mGetUser = checkNotNull(getUser);
         mUpdateUser = checkNotNull(updateUser);
         mCreateImage = checkNotNull(createImage);
+        mSendPWResetToken = checkNotNull(sendPWResetToken);
 
         mSettingsView.setPresenter(this);
     }
@@ -175,6 +179,27 @@ public class SettingsPresenter implements SettingsContract.Presenter {
                 }
         );
 
+    }
+
+    public void sendPWResetToken(String email) {
+
+        SendPWResetToken.RequestValues requestValues = new SendPWResetToken.RequestValues(email);
+
+        mUseCaseHandler.execute(mSendPWResetToken, requestValues,
+                new UseCase.UseCaseCallback<SendPWResetToken.ResponseValue>() {
+
+                    @Override
+                    public void onSuccess(SendPWResetToken.ResponseValue responseValue) {
+                        mSettingsView.showResetPasswordSuccess();
+                    }
+
+                    @Override
+                    public void onError() {
+                        mSettingsView.showResetPasswordError();
+                    }
+
+                }
+        );
     }
 
     /*public void updateUserMail(User user, String email) {

@@ -177,4 +177,14 @@ public class SettingsFragment extends Fragment implements SettingsContract.View 
     public void showUpdateUserError() {
         showMessage(getString(R.string.update_user_error));
     }
+
+    @Override
+    public void showResetPasswordSuccess() {
+        showMessage(getString(R.string.password_reset_success));
+    }
+
+    @Override
+    public void showResetPasswordError() {
+        showMessage(getString(R.string.password_reset_error));
+    }
 }

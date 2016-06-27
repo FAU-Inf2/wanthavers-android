@@ -20,6 +20,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.SelectImageLogic;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.CreateImage;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetUser;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.SendPWResetToken;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.UpdateUser;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.ActivityUtils;
 
@@ -64,7 +65,7 @@ public class SettingsActivity extends AppCompatActivity {
         MediaRepository mediaRepository = MediaRepository.getInstance(MediaRemoteDataSource.getInstance(context), MediaLocalDataSource.getInstance(context));
 
         mSettingsPresenter = new SettingsPresenter(getApplicationContext(), UseCaseHandler.getInstance(), settingsFragment,
-                new GetUser(userRepository), new UpdateUser(userRepository), new CreateImage(mediaRepository));
+                new GetUser(userRepository), new UpdateUser(userRepository), new CreateImage(mediaRepository), new SendPWResetToken(userRepository));
     }
 
     @Override
