@@ -180,6 +180,7 @@
     <string name="empty_category">Es muss eine Kategorie angeben werden!</string>
     <string name="select_category">&#160;&#160;Wähle eine Kategorie</string>
     <string name="createDesire_loadingProgress_title">Dein Wunsch wird erstellt</string>
+    <string name="changeProfilePic_loadingProgress_title">Profilbild wird geändert</string>
     <string name="createDesire_loadingProgress_message">Bitte warten &#8230;</string>
 
     <string name="password_reset_title">Passwort Zurücksetzen</string>

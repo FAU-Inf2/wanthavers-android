@@ -178,6 +178,7 @@ public class SettingsPresenter implements SettingsContract.Presenter {
                     }
                 }
         );
+        mSettingsView.endLoadingProgress();
 
     }
 

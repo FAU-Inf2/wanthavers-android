@@ -22,6 +22,10 @@ public interface SettingsContract {
         void showResetPasswordSuccess();
 
         void showResetPasswordError();
+
+        void showLoadingProgress();
+
+        void endLoadingProgress();
     }
 
     interface Presenter extends BasePresenter {

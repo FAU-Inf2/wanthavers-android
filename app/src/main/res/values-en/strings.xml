@@ -194,6 +194,7 @@
     <string name="empty_category">You have to choose a Category!</string>
     <string name="select_category">&#160;&#160;Select a Category</string>
     <string name="createDesire_loadingProgress_title">Creating your Desire</string>
+    <string name="changeProfilePic_loadingProgress_title">Changing your Profile Picture</string>
     <string name="createDesire_loadingProgress_message">Please wait &#8230;</string>
     <string name="upload_Desire_background">Create Desire in the Background</string>
 
