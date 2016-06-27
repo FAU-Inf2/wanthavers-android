@@ -32,8 +32,8 @@ public class DesireCreateActivity3rdStep extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();
         ab.setTitle(R.string.createDesire_title_3rd_Step);
-        ab.setDisplayHomeAsUpEnabled(true);
-        ab.setDisplayShowHomeEnabled(true);
+        ab.setDisplayHomeAsUpEnabled(false);
+        ab.setDisplayShowHomeEnabled(false);
 
         DesireCreateFragment3rdStep desireCreateFragment = (DesireCreateFragment3rdStep) getSupportFragmentManager()
                 .findFragmentById(R.id.contentFrame);
@@ -77,5 +77,11 @@ public class DesireCreateActivity3rdStep extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        //disable Back button
     }
 }
