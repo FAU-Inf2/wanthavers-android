@@ -1,4 +1,4 @@
-package wanthavers.mad.cs.fau.de.wanthavers_android.filtersetting;
+package wanthavers.mad.cs.fau.de.wanthavers_android.locationlist;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -8,59 +8,59 @@ import android.support.v7.widget.Toolbar;
 
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
-import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.category.CategoryLocalDataSource;
-import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.category.CategoryRemoteDataSource;
-import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.category.CategoryRepository;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.location.LocationLocalDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.location.LocationRemoteDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.location.LocationRepository;
-import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetCategory;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.CreateLocation;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.DeleteLocation;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetSavedLocations;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.UpdateLocation;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.ActivityUtils;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class FilterSettingActivity extends AppCompatActivity {
+public class LocationListActivity extends AppCompatActivity {
 
-    private FilterSettingPresenter mFilterSettingPresenter;
+    private LocationListContract.Presenter mLocationListPresenter;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.filtersetting_act);
+    protected void onCreate(Bundle savedInstaceState) {
+        super.onCreate(savedInstaceState);
+        setContentView(R.layout.locationlist_act);
 
-        //set up the toolbar
+        //set up toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle(R.string.filtersetting_title);
+        actionBar.setTitle(R.string.locationlist_title);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
 
-        FilterSettingFragment filterSettingFragment = (FilterSettingFragment)
+        LocationListFragment locationListFragment = (LocationListFragment)
                 getSupportFragmentManager().findFragmentById(R.id.contentFrame);
 
-        if (filterSettingFragment == null) {
-            filterSettingFragment = FilterSettingFragment.newInstance();
+        if (locationListFragment == null) {
+            locationListFragment = LocationListFragment.newInstance();
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),
-                    filterSettingFragment, R.id.contentFrame);
+                    locationListFragment, R.id.contentFrame);
         }
 
         //create fake repo for categories
         Context context = getApplicationContext();
         checkNotNull(context);
 
-        CategoryRepository categoryRepository = CategoryRepository.getInstance(CategoryRemoteDataSource.getInstance(getApplicationContext()), CategoryLocalDataSource.getInstance(context));
         LocationRepository locationRepository = LocationRepository.getInstance(LocationRemoteDataSource.getInstance(getApplicationContext()), LocationLocalDataSource.getInstance(context));
 
-        mFilterSettingPresenter = new FilterSettingPresenter(UseCaseHandler.getInstance(), filterSettingFragment, this,
-                new GetCategory(categoryRepository));
+        mLocationListPresenter = new LocationListPresenter(UseCaseHandler.getInstance(), locationListFragment, this, new CreateLocation(locationRepository),
+                new GetSavedLocations(locationRepository), new UpdateLocation(locationRepository),
+                new DeleteLocation(locationRepository));
 
-        filterSettingFragment.setPresenter(mFilterSettingPresenter);
+        locationListFragment.setPresenter(mLocationListPresenter);
     }
 
     @Override
     public boolean onSupportNavigateUp() {
-        onBackPressed();
+        mLocationListPresenter.closeLocationList(null);
         return true;
     }
 }

@@ -8,12 +8,9 @@
             type="wanthavers.mad.cs.fau.de.wanthavers_android.filtersetting.FilterSettingContract.Presenter" />
 
         <variable
-            name="actionHandler"
-            type="wanthavers.mad.cs.fau.de.wanthavers_android.filtersetting.FilterSettingActionHandler"/>
-
-        <variable
             name="location"
             type="de.fau.cs.mad.wanthavers.common.Location" />
+
         <variable
             name="category"
             type="de.fau.cs.mad.wanthavers.common.Category" />
@@ -54,7 +51,7 @@
                 android:background="@color/colorSecondary"
                 android:textColor="@color/colorMainText"
                 android:layout_toRightOf="@id/filter_setting_category_title"
-                android:onClick="@{ () -> actionHandler.openCategorySelection()}"/>
+                android:onClick="@{ () -> presenter.openCategorySelection()}"/>
 
             <RelativeLayout
                 android:id="@+id/selected_category_item"
@@ -197,7 +194,7 @@
                     android:background="@color/colorSecondary"
                     android:textColor="@color/colorMainText"
                     android:layout_toRightOf="@id/filter_location_title"
-                    android:onClick="@{ () -> actionHandler.buttonChangeLocation()}"/>
+                    android:onClick="@{ () -> presenter.changeLocation(location)}"/>
 
 
             </RelativeLayout>

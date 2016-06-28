@@ -128,6 +128,7 @@
     <string name="password_reset_button">Reset my password</string>
     <string name="password_reset_success">Password reset mail was sent successfully</string>
     <string name="password_reset_error">Error while reseting your password</string>
+    <string name="locationlist_title">Chose a Location</string>
 
 
     <string-array name="currencies">

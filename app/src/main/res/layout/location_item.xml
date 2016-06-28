@@ -8,7 +8,7 @@
 
         <variable
             name="actionHandler"
-            type="wanthavers.mad.cs.fau.de.wanthavers_android.filtersetting.FilterSettingActionHandler" />
+            type="wanthavers.mad.cs.fau.de.wanthavers_android.locationlist.LocationListActionHandler" />
     </data>
 
     <RelativeLayout

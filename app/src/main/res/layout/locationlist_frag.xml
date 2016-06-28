@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="actionHandler"
+            type="wanthavers.mad.cs.fau.de.wanthavers_android.locationlist.LocationListActionHandler" />
+
+        <variable
+            name="location"
+            type="de.fau.cs.mad.wanthavers.common.Location" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorSecondary">
+
+        <Button
+            android:id="@+id/button_cancel_location_choice"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:text="@string/button_cancel"
+            android:textAllCaps="true"
+            android:textColor="@color/colorPrimary"
+            android:background="@drawable/border_scondary_nocorner"
+            android:onClick="@{() -> actionHandler.closeLocationList(location)}"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_add_location"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/ic_add"
+            android:layout_above="@+id/button_cancel_location_choice"
+            android:layout_centerHorizontal="true"
+            android:onClick="@{() -> actionHandler.buttonAddLocation()}" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/location_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/button_cancel_location_choice">
+        </android.support.v7.widget.RecyclerView>
+
+    </RelativeLayout>
+</layout>

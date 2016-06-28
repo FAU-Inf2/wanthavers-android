@@ -188,6 +188,8 @@
     <string name="password_reset_success">Email zum Passwort-Zurücksetzen wurde erfolgreich versandt</string>
     <string name="password_reset_error">Fehler beim Zurücksetzen des Passworts</string>
 
+    <string name="locationlist_title">Wähle einen Ort</string>
+
     <string-array name="currencies">
         <item>\u20AC</item>
         <item>\u0024</item>

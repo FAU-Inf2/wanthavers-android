@@ -15,53 +15,25 @@ public interface FilterSettingContract {
 
         void showDesireList();
 
-        void showCategories(List<Category> categories);
-
         void showGetCategoriesError();
-
-        void showMap(Location location);
 
         String[] getRadiusArray();
 
-        Category getSelectedCategory();
-
-        void showNoLocationSetError();
-
         void showFilterChangeSuccess();
-
-        void showLocationList();
-
-        void closeLocationList();
-
-        void showCreateLocationError();
-
-        void showSavedLocations(List<Location> locationList);
-
-        void showGetSavedLocationsError();
-
-        void closeLocationNameDialog();
-
-        String getNameInput();
-
-        void showLocationInView();
 
         void showRadiusOption();
 
         void setLocation(Location location);
-
-        void showUpdateLocationError();
-
-        void showDeleteLocationError();
-
-        void deleteLocationInView();
-
-        Location getCurLocationFilter();
 
         void showCategorySelection();
 
         void showCategory(Category category);
 
         void showWrongPricesSet();
+
+        void openLocationList(Location filterLocation);
+
+        void deleteLocationInView();
 
     }
 
@@ -73,22 +45,8 @@ public interface FilterSettingContract {
 
         void resetFilter();
 
-        void openMap(Location location);
-
-        void openLocationList();
-
-        void closeLocationList();
-
-        void closeNameSelectionDialog();
-
-        void finishLocationCreate(Location location);
-
-        void finishLocationUpdate(Location location);
-
-        void setLocation(Location location);
-
-        void deleteLocation(final Location location);
-
         void openCategorySelection();
+
+        void changeLocation(Location filterLocation);
     }
 }
