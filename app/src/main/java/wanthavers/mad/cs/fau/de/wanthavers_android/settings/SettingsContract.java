@@ -34,12 +34,12 @@ public interface SettingsContract {
 
         void getUser(long userId);
 
-        void getUserForMailUpdate(long userId, final String mail);
-
         void getUserForImageUpdate(long userId, final File image);
+
+        void upDateUser(User user);
 
         void sendPWResetToken(String email);
 
-        //void updateUserMail(User user, String email);
+        void upDateUserMail(final User user);
     }
 }

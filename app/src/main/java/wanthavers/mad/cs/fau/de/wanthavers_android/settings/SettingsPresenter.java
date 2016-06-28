@@ -66,7 +66,7 @@ public class SettingsPresenter implements SettingsContract.Presenter {
         //TODO ?
     }
 
-    public void getUserForMailUpdate(long userId, final String mail) {
+    /*public void getUserForMailUpdate(long userId, final String mail) {
         GetUser.RequestValues requestValue = new GetUser.RequestValues(userId);
 
         mUseCaseHandler.execute(mGetUser, requestValue,
@@ -85,8 +85,8 @@ public class SettingsPresenter implements SettingsContract.Presenter {
                     }
                 });
     }
-
-    public void upDateUserMail(User user, final String email) {
+*/
+    public void upDateUserMail(final User user) {
 
         UpdateUser.RequestValues requestValue = new UpdateUser.RequestValues(user);
 
@@ -97,7 +97,7 @@ public class SettingsPresenter implements SettingsContract.Presenter {
                     public void onSuccess(UpdateUser.ResponseValue response) {
                         mSettingsView.showUpdateUserSuccess();
                         final SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, mAppContext);
-                        sharedPreferencesHelper.saveString(SharedPreferencesHelper.KEY_USER_EMAIL, email);
+                        sharedPreferencesHelper.saveString(SharedPreferencesHelper.KEY_USER_EMAIL, user.getEmail());
                         RestClient.triggerSetNewBasicAuth();
                     }
 
@@ -111,8 +111,6 @@ public class SettingsPresenter implements SettingsContract.Presenter {
 
     public void getUserForImageUpdate(long userId, final File image) {
 
-        //System.out.println("getUserForImageUpdate reached");
-
         GetUser.RequestValues requestValue = new GetUser.RequestValues(userId);
 
         mUseCaseHandler.execute(mGetUser, requestValue,
@@ -125,15 +123,12 @@ public class SettingsPresenter implements SettingsContract.Presenter {
 
                     @Override
                     public void onError() {
-                        //System.out.println("getUserForImageUpdate error");
                         mSettingsView.showUpdateUserError();
                     }
                 });
     }
 
     public void uploadImage(final User user, File image) {
-
-        //System.out.println("uploadImage reached");
 
         CreateImage.RequestValues requestValue = new CreateImage.RequestValues(image);
 
@@ -144,21 +139,18 @@ public class SettingsPresenter implements SettingsContract.Presenter {
                     public void onSuccess(CreateImage.ResponseValue response) {
                         Media media = response.getMedia();
                         user.setImage(media);
-                        upDateUserImage(user, media);
+                        upDateUserImage(user);
                     }
 
                     @Override
                     public void onError() {
-                        //System.out.println("uploadImage error");
                         mSettingsView.showUpdateUserError();
                     }
                 }
         );
     }
 
-    public void upDateUserImage(final User user, Media media) {
-
-        //System.out.println("upDateUserImage reached");
+    public void upDateUserImage(final User user) {
 
         UpdateUser.RequestValues requestValue = new UpdateUser.RequestValues(user);
 
@@ -173,13 +165,33 @@ public class SettingsPresenter implements SettingsContract.Presenter {
 
                     @Override
                     public void onError() {
-                        //System.out.println("upDateUserImage error");
                         mSettingsView.showUpdateUserError();
                     }
                 }
         );
         mSettingsView.endLoadingProgress();
 
+    }
+
+    public void upDateUser(final User user) {
+
+        UpdateUser.RequestValues requestValue = new UpdateUser.RequestValues(user);
+
+        mUseCaseHandler.execute(mUpdateUser, requestValue,
+                new UseCase.UseCaseCallback<UpdateUser.ResponseValue>() {
+
+                    @Override
+                    public void onSuccess(UpdateUser.ResponseValue response) {
+                        mSettingsView.showUpdateUserSuccess();
+                        mSettingsView.setUser(user);
+                    }
+
+                    @Override
+                    public void onError() {
+                        mSettingsView.showUpdateUserError();
+                    }
+                }
+        );
     }
 
     public void sendPWResetToken(String email) {

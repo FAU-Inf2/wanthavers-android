@@ -37,7 +37,39 @@
                 android:layout_height="150dp"
                 android:layout_gravity="top|center"
                 android:src="@android:drawable/sym_def_app_icon"
-                android:onClick="@{ () -> actionHandler.changePhotoClicked()}"/>
+                android:onClick="@{ () -> actionHandler.changePhotoClicked(user)}"/>
+
+            <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                android:id="@+id/settings_name_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/settings_name_title"
+                android:textColor="@color/colorMainTextDark"
+                android:layout_below="@+id/profile_picture"
+                android:layout_marginTop="40dp"/>
+
+            <EditText
+                android:id="@+id/user_name"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@{user.name}"
+                android:textColor="@color/colorMainTextDark"
+                android:layout_below="@id/settings_name_title"
+                android:lines="1"/>
+
+            <ImageButton
+                android:id="@+id/button_change_name"
+                android:layout_width="35dp"
+                android:layout_height="40dp"
+                android:text="@string/button_desire_message"
+                android:src="@drawable/wh_accept_icon_primary"
+                android:background="@color/colorSecondary"
+                android:textColor="@color/colorMainText"
+                android:layout_alignTop="@id/user_name"
+                android:layout_alignRight="@id/user_name"
+                android:onClick="@{ () -> actionHandler.changeNameClicked(user)}"/>
 
             <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                 android:id="@+id/settings_mail_title"
@@ -46,8 +78,8 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/mail_adress_title"
                 android:textColor="@color/colorMainTextDark"
-                android:layout_below="@+id/profile_picture"
-                android:layout_marginTop="40dp"/>
+                android:layout_below="@+id/user_name"
+                android:layout_marginTop="20dp"/>
 
             <EditText
                 android:id="@+id/user_mail"
@@ -69,7 +101,7 @@
                 android:textColor="@color/colorMainText"
                 android:layout_alignTop="@id/user_mail"
                 android:layout_alignRight="@id/user_mail"
-                android:onClick="@{ () -> actionHandler.changeMailClicked(user.getId())}"/>
+                android:onClick="@{ () -> actionHandler.changeMailClicked(user)}"/>
 
             <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                 android:id="@+id/settings_password_title"

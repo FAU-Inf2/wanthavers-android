@@ -52,7 +52,8 @@
             android:gravity="center"
             android:text="@{category.getName()}"
             android:layout_toRightOf="@+id/image_category"
-            android:layout_toEndOf="@+id/image_category"/>
+            android:layout_toEndOf="@+id/image_category"
+            android:textColor="@color/colorMainTextDark"/>
 
     </RelativeLayout>
 

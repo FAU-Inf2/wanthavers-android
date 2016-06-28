@@ -84,6 +84,7 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:gravity="center"
                     android:text="@{category.getName()}"
+                    android:textColor="@color/colorMainTextDark"
                     android:layout_toRightOf="@+id/selected_image_category"
                     android:layout_toEndOf="@+id/selected_image_category"
                     android:visibility="gone"

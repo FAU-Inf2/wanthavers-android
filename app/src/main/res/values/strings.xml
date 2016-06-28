@@ -191,6 +191,7 @@
     <string name="upload_Desire_background">Desire im Hintergrund erstellen</string>
 
     <string name="locationlist_title">Wähle einen Ort</string>
+    <string name="settings_name_title">Name</string>
 
     <string-array name="currencies">
         <item>\u20AC</item>

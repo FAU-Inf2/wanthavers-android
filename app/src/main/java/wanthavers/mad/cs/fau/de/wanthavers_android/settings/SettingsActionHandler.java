@@ -19,13 +19,25 @@ public class SettingsActionHandler {
         mSelectImageLogic = selectImageLogic;
     }
 
-    public void changeMailClicked(long userId) {
-        String email = mSettingsFragBinding.userMail.getText().toString();
-        mListener.getUserForMailUpdate(userId, email);
-        //mListener.updateUserMail(user, email);
+    public void changeNameClicked(User user) {
+        if (user == null) {
+            return;
+        }
+        String name = mSettingsFragBinding.userName.getText().toString();
+        user.setName(name);
+        mListener.upDateUser(user);
     }
 
-    public void changePhotoClicked() {
+    public void changeMailClicked(User user) {
+        if (user == null) {
+            return;
+        }
+        String email = mSettingsFragBinding.userMail.getText().toString();
+        user.setEmail(email);
+        mListener.upDateUserMail(user);
+    }
+
+    public void changePhotoClicked(User user) {
         if(mSelectImageLogic.isStoragePermissionGranted()){
             mSelectImageLogic.selectImageForDesire();
         }
