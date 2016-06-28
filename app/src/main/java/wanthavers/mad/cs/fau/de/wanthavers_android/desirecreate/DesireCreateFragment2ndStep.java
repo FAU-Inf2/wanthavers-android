@@ -38,7 +38,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.categorylist.CategoryListActi
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.Desirecreate2ndFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.SelectImageLogic;
-import wanthavers.mad.cs.fau.de.wanthavers_android.filtersetting.CategoryAdapter;
+//import wanthavers.mad.cs.fau.de.wanthavers_android.filtersetting.CategoryAdapter;
 import wanthavers.mad.cs.fau.de.wanthavers_android.maps.GpsLocationTracker;
 import wanthavers.mad.cs.fau.de.wanthavers_android.maps.MapActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.RoundedTransformation;
@@ -54,7 +54,7 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
     private int REQUEST_GALLERY = 1;
     private ImageView mImageView;
     private EditText mDesirePrice;
-    private CategoryAdapter mCategoryListAdapter;
+    //private CategoryAdapter mCategoryListAdapter;
     private Category mCategory;
 
     public DesireCreateFragment2ndStep(){
@@ -327,8 +327,8 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
 
     @Override
     public void showCategories(List<Category> categories) {
-        mCategoryListAdapter.replaceData(categories);
-        mCategoryListAdapter.getFilter().filter(null);
+        //mCategoryListAdapter.replaceData(categories);
+        //mCategoryListAdapter.getFilter().filter(null);
     }
 
 }
