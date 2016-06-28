@@ -1,6 +1,7 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -36,6 +37,7 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
     private Desire desire = new Desire();
     private ProgressDialog mLoadingDialog;
     private final int DESIRE_COLOR_NUMBER = 4;
+    private boolean finished = false;
 
     public DesireCreateFragment3rdStep() {
         //Requires empty public constructor
@@ -189,18 +191,31 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
         mLoadingDialog = new ProgressDialog(getActivity());
         mLoadingDialog.setTitle(getString(R.string.createDesire_loadingProgress_title));
         mLoadingDialog.setMessage(getString(R.string.createDesire_loadingProgress_message));
-        mLoadingDialog.show();
+
         mLoadingDialog.setCancelable(false);
         mLoadingDialog.setCanceledOnTouchOutside(false);
+        mLoadingDialog.setButton(DialogInterface.BUTTON_NEGATIVE, getString(R.string.upload_Desire_background), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                endLoadingProgress();
+            }
+        });
+        mLoadingDialog.show();
     }
 
 
     public void endLoadingProgress() {
-        mLoadingDialog.dismiss();
 
-        Intent intent = new Intent(getContext(), DesireListActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
+        if(!finished){
+            finished = true;
+            mLoadingDialog.cancel();
+            //mLoadingDialog.dismiss();
+
+            Intent intent = new Intent(getContext(), DesireListActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        }
+
     }
 
 

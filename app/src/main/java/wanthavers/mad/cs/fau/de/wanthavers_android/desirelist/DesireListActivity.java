@@ -288,8 +288,15 @@ public class DesireListActivity extends AppCompatActivity {
 
 
         MenuView.ItemView chatItem = (MenuView.ItemView) findViewById(R.id.menu_chat);
-        Drawable iconNewMessage = getResources().getDrawable(R.drawable.wh_chat_icon_new_message_light,null);
-        Drawable iconNoNewMessage = getResources().getDrawable(R.drawable.wh_chat_icon_light,null);
+        Drawable iconNewMessage;
+        Drawable iconNoNewMessage;
+        if(android.os.Build.VERSION.SDK_INT >= 21) {
+            iconNewMessage = getResources().getDrawable(R.drawable.wh_chat_icon_new_message_light, null);
+            iconNoNewMessage = getResources().getDrawable(R.drawable.wh_chat_icon_light, null);
+        } else {
+            iconNewMessage = getResources().getDrawable(R.drawable.wh_chat_icon_new_message_light);
+            iconNoNewMessage = getResources().getDrawable(R.drawable.wh_chat_icon_light);
+        }
 
         if(chatItem != null) {
 

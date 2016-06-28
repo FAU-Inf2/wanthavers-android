@@ -35,7 +35,7 @@
     <string name="create_desire_priceReward_header">Price (incl. Reward)</string>
     <string name="create_desire_price_header">Price</string>
     <string name="create_desire_reward_header">Reward</string>
-    <string name="create_desire_description_hint">max. 200 Characters</string>
+    <string name="create_desire_description_hint">max. 300 Characters</string>
     <string name="createDesire_title_1st_Step">Create Desire: 1st Step</string>
     <string name="createDesire_title_2nd_Step">Create Desire: 2nd Step</string>
     <string name="createDesire_title_3rd_Step">Creating your Desire ... </string>
@@ -195,7 +195,9 @@
     <string name="empty_category">You have to choose a Category!</string>
     <string name="select_category">&#160;&#160;Select a Category</string>
     <string name="createDesire_loadingProgress_title">Creating your Desire</string>
-    <string name="createDesire_loadingProgress_message">Please wait ...</string>
+    <string name="changeProfilePic_loadingProgress_title">Changing your Profile Picture</string>
+    <string name="createDesire_loadingProgress_message">Please wait &#8230;</string>
+    <string name="upload_Desire_background">Create Desire in the Background</string>
 
 
 </resources>

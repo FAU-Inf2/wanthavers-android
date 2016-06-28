@@ -2,6 +2,8 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.settings;
 
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -43,6 +45,7 @@ public class SettingsFragment extends Fragment implements SettingsContract.View 
     private SelectImageLogic mSelectImageLogic;
     private int REQUEST_CAMERA = 0;
     private int REQUEST_GALLERY = 1;
+    private ProgressDialog mLoadingDialog;
 
     public SettingsFragment() {
         //Requires empty public constructor
@@ -93,6 +96,7 @@ public class SettingsFragment extends Fragment implements SettingsContract.View 
     }
 
     public void setDesireLogic(DesireLogic desireLogic) {
+
         mDesireLogic = desireLogic;
     }
 
@@ -114,6 +118,9 @@ public class SettingsFragment extends Fragment implements SettingsContract.View 
         Uri image = null;
         ImageView imageView = mSettingsFragBinding.profilePicture;
         if ( resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
+
+            showLoadingProgress();
+
             if(requestCode == REQUEST_GALLERY) {
                 image = galleryResult(data);
             }else if(requestCode == REQUEST_CAMERA){
@@ -151,8 +158,10 @@ public class SettingsFragment extends Fragment implements SettingsContract.View 
     }
 
     private Uri cameraResult(Intent data){
-        SelectImageLogic imageLogic = mSettingsActionHandler.getSelectImageLogic();
-        Uri image = imageLogic.getImageFromCamera(data);
+        //showLoadingProgress();
+        //SelectImageLogic imageLogic = mSettingsActionHandler.getSelectImageLogic();
+        //Uri image = imageLogic.getImageFromCamera(data);
+        Uri image = data.getData();
         return image;
     }
 
@@ -160,6 +169,20 @@ public class SettingsFragment extends Fragment implements SettingsContract.View 
     public void showFilterSettings() {
         Intent intent = new Intent(getContext(), FilterSettingActivity.class);
         startActivity(intent);
+    }
+
+   public void showLoadingProgress() {
+        mLoadingDialog = new ProgressDialog(getActivity());
+        mLoadingDialog.setTitle(getString(R.string.changeProfilePic_loadingProgress_title));
+        mLoadingDialog.setMessage(getString(R.string.createDesire_loadingProgress_message));
+        mLoadingDialog.setCancelable(false);
+        mLoadingDialog.setCanceledOnTouchOutside(false);
+        mLoadingDialog.show();
+    }
+
+    public void endLoadingProgress() {
+        mLoadingDialog.cancel();
+
     }
 
     private void showMessage(String message) {

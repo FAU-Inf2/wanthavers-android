@@ -102,6 +102,7 @@ public class SelectImageLogic {
         Bitmap image = (Bitmap) data.getExtras().get("data");
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         image.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        //image.compress(Bitmap.CompressFormat.PNG, 100, bytes);
 
         createNewFolder();
 
