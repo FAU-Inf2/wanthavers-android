@@ -346,8 +346,9 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        updateLocation(latLng);
+        if (!forDesireDetail()) {
+            updateLocation(latLng);
+        }
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15.0f));
         googleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
 
@@ -397,7 +398,9 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
 
         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(tmp, googleMap.getCameraPosition().zoom));
 
-        updateLocation(tmp);
+        if(!forDesireDetail()) {
+            updateLocation(tmp);
+        }
     }
 
 
@@ -432,6 +435,9 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
         if (networkFailure() && !forDesireDetail()){
             return;
         }
+        if (forDesireDetail()){
+            finish();
+        }
         LatLng centerLatLng = googleMap.getProjection().fromScreenLocation(new Point(
                 centerX, centerY));
         setLocation(mLocationTextView.getText().toString(), centerLatLng.latitude, centerLatLng.longitude);
@@ -461,7 +467,7 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
         } else if (forDesireDetail()){
             finish();
 
-        }else{ // DesireCreate
+        }else if(!forDesireDetail() && !forFilterSettings()){ // DesireCreate
             String title = getIntent().getExtras().getString("desireTitle");
             String description = getIntent().getExtras().getString("desireDescription");
             String price = getIntent().getExtras().getString("desirePrice");
