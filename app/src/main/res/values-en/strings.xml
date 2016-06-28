@@ -32,13 +32,13 @@
     <string name="button_uploadPictureForDesire">Select a Picture (optional)</string>
     <string name="create_desire_title_header">Titel</string>
     <string name="create_desire_description_header">Description</string>
-    <string name="create_desire_priceReward_header">Price (incl. Reward)</string>
+    <string name="create_desire_priceReward_header">Price</string>
     <string name="create_desire_price_header">Price</string>
     <string name="create_desire_reward_header">Reward</string>
     <string name="create_desire_description_hint">max. 300 Characters</string>
     <string name="createDesire_title_1st_Step">Create Desire: 1st Step</string>
     <string name="createDesire_title_2nd_Step">Create Desire: 2nd Step</string>
-    <string name="createDesire_title_3rd_Step">Creating your Desire ... </string>
+    <string name="createDesire_title_3rd_Step">Creating your Desire &#8230;</string>
     <string name="createDesire_Empty_Text">Please fill out all fields</string>
     <string name="no_chats">no chats to show</string>
     <string name="button_desire_accept">accept desire</string>
@@ -114,7 +114,7 @@
     <string name="flag_reason_title">Reason</string>
     <string name="flag_leave_a_comment">Leave a comment</string>
     <string name="delete_location_error">Error while deleting the location</string>
-    <string name="loading_desire_title">Loading selected desire...</string>
+    <string name="loading_desire_title">Loading selected desire &#8230;</string>
     <string name="no_rating_set">No Rating set yet</string>
     <string name="rating">Rating</string>
     <string name="delete_desire_error">Error while deleting the desire</string>
