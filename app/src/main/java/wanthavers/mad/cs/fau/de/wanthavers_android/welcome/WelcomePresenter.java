@@ -110,6 +110,8 @@ public class WelcomePresenter implements WelcomeContract.Presenter {
 
                 });
 
+        //mWelcomeView.endLoadingProgress();
+
     }
 
     private void updateUser(){
@@ -129,7 +131,7 @@ public class WelcomePresenter implements WelcomeContract.Presenter {
                         mWelcomeView.showMessage(mActivity.getResources().getString(R.string.update_user_error));
                     }
                 });
-
+        mWelcomeView.endLoadingProgress();
     }
 
 

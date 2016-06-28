@@ -497,7 +497,9 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
         }
 
         super.onBackPressed();
-        overridePendingTransition(R.anim.anim_slide_in_right,R.anim.anim_slide_out_left);
+        if(!forDesireDetail() && !forFilterSettings()) {
+            overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
+        }
     }
 
     public boolean forDesireDetail(){

@@ -29,7 +29,7 @@ public class GpsLocationTracker extends Service implements LocationListener {
     private double mLongitude = 11.027389d;
 
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATE = 5;
-    private static final long MIN_TIME_FOR_UPDATE = 0;
+    private static final long MIN_TIME_FOR_UPDATE = 10;
     private LocationManager mLocationManager;
 
 
