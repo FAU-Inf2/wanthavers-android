@@ -90,7 +90,7 @@
                     tools:context="${relativePackage}.${activityClass}"
                     android:gravity="bottom">
 
-                    <EditText
+                    <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversEditText
                         android:id="@+id/etMessage"
                         android:layout_toLeftOf="@+id/btSend"
                         android:layout_alignParentBottom="true"
