@@ -181,8 +181,10 @@ public class SettingsFragment extends Fragment implements SettingsContract.View 
     }
 
     public void endLoadingProgress() {
+        showUpdateUserSuccess();
         mLoadingDialog.cancel();
-
+        getActivity().finish();
+        startActivity(getActivity().getIntent());
     }
 
     private void showMessage(String message) {

@@ -13,6 +13,10 @@ public interface WelcomeContract {
 
         void showMessage(String message);
 
+        void showLoadingProgress();
+
+        void endLoadingProgress();
+
     }
 
 

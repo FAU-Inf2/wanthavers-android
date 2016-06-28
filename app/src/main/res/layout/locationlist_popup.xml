@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:background="@color/colorSecondary">
 
-            <EditText
+            <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversEditText
                 android:id="@+id/set_custom_location_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

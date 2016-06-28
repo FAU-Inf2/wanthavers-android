@@ -72,7 +72,7 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
     private DesireDetailActionHandler mDesireDetailActionHandler;
     private Dialog mReportDialog, mDeleteDesireDialog;
     private DesiredetailReportPopupBinding mDesiredetailReportPopupBinding;
-    private ProgressDialog mLoadingDialog;
+    //private ProgressDialog mLoadingDialog;
     private Haver mHaver;
     private Menu mOptionsMenu;
 
@@ -434,16 +434,9 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
     }
 
     @Override
-    public void showLoadingProgress() {
-        mLoadingDialog = new ProgressDialog(getActivity());
-        mLoadingDialog.setTitle(getString(R.string.loading_desire_title));
-        //mLoadingDialog.setMessage("Wait while loading...");
-        mLoadingDialog.show();
-    }
-
-    @Override
     public void endLoadingProgress() {
-        mLoadingDialog.dismiss();
+        mDesireDetailFragBinding.desireDetailLoadingScreen.setVisibility(View.GONE);
+        mDesireDetailFragBinding.desireDetailMainScreen.setVisibility(View.VISIBLE);
     }
 
     @Override

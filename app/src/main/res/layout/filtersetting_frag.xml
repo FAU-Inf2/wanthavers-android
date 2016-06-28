@@ -102,11 +102,11 @@
                 <android.support.design.widget.TextInputLayout
                     android:background="@color/colorSecondary"
                     android:layout_width="0dp"
-                    android:layout_height="50dp"
+                    android:layout_height="60dp"
                     android:id="@+id/min_price"
                     android:layout_weight="0.5">
 
-                    <EditText
+                    <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversEditText
                         android:hint="@string/min_price"
                         android:id="@+id/min_price_input"
                         android:inputType="number"
@@ -119,11 +119,11 @@
                 <android.support.design.widget.TextInputLayout
                     android:background="@color/colorSecondary"
                     android:layout_width="0dp"
-                    android:layout_height="50dp"
+                    android:layout_height="60dp"
                     android:id="@+id/max_price"
                     android:layout_weight="0.5">
 
-                    <EditText
+                    <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversEditText
                         android:hint="@string/max_price"
                         android:id="@+id/max_price_input"
                         android:inputType="number"

@@ -1,6 +1,7 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.welcome;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -25,6 +26,7 @@ public class WelcomeFragment extends Fragment implements WelcomeContract.View {
     private WelcomeFragBinding mViewDataBinding;
     private WelcomeContract.Presenter mPresenter;
     private Uri image;
+    private ProgressDialog mLoadingDialog;
 
     public WelcomeFragment(){
         //Requires empty public constructor
@@ -78,6 +80,8 @@ public class WelcomeFragment extends Fragment implements WelcomeContract.View {
         super.onActivityResult(requestCode, resultCode, data);
         if ( resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
 
+            showLoadingProgress();
+
             image = data.getData();
             ImageView imageView = (ImageView) getView().findViewById(R.id.image_camera);
             imageView.setImageURI(image);
@@ -104,4 +108,18 @@ public class WelcomeFragment extends Fragment implements WelcomeContract.View {
         }
 
     }
+
+    public void showLoadingProgress() {
+        mLoadingDialog = new ProgressDialog(getActivity());
+        mLoadingDialog.setTitle(getString(R.string.changeProfilePic_loadingProgress_title));
+        mLoadingDialog.setMessage(getString(R.string.createDesire_loadingProgress_message));
+        mLoadingDialog.setCancelable(false);
+        mLoadingDialog.setCanceledOnTouchOutside(false);
+        mLoadingDialog.show();
+    }
+
+    public void endLoadingProgress() {
+        mLoadingDialog.cancel();
+    }
+
 }

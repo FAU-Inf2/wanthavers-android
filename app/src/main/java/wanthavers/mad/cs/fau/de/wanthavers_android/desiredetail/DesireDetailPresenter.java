@@ -77,8 +77,7 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
 
 
     @Override
-    public void start(){
-        mDesireDetailView.showLoadingProgress();
+    public void start() {
         loadDesire();
         //loadHavers(false);
     }

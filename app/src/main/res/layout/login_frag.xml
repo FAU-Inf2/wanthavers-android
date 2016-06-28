@@ -109,7 +109,7 @@
             android:layout_marginBottom="20dp"
             android:id="@+id/register_password">
 
-        <EditText
+        <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversEditText
             android:hint="@string/password"
             android:id="@+id/password"
             android:inputType="textPassword"
@@ -125,7 +125,7 @@
             android:layout_height="50dp"
             android:layout_above="@id/register_password">
 
-            <EditText
+            <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversEditText
                 android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
