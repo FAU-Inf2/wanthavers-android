@@ -156,7 +156,7 @@
     <string name="flag_reason_title">Grund</string>
     <string name="flag_leave_a_comment">Verfasse einen Kommentar</string>
     <string name="delete_location_error">Fehler beim Löschen des Ortes</string>
-    <string name="loading_desire_title">Laden des gewählten Wunsches</string>
+    <string name="loading_desire_title">Laden des gewählten Wunsches...</string>
     <string name="delete_desire_title">Möchten Sie den Wunsch wirklich löschen?</string>
     <string name="close_App_on_BackButton">Drücke den Zurück Knopf noch einmal, um die App zu schließen.</string>
     <string name="report_desire">Wunsch Melden</string>

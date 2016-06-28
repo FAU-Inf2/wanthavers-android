@@ -51,8 +51,6 @@ public interface DesireDetailContract {
 
         DesireFlag getReport();
 
-        void showLoadingProgress();
-
         void endLoadingProgress();
 
         void showRating(long desireId);
