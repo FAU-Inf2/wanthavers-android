@@ -133,7 +133,7 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.desire_detail_menu, menu);
+        inflater.inflate(R.menu.desire_detail_menu_loading, menu);
 
         mOptionsMenu = menu;
         super.onCreateOptionsMenu(menu, inflater);
@@ -172,8 +172,9 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
                 item.setVisible(false);
                 break;
             case R.id.menu_finish_desire:
+                mPresenter.closeTransaction();
                 break;
-                //TODO @Oliver Lutz - load finish desire here
+
         }
         return true;
     }

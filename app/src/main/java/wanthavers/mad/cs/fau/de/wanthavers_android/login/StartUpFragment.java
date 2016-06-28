@@ -44,6 +44,7 @@ public class StartUpFragment extends Fragment implements LoginContract.View {
     @Override
     public void onResume()  {
         super.onResume();
+
         mPresenter.start();
     }
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -86,5 +87,14 @@ public class StartUpFragment extends Fragment implements LoginContract.View {
 
         Snackbar.make(getView(), message, Snackbar.LENGTH_LONG).show();
     }
-    
+
+    @Override
+    public void showResetPasswordSuccess() {
+        showMessage(getString(R.string.password_reset_success));
+    }
+
+    @Override
+    public void showResetPasswordError() {
+        showMessage(getString(R.string.password_reset_error));
+    }
 }

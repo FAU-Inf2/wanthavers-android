@@ -272,7 +272,7 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
 
         if (m != null) {
             final ImageView profileView = mNavHeaderBinding.navHeaderUserImage;
-            Picasso.with(mNavHeaderBinding.getRoot().getContext()).load(m.getLowRes()).transform(new RoundedTransformation(200,0)).into(profileView);
+            Picasso.with(mNavHeaderBinding.getRoot().getContext()).load(m.getLowRes()).transform(new RoundedTransformation(1000,0)).into(profileView);
         }
     }
 
@@ -312,7 +312,10 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
         sharedPreferencesHelper.saveString(SharedPreferencesHelper.KEY_PASSWORD, null);
         sharedPreferencesHelper.saveLong(SharedPreferencesHelper.KEY_USERID, -1);
         RestClient.triggerSetNewBasicAuth();
+
+
         Intent intent = new Intent(getContext(), LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
 

@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.RegisterFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.StartupFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.DesireListActivity;
@@ -76,4 +77,13 @@ public class RegisterFragment extends Fragment implements LoginContract.View {
         Snackbar.make(getView(), message, Snackbar.LENGTH_LONG).show();
     }
 
+    @Override
+    public void showResetPasswordSuccess() {
+        showMessage(getString(R.string.password_reset_success));
+    }
+
+    @Override
+    public void showResetPasswordError() {
+        showMessage(getString(R.string.password_reset_error));
+    }
 }

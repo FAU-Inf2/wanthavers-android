@@ -83,7 +83,7 @@ public class DesireListAdapter extends RecyclerView.Adapter<DesireListAdapter.Vi
 
         if (m != null) {
             final ImageView profileView = desireItemBinding.desireListImage;
-            Picasso.with(desireItemBinding.getRoot().getContext()).load(m.getLowRes()).transform(new RoundedTransformation(200,0)).into(profileView);
+            Picasso.with(desireItemBinding.getRoot().getContext()).load(m.getLowRes()).transform(new RoundedTransformation(1000,0)).into(profileView);
         } else{
             //else case is neccessary as the image is otherwise overwritten on scroll
             final ImageView profileView = desireItemBinding.desireListImage;

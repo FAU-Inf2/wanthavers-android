@@ -13,6 +13,9 @@ public interface LoginContract {
 
         void showMessage(String message);
 
+        void showResetPasswordSuccess();
+
+        void showResetPasswordError();
     }
 
 
@@ -31,6 +34,8 @@ public interface LoginContract {
         void openRegisterView();
 
         void registerUser();
+
+        void sendPWResetToken();
 
     }
 }

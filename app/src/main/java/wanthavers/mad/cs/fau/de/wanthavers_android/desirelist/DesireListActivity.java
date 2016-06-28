@@ -255,6 +255,10 @@ public class DesireListActivity extends AppCompatActivity {
     public void onBackPressed() {
         //finish();
         //System.exit(0);
+
+        if(backButtonCount < 1) {
+            mDrawerLayout.closeDrawers();
+        }
         if(backButtonCount >= 1)
         {
             backButtonCount = 0;

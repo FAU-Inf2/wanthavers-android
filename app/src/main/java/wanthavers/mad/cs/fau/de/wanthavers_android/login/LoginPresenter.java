@@ -23,9 +23,11 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.CreateUser;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.LoginUser;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.SendMessage;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.SendPWResetToken;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.SetDesire;
 import wanthavers.mad.cs.fau.de.wanthavers_android.rest.RestClient;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.SharedPreferencesHelper;
+import wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView;
 
 public class LoginPresenter implements LoginContract.Presenter {
     private final LoginContract.View mLoginView;
@@ -34,9 +36,10 @@ public class LoginPresenter implements LoginContract.Presenter {
     private final LoginActivity mActivity;
     private final CreateUser mCreateUser;
     private final LoginUser mLoginUser;
+    private final SendPWResetToken mSendPWResetToken;
 
     public LoginPresenter(@NonNull UseCaseHandler ucHandler, @NonNull LoginContract.View view, @NonNull Context appContext,
-                          @NonNull LoginActivity activity, @NonNull CreateUser createUser, @NonNull LoginUser loginUser) {
+                          @NonNull LoginActivity activity, @NonNull CreateUser createUser, @NonNull LoginUser loginUser, @NonNull SendPWResetToken sendPWResetToken) {
 
         mUseCaseHandler = ucHandler;
         mLoginView = view;
@@ -46,6 +49,7 @@ public class LoginPresenter implements LoginContract.Presenter {
         mLoginView.setPresenter(this);
         mCreateUser = createUser;
         mLoginUser = loginUser;
+        mSendPWResetToken = sendPWResetToken;
 
     }
 
@@ -115,13 +119,7 @@ public class LoginPresenter implements LoginContract.Presenter {
 
 
     @Override
-    public void login(String userMail, String userPw, final boolean isRegistering) {
-
-        final SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, mAppContext);
-        sharedPreferencesHelper.saveString(SharedPreferencesHelper.KEY_USER_EMAIL, userMail);
-        sharedPreferencesHelper.saveString(SharedPreferencesHelper.KEY_PASSWORD, userPw);
-
-        RestClient.triggerSetNewBasicAuth();
+    public void login(final String userMail,final String userPw, final boolean isRegistering) {
 
         LoginUser.RequestValues requestValue = new LoginUser.RequestValues();
 
@@ -132,7 +130,11 @@ public class LoginPresenter implements LoginContract.Presenter {
                     public void onSuccess(LoginUser.ResponseValue response) {
 
                         User user = response.getUser();
+                        final SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, mAppContext);
+                        sharedPreferencesHelper.saveString(SharedPreferencesHelper.KEY_USER_EMAIL, userMail);
+                        sharedPreferencesHelper.saveString(SharedPreferencesHelper.KEY_PASSWORD, userPw);
                         sharedPreferencesHelper.saveLong(SharedPreferencesHelper.KEY_USERID, user.getId());
+                        RestClient.triggerSetNewBasicAuth();
 
                         if(isRegistering){
                             mLoginView.showWelcomeView();
@@ -145,6 +147,7 @@ public class LoginPresenter implements LoginContract.Presenter {
                     @Override
                     public void onError() {
                         // The view may not be able to handle UI updates anymore
+
                         mLoginView.showMessage(mActivity.getResources().getString(R.string.userLoginFailed));
                     }
                 });
@@ -213,6 +216,36 @@ public class LoginPresenter implements LoginContract.Presenter {
                         mLoginView.showMessage(mActivity.getResources().getString(R.string.userCreationFailed));
                     }
                 });
+    }
+
+    public void sendPWResetToken() {
+
+
+        EditText emailInput = (EditText) mActivity.findViewById(R.id.email);
+
+        String email = emailInput.getText().toString();
+
+
+
+        SendPWResetToken.RequestValues requestValues = new SendPWResetToken.RequestValues(email);
+
+
+
+        mUseCaseHandler.execute(mSendPWResetToken, requestValues,
+                new UseCase.UseCaseCallback<SendPWResetToken.ResponseValue>() {
+
+                    @Override
+                    public void onSuccess(SendPWResetToken.ResponseValue responseValue) {
+                        mLoginView.showResetPasswordSuccess();
+                    }
+
+                    @Override
+                    public void onError() {
+                        mLoginView.showResetPasswordError();
+                    }
+
+                }
+        );
     }
 }
 

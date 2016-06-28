@@ -91,4 +91,14 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     public void showMessage(String message) {
         Snackbar.make(getView(), message, Snackbar.LENGTH_LONG).show();
     }
+
+    @Override
+    public void showResetPasswordSuccess() {
+        showMessage(getString(R.string.password_reset_success));
+    }
+
+    @Override
+    public void showResetPasswordError() {
+        showMessage(getString(R.string.password_reset_error));
+    }
 }
