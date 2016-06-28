@@ -454,16 +454,28 @@
                         </RelativeLayout>
 
                         <ImageButton
-                            android:id="@+id/message_haver"
+                        android:id="@+id/message_haver"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/wh_chat_icon_light"
+                        android:background="@drawable/chat_border_me"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginTop="5dp"
+                        android:onClick="@{() -> actionHandler.sendMessage(haver.getUser().getId())}"/>
+
+                        <ImageButton
+                            android:id="@+id/rate_creator"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
-                            android:src="@drawable/wh_chat_icon_light"
+                            android:src="@drawable/wh_rating_button_light"
                             android:background="@drawable/chat_border_me"
-                            android:layout_alignParentRight="true"
-                            android:layout_alignParentEnd="true"
+                            android:layout_toLeftOf="@id/message_haver"
                             android:layout_marginRight="5dp"
                             android:layout_marginTop="5dp"
-                            android:onClick="@{() -> actionHandler.sendMessage(haver.getUser().getId())}"/>
+                            android:onClick="@{ () -> actionHandler.buttonOpenRating()}"
+                            android:clickable="@{desirelogic.canRateUser(desire, haver) ? true : false}"/>
 
                     </RelativeLayout>
 

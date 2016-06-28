@@ -144,9 +144,9 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
     public void onPrepareOptionsMenu(Menu menu){
 
 
-        if(mLoadFinishedFlag) {
+        if(mLoadFinishedFlag && getActivity() != null) {
             menu.clear();
-            SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, getContext().getApplicationContext());
+            SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, getActivity().getApplicationContext());
             long loggedInUser = sharedPreferencesHelper.loadLong(SharedPreferencesHelper.KEY_USERID, 6L);
 
 
