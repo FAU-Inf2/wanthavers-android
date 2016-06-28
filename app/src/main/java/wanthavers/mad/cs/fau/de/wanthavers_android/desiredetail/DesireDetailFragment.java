@@ -75,6 +75,7 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
     //private ProgressDialog mLoadingDialog;
     private Haver mHaver;
     private Menu mOptionsMenu;
+    private boolean mLoadFinishedFlag;
 
     public DesireDetailFragment() {
         //Requires empty public constructor
@@ -133,8 +134,8 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        mLoadFinishedFlag = false;
         inflater.inflate(R.menu.desire_detail_menu_loading, menu);
-
         mOptionsMenu = menu;
         super.onCreateOptionsMenu(menu, inflater);
     }
@@ -142,20 +143,22 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
     @Override
     public void onPrepareOptionsMenu(Menu menu){
 
-        menu.clear();
 
-        SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, getContext().getApplicationContext());
-        long loggedInUser = sharedPreferencesHelper.loadLong(SharedPreferencesHelper.KEY_USERID, 6L);
+        if(mLoadFinishedFlag) {
+            menu.clear();
+            SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, getContext().getApplicationContext());
+            long loggedInUser = sharedPreferencesHelper.loadLong(SharedPreferencesHelper.KEY_USERID, 6L);
 
 
-        if(mDesireDetailFragBinding.getDesire() != null && mDesireDetailFragBinding.getDesire().getCreator().getId() == loggedInUser ){   //add haver here as well
-            getActivity().getMenuInflater().inflate(R.menu.desire_detail_menu_creator, menu);
-        } else if(mHaver != null && mHaver.getUser().getId() == loggedInUser) { //include haver here
-            getActivity().getMenuInflater().inflate(R.menu.desire_detail_menu_haver, menu);
-        } else {
-            getActivity().getMenuInflater().inflate(R.menu.desire_detail_menu, menu);
+            if (mDesireDetailFragBinding.getDesire() != null && mDesireDetailFragBinding.getDesire().getCreator().getId() == loggedInUser) {   //add haver here as well
+                getActivity().getMenuInflater().inflate(R.menu.desire_detail_menu_creator, menu);
+            } else if (mHaver != null && mHaver.getUser().getId() == loggedInUser) { //include haver here
+                getActivity().getMenuInflater().inflate(R.menu.desire_detail_menu_haver, menu);
+            } else {
+                getActivity().getMenuInflater().inflate(R.menu.desire_detail_menu, menu);
+            }
+
         }
-
         super.onPrepareOptionsMenu(menu);
     }
     @Override
@@ -190,8 +193,6 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
 
         mDesireDetailFragBinding.setDesire(desire);
         mDesireDetailFragBinding.setDesirelogic(mDesireLogic);
-
-        onPrepareOptionsMenu(mOptionsMenu);
 
         //show desire image
         Media mediaDesire = desire.getImage();
@@ -437,6 +438,8 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
     public void endLoadingProgress() {
         mDesireDetailFragBinding.desireDetailLoadingScreen.setVisibility(View.GONE);
         mDesireDetailFragBinding.desireDetailMainScreen.setVisibility(View.VISIBLE);
+        mLoadFinishedFlag = true;
+        onPrepareOptionsMenu(mOptionsMenu);
     }
 
     @Override
