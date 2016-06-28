@@ -8,16 +8,16 @@
 
     <!-- Resources for deatail view -->
     <string name="desire_detail_itemImage_contentDesc">Aufgaben Bild</string>
-    <string name="desire">Wunsch</string>
+    <string name="desire">Auftrag</string>
     <string name="navigation_view_header_title">ToDo: HeaderNavBar</string>
-    <string name="myDesires_title">Meine Wünsche</string>
-    <string name="myTransactions_title">Meine Erfüllungen</string>
-    <string name="createDesire_title">Neuer Wunsch</string>
+    <string name="myDesires_title">Meine Aufträge</string>
+    <string name="myTransactions_title">Meine Transaktionen</string>
+    <string name="createDesire_title">Neuer Auftrag</string>
     <string name="settings_title">Einstellungen</string>
     <string name="logout_title">Ausloggen</string>
-    <string name="no_desires">Leider wurden keine Wünsche gefunden</string>
-    <string name="loading_desires_error">Fehler beim Laden der Wünsche</string>
-    <string name="listDesires_title">Alle Wünsche</string>
+    <string name="no_desires">Leider wurden keine Aufträge gefunden</string>
+    <string name="loading_desires_error">Fehler beim Laden der Aufträge</string>
+    <string name="listDesires_title">Alle Aufträge</string>
     <string name="no_time_available">keine Zeit verfügbar</string>
     <string name="no_location_available">keine Location verfügbar</string>
     <string name="no_messages">Keine Nachrichten vorhanden</string>
@@ -32,13 +32,13 @@
     <string name="button_uploadPictureForDesire">Bild hinzufügen (optional)</string>
     <string name="create_desire_title_header">Titel</string>
     <string name="create_desire_description_header">Beschreibung</string>
-    <string name="create_desire_priceReward_header">Sachwert (inkl. Trinkgeld)</string>
-    <string name="create_desire_price_header">Sachwert</string>
+    <string name="create_desire_priceReward_header">Bezahlung</string>
+    <string name="create_desire_price_header">Bezahlung</string>
     <string name="create_desire_reward_header">Trinkgeld</string>
     <string name="create_desire_description_hint">max. 300 Zeichen</string>
-    <string name="createDesire_title_1st_Step">Neuer Wunsch: Schritt 1</string>
-    <string name="createDesire_title_2nd_Step">Neuer Wunsch: Schritt 2</string>
-    <string name="createDesire_title_3rd_Step">Wunsch wird erstellt ...</string>
+    <string name="createDesire_title_1st_Step">Neuer Auftrag: Schritt 1</string>
+    <string name="createDesire_title_2nd_Step">Neuer Auftrag: Schritt 2</string>
+    <string name="createDesire_title_3rd_Step">Auftrag wird erstellt &#8230;</string>
     <string name="createDesire_Empty_Text">Bitte alle Felder ausfüllen</string>
     <string name="desire_detail_wanter">Wanter:</string>
     <string name="button_desire_accept">Auftrag annehmen</string>
@@ -70,10 +70,10 @@
     <string name="location_title">Ort</string>
     <string name="filter_radius_title">Umkreis</string>
     <string name="button_apply_filter">Filter bestätigen</string>
-    <string name="loading_desire_error">Fehler beim Laden des Wunsches</string>
+    <string name="loading_desire_error">Fehler beim Laden des Auftrages</string>
     <string name="loading_havers_error">Fehler beim Laden der Haver</string>
     <string name="loading_haver_error">Fehler beim Laden des Havers</string>
-    <string name="setting_haver_error">Fehler beim Akzeptieren des Wunsches</string>
+    <string name="setting_haver_error">Fehler beim Akzeptieren des Auftrages</string>
     <string name="accepting_haver_error">Fehler beim Akzeptieren des Havers</string>
     <string name="get_user_error">Fehler beim Laden der Nutzerinformationen</string>
     <string name="update_user_success">Erfolgreiche Aktualisierung des Nutzers</string>
@@ -93,14 +93,14 @@
     <string name="no_location_selected">Kein Ort ausgewählt</string>
     <string name="create_rating_error">Fehler beim Bestätigen des Ratings</string>
     <string name="transaction_title">DEINE TRANSAKTION</string>
-    <string name="rating_price">Sachwert:&#160;</string>
+    <string name="rating_price">Bezahlung:&#160;</string>
     <string name="rating_reward">&#160;Trinkgeld:&#160;</string>
     <string name="transaction_summary">&#160;TRANSAKTION ZUSAMMENFASSUNG&#160;</string>
     <string name="leave_your_rating_title">DEINE BEWERTUNG</string>
     <string name="button_submit">ABSCHLIESSEN</string>
     <string name="no_rating_set">Noch keine Bewertung ausgewählt</string>
     <string name="rating">Bewertung</string>
-    <string name="delete_desire_error">Fehler beim Löschen des Wunsches</string>
+    <string name="delete_desire_error">Fehler beim Löschen des Auftrages</string>
 
 
     <!-- currency strings -->
@@ -126,12 +126,12 @@
     <string name="desire_image_upload_failed">Erstellen des Bildes für dein Desire ist fehlgeschlagen</string>
     <string name="filter">Filter</string>
     <string name="button_reset_filter">Filter zurücksetzen</string>
-    <string name="use_location">Standort übernehmen \n und Wunsch erstellen</string>
+    <string name="use_location">Standort übernehmen \n und Auftrag erstellen</string>
     <string name="set_location">Standort setzen</string>
     <string name="maps_error">Fehler beim Erstellen der Karte</string>
     <string name="pound_sign" translatable="false">£</string>
-    <string name="welcomeMessage">Willkommen bei Wanthavers! \n\n Sie können jetzt direkt ein Profilbild hochladen und dann gleich Ihren ersten Wunsch Einstellen</string>
-    <string name="toDesireList">zur Wunschübersicht</string>
+    <string name="welcomeMessage">Willkommen bei Wanthavers! \n\n Sie können jetzt direkt ein Profilbild hochladen und dann gleich Ihren ersten Auftrag Einstellen</string>
+    <string name="toDesireList">zur Auftragübersicht</string>
     <string name="user_image_upload_failed">Benutzerbild hochladen fehlgeschlagen</string>
     <string name="enable_gps">Standortdienste einschalten</string>
     <string name="enable_gps_text">Standortdienste sind ausgeschaltet. Bitte GPS für eine genaue Standortbestimmung aktivieren!</string>
@@ -156,13 +156,13 @@
     <string name="flag_reason_title">Grund</string>
     <string name="flag_leave_a_comment">Verfasse einen Kommentar</string>
     <string name="delete_location_error">Fehler beim Löschen des Ortes</string>
-    <string name="loading_desire_title">Laden des gewählten Wunsches...</string>
-    <string name="delete_desire_title">Möchten Sie den Wunsch wirklich löschen?</string>
+    <string name="loading_desire_title">Laden des gewählten Auftrages &#8230;</string>
+    <string name="delete_desire_title">Möchten Sie den Auftrag wirklich löschen?</string>
     <string name="close_App_on_BackButton">Drücke den Zurück Knopf noch einmal, um die App zu schließen.</string>
-    <string name="report_desire">Wunsch Melden</string>
-    <string name="delete_desire">Wunsch löschen</string>
-    <string name="finish_desire">Wunsch fertigstellen</string>
-    <string name="desire_detail_haver_title">Erfüller</string>
+    <string name="report_desire">Auftrag Melden</string>
+    <string name="delete_desire">Auftrag löschen</string>
+    <string name="finish_desire">Auftrag fertigstellen</string>
+    <string name="desire_detail_haver_title">Haver</string>
     <string name="dropzone_marker">Lieferort</string>
     <string name="alternative_Location_Button">Zurück</string>
     <string name="alternative_Location_Button2">Standort übernehmen</string>
@@ -174,12 +174,12 @@
     <string name="no_location_found">Keine passende Adresse gefunden!</string>
     <string name="cm_haver_accepted">wurde angenommen</string>
     <string name="cm_haver_rejected">wurde abgelehnt</string>
-    <string name="cm_new_haver">neuer Erfüller für</string>
+    <string name="cm_new_haver">neuer Haver für</string>
     <string name="cm_desire_update">wurde aktualisiert</string>
     <string name="empty_price">Es muss ein Preis angeben werden!</string>
     <string name="empty_category">Es muss eine Kategorie angeben werden!</string>
     <string name="select_category">&#160;&#160;Wähle eine Kategorie</string>
-    <string name="createDesire_loadingProgress_title">Dein Wunsch wird erstellt</string>
+    <string name="createDesire_loadingProgress_title">Dein Auftrag wird erstellt</string>
     <string name="changeProfilePic_loadingProgress_title">Profilbild wird geändert</string>
     <string name="createDesire_loadingProgress_message">Bitte warten &#8230;</string>
 
