@@ -436,6 +436,8 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
     public void showLoadingProgress() {
         mLoadingDialog = new ProgressDialog(getActivity());
         mLoadingDialog.setTitle(getString(R.string.loading_desire_title));
+        mLoadingDialog.setCancelable(false);
+        mLoadingDialog.setCanceledOnTouchOutside(false);
         //mLoadingDialog.setMessage("Wait while loading...");
         mLoadingDialog.show();
     }
