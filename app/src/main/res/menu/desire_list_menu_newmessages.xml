@@ -5,11 +5,11 @@
     <item
         android:id="@+id/menu_filter"
         android:title="@string/filter"
-        android:icon="@drawable/wh_filter_primarycolor"
+        android:icon="@drawable/wh_filter_icon_light"
         app:showAsAction="always" />
     <item
         android:id="@+id/menu_chat"
         android:title="@string/chat"
-        android:icon="@drawable/wh_chat_icon_new_message"
+        android:icon="@drawable/wh_chat_icon_new_message_light"
         app:showAsAction="always" />
 </menu>
