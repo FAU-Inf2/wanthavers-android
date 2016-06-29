@@ -121,7 +121,11 @@ public class LoginPresenter implements LoginContract.Presenter {
     @Override
     public void login(final String userMail,final String userPw, final boolean isRegistering) {
 
+        final SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, mAppContext);
+        sharedPreferencesHelper.saveString(SharedPreferencesHelper.KEY_USER_EMAIL, userMail);
+        sharedPreferencesHelper.saveString(SharedPreferencesHelper.KEY_PASSWORD, userPw);
         LoginUser.RequestValues requestValue = new LoginUser.RequestValues();
+        RestClient.triggerSetNewBasicAuth();
 
         mUseCaseHandler.execute(mLoginUser, requestValue,
                 new UseCase.UseCaseCallback<LoginUser.ResponseValue>() {
@@ -130,11 +134,8 @@ public class LoginPresenter implements LoginContract.Presenter {
                     public void onSuccess(LoginUser.ResponseValue response) {
 
                         User user = response.getUser();
-                        final SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, mAppContext);
-                        sharedPreferencesHelper.saveString(SharedPreferencesHelper.KEY_USER_EMAIL, userMail);
-                        sharedPreferencesHelper.saveString(SharedPreferencesHelper.KEY_PASSWORD, userPw);
                         sharedPreferencesHelper.saveLong(SharedPreferencesHelper.KEY_USERID, user.getId());
-                        RestClient.triggerSetNewBasicAuth();
+
 
                         if(isRegistering){
                             mLoginView.showWelcomeView();
@@ -147,7 +148,10 @@ public class LoginPresenter implements LoginContract.Presenter {
                     @Override
                     public void onError() {
                         // The view may not be able to handle UI updates anymore
-
+                        sharedPreferencesHelper.saveString(SharedPreferencesHelper.KEY_USER_EMAIL, null);
+                        sharedPreferencesHelper.saveString(SharedPreferencesHelper.KEY_PASSWORD, null);
+                        sharedPreferencesHelper.saveLong(SharedPreferencesHelper.KEY_USERID, -1);
+                        RestClient.triggerSetNewBasicAuth();
                         mLoginView.showMessage(mActivity.getResources().getString(R.string.userLoginFailed));
                     }
                 });
