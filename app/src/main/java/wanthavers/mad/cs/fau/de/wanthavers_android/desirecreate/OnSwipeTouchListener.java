@@ -8,19 +8,32 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 
+import wanthavers.mad.cs.fau.de.wanthavers_android.desiredetail.DesireDetailContract;
+
 public class OnSwipeTouchListener implements OnTouchListener {
 
     private final GestureDetector gestureDetector;
     private final DesireCreateContract.Presenter mPresenter;
+    private final DesireDetailContract.Presenter mPresenterDetail;
     private final Activity mContext;
     private final DesireCreateActionHandler mActionHandler;
 
     public OnSwipeTouchListener (Context context, DesireCreateContract.Presenter presenter , DesireCreateActionHandler actionHandler){
         gestureDetector = new GestureDetector(context, new GestureListener());
         mPresenter = presenter;
+        mPresenterDetail = null;
         mContext = (Activity) context;
         mActionHandler = actionHandler;
     }
+
+    public OnSwipeTouchListener (Context context, DesireDetailContract.Presenter presenter ){
+        gestureDetector = new GestureDetector(context, new GestureListener());
+        mPresenterDetail = presenter;
+        mPresenter = null;
+        mContext = (Activity) context;
+        mActionHandler = null;
+    }
+
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
@@ -71,10 +84,15 @@ public class OnSwipeTouchListener implements OnTouchListener {
 
     public void onSwipeRight() {
         mContext.onBackPressed();
+        if(mPresenter == null){
+            mContext.finish();
+        }
     }
 
     public void onSwipeLeft() {
-        mActionHandler.buttonNextDesireStep();
+        if (mActionHandler!= null) {
+            mActionHandler.buttonNextDesireStep();
+        }
     }
 
     public void onSwipeTop() {

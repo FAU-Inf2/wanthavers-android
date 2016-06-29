@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -43,6 +44,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.chatlist.ChatListActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.DesiredetailDeleteDesirePopupBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.DesiredetailFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.DesiredetailReportPopupBinding;
+import wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate.OnSwipeTouchListener;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
 import wanthavers.mad.cs.fau.de.wanthavers_android.maps.MapActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.rating.RatingActivity;
@@ -128,6 +130,10 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
 
         mListAdapter = new DesireDetailAdapter(new ArrayList<Haver>(0), mPresenter, mDesireDetailActionHandler);
         mRecyclerView.setAdapter(mListAdapter);
+
+        //S
+        ScrollView sv = mDesireDetailFragBinding.desireDetailMainScreen;
+        sv.setOnTouchListener(new OnSwipeTouchListener(getActivity(), mPresenter));
 
         return mDesireDetailFragBinding.getRoot();
     }

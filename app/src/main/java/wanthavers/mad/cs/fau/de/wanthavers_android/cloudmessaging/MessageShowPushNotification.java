@@ -49,6 +49,7 @@ public class MessageShowPushNotification extends IntentService {
 
         if(pushMessage.mMessageNotificationType.equals(MessageNotificationType.CHAT_MESSAGE.toString())) {
             //save new ChatInfo to Db
+            WantHaversApplication.setNewMessages(true);
             AppChatLastSeen chatLastSeen = new AppChatLastSeen(pushMessage.mChatId, new Date(), pushMessage.message);
             AppChatLastSeenDatabaseHelper appChatLastSeenDatabaseHelper = AppChatLastSeenDatabaseHelper.getInstance(getApplicationContext());
             appChatLastSeenDatabaseHelper.createOrUpdate(chatLastSeen);
@@ -57,7 +58,7 @@ public class MessageShowPushNotification extends IntentService {
         //set message title
         String messageTitle = getMessageTitle(pushMessage);
 
-        WantHaversApplication.setNewMessages(true);
+
 
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
