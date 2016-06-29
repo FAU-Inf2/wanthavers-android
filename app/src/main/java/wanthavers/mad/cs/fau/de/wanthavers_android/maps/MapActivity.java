@@ -349,8 +349,9 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
         if (!forDesireDetail()) {
             updateLocation(latLng);
         }
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15.0f));
-        googleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+        //googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15.0f));
+        //googleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15.0f));
 
     }
 

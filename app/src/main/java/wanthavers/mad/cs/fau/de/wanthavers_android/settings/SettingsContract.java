@@ -26,6 +26,8 @@ public interface SettingsContract {
         void showLoadingProgress();
 
         void endLoadingProgress();
+
+        void showSettingsScreen();
     }
 
     interface Presenter extends BasePresenter {

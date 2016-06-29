@@ -24,6 +24,8 @@ public interface RatingContract {
 
         void closeRatingWindow();
 
+        void showRatingScreen();
+
     }
 
     interface Presenter extends BasePresenter {

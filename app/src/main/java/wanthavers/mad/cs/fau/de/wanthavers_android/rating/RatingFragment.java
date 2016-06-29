@@ -117,6 +117,12 @@ public class RatingFragment extends Fragment implements RatingContract.View {
     }
 
     @Override
+    public void showRatingScreen() {
+        mRatingFragBinding.ratingLoadingScreen.setVisibility(View.GONE);
+        mRatingFragBinding.ratingMainScreen.setVisibility(View.VISIBLE);
+    }
+
+    @Override
     public void showNoRatingSet() {
         showMessage(getString(R.string.no_rating_set));
     }
