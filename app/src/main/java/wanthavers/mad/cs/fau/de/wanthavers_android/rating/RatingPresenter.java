@@ -83,6 +83,7 @@ public class RatingPresenter implements RatingContract.Presenter {
                     public void onSuccess(GetAcceptedHaver.ResponseValue response) {
                         Haver haver = response.getHaver();
                         mRatingView.showAcceptedHaver(haver);
+                        mRatingView.showRatingScreen();
                     }
 
                     @Override

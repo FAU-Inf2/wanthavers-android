@@ -51,7 +51,8 @@ public class SettingsPresenter implements SettingsContract.Presenter {
                 new UseCase.UseCaseCallback<GetUser.ResponseValue>() {
                     @Override
                     public void onSuccess(GetUser.ResponseValue response) {
-                       mSettingsView.setUser(response.getUser());
+                        mSettingsView.setUser(response.getUser());
+                        mSettingsView.showSettingsScreen();
                     }
 
                     @Override

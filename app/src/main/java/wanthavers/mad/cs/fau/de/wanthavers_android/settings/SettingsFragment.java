@@ -95,6 +95,12 @@ public class SettingsFragment extends Fragment implements SettingsContract.View 
         }
     }
 
+    @Override
+    public void showSettingsScreen() {
+        mSettingsFragBinding.settingsLoadingScreen.setVisibility(View.GONE);
+        mSettingsFragBinding.settingsMainScreen.setVisibility(View.VISIBLE);
+    }
+
     public void setDesireLogic(DesireLogic desireLogic) {
 
         mDesireLogic = desireLogic;
