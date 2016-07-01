@@ -497,11 +497,11 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
 
             Intent intent = new Intent();
 
-            Location l = new Location();
-            l.setFullAddress(location);
-            l.setLat(lat);
-            l.setLon(lng);
-            intent.putExtra("locationObject", l);
+            Location loc = new Location();
+            loc.setFullAddress(location);
+            loc.setLat(lat);
+            loc.setLon(lng);
+            intent.putExtra("locationObject", loc);
             /*intent.putExtra("desireLocation", location);
             intent.putExtra("desireLocationLat", Double.toString(lat));
             intent.putExtra("desireLocationLng", Double.toString(lng));*/

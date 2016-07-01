@@ -134,7 +134,11 @@ public class LocationListFragment extends Fragment implements LocationListContra
 
     public void onActivityResult(int requestCode, int resultCode,
                                  Intent data) {
-        if(data.hasExtra("locationObject") || !(data.getStringExtra("desireLocation").equals(""))) { //checks if backbutton is pressed
+        if(data == null){
+            return;
+        }
+
+        if(data.hasExtra("locationObject") || !(data.getStringExtra("desireLocation").equals(""))) {
 
             if (resultCode == 1) {
                 //get values
@@ -162,6 +166,7 @@ public class LocationListFragment extends Fragment implements LocationListContra
                 setCustomLocationName(location);
 
             }else if(resultCode == 0){
+
                 Location location = (Location) data.getSerializableExtra("locationObject");
                 Intent intent = new Intent();
                 intent.putExtra("locationObject", location);

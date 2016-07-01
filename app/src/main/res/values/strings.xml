@@ -113,7 +113,7 @@
     <string name="signin">Anmelden</string>
     <string name="wanthavers_text" translatable="false">WantHaver</string>
     <string name="name">Name</string>
-    <string name="signupNow">Jetz Registrieren</string>
+    <string name="signupNow">Jetzt Registrieren</string>
     <string name="email">Email</string>
     <string name="password">Passwort</string>
     <string name="dob">Geburtsdatum</string>
