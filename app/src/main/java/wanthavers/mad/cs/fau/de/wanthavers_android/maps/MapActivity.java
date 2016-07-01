@@ -445,6 +445,8 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
         LatLng centerLatLng = googleMap.getProjection().fromScreenLocation(new Point(
                 centerX, centerY));
         setLocation(mLocationTextView.getText().toString(), centerLatLng.latitude, centerLatLng.longitude);
+
+        stopSearchingForGpsSignal();
     }
 
     private void setLocation(String location, double lat, double lng) {
@@ -514,6 +516,8 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
     @Override
     public void onBackPressed(){
 
+        stopSearchingForGpsSignal();
+
         if(forFilterSettings()) {
             Intent intent = new Intent();
             intent.putExtra("desireLocation", "");
@@ -540,6 +544,17 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
             return true;
         }
         return !(mGpsLocationTracker.isNetworkAvailable());
+    }
+
+    private void stopSearchingForGpsSignal(){
+        //stop searching for a GPS Signal after leaving MapActivity
+        mGpsLocationTracker.removeLocationListener();
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            //showing yourself on the map, if GPS is enabled
+            googleMap.setMyLocationEnabled(false);
+
+        }
     }
 
 }
