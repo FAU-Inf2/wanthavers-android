@@ -13,8 +13,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.annotation.StringDef;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -28,10 +30,12 @@ import android.widget.Spinner;
 
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.Category;
 import de.fau.cs.mad.wanthavers.common.Desire;
+import de.fau.cs.mad.wanthavers.common.Location;
 import de.fau.cs.mad.wanthavers.common.Media;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.categorylist.CategoryListActivity;
@@ -39,8 +43,10 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.Desirecreate2ndFr
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.SelectImageLogic;
 //import wanthavers.mad.cs.fau.de.wanthavers_android.filtersetting.CategoryAdapter;
+import wanthavers.mad.cs.fau.de.wanthavers_android.locationlist.LocationListActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.maps.GpsLocationTracker;
 import wanthavers.mad.cs.fau.de.wanthavers_android.maps.MapActivity;
+import wanthavers.mad.cs.fau.de.wanthavers_android.util.PathHelper;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.RoundedTransformation;
 
 
@@ -56,6 +62,9 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
     private EditText mDesirePrice;
     //private CategoryAdapter mCategoryListAdapter;
     private Category mCategory;
+    private String mLocation;
+    private double mLat;
+    private double mLng;
 
     public DesireCreateFragment2ndStep(){
         //Requires empty public constructor
@@ -120,40 +129,43 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
 
     @Override
     public void showNextDesireCreateStep() {
-        //final EditText desirePrice   = mViewDataBinding.createDesirePrice;
-        //final EditText desireReward   = mViewDataBinding.createDesireReward;
-
-        if(mDesirePrice.getText().toString().isEmpty() ){
-            showMessage( getString(R.string.empty_price));
-            return;
+        if(showEmptyEditTextError()){
+            startMap();
         }
 
-        if (mCategory == null){
-            showMessage(getString(R.string.empty_category));
-            return;
-        }
+    }
 
-
+    private void getDataForDesireAndFinish(){
         String title = getActivity().getIntent().getExtras().getString("desireTitle");
         String description = getActivity().getIntent().getExtras().getString("desireDescription");
-        //Intent intent = new Intent(getContext(), DesireCreateActivity3rdStep.class);
-        Intent intent = new Intent(getContext(), MapActivity.class);
-
+        Intent intent = new Intent(getContext(), DesireCreateActivity3rdStep.class);
 
         intent.putExtra("desireTitle", title);
         intent.putExtra("desireDescription", description);
         intent.putExtra("desirePrice", mDesirePrice.getText().toString());
-        //intent.putExtra("desireReward", desireReward.getText().toString());
 
         DesireLogic dsl = new DesireLogic(getContext());
         String currency = dsl.getIsoCurrency(spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString());
         intent.putExtra("desireCurrency", currency);
-        //intent.putExtra("desireCurrency", spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString());
         intent.putExtra("desireImage", image);
         intent.putExtra("desireCategory", mCategory);
-        intent.putExtra("calledAct", "0"); //for distinguishing which activity started the map
+
+        intent.putExtra("desireLocation", mLocation);
+        intent.putExtra("desireLocationLat", Double.toString(mLat));
+        intent.putExtra("desireLocationLng", Double.toString(mLng));
 
         startActivity(intent);
+    }
+
+
+
+    private void startMap(){
+
+        Intent intent = new Intent(getContext(), LocationListActivity.class);
+        Location location = null;
+        intent.putExtra("filterlocation", location);
+        intent.putExtra("calledAct", "0"); //for distinguishing which activity started the map
+        startActivityForResult(intent, 20);
     }
 
     private boolean isGpsEnabled() {
@@ -181,15 +193,26 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
             return;
         }
 
-        if(requestCode == 10){ //CategoryList
+        if(requestCode == 10) { //CategoryList
 
-            if(data.hasExtra("selectedCategory")) {
-                Category category = (Category) data.getExtras().getSerializable("selectedCategory");
+            if (data.hasExtra("selectedCategory")) {
+                Category category = (Category) data.getSerializableExtra("selectedCategory");
                 showCategory(category);
                 return;
             }
 
+        }else if (/*requestCode == 20 &&*/ resultCode == 0){ //LocationList
 
+            Location location = (Location) data.getSerializableExtra("locationObject");
+
+            if(location == null){ //onBackPressed
+                return;
+            }
+            mLocation = location.getFullAddress();
+            mLat = location.getLat();
+            mLng = location.getLon();
+            getDataForDesireAndFinish();
+            return;
 
         }else{
 
@@ -262,6 +285,20 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
         image = imageLogic.getImageFromCamera(data);
         mImageView.setImageURI(image);
     }*/
+
+    private boolean showEmptyEditTextError(){
+        if(mDesirePrice.getText().toString().isEmpty() ){
+            showMessage( getString(R.string.empty_price));
+            return false;
+        }
+
+        if (mCategory == null){
+            showMessage(getString(R.string.empty_category));
+            return false;
+        }
+
+        return true;
+    }
 
     @Override
     public void showMessage(String message) {

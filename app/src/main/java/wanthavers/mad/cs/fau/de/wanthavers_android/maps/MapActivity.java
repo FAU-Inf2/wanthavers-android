@@ -116,7 +116,9 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
 
 
         mLocationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
-        mGpsLocationTracker = new GpsLocationTracker(MapActivity.this, 49.573759d, 11.027389d); // computer science tower uni erlangen
+
+        // computer science tower uni erlangen
+        mGpsLocationTracker = new GpsLocationTracker(MapActivity.this, 49.573759d, 11.027389d);
 
         if (!mGpsLocationTracker.isNetworkAvailable()){
             onBackPressed();
@@ -215,7 +217,8 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
         //googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             //showing yourself on the map, if GPS is enabled
             googleMap.setMyLocationEnabled(true);
 
@@ -469,7 +472,7 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
             finish();
 
         }else if(!forDesireDetail() && !forFilterSettings()){ // DesireCreate
-            String title = getIntent().getExtras().getString("desireTitle");
+            /*String title = getIntent().getExtras().getString("desireTitle");
             String description = getIntent().getExtras().getString("desireDescription");
             String price = getIntent().getExtras().getString("desirePrice");
             //String reward = getIntent().getExtras().getString("desireReward");
@@ -488,9 +491,23 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
             intent.putExtra("desireLocation", location);
             intent.putExtra("desireLocationLat", Double.toString(lat));
             intent.putExtra("desireLocationLng", Double.toString(lng));
-            intent.putExtra("desireCategory", cat);
+            intent.putExtra("desireCategory", cat);*/
 
-            startActivity(intent);
+            Intent intent = new Intent();
+
+            Location l = new Location();
+            l.setFullAddress(location);
+            l.setLat(lat);
+            l.setLon(lng);
+            intent.putExtra("locationObject", l);
+            /*intent.putExtra("desireLocation", location);
+            intent.putExtra("desireLocationLat", Double.toString(lat));
+            intent.putExtra("desireLocationLng", Double.toString(lng));*/
+            setResult(0, intent);
+            finish();
+
+
+            //startActivity(intent);
         }
 
     }

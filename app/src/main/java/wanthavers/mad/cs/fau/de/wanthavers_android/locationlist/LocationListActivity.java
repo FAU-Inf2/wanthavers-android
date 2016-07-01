@@ -33,6 +33,10 @@ public class LocationListActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(R.string.locationlist_title);
+        if(getIntent().getStringExtra("calledAct").equals("0")){
+            actionBar.setTitle(R.string.createDesire_title_location_Step);
+        }
+
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
 
@@ -61,6 +65,17 @@ public class LocationListActivity extends AppCompatActivity {
     @Override
     public boolean onSupportNavigateUp() {
         mLocationListPresenter.closeLocationList(null);
+        if(getIntent().getStringExtra("calledAct").equals("0")){
+           onBackPressed();
+        }
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if(getIntent().getStringExtra("calledAct").equals("0")){
+            overridePendingTransition(R.anim.anim_slide_in_right,R.anim.anim_slide_out_left);
+        }
     }
 }

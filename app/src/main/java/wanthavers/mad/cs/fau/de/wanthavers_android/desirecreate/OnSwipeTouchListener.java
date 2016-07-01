@@ -8,6 +8,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 
+import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desiredetail.DesireDetailContract;
 
 public class OnSwipeTouchListener implements OnTouchListener {
@@ -86,6 +87,7 @@ public class OnSwipeTouchListener implements OnTouchListener {
         mContext.onBackPressed();
         if(mPresenter == null){
             mContext.finish();
+            mContext.overridePendingTransition(R.anim.anim_slide_in_right,R.anim.anim_slide_out_left);
         }
     }
 

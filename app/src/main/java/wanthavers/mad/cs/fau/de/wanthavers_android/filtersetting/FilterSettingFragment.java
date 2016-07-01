@@ -92,6 +92,7 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
     public void openLocationList(Location filterLocation) {
         Intent intent = new Intent(getContext(), LocationListActivity.class);
         intent.putExtra("filterlocation", filterLocation);
+        intent.putExtra("calledAct", "1"); //for distinguishing which activity started the map
         startActivityForResult(intent, 1);
     }
 

@@ -38,6 +38,7 @@
     <string name="create_desire_description_hint">max. 300 Zeichen</string>
     <string name="createDesire_title_1st_Step">Neuer Auftrag: Schritt 1</string>
     <string name="createDesire_title_2nd_Step">Neuer Auftrag: Schritt 2</string>
+    <string name="createDesire_title_location_Step">Neuer Auftrag: Schritt 3</string>
     <string name="createDesire_title_3rd_Step">Auftrag wird erstellt &#8230;</string>
     <string name="createDesire_Empty_Text">Bitte alle Felder ausfüllen</string>
     <string name="desire_detail_wanter">Wanter:</string>

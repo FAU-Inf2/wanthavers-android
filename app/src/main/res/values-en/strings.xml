@@ -38,6 +38,7 @@
     <string name="create_desire_description_hint">max. 300 Characters</string>
     <string name="createDesire_title_1st_Step">Create Desire: 1st Step</string>
     <string name="createDesire_title_2nd_Step">Create Desire: 2nd Step</string>
+    <string name="createDesire_title_location_Step">Create Desire: 3rd Step</string>
     <string name="createDesire_title_3rd_Step">Creating your Desire &#8230;</string>
     <string name="createDesire_Empty_Text">Please fill out all fields</string>
     <string name="no_chats">no chats to show</string>

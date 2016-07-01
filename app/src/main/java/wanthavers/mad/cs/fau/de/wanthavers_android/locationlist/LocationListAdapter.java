@@ -1,9 +1,12 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.locationlist;
 
+import android.app.Activity;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import java.util.List;
 
@@ -54,6 +57,12 @@ public class LocationListAdapter extends RecyclerView.Adapter<LocationListAdapte
     public LocationListAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         LocationItemBinding locationItemBinding = DataBindingUtil.inflate(
                 LayoutInflater.from(viewGroup.getContext()), R.layout.location_item, viewGroup, false);
+
+        if (Integer.parseInt(((Activity)viewGroup.getContext()).getIntent().getExtras().getString("calledAct")) == 0){
+            locationItemBinding.deleteLocation.setVisibility(View.GONE);
+            locationItemBinding.updateLocation.setVisibility(View.GONE);
+
+        }
         return new LocationListAdapter.ViewHolder(locationItemBinding);
     }
 

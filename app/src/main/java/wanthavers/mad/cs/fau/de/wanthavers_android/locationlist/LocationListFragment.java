@@ -10,9 +10,12 @@ import android.support.v4.app.Fragment;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +37,7 @@ public class LocationListFragment extends Fragment implements LocationListContra
     private LocationlistFragBinding mLocationListFragBinding;
     private Dialog mSetCustomLocationName;
     private LocationlistPopupBinding mLocationlistPopupBinding;
+    private int mCalledAct;
 
     public LocationListFragment() {
         //requires empty public constructor
@@ -80,6 +84,12 @@ public class LocationListFragment extends Fragment implements LocationListContra
         mLocationListAdapter = new LocationListAdapter(new ArrayList<Location>(0), mLocationListActionHandler);
         recyclerView.setAdapter(mLocationListAdapter);
 
+        mCalledAct = Integer.parseInt(getActivity().getIntent().getStringExtra("calledAct"));
+        if (mCalledAct == 0) {
+            getActivity().overridePendingTransition(R.anim.anim_slide_in_left,R.anim.anim_slide_out_right);
+            mLocationListFragBinding.buttonCancelLocationChoice.setVisibility(View.INVISIBLE);
+        }
+
         return mLocationListFragBinding.getRoot();
     }
 
@@ -89,46 +99,75 @@ public class LocationListFragment extends Fragment implements LocationListContra
 
     @Override
     public void closeLocationList(Location location) {
-        Intent intent = new Intent();
-        intent.putExtra("selectedLocation", location);
-        getActivity().setResult(1, intent);
-        getActivity().finish();
+
+        if (mCalledAct == 1) {
+
+            Intent intent = new Intent();
+            intent.putExtra("selectedLocation", location);
+            getActivity().setResult(1, intent);
+            getActivity().finish();
+
+        } else if(mCalledAct == 0){
+
+            Intent intent = new Intent();
+            intent.putExtra("locationObject", location);
+
+            intent.putExtra("calledAct", String.valueOf(mCalledAct));
+
+            getActivity().setResult(0, intent);
+            getActivity().finish();
+
+        }
     }
 
     @Override
     public void showMap(Location location) {
-        Intent intent = new Intent(getContext(), MapActivity.class);
-        intent.putExtra("location", location);
-        intent.putExtra("calledAct", "1"); //for distinguishing which activity started the map
-        startActivityForResult(intent, 1);
+
+            Intent intent = new Intent(getContext(), MapActivity.class);
+            intent.putExtra("location", location);
+            //for distinguishing which activity started the map
+            intent.putExtra("calledAct", getActivity().getIntent().getExtras().getString("calledAct"));
+
+            startActivityForResult(intent, 1);
+
     }
 
     public void onActivityResult(int requestCode, int resultCode,
                                  Intent data) {
-        if(!data.getExtras().getString("desireLocation").equals("")) { //checks if backbutton is pressed
+        if(data.hasExtra("locationObject") || !(data.getStringExtra("desireLocation").equals(""))) { //checks if backbutton is pressed
 
-            //get values
-            String locationAddress = data.getExtras().getString("desireLocation");
-            double lat = Double.parseDouble(data.getExtras().getString("desireLocationLat"));
-            double lon = Double.parseDouble(data.getExtras().getString("desireLocationLng"));
-            String locationName = data.getExtras().getString("desireLocationName");
-            String locationId = data.getExtras().getString("desireLocationId");
+            if (resultCode == 1) {
+                //get values
+                String locationAddress = data.getStringExtra("desireLocation");
+                double lat = Double.parseDouble(data.getStringExtra("desireLocationLat"));
+                double lon = Double.parseDouble(data.getStringExtra("desireLocationLng"));
+                String locationName = data.getStringExtra("desireLocationName");
+                String locationId = data.getStringExtra("desireLocationId");
 
-            long userId = new DesireLogic(getContext()).getLoggedInUserId();
+                long userId = new DesireLogic(getContext()).getLoggedInUserId();
 
-            //Create Location object
-            Location location = new Location();
-            location.setFullAddress(locationAddress);
-            location.setLat(lat);
-            location.setLon(lon);
-            location.setUserId(userId);
-            location.setDescription(locationName);
+                //Create Location object
+                Location location = new Location();
+                location.setFullAddress(locationAddress);
+                location.setLat(lat);
+                location.setLon(lon);
+                location.setUserId(userId);
+                location.setDescription(locationName);
 
-            if (!locationId.equals("")) {
-                location.setId(Long.parseLong(locationId));
+
+                if (!locationId.equals("")) {
+                    location.setId(Long.parseLong(locationId));
+                }
+
+                setCustomLocationName(location);
+
+            }else if(resultCode == 0){
+                Location location = (Location) data.getSerializableExtra("locationObject");
+                Intent intent = new Intent();
+                intent.putExtra("locationObject", location);
+                getActivity().setResult(0, intent);
+                getActivity().finish();
             }
-
-            setCustomLocationName(location);
         }
     }
 
