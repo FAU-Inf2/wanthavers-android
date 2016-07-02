@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
@@ -24,6 +25,7 @@ import de.fau.cs.mad.wanthavers.common.Location;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.LocationlistFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.LocationlistPopupBinding;
+import wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate.OnSwipeTouchListener;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
 import wanthavers.mad.cs.fau.de.wanthavers_android.maps.MapActivity;
 
@@ -86,8 +88,7 @@ public class LocationListFragment extends Fragment implements LocationListContra
 
         mCalledAct = Integer.parseInt(getActivity().getIntent().getStringExtra("calledAct"));
         if (mCalledAct == 0) {
-            getActivity().overridePendingTransition(R.anim.anim_slide_in_left,R.anim.anim_slide_out_right);
-            mLocationListFragBinding.buttonCancelLocationChoice.setVisibility(View.INVISIBLE);
+            layoutChangesForDesireCreate(recyclerView);
         }
 
         return mLocationListFragBinding.getRoot();
@@ -95,6 +96,17 @@ public class LocationListFragment extends Fragment implements LocationListContra
 
     public void showSavedLocations(List<Location> locationList) {
         mLocationListAdapter.replaceData(locationList);
+    }
+
+    private void layoutChangesForDesireCreate(RecyclerView recyclerView){
+        getActivity().overridePendingTransition(R.anim.anim_slide_in_left,R.anim.anim_slide_out_right);
+        recyclerView.setOnTouchListener(new OnSwipeTouchListener(getActivity(), mPresenter, mLocationListActionHandler));
+
+        Button cancelLocationChoice = mLocationListFragBinding.buttonCancelLocationChoice;
+        ViewGroup.LayoutParams params = cancelLocationChoice.getLayoutParams();
+        params.height = 0;
+        cancelLocationChoice.setLayoutParams(params);
+        cancelLocationChoice.setVisibility(View.INVISIBLE);
     }
 
     @Override

@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
@@ -372,6 +373,25 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
     public void showCategories(List<Category> categories) {
         //mCategoryListAdapter.replaceData(categories);
         //mCategoryListAdapter.getFilter().filter(null);
+    }
+
+
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        ImageView iV = mViewDataBinding.selectedImageCategory;
+
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            iV.setImageURI(image);
+            if(mCategory!= null){
+                showCategory(mCategory);
+            }
+        } else {
+            iV.setImageURI(image);
+            if(mCategory!= null){
+                showCategory(mCategory);
+            }
+        }
     }
 
 }

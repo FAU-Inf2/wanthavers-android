@@ -2,6 +2,7 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
