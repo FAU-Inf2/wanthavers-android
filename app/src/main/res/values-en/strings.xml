@@ -200,6 +200,9 @@
     <string name="createDesire_loadingProgress_message">Please wait &#8230;</string>
     <string name="upload_Desire_background">Create Desire in the Background</string>
     <string name="settings_name_title">Name</string>
+    <string name="get_app_version_error">Error while comparing your app version with server\'s app version</string>
+    <string name="app_version_force_text">There are vital changes for the app available. Please update to continue using it: </string>
+    <string name="app_version_force_title">Important updates available!</string>
 
 
 </resources>

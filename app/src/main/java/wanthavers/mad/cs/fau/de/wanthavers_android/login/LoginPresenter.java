@@ -1,10 +1,13 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.login;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.annotation.NonNull;
+import android.text.Html;
 import android.view.View;
 import android.widget.CalendarView;
 import android.widget.DatePicker;
@@ -15,12 +18,15 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import de.fau.cs.mad.wanthavers.common.AppVersion;
 import de.fau.cs.mad.wanthavers.common.Desire;
 import de.fau.cs.mad.wanthavers.common.User;
+import wanthavers.mad.cs.fau.de.wanthavers_android.BuildConfig;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCase;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.CreateUser;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetAppVersion;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.LoginUser;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.SendMessage;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.SendPWResetToken;
@@ -35,11 +41,12 @@ public class LoginPresenter implements LoginContract.Presenter {
     private final Context mAppContext;
     private final LoginActivity mActivity;
     private final CreateUser mCreateUser;
+    private final GetAppVersion mGetAppVersion;
     private final LoginUser mLoginUser;
     private final SendPWResetToken mSendPWResetToken;
 
     public LoginPresenter(@NonNull UseCaseHandler ucHandler, @NonNull LoginContract.View view, @NonNull Context appContext,
-                          @NonNull LoginActivity activity, @NonNull CreateUser createUser, @NonNull LoginUser loginUser, @NonNull SendPWResetToken sendPWResetToken) {
+                          @NonNull LoginActivity activity, @NonNull CreateUser createUser, @NonNull GetAppVersion getAppVersion, @NonNull LoginUser loginUser, @NonNull SendPWResetToken sendPWResetToken) {
 
         mUseCaseHandler = ucHandler;
         mLoginView = view;
@@ -48,17 +55,20 @@ public class LoginPresenter implements LoginContract.Presenter {
         mActivity = activity;
         mLoginView.setPresenter(this);
         mCreateUser = createUser;
+        mGetAppVersion = getAppVersion;
         mLoginUser = loginUser;
         mSendPWResetToken = sendPWResetToken;
 
     }
 
     public void start() { //TODO;
+        checkAppVersion(BuildConfig.VERSION_CODE, AppVersion.OS.ANDROID, BuildConfig.APPLICATION_ID);
+
         final SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, mAppContext);
-        String loggedInUserMail =  sharedPreferencesHelper.loadString(SharedPreferencesHelper.KEY_USER_EMAIL,null);
+        String loggedInUserMail = sharedPreferencesHelper.loadString(SharedPreferencesHelper.KEY_USER_EMAIL, null);
 
         //redirect immediately if user is logged in
-        if(loggedInUserMail != null){
+        if (loggedInUserMail != null) {
             mLoginView.showDesireList();
         }
 
@@ -71,7 +81,7 @@ public class LoginPresenter implements LoginContract.Presenter {
     }*/
 
     @Override
-    public void loginUserWithInput(){
+    public void loginUserWithInput() {
 
 
         EditText emailView = (EditText) mActivity.findViewById(R.id.email);
@@ -80,8 +90,8 @@ public class LoginPresenter implements LoginContract.Presenter {
         String email = emailView.getText().toString();
         String password = passwordView.getText().toString();
 
-        if(email.isEmpty() || password.isEmpty() ){
-            mLoginView.showMessage( mActivity.getResources().getString(R.string.login_empty_text));
+        if (email.isEmpty() || password.isEmpty()) {
+            mLoginView.showMessage(mActivity.getResources().getString(R.string.login_empty_text));
             return;
         }
 
@@ -89,7 +99,7 @@ public class LoginPresenter implements LoginContract.Presenter {
     }
 
 
-    public void login(long userId){
+    public void login(long userId) {
 
         //this is just a shortcut implemented for testing
         final SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, mAppContext);
@@ -98,19 +108,23 @@ public class LoginPresenter implements LoginContract.Presenter {
         int userIdForSwitchCase = (int) userId;
 
 
-        switch(userIdForSwitchCase){
-            case 1 : sharedPreferencesHelper.saveString(sharedPreferencesHelper.KEY_USER_EMAIL, "com.mail@yoda");
-                     sharedPreferencesHelper.saveString(sharedPreferencesHelper.KEY_PASSWORD, "test");
-                     break;
-            case 2 : sharedPreferencesHelper.saveString(sharedPreferencesHelper.KEY_USER_EMAIL, "jon@doe.com");
-                     sharedPreferencesHelper.saveString(sharedPreferencesHelper.KEY_PASSWORD, "test");
-                     break;
-            case 3 : sharedPreferencesHelper.saveString(sharedPreferencesHelper.KEY_USER_EMAIL, "m.muster@xyz.de");
-                     sharedPreferencesHelper.saveString(sharedPreferencesHelper.KEY_PASSWORD, "test");
-                     break;
-            default: sharedPreferencesHelper.saveString(sharedPreferencesHelper.KEY_USER_EMAIL, "com.mail@yoda");
-                     sharedPreferencesHelper.saveString(sharedPreferencesHelper.KEY_PASSWORD, "test");
-                     break;
+        switch (userIdForSwitchCase) {
+            case 1:
+                sharedPreferencesHelper.saveString(sharedPreferencesHelper.KEY_USER_EMAIL, "com.mail@yoda");
+                sharedPreferencesHelper.saveString(sharedPreferencesHelper.KEY_PASSWORD, "test");
+                break;
+            case 2:
+                sharedPreferencesHelper.saveString(sharedPreferencesHelper.KEY_USER_EMAIL, "jon@doe.com");
+                sharedPreferencesHelper.saveString(sharedPreferencesHelper.KEY_PASSWORD, "test");
+                break;
+            case 3:
+                sharedPreferencesHelper.saveString(sharedPreferencesHelper.KEY_USER_EMAIL, "m.muster@xyz.de");
+                sharedPreferencesHelper.saveString(sharedPreferencesHelper.KEY_PASSWORD, "test");
+                break;
+            default:
+                sharedPreferencesHelper.saveString(sharedPreferencesHelper.KEY_USER_EMAIL, "com.mail@yoda");
+                sharedPreferencesHelper.saveString(sharedPreferencesHelper.KEY_PASSWORD, "test");
+                break;
         }
 
         RestClient.triggerSetNewBasicAuth();
@@ -119,7 +133,7 @@ public class LoginPresenter implements LoginContract.Presenter {
 
 
     @Override
-    public void login(final String userMail,final String userPw, final boolean isRegistering) {
+    public void login(final String userMail, final String userPw, final boolean isRegistering) {
 
         final SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, mAppContext);
         sharedPreferencesHelper.saveString(SharedPreferencesHelper.KEY_USER_EMAIL, userMail);
@@ -137,7 +151,7 @@ public class LoginPresenter implements LoginContract.Presenter {
                         sharedPreferencesHelper.saveLong(SharedPreferencesHelper.KEY_USERID, user.getId());
 
 
-                        if(isRegistering){
+                        if (isRegistering) {
                             mLoginView.showWelcomeView();
                             return;
                         }
@@ -160,18 +174,18 @@ public class LoginPresenter implements LoginContract.Presenter {
 
 
     @Override
-    public void openLoginView(){
+    public void openLoginView() {
         mActivity.setLoginFragment();
     }
 
     @Override
-    public void openRegisterView(){
+    public void openRegisterView() {
         mActivity.setRegisterFragment();
     }
 
 
     @Override
-    public void registerUser(){
+    public void registerUser() {
 
         //get fields and check if all fields are there
         //set locale for user
@@ -187,22 +201,20 @@ public class LoginPresenter implements LoginContract.Presenter {
         Date datePicked = cal.getTime();
 
 
-        if(email.getText().toString().isEmpty() || password.getText().toString().isEmpty() || username.getText().toString().isEmpty() ){
-            mLoginView.showMessage( mActivity.getResources().getString(R.string.login_empty_text));
+        if (email.getText().toString().isEmpty() || password.getText().toString().isEmpty() || username.getText().toString().isEmpty()) {
+            mLoginView.showMessage(mActivity.getResources().getString(R.string.login_empty_text));
             return;
         }
 
         //put together user object
-        User user =  new User(username.getText().toString(),email.getText().toString());
+        User user = new User(username.getText().toString(), email.getText().toString());
         user.setLangCode(Locale.getDefault().toString());
         user.setBirthday(datePicked);
         registerUser(user, password.getText().toString());
     }
 
 
-
-
-    private void registerUser(User user, final String password){
+    private void registerUser(User user, final String password) {
 
 
         CreateUser.RequestValues requestValue = new CreateUser.RequestValues(user, password);
@@ -230,9 +242,7 @@ public class LoginPresenter implements LoginContract.Presenter {
         String email = emailInput.getText().toString();
 
 
-
         SendPWResetToken.RequestValues requestValues = new SendPWResetToken.RequestValues(email);
-
 
 
         mUseCaseHandler.execute(mSendPWResetToken, requestValues,
@@ -250,6 +260,44 @@ public class LoginPresenter implements LoginContract.Presenter {
 
                 }
         );
+    }
+
+    @Override
+    public void checkAppVersion(int versionCode, int os, String appId) {
+        GetAppVersion.RequestValues requestValues = new GetAppVersion.RequestValues(versionCode, os, appId);
+
+        mUseCaseHandler.execute(mGetAppVersion, requestValues, new UseCase.UseCaseCallback<GetAppVersion.ResponseValue>() {
+            @Override
+            public void onSuccess(GetAppVersion.ResponseValue response) {
+                checkAppVersion(response.getAppVersion());
+            }
+
+            @Override
+            public void onError() {
+                mLoginView.showMessage(mActivity.getResources().getString(R.string.get_app_version_error));
+            }
+        });
+    }
+
+    private void checkAppVersion(AppVersion appVersion) {
+        //latest version -> exit
+        if (appVersion.getVersionCode() == BuildConfig.VERSION_CODE) {
+            return;
+        }
+
+        if (appVersion.isForceUpdate()) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+            builder.setMessage(mActivity.getResources().getString(R.string.app_version_force_text))
+                    .setTitle(mActivity.getResources().getString(R.string.app_version_force_title))
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            android.os.Process.killProcess(android.os.Process.myPid());
+                        }
+                    });
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
     }
 }
 

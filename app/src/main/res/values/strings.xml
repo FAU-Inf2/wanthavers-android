@@ -191,6 +191,10 @@
     <string name="password_reset_error">Fehler beim Zurücksetzen des Passworts</string>
     <string name="upload_Desire_background">Desire im Hintergrund erstellen</string>
 
+    <string name="get_app_version_error">Fehler beim Abgleich der App-Version mit dem Server</string>
+    <string name="app_version_force_text">Für die App gibt es wichtige Neuerungen. Bitte Updaten, um App weiterhin verwenden zu können: </string>
+    <string name="app_version_force_title">Wichtige Updates verfügbar!</string>
+
     <string name="locationlist_title">Wähle einen Ort</string>
     <string name="settings_name_title">Name</string>
 
