@@ -1,5 +1,6 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.chatdetail;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -97,16 +98,29 @@ public class ChatDetailFragment extends Fragment implements  ChatDetailContract.
         );
 
 
-        mRecyclerView.setOnScrollChangeListener(new RecyclerView.OnScrollChangeListener() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            mRecyclerView.setOnScrollChangeListener(new RecyclerView.OnScrollChangeListener() {
 
-            @Override
-            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                @Override
+                public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
 
-                if(!v.canScrollVertically(1)){
-                    mPresenter.loadMessages(true,false);
+                    if(!v.canScrollVertically(1)){
+                        mPresenter.loadMessages(true,false);
+                    }
                 }
-            }
-        });
+            });
+        } else {
+            mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                    super.onScrolled(recyclerView, dx, dy);
+
+                    if(!recyclerView.canScrollVertically(1)){
+                        mPresenter.loadMessages(true, false);
+                    }
+                }
+            });
+        }
 
         swipeRefreshLayout.setScrollUpChild(mRecyclerView);
 
