@@ -54,8 +54,7 @@ import android.widget.Toast;
 import de.fau.cs.mad.wanthavers.common.Category;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate.DesireCreateActivity;
-import wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate.DesireCreateActivity2ndStep;
-import wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate.DesireCreateActivity3rdStep;
+
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate.DesireCreateFragment2ndStep;
 import wanthavers.mad.cs.fau.de.wanthavers_android.filtersetting.FilterSettingActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.settings.SettingsActivity;
@@ -91,7 +90,7 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
     private MapContract.Presenter mMapPresenter;;
     private MapActBinding mViewDataBinding;
     private MapActionHandler mMapActionHandler;
-    private DesireCreateFragment2ndStep test = DesireCreateFragment2ndStep.newInstance();
+    //private DesireCreateFragment2ndStep test = DesireCreateFragment2ndStep.newInstance();
     private int mCalledAct;
 
 
@@ -474,26 +473,6 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
             finish();
 
         }else if(!forDesireDetail() && !forFilterSettings()){ // DesireCreate
-            /*String title = getIntent().getExtras().getString("desireTitle");
-            String description = getIntent().getExtras().getString("desireDescription");
-            String price = getIntent().getExtras().getString("desirePrice");
-            //String reward = getIntent().getExtras().getString("desireReward");
-            String currency = getIntent().getExtras().getString("desireCurrency");
-            Uri image = getIntent().getExtras().getParcelable("desireImage");
-            Category cat = (Category) getIntent().getSerializableExtra("desireCategory");
-
-            Intent intent = new Intent(this, DesireCreateActivity3rdStep.class);
-
-            intent.putExtra("desireTitle", title);
-            intent.putExtra("desireDescription", description);
-            intent.putExtra("desirePrice", price);
-            //intent.putExtra("desireReward", reward);
-            intent.putExtra("desireCurrency", currency);
-            intent.putExtra("desireImage", image);
-            intent.putExtra("desireLocation", location);
-            intent.putExtra("desireLocationLat", Double.toString(lat));
-            intent.putExtra("desireLocationLng", Double.toString(lng));
-            intent.putExtra("desireCategory", cat);*/
 
             Intent intent = new Intent();
 

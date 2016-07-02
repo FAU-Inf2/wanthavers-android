@@ -65,6 +65,7 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
     private String mLocation;
     private double mLat;
     private double mLng;
+    private final int MAX_IMAGE_SIZE = 1200;
 
     public DesireCreateFragment2ndStep(){
         //Requires empty public constructor
@@ -239,13 +240,16 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
             orientation = cur.getInt(cur.getColumnIndex(orientationColumn[0]));
         }
 
+        //resizing high resolution images
+        SelectImageLogic imageLogic = mPresenter.getImageLogic();
+        image = imageLogic.scaleDown(image, MAX_IMAGE_SIZE, orientation);
         mImageView.setImageURI(image);
 
-        switch(orientation) {
+       /* switch(orientation) {
             case 90:
                 mImageView.setRotation(90);
                 break;
-        }
+        }*/
 
     }
 
@@ -271,13 +275,15 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
             orientation = cur.getInt(cur.getColumnIndex(orientationColumn[0]));
         }
 
+        SelectImageLogic imageLogic = mPresenter.getImageLogic();
+        image = imageLogic.scaleDown(image, MAX_IMAGE_SIZE, orientation);
         mImageView.setImageURI(image);
 
-        switch(orientation) {
+        /*switch(orientation) {
             case 90:
                 mImageView.setRotation(90);
                 break;
-        }
+        }*/
     }
 
     /*private void cameraResult(Intent data){

@@ -20,6 +20,7 @@ import java.io.File;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.WelcomeFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.DesireListActivity;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.SelectImageLogic;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.PathHelper;
 
 public class WelcomeFragment extends Fragment implements WelcomeContract.View {
@@ -27,6 +28,7 @@ public class WelcomeFragment extends Fragment implements WelcomeContract.View {
     private WelcomeContract.Presenter mPresenter;
     private Uri image;
     private ProgressDialog mLoadingDialog;
+    private final int MAX_IMAGE_SIZE = 1200;
 
     public WelcomeFragment(){
         //Requires empty public constructor
@@ -94,13 +96,10 @@ public class WelcomeFragment extends Fragment implements WelcomeContract.View {
                 orientation = cur.getInt(cur.getColumnIndex(orientationColumn[0]));
             }
 
+            //resizing high resolution images
+            SelectImageLogic imageLogic = new SelectImageLogic(getContext());
+            image = imageLogic.scaleDown(image, MAX_IMAGE_SIZE, orientation);
             imageView.setImageURI(image);
-
-            switch(orientation) {
-                case 90:
-                    imageView.setRotation(90);
-                    break;
-            }
 
             File file = new File(PathHelper.getRealPathFromURI(this.getContext().getApplicationContext(), image));
             mPresenter.setImage(file);
