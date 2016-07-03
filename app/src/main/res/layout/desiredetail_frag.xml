@@ -479,18 +479,6 @@
 
                     </RelativeLayout>
 
-                    <Button
-                        android:id="@+id/button_close_transaction"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/button_close_transaction"
-                        android:textColor="@color/colorMainText"
-                        android:background="@color/colorPrimary"
-                        android:layout_below="@+id/accepted_haver_bar"
-                        android:layout_marginTop="15dp"
-                        android:visibility="invisible"
-                        android:onClick="@{() -> actionHandler.closeTransaction()}"/>
-
                 </RelativeLayout>
 
             </RelativeLayout>

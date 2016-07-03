@@ -141,7 +141,7 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         mLoadFinishedFlag = false;
-        inflater.inflate(R.menu.desire_detail_menu_loading, menu);
+        inflater.inflate(R.menu.desire_detail_menu, menu);
         mOptionsMenu = menu;
         super.onCreateOptionsMenu(menu, inflater);
     }
@@ -149,19 +149,34 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
     @Override
     public void onPrepareOptionsMenu(Menu menu){
 
-
         if(mLoadFinishedFlag && getActivity() != null) {
-            menu.clear();
             SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, getActivity().getApplicationContext());
             long loggedInUser = sharedPreferencesHelper.loadLong(SharedPreferencesHelper.KEY_USERID, 6L);
 
+            Desire curDesire = mDesireDetailFragBinding.getDesire();
 
-            if (mDesireDetailFragBinding.getDesire() != null && mDesireDetailFragBinding.getDesire().getCreator().getId() == loggedInUser) {   //add haver here as well
-                getActivity().getMenuInflater().inflate(R.menu.desire_detail_menu_creator, menu);
+            if(curDesire.getStatus() == DesireStatus.STATUS_IN_PROGRESS ){
+                MenuItem menFinishDesire = menu.findItem(R.id.menu_finish_desire);
+                if(menFinishDesire != null){
+                    menFinishDesire.setVisible(true);
+                }
+            }
+
+            MenuItem menReportDesire = menu.findItem(R.id.menu_report_desire);
+            MenuItem menDeleteDesire = menu.findItem(R.id.menu_delete_desire);
+            MenuItem menAcceptDesire = menu.findItem(R.id.menu_accept_desire);
+
+            if (mDesireDetailFragBinding.getDesire() != null && mDesireDetailFragBinding.getDesire().getCreator().getId() == loggedInUser) {
+
+                if(curDesire.getStatus() == DesireStatus.STATUS_OPEN) {
+                    menDeleteDesire.setVisible(true);
+                }
+
             } else if (mHaver != null && mHaver.getUser().getId() == loggedInUser) { //include haver here
-                getActivity().getMenuInflater().inflate(R.menu.desire_detail_menu_haver, menu);
+                menReportDesire.setVisible(true);
             } else {
-                getActivity().getMenuInflater().inflate(R.menu.desire_detail_menu, menu);
+                    menReportDesire.setVisible(true);
+                    menAcceptDesire.setVisible(true);
             }
 
         }
@@ -234,7 +249,6 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
             mPresenter.getAcceptedHaver();
             //haver cannot accept
             //mDesireDetailFragBinding.buttonAcceptDesire.setVisibility(View.GONE);
-            mDesireDetailFragBinding.buttonCloseTransaction.setVisibility(View.VISIBLE);
         } else if (desire.getStatus() == DesireStatus.STATUS_DONE) {
             mPresenter.getAcceptedHaver();
             //haver cannot accept
@@ -478,5 +492,11 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
         intent.putExtra("calledAct", "2"); //for distinguishing which activity started the map
         startActivity(intent);
 
+    }
+
+    @Override
+    public void hideFinishDesire(){
+        MenuItem menFinishTransaction = mOptionsMenu.findItem(R.id.menu_finish_desire);
+        menFinishTransaction.setVisible(false);
     }
 }

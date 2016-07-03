@@ -64,6 +64,8 @@ public interface DesireDetailContract {
         void closeDeletionDialog();
 
         void showMap(Location location);
+
+        void hideFinishDesire();
     }
 
 

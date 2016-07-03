@@ -32,7 +32,6 @@ public class DesireDetailActionHandler {
         mDesireDetailFragBinding.haverList.setVisibility(View.GONE);
         mDesireDetailFragBinding.noHavers.setVisibility(View.GONE);
         mDesireDetailFragBinding.acceptedHaverBar.setVisibility(View.VISIBLE);
-        mDesireDetailFragBinding.buttonCloseTransaction.setVisibility(View.VISIBLE);
 
         Media mediaHaver = haver.getUser().getImage();
         if (mediaHaver != null) {
@@ -45,10 +44,6 @@ public class DesireDetailActionHandler {
         }
     }
 
-    public void closeTransaction() {
-        mListener.closeTransaction();
-        mDesireDetailFragBinding.buttonCloseTransaction.setVisibility(View.GONE);
-    }
 
     public void buttonOpenRating() {
         mListener.openRating();

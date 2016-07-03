@@ -95,6 +95,12 @@ public class DesireRepository implements DesireDataSource {
         checkNotNull(desire);
         checkNotNull(callback);
 
+
+
+
+
+
+
         desireRemoteDataSource.updateDesire(desire, new UpdateDesireCallback() {
             @Override
             public void onDesireUpdated(Desire desire) {
@@ -114,6 +120,25 @@ public class DesireRepository implements DesireDataSource {
         checkNotNull(status);
         checkNotNull(callback);
 
+        System.out.println("desire id = " + desireId);
+        System.out.println("status val =  " + status);
+
+        /*
+        // TODO include to debug filter setting
+        Desire abc = desire;
+        System.out.println("*****begin print desireFilter in getDesiresByFilter****");
+        for (Field field : abc.getClass().getDeclaredFields()) {
+            field.setAccessible(true);
+            String name = field.getName();
+            Object value = null;
+            try {
+                value = field.get(abc);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+            System.out.printf("Field name: %s, Field value: %s%n", name, value);
+        }
+        */
         desireRemoteDataSource.updateDesireStatus(desireId, status, new UpdateDesireStatusCallback() {
             @Override
             public void onStatusUpdated(Desire desire) {
