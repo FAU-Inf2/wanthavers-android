@@ -29,8 +29,8 @@ public class GpsLocationTracker extends Service implements LocationListener {
     private double mLatitude = 49.573759d;
     private double mLongitude = 11.027389d;
 
-    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATE = 5;
-    private static final long MIN_TIME_FOR_UPDATE = 0;
+    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATE = 5; //5meter
+    private static final long MIN_TIME_FOR_UPDATE = 5*1000; //5sec
     private LocationManager mLocationManager;
 
 
@@ -39,6 +39,7 @@ public class GpsLocationTracker extends Service implements LocationListener {
         mLatitude = startLat;
         mLongitude = startLng;
         getLocation();
+        removeLocationListener();
     }
 
     public GpsLocationTracker(Context context) {
@@ -112,12 +113,12 @@ public class GpsLocationTracker extends Service implements LocationListener {
         return mLocation;
     }
 
-    public boolean isGpsEnabled() {
+    private boolean isGpsEnabled() {
         return mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
 
     }
 
-    public boolean isNetworkEnabled() {
+    private boolean isNetworkEnabled() {
         return mLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
     }
 
@@ -153,7 +154,10 @@ public class GpsLocationTracker extends Service implements LocationListener {
     }
 
     public void onLocationChanged(Location location) {
-        getLocation();
+        //if(location!=null) {
+        //    mLocation = location;
+         //   getLocation();
+        //}
     }
 
     public void onProviderDisabled(String provider) {
@@ -165,25 +169,29 @@ public class GpsLocationTracker extends Service implements LocationListener {
     }
 
     public void onStatusChanged(String provider, int status, Bundle extras) {
-
+       // if (extras != null) {
+        //    Location loc = (Location) extras.get(android.location.LocationManager.KEY_LOCATION_CHANGED);
+         //   mLocation = loc;
+         //   getLocation();
+       // }
     }
 
     public void removeLocationListener() {
+        if (mLocationManager != null) {
+            //stop searching for a GPS Signal after leaving MapActivity
+            if (Build.VERSION.SDK_INT >= 23) {
+                if (mContext.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                    mLocationManager.removeUpdates(this);
+                    mLocationManager = null;
+                    return;
 
-        //stop searching for a GPS Signal after leaving MapActivity
-        if (Build.VERSION.SDK_INT >= 23) {
-            if (mContext.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                mLocationManager.removeUpdates(this);
-                mLocationManager = null;
-                return;
-
+                }
             }
+
+            mLocationManager.removeUpdates(this);
+            mLocationManager = null;
+
         }
-
-        mLocationManager.removeUpdates(this);
-        mLocationManager = null;
-
     }
-
 
 }

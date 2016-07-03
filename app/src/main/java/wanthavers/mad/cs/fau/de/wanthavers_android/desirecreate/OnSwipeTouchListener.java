@@ -10,6 +10,8 @@ import android.view.View.OnTouchListener;
 
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desiredetail.DesireDetailContract;
+import wanthavers.mad.cs.fau.de.wanthavers_android.locationlist.LocationListActionHandler;
+import wanthavers.mad.cs.fau.de.wanthavers_android.locationlist.LocationListContract;
 
 public class OnSwipeTouchListener implements OnTouchListener {
 
@@ -18,6 +20,8 @@ public class OnSwipeTouchListener implements OnTouchListener {
     private final DesireDetailContract.Presenter mPresenterDetail;
     private final Activity mContext;
     private final DesireCreateActionHandler mActionHandler;
+    private final LocationListContract.Presenter  mPresenterLocation;
+    private final LocationListActionHandler mActionHandlerLocation;
 
     public OnSwipeTouchListener (Context context, DesireCreateContract.Presenter presenter , DesireCreateActionHandler actionHandler){
         gestureDetector = new GestureDetector(context, new GestureListener());
@@ -25,6 +29,8 @@ public class OnSwipeTouchListener implements OnTouchListener {
         mPresenterDetail = null;
         mContext = (Activity) context;
         mActionHandler = actionHandler;
+        mPresenterLocation=null;
+        mActionHandlerLocation = null;
     }
 
     public OnSwipeTouchListener (Context context, DesireDetailContract.Presenter presenter ){
@@ -33,6 +39,19 @@ public class OnSwipeTouchListener implements OnTouchListener {
         mPresenter = null;
         mContext = (Activity) context;
         mActionHandler = null;
+        mPresenterLocation = null;
+        mActionHandlerLocation = null;
+    }
+
+    public OnSwipeTouchListener (Context context, LocationListContract.Presenter presenter ,
+                                 LocationListActionHandler ac){
+        gestureDetector = new GestureDetector(context, new GestureListener());
+        mPresenterLocation = presenter;
+        mPresenter = null;
+        mPresenterDetail = null;
+        mContext = (Activity) context;
+        mActionHandler = null;
+        mActionHandlerLocation = ac;
     }
 
 
@@ -92,6 +111,9 @@ public class OnSwipeTouchListener implements OnTouchListener {
     }
 
     public void onSwipeLeft() {
+        if (mPresenterLocation !=null){
+            mActionHandlerLocation.buttonAddLocation();
+        }
         if (mActionHandler!= null) {
             mActionHandler.buttonNextDesireStep();
         }

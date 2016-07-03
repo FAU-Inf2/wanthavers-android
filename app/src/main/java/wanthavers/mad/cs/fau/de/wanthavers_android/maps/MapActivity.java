@@ -54,8 +54,7 @@ import android.widget.Toast;
 import de.fau.cs.mad.wanthavers.common.Category;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate.DesireCreateActivity;
-import wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate.DesireCreateActivity2ndStep;
-import wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate.DesireCreateActivity3rdStep;
+
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate.DesireCreateFragment2ndStep;
 import wanthavers.mad.cs.fau.de.wanthavers_android.filtersetting.FilterSettingActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.settings.SettingsActivity;
@@ -91,7 +90,7 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
     private MapContract.Presenter mMapPresenter;;
     private MapActBinding mViewDataBinding;
     private MapActionHandler mMapActionHandler;
-    private DesireCreateFragment2ndStep test = DesireCreateFragment2ndStep.newInstance();
+    //private DesireCreateFragment2ndStep test = DesireCreateFragment2ndStep.newInstance();
     private int mCalledAct;
 
 
@@ -120,15 +119,15 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
         // computer science tower uni erlangen
         mGpsLocationTracker = new GpsLocationTracker(MapActivity.this, 49.573759d, 11.027389d);
 
-        if (!mGpsLocationTracker.isNetworkAvailable()){
+        /*if (!mGpsLocationTracker.isNetworkAvailable()){
             onBackPressed();
             return;
-        }
+        }*/
 
 
         if (!forDesireDetail()) {
             //dont ask for GPS in DesireDetail
-            if (!mGpsLocationTracker.isGpsEnabled()) {
+            if (!isGpsEnabled()) {
                 showAlert();
             }
 
@@ -142,6 +141,11 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
 
 
         initializeUI();
+
+    }
+
+    private boolean isGpsEnabled() {
+        return mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
 
     }
 
@@ -446,7 +450,6 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
                 centerX, centerY));
         setLocation(mLocationTextView.getText().toString(), centerLatLng.latitude, centerLatLng.longitude);
 
-        stopSearchingForGpsSignal();
     }
 
     private void setLocation(String location, double lat, double lng) {
@@ -466,7 +469,6 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
                 intent.putExtra("desireLocationId", "");
 
             }
-
             setResult(1, intent);
             finish();
 
@@ -474,26 +476,6 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
             finish();
 
         }else if(!forDesireDetail() && !forFilterSettings()){ // DesireCreate
-            /*String title = getIntent().getExtras().getString("desireTitle");
-            String description = getIntent().getExtras().getString("desireDescription");
-            String price = getIntent().getExtras().getString("desirePrice");
-            //String reward = getIntent().getExtras().getString("desireReward");
-            String currency = getIntent().getExtras().getString("desireCurrency");
-            Uri image = getIntent().getExtras().getParcelable("desireImage");
-            Category cat = (Category) getIntent().getSerializableExtra("desireCategory");
-
-            Intent intent = new Intent(this, DesireCreateActivity3rdStep.class);
-
-            intent.putExtra("desireTitle", title);
-            intent.putExtra("desireDescription", description);
-            intent.putExtra("desirePrice", price);
-            //intent.putExtra("desireReward", reward);
-            intent.putExtra("desireCurrency", currency);
-            intent.putExtra("desireImage", image);
-            intent.putExtra("desireLocation", location);
-            intent.putExtra("desireLocationLat", Double.toString(lat));
-            intent.putExtra("desireLocationLng", Double.toString(lng));
-            intent.putExtra("desireCategory", cat);*/
 
             Intent intent = new Intent();
 
@@ -516,14 +498,12 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
     @Override
     public void onBackPressed(){
 
-        stopSearchingForGpsSignal();
 
         if(forFilterSettings()) {
             Intent intent = new Intent();
             intent.putExtra("desireLocation", "");
             setResult(1, intent);
         }
-
         super.onBackPressed();
         if(!forDesireDetail() && !forFilterSettings()) {
             overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
@@ -546,15 +526,23 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
         return !(mGpsLocationTracker.isNetworkAvailable());
     }
 
-    private void stopSearchingForGpsSignal(){
+    /*private void stopSearchingForGpsSignal(){
         //stop searching for a GPS Signal after leaving MapActivity
-        mGpsLocationTracker.removeLocationListener();
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            //showing yourself on the map, if GPS is enabled
-            googleMap.setMyLocationEnabled(false);
+       if(mGpsLocationTracker!=null) {
+           mGpsLocationTracker.removeLocationListener();
+           if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                   && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+               //showing yourself on the map, if GPS is enabled
+               googleMap.setMyLocationEnabled(false);
 
+           }
+           mGpsLocationTracker = null;
+       }
+        if(mLocationManager!=null){
+            //mLocationManager.removeUpdates(this);
+            mLocationManager=null;
         }
-    }
+
+    }*/
 
 }

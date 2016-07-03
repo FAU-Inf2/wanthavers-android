@@ -46,6 +46,7 @@ public class SettingsFragment extends Fragment implements SettingsContract.View 
     private int REQUEST_CAMERA = 0;
     private int REQUEST_GALLERY = 1;
     private ProgressDialog mLoadingDialog;
+    private final int MAX_IMAGE_SIZE = 1200;
 
     public SettingsFragment() {
         //Requires empty public constructor
@@ -142,13 +143,10 @@ public class SettingsFragment extends Fragment implements SettingsContract.View 
                 orientation = cur.getInt(cur.getColumnIndex(orientationColumn[0]));
             }
 
+            //resizing high resolution images
+            SelectImageLogic imageLogic = new SelectImageLogic(getContext());
+            image = imageLogic.scaleDown(image, MAX_IMAGE_SIZE, orientation);
             imageView.setImageURI(image);
-
-            switch(orientation) {
-                case 90:
-                    imageView.setRotation(90);
-                    break;
-            }
 
             File file = new File(PathHelper.getRealPathFromURI(this.getContext().getApplicationContext(), image));
             long loggedInUserId = mDesireLogic.getLoggedInUserId();

@@ -6,7 +6,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -97,7 +100,7 @@ public class SelectImageLogic {
 
     }
 
-    public Uri getImageFromCamera(Intent data){
+    /*public Uri getImageFromCamera(Intent data){
         String title = Long.toString(System.currentTimeMillis());
         Bitmap image = (Bitmap) data.getExtras().get("data");
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
@@ -118,6 +121,48 @@ public class SelectImageLogic {
             e.printStackTrace();
         }
         return bitmapToUri(image, title);
+    }*/
+
+
+    //resizing an image to an maxImageSize scaled image
+    public Uri scaleDown(Uri realImage, float maxImageSize, int orientation) {
+
+        try {
+            Bitmap  bm = MediaStore.Images.Media.getBitmap(mContext.getContentResolver(), realImage);
+            float ratio = Math.min(
+                    (float) maxImageSize / bm.getWidth(),
+                    (float) maxImageSize / bm.getHeight());
+
+            int width = Math.round((float) ratio * bm.getWidth());
+            int height = Math.round((float) ratio * bm.getHeight());
+
+            Bitmap bitmap = getResizedBitmap(bm, height,  width, orientation);
+            return bitmapToUri(bitmap);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+
+    }
+
+    public Bitmap getResizedBitmap(Bitmap bm, int newHeight, int newWidth, int orientation) {
+
+        int width = bm.getWidth();
+        int height = bm.getHeight();
+
+        float scaleWidth = ((float) newWidth) / width;
+        float scaleHeight = ((float) newHeight) / height;
+
+        Matrix matrix = new Matrix();
+        matrix.postScale(scaleWidth, scaleHeight);
+
+        matrix.postRotate(orientation);
+
+        Bitmap resizedBitmap = Bitmap.createBitmap(bm, 0, 0, width, height, matrix, false);
+
+        return resizedBitmap;
+
     }
 
 
@@ -132,8 +177,10 @@ public class SelectImageLogic {
         return success;
     }
 
-    private Uri bitmapToUri (Bitmap bitmap, String title){
-        String path = MediaStore.Images.Media.insertImage(mContext.getContentResolver(), bitmap, title, null);
+    public Uri bitmapToUri(Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(mContext.getContentResolver(), inImage, "Title", null);
         return Uri.parse(path);
     }
 

@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
@@ -65,6 +66,7 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
     private String mLocation;
     private double mLat;
     private double mLng;
+    private final int MAX_IMAGE_SIZE = 1200;
 
     public DesireCreateFragment2ndStep(){
         //Requires empty public constructor
@@ -239,13 +241,16 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
             orientation = cur.getInt(cur.getColumnIndex(orientationColumn[0]));
         }
 
+        //resizing high resolution images
+        SelectImageLogic imageLogic = mPresenter.getImageLogic();
+        image = imageLogic.scaleDown(image, MAX_IMAGE_SIZE, orientation);
         mImageView.setImageURI(image);
 
-        switch(orientation) {
+       /* switch(orientation) {
             case 90:
                 mImageView.setRotation(90);
                 break;
-        }
+        }*/
 
     }
 
@@ -271,13 +276,15 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
             orientation = cur.getInt(cur.getColumnIndex(orientationColumn[0]));
         }
 
+        SelectImageLogic imageLogic = mPresenter.getImageLogic();
+        image = imageLogic.scaleDown(image, MAX_IMAGE_SIZE, orientation);
         mImageView.setImageURI(image);
 
-        switch(orientation) {
+        /*switch(orientation) {
             case 90:
                 mImageView.setRotation(90);
                 break;
-        }
+        }*/
     }
 
     /*private void cameraResult(Intent data){
@@ -366,6 +373,25 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
     public void showCategories(List<Category> categories) {
         //mCategoryListAdapter.replaceData(categories);
         //mCategoryListAdapter.getFilter().filter(null);
+    }
+
+
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        ImageView iV = mViewDataBinding.selectedImageCategory;
+
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            iV.setImageURI(image);
+            if(mCategory!= null){
+                showCategory(mCategory);
+            }
+        } else {
+            iV.setImageURI(image);
+            if(mCategory!= null){
+                showCategory(mCategory);
+            }
+        }
     }
 
 }

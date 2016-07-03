@@ -35,7 +35,8 @@
         <activity android:name="wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.DesireListActivity"/>
         <activity android:name="wanthavers.mad.cs.fau.de.wanthavers_android.desiredetail.DesireDetailActivity"/>
         <activity android:name="wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate.DesireCreateActivity"/>
-        <activity android:name="wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate.DesireCreateActivity2ndStep"/>
+        <activity android:name="wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate.DesireCreateActivity2ndStep"
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
         <activity android:name="wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate.DesireCreateActivity3rdStep"/>
         <activity android:name="wanthavers.mad.cs.fau.de.wanthavers_android.chatlist.ChatListActivity"/>
         <activity android:name="wanthavers.mad.cs.fau.de.wanthavers_android.chatdetail.ChatDetailActivity"/>
