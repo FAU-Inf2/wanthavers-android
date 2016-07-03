@@ -26,8 +26,10 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -196,7 +198,8 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
             imageHeight = mMarkerImageView.getHeight();
 
             centerX = imageParentWidth / 2;
-            centerY = (imageParentHeight / 2);
+            centerY = (imageParentHeight / 2) + (imageHeight / 2);
+
         }
     }
 
@@ -372,6 +375,11 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
         // EditText view to get user input
         final EditText input = new EditText(this);
         input.setText(mLocationTextView.getText());
+
+        input.selectAll();
+
+        final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+
         builder.setView(input);
 
         builder.setPositiveButton(getString(R.string.Set_location_ok), new DialogInterface.OnClickListener() {
@@ -381,6 +389,8 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
                 String address = input.getText().toString();
                 updateAddress(address);
 
+                //close keyboard
+                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
                 return;
             }
         });
@@ -389,10 +399,17 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                //close keyboard
+                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
                 return;}
         });
 
         builder.show();
+
+        input.requestFocus();
+
+        //show keyboard
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
 
     }
 

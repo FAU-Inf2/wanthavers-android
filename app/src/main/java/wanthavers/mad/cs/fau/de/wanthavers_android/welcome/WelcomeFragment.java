@@ -28,7 +28,6 @@ public class WelcomeFragment extends Fragment implements WelcomeContract.View {
     private WelcomeContract.Presenter mPresenter;
     private Uri image;
     private ProgressDialog mLoadingDialog;
-    private final int MAX_IMAGE_SIZE = 1200;
 
     public WelcomeFragment(){
         //Requires empty public constructor
@@ -98,7 +97,7 @@ public class WelcomeFragment extends Fragment implements WelcomeContract.View {
 
             //resizing high resolution images
             SelectImageLogic imageLogic = new SelectImageLogic(getContext());
-            image = imageLogic.scaleDown(image, MAX_IMAGE_SIZE, orientation);
+            image = imageLogic.scaleDown(image, imageLogic.getMaxImageSize(), orientation);
             imageView.setImageURI(image);
 
             File file = new File(PathHelper.getRealPathFromURI(this.getContext().getApplicationContext(), image));

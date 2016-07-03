@@ -33,10 +33,15 @@ public class SelectImageLogic {
     Activity mAct;
     private int REQUEST_CAMERA = 0;
     private int REQUEST_GALLERY = 1;
+    private final int MAX_IMAGE_SIZE = 1200;
 
     public SelectImageLogic(Context context){
         mContext = context;
         mAct = (Activity) context;
+    }
+
+    public int getMaxImageSize(){
+        return MAX_IMAGE_SIZE;
     }
 
 

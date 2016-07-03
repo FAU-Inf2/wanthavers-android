@@ -46,7 +46,6 @@ public class SettingsFragment extends Fragment implements SettingsContract.View 
     private int REQUEST_CAMERA = 0;
     private int REQUEST_GALLERY = 1;
     private ProgressDialog mLoadingDialog;
-    private final int MAX_IMAGE_SIZE = 1200;
 
     public SettingsFragment() {
         //Requires empty public constructor
@@ -145,7 +144,7 @@ public class SettingsFragment extends Fragment implements SettingsContract.View 
 
             //resizing high resolution images
             SelectImageLogic imageLogic = new SelectImageLogic(getContext());
-            image = imageLogic.scaleDown(image, MAX_IMAGE_SIZE, orientation);
+            image = imageLogic.scaleDown(image, imageLogic.getMaxImageSize(), orientation);
             imageView.setImageURI(image);
 
             File file = new File(PathHelper.getRealPathFromURI(this.getContext().getApplicationContext(), image));

@@ -10,6 +10,6 @@
         android:layout_centerInParent="true"
         android:layout_marginTop="162dp"
         android:contentDescription="@string/app_name"
-        android:src="@android:drawable/ic_menu_mylocation" />
+        android:src="@mipmap/map_marker" />
 
 </RelativeLayout>
