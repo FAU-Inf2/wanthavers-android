@@ -110,9 +110,10 @@
             <RelativeLayout
                 android:id="@+id/selected_category_item"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="45dp"
                 android:background="@color/desireDetailBackground"
-                android:onClick="@{() -> actionHandler.openCategoryList()}">
+                android:onClick="@{() -> actionHandler.openCategoryList()}"
+                >
 
                 <ImageView
                     android:id="@+id/selected_image_category"
