@@ -59,6 +59,6 @@ public interface CloudMessageTokenDataSource {
 
     void updateToken(@NonNull long tokenId, @NonNull CloudMessageToken token, @NonNull UpdateTokenCallback callback);
 
-    void deleteToken(@NonNull long tokenId, @NonNull DeleteTokenCallback callback);
+    void deleteToken(@NonNull String token, @NonNull DeleteTokenCallback callback);
 
 }
