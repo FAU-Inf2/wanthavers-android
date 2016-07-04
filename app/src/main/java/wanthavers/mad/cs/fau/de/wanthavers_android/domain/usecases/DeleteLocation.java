@@ -1,15 +1,19 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases;
 
+import android.support.annotation.NonNull;
+
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCase;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.location.LocationDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.location.LocationRepository;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 public class DeleteLocation extends UseCase<DeleteLocation.RequestValues, DeleteLocation.ResponseValue> {
 
     private final LocationRepository mLocationRepository;
 
-    public DeleteLocation(LocationRepository locationRepository) {
-        mLocationRepository = locationRepository;
+    public DeleteLocation(@NonNull LocationRepository locationRepository) {
+        mLocationRepository = checkNotNull(locationRepository, "location repository cannot be null");
     }
 
     @Override

@@ -51,10 +51,11 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
     }
     @Override
     public void start() {
-        loadCurFilterSettings();
+        /*loadCurFilterSettings();*/
     }
 
-    public void loadCurFilterSettings() {
+    @Override
+    public void loadCurFilterSettings(Category category, Location location) {
 
         //get views
         RatingBar minRatingBar = (RatingBar) mActivity.findViewById(R.id.filter_Setting_Rating_Bar);
@@ -69,11 +70,11 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
         Double maxPrice = curFilter.getPrice_max();
         Float minimalRating = curFilter.getRating_min();
         Double minimalPrice = curFilter.getPrice_min();
-        Location location = curFilter.getLocation();
+        Location filterLocation = curFilter.getLocation();
         Double radius = curFilter.getRadius();
 
         //set values
-        if (categoryId != null) {
+        if (categoryId != null && category == null) {
             getCategory(categoryId);
         }
 
@@ -89,12 +90,17 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
             minRatingBar.setRating(minimalRating);
         }
 
-        if (location != null) {
-            mFilterSettingView.setLocation(location);
+        if (filterLocation != null && location == null) {
+            mFilterSettingView.setLocation(filterLocation);
+        }
+
+        if (radiusView == null) {
+            //call from activity
+            return;
         }
 
         //TODO: Radius not hard coded
-        if (radius != null) {
+        if (radius != null && location == null) {
             mFilterSettingView.showRadiusOption();
             if (radius == 1.0) {
                 radiusView.setSelection(0);
