@@ -91,6 +91,7 @@ public interface HaverDataSource {
 
     void getAcceptedHaverForDesire(@NonNull long desireId, @NonNull GetAcceptedHaverForDesireCallback callback);
 
-    void updateHaverStatus(@NonNull long desireId, @NonNull long haverId, @NonNull Haver haver, @NonNull int status, @NonNull UpdateHaverStatusCallback callback);
+    void updateHaverStatus(@NonNull long desireId, @NonNull long userId, @NonNull int status, @NonNull UpdateHaverStatusCallback callback);
 
+    void deleteHaver(@NonNull long desireId, @NonNull long userId, @NonNull DeleteHaverCallback callback);
 }

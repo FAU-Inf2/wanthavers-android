@@ -42,10 +42,10 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.categorylist.CategoryListActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.Desirecreate2ndFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.GpsLocationTrackerLogic;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.SelectImageLogic;
 //import wanthavers.mad.cs.fau.de.wanthavers_android.filtersetting.CategoryAdapter;
 import wanthavers.mad.cs.fau.de.wanthavers_android.locationlist.LocationListActivity;
-import wanthavers.mad.cs.fau.de.wanthavers_android.maps.GpsLocationTracker;
 import wanthavers.mad.cs.fau.de.wanthavers_android.maps.MapActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.PathHelper;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.RoundedTransformation;
@@ -91,7 +91,7 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
         super.onResume();
         mPresenter.start();
 
-        GpsLocationTracker gpsLocationTracker = new GpsLocationTracker(getContext());
+        GpsLocationTrackerLogic gpsLocationTracker = new GpsLocationTrackerLogic(getContext());
         if (!gpsLocationTracker.isNetworkAvailable()){
             showMessage(getString(R.string.network_failure));
         }

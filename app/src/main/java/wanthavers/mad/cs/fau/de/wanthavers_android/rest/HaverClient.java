@@ -50,15 +50,19 @@ public class HaverClient extends RestClient {
     }
 
     public Haver acceptHaver(long desireId, long haverId, Haver haver) {
-        return setHaverStatus(desireId, haverId, haver, HaverStatus.ACCEPTED);
-    }
-
-    public Haver setHaverStatus(long desireId, long haverId, Haver haver, int status) {
-        haver.setStatus(status);
-        return updateHaver(desireId, haverId, haver);
+        haver.setStatus(HaverStatus.ACCEPTED);
+        return haverEndpoint.updateHaver(desireId, haverId, haver);
     }
 
     public Haver getAcceptedHaver(long desireId) {
         return haverEndpoint.getAccepted(desireId);
+    }
+
+    public Haver deleteHaver(long desireId, long userId) {
+        return haverEndpoint.updateHaverStatus(desireId, userId, HaverStatus.DELETED);
+    }
+
+    public Haver setHaverStatus(long desireId, long userId, int status) {
+        return haverEndpoint.updateHaverStatus(desireId, userId, status);
     }
 }

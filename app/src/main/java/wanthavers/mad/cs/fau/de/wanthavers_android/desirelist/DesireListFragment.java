@@ -23,6 +23,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -39,6 +40,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.NavHeaderBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate.DesireCreateActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desiredetail.DesireDetailActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.GpsLocationTrackerLogic;
 import wanthavers.mad.cs.fau.de.wanthavers_android.filtersetting.FilterSettingActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.login.LoginActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.rest.RestClient;
@@ -57,6 +59,8 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
     private DesireLogic mDesireLogic;
     private NavHeaderBinding mNavHeaderBinding;
     private int i = 0;
+    private GpsLocationTrackerLogic mGpsLocationTracker;
+    private LatLng mLatLng;
 
     public DesireListFragment(){
         //Requires empty public constructor
@@ -96,8 +100,14 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
         //check for Location Runtime Permissions
         isFineLocationPermissionGranted();
 
-        //Set up desire view
+        //starting GPS LocationTracker for Users actual LatLng
+        mGpsLocationTracker = new GpsLocationTrackerLogic(this.getActivity(), 49.589674d, 11.011961d); //LatLng Erlangen
+        double lat = mGpsLocationTracker.getLatitude();
+        double lon = mGpsLocationTracker.getLongitude();
+        mLatLng = new LatLng(lat, lon);
+        // TODO Oliver Lutz: set LocationFilter for DesireList
 
+        //Set up desire view
         RecyclerView recyclerView = (RecyclerView) desirelistFragBinding.desiresList;
 
         //to improve performance set the layout size as fixed as it is fixed in our case

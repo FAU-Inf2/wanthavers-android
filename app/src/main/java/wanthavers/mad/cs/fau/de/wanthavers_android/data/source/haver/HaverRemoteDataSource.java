@@ -98,12 +98,22 @@ public class HaverRemoteDataSource implements HaverDataSource {
     }
 
     @Override
-    public void updateHaverStatus(@NonNull long desireId, @NonNull long haverId, @NonNull Haver haver, @NonNull int status, @NonNull UpdateHaverStatusCallback callback) {
+    public void updateHaverStatus(@NonNull long desireId, @NonNull long userId, @NonNull int status, @NonNull UpdateHaverStatusCallback callback) {
         try {
-            Haver ret = haverClient.setHaverStatus(desireId, haverId, haver, status);
+            Haver ret = haverClient.setHaverStatus(desireId, userId, status);
             callback.onStatusUpdated(ret);
         } catch (Throwable t) {
             callback.onUpdateFailed();
+        }
+    }
+
+    @Override
+    public void deleteHaver(@NonNull long desireId, @NonNull long userId, @NonNull DeleteHaverCallback callback) {
+        try {
+            haverClient.deleteHaver(desireId, userId);
+            callback.onHaverDeleted();
+        } catch (Throwable t) {
+            callback.onDeleteFailed();
         }
     }
 }

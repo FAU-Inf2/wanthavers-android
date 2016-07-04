@@ -68,8 +68,14 @@ public class HaverLocalDataSource implements HaverDataSource {
     }
 
     @Override
-    public void updateHaverStatus(@NonNull long desireId, @NonNull long haverId, @NonNull Haver haver, @NonNull int status, @NonNull UpdateHaverStatusCallback callback) {
+    public void updateHaverStatus(@NonNull long desireId, @NonNull long userId, @NonNull int status, @NonNull UpdateHaverStatusCallback callback) {
         //TODO: alter this method when we decide to store havers locally
         callback.onUpdateFailed();
+    }
+
+    @Override
+    public void deleteHaver(@NonNull long desireId, @NonNull long userId, @NonNull DeleteHaverCallback callback) {
+        //TODO: alter this method when we decide to store havers locally
+        callback.onDeleteFailed();
     }
 }
