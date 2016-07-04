@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.ActivityUtils;
+import wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -22,9 +23,12 @@ public class DesireCreateActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();
-        ab.setTitle(R.string.createDesire_title_1st_Step);
+        ab.setTitle("");
         ab.setDisplayHomeAsUpEnabled(true);
         ab.setDisplayShowHomeEnabled(true);
+
+        WantHaversTextView abTitle = (WantHaversTextView) findViewById(R.id.toolbar_title);
+        abTitle.setText(getString(R.string.createDesire_title_1st_Step));
 
         DesireCreateFragment desireCreateFragment = (DesireCreateFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.contentFrame);

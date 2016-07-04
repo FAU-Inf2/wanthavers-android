@@ -36,14 +36,14 @@
     <string name="create_desire_price_header">Price</string>
     <string name="create_desire_reward_header">Reward</string>
     <string name="create_desire_description_hint">max. 300 Characters</string>
-    <string name="createDesire_title_1st_Step">Create Desire: 1st Step</string>
-    <string name="createDesire_title_2nd_Step">Create Desire: 2nd Step</string>
-    <string name="createDesire_title_location_Step">Create Desire: 3rd Step</string>
+    <string name="createDesire_title_1st_Step">Create Desire: Step 1</string>
+    <string name="createDesire_title_2nd_Step">Create Desire: Step 2</string>
+    <string name="createDesire_title_location_Step">Create Desire: Step 3</string>
     <string name="createDesire_title_3rd_Step">Creating your Desire &#8230;</string>
     <string name="createDesire_Empty_Text">Please fill out all fields</string>
     <string name="no_chats">no chats to show</string>
     <string name="button_desire_accept">accept desire</string>
-    <string name="button_desire_message">send</string>
+    <string name="button_desire_message">Send</string>
     <string name="desire_detail_wanter">Wanter:</string>
     <string name="loading_chats_error">Error while loading chat</string>
     <string name="add_image">Add Image!</string>
@@ -64,12 +64,12 @@
     <string name="reset_button">reset</string>
     <string name="notifications">Notifications</string>
     <string name="button_change_profile_picture">Change profile picture</string>
-    <string name="no_havers">Unfortunately no havers yet</string>
+    <string name="no_havers">Unfortunately there are no Havers yet</string>
     <string name="small_price">SMALL</string>
     <string name="medium_price">MEDIUM</string>
     <string name="large_price">LARGE</string>
-    <string name="minimal_reward_title">Minimal reward</string>
-    <string name="minimal_rating_title">Minimal rating</string>
+    <string name="minimal_reward_title">minimum reward</string>
+    <string name="minimal_rating_title">minimum rating</string>
     <string name="location_title">Location</string>
     <string name="filter_radius_title">Radius</string>
     <string name="button_apply_filter">Apply filter</string>
@@ -91,6 +91,7 @@
     <string name="button_close_transaction">Close Transaction</string>
     <string name="closing_transaction_error">Error while closing transaction</string>
     <string name="haver_status_open">OPEN</string>
+    <string name="haver_status_waiting">WAITING FOR WANTER</string>
     <string name="haver_status_accepted">ACCEPTED</string>
     <string name="haver_status_rejected">REJECTED</string>
     <string name="no_location_selected">No location selected yet</string>
@@ -131,6 +132,7 @@
     <string name="password_reset_error">Error while reseting your password</string>
     <string name="locationlist_title">Chose a Location</string>
     <string name="locationlist_empty">No locations stored yet</string>
+    <string name="desire_detail_delete_haver_error">Error while deleting desire</string>
 
 
     <string-array name="currencies">

@@ -165,6 +165,7 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
             MenuItem menReportDesire = menu.findItem(R.id.menu_report_desire);
             MenuItem menDeleteDesire = menu.findItem(R.id.menu_delete_desire);
             MenuItem menAcceptDesire = menu.findItem(R.id.menu_accept_desire);
+            MenuItem menDeleteHaver = menu.findItem(R.id.menu_delete_haver);
 
             if (mDesireDetailFragBinding.getDesire() != null && mDesireDetailFragBinding.getDesire().getCreator().getId() == loggedInUser) {
 
@@ -173,10 +174,18 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
                 }
 
             } else if (mHaver != null && mHaver.getUser().getId() == loggedInUser) { //include haver here
-                    menReportDesire.setVisible(true);
+                menReportDesire.setVisible(true);
+                menAcceptDesire.setVisible(false);
+            } else if (mHaver == null && mDesireDetailFragBinding.desireHaverStatus.equals(R.string.haver_status_waiting)
+                    && mDesireDetailFragBinding.getDesire().getCreator().getId() != loggedInUser) {
+                System.out.println("aölsdhf");
+                menAcceptDesire.setVisible(false);
+                menReportDesire.setVisible(true);
+                menDeleteHaver.setVisible(true);
             } else {
                     menReportDesire.setVisible(true);
                     menAcceptDesire.setVisible(true);
+                //TODO make delete haver button visible
             }
 
         }
@@ -192,11 +201,15 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
                 mPresenter.openDeletionDialog();
                 break;
             case R.id.menu_accept_desire:
+                //TODO: remove debug outputs
                 mPresenter.setHaver();
                 item.setVisible(false);
                 break;
             case R.id.menu_finish_desire:
                 mPresenter.closeTransaction();
+                break;
+            case R.id.menu_delete_haver:
+                mPresenter.deleteDesire();
                 break;
 
         }
@@ -219,7 +232,7 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
         Media mediaDesire = desire.getImage();
         if (mediaDesire != null) {
             final ImageView profileView = mDesireDetailFragBinding.desireDetailItemImage;
-            Picasso.with(mDesireDetailFragBinding.getRoot().getContext()).load(mediaDesire.getLowRes()).transform(new RoundedTransformation(200,0)).into(profileView);
+            Picasso.with(mDesireDetailFragBinding.getRoot().getContext()).load(mediaDesire.getLowRes()).transform(new RoundedTransformation(1000,0)).into(profileView);
         } else{
             //else case is neccessary as the image is otherwise overwritten on scroll
             final ImageView profileView = mDesireDetailFragBinding.desireDetailItemImage;
@@ -233,7 +246,7 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
             Media mediaWanter = creator.getImage();
             if (mediaWanter != null) {
                 final ImageView profileView = mDesireDetailFragBinding.imageWanter;
-                Picasso.with(mDesireDetailFragBinding.getRoot().getContext()).load(mediaWanter.getLowRes()).transform(new RoundedTransformation(200,0)).into(profileView);
+                Picasso.with(mDesireDetailFragBinding.getRoot().getContext()).load(mediaWanter.getLowRes()).transform(new RoundedTransformation(1000,0)).into(profileView);
             } else{
                 //else case is neccessary as the image is otherwise overwritten on scroll
                 final ImageView profileView = mDesireDetailFragBinding.imageWanter;
@@ -245,6 +258,9 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
         //Show havers
         if (desire.getStatus() == DesireStatus.STATUS_OPEN) {
             mPresenter.loadHavers(false);
+            if (!mDesireLogic.isDesireCreator(creator.getId())) {
+                mPresenter.showUnacceptedHaverView();
+            }
         } else if (desire.getStatus() == DesireStatus.STATUS_IN_PROGRESS) {
             mPresenter.getAcceptedHaver();
             //haver cannot accept
@@ -291,7 +307,7 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
         Media mediaHaver = haver.getUser().getImage();
         if (mediaHaver != null) {
             final ImageView profileView = mDesireDetailFragBinding.imageAcceptedHaver;
-            Picasso.with(mDesireDetailFragBinding.getRoot().getContext()).load(mediaHaver.getLowRes()).transform(new RoundedTransformation(200,0)).into(profileView);
+            Picasso.with(mDesireDetailFragBinding.getRoot().getContext()).load(mediaHaver.getLowRes()).transform(new RoundedTransformation(1000,0)).into(profileView);
         } else{
             //else case is neccessary as the image is otherwise overwritten on scroll
             final ImageView profileView = mDesireDetailFragBinding.imageAcceptedHaver;
@@ -348,6 +364,11 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
         showMessage(getString(R.string.flag_desire_error));
     }
 
+    @Override
+    public void showDeleteHaverError() {
+        showMessage(getString(R.string.desire_detail_delete_haver_error));
+    }
+
     public void setDesireLogic(DesireLogic desireLogic){mDesireLogic = desireLogic;}
 
     //may be modified
@@ -372,17 +393,22 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
         return isAdded();
     }
 
-    @Override
+    /*@Override
     public void showAcceptButton(List<Haver> havers) {
         if (isHaver(havers)) {
             MenuItem acceptDesireMitem =  mOptionsMenu.findItem(R.id.menu_accept_desire);
             if(acceptDesireMitem != null) {
                 acceptDesireMitem.setVisible(false);
             }
+            mDesireDetailFragBinding.desireHaverStatus.setText(R.string.haver_status_waiting);
         }
+    }*/
+
+    public void showHaverAcceptStatus() {
+        mDesireDetailFragBinding.desireHaverStatus.setText(R.string.haver_status_waiting);
     }
 
-    public boolean isHaver(List<Haver> havers) {
+    /*public boolean isHaver(List<Haver> havers) {
         long loggedInUserId = mDesireLogic.getLoggedInUserId();
         for (int i = 0; i < havers.size(); i++) {
             if (havers.get(i).getUser().getId() == loggedInUserId) {
@@ -390,6 +416,15 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
             }
         }
         return false;
+    }*/
+
+    @Override
+    public void showUnacceptedHaverView() {
+        MenuItem acceptDesireMitem =  mOptionsMenu.findItem(R.id.menu_accept_desire);
+        if(acceptDesireMitem != null) {
+            acceptDesireMitem.setVisible(false);
+        }
+        mDesireDetailFragBinding.desireHaverStatus.setText(R.string.haver_status_waiting);
     }
 
     @Override

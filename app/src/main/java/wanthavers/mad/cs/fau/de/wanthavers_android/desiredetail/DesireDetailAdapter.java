@@ -68,7 +68,7 @@ public class DesireDetailAdapter extends RecyclerView.Adapter<DesireDetailAdapte
 
         if (m != null) {
             final ImageView profileView = haverItemBinding.imageHaver;
-            Picasso.with(haverItemBinding.getRoot().getContext()).load(m.getLowRes()).transform(new RoundedTransformation(200,0)).into(profileView);
+            Picasso.with(haverItemBinding.getRoot().getContext()).load(m.getLowRes()).transform(new RoundedTransformation(1000,0)).into(profileView);
         } else{
             //else case is neccessary as the image is otherwise overwritten on scroll
             final ImageView profileView = haverItemBinding.imageHaver;

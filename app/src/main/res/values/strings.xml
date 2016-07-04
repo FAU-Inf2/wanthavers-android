@@ -89,6 +89,7 @@
     <string name="button_close_transaction">Transaktion abschließen</string>
     <string name="closing_transaction_error">Fehler beim Abschließen der Transaktion</string>
     <string name="haver_status_open">OFFEN</string>
+    <string name="haver_status_waiting">AUF WANTER WARTEN</string>
     <string name="haver_status_accepted">AKZEPTIERT</string>
     <string name="haver_status_rejected">ABGELEHNT</string>
     <string name="no_location_selected">Kein Ort ausgewählt</string>
@@ -200,6 +201,8 @@
     <string name="locationlist_empty">Noch keine Orte gespeichert</string>
     <string name="settings_name_title">Name</string>
     <string name="desire_distance">weniger als</string>
+
+    <string name="desire_detail_delete_haver_error">Fehler beim Löschen des Havers</string>
 
     <string-array name="currencies">
         <item>\u20AC</item>

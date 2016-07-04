@@ -51,7 +51,7 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
     @Override
     public void onResume() {
         super.onResume();
-        mPresenter.start();
+        //mPresenter.start();
     }
 
     @Nullable
@@ -72,6 +72,22 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
         spinner.setAdapter(adapter);
         int defaultLocationId = adapter.getPosition("5km");
         spinner.setSelection(defaultLocationId);
+
+        if (savedInstanceState != null) {
+            if (savedInstanceState.getSerializable("filterCategory") != null) {
+                showCategory((Category) savedInstanceState.getSerializable("filterCategory"));
+            }
+            if (savedInstanceState.getSerializable("filterLocation") != null) {
+                setLocation((Location) savedInstanceState.getSerializable("filterLocation"));
+            }
+            if (savedInstanceState.getSerializable("filterRadiusPos") != null) {
+                String locationRadius = (String) savedInstanceState.getSerializable("filterRadiusPos");
+                spinner.setSelection(adapter.getPosition(locationRadius));
+            }
+        }
+
+        mPresenter.start();
+        mPresenter.loadCurFilterSettings(mFilterSettingFragBinding.getCategory(), mFilterSettingFragBinding.getLocation());
 
         return mFilterSettingFragBinding.getRoot();
     }
@@ -178,7 +194,7 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
 
         if (media != null) {
             final ImageView profileView = mFilterSettingFragBinding.selectedImageCategory;
-            Picasso.with(mFilterSettingFragBinding.getRoot().getContext()).load(media.getLowRes()).transform(new RoundedTransformation(200,0)).into(profileView);
+            Picasso.with(mFilterSettingFragBinding.getRoot().getContext()).load(media.getLowRes()).transform(new RoundedTransformation(1000,0)).into(profileView);
         } else{
             //else case is neccessary as the image is otherwise overwritten on scroll
             final ImageView profileView = mFilterSettingFragBinding.selectedImageCategory;
@@ -188,5 +204,14 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
         mFilterSettingFragBinding.selectedImageCategory.setVisibility(View.VISIBLE);
         mFilterSettingFragBinding.selectedCategoryName.setVisibility(View.VISIBLE);
         mFilterSettingFragBinding.noCategorySelected.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle state) {
+        super.onSaveInstanceState(state);
+        state.putSerializable("filterCategory", mFilterSettingFragBinding.getCategory());
+        state.putSerializable("filterLocation", mFilterSettingFragBinding.getLocation());
+        String spinnerSelection = (String) mFilterSettingFragBinding.spinnerRadius.getSelectedItem();
+        state.putSerializable("filterRadiusPos", spinnerSelection);
     }
 }

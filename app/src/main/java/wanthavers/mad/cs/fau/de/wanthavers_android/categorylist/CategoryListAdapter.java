@@ -61,7 +61,7 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
 
         if (media != null) {
             final ImageView profileView = categoryItemBinding.imageCategory;
-            Picasso.with(categoryItemBinding.getRoot().getContext()).load(media.getLowRes()).transform(new RoundedTransformation(200,0)).into(profileView);
+            Picasso.with(categoryItemBinding.getRoot().getContext()).load(media.getLowRes()).transform(new RoundedTransformation(1000,0)).into(profileView);
         } else{
             //else case is neccessary as the image is otherwise overwritten on scroll
             final ImageView profileView = categoryItemBinding.imageCategory;

@@ -22,46 +22,41 @@
         android:weightSum="1"
         android:focusableInTouchMode="true">
 
-        <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/create_desire_title_header"
-            android:id="@+id/create_desire_title_header"
-            android:textSize="20sp"
-            android:textColor="@color/colorMainTextDark"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginBottom="-10dp" />
-
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/create_desire_title_layout"
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
 
         <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversEditText
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/create_desire_Title"
-            android:layout_below="@+id/create_desire_title_header"
+            android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:maxLength="50"
+            android:hint="@string/create_desire_title_header"
             android:lines="1"/>
 
-        <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/create_desire_description_header"
-            android:textColor="@color/colorMainTextDark"
-            android:id="@+id/create_desire_description_header"
-            android:layout_below="@id/create_desire_Title"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentStart="true"
-            android:textSize="20sp"
-            android:textIsSelectable="false"
-            android:layout_marginTop="20dp" />
+        </android.support.design.widget.TextInputLayout>
+
+
+            <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/create_desire_description_header"
+                android:textColor="@color/colorMainTextDark"
+                android:id="@+id/create_desire_description_header"
+                android:layout_below="@id/create_desire_title_layout"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentStart="true"
+                android:textSize="20sp"
+                android:textIsSelectable="false"
+                android:layout_marginTop="20dp" />
+
 
         <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversEditText
             android:layout_width="wrap_content"
@@ -74,8 +69,8 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentStart="true"
-            android:layout_alignRight="@+id/create_desire_Title"
-            android:layout_alignEnd="@+id/create_desire_Title"
+            android:layout_alignRight="@+id/create_desire_title_layout"
+            android:layout_alignEnd="@+id/create_desire_title_layout"
             android:hint= "@string/create_desire_description_hint"
             android:gravity="top|left"
             android:maxLength="300"

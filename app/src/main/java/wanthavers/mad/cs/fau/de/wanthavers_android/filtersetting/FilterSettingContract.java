@@ -39,6 +39,8 @@ public interface FilterSettingContract {
 
     interface Presenter extends BasePresenter {
 
+        void loadCurFilterSettings(Category category, Location location);
+
         void setFilter(DesireFilter desireFilter);
 
         void setFilterWithInput(Category category, Location location);

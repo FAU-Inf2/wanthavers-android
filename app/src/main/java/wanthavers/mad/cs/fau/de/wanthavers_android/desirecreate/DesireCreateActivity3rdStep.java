@@ -18,6 +18,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.media.MediaReposi
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.SetDesire;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.SetImage;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.ActivityUtils;
+import wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -31,9 +32,12 @@ public class DesireCreateActivity3rdStep extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();
-        ab.setTitle(R.string.createDesire_title_3rd_Step);
+        ab.setTitle("");
         ab.setDisplayHomeAsUpEnabled(false);
         ab.setDisplayShowHomeEnabled(false);
+
+        WantHaversTextView abTitle = (WantHaversTextView) findViewById(R.id.toolbar_title);
+        abTitle.setText(getString(R.string.createDesire_title_3rd_Step));
 
         DesireCreateFragment3rdStep desireCreateFragment = (DesireCreateFragment3rdStep) getSupportFragmentManager()
                 .findFragmentById(R.id.contentFrame);

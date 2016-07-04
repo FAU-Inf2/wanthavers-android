@@ -18,11 +18,13 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCase;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.AcceptHaver;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.DeleteHaver;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.FlagDesire;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetAcceptedHaver;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetChatForDesire;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetDesire;
 import de.fau.cs.mad.wanthavers.common.Desire;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetHaver;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetHaverList;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetUser;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.SetHaver;
@@ -46,6 +48,8 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
     private final GetChatForDesire mGetChatForDesire;
     private final UpdateDesireStatus mUpdateDesireStatus;
     private final FlagDesire mFlagDesire;
+    private final DeleteHaver mDeleteHaver;
+    private final GetHaver mGetHaver;
 
     @NonNull
     private long mDesireId;
@@ -56,7 +60,8 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
                                  @NonNull GetHaverList getHaverList, @NonNull GetUser getUser,
                                  @NonNull SetHaver setHaver, @NonNull GetAcceptedHaver getAcceptedHaver,
                                  @NonNull GetChatForDesire getChatForDesire, @NonNull UpdateDesireStatus updateDesireStatus,
-                                 @NonNull FlagDesire flagDesire){
+                                 @NonNull FlagDesire flagDesire, @NonNull DeleteHaver deleteHaver,
+                                 @NonNull GetHaver getHaver){
 
         mUseCaseHandler = checkNotNull(useCaseHandler, "useCaseHandler cannot be null");
         mDesireDetailView = checkNotNull(desireDetailView, "desiredetail view cannot be null");
@@ -70,6 +75,8 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
         mGetChatForDesire = checkNotNull(getChatForDesire);
         mUpdateDesireStatus = checkNotNull(updateDesireStatus);
         mFlagDesire = checkNotNull(flagDesire);
+        mDeleteHaver = checkNotNull(deleteHaver);
+        mGetHaver = checkNotNull(getHaver);
 
         mDesireDetailView.setPresenter(this);
         mDesireLogic = desireLogic;
@@ -216,7 +223,8 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
 
                     @Override
                     public void onSuccess(SetHaver.ResponseValue response) {
-                        //Haver haver = response.getHaver();
+                        mDesireDetailView.showHaverAcceptStatus();
+                        showUnacceptedHaverView();
                     }
 
                     @Override
@@ -352,15 +360,55 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
         );
     }
 
-    //TODO: public void submitRating()
+    @Override
+    public void showUnacceptedHaverView() {
+
+        GetHaver.RequestValues requestValues = new GetHaver.RequestValues(mDesireId, mDesireLogic.getLoggedInUserId());
+
+        mUseCaseHandler.execute(mGetHaver, requestValues,
+                new UseCase.UseCaseCallback<GetHaver.ResponseValue>() {
+                    @Override
+                    public void onSuccess(GetHaver.ResponseValue response) {
+                        if (response.getHaver() != null) {
+                            System.out.println("Reached");
+                            mDesireDetailView.showUnacceptedHaverView();
+                        }
+                    }
+
+                    @Override
+                    public void onError() {
+                        mDesireDetailView.showLoadingDesireError();
+                    }
+                }
+        );
+    }
+
+    public void deleteHaver () {
+
+        DeleteHaver.RequestValues requestValues = new DeleteHaver.RequestValues(mDesireId, mDesireLogic.getLoggedInUserId());
+
+        mUseCaseHandler.execute(mDeleteHaver, requestValues,
+                new UseCase.UseCaseCallback<DeleteHaver.ResponseValue>() {
+                    @Override
+                    public void onSuccess(DeleteHaver.ResponseValue response) {
+                        //TODO mDesireDetailView change buttons!!!!
+                    }
+
+                    @Override
+                    public void onError() {
+                        mDesireDetailView.showDeleteHaverError();
+                    }
+                }
+        );
+    }
 
     private void processHavers(List<Haver> havers) {
         if (havers.isEmpty()) {
-            mDesireDetailView.showAcceptButton(havers);
+            //mDesireDetailView.showAcceptButton(havers);
             //TODO no havers yet
         } else {
             mDesireDetailView.showHavers(havers);
-            mDesireDetailView.showAcceptButton(havers);
+            //mDesireDetailView.showAcceptButton(havers);
         }
 
         mDesireDetailView.endLoadingProgress();
