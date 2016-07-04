@@ -40,6 +40,7 @@ public class LocationListFragment extends Fragment implements LocationListContra
     private Dialog mSetCustomLocationName;
     private LocationlistPopupBinding mLocationlistPopupBinding;
     private int mCalledAct;
+    private static boolean mFirstCalled;
 
     public LocationListFragment() {
         //requires empty public constructor
@@ -91,11 +92,20 @@ public class LocationListFragment extends Fragment implements LocationListContra
             layoutChangesForDesireCreate(recyclerView);
         }
 
+        mFirstCalled = true;
+
         return mLocationListFragBinding.getRoot();
     }
 
     public void showSavedLocations(List<Location> locationList) {
         mLocationListAdapter.replaceData(locationList);
+        if (locationList.size() == 0) {
+            if (mFirstCalled) {
+                mFirstCalled = false;
+                showMap(null);
+            }
+            mLocationListFragBinding.locationListEmpty.setVisibility(View.VISIBLE);
+        }
     }
 
     private void layoutChangesForDesireCreate(RecyclerView recyclerView){
