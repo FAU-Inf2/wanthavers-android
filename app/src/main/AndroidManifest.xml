@@ -25,7 +25,8 @@
         </receiver>
         <!--receiver android:process=":remote" android:name=".Alarm"></receiver-->
         <activity
-            android:name="wanthavers.mad.cs.fau.de.wanthavers_android.login.LoginActivity">
+            android:name="wanthavers.mad.cs.fau.de.wanthavers_android.login.LoginActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

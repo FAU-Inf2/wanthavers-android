@@ -26,7 +26,7 @@ public abstract class RestClient {
     protected static ArrayList<RestClient> clients = new ArrayList<>();
 
     //TODO: get API-URL from shared preferences or something like that
-    public static final String API_URL = "http://faui21f.informatik.uni-erlangen.de:9090/";
+    public static final String API_URL = "https://faui21f.informatik.uni-erlangen.de:9090/";
 
     protected RestClient(@NonNull Context context) {
         checkNotNull(context);
