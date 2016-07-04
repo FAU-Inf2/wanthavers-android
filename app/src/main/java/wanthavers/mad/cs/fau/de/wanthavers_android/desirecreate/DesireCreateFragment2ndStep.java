@@ -352,7 +352,7 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
 
         if (media != null) {
             final ImageView profileView = mViewDataBinding.selectedImageCategory;
-            Picasso.with(mViewDataBinding.getRoot().getContext()).load(media.getLowRes()).transform(new RoundedTransformation(200,0)).into(profileView);
+            Picasso.with(mViewDataBinding.getRoot().getContext()).load(media.getLowRes()).transform(new RoundedTransformation(1000,0)).into(profileView);
         } else{
             //else case is neccessary as the image is otherwise overwritten on scroll
             final ImageView profileView = mViewDataBinding.selectedImageCategory;

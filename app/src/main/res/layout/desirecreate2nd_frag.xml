@@ -35,32 +35,30 @@
 
 
 
-        <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversEditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:ems="10"
-            android:id="@+id/create_desire_price"
-            android:layout_below="@+id/create_desire_price_header"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:maxLength="3"
-            android:layout_alignRight="@+id/image_camera"
-            android:layout_alignEnd="@+id/image_camera"
-            android:layout_marginTop="-5dp" />
 
-        <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/create_desire_priceReward_header"
-            android:textColor="@color/colorMainTextDark"
-            android:id="@+id/create_desire_price_header"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:textSize="20sp"
-            android:layout_alignRight="@+id/create_desire_price"
-            android:layout_alignEnd="@+id/create_desire_price" />
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/create_desire_price_header_layout"
+            android:layout_width="150dp"
+            android:layout_height="60dp">
+
+
+            <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversEditText
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="10"
+                android:hint="@string/create_desire_price_header"
+                android:id="@+id/create_desire_price"
+                android:layout_below="@+id/create_desire_price_header"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:maxLength="3"
+                android:layout_alignRight="@+id/image_camera"
+                android:layout_alignEnd="@+id/image_camera"
+                android:layout_marginTop="-5dp" />
+
+        </android.support.design.widget.TextInputLayout>
+
 
         <ImageView
             android:layout_width="200sp"
@@ -78,9 +76,8 @@
             android:id="@+id/spinner_currency"
             android:spinnerMode="dropdown"
             android:entries="@array/currencies"
-            android:layout_alignTop="@+id/create_desire_price"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
+            android:layout_toRightOf="@id/create_desire_price_header_layout"
+            android:layout_alignTop="@+id/create_desire_price_header_layout"
             android:layout_marginTop="20dp" />
 
 
@@ -91,7 +88,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/category_title"
             android:textColor="@color/colorMainTextDark"
-            android:layout_below="@+id/create_desire_price"
+            android:layout_below="@+id/create_desire_price_header_layout"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_marginTop="30dp" />
@@ -102,7 +99,7 @@
             android:layout_height="wrap_content"
             android:padding="1dp"
             android:background="@color/colorPrimary"
-            android:layout_below="@+id/create_desire_price"
+            android:layout_below="@+id/create_desire_price_header_layout"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentLeft="true"

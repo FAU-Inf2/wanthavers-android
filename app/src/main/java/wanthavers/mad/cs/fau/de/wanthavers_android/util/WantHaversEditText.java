@@ -9,6 +9,6 @@ public class WantHaversEditText extends EditText{
 
     public WantHaversEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
-        this.setTypeface(Typeface.createFromAsset(context.getAssets(),"fonts/Mallanna-Regular.ttf"));
+        this.setTypeface(Typeface.createFromAsset(context.getAssets(),"fonts/Raleway-Regular.ttf"));
     }
 }
