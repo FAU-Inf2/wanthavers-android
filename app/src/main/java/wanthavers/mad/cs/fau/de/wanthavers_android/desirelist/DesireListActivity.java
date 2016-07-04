@@ -38,6 +38,9 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.WantHaversApplica
 import wanthavers.mad.cs.fau.de.wanthavers_android.cloudmessaging.MessageNotificationType;
 import wanthavers.mad.cs.fau.de.wanthavers_android.cloudmessaging.PushMessageNotification;
 import wanthavers.mad.cs.fau.de.wanthavers_android.cloudmessaging.RegistrationIntentService;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.cloudmessagetoken.CloudMessageTokenLocalDataSource;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.cloudmessagetoken.CloudMessageTokenRemoteDataSource;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.cloudmessagetoken.CloudMessageTokenRepository;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireRepository;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireLocalDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireRemoteDataSource;
@@ -50,6 +53,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserReposito
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.NavHeaderBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.GpsLocationTrackerLogic;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.DeleteToken;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetAvgRatingForUser;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetDesireList;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetUser;
@@ -187,9 +191,11 @@ public class DesireListActivity extends AppCompatActivity {
         RatingRepository ratingRepository = RatingRepository.getInstance(RatingRemoteDataSource.getInstance(context), RatingLocalDataSource.getInstance(context));
         UserRepository userRepository = UserRepository.getInstance(UserRemoteDataSource.getInstance(context), UserLocalDataSource.getInstance(context));
 
+        CloudMessageTokenRepository tokenRepository = CloudMessageTokenRepository.getInstance(CloudMessageTokenRemoteDataSource.getInstance(context), CloudMessageTokenLocalDataSource.getInstance(context));
+
         // Create the presenter
         mDesireListPresenter = new DesireListPresenter(UseCaseHandler.getInstance(),mDesireListFragment,new GetDesireList(desireRepository),
-                new GetAvgRatingForUser(ratingRepository), new GetUser(userRepository), getApplicationContext());
+                new GetAvgRatingForUser(ratingRepository), new GetUser(userRepository), getApplicationContext(), new DeleteToken(tokenRepository));
 
         mDesireListPresenter.setDesireListType(desireListType);
 

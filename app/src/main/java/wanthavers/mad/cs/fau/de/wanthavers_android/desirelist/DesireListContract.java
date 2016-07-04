@@ -78,6 +78,8 @@ public interface DesireListContract {
 
         void loadCurrentGpsPosition();
 
+        //void deleteToken();
+
         //TODO - add filter options here
 
     }

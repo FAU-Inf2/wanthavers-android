@@ -72,7 +72,6 @@
                     android:text="@{desire.desire.creator.name}"
                     android:textSize="@dimen/desire_desire_list_text_size"
                     android:layout_marginRight="10dp"
-                    android:layout_marginTop="-8dp"
                     android:textColor="@color/colorMainTextMediumDark"
                     />
 
@@ -126,7 +125,6 @@
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                         android:textColor="@color/colorMainText"
                         android:text="@{desire.desire.description}"
-                        android:lineSpacingMultiplier="0.6"
                         android:maxLines="3"
                         android:ellipsize="end"
                         android:textSize="@dimen/desire_desire_list_text_size"

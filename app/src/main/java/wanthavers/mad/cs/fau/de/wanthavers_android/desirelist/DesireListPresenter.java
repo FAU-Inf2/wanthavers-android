@@ -2,7 +2,10 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.desirelist;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.View;
+
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,6 +18,7 @@ import de.fau.cs.mad.wanthavers.common.User;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCase;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.WantHaversApplication;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.DeleteToken;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetAvgRatingForUser;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetDesireList;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetUser;
@@ -40,10 +44,11 @@ public class DesireListPresenter implements DesireListContract.Presenter {
     private List<Desire> mDesireListMy = new ArrayList<>();
     private List<Desire> mDesireListTrans = new ArrayList<>();
     private static final int DESIRE_LOAD_LIMIT = 6;
+    private final DeleteToken mDeleteToken;
 
     public DesireListPresenter(@NonNull UseCaseHandler useCaseHandler, @NonNull DesireListContract.View desireListView,
                                @NonNull GetDesireList getDesireList, @NonNull GetAvgRatingForUser getAvgRatingForUser, @NonNull GetUser getUser,
-                               @NonNull Context context) {
+                               @NonNull Context context, @NonNull DeleteToken deleteToken) {
 
         mUseCaseHandler = checkNotNull(useCaseHandler, "usecaseHandle cannot be null");
         mDesireListView = checkNotNull(desireListView, "desirelist view cannot be null!");
@@ -52,6 +57,7 @@ public class DesireListPresenter implements DesireListContract.Presenter {
         mGetUser = checkNotNull(getUser);
         mAppContext = checkNotNull(context, "context cannot be null");
         mDesireListView.setPresenter(this);
+        mDeleteToken = checkNotNull(deleteToken);
     }
 
     @Override
@@ -76,11 +82,9 @@ public class DesireListPresenter implements DesireListContract.Presenter {
     @Override
     public void createLogout() {
         //TODO add create new desire Logic here
-
+        deleteToken();
         //destroy user settings in shared preferences
-
-
-        mDesireListView.showLogout();
+        //mDesireListView.showLogout();
     }
 
     @Override
@@ -335,5 +339,26 @@ public class DesireListPresenter implements DesireListContract.Presenter {
     public void loadCurrentGpsPosition() {
         mDesireListView.getCurrentGpsPosition();
     }
+
+    public void deleteToken() {
+
+        String token = FirebaseInstanceId.getInstance().getToken();
+        DeleteToken.RequestValues requestValue = new DeleteToken.RequestValues(token);
+
+        mUseCaseHandler.execute(mDeleteToken, requestValue,
+                new UseCase.UseCaseCallback<DeleteToken.ResponseValue>() {
+                    @Override
+                    public void onSuccess(DeleteToken.ResponseValue response) {
+                        mDesireListView.showLogout();
+                    }
+
+                    @Override
+                    public void onError() {
+                        Log.i("DesireListPresenter", "error deleting token");
+                        mDesireListView.showLogout();
+                    }
+                });
+    }
+
 
 }
