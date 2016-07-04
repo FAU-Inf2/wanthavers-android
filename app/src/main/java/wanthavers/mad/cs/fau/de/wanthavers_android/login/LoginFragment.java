@@ -1,7 +1,9 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.login;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -20,12 +22,15 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserLocalDat
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserRemoteDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserRepository;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.LoginFragBinding;
+import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.ResetpasswordPopupBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.DesireListActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.welcome.WelcomeActivity;
 
 public class LoginFragment extends Fragment implements LoginContract.View {
     private LoginFragBinding mViewDataBinding;
     private LoginContract.Presenter mPresenter;
+    private Dialog mResetPassword;
+    private ResetpasswordPopupBinding mResetpasswordPopupBinding;
 
 
     public LoginFragment(){
@@ -100,5 +105,32 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     @Override
     public void showResetPasswordError() {
         showMessage(getString(R.string.password_reset_error));
+    }
+
+    @Override
+    public void showResetPasswordDialog() {
+        mResetPassword = new Dialog(getContext());
+
+        mResetpasswordPopupBinding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.resetpassword_popup, null, false);
+        mResetPassword.setContentView(mResetpasswordPopupBinding.getRoot());
+
+        mResetpasswordPopupBinding.setPresenter(mPresenter);
+
+        mResetPassword.show();
+    }
+
+    @Override
+    public void changePassword() {
+        if (mResetpasswordPopupBinding.resetPasswordMail.getText().toString().equals("")) {
+            showMessage(getString(R.string.no_email_set));
+        } else {
+            String email = mResetpasswordPopupBinding.resetPasswordMail.getText().toString();
+            mPresenter.sendPWResetToken(email);
+        }
+    }
+
+    @Override
+    public void closeResetPasswordDialog() {
+        mResetPassword.dismiss();
     }
 }

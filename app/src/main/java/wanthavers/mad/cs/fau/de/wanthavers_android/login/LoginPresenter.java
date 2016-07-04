@@ -234,13 +234,11 @@ public class LoginPresenter implements LoginContract.Presenter {
                 });
     }
 
-    public void sendPWResetToken() {
+    public void resetPassword() {
+        mLoginView.showResetPasswordDialog();
+    }
 
-
-        EditText emailInput = (EditText) mActivity.findViewById(R.id.email);
-
-        String email = emailInput.getText().toString();
-
+    public void sendPWResetToken(String email) {
 
         SendPWResetToken.RequestValues requestValues = new SendPWResetToken.RequestValues(email);
 
@@ -250,11 +248,13 @@ public class LoginPresenter implements LoginContract.Presenter {
 
                     @Override
                     public void onSuccess(SendPWResetToken.ResponseValue responseValue) {
+                        mLoginView.closeResetPasswordDialog();
                         mLoginView.showResetPasswordSuccess();
                     }
 
                     @Override
                     public void onError() {
+                        mLoginView.closeResetPasswordDialog();
                         mLoginView.showResetPasswordError();
                     }
 
@@ -298,6 +298,16 @@ public class LoginPresenter implements LoginContract.Presenter {
             AlertDialog dialog = builder.create();
             dialog.show();
         }
+    }
+
+    @Override
+    public void submitResetPassword() {
+        mLoginView.changePassword();
+    }
+
+    @Override
+    public void cancelResetPassword() {
+        mLoginView.closeResetPasswordDialog();
     }
 
 }

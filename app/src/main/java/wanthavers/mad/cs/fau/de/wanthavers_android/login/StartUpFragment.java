@@ -108,6 +108,20 @@ public class StartUpFragment extends Fragment implements LoginContract.View {
         showMessage(getString(R.string.password_reset_error));
     }
 
+    @Override
+    public void showResetPasswordDialog() {
+
+    }
+
+    @Override
+    public void changePassword() {
+
+    }
+
+    @Override
+    public void closeResetPasswordDialog() {
+
+    }
 
 
     public void startVideo() {

@@ -64,7 +64,7 @@ public class LoginActivity extends AppCompatActivity{
         mGetAppVersion = new GetAppVersion(AppVersionRepository.getInstance(AppVersionRemoteDataSource.getInstance(context), AppVersionLocalDataSource.getInstance(context)));
 
         mLoginPresenter = new LoginPresenter(UseCaseHandler.getInstance(), startUpFragment, getApplicationContext(), this, mCreateUser, mGetAppVersion, mLoginUser, mPWReset);
-
+        startUpFragment.setPresenter(mLoginPresenter);
     }
 
     @Override

@@ -208,6 +208,9 @@
     <string name="app_version_force_text">There are vital changes for the app available. Please update to continue using it: </string>
     <string name="app_version_force_title">Important updates available!</string>
     <string name="desire_distance">less than</string>
+    <string name="no_email_set">No Email set yet, check your spelling</string>
+
+    <string name="reset_password_mail_hint">Set your Email address</string>
 
 
 </resources>
