@@ -17,6 +17,13 @@
         android:visible="false"/>
 
     <item
+        android:id="@+id/menu_delete_haver"
+        android:title="@string/delete_desire"
+        android:icon="@drawable/wh_delete_icon_light"
+        app:showAsAction="always"
+        android:visible="false"/>
+
+    <item
         android:id="@+id/menu_accept_desire"
         android:title="@string/report_desire"
         android:icon="@drawable/wh_accept_icon_light"

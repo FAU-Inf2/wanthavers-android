@@ -23,6 +23,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserRemoteDa
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserRepository;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.AcceptHaver;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.DeleteHaver;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.FlagDesire;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetAcceptedHaver;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetChatForDesire;
@@ -84,7 +85,7 @@ public class DesireDetailActivity extends AppCompatActivity {
                 desireId, desireDetailFragment,new AcceptHaver(haverRepository), new GetDesire(desireRepository),
                 new GetHaverList(haverRepository),new GetUser(userRepository), new SetHaver(haverRepository),
                 new GetAcceptedHaver(haverRepository), new GetChatForDesire(desireRepository), new UpdateDesireStatus(desireRepository),
-                new FlagDesire(flagRepository));
+                new FlagDesire(flagRepository), new DeleteHaver(haverRepository));
 
         desireDetailFragment.setPresenter(mDesireDetailPresenter);
 

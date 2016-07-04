@@ -91,6 +91,7 @@
     <string name="button_close_transaction">Close Transaction</string>
     <string name="closing_transaction_error">Error while closing transaction</string>
     <string name="haver_status_open">OPEN</string>
+    <string name="haver_status_waiting">WAITING FOR WANTER</string>
     <string name="haver_status_accepted">ACCEPTED</string>
     <string name="haver_status_rejected">REJECTED</string>
     <string name="no_location_selected">No location selected yet</string>
@@ -131,6 +132,7 @@
     <string name="password_reset_error">Error while reseting your password</string>
     <string name="locationlist_title">Chose a Location</string>
     <string name="locationlist_empty">No locations stored yet</string>
+    <string name="desire_detail_delete_haver_error">Error while deleting desire</string>
 
 
     <string-array name="currencies">

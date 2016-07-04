@@ -29,6 +29,8 @@ public interface DesireDetailContract {
 
         void setLoadingIndicator(final boolean active);
 
+        void showHaverAcceptStatus();
+
         void showLoadingHaversError();
 
         void showAcceptHaverError();
@@ -40,6 +42,8 @@ public interface DesireDetailContract {
         void showGetChatForDesireError();
 
         void showUpdateDesireStatusError();
+
+        void showDeleteHaverError();
 
         void showFlagDesireError();
 

@@ -174,9 +174,11 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
 
             } else if (mHaver != null && mHaver.getUser().getId() == loggedInUser) { //include haver here
                 menReportDesire.setVisible(true);
+                menAcceptDesire.setVisible(false);
             } else {
                     menReportDesire.setVisible(true);
                     menAcceptDesire.setVisible(true);
+                //TODO make delete haver button visible
             }
 
         }
@@ -197,6 +199,9 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
                 break;
             case R.id.menu_finish_desire:
                 mPresenter.closeTransaction();
+                break;
+            case R.id.menu_delete_haver:
+                mPresenter.deleteDesire();
                 break;
 
         }
@@ -348,6 +353,11 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
         showMessage(getString(R.string.flag_desire_error));
     }
 
+    @Override
+    public void showDeleteHaverError() {
+        showMessage(getString(R.string.desire_detail_delete_haver_error));
+    }
+
     public void setDesireLogic(DesireLogic desireLogic){mDesireLogic = desireLogic;}
 
     //may be modified
@@ -379,7 +389,12 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
             if(acceptDesireMitem != null) {
                 acceptDesireMitem.setVisible(false);
             }
+            mDesireDetailFragBinding.desireHaverStatus.setText(R.string.haver_status_waiting);
         }
+    }
+
+    public void showHaverAcceptStatus() {
+        mDesireDetailFragBinding.desireHaverStatus.setText(R.string.haver_status_waiting);
     }
 
     public boolean isHaver(List<Haver> havers) {
