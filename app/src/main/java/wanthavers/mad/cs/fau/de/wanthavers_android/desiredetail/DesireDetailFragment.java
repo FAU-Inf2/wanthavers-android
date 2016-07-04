@@ -232,7 +232,7 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
         Media mediaDesire = desire.getImage();
         if (mediaDesire != null) {
             final ImageView profileView = mDesireDetailFragBinding.desireDetailItemImage;
-            Picasso.with(mDesireDetailFragBinding.getRoot().getContext()).load(mediaDesire.getLowRes()).transform(new RoundedTransformation(200,0)).into(profileView);
+            Picasso.with(mDesireDetailFragBinding.getRoot().getContext()).load(mediaDesire.getLowRes()).transform(new RoundedTransformation(1000,0)).into(profileView);
         } else{
             //else case is neccessary as the image is otherwise overwritten on scroll
             final ImageView profileView = mDesireDetailFragBinding.desireDetailItemImage;
@@ -246,7 +246,7 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
             Media mediaWanter = creator.getImage();
             if (mediaWanter != null) {
                 final ImageView profileView = mDesireDetailFragBinding.imageWanter;
-                Picasso.with(mDesireDetailFragBinding.getRoot().getContext()).load(mediaWanter.getLowRes()).transform(new RoundedTransformation(200,0)).into(profileView);
+                Picasso.with(mDesireDetailFragBinding.getRoot().getContext()).load(mediaWanter.getLowRes()).transform(new RoundedTransformation(1000,0)).into(profileView);
             } else{
                 //else case is neccessary as the image is otherwise overwritten on scroll
                 final ImageView profileView = mDesireDetailFragBinding.imageWanter;
@@ -307,7 +307,7 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
         Media mediaHaver = haver.getUser().getImage();
         if (mediaHaver != null) {
             final ImageView profileView = mDesireDetailFragBinding.imageAcceptedHaver;
-            Picasso.with(mDesireDetailFragBinding.getRoot().getContext()).load(mediaHaver.getLowRes()).transform(new RoundedTransformation(200,0)).into(profileView);
+            Picasso.with(mDesireDetailFragBinding.getRoot().getContext()).load(mediaHaver.getLowRes()).transform(new RoundedTransformation(1000,0)).into(profileView);
         } else{
             //else case is neccessary as the image is otherwise overwritten on scroll
             final ImageView profileView = mDesireDetailFragBinding.imageAcceptedHaver;

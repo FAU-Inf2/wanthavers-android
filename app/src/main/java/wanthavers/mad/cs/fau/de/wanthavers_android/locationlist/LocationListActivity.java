@@ -16,6 +16,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.DeleteLocatio
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetSavedLocations;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.UpdateLocation;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.ActivityUtils;
+import wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -32,9 +33,13 @@ public class LocationListActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle(R.string.locationlist_title);
+        actionBar.setTitle("");
+
+        WantHaversTextView abTitle = (WantHaversTextView) findViewById(R.id.toolbar_title);
+        abTitle.setText(getString(R.string.locationlist_title));
+
         if(getIntent().getStringExtra("calledAct").equals("0")){
-            actionBar.setTitle(R.string.createDesire_title_location_Step);
+            abTitle.setText(getString(R.string.createDesire_title_location_Step));
         }
 
         actionBar.setDisplayHomeAsUpEnabled(true);
