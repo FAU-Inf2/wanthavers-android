@@ -5,14 +5,24 @@ import android.support.annotation.NonNull;
 
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 
+import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.client.ClientProperties;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 
+import java.security.SecureRandom;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.ext.ExceptionMapper;
 
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.SharedPreferencesHelper;
 
@@ -44,7 +54,16 @@ public abstract class RestClient {
         String password = sharedPreferences.loadString(SharedPreferencesHelper.KEY_PASSWORD, "");
 
         HttpAuthenticationFeature basicAuthFeature = HttpAuthenticationFeature.basic(email, password);
-        Client client = ClientBuilder.newClient();
+        SSLContext ctx = null;
+        try{
+            ctx = SSLContext.getInstance("SSL");
+            ctx.init(null, certs, new SecureRandom());
+        }catch(Exception e){}
+
+        Client client = ClientBuilder.newBuilder()
+                .hostnameVerifier(new TrustAllHostNameVerifier())
+                .sslContext(ctx)
+                .build();
         client.property(ClientProperties.SUPPRESS_HTTP_COMPLIANCE_VALIDATION, true);
         target = client.register(JacksonJsonProvider.class).register(basicAuthFeature).target(API_URL);
         buildNewEndpoint();
@@ -57,4 +76,31 @@ public abstract class RestClient {
     }
 
     protected abstract void buildNewEndpoint();
+
+    TrustManager[] certs = new TrustManager[]{
+            new X509TrustManager() {
+                @Override
+                public X509Certificate[] getAcceptedIssuers() {
+                    return null;
+                }
+
+                @Override
+                public void checkServerTrusted(X509Certificate[] chain, String authType)
+                        throws CertificateException {
+                }
+
+                @Override
+                public void checkClientTrusted(X509Certificate[] chain, String authType)
+                        throws CertificateException {
+                }
+            }
+    };
+
+    public static class TrustAllHostNameVerifier implements HostnameVerifier {
+
+        public boolean verify(String hostname, SSLSession session) {
+            return true;
+        }
+
+    }
 }

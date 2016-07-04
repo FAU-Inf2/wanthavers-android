@@ -41,16 +41,12 @@ public class HaverClient extends RestClient {
         return haverEndpoint.createHaver(null, desireId, haver);
     }
 
-    public Haver get(long desireId, long haverId) {
-        return haverEndpoint.get(desireId, haverId);
+    public Haver get(long desireId, long userId) {
+        return haverEndpoint.get(desireId, userId);
     }
 
     public Haver updateHaver(long desireId, long haverId, Haver haver) {
         return haverEndpoint.updateHaver(desireId, haverId, haver);
-    }
-
-    public void deleteHaver(long desireId, long haverId) {
-        haverEndpoint.deleteHaver(desireId, haverId);
     }
 
     public Haver acceptHaver(long desireId, long haverId, Haver haver) {

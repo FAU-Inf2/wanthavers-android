@@ -36,12 +36,12 @@ public class HaverRepository implements HaverDataSource {
     }
 
     @Override
-    public void getHaver(@NonNull final long desireId, @NonNull final long haverId, @NonNull final GetHaverCallback callback) {
+    public void getHaver(@NonNull final long desireId, @NonNull final long userId, @NonNull final GetHaverCallback callback) {
         checkNotNull(desireId);
-        checkNotNull(haverId);
+        checkNotNull(userId);
         checkNotNull(callback);
 
-        haverLocalDataSource.getHaver(desireId, haverId, new GetHaverCallback() {
+        haverLocalDataSource.getHaver(desireId, userId, new GetHaverCallback() {
             @Override
             public void onHaverLoaded(Haver haver) {
                 callback.onHaverLoaded(haver);
@@ -49,7 +49,7 @@ public class HaverRepository implements HaverDataSource {
 
             @Override
             public void onDataNotAvailable() {
-                haverRemoteDataSource.getHaver(desireId, haverId, new GetHaverCallback() {
+                haverRemoteDataSource.getHaver(desireId, userId, new GetHaverCallback() {
                     @Override
                     public void onHaverLoaded(Haver haver) {
                         callback.onHaverLoaded(haver);
@@ -127,25 +127,6 @@ public class HaverRepository implements HaverDataSource {
             @Override
             public void onUpdateFailed() {
                 callback.onUpdateFailed();
-            }
-        });
-    }
-
-    @Override
-    public void deleteHaver(@NonNull long desireId, @NonNull long haverId, @NonNull final DeleteHaverCallback callback) {
-        checkNotNull(desireId);
-        checkNotNull(haverId);
-        checkNotNull(callback);
-
-        haverRemoteDataSource.deleteHaver(desireId, haverId, new DeleteHaverCallback() {
-            @Override
-            public void onHaverDeleted() {
-                callback.onHaverDeleted();
-            }
-
-            @Override
-            public void onDeleteFailed() {
-                callback.onDeleteFailed();
             }
         });
     }

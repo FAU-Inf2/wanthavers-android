@@ -5,6 +5,8 @@ import android.support.annotation.NonNull;
 
 import java.util.List;
 
+import javax.ws.rs.WebApplicationException;
+
 import de.fau.cs.mad.wanthavers.common.Haver;
 import wanthavers.mad.cs.fau.de.wanthavers_android.rest.HaverClient;
 
@@ -30,10 +32,16 @@ public class HaverRemoteDataSource implements HaverDataSource {
 
 
     @Override
-    public void getHaver(@NonNull long desireId, @NonNull long haverId, @NonNull GetHaverCallback callback) {
+    public void getHaver(@NonNull long desireId, @NonNull long userId, @NonNull GetHaverCallback callback) {
         try {
-            Haver haver = haverClient.get(desireId, haverId);
+            Haver haver = haverClient.get(desireId, userId);
             callback.onHaverLoaded(haver);
+        } catch (WebApplicationException wae) {
+            if(wae.getResponse().getStatus() == 404) {
+                callback.onHaverLoaded(null);
+                return;
+            }
+            callback.onDataNotAvailable();
         } catch (Throwable t) {
             callback.onDataNotAvailable();
         }
@@ -66,16 +74,6 @@ public class HaverRemoteDataSource implements HaverDataSource {
             callback.onHaverUpdated(ret);
         } catch (Throwable t) {
             callback.onUpdateFailed();
-        }
-    }
-
-    @Override
-    public void deleteHaver(@NonNull long desireId, @NonNull long haverId, @NonNull DeleteHaverCallback callback) {
-        try {
-            haverClient.deleteHaver(desireId, haverId);
-            callback.onHaverDeleted();
-        } catch (Throwable t) {
-            callback.onDeleteFailed();
         }
     }
 
