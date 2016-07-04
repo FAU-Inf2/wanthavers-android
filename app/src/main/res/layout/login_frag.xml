@@ -23,24 +23,13 @@
 
         <ImageView
             android:id="@+id/login_header_logo"
-            android:layout_width="100dp"
+            android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_marginTop="30dp"
-            android:src="@drawable/logo"
+            android:src="@drawable/logo_plus_text"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"/>
 
-
-        <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/wanthavers_text"
-            android:id="@+id/login_header"
-            android:layout_below="@id/login_header_logo"
-            android:layout_centerHorizontal="true"
-            android:textColor="@color/colorPrimary"
-            android:textSize="40sp"/>
 
 
         <!--View
@@ -102,12 +91,28 @@
             android:onClick="@{() -> presenter.loginUserWithInput()}"/>
 
         <android.support.design.widget.TextInputLayout
+            android:id="@+id/register_email"
             android:background="@color/colorSecondary"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_above="@id/login"
+            android:layout_below="@id/login_header_logo">
+
+            <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversEditText
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/email"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:background="@color/colorSecondary"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="20dp"
-            android:id="@+id/register_password">
+            android:id="@+id/register_password"
+            android:layout_below="@id/register_email">
 
         <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversEditText
             android:hint="@string/password"
@@ -118,20 +123,7 @@
 
         </android.support.design.widget.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/register_email"
-            android:background="@color/colorSecondary"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_above="@id/register_password">
 
-            <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversEditText
-                android:id="@+id/email"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="@string/email"/>
-
-        </android.support.design.widget.TextInputLayout>
     </RelativeLayout>
 
 </layout>
