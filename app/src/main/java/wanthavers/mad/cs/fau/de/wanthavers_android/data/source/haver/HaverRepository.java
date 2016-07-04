@@ -112,13 +112,13 @@ public class HaverRepository implements HaverDataSource {
     }
 
     @Override
-    public void updateHaver(@NonNull long desireId, @NonNull long haverId, @NonNull Haver haver, @NonNull final UpdateHaverCallback callback) {
+    public void updateHaver(@NonNull long desireId, @NonNull long userId, @NonNull Haver haver, @NonNull final UpdateHaverCallback callback) {
         checkNotNull(desireId);
-        checkNotNull(haverId);
+        checkNotNull(userId);
         checkNotNull(haver);
         checkNotNull(callback);
 
-        haverRemoteDataSource.updateHaver(desireId, haverId, haver, new UpdateHaverCallback() {
+        haverRemoteDataSource.updateHaver(desireId, userId, haver, new UpdateHaverCallback() {
             @Override
             public void onHaverUpdated(Haver haver) {
                 callback.onHaverUpdated(haver);
@@ -132,13 +132,13 @@ public class HaverRepository implements HaverDataSource {
     }
 
     @Override
-    public void acceptHaver(@NonNull long desireId, @NonNull long haverId, @NonNull Haver haver, @NonNull final AcceptHaverForDesireCallback callback) {
+    public void acceptHaver(@NonNull long desireId, @NonNull long userId, @NonNull Haver haver, @NonNull final AcceptHaverForDesireCallback callback) {
         checkNotNull(desireId);
-        checkNotNull(haverId);
+        checkNotNull(userId);
         checkNotNull(haver);
         checkNotNull(callback);
 
-        haverRemoteDataSource.acceptHaver(desireId, haverId, haver, new AcceptHaverForDesireCallback() {
+        haverRemoteDataSource.acceptHaver(desireId, userId, haver, new AcceptHaverForDesireCallback() {
             @Override
             public void onAcceptHaverForDesire(Haver haver) {
                 callback.onAcceptHaverForDesire(haver);
@@ -170,14 +170,14 @@ public class HaverRepository implements HaverDataSource {
     }
 
     @Override
-    public void updateHaverStatus(@NonNull long desireId, @NonNull long haverId, @NonNull Haver haver, @NonNull int status, @NonNull final UpdateHaverStatusCallback callback) {
+    public void updateHaverStatus(@NonNull long desireId, @NonNull long userId, @NonNull Haver haver, @NonNull int status, @NonNull final UpdateHaverStatusCallback callback) {
         checkNotNull(desireId);
-        checkNotNull(haverId);
+        checkNotNull(userId);
         checkNotNull(haver);
         checkNotNull(status);
         checkNotNull(callback);
 
-        haverRemoteDataSource.updateHaverStatus(desireId, haverId, haver, status, new UpdateHaverStatusCallback() {
+        haverRemoteDataSource.updateHaverStatus(desireId, userId, haver, status, new UpdateHaverStatusCallback() {
             @Override
             public void onStatusUpdated(Haver haver) {
                 callback.onStatusUpdated(haver);
@@ -186,6 +186,25 @@ public class HaverRepository implements HaverDataSource {
             @Override
             public void onUpdateFailed() {
                 callback.onUpdateFailed();
+            }
+        });
+    }
+
+    @Override
+    public void deleteHaver(@NonNull long desireId, @NonNull long userId, @NonNull final DeleteHaverCallback callback) {
+        checkNotNull(desireId);
+        checkNotNull(userId);
+        checkNotNull(callback);
+
+        haverRemoteDataSource.deleteHaver(desireId, userId, new DeleteHaverCallback() {
+            @Override
+            public void onHaverDeleted() {
+                callback.onHaverDeleted();
+            }
+
+            @Override
+            public void onDeleteFailed() {
+                callback.onDeleteFailed();
             }
         });
     }

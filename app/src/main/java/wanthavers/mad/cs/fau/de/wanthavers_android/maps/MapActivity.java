@@ -58,6 +58,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate.DesireCreateActivity;
 
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate.DesireCreateFragment2ndStep;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.GpsLocationTrackerLogic;
 import wanthavers.mad.cs.fau.de.wanthavers_android.filtersetting.FilterSettingActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.settings.SettingsActivity;
 import de.fau.cs.mad.wanthavers.common.Location;
@@ -85,9 +86,9 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
     private TextView mLocationTextView;
     private TextView mLocationTextHeaderView;
     private LocationManager mLocationManager;
-    private GpsLocationTracker mGpsLocationTracker;
+    private GpsLocationTrackerLogic mGpsLocationTracker;
     private Location mSettingsLocation = null;
-    private LatLng mlatLng;
+    private LatLng mLatLng;
 
     private MapContract.Presenter mMapPresenter;;
     private MapActBinding mViewDataBinding;
@@ -119,7 +120,7 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
         mLocationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
 
         // computer science tower uni erlangen
-        mGpsLocationTracker = new GpsLocationTracker(MapActivity.this, 49.573759d, 11.027389d);
+        mGpsLocationTracker = new GpsLocationTrackerLogic(MapActivity.this, 49.573759d, 11.027389d);
 
         /*if (!mGpsLocationTracker.isNetworkAvailable()){
             onBackPressed();
@@ -174,8 +175,8 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
 
         }
 
-        mlatLng = new LatLng(latitude, longitude);
-        updateLocation(mlatLng);
+        mLatLng = new LatLng(latitude, longitude);
+        updateLocation(mLatLng);
         try {
             // Loading map
             initializeMap();
@@ -218,7 +219,7 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
         googleMap = map;
         //users location according to GPS or Network
         //or if permissions are not granted computer science tower uni erlangen
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mlatLng, 15.0f));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mLatLng, 15.0f));
 
 
         //googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
@@ -247,7 +248,7 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
             b.setText(getString(R.string.alternative_Location_Button));
 
             // create marker
-            MarkerOptions marker = new MarkerOptions().position(mlatLng).title(mLocationTextView.getText().toString());
+            MarkerOptions marker = new MarkerOptions().position(mLatLng).title(mLocationTextView.getText().toString());
             googleMap.addMarker(marker);
 
         }else if (forFilterSettings()){
@@ -417,7 +418,7 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
         if (networkFailure()){
             return;
         }
-        mGpsLocationTracker = new GpsLocationTracker(MapActivity.this, mlatLng.latitude, mlatLng.longitude);
+        mGpsLocationTracker = new GpsLocationTrackerLogic(MapActivity.this, mLatLng.latitude, mLatLng.longitude);
         LatLng tmp = new LatLng(mGpsLocationTracker.getLatitude(),mGpsLocationTracker.getLongitude());
         //googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(tmp , 17.0f));
 
