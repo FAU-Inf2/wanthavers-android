@@ -45,5 +45,15 @@
             android:layout_above="@id/button_cancel_location_choice">
         </android.support.v7.widget.RecyclerView>
 
+        <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+            android:id="@+id/location_list_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/colorMainTextDark"
+            android:text="@string/locationlist_empty"
+            android:visibility="gone"/>
+
     </RelativeLayout>
 </layout>

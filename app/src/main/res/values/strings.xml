@@ -196,6 +196,7 @@
     <string name="app_version_force_title">Wichtige Updates verfügbar!</string>
 
     <string name="locationlist_title">Wähle einen Ort</string>
+    <string name="locationlist_empty">Noch keine Orte gespeichert</string>
     <string name="settings_name_title">Name</string>
 
     <string-array name="currencies">

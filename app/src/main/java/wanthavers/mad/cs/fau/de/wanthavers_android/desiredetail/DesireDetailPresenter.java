@@ -239,7 +239,7 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
                     @Override
                     public void onSuccess(AcceptHaver.ResponseValue response) {
                         //Haver haver = response.getHaver();
-                        openRating();
+                        //openRating();
                     }
 
                     @Override
