@@ -25,6 +25,8 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@{location.getDescription()}"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
             android:textColor="@color/colorMainTextDark"/>
 
         <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
@@ -33,7 +35,10 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="@{location.getFullAddress()}"
+            android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="10dp"
             android:layout_below="@id/custom_location_name"
             android:textColor="@color/colorMainTextDark"/>
 

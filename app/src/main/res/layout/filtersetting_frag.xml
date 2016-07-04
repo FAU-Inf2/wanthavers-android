@@ -142,8 +142,19 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/minimal_rating_title"
+                android:layout_marginTop="20dp"
                 android:textColor="@color/colorMainTextDark"
                 android:layout_below="@id/min_max_prices"/>
+
+            <ImageButton
+                android:id="@+id/reset_min_rating"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/wh_delete_icon_light"
+                android:background="@drawable/chat_border_me"
+                android:layout_alignTop="@+id/filter_min_rating_title"
+                android:layout_alignParentRight="true"
+                android:onClick="@{() -> presenter.resetMinimalRating()}"/>
 
             <LinearLayout
                 android:id="@+id/ratingbar_layout"
@@ -220,6 +231,7 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="@{location.getDescription()}"
                     android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:textColor="@color/colorMainTextDark"
                     android:visibility="gone"/>
 
@@ -229,7 +241,9 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="@{location.getFullAddress()}"
+                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:layout_below="@id/selected_custom_location_name"
                     android:textColor="@color/colorMainTextDark"
                     android:visibility="gone"/>

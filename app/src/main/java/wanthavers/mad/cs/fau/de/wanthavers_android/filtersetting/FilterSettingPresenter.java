@@ -218,6 +218,12 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
     }
 
     @Override
+    public void resetMinimalRating() {
+        RatingBar minRatingBar = (RatingBar)mActivity.findViewById(R.id.filter_Setting_Rating_Bar);
+        minRatingBar.setRating(0.0F);
+    }
+
+    @Override
     public void setFilter(DesireFilter desireFilter){
         WantHaversApplication.setCurDesireFilter(desireFilter);
     }

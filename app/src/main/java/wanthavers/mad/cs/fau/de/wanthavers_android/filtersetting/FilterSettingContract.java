@@ -47,6 +47,8 @@ public interface FilterSettingContract {
 
         void resetFilter();
 
+        void resetMinimalRating();
+
         void openCategorySelection();
 
         void changeLocation(Location filterLocation);
