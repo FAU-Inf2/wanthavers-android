@@ -5,14 +5,10 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
-import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.VideoView;
 
 import java.io.IOException;
 
@@ -24,7 +20,6 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.appversion.AppVer
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserLocalDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserRemoteDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserRepository;
-import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.LoginFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.CreateUser;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetAppVersion;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.LoginUser;
@@ -40,7 +35,6 @@ public class LoginActivity extends AppCompatActivity{
     private LoginUser mLoginUser;
     private GetAppVersion mGetAppVersion;
     private SendPWResetToken mPWReset;
-    private static int curFragment = 0;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,13 +64,9 @@ public class LoginActivity extends AppCompatActivity{
         mGetAppVersion = new GetAppVersion(AppVersionRepository.getInstance(AppVersionRemoteDataSource.getInstance(context), AppVersionLocalDataSource.getInstance(context)));
 
         mLoginPresenter = new LoginPresenter(UseCaseHandler.getInstance(), startUpFragment, getApplicationContext(), this, mCreateUser, mGetAppVersion, mLoginUser, mPWReset);
+
     }
 
-    /*@Override
-    public boolean onSupportNavigateUp() {
-        onBackPressed();
-        return true;
-    }*/
     @Override
     public void onBackPressed() {
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -93,7 +83,6 @@ public class LoginActivity extends AppCompatActivity{
     public void setLoginFragment(){
 
         FragmentManager fragmentManager = getSupportFragmentManager();
-        Fragment fragment = fragmentManager.findFragmentById(R.id.contentFrame);
 
         LoginFragment loginFragment = LoginFragment.newInstance();
 

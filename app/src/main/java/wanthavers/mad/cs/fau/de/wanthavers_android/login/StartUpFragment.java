@@ -2,6 +2,8 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.login;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -10,6 +12,7 @@ import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.VideoView;
 
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.LoginFragBinding;
@@ -20,7 +23,11 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.welcome.WelcomeActivity;
 public class StartUpFragment extends Fragment implements LoginContract.View {
     private StartupFragBinding mViewDataBinding;
     private LoginContract.Presenter mPresenter;
+    private double mFreeDummyUsersCounter = 0;
 
+
+    private MediaPlayer mp = null;
+    VideoView mVideoView = null;
 
     public StartUpFragment(){
         //Requires empty public constructor
@@ -45,6 +52,7 @@ public class StartUpFragment extends Fragment implements LoginContract.View {
     public void onResume()  {
         super.onResume();
 
+        startVideo();
         mPresenter.start();
     }
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,15 +67,17 @@ public class StartUpFragment extends Fragment implements LoginContract.View {
 
         mViewDataBinding = StartupFragBinding.inflate(inflater, container, false);
         mViewDataBinding.setPresenter(mPresenter);
+        mViewDataBinding.setView(this);
 
         return mViewDataBinding.getRoot();
     }
 
-    /*@Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.desire_create_menu, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }*/
+    @Override
+    public void onStart(){
+        super.onStart();
+        mVideoView = (VideoView) getActivity().findViewById(R.id.video);
+        startVideo();
+    }
 
 
     @Override
@@ -96,5 +106,36 @@ public class StartUpFragment extends Fragment implements LoginContract.View {
     @Override
     public void showResetPasswordError() {
         showMessage(getString(R.string.password_reset_error));
+    }
+
+
+
+    public void startVideo() {
+
+        mVideoView.setVideoURI(Uri.parse("android.resource://" + getActivity().getPackageName() + "/"
+                + R.raw.app_video_reverse));
+
+        mVideoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            public void onCompletion(MediaPlayer mp) {
+                mVideoView.start();
+            }
+        });
+
+        mVideoView.start();
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        mVideoView.stopPlayback();
+    }
+
+    public void freeDummyUsers(){
+
+        mFreeDummyUsersCounter++;
+
+        if(mFreeDummyUsersCounter > 0){
+            mViewDataBinding.dummyUserButtons.setVisibility(View.VISIBLE);
+        }
     }
 }

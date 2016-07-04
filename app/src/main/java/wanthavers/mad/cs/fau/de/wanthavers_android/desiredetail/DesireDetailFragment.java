@@ -173,7 +173,7 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
                 }
 
             } else if (mHaver != null && mHaver.getUser().getId() == loggedInUser) { //include haver here
-                menReportDesire.setVisible(true);
+                    menReportDesire.setVisible(true);
             } else {
                     menReportDesire.setVisible(true);
                     menAcceptDesire.setVisible(true);

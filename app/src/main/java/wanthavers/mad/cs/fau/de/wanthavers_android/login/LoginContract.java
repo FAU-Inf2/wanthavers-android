@@ -38,6 +38,5 @@ public interface LoginContract {
         void sendPWResetToken();
 
         void checkAppVersion(int versionCode, int os, String appId);
-
     }
 }
