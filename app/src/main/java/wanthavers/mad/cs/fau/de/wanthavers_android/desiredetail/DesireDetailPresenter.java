@@ -224,6 +224,7 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
                     @Override
                     public void onSuccess(SetHaver.ResponseValue response) {
                         mDesireDetailView.showHaverAcceptStatus();
+                        showUnacceptedHaverView();
                     }
 
                     @Override
@@ -369,6 +370,7 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
                     @Override
                     public void onSuccess(GetHaver.ResponseValue response) {
                         if (response.getHaver() != null) {
+                            System.out.println("Reached");
                             mDesireDetailView.showUnacceptedHaverView();
                         }
                     }

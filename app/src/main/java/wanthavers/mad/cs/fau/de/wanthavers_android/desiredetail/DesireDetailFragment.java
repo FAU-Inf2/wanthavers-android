@@ -176,7 +176,9 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
             } else if (mHaver != null && mHaver.getUser().getId() == loggedInUser) { //include haver here
                 menReportDesire.setVisible(true);
                 menAcceptDesire.setVisible(false);
-            } else if (mHaver == null && mDesireDetailFragBinding.desireHaverStatus.equals(R.string.haver_status_waiting)) {
+            } else if (mHaver == null && mDesireDetailFragBinding.desireHaverStatus.equals(R.string.haver_status_waiting)
+                    && mDesireDetailFragBinding.getDesire().getCreator().getId() != loggedInUser) {
+                System.out.println("aölsdhf");
                 menAcceptDesire.setVisible(false);
                 menReportDesire.setVisible(true);
                 menDeleteHaver.setVisible(true);
@@ -200,12 +202,10 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
                 break;
             case R.id.menu_accept_desire:
                 //TODO: remove debug outputs
-                System.out.println("Reached");
                 mPresenter.setHaver();
                 item.setVisible(false);
                 break;
             case R.id.menu_finish_desire:
-                System.out.println("Reached2");
                 mPresenter.closeTransaction();
                 break;
             case R.id.menu_delete_haver:
