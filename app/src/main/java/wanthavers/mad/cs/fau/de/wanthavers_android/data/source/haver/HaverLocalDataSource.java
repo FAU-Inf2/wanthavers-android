@@ -32,7 +32,7 @@ public class HaverLocalDataSource implements HaverDataSource {
     }
 
     @Override
-    public void getHaver(@NonNull long desireId, @NonNull long haverId, @NonNull GetHaverCallback callback) {
+    public void getHaver(@NonNull long desireId, @NonNull long userId, @NonNull GetHaverCallback callback) {
         //TODO: alter this method when we decide to store havers locally
         callback.onDataNotAvailable();
     }
@@ -53,12 +53,6 @@ public class HaverLocalDataSource implements HaverDataSource {
     public void updateHaver(@NonNull long desireId, @NonNull long haverId, @NonNull Haver haver, @NonNull UpdateHaverCallback callback) {
         //TODO: alter this method when we decide to store havers locally
         callback.onUpdateFailed();
-    }
-
-    @Override
-    public void deleteHaver(@NonNull long desireId, @NonNull long haverId, @NonNull DeleteHaverCallback callback) {
-        //TODO: alter this method when we decide to store havers locally
-        callback.onDeleteFailed();
     }
 
     @Override
