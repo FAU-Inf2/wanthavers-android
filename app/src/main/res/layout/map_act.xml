@@ -57,6 +57,7 @@
                 android:clickable="true"
                 android:lines="1"
                 android:singleLine="true"
+                android:layout_marginTop="8dp"
                 android:onClick="@{() -> actionHandler.onPressedAddress()}"/>
 
             <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
@@ -71,6 +72,7 @@
                 android:clickable="true"
                 android:lines="1"
                 android:singleLine="true"
+                android:layout_marginTop="5dp"
                 android:onClick="@{() -> actionHandler.onPressedAddress()}"/>
 
         </RelativeLayout>

@@ -2,6 +2,7 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.desirelist;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.location.LocationManager;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -59,8 +61,6 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
     private DesireLogic mDesireLogic;
     private NavHeaderBinding mNavHeaderBinding;
     private int i = 0;
-    private GpsLocationTrackerLogic mGpsLocationTracker;
-    private LatLng mLatLng;
 
     public DesireListFragment(){
         //Requires empty public constructor
@@ -101,11 +101,7 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
         isFineLocationPermissionGranted();
 
         //starting GPS LocationTracker for Users actual LatLng
-        mGpsLocationTracker = new GpsLocationTrackerLogic(this.getActivity(), 49.589674d, 11.011961d); //LatLng Erlangen
-        double lat = mGpsLocationTracker.getLatitude();
-        double lon = mGpsLocationTracker.getLongitude();
-        mLatLng = new LatLng(lat, lon);
-        // TODO Oliver Lutz: set LocationFilter for DesireList
+        getCurrentGpsPosition();
 
         //Set up desire view
         RecyclerView recyclerView = (RecyclerView) desirelistFragBinding.desiresList;
@@ -244,7 +240,7 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
         showMessage(getString(R.string.loading_desires_error));
     }
 
-    private void showMessage(String message) {
+    public void showMessage(String message) {
         Snackbar.make(getView(), message, Snackbar.LENGTH_LONG).show();
     }
 
@@ -362,5 +358,11 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
             showMessage(getString(R.string.declined_location_runtime_permission));
         }
     }
+
+    @Override
+    public void getCurrentGpsPosition() {
+        ((DesireListActivity) getActivity()).getCurrentGpsPosition();
+    }
+
 
 }

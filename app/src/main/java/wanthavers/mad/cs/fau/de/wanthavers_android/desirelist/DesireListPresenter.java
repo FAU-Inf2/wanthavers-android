@@ -331,4 +331,9 @@ public class DesireListPresenter implements DesireListContract.Presenter {
     }
 
 
+    @Override
+    public void loadCurrentGpsPosition() {
+        mDesireListView.getCurrentGpsPosition();
+    }
+
 }

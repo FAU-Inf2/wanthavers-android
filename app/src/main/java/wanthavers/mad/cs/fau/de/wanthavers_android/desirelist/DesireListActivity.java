@@ -11,12 +11,14 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.menu.MenuView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,6 +28,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.maps.model.LatLng;
 
 import de.fau.cs.mad.wanthavers.common.DesireFilter;
 import de.fau.cs.mad.wanthavers.common.User;
@@ -46,6 +49,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserRemoteDa
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserRepository;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.NavHeaderBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.GpsLocationTrackerLogic;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetAvgRatingForUser;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetDesireList;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetUser;
@@ -60,6 +64,9 @@ public class DesireListActivity extends AppCompatActivity {
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     public static final String EXTRA_FRAGMENT_ID = "FRAGMENT_ID";
     private int backButtonCount = 0;
+    //private LatLng mLatLng = new LatLng(49.589674d, 11.011961d);
+    private LatLng mLatLng;
+    private GpsLocationTrackerLogic mGpsLocationTracker;
 
 
 
@@ -110,6 +117,10 @@ public class DesireListActivity extends AppCompatActivity {
         if(desireListType == null){
             desireListType = DesireListType.ALL_DESIRES;
         }
+
+        mGpsLocationTracker = new GpsLocationTrackerLogic(DesireListActivity.this, 49.589674d, 11.011961d); // (49.589674d, 11.011961d);
+        mLatLng = new LatLng(mGpsLocationTracker.getLatitude(), mGpsLocationTracker.getLongitude());
+        getCurrentGpsPosition();
 
         // Set up the toolbar.
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -344,6 +355,37 @@ public class DesireListActivity extends AppCompatActivity {
     private boolean isGpsEnabled() {
         LocationManager locManager= (LocationManager) this.getSystemService(LOCATION_SERVICE);
         return locManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+
+    }
+
+    public void getCurrentGpsPosition(){
+        double lat = 49.589674d; //LatLng Erlangen
+        double lng = 11.011961d;
+
+        if (this.getIntent().getStringExtra("desireLocationLat") != null &&
+                this.getIntent().getStringExtra("desireLocationLng")!= null){
+            lat = Double.parseDouble(this.getIntent().getStringExtra("desireLocationLat"));
+            lng = Double.parseDouble(this.getIntent().getStringExtra("desireLocationLng"));
+        }
+
+        //
+        LocationManager locationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
+        //mGpsLocationTracker = new GpsLocationTrackerLogic(getActivity(), mLatLng.latitude, mLatLng.longitude);
+        mGpsLocationTracker = new GpsLocationTrackerLogic(DesireListActivity.this, lat, lng);
+        //LatLng tmp = new LatLng(mGpsLocationTracker.getLatitude(),mGpsLocationTracker.getLongitude());
+        lat = mGpsLocationTracker.getLatitude();
+        lng = mGpsLocationTracker.getLongitude();
+        if (lat != mLatLng.latitude && lng != mLatLng.longitude){ // new LatLng form GpsLocationTracker
+
+            //mLatLng
+            // TODO Oliver Lutz: set LocationFilter for DesireList on current GPS Position
+        }
+
+        Log.d("Lat", Double.toString(lat));
+        Log.d("lng", Double.toString(lng));
+        mLatLng = new LatLng(lat, lng);
+        //TODO Oliver Lutz: set standard LocationFilter for DesireList
+
 
     }
 }
