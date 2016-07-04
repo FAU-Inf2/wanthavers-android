@@ -16,6 +16,7 @@ import android.support.v7.view.menu.MenuView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.Toast;
@@ -118,6 +119,8 @@ public class DesireListActivity extends AppCompatActivity {
         WantHaversTextView abTitle = (WantHaversTextView) findViewById(R.id.toolbar_title);
 
         switch(desireListType){
+            case ALL_DESIRES: abTitle.setText(getString(R.string.listDesires_title));
+                break;
             case MY_DESIRES: abTitle.setText(getString(R.string.myDesires_title));
                 break;
             case MY_TRANSACTIONS: abTitle.setText(getString(R.string.myTransactions_title));

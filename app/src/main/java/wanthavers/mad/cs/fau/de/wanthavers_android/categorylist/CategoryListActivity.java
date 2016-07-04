@@ -13,6 +13,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.category.Category
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.category.CategoryRepository;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetSubcategories;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.ActivityUtils;
+import wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -29,10 +30,14 @@ public class CategoryListActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle(R.string.categorylist_title);
+        actionBar.setTitle("");
 
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
+
+        WantHaversTextView abTitle = (WantHaversTextView) findViewById(R.id.toolbar_title);
+        abTitle.setText(getString(R.string.categorylist_title));
+
 
         CategoryListFragment categoryListFragment = (CategoryListFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.contentFrame);

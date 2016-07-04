@@ -71,8 +71,8 @@
                     android:layout_toLeftOf="@id/ItemRatingBar"
                     android:text="@{desire.desire.creator.name}"
                     android:textSize="@dimen/desire_desire_list_text_size"
+                    android:layout_marginTop="-1dp"
                     android:layout_marginRight="10dp"
-                    android:layout_marginTop="-8dp"
                     android:textColor="@color/colorMainTextMediumDark"
                     />
 
@@ -126,10 +126,9 @@
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                         android:textColor="@color/colorMainText"
                         android:text="@{desire.desire.description}"
-                        android:lineSpacingMultiplier="0.6"
                         android:maxLines="3"
+                        android:layout_marginTop="5dp"
                         android:ellipsize="end"
-                        android:layout_marginTop="-8dp"
                         android:textSize="@dimen/desire_desire_list_text_size"/>
 
                 </LinearLayout>
@@ -171,11 +170,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:layout_alignParentBottom="true"
+                        android:layout_centerVertical="true"
                         android:gravity="right"
                         android:textColor="@color/colorMainText"
                         android:textSize="30dp"
-                        android:layout_marginBottom="15dp"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title"
                         android:text="@{desireLogic.getPriceString(desire.desire, desire.desire.price)}" />
                 </RelativeLayout>
@@ -184,7 +182,7 @@
             <LinearLayout
                 android:id="@+id/list_item_footer"
                 android:layout_width="match_parent"
-                android:layout_height="20dp"
+                android:layout_height="22dp"
                 android:orientation="horizontal">
 
                 <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
@@ -194,7 +192,6 @@
                     android:gravity="left"
                     android:textColor="@color/colorMainText"
                     android:textSize="@dimen/desire_desire_list_text_size"
-                    android:layout_marginTop="-5dp"
                     android:text="@{desireLogic.getDateString(desire.desire.creation_time)}"/>
 
                 <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
@@ -204,7 +201,6 @@
                     android:gravity="right"
                     android:textSize="@dimen/desire_desire_list_text_size"
                     android:textColor="@color/colorMainText"
-                    android:layout_marginTop="-5dp"
                     android:text="@{desire.desire.dropzone_string}"
                     />
 

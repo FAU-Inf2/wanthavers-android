@@ -16,6 +16,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.location.Location
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.location.LocationRepository;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetCategory;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.ActivityUtils;
+import wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -32,9 +33,12 @@ public class FilterSettingActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle(R.string.filtersetting_title);
+        actionBar.setTitle("");
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
+
+        WantHaversTextView abTitle = (WantHaversTextView) findViewById(R.id.toolbar_title);
+        abTitle.setText(getString(R.string.filtersetting_title));
 
         FilterSettingFragment filterSettingFragment = (FilterSettingFragment)
                 getSupportFragmentManager().findFragmentById(R.id.contentFrame);

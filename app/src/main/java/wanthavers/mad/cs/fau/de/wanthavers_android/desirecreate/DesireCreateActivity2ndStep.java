@@ -23,6 +23,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.location.Location
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetCategory;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetSubcategories;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.ActivityUtils;
+import wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -36,9 +37,12 @@ public class DesireCreateActivity2ndStep extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();
-        ab.setTitle(R.string.createDesire_title_2nd_Step);
+        ab.setTitle("");
         ab.setDisplayHomeAsUpEnabled(true);
         ab.setDisplayShowHomeEnabled(true);
+
+        WantHaversTextView abTitle = (WantHaversTextView) findViewById(R.id.toolbar_title);
+        abTitle.setText(getString(R.string.createDesire_title_2nd_Step));
 
         DesireCreateFragment2ndStep desireCreateFragment = (DesireCreateFragment2ndStep) getSupportFragmentManager()
                 .findFragmentById(R.id.contentFrame);

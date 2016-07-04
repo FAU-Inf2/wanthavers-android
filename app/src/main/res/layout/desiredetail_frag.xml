@@ -155,7 +155,6 @@
                     android:padding="10dp">
 
                     <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
-                        android:layout_marginTop="-10dp"
                         android:id="@+id/desire_detail_creation_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -167,7 +166,6 @@
                         android:layout_alignParentEnd="true"/>
 
                     <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
-                        android:layout_marginTop="-10dp"
                         android:id="@+id/desire_haver_status"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -230,7 +228,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="18dp"
-                        android:layout_marginTop="-10dp"
+                        android:layout_marginTop="5dp"
                         android:lineSpacingMultiplier="0.6"
                         android:text="@{desire.description}"
                         android:textColor="@color/colorMainTextMediumDark"/>
@@ -314,7 +312,7 @@
                             android:layout_alignParentBottom="true"
                             android:layout_centerHorizontal="true"
                             android:textSize="24dp"
-                            android:layout_marginBottom="5dp"/>
+                            android:layout_marginBottom="20dp"/>
 
                     </RelativeLayout>
                 </RelativeLayout>
@@ -348,6 +346,7 @@
                     android:text="@{desire.dropzone_string}"
                     android:textColor="@color/colorMainTextMediumDark"
                     android:layout_below="@id/desire_detail_location_title"
+                    android:layout_marginTop="5dp"
                     android:onClick="@{() -> actionHandler.onPressedLocation(desire.getDropzone_lat(), desire.getDropzone_long())}"/>
 
                 </RelativeLayout>
