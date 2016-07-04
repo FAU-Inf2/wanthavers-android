@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -16,11 +17,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import java.io.File;
+import java.util.Map;
 
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.WelcomeFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.DesireListActivity;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.GpsLocationTrackerLogic;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.SelectImageLogic;
+import wanthavers.mad.cs.fau.de.wanthavers_android.maps.MapActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.PathHelper;
 
 public class WelcomeFragment extends Fragment implements WelcomeContract.View {
@@ -66,8 +70,13 @@ public class WelcomeFragment extends Fragment implements WelcomeContract.View {
 
     @Override
     public void showDesireList() {
-        Intent intent = new Intent(getContext(), DesireListActivity.class);
-        startActivity(intent);
+        Intent intent = new Intent(getContext(), MapActivity.class);
+        intent.putExtra("calledAct", "3");
+        startActivityForResult(intent, 30);
+
+
+       // Intent intent = new Intent(getContext(), DesireListActivity.class);
+        //startActivity(intent);
     }
 
 
@@ -79,6 +88,15 @@ public class WelcomeFragment extends Fragment implements WelcomeContract.View {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 30 && data!= null){
+
+            Intent intent = new Intent(getContext(), DesireListActivity.class);
+            intent.putExtra("desireLocation", data.getStringExtra("desireLocation"));
+            intent.putExtra("desireLocationLat", data.getStringExtra("desireLocationLat"));
+            intent.putExtra("desireLocationLng", data.getStringExtra("desireLocationLng"));
+            startActivity(intent);
+        }
+
         if ( resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
 
             showLoadingProgress();
@@ -118,6 +136,12 @@ public class WelcomeFragment extends Fragment implements WelcomeContract.View {
 
     public void endLoadingProgress() {
         mLoadingDialog.cancel();
+    }
+
+    private boolean isGpsEnabled() {
+        LocationManager locManager= (LocationManager) getActivity().getSystemService(getActivity().LOCATION_SERVICE);
+        return locManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+
     }
 
 }

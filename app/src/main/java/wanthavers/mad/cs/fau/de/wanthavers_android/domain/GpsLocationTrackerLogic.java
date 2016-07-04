@@ -29,8 +29,8 @@ public class GpsLocationTrackerLogic extends Service implements LocationListener
     private double mLatitude = 49.573759d;
     private double mLongitude = 11.027389d;
 
-    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATE = 5; //5meter
-    private static final long MIN_TIME_FOR_UPDATE = 5*1000; //5sec
+    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATE = 0;
+    private static final long MIN_TIME_FOR_UPDATE = 0; //5sec
     private LocationManager mLocationManager;
 
 
@@ -47,7 +47,7 @@ public class GpsLocationTrackerLogic extends Service implements LocationListener
     }
 
 
-    private Location getLocation() {
+    public Location getLocation() {
 
         try {
 
@@ -109,7 +109,10 @@ public class GpsLocationTrackerLogic extends Service implements LocationListener
 
             e.printStackTrace();
         }
-
+        if(mLocation!= null) {
+            mLatitude = mLocation.getLatitude();
+            mLongitude = mLocation.getLongitude();
+        }
         return mLocation;
     }
 
@@ -154,10 +157,10 @@ public class GpsLocationTrackerLogic extends Service implements LocationListener
     }
 
     public void onLocationChanged(Location location) {
-        //if(location!=null) {
-        //    mLocation = location;
-        //   getLocation();
-        //}
+        if(location!=null) {
+            mLocation = location;
+          //getLocation();
+        }
     }
 
     public void onProviderDisabled(String provider) {
@@ -169,11 +172,11 @@ public class GpsLocationTrackerLogic extends Service implements LocationListener
     }
 
     public void onStatusChanged(String provider, int status, Bundle extras) {
-        // if (extras != null) {
-        //    Location loc = (Location) extras.get(android.location.LocationManager.KEY_LOCATION_CHANGED);
-        //   mLocation = loc;
-        //   getLocation();
-        // }
+        if (extras != null) {
+          Location loc = (Location) extras.get(android.location.LocationManager.KEY_LOCATION_CHANGED);
+          mLocation = loc;
+          //getLocation();
+         }
     }
 
     public void removeLocationListener() {
