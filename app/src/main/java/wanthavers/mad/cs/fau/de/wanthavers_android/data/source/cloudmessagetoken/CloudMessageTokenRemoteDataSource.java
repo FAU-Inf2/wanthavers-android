@@ -68,9 +68,9 @@ public class CloudMessageTokenRemoteDataSource implements CloudMessageTokenDataS
     }
 
     @Override
-    public void deleteToken(@NonNull long tokenId, @NonNull DeleteTokenCallback callback) {
+    public void deleteToken(@NonNull String token, @NonNull DeleteTokenCallback callback) {
         try {
-            cloudMessageTokenClient.deleteToken(tokenId);
+            cloudMessageTokenClient.deleteToken(token);
             callback.onTokenDeleted();
         } catch (Throwable t) {
             callback.onDeleteFailed();

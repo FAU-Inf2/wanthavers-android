@@ -50,7 +50,7 @@ public class CloudMessageTokenClient extends RestClient {
         return cloudMessageTokenEndpoint.updateToken(null, tokenId, token);
     }
 
-    public void deleteToken(long tokenId) {
-        cloudMessageTokenEndpoint.deleteToken(null, tokenId);
+    public void deleteToken(String token) {
+        cloudMessageTokenEndpoint.deleteToken(null, token);
     }
 }

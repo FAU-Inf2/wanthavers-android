@@ -124,11 +124,11 @@ public class CloudMessageTokenRepository implements CloudMessageTokenDataSource 
     }
 
     @Override
-    public void deleteToken(@NonNull long tokenId, @NonNull final DeleteTokenCallback callback) {
-        checkNotNull(tokenId);
+    public void deleteToken(@NonNull String token, @NonNull final DeleteTokenCallback callback) {
+        checkNotNull(token);
         checkNotNull(callback);
 
-        cloudMessageTokenRemoteDataSource.deleteToken(tokenId, new DeleteTokenCallback() {
+        cloudMessageTokenRemoteDataSource.deleteToken(token, new DeleteTokenCallback() {
             @Override
             public void onTokenDeleted() {
                 callback.onTokenDeleted();

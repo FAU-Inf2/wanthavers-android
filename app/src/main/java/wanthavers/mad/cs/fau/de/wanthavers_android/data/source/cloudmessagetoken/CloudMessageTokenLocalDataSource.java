@@ -49,7 +49,7 @@ public class CloudMessageTokenLocalDataSource implements CloudMessageTokenDataSo
     }
 
     @Override
-    public void deleteToken(@NonNull long tokenId, @NonNull DeleteTokenCallback callback) {
+    public void deleteToken(@NonNull String token, @NonNull DeleteTokenCallback callback) {
         //TODO
         callback.onDeleteFailed();
     }
