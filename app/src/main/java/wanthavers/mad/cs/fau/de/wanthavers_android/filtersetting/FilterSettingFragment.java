@@ -178,7 +178,7 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
 
         if (media != null) {
             final ImageView profileView = mFilterSettingFragBinding.selectedImageCategory;
-            Picasso.with(mFilterSettingFragBinding.getRoot().getContext()).load(media.getLowRes()).transform(new RoundedTransformation(200,0)).into(profileView);
+            Picasso.with(mFilterSettingFragBinding.getRoot().getContext()).load(media.getLowRes()).transform(new RoundedTransformation(1000,0)).into(profileView);
         } else{
             //else case is neccessary as the image is otherwise overwritten on scroll
             final ImageView profileView = mFilterSettingFragBinding.selectedImageCategory;

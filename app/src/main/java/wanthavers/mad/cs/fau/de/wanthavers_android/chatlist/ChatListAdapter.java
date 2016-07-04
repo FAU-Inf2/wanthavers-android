@@ -85,7 +85,7 @@ public class ChatListAdapter  extends RecyclerView.Adapter<ChatListAdapter.ViewH
 
         if (m != null) {
             final ImageView profileView = chatItemBinding.ivProfileOther;
-            Picasso.with(chatItemBinding.getRoot().getContext()).load(m.getLowRes()).transform(new RoundedTransformation(200,0)).into(profileView);
+            Picasso.with(chatItemBinding.getRoot().getContext()).load(m.getLowRes()).transform(new RoundedTransformation(1000,0)).into(profileView);
         } else{
             final ImageView profileView = chatItemBinding.ivProfileOther;
             profileView.setImageResource(R.drawable.no_pic);
