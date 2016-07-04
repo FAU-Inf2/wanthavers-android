@@ -199,6 +199,7 @@
     <string name="locationlist_title">Wähle einen Ort</string>
     <string name="locationlist_empty">Noch keine Orte gespeichert</string>
     <string name="settings_name_title">Name</string>
+    <string name="desire_distance">weniger als</string>
 
     <string-array name="currencies">
         <item>\u20AC</item>

@@ -205,6 +205,7 @@
     <string name="get_app_version_error">Error while comparing your app version with server\'s app version</string>
     <string name="app_version_force_text">There are vital changes for the app available. Please update to continue using it: </string>
     <string name="app_version_force_title">Important updates available!</string>
+    <string name="desire_distance">less than</string>
 
 
 </resources>

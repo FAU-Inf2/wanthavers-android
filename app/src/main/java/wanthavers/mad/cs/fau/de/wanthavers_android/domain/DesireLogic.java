@@ -119,4 +119,17 @@ public class DesireLogic {
 
         return false;
     }
+
+    public String getLocationDistance(long distanceInMeters) {
+        String ret = "";
+
+        if(distanceInMeters < 1000) {
+            ret += mContext.getResources().getString(R.string.desire_distance) +  " 1 km";
+        } else {
+            long km = Math.round(((double) distanceInMeters) / 1000.);
+            ret += km + " km";
+        }
+
+        return ret;
+    }
 }
