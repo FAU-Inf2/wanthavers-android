@@ -8,6 +8,7 @@ import java.util.List;
 import javax.ws.rs.WebApplicationException;
 
 import de.fau.cs.mad.wanthavers.common.Haver;
+import de.fau.cs.mad.wanthavers.common.HaverStatus;
 import wanthavers.mad.cs.fau.de.wanthavers_android.rest.HaverClient;
 
 /**
@@ -68,9 +69,9 @@ public class HaverRemoteDataSource implements HaverDataSource {
     }
 
     @Override
-    public void updateHaver(@NonNull long desireId, @NonNull long haverId, @NonNull Haver haver, @NonNull UpdateHaverCallback callback) {
+    public void updateHaver(@NonNull long desireId, @NonNull long userId, @NonNull Haver haver, @NonNull UpdateHaverCallback callback) {
         try {
-            Haver ret = haverClient.updateHaver(desireId, haverId, haver);
+            Haver ret = haverClient.updateHaver(desireId, userId, haver);
             callback.onHaverUpdated(ret);
         } catch (Throwable t) {
             callback.onUpdateFailed();
@@ -78,9 +79,9 @@ public class HaverRemoteDataSource implements HaverDataSource {
     }
 
     @Override
-    public void acceptHaver(@NonNull long desireId, @NonNull long haverId, @NonNull Haver haver, @NonNull AcceptHaverForDesireCallback callback) {
+    public void acceptHaver(@NonNull long desireId, @NonNull long userId, @NonNull Haver haver, @NonNull AcceptHaverForDesireCallback callback) {
         try {
-            Haver ret = haverClient.acceptHaver(desireId, haverId, haver);
+            Haver ret = haverClient.acceptHaver(desireId, userId, haver);
             callback.onAcceptHaverForDesire(ret);
         } catch (Throwable t) {
             callback.onAcceptFailed();
@@ -98,12 +99,22 @@ public class HaverRemoteDataSource implements HaverDataSource {
     }
 
     @Override
-    public void updateHaverStatus(@NonNull long desireId, @NonNull long haverId, @NonNull Haver haver, @NonNull int status, @NonNull UpdateHaverStatusCallback callback) {
+    public void updateHaverStatus(@NonNull long desireId, @NonNull long userId, @NonNull Haver haver, @NonNull int status, @NonNull UpdateHaverStatusCallback callback) {
         try {
-            Haver ret = haverClient.setHaverStatus(desireId, haverId, haver, status);
+            Haver ret = haverClient.setHaverStatus(desireId, userId, haver, status);
             callback.onStatusUpdated(ret);
         } catch (Throwable t) {
             callback.onUpdateFailed();
+        }
+    }
+
+    @Override
+    public void deleteHaver(@NonNull long desireId, @NonNull long userId, @NonNull DeleteHaverCallback callback) {
+        try {
+            haverClient.deleteHaver(desireId, userId);
+            callback.onHaverDeleted();
+        } catch (Throwable t) {
+            callback.onDeleteFailed();
         }
     }
 }

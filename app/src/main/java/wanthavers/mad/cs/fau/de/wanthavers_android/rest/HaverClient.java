@@ -61,4 +61,12 @@ public class HaverClient extends RestClient {
     public Haver getAcceptedHaver(long desireId) {
         return haverEndpoint.getAccepted(desireId);
     }
+
+    public Haver deleteHaver(long desireId, long userId) {
+        return haverEndpoint.updateHaverStatus(desireId, userId, HaverStatus.DELETED);
+    }
+
+    public Haver setHaverStatus(long desireId, long userId, int status) {
+        return haverEndpoint.updateHaverStatus(desireId, userId, status);
+    }
 }

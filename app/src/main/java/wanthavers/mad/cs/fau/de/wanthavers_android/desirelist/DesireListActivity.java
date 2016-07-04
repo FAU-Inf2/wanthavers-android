@@ -3,10 +3,13 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.desirelist;
 import android.content.BroadcastReceiver;
 import android.content.ClipData;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.drawable.Drawable;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -278,6 +281,10 @@ public class DesireListActivity extends AppCompatActivity {
     public void onResume(){
         super.onResume();
 
+        if (!isGpsEnabled()) {
+            showAlert();
+        }
+
         backButtonCount = 0;
 
         updateChatIconOnNewMessageReceived();
@@ -310,5 +317,30 @@ public class DesireListActivity extends AppCompatActivity {
                 chatItem.setIcon(iconNoNewMessage);
             }
         }
+    }
+
+    private void showAlert() {
+        final android.app.AlertDialog.Builder dialog = new android.app.AlertDialog.Builder(this);
+        dialog.setTitle(getString(R.string.enable_gps))
+                .setMessage(getString(R.string.enable_gps_text_desirelist))
+                .setPositiveButton(getString(R.string.enable_gps_settings), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+                        Intent myIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        startActivity(myIntent);
+                    }
+                })
+                .setNegativeButton(getString(R.string.enable_gps_cancel), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+                    }
+                });
+        dialog.show();
+    }
+
+    private boolean isGpsEnabled() {
+        LocationManager locManager= (LocationManager) this.getSystemService(LOCATION_SERVICE);
+        return locManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+
     }
 }
