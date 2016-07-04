@@ -1,4 +1,4 @@
-package wanthavers.mad.cs.fau.de.wanthavers_android.maps;
+package wanthavers.mad.cs.fau.de.wanthavers_android.domain;
 
 import android.Manifest;
 import android.app.Service;
@@ -22,7 +22,7 @@ import android.view.ContextThemeWrapper;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 
 
-public class GpsLocationTracker extends Service implements LocationListener {
+public class GpsLocationTrackerLogic extends Service implements LocationListener {
 
     private Context mContext;
     private Location mLocation;
@@ -34,7 +34,7 @@ public class GpsLocationTracker extends Service implements LocationListener {
     private LocationManager mLocationManager;
 
 
-    public GpsLocationTracker(Context context, double startLat, double startLng) {
+    public GpsLocationTrackerLogic(Context context, double startLat, double startLng) {
         mContext = context;
         mLatitude = startLat;
         mLongitude = startLng;
@@ -42,7 +42,7 @@ public class GpsLocationTracker extends Service implements LocationListener {
         removeLocationListener();
     }
 
-    public GpsLocationTracker(Context context) {
+    public GpsLocationTrackerLogic(Context context) {
         mContext = context;
     }
 
@@ -156,7 +156,7 @@ public class GpsLocationTracker extends Service implements LocationListener {
     public void onLocationChanged(Location location) {
         //if(location!=null) {
         //    mLocation = location;
-         //   getLocation();
+        //   getLocation();
         //}
     }
 
@@ -169,11 +169,11 @@ public class GpsLocationTracker extends Service implements LocationListener {
     }
 
     public void onStatusChanged(String provider, int status, Bundle extras) {
-       // if (extras != null) {
+        // if (extras != null) {
         //    Location loc = (Location) extras.get(android.location.LocationManager.KEY_LOCATION_CHANGED);
-         //   mLocation = loc;
-         //   getLocation();
-       // }
+        //   mLocation = loc;
+        //   getLocation();
+        // }
     }
 
     public void removeLocationListener() {
