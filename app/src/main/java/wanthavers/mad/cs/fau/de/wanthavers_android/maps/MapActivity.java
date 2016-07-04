@@ -128,7 +128,7 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
         }*/
 
 
-        if (!forDesireDetail()) {
+        if (!forDesireDetail() && !forWelcome()) {
             //dont ask for GPS in DesireDetail
             if (!isGpsEnabled()) {
                 showAlert();
@@ -255,6 +255,9 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
             //change Button Text
             Button b = (Button) findViewById(R.id.button_select_location);
             b.setText(getString(R.string.alternative_Location_Button2));
+        }else if (forWelcome()){
+            Button b = (Button) findViewById(R.id.button_select_location);
+            b.setText(getString(R.string.set_default_location));
         }
 
         // check if map is created successfully or not
@@ -472,7 +475,7 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
 
     private void setLocation(String location, double lat, double lng) {
 
-        if (forFilterSettings()) {
+        if (forFilterSettings() || forWelcome()) {
             Intent intent = new Intent();
 
             intent.putExtra("desireLocation", location);
@@ -490,10 +493,10 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
             setResult(1, intent);
             finish();
 
-        } else if (forDesireDetail()){
+        } else if (forDesireDetail()) {
             finish();
 
-        }else if(!forDesireDetail() && !forFilterSettings()){ // DesireCreate
+        }else if(!forDesireDetail() && !forFilterSettings() && !forWelcome()){ // DesireCreate
 
             Intent intent = new Intent();
 
@@ -534,6 +537,10 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
 
     public boolean forFilterSettings() {
         return (mCalledAct == 1);
+    }
+
+    public boolean forWelcome(){
+        return (mCalledAct == 3);
     }
 
     private boolean networkFailure(){

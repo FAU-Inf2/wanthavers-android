@@ -75,7 +75,7 @@
             android:layout_marginTop="10dp"
             android:text="@string/forgotPw"
             android:layout_alignParentBottom="true"
-            android:onClick="@{() -> presenter.sendPWResetToken()}"/>
+            android:onClick="@{() -> presenter.resetPassword()}"/>
 
 
         <Button

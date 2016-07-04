@@ -86,4 +86,19 @@ public class RegisterFragment extends Fragment implements LoginContract.View {
     public void showResetPasswordError() {
         showMessage(getString(R.string.password_reset_error));
     }
+
+    @Override
+    public void showResetPasswordDialog() {
+
+    }
+
+    @Override
+    public void changePassword() {
+
+    }
+
+    @Override
+    public void closeResetPasswordDialog() {
+
+    }
 }

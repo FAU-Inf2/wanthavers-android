@@ -16,6 +16,12 @@ public interface LoginContract {
         void showResetPasswordSuccess();
 
         void showResetPasswordError();
+
+        void showResetPasswordDialog();
+
+        void changePassword();
+
+        void closeResetPasswordDialog();
     }
 
 
@@ -35,8 +41,14 @@ public interface LoginContract {
 
         void registerUser();
 
-        void sendPWResetToken();
+        void sendPWResetToken(String email);
 
         void checkAppVersion(int versionCode, int os, String appId);
+
+        void resetPassword();
+
+        void submitResetPassword();
+
+        void cancelResetPassword();
     }
 }

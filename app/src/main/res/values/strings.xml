@@ -202,7 +202,12 @@
     <string name="settings_name_title">Name</string>
     <string name="desire_distance">weniger als</string>
 
+    <string name="reset_password_mail_hint">Email-Adresse angeben</string>
+    <string name="no_email_set">Noch keine Email-Adresse angegeben, überprüfe deine Email</string>
+
     <string name="desire_detail_delete_haver_error">Fehler beim Löschen des Havers</string>
+    <string name="gps_location_changed">Standort erfolgreich aktualisiert</string>
+    <string name="set_default_location">Standart Standort setzen</string>
 
     <string-array name="currencies">
         <item>\u20AC</item>

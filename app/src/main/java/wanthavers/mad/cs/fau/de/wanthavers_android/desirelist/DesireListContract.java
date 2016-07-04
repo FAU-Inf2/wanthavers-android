@@ -2,6 +2,8 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.desirelist;
 
 import android.support.annotation.NonNull;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.Desire;
@@ -13,6 +15,8 @@ public interface DesireListContract {
 
 
     interface View extends BaseView<Presenter> {
+
+        void showMessage(String message);
 
         void showDesires(List<DesireItemViewModel> desires);
 
@@ -42,6 +46,8 @@ public interface DesireListContract {
 
         public void setUser(User user);
         //TODO void showNoTasks();
+
+        void getCurrentGpsPosition();
     }
 
 
@@ -69,6 +75,8 @@ public interface DesireListContract {
         void openSettings();
 
         void openFilterSettings();
+
+        void loadCurrentGpsPosition();
 
         //TODO - add filter options here
 

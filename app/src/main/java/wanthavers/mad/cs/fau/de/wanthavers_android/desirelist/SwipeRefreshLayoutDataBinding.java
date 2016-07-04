@@ -33,6 +33,7 @@ public class SwipeRefreshLayoutDataBinding {
         view.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                presenter.loadCurrentGpsPosition();
                 presenter.loadDesires(true, true, false);
             }
         });
