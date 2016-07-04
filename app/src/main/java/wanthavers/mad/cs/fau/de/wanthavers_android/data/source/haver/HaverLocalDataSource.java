@@ -50,13 +50,13 @@ public class HaverLocalDataSource implements HaverDataSource {
     }
 
     @Override
-    public void updateHaver(@NonNull long desireId, @NonNull long userId, @NonNull Haver haver, @NonNull UpdateHaverCallback callback) {
+    public void updateHaver(@NonNull long desireId, @NonNull long haverId, @NonNull Haver haver, @NonNull UpdateHaverCallback callback) {
         //TODO: alter this method when we decide to store havers locally
         callback.onUpdateFailed();
     }
 
     @Override
-    public void acceptHaver(@NonNull long desireId, @NonNull long userId, @NonNull Haver haver, @NonNull AcceptHaverForDesireCallback callback) {
+    public void acceptHaver(@NonNull long desireId, @NonNull long haverId, @NonNull Haver haver, @NonNull AcceptHaverForDesireCallback callback) {
         //TODO: alter this method when we decide to store havers locally
         callback.onAcceptFailed();
     }
@@ -68,7 +68,7 @@ public class HaverLocalDataSource implements HaverDataSource {
     }
 
     @Override
-    public void updateHaverStatus(@NonNull long desireId, @NonNull long userId, @NonNull Haver haver, @NonNull int status, @NonNull UpdateHaverStatusCallback callback) {
+    public void updateHaverStatus(@NonNull long desireId, @NonNull long userId, @NonNull int status, @NonNull UpdateHaverStatusCallback callback) {
         //TODO: alter this method when we decide to store havers locally
         callback.onUpdateFailed();
     }
