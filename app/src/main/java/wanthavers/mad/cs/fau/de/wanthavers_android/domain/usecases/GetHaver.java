@@ -19,7 +19,7 @@ public class GetHaver extends UseCase<GetHaver.RequestValues, GetHaver.ResponseV
 
     protected void executeUseCase(final RequestValues values) {
 
-        mHaverRepository.getHaver(values.getDesireId(), values.mHaverId,
+        mHaverRepository.getHaver(values.getDesireId(), values.getUserId(),
                 new HaverDataSource.GetHaverCallback() {
 
                     @Override
@@ -40,19 +40,19 @@ public class GetHaver extends UseCase<GetHaver.RequestValues, GetHaver.ResponseV
     public static final class RequestValues implements UseCase.RequestValues {
 
         private final long mDesireId;
-        private final long mHaverId;
+        private final long mUserId;
 
-        public RequestValues(long desireId, long haverId) {
+        public RequestValues(long desireId, long userId) {
             mDesireId = desireId;
-            mHaverId = haverId;
+            mUserId = userId;
         }
 
         public long getDesireId() {
             return mDesireId;
         }
 
-        public long getHaverId() {
-            return mHaverId;
+        public long getUserId() {
+            return mUserId;
         }
 
     }

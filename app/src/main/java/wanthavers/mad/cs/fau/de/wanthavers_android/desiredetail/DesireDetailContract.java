@@ -15,7 +15,7 @@ public interface DesireDetailContract {
 
     interface View extends BaseView<Presenter> {
 
-        void showAcceptButton(List<Haver> havers);
+        //void showAcceptButton(List<Haver> havers);
 
         void showAcceptedHaver(Haver haver);
 
@@ -70,6 +70,8 @@ public interface DesireDetailContract {
         void showMap(Location location);
 
         void hideFinishDesire();
+
+        void showUnacceptedHaverView();
     }
 
 
@@ -91,6 +93,8 @@ public interface DesireDetailContract {
         void closeTransaction();
 
         //void getHaver(final long haverId);
+
+        void showUnacceptedHaverView();
 
         void openChatList(User user);
 
