@@ -78,6 +78,7 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
     private Haver mHaver;
     private Menu mOptionsMenu;
     private boolean mLoadFinishedFlag;
+    private boolean mIsHaver = false;
 
     public DesireDetailFragment() {
         //Requires empty public constructor
@@ -176,9 +177,7 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
             } else if (mHaver != null && mHaver.getUser().getId() == loggedInUser) { //include haver here
                 menReportDesire.setVisible(true);
                 menAcceptDesire.setVisible(false);
-            } else if (mHaver == null && mDesireDetailFragBinding.desireHaverStatus.equals(R.string.haver_status_waiting)
-                    && mDesireDetailFragBinding.getDesire().getCreator().getId() != loggedInUser) {
-                System.out.println("aölsdhf");
+            } else if (mDesireDetailFragBinding.getDesire().getStatus() == DesireStatus.STATUS_OPEN && mIsHaver) {
                 menAcceptDesire.setVisible(false);
                 menReportDesire.setVisible(true);
                 menDeleteHaver.setVisible(true);
@@ -209,7 +208,7 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
                 mPresenter.closeTransaction();
                 break;
             case R.id.menu_delete_haver:
-                mPresenter.deleteDesire();
+                mPresenter.deleteHaver();
                 break;
 
         }
@@ -259,7 +258,6 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
         if (desire.getStatus() == DesireStatus.STATUS_OPEN) {
             mPresenter.loadHavers(false);
             if (!mDesireLogic.isDesireCreator(creator.getId())) {
-                mPresenter.showUnacceptedHaverView();
             }
         } else if (desire.getStatus() == DesireStatus.STATUS_IN_PROGRESS) {
             mPresenter.getAcceptedHaver();
@@ -419,12 +417,15 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
     }*/
 
     @Override
-    public void showUnacceptedHaverView() {
-        MenuItem acceptDesireMitem =  mOptionsMenu.findItem(R.id.menu_accept_desire);
-        if(acceptDesireMitem != null) {
-            acceptDesireMitem.setVisible(false);
-        }
-        mDesireDetailFragBinding.desireHaverStatus.setText(R.string.haver_status_waiting);
+    public void showUnacceptedHaverView(boolean active) {
+
+       if(active == true) {
+           mIsHaver = true;
+           mDesireDetailFragBinding.desireHaverStatus.setText(getString(R.string.haver_status_waiting));
+       }else{
+           mIsHaver = false;
+           mDesireDetailFragBinding.desireHaverStatus.setText(getString(R.string.haver_status_open));
+       }
     }
 
     @Override

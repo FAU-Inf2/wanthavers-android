@@ -71,12 +71,14 @@ public interface DesireDetailContract {
 
         void hideFinishDesire();
 
-        void showUnacceptedHaverView();
+        void showUnacceptedHaverView(boolean active);
     }
 
 
 
     interface Presenter extends BasePresenter {
+
+        void deleteHaver();
 
         void loadDesire();
 
@@ -94,7 +96,7 @@ public interface DesireDetailContract {
 
         //void getHaver(final long haverId);
 
-        void showUnacceptedHaverView();
+        void showUnacceptedHaverView(Desire desire);
 
         void openChatList(User user);
 

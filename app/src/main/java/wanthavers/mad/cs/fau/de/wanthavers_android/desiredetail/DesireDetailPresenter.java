@@ -124,7 +124,7 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
 
                     @Override
                     public void onError() {
-                        mDesireDetailView.showDesire(desire, null);
+                        showUnacceptedHaverView(desire);
                     }
                 }
         );
@@ -224,7 +224,6 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
                     @Override
                     public void onSuccess(SetHaver.ResponseValue response) {
                         mDesireDetailView.showHaverAcceptStatus();
-                        showUnacceptedHaverView();
                     }
 
                     @Override
@@ -361,7 +360,7 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
     }
 
     @Override
-    public void showUnacceptedHaverView() {
+    public void showUnacceptedHaverView(final Desire desire) {
 
         GetHaver.RequestValues requestValues = new GetHaver.RequestValues(mDesireId, mDesireLogic.getLoggedInUserId());
 
@@ -370,9 +369,11 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
                     @Override
                     public void onSuccess(GetHaver.ResponseValue response) {
                         if (response.getHaver() != null) {
-                            System.out.println("Reached");
-                            mDesireDetailView.showUnacceptedHaverView();
+                            mDesireDetailView.showUnacceptedHaverView(true);
+                            mDesireDetailView.showDesire(desire, null);
                         }
+
+                        mDesireDetailView.showDesire(desire, null);
                     }
 
                     @Override
@@ -392,6 +393,8 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
                     @Override
                     public void onSuccess(DeleteHaver.ResponseValue response) {
                         //TODO mDesireDetailView change buttons!!!!
+                        mDesireDetailView.showUnacceptedHaverView(false);
+
                     }
 
                     @Override
