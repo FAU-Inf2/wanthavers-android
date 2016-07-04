@@ -18,7 +18,7 @@ public class DeleteHaver extends UseCase<DeleteHaver.RequestValues, DeleteHaver.
     @Override
     protected void executeUseCase(final RequestValues values) {
 
-        /*mHaverRepository.deleteHaver(values.getDesireId(), values.getUserId(),
+        mHaverRepository.deleteHaver(values.getDesireId(), values.getUserId(),
                 new HaverDataSource.DeleteHaverCallback() {
 
                     @Override
@@ -31,7 +31,7 @@ public class DeleteHaver extends UseCase<DeleteHaver.RequestValues, DeleteHaver.
                         getUseCaseCallback().onError();
                     }
                 }
-        );*/
+        );
     }
 
     public static final class RequestValues implements UseCase.RequestValues {

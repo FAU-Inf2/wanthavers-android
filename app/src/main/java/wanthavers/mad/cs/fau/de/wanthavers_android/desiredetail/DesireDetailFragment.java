@@ -177,11 +177,12 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
             } else if (mHaver != null && mHaver.getUser().getId() == loggedInUser) { //include haver here
                 menReportDesire.setVisible(true);
                 menAcceptDesire.setVisible(false);
-            } else if (mDesireDetailFragBinding.getDesire().getStatus() == DesireStatus.STATUS_OPEN && mIsHaver) {
+            } else if (mIsHaver) {
                 menAcceptDesire.setVisible(false);
                 menReportDesire.setVisible(true);
                 menDeleteHaver.setVisible(true);
             } else {
+                    menDeleteHaver.setVisible(false);
                     menReportDesire.setVisible(true);
                     menAcceptDesire.setVisible(true);
                 //TODO make delete haver button visible
@@ -426,6 +427,8 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
            mIsHaver = false;
            mDesireDetailFragBinding.desireHaverStatus.setText(getString(R.string.haver_status_open));
        }
+
+        onPrepareOptionsMenu(mOptionsMenu);
     }
 
     @Override

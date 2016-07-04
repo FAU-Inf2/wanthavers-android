@@ -195,6 +195,7 @@ public class HaverRepository implements HaverDataSource {
         checkNotNull(userId);
         checkNotNull(callback);
 
+
         haverRemoteDataSource.deleteHaver(desireId, userId, new DeleteHaverCallback() {
             @Override
             public void onHaverDeleted() {

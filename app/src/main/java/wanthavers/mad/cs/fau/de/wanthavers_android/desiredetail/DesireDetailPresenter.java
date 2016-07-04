@@ -204,6 +204,7 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
                     public void onSuccess(GetUser.ResponseValue response) {
                         User user = response.getUser();
                         setHaver(new Haver(user, new Date(), mDesireId));
+
                     }
 
                     @Override
@@ -223,6 +224,7 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
 
                     @Override
                     public void onSuccess(SetHaver.ResponseValue response) {
+                        mDesireDetailView.showUnacceptedHaverView(true);
                         mDesireDetailView.showHaverAcceptStatus();
                     }
 
@@ -393,12 +395,16 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
                     @Override
                     public void onSuccess(DeleteHaver.ResponseValue response) {
                         //TODO mDesireDetailView change buttons!!!!
+
+                        System.out.println("success deleting haver");
                         mDesireDetailView.showUnacceptedHaverView(false);
 
                     }
 
                     @Override
                     public void onError() {
+
+                        System.out.println("start deleting haver error");
                         mDesireDetailView.showDeleteHaverError();
                     }
                 }
