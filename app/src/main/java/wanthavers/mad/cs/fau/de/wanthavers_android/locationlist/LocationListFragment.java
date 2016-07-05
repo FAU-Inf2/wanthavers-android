@@ -167,8 +167,8 @@ public class LocationListFragment extends Fragment implements LocationListContra
             if (resultCode == 1) {
                 //get values
                 String locationAddress = data.getStringExtra("desireLocation");
-                double lat = Double.parseDouble(data.getStringExtra("desireLocationLat"));
-                double lon = Double.parseDouble(data.getStringExtra("desireLocationLng"));
+                Double lat = Double.parseDouble(data.getStringExtra("desireLocationLat"));
+                Double lon = Double.parseDouble(data.getStringExtra("desireLocationLng"));
                 String locationName = data.getStringExtra("desireLocationName");
                 String locationId = data.getStringExtra("desireLocationId");
                 String cityName = data.getStringExtra("desireLocationCity");
@@ -177,12 +177,22 @@ public class LocationListFragment extends Fragment implements LocationListContra
 
                 //Create Location object
                 Location location = new Location();
-                location.setFullAddress(locationAddress);
-                location.setLat(lat);
-                location.setLon(lon);
+                if (locationAddress != null) {
+                    location.setFullAddress(locationAddress);
+                }
+                if (lat != null) {
+                    location.setLat(lat);
+                }
+                if (lon != null) {
+                    location.setLon(lon);
+                }
                 location.setUserId(userId);
-                location.setDescription(locationName);
-                location.setCityName(cityName);
+                if (locationName != null) {
+                    location.setDescription(locationName);
+                }
+                if (cityName != null) {
+                    location.setCityName(cityName);
+                }
 
 
                 if (!locationId.equals("")) {
