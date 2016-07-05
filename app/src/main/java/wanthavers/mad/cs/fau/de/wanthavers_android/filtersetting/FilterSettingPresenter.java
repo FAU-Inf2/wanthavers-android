@@ -1,19 +1,9 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.filtersetting;
 
 import android.support.annotation.NonNull;
-import android.view.View;
-import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.RatingBar;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
-import android.widget.TextView;
-
-import com.j256.ormlite.stmt.query.In;
-
-import java.lang.reflect.Array;
-import java.lang.reflect.Field;
-import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -24,14 +14,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCase;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.WantHaversApplication;
-import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.CreateLocation;
-import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.DeleteLocation;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetCategory;
-import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetLocation;
-import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetSavedLocations;
-import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetSubcategories;
-import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.UpdateLocation;
-import wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView;
 
 public class FilterSettingPresenter implements FilterSettingContract.Presenter {
 
@@ -64,7 +47,7 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
         Spinner radiusView = (Spinner) mActivity.findViewById(R.id.spinner_radius);
 
         //get values
-        DesireFilter  curFilter = WantHaversApplication.getCurDesireFilter(mActivity.getApplicationContext());
+        DesireFilter  curFilter = WantHaversApplication.getDesireFilter(mActivity.getApplicationContext());
 
         Long categoryId = curFilter.getCategory();
         Double maxPrice = curFilter.getPrice_max();
@@ -225,7 +208,7 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
 
     @Override
     public void setFilter(DesireFilter desireFilter){
-        WantHaversApplication.setCurDesireFilter(desireFilter);
+        WantHaversApplication.setDesireFilter(desireFilter, mActivity.getApplicationContext());
     }
 
     @Override

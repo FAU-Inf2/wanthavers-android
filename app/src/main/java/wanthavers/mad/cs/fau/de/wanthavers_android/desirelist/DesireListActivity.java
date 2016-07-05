@@ -1,29 +1,20 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.desirelist;
 
 import android.content.BroadcastReceiver;
-import android.content.ClipData;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.drawable.Drawable;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.menu.MenuView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.Toast;
 
 
@@ -58,7 +49,6 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.util.SharedPreferencesHelper;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView;
 
 import static com.google.common.base.Preconditions.checkNotNull;
-import static wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.DesireListType.*;
 
 public class DesireListActivity extends AppCompatActivity {
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
@@ -231,15 +221,12 @@ public class DesireListActivity extends AppCompatActivity {
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
                         switch (menuItem.getItemId()) {
                             case R.id.listDesires_navigation_menu_item:
-                                WantHaversApplication.setCurDesireFilter(new DesireFilter());
                                 mDesireListPresenter.openAllDesires();
                                 break;
                             case R.id.myDesires_navigation_menu_item:
-                                WantHaversApplication.setCurDesireFilter(new DesireFilter());
                                 mDesireListPresenter.openMyDesires();
                                 break;
                             case R.id.myTransactions_navigation_menu_item:
-                                WantHaversApplication.setCurDesireFilter(new DesireFilter());
                                 mDesireListPresenter.openMyTransactions();
                                 break;
                             case R.id.settings_navigation_menu_item:

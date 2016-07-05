@@ -9,9 +9,6 @@ import android.os.Handler;
 import android.os.Parcelable;
 import android.provider.CalendarContract;
 
-import com.google.firebase.messaging.FirebaseMessagingService;
-import com.google.firebase.messaging.RemoteMessage;
-import com.parse.GcmBroadcastReceiver;
 
 
 public class MessagePushIntentService extends IntentService {

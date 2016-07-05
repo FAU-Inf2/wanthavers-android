@@ -3,13 +3,10 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.desirelist;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
-import android.view.View;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.Desire;
@@ -22,8 +19,6 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.DeleteToken;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetAvgRatingForUser;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetDesireList;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetUser;
-import wanthavers.mad.cs.fau.de.wanthavers_android.rest.RestClient;
-import wanthavers.mad.cs.fau.de.wanthavers_android.util.SharedPreferencesHelper;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -299,7 +294,7 @@ public class DesireListPresenter implements DesireListContract.Presenter {
 
     private void setCurFilterForDesireList(boolean loadOlderDesires) {
 
-        DesireFilter curDesireFilter = WantHaversApplication.getCurDesireFilter(mAppContext);
+        DesireFilter curDesireFilter = WantHaversApplication.getDesireFilter(mAppContext);
 
         if (curDesireFilter == null) {
             curDesireFilter = new DesireFilter();
@@ -331,7 +326,9 @@ public class DesireListPresenter implements DesireListContract.Presenter {
         }
 
         curDesireFilter.setLastDesireId(lastDesireId);
-        WantHaversApplication.setCurDesireFilter(curDesireFilter);
+
+
+        WantHaversApplication.setDesireFilter(curDesireFilter, mAppContext);
     }
 
 

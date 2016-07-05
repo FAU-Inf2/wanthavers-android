@@ -11,14 +11,15 @@ import com.squareup.picasso.Picasso;
 import java.util.concurrent.TimeUnit;
 
 import de.fau.cs.mad.wanthavers.common.DesireFilter;
+import de.fau.cs.mad.wanthavers.common.Location;
 import wanthavers.mad.cs.fau.de.wanthavers_android.cloudmessaging.PollingTask;
 import wanthavers.mad.cs.fau.de.wanthavers_android.cloudmessaging.WantHaverScheduledExecutor;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.ormlite.FilterDatabaseHelper;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.ormlite.LocationDatabaseHelper;
+import wanthavers.mad.cs.fau.de.wanthavers_android.filtersetting.FilterSettingContract;
 
 public class WantHaversApplication extends MultiDexApplication {
 
-
-    private static DesireFilter mDesireFilter;
     private static boolean mNewMessages = false;
     WantHaverScheduledExecutor mWantHaverScheduledExecutor;
     private static final int BACKUP_POLLING_DELAY= 30;
@@ -39,6 +40,8 @@ public class WantHaversApplication extends MultiDexApplication {
 
         startNotificationBackupThread();
 
+        DesireFilter emptyFilter = new DesireFilter();
+        setDesireFilter(emptyFilter, getApplicationContext());
     }
 
     @Override
@@ -59,50 +62,60 @@ public class WantHaversApplication extends MultiDexApplication {
         mWantHaverScheduledExecutor.scheduleWithFixedDelay(pollingTask,BACKUP_POLLING_DELAY, BACKUP_POLLING_DELAY, TimeUnit.SECONDS);
     }
 
-    public static DesireFilter getCurDesireFilter(Context context){
+    public static DesireFilter getDesireFilter(Context context){
 
-        DesireFilter defaultFilter = null;
+        DesireFilter desireFilter = new DesireFilter();
+        FilterDatabaseHelper filtDataHelper = FilterDatabaseHelper.getInstance(context);
 
-        if(mDesireFilter == null){
-            FilterDatabaseHelper filtDataHelper = FilterDatabaseHelper.getInstance(context);
-
-            try {
-               defaultFilter = filtDataHelper.getById(0);
-            }catch (Exception e){
-                //do nothing as no default filter is specified
-            }
-
-            if(defaultFilter != null){
-                return defaultFilter;
-            }
-
+        try {
+            desireFilter = filtDataHelper.getById(0);
+        }catch (Exception e){
             return new DesireFilter();
+            //do nothing as no default filter is specified
         }
 
-        return mDesireFilter;
+        return desireFilter;
 
     }
 
 
-    public static void setCurDesireFilter(DesireFilter desireFilter){
-        mDesireFilter = desireFilter;
-    }
-
-    public static void setDefaultFilter(DesireFilter desireFilter, Context context){
-
-        //ensure id of filter set to "0"
-        if(desireFilter.getId() != 0){
-            System.err.println("Default filter has to have the id 0\n, filter was not set");
-            return;
-        }
-
-        mDesireFilter = desireFilter;
-
+    public static void setDesireFilter(DesireFilter desireFilter, Context context){
         desireFilter.setId(0);
+
         FilterDatabaseHelper filtDataHelper = FilterDatabaseHelper.getInstance(context);
         filtDataHelper.createOrUpdate(desireFilter);
-
     }
+
+
+    public static Location getLocation(Context context){
+
+        Location location = new Location();
+        LocationDatabaseHelper locDatabaseHelper = LocationDatabaseHelper.getInstance(context);
+
+        try {
+            location = locDatabaseHelper.getById(0);
+        }catch (Exception e){
+            return new Location();
+            //do nothing as no default filter is specified
+        }
+
+        return location;
+    }
+
+
+    public static void setLocation(Location location, Context context){
+        location.setId(0);
+
+        LocationDatabaseHelper filtDataHelper = LocationDatabaseHelper.getInstance(context);
+        filtDataHelper.createOrUpdate(location);
+
+        //update filter on update location
+        DesireFilter curDesireFilter = getDesireFilter(context);
+        curDesireFilter.setLocation(location);
+        setDesireFilter(curDesireFilter, context);
+    }
+
+
 
 
     public static void setNewMessages(boolean newMessages){
