@@ -182,7 +182,7 @@
                         android:layout_centerVertical="true"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
-                        android:layout_marginRight="10dp"
+                        android:layout_marginRight="15dp"
                         android:src="@android:drawable/sym_def_app_icon"
                         android:contentDescription="@string/desire_detail_itemImage_contentDesc" />
 
@@ -191,15 +191,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:lineSpacingMultiplier="0.6"
                         android:text="@{desire.title}"
                         android:textColor="@color/colorMainText"
                         android:layout_marginTop="25dp"
                         android:textSize="35dp"
                         android:textStyle="bold"
                         android:layout_toRightOf="@+id/desire_detail_itemImage"
-                        android:layout_centerVertical="true"
-                        android:minHeight="150dp"/>
+                        android:layout_centerVertical="true"/>
 
                 </RelativeLayout>
 
