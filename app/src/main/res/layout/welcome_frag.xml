@@ -21,36 +21,32 @@
         android:focusableInTouchMode="true">
 
 
-        <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/wanthavers_text"
+        <ImageView
             android:id="@+id/welcome_header"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:src="@drawable/logo_plus_text"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:textColor="@color/colorPrimary"
-            android:textSize="40sp"/>
-
+            android:layout_centerHorizontal="true"/>
 
         <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/welcome_header"
-            android:textAlignment="viewStart"
+            android:textAlignment="center"
             android:id="@+id/welcome_message"
             android:background="@color/layout_Background1"
             android:text="@string/welcomeMessage"
             android:textSize="20dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="20dp"
             android:textColor="@color/colorMainTextDark"/>
 
         <ImageView
             android:layout_width="200sp"
-            android:layout_height="250dp"
+            android:layout_height="200dp"
             android:id="@+id/image_camera"
             android:src="@android:drawable/ic_menu_camera"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:layout_below="@id/welcome_message"
             android:layout_centerHorizontal="true"
             android:onClick="@{() -> presenter.selectImageFromDevice()}"/>
