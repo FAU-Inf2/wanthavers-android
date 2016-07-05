@@ -68,10 +68,6 @@ dependencies {
     compile 'com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:2.7.4'
     compile 'javax.ws.rs:javax.ws.rs-api:2.0.1'
 
-    //include path server dependencies for chat
-    compile 'com.parse:parse-android:1.13.0'
-    compile 'com.parse:parseinterceptors:0.0.2' // for logging API calls to LogCat
-
     //add dependency to patch application ClassLoader
     compile 'com.android.support:multidex:1.0.0'
 
