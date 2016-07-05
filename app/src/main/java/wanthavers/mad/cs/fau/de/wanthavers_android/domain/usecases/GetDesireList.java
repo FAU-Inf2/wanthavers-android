@@ -34,7 +34,11 @@ public class GetDesireList extends UseCase<GetDesireList.RequestValues, GetDesir
 
         DesireListType desireListType = values.getDesireListType();
 
-        DesireFilter desireFilter = WantHaversApplication.getCurDesireFilter(values.getContext());
+        DesireFilter desireFilter = WantHaversApplication.getDesireFilter(values.getContext());
+
+        if(desireFilter == null){
+            System.out.println("desireFilter = Empty");
+        }
 
         if(desireListType == DesireListType.ALL_DESIRES) {
 
@@ -45,11 +49,24 @@ public class GetDesireList extends UseCase<GetDesireList.RequestValues, GetDesir
         }
 
         if(desireListType == DesireListType.MY_DESIRES){
+
+
+            Long tmpDesireid = desireFilter.getLastDesireId();
+
+            desireFilter = new DesireFilter();
+            if(tmpDesireid != null) {
+                desireFilter.setLastDesireId(tmpDesireid);
+            }
             desireFilter.setCreatorId(userId);
         }
 
 
         if(desireListType == DesireListType.MY_TRANSACTIONS){
+            Long tmpDesireid = desireFilter.getLastDesireId();
+            desireFilter = new DesireFilter();
+            if(tmpDesireid != null) {
+                desireFilter.setLastDesireId(tmpDesireid);
+            }
             desireFilter.setHaverId(userId);
         }
 

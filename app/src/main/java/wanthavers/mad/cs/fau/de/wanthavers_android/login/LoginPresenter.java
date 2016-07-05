@@ -66,10 +66,11 @@ public class LoginPresenter implements LoginContract.Presenter {
 
         final SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, mAppContext);
         String loggedInUserMail = sharedPreferencesHelper.loadString(SharedPreferencesHelper.KEY_USER_EMAIL, null);
+        String loggedInUserPw = sharedPreferencesHelper.loadString(SharedPreferencesHelper.KEY_PASSWORD, null);
 
         //redirect immediately if user is logged in
         if (loggedInUserMail != null) {
-            mLoginView.showDesireList();
+            login(loggedInUserMail,loggedInUserPw, false);
         }
 
     }
