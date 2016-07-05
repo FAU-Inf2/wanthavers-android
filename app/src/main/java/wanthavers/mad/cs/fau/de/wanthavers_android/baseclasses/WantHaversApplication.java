@@ -44,13 +44,17 @@ public class WantHaversApplication extends MultiDexApplication {
 
         Location location = getLocation(getApplicationContext());
 
-        if(location == null){
+
+
+        if(location == null) {
             location = new Location();
-            location.setCityName("Erlangen");
-            location.setFullAddress("Martenstraße, Erlangen");
         }
 
+        location.setCityName("Erlangen");
+        location.setFullAddress("Martenstraße, Erlangen");
+        setLocation(location,getApplicationContext());
         emptyFilter.setLocation(location);
+
         setDesireFilter(emptyFilter, getApplicationContext());
     }
 

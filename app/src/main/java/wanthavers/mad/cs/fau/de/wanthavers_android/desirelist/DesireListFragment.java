@@ -65,8 +65,6 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
     private DesireLogic mDesireLogic;
     private NavHeaderBinding mNavHeaderBinding;
     private int i = 0;
-    private LatLng mDefaultLatLng;
-    private GpsLocationTrackerLogic mGpsLocationTracker;
 
     public DesireListFragment(){
         //Requires empty public constructor
@@ -409,20 +407,12 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
     }
 
     public void getCurrentGpsPosition(){
-
-        mDefaultLatLng = new LatLng(49.573840d, 11.027730d); // TODO set Default Location
-        mGpsLocationTracker = new GpsLocationTrackerLogic(getActivity(), mDefaultLatLng.latitude ,mDefaultLatLng.longitude );
-
-        double lat = mGpsLocationTracker.getLatitude();
-        double lng = mGpsLocationTracker.getLongitude();
-
-        Log.d("Lat", Double.toString(lat));
-        Log.d("lng", Double.toString(lng));
-
-        mDefaultLatLng = new LatLng(lat, lng);
-        //TODO Oliver Lutz: set LocationFilter for DesireList
-
-
+        Location curDefaultLocation = WantHaversApplication.getLocation(getContext());
+        GpsLocationTrackerLogic gpsLocationTracker = new GpsLocationTrackerLogic(getActivity(), curDefaultLocation.getLat() , curDefaultLocation.getLon() );
+        Location newLocation = gpsLocationTracker.getGpsLocation();
+        if (newLocation != null) {
+            WantHaversApplication.setLocation(newLocation, getContext());
+        }
     }
 
     @Override

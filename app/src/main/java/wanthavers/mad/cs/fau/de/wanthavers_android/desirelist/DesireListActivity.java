@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 
 import de.fau.cs.mad.wanthavers.common.DesireFilter;
+import de.fau.cs.mad.wanthavers.common.Location;
 import de.fau.cs.mad.wanthavers.common.User;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
@@ -121,7 +122,9 @@ public class DesireListActivity extends AppCompatActivity {
         WantHaversTextView abTitle = (WantHaversTextView) findViewById(R.id.toolbar_title);
 
         switch(mDesireListType){
-            case ALL_DESIRES: abTitle.setText(getString(R.string.listDesires_title));
+            case ALL_DESIRES:
+                Location loc = WantHaversApplication.getLocation(getApplicationContext());
+                abTitle.setText(loc.getCityName());
                 break;
             case MY_DESIRES: abTitle.setText(getString(R.string.myDesires_title));
                 break;
