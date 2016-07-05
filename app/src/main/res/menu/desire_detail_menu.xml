@@ -12,7 +12,7 @@
     <item
         android:id="@+id/menu_delete_desire"
         android:title="@string/delete_desire"
-        android:icon="@drawable/wh_delete_icon_light"
+        android:icon="@drawable/wh_delete_bin_light"
         app:showAsAction="always"
         android:visible="false"/>
 
