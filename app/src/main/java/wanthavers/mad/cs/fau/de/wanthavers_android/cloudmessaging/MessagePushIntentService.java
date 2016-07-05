@@ -6,9 +6,6 @@ import android.app.Notification;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Parcelable;
-import android.provider.CalendarContract;
-
 
 
 public class MessagePushIntentService extends IntentService {
