@@ -17,11 +17,7 @@ public interface FilterSettingContract {
 
         void showGetCategoriesError();
 
-        String[] getRadiusArray();
-
         void showFilterChangeSuccess();
-
-        void showRadiusOption();
 
         void setLocation(Location location);
 
@@ -32,8 +28,6 @@ public interface FilterSettingContract {
         void showWrongPricesSet();
 
         void openLocationList(Location filterLocation);
-
-        void deleteLocationInView();
 
     }
 
@@ -46,8 +40,6 @@ public interface FilterSettingContract {
         void setFilterWithInput(Category category, Location location);
 
         void resetFilter();
-
-        void resetMinimalRating();
 
         void openCategorySelection();
 

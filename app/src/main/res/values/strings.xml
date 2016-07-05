@@ -215,13 +215,9 @@
         <item>\u00A3</item>
     </string-array>
 
-    <string-array name="radius">
-        <item>1km</item>
-        <item>2km</item>
-        <item>5km</item>
-        <item>10km</item>
-        <item>&gt; 10km</item>
-    </string-array>
+
+    <string name="unit_kilometre">km</string>
+    <string name="default_radius">5</string>
 
 
 </resources>

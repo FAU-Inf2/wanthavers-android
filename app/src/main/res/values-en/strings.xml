@@ -68,8 +68,8 @@
     <string name="small_price">SMALL</string>
     <string name="medium_price">MEDIUM</string>
     <string name="large_price">LARGE</string>
-    <string name="minimal_reward_title">minimum reward</string>
-    <string name="minimal_rating_title">minimum rating</string>
+    <string name="minimal_reward_title">Minimum reward</string>
+    <string name="minimal_rating_title">Minimum rating</string>
     <string name="location_title">Location</string>
     <string name="filter_radius_title">Radius</string>
     <string name="button_apply_filter">Apply filter</string>
@@ -134,19 +134,10 @@
     <string name="locationlist_empty">No locations stored yet</string>
     <string name="desire_detail_delete_haver_error">Error while deleting desire</string>
 
-
     <string-array name="currencies">
         <item>\u20AC</item>
         <item>\u0024</item>
         <item>\u00A3</item>
-    </string-array>
-
-    <string-array name="radius">
-        <item>1km</item>
-        <item>2km</item>
-        <item>5km</item>
-        <item>10km</item>
-        <item>&gt; 10km</item>
     </string-array>
 
     <string name="or">OR</string>
@@ -213,5 +204,9 @@
     <string name="reset_password_mail_hint">Set your Email address</string>
     <string name="gps_location_changed">Location successfully changed</string>
     <string name="set_default_location">Set default Location</string>
+
+    <string name="unit_kilometre">km</string>
+    <string name="default_radius">5</string>
+
 
 </resources>

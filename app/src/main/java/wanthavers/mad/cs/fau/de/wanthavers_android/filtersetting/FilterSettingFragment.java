@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 import android.widget.Spinner;
 
 import com.squareup.picasso.Picasso;
@@ -28,6 +29,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.FiltersettingFrag
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.DesireListActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.locationlist.LocationListActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.RoundedTransformation;
+import wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -65,13 +67,30 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
 
         mFilterSettingFragBinding.setPresenter(mPresenter);
 
-        //Set up radius spinner
-        Spinner spinner = (Spinner) mFilterSettingFragBinding.spinnerRadius;
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.radius, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        int defaultLocationId = adapter.getPosition("5km");
-        spinner.setSelection(defaultLocationId);
+        //Set up radius seekbar
+        SeekBar seekBar = (SeekBar) mFilterSettingFragBinding.radiusSeekbar;
+        final WantHaversTextView radiusStatus = (WantHaversTextView) mFilterSettingFragBinding.filterRadiusStatus;
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            Integer mProgress = 0;
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                mProgress = progress + 1;
+                String curRadius = mProgress.toString();
+                radiusStatus.setText(curRadius);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                String curRadius = mProgress.toString();
+                radiusStatus.setText(curRadius);
+            }
+        });
 
         if (savedInstanceState != null) {
             if (savedInstanceState.getSerializable("filterCategory") != null) {
@@ -80,9 +99,10 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
             if (savedInstanceState.getSerializable("filterLocation") != null) {
                 setLocation((Location) savedInstanceState.getSerializable("filterLocation"));
             }
-            if (savedInstanceState.getSerializable("filterRadiusPos") != null) {
-                String locationRadius = (String) savedInstanceState.getSerializable("filterRadiusPos");
-                spinner.setSelection(adapter.getPosition(locationRadius));
+            if (savedInstanceState.getSerializable("filterRadius") != null) {
+                Integer locationRadius = ((Integer) savedInstanceState.getSerializable("filterRadius") + 1);
+                seekBar.setProgress(locationRadius - 1);
+                radiusStatus.setText(locationRadius.toString());
             }
         }
 
@@ -110,11 +130,6 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
         intent.putExtra("filterlocation", filterLocation);
         intent.putExtra("calledAct", "1"); //for distinguishing which activity started the map
         startActivityForResult(intent, 1);
-    }
-
-    @Override
-    public String[] getRadiusArray() {
-        return getResources().getStringArray(R.array.radius);
     }
 
     private void showMessage(String message) {
@@ -155,8 +170,6 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
         Location location = (Location) data.getExtras().getSerializable("selectedLocation");
         if (location != null) {
             setLocation(location);
-        } else {
-            deleteLocationInView();
         }
     }
 
@@ -164,25 +177,12 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
     public void setLocation(Location location) {
         mFilterSettingFragBinding.setLocation(location);
         showLocationInView();
-        showRadiusOption();
     }
 
     public void showLocationInView() {
         mFilterSettingFragBinding.noLocationSelected.setVisibility(View.GONE);
         mFilterSettingFragBinding.selectedCustomLocationName.setVisibility(View.VISIBLE);
         mFilterSettingFragBinding.selectedLocationString.setVisibility(View.VISIBLE);
-    }
-
-    public void deleteLocationInView() {
-        mFilterSettingFragBinding.noLocationSelected.setVisibility(View.VISIBLE);
-        mFilterSettingFragBinding.selectedCustomLocationName.setVisibility(View.GONE);
-        mFilterSettingFragBinding.selectedLocationString.setVisibility(View.GONE);
-        mFilterSettingFragBinding.selectRadius.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void showRadiusOption() {
-        mFilterSettingFragBinding.selectRadius.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -211,7 +211,6 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
         super.onSaveInstanceState(state);
         state.putSerializable("filterCategory", mFilterSettingFragBinding.getCategory());
         state.putSerializable("filterLocation", mFilterSettingFragBinding.getLocation());
-        String spinnerSelection = (String) mFilterSettingFragBinding.spinnerRadius.getSelectedItem();
-        state.putSerializable("filterRadiusPos", spinnerSelection);
+        state.putSerializable("filterRadius", mFilterSettingFragBinding.radiusSeekbar.getProgress());
     }
 }
