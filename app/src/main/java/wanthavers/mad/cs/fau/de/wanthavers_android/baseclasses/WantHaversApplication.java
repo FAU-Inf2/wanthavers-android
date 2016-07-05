@@ -41,6 +41,16 @@ public class WantHaversApplication extends MultiDexApplication {
         startNotificationBackupThread();
 
         DesireFilter emptyFilter = new DesireFilter();
+
+        Location location = getLocation(getApplicationContext());
+
+        if(location == null){
+            location = new Location();
+            location.setCityName("Erlangen");
+            location.setFullAddress("Martenstraße, Erlangen");
+        }
+
+        emptyFilter.setLocation(location);
         setDesireFilter(emptyFilter, getApplicationContext());
     }
 
