@@ -2,6 +2,7 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate;
 
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -25,13 +26,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TimePicker;
 
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.sql.Time;
+import java.util.Date;
 import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.Category;
@@ -91,7 +96,7 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
         super.onResume();
         mPresenter.start();
 
-        GpsLocationTrackerLogic gpsLocationTracker = new GpsLocationTrackerLogic(getContext());
+        GpsLocationTrackerLogic gpsLocationTracker = new GpsLocationTrackerLogic(getContext(), 49.573759d , 11.027389d);
         if (!gpsLocationTracker.isNetworkAvailable()){
             showMessage(getString(R.string.network_failure));
         }

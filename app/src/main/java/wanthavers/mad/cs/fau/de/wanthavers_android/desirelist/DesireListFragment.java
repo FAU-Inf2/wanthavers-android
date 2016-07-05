@@ -33,6 +33,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.fau.cs.mad.wanthavers.common.Location;
 import de.fau.cs.mad.wanthavers.common.Media;
 import de.fau.cs.mad.wanthavers.common.User;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
@@ -87,10 +88,7 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
     public void onResume()  {
         super.onResume();
 
-        if (!isGpsEnabled()) {
-            showAlert();
-        }
-
+        //starting GPS LocationTracker for Users actual LatLng
         getCurrentGpsPosition();
 
         mPresenter.start();
@@ -111,8 +109,9 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
         //check for Location Runtime Permissions
         isFineLocationPermissionGranted();
 
-        //starting GPS LocationTracker for Users actual LatLng
-        getCurrentGpsPosition();
+        if (!isGpsEnabled()) {
+            showAlert();
+        }
 
         //Set up desire view
         RecyclerView recyclerView = (RecyclerView) desirelistFragBinding.desiresList;
@@ -400,7 +399,7 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
 
     public void getCurrentGpsPosition(){
 
-        mDefaultLatLng = new LatLng(49.589674d, 11.011961d); // TODO set Default Location
+        mDefaultLatLng = new LatLng(49.573840d, 11.027730d); // TODO set Default Location
         mGpsLocationTracker = new GpsLocationTrackerLogic(getActivity(), mDefaultLatLng.latitude ,mDefaultLatLng.longitude );
 
         double lat = mGpsLocationTracker.getLatitude();
@@ -408,6 +407,7 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
 
         Log.d("Lat", Double.toString(lat));
         Log.d("lng", Double.toString(lng));
+
         mDefaultLatLng = new LatLng(lat, lng);
         //TODO Oliver Lutz: set LocationFilter for DesireList
 

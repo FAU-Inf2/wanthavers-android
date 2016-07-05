@@ -120,7 +120,7 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
         mLocationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
 
         // computer science tower uni erlangen
-        mGpsLocationTracker = new GpsLocationTrackerLogic(MapActivity.this, 49.573759d, 11.027389d);
+        mGpsLocationTracker = new GpsLocationTrackerLogic(MapActivity.this, 49.573840d, 11.027730d);
 
         /*if (!mGpsLocationTracker.isNetworkAvailable()){
             onBackPressed();

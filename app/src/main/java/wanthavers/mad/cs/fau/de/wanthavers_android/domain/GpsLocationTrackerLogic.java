@@ -5,6 +5,8 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.GpsStatus;
 import android.location.Location;
 import android.location.LocationListener;
@@ -15,13 +17,20 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 
+import com.google.android.gms.maps.model.LatLng;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+
 
 public class GpsLocationTrackerLogic extends Service implements LocationListener {
 
     private Context mContext;
     private Location mLocation;
-    private double mLatitude = 49.573759d;
-    private double mLongitude = 11.027389d;
+    private double mLatitude;// = 49.573840d;
+    private double mLongitude;// =  11.027730d;
 
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATE = 1;
     private static final long MIN_TIME_FOR_UPDATE = 1;
@@ -34,10 +43,6 @@ public class GpsLocationTrackerLogic extends Service implements LocationListener
         mLongitude = startLng;
         getLocation();
         removeLocationListener();
-    }
-
-    public GpsLocationTrackerLogic(Context context) {
-        mContext = context;
     }
 
 
@@ -148,6 +153,77 @@ public class GpsLocationTrackerLogic extends Service implements LocationListener
             mLongitude = mLocation.getLongitude();
         }
         return mLongitude;
+    }
+
+
+    public de.fau.cs.mad.wanthavers.common.Location getGpsLocation() {
+        de.fau.cs.mad.wanthavers.common.Location location = new  de.fau.cs.mad.wanthavers.common.Location();
+        location.setLat(mLatitude);
+        location.setLon(mLongitude);
+        List<String> locationFullAddress = getAddressStrings(new LatLng(mLatitude, mLongitude));
+        if (locationFullAddress == null || locationFullAddress.get(0) == null ||
+                locationFullAddress.get(1) == null){
+            return null;
+        }
+
+        location.setFullAddress(locationFullAddress.get(0));
+        location.setCityName(locationFullAddress.get(1));
+
+        return location;
+    }
+
+
+    private List<String> getAddressStrings(LatLng loc) {
+        List<String> AddressList = new ArrayList<>();
+        String completeAddress;
+
+        if (loc != null) {
+            Geocoder geocoder = new Geocoder(mContext, Locale.getDefault());
+
+            List<Address> addresses = new ArrayList<>();
+            try {
+                addresses = geocoder.getFromLocation(loc.latitude, loc.longitude, 1);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            if (addresses != null && addresses.size() > 0) {
+
+                String addressIndex0 = (addresses.get(0).getAddressLine(0) != null) ? addresses
+                        .get(0).getAddressLine(0) : null;
+                String addressIndex1 = (addresses.get(0).getAddressLine(1) != null) ? addresses
+                        .get(0).getAddressLine(1) : null;
+                String addressIndex2 = (addresses.get(0).getAddressLine(2) != null) ? addresses
+                        .get(0).getAddressLine(2) : null;
+                String addressIndex3 = (addresses.get(0).getAddressLine(3) != null) ? addresses
+                        .get(0).getAddressLine(3) : null;
+
+                completeAddress = addressIndex0 + "," + addressIndex1;
+
+                if (addressIndex2 != null) {
+                    completeAddress += "," + addressIndex2;
+                }
+                if (addressIndex3 != null) {
+                    completeAddress += "," + addressIndex3;
+                }
+                if (completeAddress != null) {
+                    AddressList.add(0, completeAddress);
+
+                    String city = null;
+                    if (addresses.get(0).getLocality() != null)  {
+                        city=addresses.get(0).getLocality();
+                    }
+                    else if (addresses.get(0).getSubAdminArea() != null)  {
+                        city=addresses.get(0).getSubAdminArea();
+                    }
+                    AddressList.add(1, city);
+                }
+            }
+        }
+
+        return AddressList;
+
     }
 
 
