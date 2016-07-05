@@ -99,9 +99,10 @@ public class WelcomeFragment extends Fragment implements WelcomeContract.View {
         if (requestCode == 30 && data!= null){
 
             Intent intent = new Intent(getContext(), DesireListActivity.class);
-            String fullAddress = (String) data.getExtras().getSerializable("desireLocation");
+            String fullAddress = data.getExtras().getString("desireLocation");
             Double lat = data.getExtras().getDouble("desireLocationLat");
             Double lon = data.getExtras().getDouble("desireLocationLng");
+            String cityName = data.getExtras().getString("desireLocationCity");
 
             Location location = new Location();
             if (fullAddress != null) {
@@ -112,6 +113,9 @@ public class WelcomeFragment extends Fragment implements WelcomeContract.View {
             }
             if (lon != null) {
                 location.setLon(lon);
+            }
+            if (cityName != null) {
+                location.setCityName(cityName);
             }
 
             WantHaversApplication.setLocation(location, getContext());

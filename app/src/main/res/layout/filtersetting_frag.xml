@@ -207,12 +207,6 @@
                 android:layout_below="@id/filter_location">
 
                 <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
-                    android:id="@+id/no_location_selected"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/no_location_selected"/>
-
-                <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                     android:id="@+id/selected_custom_location_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -233,8 +227,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_below="@id/selected_custom_location_name"
-                    android:textColor="@color/colorMainTextDark"
-                    android:visibility="gone"/>
+                    android:textColor="@color/colorMainTextDark" />
 
 
             </RelativeLayout>

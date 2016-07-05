@@ -102,9 +102,11 @@ public class LocationListFragment extends Fragment implements LocationListContra
         if (locationList.size() == 0) {
             if (mFirstCalled) {
                 mFirstCalled = false;
-                showMap(null);
+                //showMap(null);
             }
             mLocationListFragBinding.locationListEmpty.setVisibility(View.VISIBLE);
+        } else {
+            mLocationListFragBinding.locationListEmpty.setVisibility(View.GONE);
         }
     }
 

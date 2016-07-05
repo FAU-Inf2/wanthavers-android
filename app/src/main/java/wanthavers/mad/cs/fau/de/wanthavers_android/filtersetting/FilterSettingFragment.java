@@ -110,6 +110,8 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
             }
         }
 
+        setLocation(WantHaversApplication.getLocation(getContext()));
+
         mPresenter.start();
         loadCurFilterSettings(mFilterSettingFragBinding.getCategory(), mFilterSettingFragBinding.getLocation());
 
@@ -224,13 +226,16 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
     @Override
     public void setLocation(Location location) {
         mFilterSettingFragBinding.setLocation(location);
+        WantHaversApplication.setLocation(location, getContext());
         showLocationInView();
     }
 
     public void showLocationInView() {
-        mFilterSettingFragBinding.noLocationSelected.setVisibility(View.GONE);
-        mFilterSettingFragBinding.selectedCustomLocationName.setVisibility(View.VISIBLE);
-        mFilterSettingFragBinding.selectedLocationString.setVisibility(View.VISIBLE);
+        if (mFilterSettingFragBinding.getLocation().getDescription() != null) {
+            mFilterSettingFragBinding.selectedCustomLocationName
+                    .setText(mFilterSettingFragBinding.getLocation().getDescription());
+            mFilterSettingFragBinding.selectedCustomLocationName.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
