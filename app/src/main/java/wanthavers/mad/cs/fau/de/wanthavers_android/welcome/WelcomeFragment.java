@@ -100,6 +100,7 @@ public class WelcomeFragment extends Fragment implements WelcomeContract.View {
             intent.putExtra("desireLocation", data.getStringExtra("desireLocation"));
             intent.putExtra("desireLocationLat", data.getStringExtra("desireLocationLat"));
             intent.putExtra("desireLocationLng", data.getStringExtra("desireLocationLng"));
+            intent.putExtra("desireLocationCity", data.getStringExtra("desireLocationCity"));
             startActivity(intent);
         }
 
