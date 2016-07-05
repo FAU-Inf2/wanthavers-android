@@ -3,7 +3,6 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.domain;
 import android.Manifest;
 import android.app.Service;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.GpsStatus;
@@ -15,11 +14,6 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.provider.Settings;
-import android.support.v4.app.ActivityCompat;
-import android.view.ContextThemeWrapper;
-
-import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 
 
 public class GpsLocationTrackerLogic extends Service implements LocationListener {
@@ -29,8 +23,8 @@ public class GpsLocationTrackerLogic extends Service implements LocationListener
     private double mLatitude = 49.573759d;
     private double mLongitude = 11.027389d;
 
-    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATE = 0;
-    private static final long MIN_TIME_FOR_UPDATE = 0; //5sec
+    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATE = 1;
+    private static final long MIN_TIME_FOR_UPDATE = 1;
     private LocationManager mLocationManager;
 
 
@@ -47,7 +41,7 @@ public class GpsLocationTrackerLogic extends Service implements LocationListener
     }
 
 
-    public Location getLocation() {
+    private Location getLocation() {
 
         try {
 
@@ -58,14 +52,17 @@ public class GpsLocationTrackerLogic extends Service implements LocationListener
                 if (isGpsEnabled() && mContext.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                     mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME_FOR_UPDATE, MIN_DISTANCE_CHANGE_FOR_UPDATE, this);
                     mLocation = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                    if (mLocation != null) {
+
+                    //check if GPS Signal is found
+                    if (mLocation != null && mLocation.getLatitude()!=mLatitude && mLocation.getLongitude()!=mLongitude) {
                         mLatitude = mLocation.getLatitude();
                         mLongitude = mLocation.getLongitude();
                         return mLocation;
                     }
 
 
-                } else if (isNetworkEnabled() && mContext.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                }
+                if (isNetworkEnabled() && mContext.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
                     mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME_FOR_UPDATE, MIN_DISTANCE_CHANGE_FOR_UPDATE, this);
                     mLocation = mLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
@@ -83,14 +80,17 @@ public class GpsLocationTrackerLogic extends Service implements LocationListener
                 if (isGpsEnabled()) {
                     mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME_FOR_UPDATE, MIN_DISTANCE_CHANGE_FOR_UPDATE, this);
                     mLocation = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                    if (mLocation != null) {
+
+                    //check if GPS Signal is found
+                    if (mLocation != null && mLocation.getLatitude()!=mLatitude && mLocation.getLongitude()!=mLongitude) {
                         mLatitude = mLocation.getLatitude();
                         mLongitude = mLocation.getLongitude();
                         return mLocation;
                     }
 
 
-                } else if (isNetworkEnabled()) {
+                }
+                if (isNetworkEnabled()) {
 
                     mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME_FOR_UPDATE, MIN_DISTANCE_CHANGE_FOR_UPDATE, this);
                     mLocation = mLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
@@ -116,7 +116,7 @@ public class GpsLocationTrackerLogic extends Service implements LocationListener
         return mLocation;
     }
 
-    private boolean isGpsEnabled() {
+    public boolean isGpsEnabled() {
         return mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
 
     }
@@ -179,7 +179,7 @@ public class GpsLocationTrackerLogic extends Service implements LocationListener
          }
     }
 
-    public void removeLocationListener() {
+    private void removeLocationListener() {
         if (mLocationManager != null) {
             //stop searching for a GPS Signal after leaving MapActivity
             if (Build.VERSION.SDK_INT >= 23) {

@@ -1,9 +1,11 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.desirelist;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.os.Build;
+import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
@@ -61,6 +63,8 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
     private DesireLogic mDesireLogic;
     private NavHeaderBinding mNavHeaderBinding;
     private int i = 0;
+    private LatLng mDefaultLatLng;
+    private GpsLocationTrackerLogic mGpsLocationTracker;
 
     public DesireListFragment(){
         //Requires empty public constructor
@@ -82,6 +86,13 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
     @Override
     public void onResume()  {
         super.onResume();
+
+        if (!isGpsEnabled()) {
+            showAlert();
+        }
+
+        getCurrentGpsPosition();
+
         mPresenter.start();
     }
 
@@ -359,9 +370,48 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
         }
     }
 
-    @Override
-    public void getCurrentGpsPosition() {
-        ((DesireListActivity) getActivity()).getCurrentGpsPosition();
+
+    private boolean isGpsEnabled() {
+        LocationManager locManager= (LocationManager) getActivity().getSystemService(getActivity().LOCATION_SERVICE);
+        return locManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+
+    }
+
+
+    private void showAlert() {
+        final android.app.AlertDialog.Builder dialog = new android.app.AlertDialog.Builder(getActivity());
+        dialog.setTitle(getString(R.string.enable_gps))
+                .setMessage(getString(R.string.enable_gps_text_desirelist))
+                .setPositiveButton(getString(R.string.enable_gps_settings), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+                        Intent myIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        startActivity(myIntent);
+                        getCurrentGpsPosition();
+                    }
+                })
+                .setNegativeButton(getString(R.string.enable_gps_cancel), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+                    }
+                });
+        dialog.show();
+    }
+
+    public void getCurrentGpsPosition(){
+
+        mDefaultLatLng = new LatLng(49.589674d, 11.011961d); // TODO set Default Location
+        mGpsLocationTracker = new GpsLocationTrackerLogic(getActivity(), mDefaultLatLng.latitude ,mDefaultLatLng.longitude );
+
+        double lat = mGpsLocationTracker.getLatitude();
+        double lng = mGpsLocationTracker.getLongitude();
+
+        Log.d("Lat", Double.toString(lat));
+        Log.d("lng", Double.toString(lng));
+        mDefaultLatLng = new LatLng(lat, lng);
+        //TODO Oliver Lutz: set LocationFilter for DesireList
+
+
     }
 
 
