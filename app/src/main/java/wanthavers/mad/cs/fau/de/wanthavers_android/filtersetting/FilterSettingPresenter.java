@@ -37,51 +37,8 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
         /*loadCurFilterSettings();*/
     }
 
+
     @Override
-    public void loadCurFilterSettings(Category category, Location location) {
-
-        //get views
-        RatingBar minRatingBar = (RatingBar) mActivity.findViewById(R.id.filter_Setting_Rating_Bar);
-        EditText minPriceView = (EditText) mActivity.findViewById(R.id.min_price_input);
-        EditText maxPriceView = (EditText) mActivity.findViewById(R.id.max_price_input);
-        SeekBar radiusView = (SeekBar) mActivity.findViewById(R.id.radius_seekbar);
-
-        //get values
-        DesireFilter  curFilter = WantHaversApplication.getDesireFilter(mActivity.getApplicationContext());
-
-        Long categoryId = curFilter.getCategory();
-        Double maxPrice = curFilter.getPrice_max();
-        Float minimalRating = curFilter.getRating_min();
-        Double minimalPrice = curFilter.getPrice_min();
-        Location filterLocation = curFilter.getLocation();
-        Double radius = curFilter.getRadius();
-
-        //set values
-        if (categoryId != null && category == null) {
-            getCategory(categoryId);
-        }
-
-        if (minimalPrice != null) {
-            minPriceView.setText(Double.toString(minimalPrice));
-        }
-
-        if (maxPrice != null) {
-            maxPriceView.setText(Double.toString(maxPrice));
-        }
-
-        if (minimalRating != null) {
-            minRatingBar.setRating(minimalRating);
-        }
-
-        if (filterLocation != null && location == null) {
-            mFilterSettingView.setLocation(filterLocation);
-        }
-
-        /*if (radius != null) {
-            radiusView.setProgress(Integer.getInteger(radius.toString()) + 1);
-        }*/
-    }
-
     public void getCategory(long categoryId) {
         GetCategory.RequestValues requestValues = new GetCategory.RequestValues(categoryId);
 
@@ -160,6 +117,7 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
         }
 
         //Radius
+        System.out.println(radiusView.getProgress() + 1.0);
         desireFilter.setRadius(radiusView.getProgress() + 1.0);
 
         setFilter(desireFilter);

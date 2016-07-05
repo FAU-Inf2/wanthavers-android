@@ -12,7 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 
@@ -21,9 +23,11 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.Category;
+import de.fau.cs.mad.wanthavers.common.DesireFilter;
 import de.fau.cs.mad.wanthavers.common.Location;
 import de.fau.cs.mad.wanthavers.common.Media;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
+import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.WantHaversApplication;
 import wanthavers.mad.cs.fau.de.wanthavers_android.categorylist.CategoryListActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.FiltersettingFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.DesireListActivity;
@@ -107,9 +111,53 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
         }
 
         mPresenter.start();
-        mPresenter.loadCurFilterSettings(mFilterSettingFragBinding.getCategory(), mFilterSettingFragBinding.getLocation());
+        loadCurFilterSettings(mFilterSettingFragBinding.getCategory(), mFilterSettingFragBinding.getLocation());
 
         return mFilterSettingFragBinding.getRoot();
+    }
+
+    public void loadCurFilterSettings(Category category, Location location) {
+
+        //get views
+        RatingBar minRatingBar = mFilterSettingFragBinding.filterSettingRatingBar;
+        EditText minPriceView = mFilterSettingFragBinding.minPriceInput;
+        EditText maxPriceView = mFilterSettingFragBinding.maxPriceInput;
+        SeekBar radiusView = mFilterSettingFragBinding.radiusSeekbar;
+
+        //get values
+        DesireFilter curFilter = WantHaversApplication.getDesireFilter(getContext());
+
+        Long categoryId = curFilter.getCategory();
+        Double maxPrice = curFilter.getPrice_max();
+        Float minimalRating = curFilter.getRating_min();
+        Double minimalPrice = curFilter.getPrice_min();
+        Location filterLocation = curFilter.getLocation();
+        Double radius = curFilter.getRadius();
+
+        //set values
+        if (categoryId != null && category == null) {
+            mPresenter.getCategory(categoryId);
+        }
+
+        if (minimalPrice != null) {
+            minPriceView.setText(Integer.toString(minimalPrice.intValue()));
+        }
+
+        if (maxPrice != null) {
+            maxPriceView.setText(Integer.toString(maxPrice.intValue()));
+        }
+
+        if (minimalRating != null) {
+            minRatingBar.setRating(minimalRating);
+        }
+
+        if (filterLocation != null && location == null) {
+            setLocation(filterLocation);
+        }
+
+        if (radius != null) {
+            radiusView.setProgress(radius.intValue() - 1);
+        }
     }
 
     @Override
