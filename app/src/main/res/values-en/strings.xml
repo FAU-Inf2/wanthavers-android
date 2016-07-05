@@ -213,5 +213,6 @@
     <string name="reset_password_mail_hint">Set your Email address</string>
     <string name="gps_location_changed">Location successfully changed</string>
     <string name="set_default_location">Set default Location</string>
+    <string name="about_app">About</string>
 
 </resources>

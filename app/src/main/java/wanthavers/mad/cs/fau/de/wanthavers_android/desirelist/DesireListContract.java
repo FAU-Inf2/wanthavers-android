@@ -48,6 +48,8 @@ public interface DesireListContract {
         //TODO void showNoTasks();
 
         void getCurrentGpsPosition();
+
+        void showAbout();
     }
 
 
@@ -77,6 +79,8 @@ public interface DesireListContract {
         void openFilterSettings();
 
         void loadCurrentGpsPosition();
+
+        void createAbout();
 
         //void deleteToken();
 

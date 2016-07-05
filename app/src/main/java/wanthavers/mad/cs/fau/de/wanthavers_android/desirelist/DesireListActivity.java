@@ -244,6 +244,9 @@ public class DesireListActivity extends AppCompatActivity {
                             case R.id.logout_navigation_menu_item:
                                 mDesireListPresenter.createLogout();
                                 break;
+                            case R.id.about_app:
+                                mDesireListPresenter.createAbout();
+                                break;
                             default:
                                 break;
                         }
