@@ -171,6 +171,7 @@ public class LocationListFragment extends Fragment implements LocationListContra
                 double lon = Double.parseDouble(data.getStringExtra("desireLocationLng"));
                 String locationName = data.getStringExtra("desireLocationName");
                 String locationId = data.getStringExtra("desireLocationId");
+                String cityName = data.getStringExtra("desireLocationCity");
 
                 long userId = new DesireLogic(getContext()).getLoggedInUserId();
 
@@ -181,6 +182,7 @@ public class LocationListFragment extends Fragment implements LocationListContra
                 location.setLon(lon);
                 location.setUserId(userId);
                 location.setDescription(locationName);
+                location.setCityName(cityName);
 
 
                 if (!locationId.equals("")) {
