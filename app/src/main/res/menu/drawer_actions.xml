@@ -43,4 +43,10 @@
         android:id="@+id/logout_navigation_menu_item"
         android:icon="@drawable/wh_logout_icon"
         android:title="@string/logout_title" />
+
+    <item
+        android:id="@+id/about_app"
+        android:icon="@drawable/ic_about"
+        android:title="@string/about_app" />
+
 </menu>

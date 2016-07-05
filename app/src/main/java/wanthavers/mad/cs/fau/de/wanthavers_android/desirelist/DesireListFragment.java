@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
@@ -412,6 +413,12 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
         //TODO Oliver Lutz: set LocationFilter for DesireList
 
 
+    }
+
+    @Override
+    public void showAbout(){
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.wanthaver.com/datenschutz.html"));
+        startActivity(browserIntent);
     }
 
 
