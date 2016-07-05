@@ -51,7 +51,7 @@
             android:layout_centerHorizontal="true"
             android:onClick="@{() -> presenter.selectImageFromDevice()}"/>
 
-        <Button
+        <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextButton
             style="?android:attr/buttonStyleSmall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
