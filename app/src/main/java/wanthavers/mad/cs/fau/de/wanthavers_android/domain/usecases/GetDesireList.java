@@ -50,7 +50,10 @@ public class GetDesireList extends UseCase<GetDesireList.RequestValues, GetDesir
 
         if(desireListType == DesireListType.MY_DESIRES){
 
-
+            List<Integer> statusFilter = new ArrayList<>();
+            statusFilter.add(DesireStatus.STATUS_OPEN);
+            statusFilter.add(DesireStatus.STATUS_DONE);
+            statusFilter.add(DesireStatus.STATUS_IN_PROGRESS);
             Long tmpDesireid = desireFilter.getLastDesireId();
 
             desireFilter = new DesireFilter();
@@ -58,6 +61,7 @@ public class GetDesireList extends UseCase<GetDesireList.RequestValues, GetDesir
                 desireFilter.setLastDesireId(tmpDesireid);
             }
             desireFilter.setCreatorId(userId);
+            desireFilter.setStatus(statusFilter);
         }
 
 
@@ -65,6 +69,10 @@ public class GetDesireList extends UseCase<GetDesireList.RequestValues, GetDesir
             Long tmpDesireid = desireFilter.getLastDesireId();
             desireFilter = new DesireFilter();
             if(tmpDesireid != null) {
+
+                List<Integer> statusFilter = new ArrayList<>();
+                statusFilter.add(DesireStatus.STATUS_OPEN);
+
                 desireFilter.setLastDesireId(tmpDesireid);
             }
             desireFilter.setHaverId(userId);
