@@ -148,7 +148,7 @@
                     android:onClick="@{() -> actionHandler.resetPassword(user.email)}"/>
 
 
-                <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                <!--wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                     android:id="@+id/settings_filter_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -169,7 +169,7 @@
                     android:textColor="@color/colorMainText"
                     android:layout_alignTop="@id/settings_filter_title"
                     android:layout_toRightOf="@id/settings_filter_title"
-                    android:onClick="@{ () -> actionHandler.changeFilterClicked()}"/>
+                    android:onClick="@{ () -> actionHandler.changeFilterClicked()}"/-->
 
                 <!--LinearLayout
                     android:layout_width="fill_parent"

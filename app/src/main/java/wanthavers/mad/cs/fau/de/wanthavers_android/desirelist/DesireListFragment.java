@@ -209,6 +209,16 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
         }else {
             inflater.inflate(R.menu.desire_list_menu, menu);
         }
+
+        DesireListActivity desireListActivity = (DesireListActivity) getActivity();
+
+        if(desireListActivity.getDesireListType() != DesireListType.ALL_DESIRES){
+            MenuItem menuFilter = menu.findItem(R.id.menu_filter);
+
+            menuFilter.setVisible(false);
+        }
+
+
         super.onCreateOptionsMenu(menu, inflater);
 
 

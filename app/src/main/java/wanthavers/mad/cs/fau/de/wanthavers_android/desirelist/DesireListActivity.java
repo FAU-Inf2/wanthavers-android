@@ -58,6 +58,7 @@ public class DesireListActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private DesireListPresenter mDesireListPresenter;
     private DesireListFragment mDesireListFragment;
+    private DesireListType mDesireListType;
 
 
     private BroadcastReceiver notificationReceiver = new BroadcastReceiver() {
@@ -92,15 +93,20 @@ public class DesireListActivity extends AppCompatActivity {
     }
 
 
+    public DesireListType getDesireListType(){
+        return mDesireListType;
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.desirelist_act);
 
-        DesireListType desireListType = (DesireListType) getIntent().getSerializableExtra(EXTRA_FRAGMENT_ID);
+        mDesireListType = (DesireListType) getIntent().getSerializableExtra(EXTRA_FRAGMENT_ID);
 
-        if(desireListType == null){
-            desireListType = DesireListType.ALL_DESIRES;
+        if(mDesireListType == null){
+            mDesireListType = DesireListType.ALL_DESIRES;
         }
 
 
@@ -114,7 +120,7 @@ public class DesireListActivity extends AppCompatActivity {
 
         WantHaversTextView abTitle = (WantHaversTextView) findViewById(R.id.toolbar_title);
 
-        switch(desireListType){
+        switch(mDesireListType){
             case ALL_DESIRES: abTitle.setText(getString(R.string.listDesires_title));
                 break;
             case MY_DESIRES: abTitle.setText(getString(R.string.myDesires_title));
@@ -175,7 +181,7 @@ public class DesireListActivity extends AppCompatActivity {
         mDesireListPresenter = new DesireListPresenter(UseCaseHandler.getInstance(),mDesireListFragment,new GetDesireList(desireRepository),
                 new GetAvgRatingForUser(ratingRepository), new GetUser(userRepository), getApplicationContext(), new DeleteToken(tokenRepository));
 
-        mDesireListPresenter.setDesireListType(desireListType);
+        mDesireListPresenter.setDesireListType(mDesireListType);
 
         DesireListViewModel desireListViewModel = new DesireListViewModel(context, mDesireListPresenter);
 
