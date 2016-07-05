@@ -128,7 +128,7 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
         }*/
 
 
-        if (!forDesireDetail() && !forWelcome()) {
+        if (!forDesireDetail()) {
             //dont ask for GPS in DesireDetail
             if (!isGpsEnabled()) {
                 showAlert();

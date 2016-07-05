@@ -1,15 +1,19 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.welcome;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,6 +63,8 @@ public class WelcomeFragment extends Fragment implements WelcomeContract.View {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        //check for Location Runtime Permissions
+        isFineLocationPermissionGranted();
 
         mViewDataBinding = WelcomeFragBinding.inflate(inflater, container, false);
         mViewDataBinding.setPresenter(mPresenter);
@@ -142,6 +148,27 @@ public class WelcomeFragment extends Fragment implements WelcomeContract.View {
         LocationManager locManager= (LocationManager) getActivity().getSystemService(getActivity().LOCATION_SERVICE);
         return locManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
 
+    }
+
+    public boolean isFineLocationPermissionGranted(){
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                return true;
+            } else {
+                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+                return false;
+            }
+        }else { //permission is automatically granted because sdk<23
+            return true;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(grantResults[0]== PackageManager.PERMISSION_DENIED){
+            showMessage(getString(R.string.declined_location_runtime_permission));
+        }
     }
 
 }
