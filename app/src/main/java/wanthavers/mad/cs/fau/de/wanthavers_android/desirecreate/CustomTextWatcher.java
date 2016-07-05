@@ -3,6 +3,7 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 
@@ -31,8 +32,9 @@ public class CustomTextWatcher implements TextWatcher {
                 break;
 
             case R.id.create_desire_description:
-                if (edt.length() == 1 && edt.toString().equals(" "))
+                if (edt.length() == 1 && edt.toString().equals(" ")){
                     mEditText.setText("");
+                }
                 break;
 
             case R.id.create_desire_price:

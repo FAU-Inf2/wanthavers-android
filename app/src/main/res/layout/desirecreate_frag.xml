@@ -77,6 +77,16 @@
             android:background="@drawable/textbox_border"
             android:layout_marginTop="7dp"/>
 
+        <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+            android:layout_width="70dp"
+            android:layout_height="30dp"
+            android:id="@+id/create_desire_description_counter"
+            android:layout_alignTop="@+id/create_desire_description_header"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="5dp"
+            android:gravity="right"/>
+
     </RelativeLayout>
 
 </layout>

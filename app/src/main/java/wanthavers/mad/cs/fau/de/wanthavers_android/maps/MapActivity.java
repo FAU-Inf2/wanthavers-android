@@ -95,6 +95,7 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
     private MapActionHandler mMapActionHandler;
     //private DesireCreateFragment2ndStep test = DesireCreateFragment2ndStep.newInstance();
     private int mCalledAct;
+    private String mCityName = null;
 
 
     @Override
@@ -128,7 +129,7 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
         }*/
 
 
-        if (!forDesireDetail() && !forWelcome()) {
+        if (!forDesireDetail()) {
             //dont ask for GPS in DesireDetail
             if (!isGpsEnabled()) {
                 showAlert();
@@ -328,6 +329,13 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
                 }
                 if (completeAddress != null) {
                     mLocationTextView.setText(completeAddress);
+
+                    if (addresses.get(0).getLocality() != null)  {
+                        mCityName=addresses.get(0).getLocality();
+                    }
+                    else if (addresses.get(0).getSubAdminArea() != null)  {
+                        mCityName=addresses.get(0).getSubAdminArea();
+                    }
                 }
             }
         }
@@ -481,6 +489,7 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
             intent.putExtra("desireLocation", location);
             intent.putExtra("desireLocationLat", Double.toString(lat));
             intent.putExtra("desireLocationLng", Double.toString(lng));
+            intent.putExtra("desireLocationCity", mCityName);
             if (mSettingsLocation != null) {
                 intent.putExtra("desireLocationName", mSettingsLocation.getDescription());
                 intent.putExtra("desireLocationId", Long.toString(mSettingsLocation.getId()));
