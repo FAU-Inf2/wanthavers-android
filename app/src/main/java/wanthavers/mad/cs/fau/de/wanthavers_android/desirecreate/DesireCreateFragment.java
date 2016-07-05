@@ -1,6 +1,7 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -90,6 +91,11 @@ public class DesireCreateFragment extends Fragment implements DesireCreateContra
             @Override
             public void afterTextChanged(Editable s) {
                 mDesireDescriptionCounter.setText(s.toString().length() + "/300");
+                if(s.toString().length() == 300){
+                    mDesireDescriptionCounter.setTextColor(Color.RED);
+                }else{
+                    mDesireDescriptionCounter.setTextColor(Color.GRAY);
+                }
             }
         });
 
