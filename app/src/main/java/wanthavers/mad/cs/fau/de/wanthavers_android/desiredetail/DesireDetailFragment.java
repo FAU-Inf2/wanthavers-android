@@ -420,14 +420,15 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
     @Override
     public void showUnacceptedHaverView(boolean active) {
 
-       if(active == true) {
-           mIsHaver = true;
-           mDesireDetailFragBinding.desireHaverStatus.setText(getString(R.string.haver_status_waiting));
-       }else{
-           mIsHaver = false;
-           mDesireDetailFragBinding.desireHaverStatus.setText(getString(R.string.haver_status_open));
-       }
-
+        if(isActive()) {
+            if (active) {
+                mIsHaver = true;
+                mDesireDetailFragBinding.desireHaverStatus.setText(getString(R.string.haver_status_waiting));
+            } else {
+                mIsHaver = false;
+                mDesireDetailFragBinding.desireHaverStatus.setText(getString(R.string.haver_status_open));
+            }
+        }
         onPrepareOptionsMenu(mOptionsMenu);
     }
 
