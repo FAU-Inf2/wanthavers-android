@@ -146,16 +146,6 @@
                 android:textColor="@color/colorMainTextDark"
                 android:layout_below="@id/min_max_prices"/>
 
-            <ImageButton
-                android:id="@+id/reset_min_rating"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/wh_delete_icon_light"
-                android:background="@drawable/chat_border_me"
-                android:layout_alignTop="@+id/filter_min_rating_title"
-                android:layout_alignParentRight="true"
-                android:onClick="@{() -> presenter.resetMinimalRating()}"/>
-
             <LinearLayout
                 android:id="@+id/ratingbar_layout"
                 android:layout_width="match_parent"
@@ -208,8 +198,6 @@
                     android:textColor="@color/colorMainText"
                     android:layout_toRightOf="@id/filter_location_title"
                     android:onClick="@{ () -> presenter.changeLocation(location)}"/>
-
-
             </RelativeLayout>
 
             <RelativeLayout
@@ -256,8 +244,7 @@
                 android:id="@+id/select_radius"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/selected_location"
-                android:visibility="gone">
+                android:layout_below="@id/selected_location">
 
                 <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                     android:id="@+id/filter_radius"
@@ -268,15 +255,36 @@
                     android:textColor="@color/colorMainTextDark"
                     android:layout_marginTop="15dp"/>
 
-                <Spinner
-                    android:id="@+id/spinner_radius"
+                <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                    android:id="@+id/filter_radius_unit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:spinnerMode="dropdown"
-                    android:layout_alignBottom="@+id/filter_radius"
-                    android:layout_alignTop="@+id/filter_radius"
-                    android:layout_alignParentRight="true"/>
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_alignParentRight="true"
+                    android:text="@string/unit_kilometre"
+                    android:textColor="@color/colorMainTextDark"
+                    android:layout_marginTop="15dp"/>
 
+                <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                    android:id="@+id/filter_radius_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_toLeftOf="@id/filter_radius_unit"
+                    android:text="@string/default_radius"
+                    android:textColor="@color/colorMainTextDark"
+                    android:layout_marginTop="15dp"/>
+
+                <SeekBar
+                    android:id="@+id/radius_seekbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:max="99"
+                    android:layout_below="@id/filter_radius"
+                    android:progress="4"/>
             </RelativeLayout>
 
 

@@ -3,7 +3,7 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.filtersetting;
 import android.support.annotation.NonNull;
 import android.widget.EditText;
 import android.widget.RatingBar;
-import android.widget.Spinner;
+import android.widget.SeekBar;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -44,7 +44,7 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
         RatingBar minRatingBar = (RatingBar) mActivity.findViewById(R.id.filter_Setting_Rating_Bar);
         EditText minPriceView = (EditText) mActivity.findViewById(R.id.min_price_input);
         EditText maxPriceView = (EditText) mActivity.findViewById(R.id.max_price_input);
-        Spinner radiusView = (Spinner) mActivity.findViewById(R.id.spinner_radius);
+        SeekBar radiusView = (SeekBar) mActivity.findViewById(R.id.radius_seekbar);
 
         //get values
         DesireFilter  curFilter = WantHaversApplication.getDesireFilter(mActivity.getApplicationContext());
@@ -77,26 +77,9 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
             mFilterSettingView.setLocation(filterLocation);
         }
 
-        if (radiusView == null) {
-            //call from activity
-            return;
-        }
-
-        //TODO: Radius not hard coded
-        if (radius != null && location == null) {
-            mFilterSettingView.showRadiusOption();
-            if (radius == 1.0) {
-                radiusView.setSelection(0);
-            } else if (radius == 1.0) {
-                radiusView.setSelection(1);
-            } else if (radius == 2.0) {
-                radiusView.setSelection(2);
-            } else if (radius == 5.0) {
-                radiusView.setSelection(3);
-            } else if (radius == 10.0) {
-                radiusView.setSelection(4);
-            }
-        }
+        /*if (radius != null) {
+            radiusView.setProgress(Integer.getInteger(radius.toString()) + 1);
+        }*/
     }
 
     public void getCategory(long categoryId) {
@@ -137,7 +120,7 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
         RatingBar minRatingBar = (RatingBar)mActivity.findViewById(R.id.filter_Setting_Rating_Bar);
         EditText minPriceView = (EditText) mActivity.findViewById(R.id.min_price_input);
         EditText maxPriceView = (EditText) mActivity.findViewById(R.id.max_price_input);
-        Spinner radiusView = (Spinner) mActivity.findViewById(R.id.spinner_radius);
+        SeekBar radiusView = (SeekBar) mActivity.findViewById(R.id.radius_seekbar);
 
         //Category
         if (category != null) {
@@ -174,36 +157,16 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
             desireFilter.setLon(location.getLon());
             desireFilter.setLat(location.getLat());
             desireFilter.setLocation(location);
-
-            //Radius
-            //TODO: differ between miles and kilometres?
-            //now only km
-            String radius = (String) radiusView.getSelectedItem();
-            String[] array = mFilterSettingView.getRadiusArray();
-            if (radius.equals(array[0])) {
-                desireFilter.setRadius(1.0);
-            } else if (radius.equals(array[1])) {
-                desireFilter.setRadius(2.0);
-            } else if (radius.equals(array[2])) {
-                desireFilter.setRadius(5.0);
-            } else if (radius.equals(array[3])) {
-                desireFilter.setRadius(10.0);
-            } else {
-                //no restriction
-            }
         }
+
+        //Radius
+        desireFilter.setRadius(radiusView.getProgress() + 1.0);
 
         setFilter(desireFilter);
 
         mFilterSettingView.showFilterChangeSuccess();
 
         mFilterSettingView.showDesireList();
-    }
-
-    @Override
-    public void resetMinimalRating() {
-        RatingBar minRatingBar = (RatingBar)mActivity.findViewById(R.id.filter_Setting_Rating_Bar);
-        minRatingBar.setRating(0.0F);
     }
 
     @Override

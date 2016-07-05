@@ -79,11 +79,11 @@
     <string name="setting_haver_error">Error while accepting desire</string>
     <string name="accepting_haver_error">Error while accepting haver</string>
     <string name="get_user_error">Error while loading user information</string>
-    <string name="update_user_success">Successful user update</string>
+    <string name="update_user_success">User updated successfully</string>
     <string name="update_user_error">Error while updating user information</string>
     <string name="get_chat_for_desire_error">Error while opening chat</string>
     <string name="get_categories_error">Error while loading categories</string>
-    <string name="get_categorie_error">Error while loading categorie</string>
+    <string name="get_categorie_error">Error while loading category</string>
     <string name="all_categories">All Categories</string>
     <string name="get_no_location_set_error">No Location set yet</string>+
     <string name="filter_change_success">Filter changes saved</string>
@@ -126,7 +126,6 @@
     <string name="max_price">Maximal Price</string>
     <string name="wrong_price_set">Maximal price is greater than minimal price</string>
     <string name="password_reset_title">Password Reset</string>
-    <string name="password_reset_subtitle">To reset your password, an email will be sent</string>
     <string name="password_reset_button">Reset my password</string>
     <string name="password_reset_success">Password reset mail was sent successfully</string>
     <string name="password_reset_error">Error while reseting your password</string>
@@ -141,21 +140,13 @@
         <item>\u00A3</item>
     </string-array>
 
-    <string-array name="radius">
-        <item>1km</item>
-        <item>2km</item>
-        <item>5km</item>
-        <item>10km</item>
-        <item>&gt; 10km</item>
-    </string-array>
-
     <string name="or">OR</string>
     <string name="password">Password</string>
     <string name="signin">Login</string>
     <string name="signinFb">Login via Facebook</string>
     <string name="signup">Register</string>
     <string name="signupNow">Register now</string>
-    <string name="userCreationFailed">User could not be created on Server</string>
+    <string name="userCreationFailed">User could not be created </string>
     <string name="name">Name</string>
     <string name="login_empty_text">Please fill out all fields</string>
     <string name="forgotPw">forgot password</string>
@@ -169,7 +160,7 @@
     <string name="use_location">Use current location \n and create Desire</string>
     <string name="set_location">Set Location</string>
     <string name="maps_error">Unable to create Maps</string>
-    <string name="welcomeMessage">Welcome to Wanthavers ! \n you can now upload your profile pictures and get started by creating your first desire.</string>
+    <string name="welcomeMessage">Welcome to Wanthaver! \n You can now upload your profile picture and get started by creating your first desire.</string>
     <string name="toDesireList">Desire Overview</string>
     <string name="user_image_upload_failed">Uploading User Image failed</string>
     <string name="enable_gps">Enable Location</string>
@@ -204,8 +195,7 @@
     <string name="createDesire_loadingProgress_message">Please wait &#8230;</string>
     <string name="upload_Desire_background">Create Desire in the Background</string>
     <string name="settings_name_title">Name</string>
-    <string name="get_app_version_error">Error while comparing your app version with server\'s app version</string>
-    <string name="app_version_force_text">There are vital changes for the app available. Please update to continue using it: </string>
+    <string name="app_version_force_text">There are vital changes for the app available. Please update to continue using it.</string>
     <string name="app_version_force_title">Important updates available!</string>
     <string name="desire_distance">less than</string>
     <string name="no_email_set">No Email set yet, check your spelling</string>
@@ -213,6 +203,10 @@
     <string name="reset_password_mail_hint">Set your Email address</string>
     <string name="gps_location_changed">Location successfully changed</string>
     <string name="set_default_location">Set default Location</string>
+    <string name="password_reset_subtitle">You\'ll get an email to reset your password</string>
+    <string name="get_app_version_error">Server can\'t be reached. Version couldn\'t be checked.</string>
     <string name="about_app">About</string>
 
+    <string name="unit_kilometre">km</string>
+    <string name="default_radius">5</string>
 </resources>
