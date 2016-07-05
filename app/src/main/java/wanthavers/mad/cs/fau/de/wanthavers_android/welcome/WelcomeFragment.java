@@ -23,7 +23,9 @@ import android.widget.ImageView;
 import java.io.File;
 import java.util.Map;
 
+import de.fau.cs.mad.wanthavers.common.Location;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
+import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.WantHaversApplication;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.WelcomeFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.DesireListActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.GpsLocationTrackerLogic;
@@ -97,9 +99,22 @@ public class WelcomeFragment extends Fragment implements WelcomeContract.View {
         if (requestCode == 30 && data!= null){
 
             Intent intent = new Intent(getContext(), DesireListActivity.class);
-            intent.putExtra("desireLocation", data.getStringExtra("desireLocation"));
-            intent.putExtra("desireLocationLat", data.getStringExtra("desireLocationLat"));
-            intent.putExtra("desireLocationLng", data.getStringExtra("desireLocationLng"));
+            String fullAddress = (String) data.getExtras().getSerializable("desireLocation");
+            Double lat = data.getExtras().getDouble("desireLocationLat");
+            Double lon = data.getExtras().getDouble("desireLocationLng");
+
+            Location location = new Location();
+            if (fullAddress != null) {
+                location.setFullAddress(fullAddress);
+            }
+            if (lat != null) {
+                location.setLat(lat);
+            }
+            if (lon != null) {
+                location.setLon(lon);
+            }
+
+            WantHaversApplication.setLocation(location, getContext());
             startActivity(intent);
         }
 

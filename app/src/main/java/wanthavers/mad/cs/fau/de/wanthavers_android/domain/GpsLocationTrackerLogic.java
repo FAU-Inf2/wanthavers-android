@@ -161,7 +161,10 @@ public class GpsLocationTrackerLogic extends Service implements LocationListener
         location.setLat(mLatitude);
         location.setLon(mLongitude);
         List<String> locationFullAddress = getAddressStrings(new LatLng(mLatitude, mLongitude));
-        if (locationFullAddress == null || locationFullAddress.get(0) == null ||
+        if (locationFullAddress == null || locationFullAddress.isEmpty()){
+            return null;
+        }
+        if (locationFullAddress.get(0) == null ||
                 locationFullAddress.get(1) == null){
             return null;
         }

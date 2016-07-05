@@ -33,7 +33,7 @@ public interface FilterSettingContract {
 
     interface Presenter extends BasePresenter {
 
-        void loadCurFilterSettings(Category category, Location location);
+        void getCategory(long categoryId);
 
         void setFilter(DesireFilter desireFilter);
 

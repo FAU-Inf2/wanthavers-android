@@ -40,18 +40,21 @@ public class WantHaversApplication extends MultiDexApplication {
 
         startNotificationBackupThread();
 
-        DesireFilter emptyFilter = new DesireFilter();
+        DesireFilter startupFilter = new DesireFilter();
 
         Location location = getLocation(getApplicationContext());
 
-        if(location == null){
+        if(location == null) {
             location = new Location();
-            location.setCityName("Erlangen");
-            location.setFullAddress("Martenstraße, Erlangen");
         }
 
-        emptyFilter.setLocation(location);
-        setDesireFilter(emptyFilter, getApplicationContext());
+        startupFilter.setRadius(5.00);
+        location.setCityName("Erlangen");
+        location.setFullAddress("Martenstraße, Erlangen");
+        setLocation(location,getApplicationContext());
+        startupFilter.setLocation(location);
+
+        setDesireFilter(startupFilter, getApplicationContext());
     }
 
     @Override
