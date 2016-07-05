@@ -122,6 +122,8 @@ public class WantHaversApplication extends MultiDexApplication {
         //update filter on update location
         DesireFilter curDesireFilter = getDesireFilter(context);
         curDesireFilter.setLocation(location);
+        curDesireFilter.setLat(location.getLat());
+        curDesireFilter.setLon(location.getLon());
         setDesireFilter(curDesireFilter, context);
     }
 
