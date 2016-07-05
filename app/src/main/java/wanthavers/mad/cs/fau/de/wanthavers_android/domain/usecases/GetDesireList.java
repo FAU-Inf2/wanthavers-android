@@ -62,9 +62,11 @@ public class GetDesireList extends UseCase<GetDesireList.RequestValues, GetDesir
 
 
         if(desireListType == DesireListType.MY_TRANSACTIONS){
-            long tmpDesireid = desireFilter.getLastDesireId();
+            Long tmpDesireid = desireFilter.getLastDesireId();
             desireFilter = new DesireFilter();
-            desireFilter.setLastDesireId(tmpDesireid);
+            if(tmpDesireid != null) {
+                desireFilter.setLastDesireId(tmpDesireid);
+            }
             desireFilter.setHaverId(userId);
         }
 
