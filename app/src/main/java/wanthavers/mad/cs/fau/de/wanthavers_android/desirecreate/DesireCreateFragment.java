@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -12,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -28,6 +31,7 @@ public class DesireCreateFragment extends Fragment implements DesireCreateContra
 
     private EditText mDesireTitle;
     private EditText mDesireDescription;
+    private TextView mDesireDescriptionCounter;
 
     public DesireCreateFragment(){
         //Requires empty public constructor
@@ -68,9 +72,27 @@ public class DesireCreateFragment extends Fragment implements DesireCreateContra
 
         mDesireTitle  = mViewDataBinding.createDesireTitle;
         mDesireDescription  =  mViewDataBinding.createDesireDescription;
+        mDesireDescriptionCounter = mViewDataBinding.createDesireDescriptionCounter;
 
         CustomTextWatcher myWatcher = new CustomTextWatcher(mDesireTitle);
         CustomTextWatcher myWatcher2 = new CustomTextWatcher(mDesireDescription);
+        mDesireDescriptionCounter.setText("0/300");
+        mDesireDescription.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int aft ){
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                mDesireDescriptionCounter.setText(s.toString().length() + "/300");
+            }
+        });
+
         mDesireTitle.addTextChangedListener(myWatcher);
         mDesireDescription.addTextChangedListener(myWatcher2);
 
