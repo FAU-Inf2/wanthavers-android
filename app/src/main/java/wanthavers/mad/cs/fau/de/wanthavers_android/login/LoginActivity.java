@@ -24,6 +24,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.CreateUser;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetAppVersion;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.LoginUser;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.SendPWResetToken;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.UpdateUser;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.ActivityUtils;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -35,6 +36,7 @@ public class LoginActivity extends AppCompatActivity{
     private LoginUser mLoginUser;
     private GetAppVersion mGetAppVersion;
     private SendPWResetToken mPWReset;
+    private UpdateUser mUpdateUser;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,9 +63,10 @@ public class LoginActivity extends AppCompatActivity{
         mCreateUser = new CreateUser(userRepository);
         mLoginUser = new LoginUser(userRepository);
         mPWReset = new SendPWResetToken(userRepository);
+        mUpdateUser = new UpdateUser(userRepository);
         mGetAppVersion = new GetAppVersion(AppVersionRepository.getInstance(AppVersionRemoteDataSource.getInstance(context), AppVersionLocalDataSource.getInstance(context)));
 
-        mLoginPresenter = new LoginPresenter(UseCaseHandler.getInstance(), startUpFragment, getApplicationContext(), this, mCreateUser, mGetAppVersion, mLoginUser, mPWReset);
+        mLoginPresenter = new LoginPresenter(UseCaseHandler.getInstance(), startUpFragment, getApplicationContext(), this, mCreateUser, mGetAppVersion, mLoginUser, mPWReset,mUpdateUser);
         startUpFragment.setPresenter(mLoginPresenter);
     }
 
@@ -77,7 +80,7 @@ public class LoginActivity extends AppCompatActivity{
                 .replace(R.id.contentFrame,startUpFragment)
                 .commit();
 
-        mLoginPresenter = new LoginPresenter(UseCaseHandler.getInstance(), startUpFragment, getApplicationContext(), this, mCreateUser, mGetAppVersion, mLoginUser, mPWReset);
+        mLoginPresenter = new LoginPresenter(UseCaseHandler.getInstance(), startUpFragment, getApplicationContext(), this, mCreateUser, mGetAppVersion, mLoginUser, mPWReset,mUpdateUser);
     }
 
     public void setLoginFragment(){
@@ -90,7 +93,7 @@ public class LoginActivity extends AppCompatActivity{
                 .replace(R.id.contentFrame,loginFragment)
                 .commit();
 
-        mLoginPresenter = new LoginPresenter(UseCaseHandler.getInstance(), loginFragment, getApplicationContext(), this, mCreateUser, mGetAppVersion, mLoginUser, mPWReset);
+        mLoginPresenter = new LoginPresenter(UseCaseHandler.getInstance(), loginFragment, getApplicationContext(), this, mCreateUser, mGetAppVersion, mLoginUser, mPWReset,mUpdateUser);
     }
 
     public void setRegisterFragment(){
@@ -102,7 +105,7 @@ public class LoginActivity extends AppCompatActivity{
                 .replace(R.id.contentFrame,registerFragment)
                 .commit();
 
-        mLoginPresenter = new LoginPresenter(UseCaseHandler.getInstance(), registerFragment, getApplicationContext(), this, mCreateUser, mGetAppVersion, mLoginUser, mPWReset);
+        mLoginPresenter = new LoginPresenter(UseCaseHandler.getInstance(), registerFragment, getApplicationContext(), this, mCreateUser, mGetAppVersion, mLoginUser, mPWReset,mUpdateUser);
     }
 
 }

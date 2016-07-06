@@ -31,6 +31,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.LoginUser;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.SendMessage;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.SendPWResetToken;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.SetDesire;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.UpdateUser;
 import wanthavers.mad.cs.fau.de.wanthavers_android.rest.RestClient;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.SharedPreferencesHelper;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView;
@@ -44,9 +45,11 @@ public class LoginPresenter implements LoginContract.Presenter {
     private final GetAppVersion mGetAppVersion;
     private final LoginUser mLoginUser;
     private final SendPWResetToken mSendPWResetToken;
+    private final UpdateUser mUpdateUser;
 
     public LoginPresenter(@NonNull UseCaseHandler ucHandler, @NonNull LoginContract.View view, @NonNull Context appContext,
-                          @NonNull LoginActivity activity, @NonNull CreateUser createUser, @NonNull GetAppVersion getAppVersion, @NonNull LoginUser loginUser, @NonNull SendPWResetToken sendPWResetToken) {
+                          @NonNull LoginActivity activity, @NonNull CreateUser createUser, @NonNull GetAppVersion getAppVersion, @NonNull LoginUser loginUser, @NonNull SendPWResetToken sendPWResetToken,
+                          @NonNull UpdateUser updateUser) {
 
         mUseCaseHandler = ucHandler;
         mLoginView = view;
@@ -58,6 +61,7 @@ public class LoginPresenter implements LoginContract.Presenter {
         mGetAppVersion = getAppVersion;
         mLoginUser = loginUser;
         mSendPWResetToken = sendPWResetToken;
+        mUpdateUser = updateUser;
 
     }
 
@@ -157,6 +161,13 @@ public class LoginPresenter implements LoginContract.Presenter {
                             return;
                         }
 
+                        String defaultLanguage  =Locale.getDefault().toString();
+
+                        if(defaultLanguage.compareTo(user.getLangCode()) != 0){
+                            user.setLangCode(defaultLanguage);
+                            updateUser(user);
+                        }
+
                         mLoginView.showDesireList();
                     }
 
@@ -171,6 +182,27 @@ public class LoginPresenter implements LoginContract.Presenter {
                     }
                 });
 
+    }
+
+
+    public void updateUser(final User user){
+
+        UpdateUser.RequestValues requestValue = new UpdateUser.RequestValues(user);
+
+        mUseCaseHandler.execute(mUpdateUser, requestValue,
+                new UseCase.UseCaseCallback<UpdateUser.ResponseValue>() {
+
+                    @Override
+                    public void onSuccess(UpdateUser.ResponseValue response) {
+                        mLoginView.showDesireList();
+                    }
+
+                    @Override
+                    public void onError() {
+                        mLoginView.showDesireList();
+                    }
+                }
+        );
     }
 
 
