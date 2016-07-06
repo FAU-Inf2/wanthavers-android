@@ -85,7 +85,7 @@ public class LocationListPresenter implements LocationListContract.Presenter {
         mUseCaseHandler.execute(mUpdateLocation, requestValues, new UseCase.UseCaseCallback<UpdateLocation.ResponseValue>() {
             @Override
             public void onSuccess(UpdateLocation.ResponseValue response) {
-                checkFilterLocationUpdate(response.getLocation());
+                //checkFilterLocationUpdate(response.getLocation());
                 Location curFilterLocation = mLocationListView.getFilterLocation();
                 if (curFilterLocation != null) {
                     if (curFilterLocation.getId() == location.getId()) {
@@ -108,7 +108,7 @@ public class LocationListPresenter implements LocationListContract.Presenter {
         mUseCaseHandler.execute(mDeleteLocation, requestValues, new UseCase.UseCaseCallback<DeleteLocation.ResponseValue>() {
             @Override
             public void onSuccess(DeleteLocation.ResponseValue response) {
-                checkFilterLocationDelete(location);
+                //checkFilterLocationDelete(location);
 
                 Location curFilterLocation = mLocationListView.getFilterLocation();
                 if (curFilterLocation != null) {
@@ -172,10 +172,15 @@ public class LocationListPresenter implements LocationListContract.Presenter {
         closeNameSelectionDialog();
     }
 
-    public void checkFilterLocationUpdate(Location location) {
+    /*public void checkFilterLocationUpdate(Location location) {
         DesireFilter curFilter = WantHaversApplication.
                 getDesireFilter(mActivity.getApplicationContext());
-        Location curFilterLocation = null; //curFilter.getLocation();
+        Location curFilterLocation = new Location();
+        curFilterLocation.setCityName(curFilter.getCityName());
+        curFilterLocation.setFullAddress(curFilter.getFullAddress());
+        curFilterLocation.setDescription(curFilter.getDescription());
+        curFilterLocation.setLat(curFilter.getLat());
+        curFilterLocation.setLon(curFilter.getLon());
 
         if (curFilterLocation == null) {
             return;
@@ -202,6 +207,6 @@ public class LocationListPresenter implements LocationListContract.Presenter {
             curFilter.setLon(null);
             WantHaversApplication.setDesireFilter(curFilter, mActivity.getApplicationContext());
         }
-    }
+    }*/
 
 }

@@ -113,7 +113,9 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
         if (location != null) {
             desireFilter.setLon(location.getLon());
             desireFilter.setLat(location.getLat());
-            //desireFilter.setLocation(location);
+            desireFilter.setFullAddress(location.getFullAddress());
+            desireFilter.setCityName(location.getCityName());
+            desireFilter.setDescription(location.getDescription());
         }
 
         //Radius

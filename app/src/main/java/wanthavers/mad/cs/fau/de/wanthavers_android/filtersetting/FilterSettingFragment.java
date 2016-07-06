@@ -133,8 +133,15 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
         Double maxPrice = curFilter.getPrice_max();
         Float minimalRating = curFilter.getRating_min();
         Double minimalPrice = curFilter.getPrice_min();
-        Location filterLocation = null; // curFilter.getLocation();
+        String locationFullAddress = curFilter.getFullAddress();
+        String locationDescription = curFilter.getDescription();
+        String locationCityName = curFilter.getCityName();
         Double radius = curFilter.getRadius();
+
+        Location filterLocation = new Location();
+        filterLocation.setCityName(locationCityName);
+        filterLocation.setDescription(locationDescription);
+        filterLocation.setFullAddress(locationFullAddress);
 
         //set values
         if (categoryId != null && category == null) {
@@ -226,7 +233,6 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
     @Override
     public void setLocation(Location location) {
         mFilterSettingFragBinding.setLocation(location);
-        System.out.println("reached set loaction");
         WantHaversApplication.setLocation(location, getActivity().getApplicationContext());
         showLocationInView();
     }
