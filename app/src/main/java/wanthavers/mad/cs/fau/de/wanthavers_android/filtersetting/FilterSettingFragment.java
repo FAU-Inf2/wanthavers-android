@@ -133,7 +133,7 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
         Double maxPrice = curFilter.getPrice_max();
         Float minimalRating = curFilter.getRating_min();
         Double minimalPrice = curFilter.getPrice_min();
-        Location filterLocation = curFilter.getLocation();
+        Location filterLocation = null; // curFilter.getLocation();
         Double radius = curFilter.getRadius();
 
         //set values

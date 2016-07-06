@@ -1,8 +1,6 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses;
 
-import android.app.Application;
 import android.content.Context;
-import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 
 import com.squareup.picasso.OkHttpDownloader;
@@ -16,7 +14,6 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.cloudmessaging.PollingTask;
 import wanthavers.mad.cs.fau.de.wanthavers_android.cloudmessaging.WantHaverScheduledExecutor;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.ormlite.FilterDatabaseHelper;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.ormlite.LocationDatabaseHelper;
-import wanthavers.mad.cs.fau.de.wanthavers_android.filtersetting.FilterSettingContract;
 
 public class WantHaversApplication extends MultiDexApplication {
 
@@ -53,7 +50,7 @@ public class WantHaversApplication extends MultiDexApplication {
         location.setCityName("Erlangen");
         location.setFullAddress("Martenstraße, Erlangen");
         setLocation(location,getApplicationContext());
-        startupFilter.setLocation(location);
+        //startupFilter.setLocation(location);
 
         setDesireFilter(startupFilter, getApplicationContext());
     }
@@ -128,7 +125,10 @@ public class WantHaversApplication extends MultiDexApplication {
         if(curDesireFilter == null){
             curDesireFilter = new DesireFilter();
         }
-        curDesireFilter.setLocation(location);
+
+        //curDesireFilter.setLocation(location);
+
+        //curDesireFilter.setCityName();
         curDesireFilter.setLat(location.getLat());
         curDesireFilter.setLon(location.getLon());
         setDesireFilter(curDesireFilter, context);

@@ -175,12 +175,12 @@ public class LocationListPresenter implements LocationListContract.Presenter {
     public void checkFilterLocationUpdate(Location location) {
         DesireFilter curFilter = WantHaversApplication.
                 getDesireFilter(mActivity.getApplicationContext());
-        Location curFilterLocation = curFilter.getLocation();
+        Location curFilterLocation = null; //curFilter.getLocation();
 
         if (curFilterLocation == null) {
             return;
         } else if (curFilterLocation.getId() == location.getId()) {
-            curFilter.setLocation(location);
+            //curFilter.setLocation(location);
             curFilter.setLat(location.getLat());
             curFilter.setLon(location.getLon());
             WantHaversApplication.setDesireFilter(curFilter, mActivity.getApplicationContext());
@@ -190,12 +190,14 @@ public class LocationListPresenter implements LocationListContract.Presenter {
     public void checkFilterLocationDelete(Location location) {
         DesireFilter curFilter = WantHaversApplication.
                 getDesireFilter(mActivity.getApplicationContext());
-        Location curFilterLocation = curFilter.getLocation();
+        //Location curFilterLocation = curFilter.getLocation();
+
+        Location curFilterLocation = null;
 
         if (curFilterLocation == null) {
             return;
         } else if (curFilterLocation.getId() == location.getId()) {
-            curFilter.setLocation(null);
+            //curFilter.setLocation(null);
             curFilter.setLat(null);
             curFilter.setLon(null);
             WantHaversApplication.setDesireFilter(curFilter, mActivity.getApplicationContext());
