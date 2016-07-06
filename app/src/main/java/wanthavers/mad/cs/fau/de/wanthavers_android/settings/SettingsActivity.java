@@ -1,6 +1,7 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.settings;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.content.Context;
 import android.support.v4.app.Fragment;
@@ -83,6 +84,16 @@ public class SettingsActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         for (Fragment fragment : getSupportFragmentManager().getFragments()) {
             fragment.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(requestCode == 1){
+            for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+                fragment.onRequestPermissionsResult(requestCode, permissions, grantResults);
+            }
         }
     }
 }

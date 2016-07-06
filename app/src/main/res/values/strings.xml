@@ -219,4 +219,6 @@
 
     <string name="unit_kilometre">km</string>
     <string name="default_radius">5</string>
+
+    <string name="declined_memory_runtime_permission">Um ein Bild wählen zu können, stimme bitte den Speicher-Berechtigungen zu</string>
 </resources>

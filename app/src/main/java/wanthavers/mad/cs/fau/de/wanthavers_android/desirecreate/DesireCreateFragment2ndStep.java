@@ -188,6 +188,8 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
         if(grantResults[0]== PackageManager.PERMISSION_GRANTED){
             SelectImageLogic imageLogic = mPresenter.getImageLogic();
             imageLogic.selectImageForDesire();
+        }else if (grantResults[0]== PackageManager.PERMISSION_DENIED){
+            showMessage(getString(R.string.declined_memory_runtime_permission));
         }
     }
 

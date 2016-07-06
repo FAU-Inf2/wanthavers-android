@@ -115,6 +115,8 @@ public class SettingsFragment extends Fragment implements SettingsContract.View 
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if(grantResults[0]== PackageManager.PERMISSION_GRANTED){
             mSettingsActionHandler.getSelectImageLogic().selectImageForDesire();
+        }else if (grantResults[0]== PackageManager.PERMISSION_DENIED){
+            showMessage(getString(R.string.declined_memory_runtime_permission));
         }
     }
 
