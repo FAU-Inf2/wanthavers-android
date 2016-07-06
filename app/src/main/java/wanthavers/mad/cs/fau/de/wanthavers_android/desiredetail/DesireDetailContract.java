@@ -72,6 +72,8 @@ public interface DesireDetailContract {
         void hideFinishDesire();
 
         void showUnacceptedHaverView(boolean active);
+
+        void showTransactionSuccessMessage();
     }
 
 

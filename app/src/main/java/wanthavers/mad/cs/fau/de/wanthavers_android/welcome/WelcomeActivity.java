@@ -3,6 +3,7 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.welcome;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -37,8 +38,9 @@ public class WelcomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_act);
 
-
-
+        if (!isGpsEnabled()) {
+            showAlert();
+        }
 
         WelcomeFragment welcomeFragment = (WelcomeFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.contentFrame);
@@ -77,9 +79,7 @@ public class WelcomeActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (!isGpsEnabled()) {
-            showAlert();
-        }
+
     }
 
     @Override
@@ -114,5 +114,15 @@ public class WelcomeActivity extends AppCompatActivity {
         LocationManager locManager= (LocationManager) this.getSystemService(LOCATION_SERVICE);
         return locManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
 
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(requestCode == 1){
+            for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+                fragment.onRequestPermissionsResult(requestCode, permissions, grantResults);
+            }
+        }
     }
 }

@@ -173,7 +173,7 @@ public class WelcomeFragment extends Fragment implements WelcomeContract.View {
             if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                 return true;
             } else {
-                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 2);
                 return false;
             }
         }else { //permission is automatically granted because sdk<23
@@ -184,8 +184,15 @@ public class WelcomeFragment extends Fragment implements WelcomeContract.View {
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(grantResults[0]== PackageManager.PERMISSION_DENIED){
+        if(grantResults[0]== PackageManager.PERMISSION_DENIED && requestCode ==2){
             showMessage(getString(R.string.declined_location_runtime_permission));
+        }
+
+        if(grantResults[0]== PackageManager.PERMISSION_GRANTED && requestCode == 1){
+            SelectImageLogic imageLogic = new SelectImageLogic(getActivity());
+            imageLogic.selectImageForDesire();
+        }else if (grantResults[0]== PackageManager.PERMISSION_DENIED && requestCode == 1){
+            showMessage(getString(R.string.declined_memory_runtime_permission));
         }
     }
 

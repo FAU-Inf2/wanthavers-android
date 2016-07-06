@@ -3,6 +3,7 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,10 +36,6 @@ public class GetDesireList extends UseCase<GetDesireList.RequestValues, GetDesir
         DesireListType desireListType = values.getDesireListType();
 
         DesireFilter desireFilter = WantHaversApplication.getDesireFilter(values.getContext());
-
-        if(desireFilter == null){
-            System.out.println("desireFilter = Empty");
-        }
 
         if(desireListType == DesireListType.ALL_DESIRES) {
 

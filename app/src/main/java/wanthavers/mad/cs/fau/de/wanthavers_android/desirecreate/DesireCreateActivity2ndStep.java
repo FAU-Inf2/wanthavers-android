@@ -2,6 +2,7 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
@@ -20,6 +21,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.category.Category
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.location.LocationLocalDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.location.LocationRemoteDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.location.LocationRepository;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.SelectImageLogic;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetCategory;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetSubcategories;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.ActivityUtils;
@@ -105,5 +107,13 @@ public class DesireCreateActivity2ndStep extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+            for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+                fragment.onRequestPermissionsResult(requestCode, permissions, grantResults);
+            }
     }
 }

@@ -122,9 +122,9 @@
     <string name="delete_desire_error">Error while deleting the desire</string>
     <string name="delete_desire_title">Do you really want to delete your desire?</string>
     <string name="categorylist_title">Choose a Category</string>
-    <string name="min_price">Minimal Price</string>
-    <string name="max_price">Maximal Price</string>
-    <string name="wrong_price_set">Maximal price is greater than minimal price</string>
+    <string name="min_price">Minimum Price</string>
+    <string name="max_price">Maximum Price</string>
+    <string name="wrong_price_set">Maximum price is greater than Minimum price</string>
     <string name="password_reset_title">Password Reset</string>
     <string name="password_reset_button">Reset my password</string>
     <string name="password_reset_success">Password reset mail was sent successfully</string>
@@ -209,4 +209,7 @@
 
     <string name="unit_kilometre">km</string>
     <string name="default_radius">5</string>
+
+    <string name="declined_memory_runtime_permission">Please accept the Storage Permissions to select an image</string>
+    <string name="closing_transaction_success">Desire was closed successfully</string>
 </resources>
