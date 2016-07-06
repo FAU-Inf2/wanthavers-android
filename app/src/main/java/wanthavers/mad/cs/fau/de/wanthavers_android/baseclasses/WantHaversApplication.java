@@ -46,11 +46,18 @@ public class WantHaversApplication extends MultiDexApplication {
             location = new Location();
         }
 
-        startupFilter.setRadius(5.00);
+
         location.setCityName("Erlangen");
         location.setFullAddress("Martenstraße, Erlangen");
         setLocation(location,getApplicationContext());
         //startupFilter.setLocation(location);
+
+        startupFilter.setDescription("default");
+        startupFilter.setCityName("Erlangen");
+        startupFilter.setFullAddress("Martenstraße, Erlangen");
+        startupFilter.setLon(location.getLon());
+        startupFilter.setLat(location.getLat());
+        startupFilter.setRadius(5.00);
 
         setDesireFilter(startupFilter, getApplicationContext());
     }
@@ -126,9 +133,9 @@ public class WantHaversApplication extends MultiDexApplication {
             curDesireFilter = new DesireFilter();
         }
 
-        //curDesireFilter.setLocation(location);
-
-        //curDesireFilter.setCityName();
+        curDesireFilter.setCityName(location.getCityName());
+        curDesireFilter.setFullAddress(location.getFullAddress());
+        curDesireFilter.setDescription(location.getDescription());
         curDesireFilter.setLat(location.getLat());
         curDesireFilter.setLon(location.getLon());
         setDesireFilter(curDesireFilter, context);
