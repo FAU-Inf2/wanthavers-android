@@ -69,12 +69,14 @@ public class GetDesireList extends UseCase<GetDesireList.RequestValues, GetDesir
             Long tmpDesireid = desireFilter.getLastDesireId();
             desireFilter = new DesireFilter();
             if(tmpDesireid != null) {
-
-                List<Integer> statusFilter = new ArrayList<>();
-                statusFilter.add(DesireStatus.STATUS_OPEN);
-
                 desireFilter.setLastDesireId(tmpDesireid);
             }
+
+            List<Integer> statusFilter = new ArrayList<>();
+            statusFilter.add(DesireStatus.STATUS_OPEN);
+            statusFilter.add(DesireStatus.STATUS_DONE);
+            statusFilter.add(DesireStatus.STATUS_IN_PROGRESS);
+            desireFilter.setStatus(statusFilter);
             desireFilter.setHaverId(userId);
         }
 

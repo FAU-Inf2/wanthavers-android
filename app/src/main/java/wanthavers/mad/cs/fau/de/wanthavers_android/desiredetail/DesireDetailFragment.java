@@ -156,17 +156,11 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
 
             Desire curDesire = mDesireDetailFragBinding.getDesire();
 
-            if(curDesire.getStatus() == DesireStatus.STATUS_IN_PROGRESS ){
-                MenuItem menFinishDesire = menu.findItem(R.id.menu_finish_desire);
-                if(menFinishDesire != null){
-                    menFinishDesire.setVisible(true);
-                }
-            }
-
             MenuItem menReportDesire = menu.findItem(R.id.menu_report_desire);
             MenuItem menDeleteDesire = menu.findItem(R.id.menu_delete_desire);
             MenuItem menAcceptDesire = menu.findItem(R.id.menu_accept_desire);
             MenuItem menDeleteHaver = menu.findItem(R.id.menu_delete_haver);
+            MenuItem menFinishDesire = menu.findItem(R.id.menu_finish_desire);
 
             if (mDesireDetailFragBinding.getDesire() != null && mDesireDetailFragBinding.getDesire().getCreator().getId() == loggedInUser) {
 
@@ -174,10 +168,16 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
                     menDeleteDesire.setVisible(true);
                 }
 
+                if(curDesire.getStatus() == DesireStatus.STATUS_IN_PROGRESS ){
+                    menFinishDesire.setVisible(true);
+                }
+
             } else if (mHaver != null && mHaver.getUser().getId() == loggedInUser) { //include haver here
                 menReportDesire.setVisible(true);
                 menAcceptDesire.setVisible(false);
+                menFinishDesire.setVisible(false);
             } else if (mIsHaver) {
+                menFinishDesire.setVisible(false);
                 menAcceptDesire.setVisible(false);
                 menReportDesire.setVisible(true);
                 menDeleteHaver.setVisible(true);
@@ -185,6 +185,7 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
                     menDeleteHaver.setVisible(false);
                     menReportDesire.setVisible(true);
                     menAcceptDesire.setVisible(true);
+                    menFinishDesire.setVisible(false);
                 //TODO make delete haver button visible
             }
 
@@ -291,32 +292,35 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
 
     public void showAcceptedHaver(Haver haver) {
 
-        if (mDesireLogic.getLoggedInUserId() == haver.getUser().getId()
-                && mDesireDetailFragBinding.desireHaverStatus.getVisibility() == View.VISIBLE) {
-            mDesireDetailFragBinding.desireHaverStatus.setText(getString(R.string.haver_status_accepted));
-        } else if (mDesireLogic.getLoggedInUserId() != haver.getUser().getId()
-                && mDesireDetailFragBinding.desireHaverStatus.getVisibility() == View.VISIBLE) {
-            mDesireDetailFragBinding.desireHaverStatus.setText(getString(R.string.haver_status_rejected));
+        if(isActive()) {
+
+            if (mDesireLogic.getLoggedInUserId() == haver.getUser().getId()
+                    && mDesireDetailFragBinding.desireHaverStatus.getVisibility() == View.VISIBLE) {
+                mDesireDetailFragBinding.desireHaverStatus.setText(getString(R.string.haver_status_accepted));
+            } else if (mDesireLogic.getLoggedInUserId() != haver.getUser().getId()
+                    && mDesireDetailFragBinding.desireHaverStatus.getVisibility() == View.VISIBLE) {
+                mDesireDetailFragBinding.desireHaverStatus.setText(getString(R.string.haver_status_rejected));
+            }
+
+            mDesireDetailFragBinding.haverList.setVisibility(View.GONE);
+            mDesireDetailFragBinding.noHavers.setVisibility(View.GONE);
+            mDesireDetailFragBinding.acceptedHaverBar.setVisibility(View.VISIBLE);
+
+            Media mediaHaver = haver.getUser().getImage();
+            if (mediaHaver != null) {
+                final ImageView profileView = mDesireDetailFragBinding.imageAcceptedHaver;
+                Picasso.with(mDesireDetailFragBinding.getRoot().getContext()).load(mediaHaver.getLowRes()).transform(new RoundedTransformation(1000, 0)).into(profileView);
+            } else {
+                //else case is neccessary as the image is otherwise overwritten on scroll
+                final ImageView profileView = mDesireDetailFragBinding.imageAcceptedHaver;
+                profileView.setImageResource(R.drawable.no_pic);
+            }
+
+            showRatingButton(mDesireDetailFragBinding.getDesire());
+
         }
-
-        mDesireDetailFragBinding.haverList.setVisibility(View.GONE);
-        mDesireDetailFragBinding.noHavers.setVisibility(View.GONE);
-        mDesireDetailFragBinding.acceptedHaverBar.setVisibility(View.VISIBLE);
-
-        Media mediaHaver = haver.getUser().getImage();
-        if (mediaHaver != null) {
-            final ImageView profileView = mDesireDetailFragBinding.imageAcceptedHaver;
-            Picasso.with(mDesireDetailFragBinding.getRoot().getContext()).load(mediaHaver.getLowRes()).transform(new RoundedTransformation(1000,0)).into(profileView);
-        } else{
-            //else case is neccessary as the image is otherwise overwritten on scroll
-            final ImageView profileView = mDesireDetailFragBinding.imageAcceptedHaver;
-            profileView.setImageResource(R.drawable.no_pic);
-        }
-
-        showRatingButton(mDesireDetailFragBinding.getDesire());
 
         endLoadingProgress();
-
     }
 
     private void showMessage(String message) {
