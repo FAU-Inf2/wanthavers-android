@@ -543,4 +543,9 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
         MenuItem menFinishTransaction = mOptionsMenu.findItem(R.id.menu_finish_desire);
         menFinishTransaction.setVisible(false);
     }
+
+    @Override
+    public void showTransactionSuccessMessage(){
+        showMessage(getString(R.string.closing_transaction_success));
+    }
 }
