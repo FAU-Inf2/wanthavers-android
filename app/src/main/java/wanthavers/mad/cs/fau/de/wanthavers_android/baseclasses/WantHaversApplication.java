@@ -21,7 +21,7 @@ public class WantHaversApplication extends MultiDexApplication {
     WantHaverScheduledExecutor mWantHaverScheduledExecutor;
     private static final int BACKUP_POLLING_DELAY= 30;
     private static boolean mGpsActive = true;
-    private static final double DEFAULT_RADIUS = 5.0;
+    private static final double DEFAULT_RADIUS = 100.0;
 
     @Override
     public void onCreate() {
