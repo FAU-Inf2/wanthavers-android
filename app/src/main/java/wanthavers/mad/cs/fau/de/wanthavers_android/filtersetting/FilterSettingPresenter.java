@@ -63,6 +63,7 @@ public class FilterSettingPresenter implements FilterSettingContract.Presenter {
     @Override
     public void resetFilter(){
         DesireFilter desireFilter = new DesireFilter();
+        desireFilter.setRadius(WantHaversApplication.getDefaultRadius());
         setFilter(desireFilter);
         mFilterSettingView.showDesireList();
     }
