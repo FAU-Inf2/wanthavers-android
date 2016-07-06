@@ -21,6 +21,7 @@ public class WantHaversApplication extends MultiDexApplication {
     WantHaverScheduledExecutor mWantHaverScheduledExecutor;
     private static final int BACKUP_POLLING_DELAY= 30;
     private static boolean mGpsActive = true;
+    private static final double DEFAULT_RADIUS = 5.0;
 
     @Override
     public void onCreate() {
@@ -57,7 +58,7 @@ public class WantHaversApplication extends MultiDexApplication {
         startupFilter.setFullAddress("Martenstraße, Erlangen");
         startupFilter.setLon(location.getLon());
         startupFilter.setLat(location.getLat());
-        startupFilter.setRadius(5.00);
+        startupFilter.setRadius(DEFAULT_RADIUS);
 
         setDesireFilter(startupFilter, getApplicationContext());
     }
@@ -158,5 +159,9 @@ public class WantHaversApplication extends MultiDexApplication {
 
     public static boolean getGpsActive(){
         return mGpsActive;
+    }
+
+    public static double getDefaultRadius() {
+        return DEFAULT_RADIUS;
     }
 }
