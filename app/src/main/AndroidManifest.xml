@@ -50,6 +50,7 @@
         <activity android:name="wanthavers.mad.cs.fau.de.wanthavers_android.rating.RatingActivity" />
         <activity android:name="wanthavers.mad.cs.fau.de.wanthavers_android.categorylist.CategoryListActivity" />
         <activity android:name="wanthavers.mad.cs.fau.de.wanthavers_android.locationlist.LocationListActivity" />
+        <activity android:name="wanthavers.mad.cs.fau.de.wanthavers_android.licenses.LicensesActivity" />
         <meta-data
             android:name="com.parse.APPLICATION_ID"
             android:value="{APPLICATION_ID}" />

@@ -49,4 +49,8 @@
         android:icon="@drawable/ic_about"
         android:title="@string/about_app" />
 
+    <item
+        android:id="@+id/licenses"
+        android:icon="@drawable/wh_licenses_light"
+        android:title="@string/licenseTitle" />
 </menu>

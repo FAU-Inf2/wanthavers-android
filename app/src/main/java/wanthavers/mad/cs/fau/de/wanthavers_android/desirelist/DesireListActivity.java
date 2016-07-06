@@ -250,6 +250,9 @@ public class DesireListActivity extends AppCompatActivity {
                             case R.id.about_app:
                                 mDesireListPresenter.createAbout();
                                 break;
+                            case R.id.licenses:
+                                mDesireListPresenter.openLicenses();
+                                break;
                             default:
                                 break;
                         }

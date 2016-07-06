@@ -222,4 +222,38 @@
 
     <string name="declined_memory_runtime_permission">Um ein Bild wählen zu können, stimme bitte den Speicher-Berechtigungen zu</string>
     <string name="closing_transaction_success">Auftrag wurde erfolgreich geschlossen</string>
+    <string name="licenseText">
+        used libraries with licenses:\n
+        server:\n
+        Dropwizard: Apache V2.0\n
+        org.eclipse.persistence:javax.persistence:2.1.0: Eclipse Public License v1.0, Eclipse Distribution License v. 1.0\n
+        org.glassfish.jersey.ext:jersey-proxy-client:2.17: GNU General Public License Version 2 only ("GPL")\n
+        com.fasterxml.jackson.core:jackson-databind:2.5.3: Apache V2.0\n
+        com.h2database:h2:1.4.186: MPL 2.0\n
+        org.json:json:20160212: The JSON License\n
+        com.smoketurner:dropwizard-swagger:0.9.2-3: Apache V2.0\n
+        \n
+        common:\n
+
+        com.fasterxml.jackson.core:jackson-databind:2.1.4: Apache V2.0\n
+        io.swagger:swagger-annotations:1.5.0: Apache V2.0\n
+        org.eclipse.persistence:javax.persistence:2.1.1: EDL 1.0, EPL 1.0\n
+        javax.ws.rs:javax.ws.rs-api:2.0: CDDL 1.1, GPL 2.0\n
+        Dropwizard: Apache V2.0\n
+        com.j256.ormlite:ormlite-android:4.48: ISC -> Open Source License\n
+        \n
+        android:\n
+        com.google.guava:guava:19.0: Apache V2.0\n
+        org.glassfish.jersey.core:jersey-client:2.22.2: CDDL, GPL 1.1\n
+        com.fasterxml.jackson.core:jackson-annotations:2.7.4: Apache V2.0\n
+        javax.inject:javax.inject:1: Apache V2.0\n
+        com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:2.7.4: Apache V2.0\n
+        javax.ws.rs:javax.ws.rs-api:2.0.1: CDDL 1.1, GPL 2.0\n
+        com.squareup.picasso:picasso:2.5.2: Apache V2.0\n
+        com.squareup.okhttp:okhttp:2.4.0: Apache V2.0\
+        org.glassfish.jersey.media:jersey-media-multipart:2.23: CDDL, GPL 1.1\n
+        com.j256.ormlite:ormlite-android:4.48: ISC -> Open Source License\n
+        commons-io:commons-io:2.4: Apache V2.0\n
+    </string>
+    <string name="licenseTitle">Lizenzen</string>
 </resources>

@@ -50,6 +50,8 @@ public interface DesireListContract {
         void getCurrentGpsPosition();
 
         void showAbout();
+
+        void showLicenses();
     }
 
 

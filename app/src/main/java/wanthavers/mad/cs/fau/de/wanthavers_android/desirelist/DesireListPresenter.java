@@ -362,4 +362,6 @@ public class DesireListPresenter implements DesireListContract.Presenter {
         mDesireListView.showAbout();
     }
 
+    public void openLicenses() {mDesireListView.showLicenses();}
+
 }

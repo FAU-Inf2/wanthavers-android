@@ -48,6 +48,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.desiredetail.DesireDetailActi
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.GpsLocationTrackerLogic;
 import wanthavers.mad.cs.fau.de.wanthavers_android.filtersetting.FilterSettingActivity;
+import wanthavers.mad.cs.fau.de.wanthavers_android.licenses.LicensesActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.login.LoginActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.rest.RestClient;
 import wanthavers.mad.cs.fau.de.wanthavers_android.settings.SettingsActivity;
@@ -421,5 +422,9 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
         startActivity(browserIntent);
     }
 
-
+    @Override
+    public void showLicenses(){
+        Intent intent = new Intent(getContext(), LicensesActivity.class);
+        startActivity(intent);
+    }
 }
