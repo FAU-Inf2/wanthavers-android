@@ -146,10 +146,11 @@ public class StartUpFragment extends Fragment implements LoginContract.View {
 
     public void freeDummyUsers(){
 
+
         mFreeDummyUsersCounter++;
 
         if(mFreeDummyUsersCounter > 0){
-            mViewDataBinding.dummyUserButtons.setVisibility(View.VISIBLE);
+            //mViewDataBinding.dummyUserButtons.setVisibility(View.VISIBLE);
         }
     }
 }
