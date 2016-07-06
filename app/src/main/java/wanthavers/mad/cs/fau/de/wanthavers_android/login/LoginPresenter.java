@@ -161,9 +161,9 @@ public class LoginPresenter implements LoginContract.Presenter {
                             return;
                         }
 
-                        String defaultLanguage  =Locale.getDefault().toString();
+                        String defaultLanguage = Locale.getDefault().toString();
 
-                        if(defaultLanguage.compareTo(user.getLangCode()) != 0){
+                        if(user.getLangCode() == null || defaultLanguage.compareTo(user.getLangCode()) != 0){
                             user.setLangCode(defaultLanguage);
                             updateUser(user);
                         }
