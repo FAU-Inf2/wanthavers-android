@@ -295,6 +295,12 @@ public class DesireListActivity extends AppCompatActivity {
         SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, getApplicationContext());
         long loggedInUser = sharedPreferencesHelper.loadLong(SharedPreferencesHelper.KEY_USERID, 6L); //Long.valueOf(sharedPreferencesHelper.loadString(SharedPreferencesHelper.KEY_USERID, "6"));
         mDesireListPresenter.getUser(loggedInUser);
+
+        if(mDesireListType == DesireListType.ALL_DESIRES) {
+                WantHaversTextView abTitle = (WantHaversTextView) findViewById(R.id.toolbar_title);
+                Location loc = WantHaversApplication.getLocation(getApplicationContext());
+                abTitle.setText(loc.getCityName());
+        }
     }
 
 

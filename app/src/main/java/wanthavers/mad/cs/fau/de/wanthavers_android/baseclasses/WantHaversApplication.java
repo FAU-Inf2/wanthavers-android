@@ -23,6 +23,7 @@ public class WantHaversApplication extends MultiDexApplication {
     private static boolean mNewMessages = false;
     WantHaverScheduledExecutor mWantHaverScheduledExecutor;
     private static final int BACKUP_POLLING_DELAY= 30;
+    private static boolean mGpsActive = true;
 
     @Override
     public void onCreate() {
@@ -124,6 +125,9 @@ public class WantHaversApplication extends MultiDexApplication {
 
         //update filter on update location
         DesireFilter curDesireFilter = getDesireFilter(context);
+        if(curDesireFilter == null){
+            curDesireFilter = new DesireFilter();
+        }
         curDesireFilter.setLocation(location);
         curDesireFilter.setLat(location.getLat());
         curDesireFilter.setLon(location.getLon());
@@ -139,5 +143,13 @@ public class WantHaversApplication extends MultiDexApplication {
 
     public static boolean getNewMessages(){
         return mNewMessages;
+    }
+
+    public static void setGpsActive(boolean gpsActive){
+        mGpsActive = gpsActive;
+    }
+
+    public static boolean getGpsActive(){
+        return mGpsActive;
     }
 }

@@ -226,7 +226,8 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
     @Override
     public void setLocation(Location location) {
         mFilterSettingFragBinding.setLocation(location);
-        WantHaversApplication.setLocation(location, getContext());
+        System.out.println("reached set loaction");
+        WantHaversApplication.setLocation(location, getActivity().getApplicationContext());
         showLocationInView();
     }
 
