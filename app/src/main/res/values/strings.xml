@@ -219,4 +219,5 @@
 
     <string name="unit_kilometre">km</string>
     <string name="default_radius">5</string>
+    <string name="closing_transaction_success">Auftrag wurde erfolgreich geschlossen</string>
 </resources>
