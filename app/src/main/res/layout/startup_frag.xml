@@ -25,35 +25,32 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
+            android:layout_height="match_parent"
+            android:layout_below="@id/video"
             android:weightSum="1"
             android:background="@color/colorPrimary">
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="@string/signin"
+                android:id="@+id/button_signin"
+                android:background="@color/colorSecondary"
+                android:textColor="@color/colorPrimary"
+                android:layout_weight="0.5"
+                android:onClick="@{() -> presenter.openLoginView()}"/>
 
-
-
-        <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:text="@string/signin"
-            android:id="@+id/button_signin"
-            android:background="@color/colorSecondary"
-            android:textColor="@color/colorPrimary"
-            android:layout_weight="0.5"
-            android:onClick="@{() -> presenter.openLoginView()}"/>
-
-        <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:text="@string/signup"
-            android:id="@+id/button_signup"
-            android:textColor="@color/colorSecondary"
-            android:background="@drawable/border_primary_nocorner"
-            android:layout_weight="0.5"
-            android:onClick="@{() -> presenter.openRegisterView()}"/>
-        </LinearLayout>
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="@string/signup"
+                android:id="@+id/button_signup"
+                android:textColor="@color/colorSecondary"
+                android:background="@drawable/border_primary_nocorner"
+                android:layout_weight="0.5"
+                android:onClick="@{() -> presenter.openRegisterView()}"/>
+            </LinearLayout>
 
         <ImageView
             android:id="@+id/login_header_logo"
