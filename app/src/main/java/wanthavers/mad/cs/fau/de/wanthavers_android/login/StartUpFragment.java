@@ -18,6 +18,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.LoginFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.StartupFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.DesireListActivity;
+import wanthavers.mad.cs.fau.de.wanthavers_android.eastereggone.EasterEggActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.welcome.WelcomeActivity;
 
 public class StartUpFragment extends Fragment implements LoginContract.View {
@@ -149,8 +150,16 @@ public class StartUpFragment extends Fragment implements LoginContract.View {
 
         mFreeDummyUsersCounter++;
 
+        if(mFreeDummyUsersCounter > 10) {
+            Intent intent = new Intent(getContext(), EasterEggActivity.class);
+            startActivity(intent);
+        }
+        /*
+        mFreeDummyUsersCounter++;
+
         if(mFreeDummyUsersCounter > 0){
             //mViewDataBinding.dummyUserButtons.setVisibility(View.VISIBLE);
         }
+        */
     }
 }
