@@ -164,7 +164,7 @@
                     android:layout_gravity="center"
                     android:max="5"
                     android:maxHeight="50dp"
-                    android:minHeight="28dp"
+                    android:minHeight="45dp"
                     android:numStars="5"
                     android:rating="0"
                     android:stepSize="1.0" />
