@@ -108,11 +108,23 @@ public class DesireListPresenter implements DesireListContract.Presenter {
         mDesireListView.showDesireDetailsUi(desire.getId());
     }
 
-
+    /**
+     * Gets and sets user in view - called on start
+     *@param desireListType type of desirelist to be loaded "all desires, my desires, my transactions"
+     *@return Nothing
+     */
     public void setDesireListType(DesireListType desireListType) {
         mDesireListType = desireListType;
     }
 
+
+    /**
+     * loads the correct desire list according to desirelist type or updates the exisiting desirelist with older desires
+     *@param forceUpdate this boolean is currently not used and will be removed later
+     *@param showLoadingUI sets whether loading UI should be shown
+     *@param loadOlderDesires this boolean is used to distinguish between loading older desires on scroll down and loading newest desires on scroll up
+     *@return Nothing
+     */
     private void loadDesiresAccToType(boolean forceUpdate, final boolean showLoadingUI,
                                       final boolean loadOlderDesires) {
         if (showLoadingUI) {
@@ -176,6 +188,12 @@ public class DesireListPresenter implements DesireListContract.Presenter {
         mLoggedInUser = userId;
     }
 
+
+    /**
+     * Gets and sets user in view - called on start
+     *@param userId User id of currently logged in user
+     *@return
+     */
     public void getUser(long userId) {
 
         GetUser.RequestValues requestValue = new GetUser.RequestValues(userId);
@@ -239,6 +257,12 @@ public class DesireListPresenter implements DesireListContract.Presenter {
     }
     */
 
+
+    /**
+     * prepares the desire list for the view converting desires into desireItemViewModels and opening the view
+     *@param desires list of desires to be displayed
+     *@return Nothing
+     */
     private void processDesires(List<Desire> desires) {
         if (desires.isEmpty()) {
             // Show a message indicating there are no tasks for that filter type.

@@ -15,7 +15,9 @@ import java.util.Date;
 import de.fau.cs.mad.wanthavers.common.AppChatLastSeen;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.WantHaversApplication;
+import wanthavers.mad.cs.fau.de.wanthavers_android.chatdetail.ChatDetailActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.ormlite.AppChatLastSeenDatabaseHelper;
+import wanthavers.mad.cs.fau.de.wanthavers_android.desiredetail.DesireDetailActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.DesireListActivity;
 
 public class MessageShowPushNotification extends IntentService {
@@ -33,13 +35,8 @@ public class MessageShowPushNotification extends IntentService {
 
     private void handleNotification(Bundle extras){
 
-
         Intent intent = new Intent(this, DesireListActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-        // notifications with same IDs will overwrite each other
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
-                PendingIntent.FLAG_ONE_SHOT);
 
         PushMessageNotification pushMessage = extras.getParcelable("WH_PUSH_NOTIFICATION");
 
@@ -53,12 +50,28 @@ public class MessageShowPushNotification extends IntentService {
             AppChatLastSeen chatLastSeen = new AppChatLastSeen(pushMessage.mChatId, new Date(), pushMessage.message);
             AppChatLastSeenDatabaseHelper appChatLastSeenDatabaseHelper = AppChatLastSeenDatabaseHelper.getInstance(getApplicationContext());
             appChatLastSeenDatabaseHelper.createOrUpdate(chatLastSeen);
+
+            //overwrite default intent with redirect to appropriate chat
+            intent = new Intent(this, ChatDetailActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.putExtra(ChatDetailActivity.EXTRA_CHAT_ID, pushMessage.mChatId);
+        }
+
+        if(pushMessage.mDesireId != null){
+            System.out.println("reached setting DesireDetail");
+            intent = new Intent(this, DesireDetailActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            long desireId = Long.valueOf(pushMessage.mDesireId);
+            intent.putExtra(DesireDetailActivity.EXTRA_DESIRE_ID, desireId);
         }
 
         //set message title
         String messageTitle = getMessageTitle(pushMessage);
 
 
+        // notifications with same IDs will overwrite each other
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
+            PendingIntent.FLAG_ONE_SHOT);
 
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)

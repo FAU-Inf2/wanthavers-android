@@ -116,7 +116,7 @@ public class LoginPresenter implements LoginContract.Presenter {
 
         switch (userIdForSwitchCase) {
             case 1:
-                sharedPreferencesHelper.saveString(sharedPreferencesHelper.KEY_USER_EMAIL, "com.mail@yoda");
+                    sharedPreferencesHelper.saveString(sharedPreferencesHelper.KEY_USER_EMAIL, "com.mail@yoda");
                 sharedPreferencesHelper.saveString(sharedPreferencesHelper.KEY_PASSWORD, "test");
                 break;
             case 2:

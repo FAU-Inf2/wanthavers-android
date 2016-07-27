@@ -62,6 +62,11 @@ public class DesireListActivity extends AppCompatActivity {
     private DesireListType mDesireListType;
 
 
+    /**
+     * Broadcast Receiver to react to push notifications
+     *@param
+     *@return
+     */
     private BroadcastReceiver notificationReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -204,8 +209,6 @@ public class DesireListActivity extends AppCompatActivity {
         SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, getApplicationContext());
         long loggedInUser = sharedPreferencesHelper.loadLong(SharedPreferencesHelper.KEY_USERID, 6L); //Long.valueOf(sharedPreferencesHelper.loadString(SharedPreferencesHelper.KEY_USERID, "6"));
         mDesireListPresenter.getUser(loggedInUser);
-
-
         mDesireListPresenter.setUser(loggedInUser);
         updateChatIconOnNewMessageReceived();
 
@@ -215,7 +218,6 @@ public class DesireListActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                //Open the navigation drawer when the home icon is selected from the toolbar.
                 mDrawerLayout.openDrawer(GravityCompat.START);
                 return true;
         }
@@ -256,7 +258,7 @@ public class DesireListActivity extends AppCompatActivity {
                             default:
                                 break;
                         }
-                        // Close the navigation drawer when an item is selected.
+
                         mDrawerLayout.closeDrawers();
                         return true;
                     }
@@ -266,8 +268,6 @@ public class DesireListActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        //finish();
-        //System.exit(0);
 
         if(backButtonCount < 1) {
             mDrawerLayout.closeDrawers();
@@ -305,7 +305,6 @@ public class DesireListActivity extends AppCompatActivity {
                 abTitle.setText(loc.getCityName());
         }
     }
-
 
     public void updateChatIconOnNewMessageReceived(){
 
