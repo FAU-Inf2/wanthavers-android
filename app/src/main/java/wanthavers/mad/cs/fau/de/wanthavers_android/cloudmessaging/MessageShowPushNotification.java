@@ -37,6 +37,7 @@ public class MessageShowPushNotification extends IntentService {
 
         Intent intent = new Intent(this, DesireListActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        String notificationType = MessageNotificationType.NOT_DEFINED.toString();
 
         PushMessageNotification pushMessage = extras.getParcelable("WH_PUSH_NOTIFICATION");
 
@@ -55,6 +56,7 @@ public class MessageShowPushNotification extends IntentService {
             intent = new Intent(this, ChatDetailActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.putExtra(ChatDetailActivity.EXTRA_CHAT_ID, pushMessage.mChatId);
+            notificationType = MessageNotificationType.CHAT_MESSAGE.toString() + "_" + pushMessage.mChatId;
         }
 
         if(pushMessage.mDesireId != null){
@@ -63,6 +65,7 @@ public class MessageShowPushNotification extends IntentService {
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             long desireId = Long.valueOf(pushMessage.mDesireId);
             intent.putExtra(DesireDetailActivity.EXTRA_DESIRE_ID, desireId);
+            notificationType = MessageNotificationType.DESIRE_UPDATE.toString() + "_" + pushMessage.mDesireId;
         }
 
         //set message title
@@ -86,7 +89,10 @@ public class MessageShowPushNotification extends IntentService {
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-        notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
+        System.out.println("notification type = " + notificationType);
+
+        notificationManager.cancel(notificationType,0);
+        notificationManager.notify(notificationType, 0 /* ID of notification */, notificationBuilder.build());
     }
 
     private String getMessageTitle(PushMessageNotification pushMessage){
