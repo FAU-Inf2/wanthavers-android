@@ -22,6 +22,8 @@ public interface LoginContract {
         void changePassword();
 
         void closeResetPasswordDialog();
+
+        void toggleRegButton();
     }
 
 
@@ -50,5 +52,9 @@ public interface LoginContract {
         void submitResetPassword();
 
         void cancelResetPassword();
+
+        void toggleRegButton();
+
+        void openAgb();
     }
 }

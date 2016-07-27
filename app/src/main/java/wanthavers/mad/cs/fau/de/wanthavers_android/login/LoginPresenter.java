@@ -6,10 +6,16 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.text.Html;
 import android.view.View;
 import android.widget.CalendarView;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
@@ -34,6 +40,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.SetDesire;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.UpdateUser;
 import wanthavers.mad.cs.fau.de.wanthavers_android.rest.RestClient;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.SharedPreferencesHelper;
+import wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextButton;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView;
 
 public class LoginPresenter implements LoginContract.Presenter {
@@ -345,5 +352,14 @@ public class LoginPresenter implements LoginContract.Presenter {
         mLoginView.closeResetPasswordDialog();
     }
 
+    @Override
+    public void toggleRegButton(){ mLoginView.toggleRegButton(); }
+
+
+    @Override
+    public void openAgb() {
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://wanthaver.com/agbs.html"));
+        mActivity.startActivity(browserIntent);
+    }
 }
 

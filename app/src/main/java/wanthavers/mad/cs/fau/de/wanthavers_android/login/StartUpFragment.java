@@ -124,6 +124,8 @@ public class StartUpFragment extends Fragment implements LoginContract.View {
 
     }
 
+    @Override
+    public void toggleRegButton(){}
 
     public void startVideo() {
 

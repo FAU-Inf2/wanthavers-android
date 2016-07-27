@@ -133,4 +133,8 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     public void closeResetPasswordDialog() {
         mResetPassword.dismiss();
     }
+
+
+    @Override
+    public void toggleRegButton(){};
 }

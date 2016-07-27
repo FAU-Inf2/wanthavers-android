@@ -5,14 +5,17 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.RegisterFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.StartupFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.DesireListActivity;
+import wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextButton;
 import wanthavers.mad.cs.fau.de.wanthavers_android.welcome.WelcomeActivity;
 
 public class RegisterFragment extends Fragment implements LoginContract.View {
@@ -49,7 +52,6 @@ public class RegisterFragment extends Fragment implements LoginContract.View {
 
         mViewDataBinding = RegisterFragBinding.inflate(inflater, container, false);
         mViewDataBinding.setPresenter(mPresenter);
-
         return mViewDataBinding.getRoot();
     }
 
@@ -94,11 +96,26 @@ public class RegisterFragment extends Fragment implements LoginContract.View {
 
     @Override
     public void changePassword() {
-
     }
 
     @Override
     public void closeResetPasswordDialog() {
 
     }
+
+    @Override
+    public void toggleRegButton(){
+        CheckBox regCheckBox = mViewDataBinding.agbCheckBox;
+        WantHaversTextButton regButton =  mViewDataBinding.buttonSignup;
+
+        if(regCheckBox.isChecked()){
+            regButton.setEnabled(true);
+            regButton.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.border_primary_nocorner));
+        }else{
+            regButton.setEnabled(false);
+            regButton.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.light_grey));
+        }
+    }
+
+
 }
