@@ -55,7 +55,7 @@ public class MessageListenerService extends FirebaseMessagingService {
     private PushMessageNotification remoteMessage2pushMessage(RemoteMessage remoteMessage){
 
         MessageNotificationType messageType = getMessageType(remoteMessage);
-        String message = remoteMessage.getNotification().getBody();
+        String message = remoteMessage.getData().get("message");
 
         PushMessageNotification pushMessage = new PushMessageNotification(messageType.toString(), message);
 
