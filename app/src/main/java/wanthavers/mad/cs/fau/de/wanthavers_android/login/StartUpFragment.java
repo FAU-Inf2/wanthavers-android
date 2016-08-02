@@ -19,6 +19,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.LoginFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.StartupFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.DesireListActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.eastereggone.EasterEggActivity;
+import wanthavers.mad.cs.fau.de.wanthavers_android.util.CenterCropVideoView;
 import wanthavers.mad.cs.fau.de.wanthavers_android.welcome.WelcomeActivity;
 
 public class StartUpFragment extends Fragment implements LoginContract.View {
@@ -28,7 +29,7 @@ public class StartUpFragment extends Fragment implements LoginContract.View {
 
 
     private MediaPlayer mp = null;
-    VideoView mVideoView = null;
+    CenterCropVideoView mVideoView = null;
 
     public StartUpFragment(){
         //Requires empty public constructor
@@ -76,7 +77,7 @@ public class StartUpFragment extends Fragment implements LoginContract.View {
     @Override
     public void onStart(){
         super.onStart();
-        mVideoView = (VideoView) getActivity().findViewById(R.id.video);
+        mVideoView = (CenterCropVideoView) getActivity().findViewById(R.id.video);
         startVideo();
     }
 
