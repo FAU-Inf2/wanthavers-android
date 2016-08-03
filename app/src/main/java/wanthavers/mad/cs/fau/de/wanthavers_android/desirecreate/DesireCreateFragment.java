@@ -234,17 +234,10 @@ public class DesireCreateFragment extends Fragment implements DesireCreateContra
     }
 
     public void onConfigurationChanged(Configuration newConfig) {
-        Log.d("dddddddddddd","dddddddddddddddddddd");
         super.onConfigurationChanged(newConfig);
         WantHaversTextView date = mViewDataBinding.noDateSelected;
-
-        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+        if (mStringDate != " "){
             date.setText(mStringDate);
-                System.out.println("0000000000000000000000000000000000");
-
-        } else {
-            date.setText(mStringDate);
-                System.out.println("111111111111111111111111111111111111");
         }
     }
 }
