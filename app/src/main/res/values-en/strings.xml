@@ -132,6 +132,8 @@
     <string name="locationlist_title">Choose a Location</string>
     <string name="locationlist_empty">No locations stored yet</string>
     <string name="desire_detail_delete_haver_error">Error while deleting desire</string>
+    <string name="select_date">&#160;&#160;Select a Expiration Date</string>
+    <string name="select_date_error">Expiration Date has to be in the future!</string>
 
 
     <string-array name="currencies">

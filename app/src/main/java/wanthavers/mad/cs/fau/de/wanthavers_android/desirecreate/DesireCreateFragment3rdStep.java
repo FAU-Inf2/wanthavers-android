@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 
 import java.io.File;
+import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -100,10 +101,11 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
         double lat = Double.parseDouble(getActivity().getIntent().getExtras().getString("desireLocationLat"));
         double lng = Double.parseDouble(getActivity().getIntent().getExtras().getString("desireLocationLng"));
         Category cat = (Category) getActivity().getIntent().getSerializableExtra("desireCategory");
+        Date date = (Date) getActivity().getIntent().getSerializableExtra("desireExpirationDate");
 
 
         setDataForDesire(title, description, Integer.parseInt(price),
-                location, currency, image, lat, lng, cat);
+                location, currency, image, lat, lng, cat, date);
         //includes publishDesire()
 
         Log.d("DesireTitle:", desire.getTitle());
@@ -114,6 +116,12 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
         Log.d("DesireCurrency:", desire.getCurrency());
         Log.d("DesireColor:", Integer.toString(desire.getColorIndex()));
         Log.d("DesireCategoryId:", Long.toString(desire.getCategoryId()));
+        if (date != null){
+            Log.d("DesireExpireDate:", DateFormat.getDateTimeInstance().format(desire.getExpireDate()));
+        }else{
+            Log.d("DesireExpireDate:", "null");
+        }
+
 
         /*Intent intent = new Intent(getContext(), DesireListActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -124,7 +132,7 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
 
 
     public void setDataForDesire(String title, String description, int price, String dropzone,
-                                 String currency, Uri image, double lat, double lng, Category cat) {
+                                 String currency, Uri image, double lat, double lng, Category cat, Date date) {
         desire.setTitle(title);
         desire.setDescription(description);
         desire.setPrice(price);
@@ -133,6 +141,7 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
         desire.setDropzone_lat(lat);
         desire.setDropzone_long(lng);
         desire.setCurrency(currency);
+        desire.setExpireDate(date);
 
         int colorNumber = (int) (Math.random() * DESIRE_COLOR_NUMBER);
         desire.setColorIndex(colorNumber);
@@ -237,5 +246,9 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
     @Override
     public void showCategories(List<Category> categories) {
         //no Category Selection in this Step
+    }
+
+    public void selectExpirationDate(){
+        //no Expiration Date Selection in this Step
     }
 }
