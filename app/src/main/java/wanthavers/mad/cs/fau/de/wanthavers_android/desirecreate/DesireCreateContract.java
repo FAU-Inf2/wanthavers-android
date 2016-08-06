@@ -27,6 +27,8 @@ public interface DesireCreateContract {
 
         void showCategories(List<Category> categories);
 
+        void selectExpirationDate();
+
         //boolean isStoragePermissionGranted();
 
         //void selectImageForDesire();
@@ -48,6 +50,8 @@ public interface DesireCreateContract {
         SelectImageLogic getImageLogic();
 
         void openCategorySelection();
+
+        void selectExpirationDate();
 
     }
 }

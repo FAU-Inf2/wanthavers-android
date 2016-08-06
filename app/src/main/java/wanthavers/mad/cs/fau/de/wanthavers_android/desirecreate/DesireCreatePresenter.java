@@ -164,6 +164,10 @@ public class DesireCreatePresenter implements DesireCreateContract.Presenter {
         mDesireCreateView.showCategory(category);
     }
 
+    public void selectExpirationDate(){
+        mDesireCreateView.selectExpirationDate();
+    }
+
 
 
 }
