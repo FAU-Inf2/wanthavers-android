@@ -1,22 +1,31 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate;
 
+import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.Category;
@@ -24,6 +33,7 @@ import de.fau.cs.mad.wanthavers.common.Desire;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.WantHaversApplication;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.DesirecreateFragBinding;
+import wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView;
 
 public class DesireCreateFragment extends Fragment implements DesireCreateContract.View {
     private DesirecreateFragBinding mViewDataBinding;
@@ -33,6 +43,11 @@ public class DesireCreateFragment extends Fragment implements DesireCreateContra
     private EditText mDesireTitle;
     private EditText mDesireDescription;
     private TextView mDesireDescriptionCounter;
+    private TimePicker mTimePicker;//= (TimePicker) getActivity().findViewById(R.id.DesireTimePicker);
+    private DatePicker mDatePicker;// = (DatePicker) getActivity().findViewById(R.id.DesireDatePicker);
+    private Date mExpirationDate = null;
+    private TextView mDate;
+    String mStringDate = " ";
 
     public DesireCreateFragment(){
         //Requires empty public constructor
@@ -74,6 +89,7 @@ public class DesireCreateFragment extends Fragment implements DesireCreateContra
         mDesireTitle  = mViewDataBinding.createDesireTitle;
         mDesireDescription  =  mViewDataBinding.createDesireDescription;
         mDesireDescriptionCounter = mViewDataBinding.createDesireDescriptionCounter;
+        mDate = mViewDataBinding.noDateSelected;
 
         CustomTextWatcher myWatcher = new CustomTextWatcher(mDesireTitle);
         CustomTextWatcher myWatcher2 = new CustomTextWatcher(mDesireDescription);
@@ -117,6 +133,7 @@ public class DesireCreateFragment extends Fragment implements DesireCreateContra
         Intent intent = new Intent(getContext(), DesireCreateActivity2ndStep.class);
         intent.putExtra("desireTitle", mDesireTitle.getText().toString());
         intent.putExtra("desireDescription", mDesireDescription.getText().toString());
+        intent.putExtra("desireExpirationDate", mExpirationDate);
         startActivity(intent);
     }
 
@@ -169,4 +186,58 @@ public class DesireCreateFragment extends Fragment implements DesireCreateContra
         //no Category Selection in this Step
     }
 
+    public void selectExpirationDate(){
+
+       // new DatePickerDialog(this, myDateListener, year, month, day);
+
+
+
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+
+
+
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.date_time_dialog, null);
+        mTimePicker = (TimePicker) dialogView.findViewById(R.id.DesireTimePicker);
+        mTimePicker.setIs24HourView(true);
+        mDatePicker = (DatePicker) dialogView.findViewById(R.id.DesireDatePicker);
+        mDatePicker.setMinDate(System.currentTimeMillis() - 1000); // only future dates allowed
+
+        dialogBuilder.setView(dialogView);
+        dialogBuilder.setTitle(getString(R.string.select_date));
+        dialogBuilder.setCancelable(false);
+        dialogBuilder.setIcon(R.drawable.ic_clock);
+        dialogBuilder.setPositiveButton("Confirm", new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+               mExpirationDate = new Date(mDatePicker.getYear() - 1900, mDatePicker.getMonth(), mDatePicker.getDayOfMonth(),
+                        mTimePicker.getCurrentHour(), mTimePicker.getCurrentMinute ());
+
+                if (mExpirationDate.after(new Date())){
+                    mStringDate = DateFormat.getDateTimeInstance().format(mExpirationDate);
+                    mDate.setText(mStringDate);
+                    dialog.dismiss();
+                }else{
+                    showMessage(getString(R.string.select_date_error));
+                }
+
+            }
+
+        });
+        dialogBuilder.setNegativeButton("Cancel", null);
+
+        dialogBuilder.show();
+
+
+    }
+
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        WantHaversTextView date = mViewDataBinding.noDateSelected;
+        if (mStringDate != " "){
+            date.setText(mStringDate);
+        }
+    }
 }

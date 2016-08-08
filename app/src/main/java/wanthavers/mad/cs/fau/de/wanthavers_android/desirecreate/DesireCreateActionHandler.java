@@ -21,6 +21,10 @@ public class DesireCreateActionHandler {
 
     }
 
+    public void selectExpirationDate() {
+        mListener.selectExpirationDate();
+    }
+
     public void openCategoryList() {
         mListener.openCategorySelection();
     }

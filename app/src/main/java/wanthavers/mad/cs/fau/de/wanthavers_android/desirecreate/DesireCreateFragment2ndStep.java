@@ -145,6 +145,7 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
     private void getDataForDesireAndFinish(){
         String title = getActivity().getIntent().getExtras().getString("desireTitle");
         String description = getActivity().getIntent().getExtras().getString("desireDescription");
+        Date date = (Date) getActivity().getIntent().getSerializableExtra("desireExpirationDate");
         Intent intent = new Intent(getContext(), DesireCreateActivity3rdStep.class);
 
         intent.putExtra("desireTitle", title);
@@ -160,6 +161,7 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
         intent.putExtra("desireLocation", mLocation);
         intent.putExtra("desireLocationLat", Double.toString(mLat));
         intent.putExtra("desireLocationLng", Double.toString(mLng));
+        intent.putExtra("desireExpirationDate", date);
 
         startActivity(intent);
     }
@@ -399,6 +401,10 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
                 showCategory(mCategory);
             }
         }
+    }
+
+    public void selectExpirationDate(){
+        //no Expiration Date Selection in this Step
     }
 
 }

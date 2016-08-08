@@ -135,6 +135,8 @@
     <string name="accept_desire_title">Accept Desire</string>
     <string name="accept_desire_subtitle">Make your bid:</string>
     <string name="accepted_desire_bid_title">Your bid</string>
+    <string name="select_date">&#160;&#160;Select a Expiration Date</string>
+    <string name="select_date_error">Expiration Date has to be in the future!</string>
 
 
     <string-array name="currencies">

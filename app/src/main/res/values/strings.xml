@@ -187,6 +187,8 @@
     <string name="createDesire_loadingProgress_title">Dein Auftrag wird erstellt</string>
     <string name="changeProfilePic_loadingProgress_title">Profilbild wird geändert</string>
     <string name="createDesire_loadingProgress_message">Bitte warten &#8230;</string>
+    <string name="select_date">&#160;&#160;Wähle ein Ablaufdatum</string>
+    <string name="select_date_error">Ablaufdatum muss in der Zukunft liegen!</string>
 
     <string name="password_reset_title">Passwort-Zurücksetzen</string>
     <string name="password_reset_subtitle">Du erhältst eine E-Mail zum Ändern des Passworts</string>
