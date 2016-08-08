@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="actionHandler"
+            type="wanthavers.mad.cs.fau.de.wanthavers_android.desiredetail.DesireDetailActionHandler" />
+        
+        <variable
+            name="desire"
+            type="de.fau.cs.mad.wanthavers.common.Desire" />
+
+        <variable
+            name="desirelogic"
+            type="wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic" />
+    </data>
+
+    <FrameLayout
+        android:id="@+id/desire_detail_popup"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:padding="1dp"
+        android:background="@color/colorMainTextDark"
+        android:layout_gravity="center">
+
+        <RelativeLayout
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:background="@color/colorSecondary">
+
+            <RelativeLayout
+                android:id="@+id/accept_desire_title_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary">
+
+                <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                    android:id="@+id/accept_desire_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/accept_desire_title"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/colorSecondary"
+                    android:textAllCaps="true"
+                    android:layout_marginLeft="10dp"/>
+
+            </RelativeLayout>
+
+            <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                android:id="@+id/accept_desire_subtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/accept_desire_subtitle"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/colorMainTextDark"
+                android:layout_below="@id/accept_desire_title_bar"
+                android:layout_marginLeft="10dp"/>
+
+            <RelativeLayout
+                android:id="@+id/accept_desire_bid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/accept_desire_subtitle">
+
+
+                <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversEditText
+                    android:id="@+id/accept_desire_bid_input"
+                    android:textSize="30dp"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:layout_centerHorizontal="true"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:maxLength="3"
+                    android:inputType="number"
+                    android:ems="10"
+                    android:hint="@{String.valueOf( (int) desire.price)}"/>
+
+                <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                    android:id="@+id/accept_desire_currency"
+                    android:textSize="30dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@{desirelogic.getCurrencyString(desire.currency)}"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/colorMainTextDark"
+                    android:layout_toRightOf="@id/accept_desire_bid_input" />
+
+            </RelativeLayout>
+
+
+
+            <FrameLayout
+                android:id="@+id/button_frame_submit_bid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="1dp"
+                android:background="@color/colorMainTextDark"
+                android:layout_below="@id/accept_desire_bid"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_alignParentLeft="true">
+
+                <Button
+                    android:id="@+id/button_submit_bid"
+                    android:layout_width="135dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_submit"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorMainTextDark"
+                    android:background="@color/colorSecondary"
+                    android:onClick="@{() -> actionHandler.buttonSubmitBid()}"/>
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/button_frame_cancel_bid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="1dp"
+                android:background="@color/colorMainTextDark"
+                android:layout_below="@id/accept_desire_bid"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_alignParentRight="true">
+
+                <Button
+                    android:id="@+id/button_cancel_bid"
+                    android:layout_width="135dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_cancel"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorMainTextDark"
+                    android:background="@color/colorSecondary"
+                    android:onClick="@{() -> actionHandler.buttonCancelBid()}"/>
+
+            </FrameLayout>
+
+        </RelativeLayout>
+
+    </FrameLayout>
+
+</layout>

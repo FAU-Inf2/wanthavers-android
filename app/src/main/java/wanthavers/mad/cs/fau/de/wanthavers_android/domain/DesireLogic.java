@@ -68,24 +68,27 @@ public class DesireLogic {
         return getPriceString(desire, desire.getPrice() + desire.getReward());
     }
 
-
+    public String getCurrencyString(String desireCurrency) {
+        Resources resources = mContext.getResources();
+        switch (desireCurrency){
+            case "EUR":
+                return resources.getString(R.string.euro_sign);
+            case "USD":
+                return resources.getString(R.string.dollar_sign);
+            case "GBP":
+                return resources.getString(R.string.pound_sign);
+            default:
+                return resources.getString(R.string.euro_sign);
+        }
+    }
 
     public String getPriceString(Desire desire, double price){
 
         String priceString = String.valueOf( (int) price);
-        Resources resources = mContext.getResources();
         String currency = "";
         String desireCurrency = desire.getCurrency();
 
-        switch (desireCurrency){
-            case "EUR": currency = resources.getString(R.string.euro_sign);
-                break;
-            case "USD": currency = resources.getString(R.string.dollar_sign);
-                break;
-            case "GBP": currency = resources.getString(R.string.pound_sign);
-                break;
-            default: currency = resources.getString(R.string.euro_sign);
-        }
+        currency = getCurrencyString(desireCurrency);
 
         priceString += " " + currency;
 

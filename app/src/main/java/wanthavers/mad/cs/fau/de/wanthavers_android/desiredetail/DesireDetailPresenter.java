@@ -217,6 +217,8 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
 
     private void setHaver(Haver haver) {
 
+        //TODO: get bid here and submit it to the server
+
         SetHaver.RequestValues requestValues = new SetHaver.RequestValues(mDesireId, haver);
 
         mUseCaseHandler.execute(mSetHaver, requestValues,
@@ -226,6 +228,8 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
                     public void onSuccess(SetHaver.ResponseValue response) {
                         mDesireDetailView.showUnacceptedHaverView(true);
                         mDesireDetailView.showHaverAcceptStatus();
+                        loadDesire();
+                        mDesireDetailView.closeAcceptDesirePopup();
                     }
 
                     @Override
@@ -457,6 +461,11 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
         desireFlag.setDesireId(mDesireId);
         mDesireDetailView.closeReportPopup();
         flagDesire(desireFlag);
+    }
+
+    @Override
+    public void closeAcceptDesirePopup() {
+        mDesireDetailView.closeAcceptDesirePopup();
     }
 
     @Override

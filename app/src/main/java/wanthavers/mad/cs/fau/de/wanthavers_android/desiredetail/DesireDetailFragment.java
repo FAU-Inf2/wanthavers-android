@@ -41,6 +41,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import de.fau.cs.mad.wanthavers.common.Desire;
 import wanthavers.mad.cs.fau.de.wanthavers_android.chatdetail.ChatDetailActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.chatlist.ChatListActivity;
+import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.DesiredetailAcceptDesirePopupBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.DesiredetailDeleteDesirePopupBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.DesiredetailFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.DesiredetailReportPopupBinding;
@@ -72,8 +73,9 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
     private RecyclerView mRecyclerView;
     private DesireDetailViewModel mDesireDetailViewModel;
     private DesireDetailActionHandler mDesireDetailActionHandler;
-    private Dialog mReportDialog, mDeleteDesireDialog;
+    private Dialog mReportDialog, mDeleteDesireDialog, mAcceptDesireDialog;
     private DesiredetailReportPopupBinding mDesiredetailReportPopupBinding;
+    private DesiredetailAcceptDesirePopupBinding mDesiredetailAcceptDesirePopupBinding;
     //private ProgressDialog mLoadingDialog;
     private Haver mHaver;
     private Menu mOptionsMenu;
@@ -203,8 +205,9 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
                 break;
             case R.id.menu_accept_desire:
                 //TODO: remove debug outputs
-                mPresenter.setHaver();
-                item.setVisible(false);
+                showAcceptDesirePopup();
+                //mPresenter.setHaver();
+                //item.setVisible(false);
                 break;
             case R.id.menu_finish_desire:
                 mPresenter.closeTransaction();
@@ -269,6 +272,11 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
             mPresenter.getAcceptedHaver();
             //haver cannot accept
             //mDesireDetailFragBinding.buttonAcceptDesire.setVisibility(View.GONE);
+        }
+
+        //Show bid
+        if (mIsHaver) {
+            mDesireDetailFragBinding.desireDetailPriceTitle.setText(getString(R.string.accepted_desire_bid_title));
         }
 
     }
@@ -460,6 +468,24 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
         Intent intent = new Intent(getContext(), RatingActivity.class);
         intent.putExtra(RatingActivity.EXTRA_DESIRE_ID, desireId);
         startActivity(intent);
+    }
+
+    public void showAcceptDesirePopup() {
+        mAcceptDesireDialog = new Dialog(getContext());
+
+        mDesiredetailAcceptDesirePopupBinding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.desiredetail_accept_desire_popup, null, false);
+        mAcceptDesireDialog.setContentView(mDesiredetailAcceptDesirePopupBinding.getRoot());
+
+        mDesiredetailAcceptDesirePopupBinding.setActionHandler(mDesireDetailActionHandler);
+        mDesiredetailAcceptDesirePopupBinding.setDesire(mDesireDetailFragBinding.getDesire());
+        mDesiredetailAcceptDesirePopupBinding.setDesirelogic(mDesireLogic);
+
+        mAcceptDesireDialog.show();
+    }
+
+    @Override
+    public void closeAcceptDesirePopup() {
+        mAcceptDesireDialog.dismiss();
     }
 
     @Override

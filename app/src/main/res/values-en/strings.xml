@@ -132,6 +132,9 @@
     <string name="locationlist_title">Choose a Location</string>
     <string name="locationlist_empty">No locations stored yet</string>
     <string name="desire_detail_delete_haver_error">Error while deleting desire</string>
+    <string name="accept_desire_title">Accept Desire</string>
+    <string name="accept_desire_subtitle">Make your bid:</string>
+    <string name="accepted_desire_bid_title">Your bid</string>
 
 
     <string-array name="currencies">

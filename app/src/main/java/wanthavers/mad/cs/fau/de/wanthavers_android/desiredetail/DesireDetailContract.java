@@ -61,6 +61,8 @@ public interface DesireDetailContract {
 
         void closeView();
 
+        void closeAcceptDesirePopup();
+
         void showDeleteDesireError();
 
         void openDeletionDialog();
@@ -107,6 +109,8 @@ public interface DesireDetailContract {
         void finishReport();
 
         void openRating();
+
+        void closeAcceptDesirePopup();
 
         void closeReportPopup();
 

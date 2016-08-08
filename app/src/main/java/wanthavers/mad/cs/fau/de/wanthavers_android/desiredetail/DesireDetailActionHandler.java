@@ -44,6 +44,13 @@ public class DesireDetailActionHandler {
         }
     }
 
+    public void buttonSubmitBid() {
+        mListener.setHaver();
+    }
+
+    public void buttonCancelBid() {
+        mListener.closeAcceptDesirePopup();
+    }
 
     public void buttonOpenRating() {
         mListener.openRating();
