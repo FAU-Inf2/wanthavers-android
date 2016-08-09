@@ -137,6 +137,7 @@
     <string name="accepted_desire_bid_title">Your bid</string>
     <string name="select_date">&#160;&#160;Select a Expiration Date</string>
     <string name="select_date_error">Expiration Date has to be in the future!</string>
+    <string name="default_location_title">Current/Last used location:</string>
 
 
     <string-array name="currencies">

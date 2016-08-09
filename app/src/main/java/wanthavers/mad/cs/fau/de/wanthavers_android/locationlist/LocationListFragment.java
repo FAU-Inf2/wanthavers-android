@@ -23,6 +23,7 @@ import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.Location;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
+import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.WantHaversApplication;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.LocationlistFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.LocationlistPopupBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate.OnSwipeTouchListener;
@@ -76,6 +77,8 @@ public class LocationListFragment extends Fragment implements LocationListContra
 
         Location curFilterLocation = (Location) getActivity().getIntent().getExtras().getSerializable("filterlocation");
         mLocationListFragBinding.setLocation(curFilterLocation);
+        Location defaultLocation = WantHaversApplication.getLocation(getContext());
+        mLocationListFragBinding.setDefaultLocation(defaultLocation);
 
         //use Linear Layout Manager
         RecyclerView recyclerView = mLocationListFragBinding.locationList;

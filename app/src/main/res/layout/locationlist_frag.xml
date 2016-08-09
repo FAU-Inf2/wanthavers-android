@@ -7,6 +7,10 @@
             type="wanthavers.mad.cs.fau.de.wanthavers_android.locationlist.LocationListActionHandler" />
 
         <variable
+            name="defaultLocation"
+            type="de.fau.cs.mad.wanthavers.common.Location" />
+
+        <variable
             name="location"
             type="de.fau.cs.mad.wanthavers.common.Location" />
     </data>
@@ -15,6 +19,42 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorSecondary">
+
+        <RelativeLayout
+            android:id="@+id/default_location_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:background="@color/light_orange"
+            android:onClick="@{() -> actionHandler.buttonChooseLocation(location)}">
+
+            <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                android:id="@+id/default_location_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/default_location_title"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/colorMainTextDark"/>
+
+            <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                android:id="@+id/default_location_full_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_below="@id/default_location_title"
+                android:text="@{defaultLocation.fullAddress}"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/colorMainTextDark"
+                android:layout_marginLeft="10dp"/>
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/default_location_divider"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/colorMainTextMediumDark"
+            android:layout_below="@id/default_location_bar"/>
 
         <Button
             android:id="@+id/button_cancel_location_choice"
@@ -42,6 +82,7 @@
             android:id="@+id/location_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_below="@id/default_location_divider"
             android:layout_above="@id/button_cancel_location_choice">
         </android.support.v7.widget.RecyclerView>
 
@@ -56,4 +97,5 @@
             android:visibility="gone"/>
 
     </RelativeLayout>
+
 </layout>
