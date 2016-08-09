@@ -192,7 +192,6 @@
                     android:gravity="left"
                     android:textColor="@color/colorMainText"
                     android:textSize="@dimen/desire_desire_list_text_size"
-                    android:layout_marginTop="-5dp"
                     android:text="@{desireLogic.getDateString(desire.desire.creation_time)}"/>
 
                 <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
@@ -202,9 +201,7 @@
                     android:gravity="right"
                     android:textSize="@dimen/desire_desire_list_text_size"
                     android:textColor="@color/colorMainText"
-                    android:layout_marginTop="-5dp"
-                    android:text="@{desireLogic.getLocationDistance(desire.desire.distanceToUserPosition)}"
-                    />
+                    android:text="@{desireLogic.getLocationDistance(desire.desire.distanceToUserPosition)}" />
 
             </LinearLayout>
 

@@ -70,6 +70,9 @@ public class DesireLogic {
 
     public String getCurrencyString(String desireCurrency) {
         Resources resources = mContext.getResources();
+        if (desireCurrency == null) {
+            return resources.getString(R.string.euro_sign);
+        }
         switch (desireCurrency){
             case "EUR":
                 return resources.getString(R.string.euro_sign);

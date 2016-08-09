@@ -431,7 +431,6 @@
                                 android:layout_height="wrap_content"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
                                 android:text="@{haver.user.getName()}"
-                                android:layout_marginTop="-10dp"
                                 android:textColor="@color/colorPrimaryDark"/>
 
                             <RatingBar
