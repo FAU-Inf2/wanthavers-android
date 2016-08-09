@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:background="@color/light_orange"
-            android:onClick="@{() -> actionHandler.buttonChooseLocation(location)}">
+            android:onClick="@{() -> actionHandler.buttonChooseLocation(defaultLocation)}">
 
             <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                 android:id="@+id/default_location_title"
