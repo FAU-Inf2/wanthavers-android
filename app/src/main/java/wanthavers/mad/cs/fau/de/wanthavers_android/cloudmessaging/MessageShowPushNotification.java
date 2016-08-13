@@ -71,7 +71,7 @@ public class MessageShowPushNotification extends IntentService {
 
         //set message title
         String messageTitle = getMessageTitle(pushMessage);
-        
+
         // notifications with same IDs will overwrite each other
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
             PendingIntent.FLAG_ONE_SHOT);
@@ -81,7 +81,7 @@ public class MessageShowPushNotification extends IntentService {
                 .setColor(getResources().getColor(R.color.colorPrimary))
                 .setSmallIcon(R.drawable.ic_announcement_white)
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.logo))
-                .setContentTitle("WantHavers " + messageTitle)
+                .setContentTitle(getString(R.string.app_name) +" "+ messageTitle)
                 .setContentText(pushMessage.message)
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
