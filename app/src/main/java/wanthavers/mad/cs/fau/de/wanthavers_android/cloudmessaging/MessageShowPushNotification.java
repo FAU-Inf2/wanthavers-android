@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -70,8 +71,7 @@ public class MessageShowPushNotification extends IntentService {
 
         //set message title
         String messageTitle = getMessageTitle(pushMessage);
-
-
+        
         // notifications with same IDs will overwrite each other
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
             PendingIntent.FLAG_ONE_SHOT);
@@ -79,7 +79,8 @@ public class MessageShowPushNotification extends IntentService {
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setColor(getResources().getColor(R.color.colorPrimary))
-                .setSmallIcon(R.drawable.logo)
+                .setSmallIcon(R.drawable.ic_announcement_white)
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.logo))
                 .setContentTitle("WantHavers " + messageTitle)
                 .setContentText(pushMessage.message)
                 .setAutoCancel(true)
