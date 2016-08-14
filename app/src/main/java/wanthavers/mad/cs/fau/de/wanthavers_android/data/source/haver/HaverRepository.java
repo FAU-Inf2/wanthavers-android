@@ -152,6 +152,26 @@ public class HaverRepository implements HaverDataSource {
     }
 
     @Override
+    public void unacceptHaver(@NonNull long desireId, @NonNull long haverId, @NonNull Haver haver, @NonNull final UnacceptHaverForDesireCallback callback) {
+        checkNotNull(desireId);
+        checkNotNull(haverId);
+        checkNotNull(haver);
+        checkNotNull(callback);
+
+        haverRemoteDataSource.unacceptHaver(desireId, haverId, haver, new UnacceptHaverForDesireCallback() {
+            @Override
+            public void onUnacceptHaverForDesire(Haver haver) {
+                callback.onUnacceptHaverForDesire(haver);
+            }
+
+            @Override
+            public void onUnacceptFailed() {
+                callback.onUnacceptFailed();
+            }
+        });
+    }
+
+    @Override
     public void getAcceptedHaverForDesire(@NonNull long desireId, @NonNull final GetAcceptedHaverForDesireCallback callback) {
         checkNotNull(desireId);
         checkNotNull(callback);

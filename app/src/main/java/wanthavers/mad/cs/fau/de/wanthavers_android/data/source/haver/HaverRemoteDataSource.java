@@ -88,6 +88,16 @@ public class HaverRemoteDataSource implements HaverDataSource {
     }
 
     @Override
+    public void unacceptHaver(@NonNull long desireId, @NonNull long haverId, @NonNull Haver haver, @NonNull UnacceptHaverForDesireCallback callback) {
+        try {
+            Haver ret = haverClient.unacceptHaver(desireId, haverId, haver);
+            callback.onUnacceptHaverForDesire(ret);
+        } catch (Throwable t) {
+            callback.onUnacceptFailed();
+        }
+    }
+
+    @Override
     public void getAcceptedHaverForDesire(@NonNull long desireId, @NonNull GetAcceptedHaverForDesireCallback callback) {
         try {
             Haver ret = haverClient.getAcceptedHaver(desireId);

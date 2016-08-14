@@ -62,6 +62,12 @@ public class HaverLocalDataSource implements HaverDataSource {
     }
 
     @Override
+    public void unacceptHaver(@NonNull long desireId, @NonNull long haverId, @NonNull Haver haver, @NonNull UnacceptHaverForDesireCallback callback) {
+        //TODO: alter this method when we decide to store havers locally
+        callback.onUnacceptFailed();
+    }
+
+    @Override
     public void getAcceptedHaverForDesire(@NonNull long desireId, @NonNull GetAcceptedHaverForDesireCallback callback) {
         //TODO: alter this method when we decide to store havers locally
         callback.onDataNotAvailable();
