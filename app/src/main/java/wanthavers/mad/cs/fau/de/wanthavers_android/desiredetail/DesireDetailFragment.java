@@ -44,7 +44,9 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.chatlist.ChatListActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.DesiredetailAcceptDesirePopupBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.DesiredetailDeleteDesirePopupBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.DesiredetailFragBinding;
+import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.DesiredetailHaverCancelDesirePopupBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.DesiredetailReportPopupBinding;
+import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.DesiredetailUnacceptHaverPopupBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate.OnSwipeTouchListener;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
 import wanthavers.mad.cs.fau.de.wanthavers_android.maps.MapActivity;
@@ -73,9 +75,10 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
     private RecyclerView mRecyclerView;
     private DesireDetailViewModel mDesireDetailViewModel;
     private DesireDetailActionHandler mDesireDetailActionHandler;
-    private Dialog mReportDialog, mDeleteDesireDialog, mAcceptDesireDialog;
+    private Dialog mReportDialog, mDeleteDesireDialog, mAcceptDesireDialog, mDeleteHaverDialog, mUnacceptHaverDialog;
     private DesiredetailReportPopupBinding mDesiredetailReportPopupBinding;
     private DesiredetailAcceptDesirePopupBinding mDesiredetailAcceptDesirePopupBinding;
+    private DesiredetailHaverCancelDesirePopupBinding mDesiredetailHaverCancelDesirePopupBinding;
     //private ProgressDialog mLoadingDialog;
     private Haver mHaver;
     private Menu mOptionsMenu;
@@ -172,10 +175,12 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
 
                 if(curDesire.getStatus() == DesireStatus.STATUS_IN_PROGRESS ){
                     menFinishDesire.setVisible(true);
+                    menDeleteDesire.setVisible(true);
                 }
 
             } else if (mHaver != null && mHaver.getUser().getId() == loggedInUser) { //include haver here
                 menReportDesire.setVisible(true);
+                menDeleteHaver.setVisible(true);
                 menAcceptDesire.setVisible(false);
                 menFinishDesire.setVisible(false);
             } else if (mIsHaver) {
@@ -184,11 +189,10 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
                 menReportDesire.setVisible(true);
                 menDeleteHaver.setVisible(true);
             } else {
-                    menDeleteHaver.setVisible(false);
-                    menReportDesire.setVisible(true);
-                    menAcceptDesire.setVisible(true);
-                    menFinishDesire.setVisible(false);
-                //TODO make delete haver button visible
+                menDeleteHaver.setVisible(false);
+                menReportDesire.setVisible(true);
+                menAcceptDesire.setVisible(true);
+                menFinishDesire.setVisible(false);
             }
 
         }
@@ -213,9 +217,8 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
                 mPresenter.closeTransaction();
                 break;
             case R.id.menu_delete_haver:
-                mPresenter.deleteHaver();
+                showDeleteHaverPopup();
                 break;
-
         }
         return true;
     }
@@ -270,13 +273,9 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
             //mDesireDetailFragBinding.buttonAcceptDesire.setVisibility(View.GONE);
         } else if (desire.getStatus() == DesireStatus.STATUS_DONE) {
             mPresenter.getAcceptedHaver();
+            //TODO: Rating here
             //haver cannot accept
             //mDesireDetailFragBinding.buttonAcceptDesire.setVisibility(View.GONE);
-        }
-
-        //Show bid
-        if (mIsHaver) {
-            mDesireDetailFragBinding.desireDetailPriceTitle.setText(getString(R.string.accepted_desire_bid_title));
         }
 
     }
@@ -436,9 +435,12 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
             if (active) {
                 mIsHaver = true;
                 mDesireDetailFragBinding.desireHaverStatus.setText(getString(R.string.haver_status_waiting));
+                mDesireDetailFragBinding.desireDetailPriceTitle.setText(getString(R.string.accepted_desire_bid_title));
+                //TODO: set price to bid
             } else {
                 mIsHaver = false;
                 mDesireDetailFragBinding.desireHaverStatus.setText(getString(R.string.haver_status_open));
+                mDesireDetailFragBinding.desireDetailPriceTitle.setText(getString(R.string.create_desire_price_header));
             }
         }
         onPrepareOptionsMenu(mOptionsMenu);
@@ -486,6 +488,27 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
     @Override
     public void closeAcceptDesirePopup() {
         mAcceptDesireDialog.dismiss();
+    }
+
+    public void showDeleteHaverPopup() {
+        mDeleteHaverDialog = new Dialog(getContext());
+
+        mDesiredetailHaverCancelDesirePopupBinding = DataBindingUtil.inflate(
+                LayoutInflater.from(getContext()), R.layout.desiredetail_haver_cancel_desire_popup, null, false
+        );
+        mDeleteHaverDialog.setContentView(mDesiredetailHaverCancelDesirePopupBinding.getRoot());
+
+        mDesiredetailHaverCancelDesirePopupBinding.setActionHandler(mDesireDetailActionHandler);
+        mDesiredetailHaverCancelDesirePopupBinding.setDesire(mDesireDetailFragBinding.getDesire());
+        mDesiredetailHaverCancelDesirePopupBinding.setDesirelogic(mDesireLogic);
+        mDesiredetailHaverCancelDesirePopupBinding.setHaver(mDesireDetailFragBinding.getHaver());
+
+        mDeleteHaverDialog.show();
+    }
+
+    @Override
+    public void closeDeleteHaverPopup() {
+        mDeleteHaverDialog.dismiss();
     }
 
     @Override
@@ -541,6 +564,8 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
         mDeleteDesireDialog.setContentView(mBinding.getRoot());
 
         mBinding.setActionHandler(mDesireDetailActionHandler);
+        mBinding.setDesire(mDesireDetailFragBinding.getDesire());
+        mBinding.setDesirelogic(mDesireLogic);
 
         mDeleteDesireDialog.show();
     }
@@ -548,6 +573,24 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
     @Override
     public void closeDeletionDialog() {
         mDeleteDesireDialog.dismiss();
+    }
+
+    @Override
+    public void showUnacceptHaverDialog() {
+        mUnacceptHaverDialog = new Dialog(getContext());
+
+        DesiredetailUnacceptHaverPopupBinding mBinding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.desiredetail_unaccept_haver_popup, null, false);
+        mUnacceptHaverDialog.setContentView(mBinding.getRoot());
+
+        mBinding.setActionHandler(mDesireDetailActionHandler);
+        mBinding.setHaver(mDesireDetailFragBinding.getHaver());
+
+        mUnacceptHaverDialog.show();
+    }
+
+    @Override
+    public void closeUnacceptHaverDialog() {
+        mUnacceptHaverDialog.dismiss();
     }
 
     @Override

@@ -209,6 +209,11 @@
     <string name="reset_password_mail_hint">Email-Adresse angeben</string>
     <string name="no_email_set">Noch keine E-Mail-Adresse angegeben, überprüfe deine E-Mail</string>
 
+    <string name="haver_cancel_desire_title">Auftrag wirklich abbrechen?</string>
+    <string name="wanter_unaccept_haver_subtitle">Willst du deinen akzeptierten Haver wirklich ablehnen?</string>
+    <string name="desire_detail_wanter_delete_warning">Du hast bereits einen Haver akzeptiert.</string>
+    <string name="desire_detail_haver_cancel_warning">Du bist bereits akzeptierter Haver. \n(Warnung: Bei wiederholtem Abbruch als akzeptierter Haver wird dies vermerkt!)</string>
+
     <string name="desire_detail_delete_haver_error">Fehler beim Löschen des Havers</string>
     <string name="gps_location_changed">Standort erfolgreich aktualisiert</string>
     <string name="set_default_location">Standard-Standort setzen</string>

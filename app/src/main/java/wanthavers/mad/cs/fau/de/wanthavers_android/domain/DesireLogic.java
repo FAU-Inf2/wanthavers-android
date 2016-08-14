@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import de.fau.cs.mad.wanthavers.common.Desire;
+import de.fau.cs.mad.wanthavers.common.DesireStatus;
 import de.fau.cs.mad.wanthavers.common.Haver;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.SharedPreferencesHelper;
@@ -112,14 +113,22 @@ public class DesireLogic {
         }
     }
 
+    public boolean isDesireInProgress(Desire desire) {
+        return (desire.getStatus() == DesireStatus.STATUS_IN_PROGRESS);
+    }
+
+    public boolean isDesireFinished(Desire desire) {
+        return (desire.getStatus() == DesireStatus.STATUS_DONE);
+    }
+
     public boolean canRateUser(Desire desire, Haver haver){
 
         long loggedInUserId = getLoggedInUserId();
 
-        if(desire.getCreator().getId() == loggedInUserId && desire.getCreatorHasRated() == false){
+        if(desire.getCreator().getId() == loggedInUserId && desire.getCreatorHasRated() == false && desire.getStatus() == DesireStatus.STATUS_DONE){
             return true;
 
-        }else if (haver != null && haver.getUser().getId() == loggedInUserId && desire.getHaverHasRated() == false){
+        }else if (haver != null && haver.getUser().getId() == loggedInUserId && desire.getHaverHasRated() == false && desire.getStatus() == DesireStatus.STATUS_DONE){
             return true;
         }
 

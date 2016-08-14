@@ -69,6 +69,12 @@ public interface DesireDetailContract {
 
         void closeDeletionDialog();
 
+        void closeDeleteHaverPopup();
+
+        void showUnacceptHaverDialog();
+
+        void closeUnacceptHaverDialog();
+
         void showMap(Location location);
 
         void hideFinishDesire();
@@ -91,6 +97,8 @@ public interface DesireDetailContract {
         void setHaver();
 
         void acceptHaver(long haverId, Haver haver);
+
+        void unacceptHaver(Haver haver);
 
         void getAcceptedHaver();
 
@@ -120,7 +128,13 @@ public interface DesireDetailContract {
 
         void closeDeletionDialog();
 
+        void closeHaverCancelDialog();
+
         void createMap(double lat, double lng);
+
+        void openUnacceptHaverDialog();
+
+        void closeUnacceptHaverDialog();
 
     }
 }

@@ -463,15 +463,28 @@
                             android:onClick="@{() -> actionHandler.sendMessage(haver.getUser().getId())}"/>
 
                         <ImageButton
+                            android:id="@+id/remove_haver"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/wh_delete_icon_light"
+                            android:layout_toLeftOf="@id/message_haver"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginTop="5dp"
+                            android:onClick="@{ () -> actionHandler.buttonUnacceptHaver()}"
+                            android:visibility="@{desirelogic.isDesireInProgress(desire) ? View.VISIBLE : View.GONE}"
+                            android:background="@drawable/chat_border_me" />
+
+                        <ImageButton
                             android:id="@+id/rate_creator"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:src="@drawable/wh_rating_button_light"
-                            android:background="@drawable/chat_border_me"
                             android:layout_toLeftOf="@id/message_haver"
                             android:layout_marginRight="5dp"
                             android:layout_marginTop="5dp"
                             android:onClick="@{ () -> actionHandler.buttonOpenRating()}"
+                            android:visibility="@{desirelogic.isDesireFinished(desire) ? View.VISIBLE : View.GONE}"
+                            android:background="@{desirelogic.canRateUser(desire, haver) ? @drawable/chat_border_me : @drawable/wh_border_button_inactive}"
                             android:clickable="@{desirelogic.canRateUser(desire, haver) ? true : false}"/>
 
                     </RelativeLayout>

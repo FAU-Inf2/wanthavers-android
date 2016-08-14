@@ -138,6 +138,7 @@
     <string name="select_date">&#160;&#160;Select a Expiration Date</string>
     <string name="select_date_error">Expiration Date has to be in the future!</string>
     <string name="default_location_title">Current/Last used location:</string>
+    <string name="haver_cancel_desire_title">Do you really want to cancel this desire?</string>
 
 
     <string-array name="currencies">
@@ -205,6 +206,9 @@
     <string name="app_version_force_title">Important updates available!</string>
     <string name="desire_distance">less than</string>
     <string name="no_email_set">No Email set yet, check your spelling</string>
+    <string name="desire_detail_wanter_delete_warning">You have already accepted a haver.</string>
+    <string name="desire_detail_haver_cancel_warning">You are an accepted haver. \n(Attention: You will be flagged for cancelling transactions as accepted haver!)</string>
+    <string name="wanter_unaccept_haver_subtitle">Do you really want to reject your accepted haver?</string>
 
     <string name="reset_password_mail_hint">Set your Email address</string>
     <string name="gps_location_changed">Location successfully changed</string>

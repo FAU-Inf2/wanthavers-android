@@ -14,10 +14,14 @@
         <variable
             name="desirelogic"
             type="wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic" />
+
+        <variable
+            name="haver"
+            type="de.fau.cs.mad.wanthavers.common.Haver" />
     </data>
 
     <FrameLayout
-        android:id="@+id/location_setname_popup"
+        android:id="@+id/haver_cancel_popup"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:padding="1dp"
@@ -30,16 +34,16 @@
             android:background="@color/colorSecondary">
 
             <RelativeLayout
-                android:id="@+id/delete_desire_title_bar"
+                android:id="@+id/haver_cancel_title_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorPrimary">
 
                 <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
-                    android:id="@+id/delete_desire_title"
+                    android:id="@+id/haver_cancel_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/delete_desire_title"
+                    android:text="@string/haver_cancel_desire_title"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/colorSecondary"
                     android:layout_marginLeft="10dp"/>
@@ -47,61 +51,61 @@
             </RelativeLayout>
 
             <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
-                android:id="@+id/delete_desire_subtitle"
+                android:id="@+id/haver_cancel_subtitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="@color/colorMainTextDark"
-                android:text="@string/desire_detail_wanter_delete_warning"
+                android:text="@string/desire_detail_haver_cancel_warning"
                 android:visibility="@{desirelogic.isDesireInProgress(desire) ? View.VISIBLE : View.GONE}"
-                android:layout_below="@id/delete_desire_title_bar"/>
+                android:layout_below="@id/haver_cancel_title_bar"/>
 
             <FrameLayout
-                android:id="@+id/button_frame_submit_deletion"
+                android:id="@+id/button_frame_submit_haver_cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="1dp"
                 android:background="@color/colorMainTextDark"
-                android:layout_below="@id/delete_desire_subtitle"
+                android:layout_below="@id/haver_cancel_subtitle"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_alignParentLeft="true">
 
                 <Button
-                    android:id="@+id/button_submit_deletion"
+                    android:id="@+id/button_submit_haver_cancel"
                     android:layout_width="135dp"
                     android:layout_height="wrap_content"
                     android:text="@string/location_choose_name_submit"
                     android:textAllCaps="true"
                     android:textColor="@color/colorMainTextDark"
                     android:background="@color/colorSecondary"
-                    android:onClick="@{() -> actionHandler.buttonSubmitDeletion()}"/>
+                    android:onClick="@{() -> actionHandler.buttonSubmitHaverCancel(desire, haver)}"/>
 
             </FrameLayout>
 
             <FrameLayout
-                android:id="@+id/button_frame_cancel_deletion"
+                android:id="@+id/button_frame_cancel_haver_cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="1dp"
                 android:background="@color/colorMainTextDark"
-                android:layout_below="@id/delete_desire_subtitle"
+                android:layout_below="@id/haver_cancel_subtitle"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_alignParentRight="true">
 
                 <Button
-                    android:id="@+id/button_cancel_deletion"
+                    android:id="@+id/button_cancel_haver_cancel"
                     android:layout_width="135dp"
                     android:layout_height="wrap_content"
                     android:text="@string/button_cancel"
                     android:textAllCaps="true"
                     android:textColor="@color/colorMainTextDark"
                     android:background="@color/colorSecondary"
-                    android:onClick="@{() -> actionHandler.buttonCancelDeletion()}"/>
+                    android:onClick="@{() -> actionHandler.buttonCancelHaverCancel()}"/>
 
             </FrameLayout>
 

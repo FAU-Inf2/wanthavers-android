@@ -25,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:background="@color/light_orange"
+            android:background="@color/very_light_grey"
             android:onClick="@{() -> actionHandler.buttonChooseLocation(defaultLocation)}">
 
             <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView

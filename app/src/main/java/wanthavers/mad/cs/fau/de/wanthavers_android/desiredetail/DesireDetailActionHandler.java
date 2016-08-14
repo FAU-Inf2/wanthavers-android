@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import com.squareup.picasso.Picasso;
 
 import de.fau.cs.mad.wanthavers.common.Desire;
+import de.fau.cs.mad.wanthavers.common.DesireStatus;
 import de.fau.cs.mad.wanthavers.common.Haver;
 import de.fau.cs.mad.wanthavers.common.Media;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
@@ -28,7 +29,7 @@ public class DesireDetailActionHandler {
 
     public void wanterAccept(long haverId, Haver haver) {
         mListener.acceptHaver(haverId, haver);
-        mDesireDetailFragBinding.setHaver(haver);
+        /*mDesireDetailFragBinding.setHaver(haver);
         mDesireDetailFragBinding.haverList.setVisibility(View.GONE);
         mDesireDetailFragBinding.noHavers.setVisibility(View.GONE);
         mDesireDetailFragBinding.acceptedHaverBar.setVisibility(View.VISIBLE);
@@ -41,7 +42,32 @@ public class DesireDetailActionHandler {
             //else case is neccessary as the image is otherwise overwritten on scroll
             final ImageView profileView = mDesireDetailFragBinding.imageAcceptedHaver;
             profileView.setImageResource(R.drawable.no_pic);
+        }*/
+    }
+    public void buttonUnacceptHaver() {
+        mListener.openUnacceptHaverDialog();
+    }
+
+    public void buttonSumbmitUnacceptHaver(Haver haver) {
+        mListener.unacceptHaver(haver);
+        mListener.closeUnacceptHaverDialog();
+    }
+
+    public void buttonCancelUnacceptHaver() {
+        mListener.closeUnacceptHaverDialog();
+    }
+
+    public void buttonSubmitHaverCancel(Desire desire, Haver haver) {
+        if (desire.getStatus() == DesireStatus.STATUS_IN_PROGRESS) {
+            mListener.unacceptHaver(haver);
+            mListener.deleteHaver();
+        } else if (desire.getStatus() == DesireStatus.STATUS_OPEN) {
+            mListener.deleteHaver();
         }
+    }
+
+    public void buttonCancelHaverCancel() {
+        mListener.closeHaverCancelDialog();
     }
 
     public void buttonSubmitBid() {

@@ -28,6 +28,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetHaver;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetHaverList;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetUser;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.SetHaver;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.UnacceptHaver;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.UpdateDesireStatus;
 
 public class DesireDetailPresenter implements DesireDetailContract.Presenter {
@@ -50,6 +51,7 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
     private final FlagDesire mFlagDesire;
     private final DeleteHaver mDeleteHaver;
     private final GetHaver mGetHaver;
+    private final UnacceptHaver mUnacceptHaver;
 
     @NonNull
     private long mDesireId;
@@ -61,7 +63,7 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
                                  @NonNull SetHaver setHaver, @NonNull GetAcceptedHaver getAcceptedHaver,
                                  @NonNull GetChatForDesire getChatForDesire, @NonNull UpdateDesireStatus updateDesireStatus,
                                  @NonNull FlagDesire flagDesire, @NonNull DeleteHaver deleteHaver,
-                                 @NonNull GetHaver getHaver){
+                                 @NonNull GetHaver getHaver, @NonNull UnacceptHaver unacceptHaver){
 
         mUseCaseHandler = checkNotNull(useCaseHandler, "useCaseHandler cannot be null");
         mDesireDetailView = checkNotNull(desireDetailView, "desiredetail view cannot be null");
@@ -77,6 +79,7 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
         mFlagDesire = checkNotNull(flagDesire);
         mDeleteHaver = checkNotNull(deleteHaver);
         mGetHaver = checkNotNull(getHaver);
+        mUnacceptHaver = checkNotNull(unacceptHaver);
 
         mDesireDetailView.setPresenter(this);
         mDesireLogic = desireLogic;
@@ -251,8 +254,7 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
 
                     @Override
                     public void onSuccess(AcceptHaver.ResponseValue response) {
-                        //Haver haver = response.getHaver();
-                        //openRating();
+                        loadDesire();
                     }
 
                     @Override
@@ -262,6 +264,24 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
 
                 }
         );
+    }
+
+    @Override
+    public void unacceptHaver(Haver haver) {
+        UnacceptHaver.RequestValues requestValues = new UnacceptHaver.RequestValues(mDesireId, haver.getId(), haver);
+
+        mUseCaseHandler.execute(mUnacceptHaver, requestValues,
+                new UseCase.UseCaseCallback<UnacceptHaver.ResponseValue>() {
+                    @Override
+                    public void onSuccess(UnacceptHaver.ResponseValue response) {
+                        loadDesire();
+                    }
+
+                    @Override
+                    public void onError() {
+                        //TODO: Fehlermeldung
+                    }
+                });
     }
 
     @Override
@@ -399,16 +419,15 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
                 new UseCase.UseCaseCallback<DeleteHaver.ResponseValue>() {
                     @Override
                     public void onSuccess(DeleteHaver.ResponseValue response) {
-                        //TODO mDesireDetailView change buttons!!!!
-
                         System.out.println("success deleting haver");
                         mDesireDetailView.showUnacceptedHaverView(false);
+                        mDesireDetailView.closeDeleteHaverPopup();
 
                     }
 
                     @Override
                     public void onError() {
-
+                        mDesireDetailView.closeDeleteHaverPopup();
                         System.out.println("start deleting haver error");
                         mDesireDetailView.showDeleteHaverError();
                     }
@@ -464,6 +483,16 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
     }
 
     @Override
+    public void openUnacceptHaverDialog() {
+        mDesireDetailView.showUnacceptHaverDialog();
+    }
+
+    @Override
+    public void closeUnacceptHaverDialog() {
+        mDesireDetailView.closeUnacceptHaverDialog();
+    }
+
+    @Override
     public void closeAcceptDesirePopup() {
         mDesireDetailView.closeAcceptDesirePopup();
     }
@@ -471,6 +500,11 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
     @Override
     public void closeReportPopup() {
         mDesireDetailView.closeReportPopup();
+    }
+
+    @Override
+    public void closeHaverCancelDialog() {
+        mDesireDetailView.closeDeleteHaverPopup();
     }
 
     @Override
