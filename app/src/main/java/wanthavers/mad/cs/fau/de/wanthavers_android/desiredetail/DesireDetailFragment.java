@@ -273,7 +273,6 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
             //mDesireDetailFragBinding.buttonAcceptDesire.setVisibility(View.GONE);
         } else if (desire.getStatus() == DesireStatus.STATUS_DONE) {
             mPresenter.getAcceptedHaver();
-            //TODO: Rating here
             //haver cannot accept
             //mDesireDetailFragBinding.buttonAcceptDesire.setVisibility(View.GONE);
         }

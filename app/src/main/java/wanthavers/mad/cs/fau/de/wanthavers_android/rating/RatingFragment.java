@@ -8,6 +8,9 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -48,8 +51,26 @@ public class RatingFragment extends Fragment implements RatingContract.View {
         mRatingFragBinding = RatingFragBinding.inflate(inflater, container, false);
         mRatingFragBinding.setPresenter(mPresenter);
 
+        setHasOptionsMenu(true);
+
         return mRatingFragBinding.getRoot();
 
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.rating_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.menu_finish_rating:
+                mPresenter.finishRating(mRatingFragBinding.getDesire(), mRatingFragBinding.getHaver());
+               break;
+        }
+        return true;
     }
 
     @Override

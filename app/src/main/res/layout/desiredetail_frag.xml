@@ -230,7 +230,7 @@
                         android:layout_marginTop="5dp"
                         android:text="@{desire.description}"
                         android:textColor="@color/colorMainTextMediumDark"
-                        android:minHeight="150dp" />
+                        android:minHeight="100dp" />
                 </LinearLayout>
 
 
@@ -319,7 +319,7 @@
                 <RelativeLayout
                     android:id="@+id/desire_detail_location_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="65dp"
+                    android:layout_height="wrap_content"
                     android:padding="5dp"
                     android:layout_below="@id/desire_detail_price_layout"
                     android:background="@color/desire_detail_layout_items_background"
@@ -336,17 +336,17 @@
                     android:textAllCaps="true"
                     android:onClick="@{() -> actionHandler.onPressedLocation(desire.getDropzone_lat(), desire.getDropzone_long())}"/>
 
-                <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
-                    android:id="@+id/desire_detail_location"
-                    android:textSize="15dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="@{desire.dropzone_string}"
-                    android:textColor="@color/colorMainTextMediumDark"
-                    android:layout_below="@id/desire_detail_location_title"
-                    android:layout_marginTop="5dp"
-                    android:onClick="@{() -> actionHandler.onPressedLocation(desire.getDropzone_lat(), desire.getDropzone_long())}"/>
+                    <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                        android:id="@+id/desire_detail_location"
+                        android:textSize="15dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@{desire.dropzone_string}"
+                        android:textColor="@color/colorMainTextMediumDark"
+                        android:layout_below="@id/desire_detail_location_title"
+                        android:layout_marginTop="5dp"
+                        android:onClick="@{() -> actionHandler.onPressedLocation(desire.getDropzone_lat(), desire.getDropzone_long())}"/>
 
                 </RelativeLayout>
 

@@ -184,6 +184,7 @@
     <string name="delete_desire">Delete Desire</string>
     <string name="desire_detail_haver_title">Havers</string>
     <string name="finish_desire">finish desire</string>
+    <string name="finish_rating">finish rating</string>
     <string name="report_desire">report desire</string>
     <string name="dropzone_marker">Dropzone</string>
     <string name="alternative_Location_Button">Back</string>
