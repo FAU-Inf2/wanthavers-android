@@ -146,6 +146,8 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
         String title = getActivity().getIntent().getExtras().getString("desireTitle");
         String description = getActivity().getIntent().getExtras().getString("desireDescription");
         Date date = (Date) getActivity().getIntent().getSerializableExtra("desireExpirationDate");
+        boolean biddingAllowed = mViewDataBinding.reverseBiddingCheckbox.isChecked();
+
         Intent intent = new Intent(getContext(), DesireCreateActivity3rdStep.class);
 
         intent.putExtra("desireTitle", title);
@@ -155,6 +157,7 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
         DesireLogic dsl = new DesireLogic(getContext());
         String currency = dsl.getIsoCurrency(spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString());
         intent.putExtra("desireCurrency", currency);
+        intent.putExtra("desireBiddingAllowed", biddingAllowed);
         intent.putExtra("desireImage", image);
         intent.putExtra("desireCategory", mCategory);
 
