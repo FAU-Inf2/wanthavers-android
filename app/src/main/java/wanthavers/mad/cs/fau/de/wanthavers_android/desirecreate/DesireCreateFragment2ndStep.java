@@ -34,6 +34,7 @@ import android.widget.TimePicker;
 
 import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.sql.Time;
 import java.util.Date;
@@ -231,8 +232,8 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
         }else{
 
             mImageView = mViewDataBinding.imageCamera;
-            if (resultCode == Activity.RESULT_OK && data.getData() != null) {
-                if (requestCode == REQUEST_GALLERY) {
+            if (resultCode == Activity.RESULT_OK ){//&& data.getData() != null) {
+                if (requestCode == REQUEST_GALLERY && data.getData() != null) {
                     galleryResult(data);
                 } else if (requestCode == REQUEST_CAMERA) {
                     cameraResult(data);
@@ -278,7 +279,14 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
 
 
     private void cameraResult(Intent intent){
-        image = intent.getData();
+
+        if (intent.getData() == null){
+            Bundle extras = intent.getExtras();
+            Bitmap bm = (Bitmap) extras.get("data");
+            image = mPresenter.getImageLogic().bitmapToUri(bm);
+        }else{
+            image = intent.getData();
+        }
 
         String[] orientationColumn = {MediaStore.Images.Media.ORIENTATION};
 
