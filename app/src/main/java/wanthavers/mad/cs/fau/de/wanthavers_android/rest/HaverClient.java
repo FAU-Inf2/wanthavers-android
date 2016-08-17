@@ -70,4 +70,8 @@ public class HaverClient extends RestClient {
     public Haver setHaverStatus(long desireId, long userId, int status) {
         return haverEndpoint.updateHaverStatus(null, desireId, userId, status);
     }
+
+    public Haver updateRequestedPrice(long desireId, long userId, double requestedPrice) {
+        return haverEndpoint.updateRequestedPrice(null, desireId, userId, requestedPrice);
+    }
 }

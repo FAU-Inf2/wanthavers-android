@@ -210,6 +210,26 @@ public class HaverRepository implements HaverDataSource {
     }
 
     @Override
+    public void updateRequestedPrice(@NonNull long desireId, @NonNull long userId, @NonNull double requestedPrice, @NonNull final UpdateRequestedPriceCallback callback) {
+        checkNotNull(desireId);
+        checkNotNull(userId);
+        checkNotNull(requestedPrice);
+        checkNotNull(callback);
+
+        haverRemoteDataSource.updateRequestedPrice(desireId, userId, requestedPrice, new UpdateRequestedPriceCallback() {
+            @Override
+            public void onRequestedPriceUpdated(Haver haver) {
+                callback.onRequestedPriceUpdated(haver);
+            }
+
+            @Override
+            public void onUpdateFailed() {
+                callback.onUpdateFailed();
+            }
+        });
+    }
+
+    @Override
     public void deleteHaver(@NonNull long desireId, @NonNull long userId, @NonNull final DeleteHaverCallback callback) {
         checkNotNull(desireId);
         checkNotNull(userId);

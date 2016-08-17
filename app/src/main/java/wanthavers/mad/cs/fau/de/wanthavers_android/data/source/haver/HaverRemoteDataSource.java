@@ -37,7 +37,7 @@ public class HaverRemoteDataSource implements HaverDataSource {
             Haver haver = haverClient.get(desireId, userId);
             callback.onHaverLoaded(haver);
         } catch (WebApplicationException wae) {
-            if(wae.getResponse().getStatus() == 404) {
+            if (wae.getResponse().getStatus() == 404) {
                 callback.onHaverLoaded(null);
                 return;
             }
@@ -112,6 +112,16 @@ public class HaverRemoteDataSource implements HaverDataSource {
         try {
             Haver ret = haverClient.setHaverStatus(desireId, userId, status);
             callback.onStatusUpdated(ret);
+        } catch (Throwable t) {
+            callback.onUpdateFailed();
+        }
+    }
+
+    @Override
+    public void updateRequestedPrice(@NonNull long desireId, @NonNull long userId, @NonNull double requestedPrice, @NonNull UpdateRequestedPriceCallback callback) {
+        try {
+            Haver ret = haverClient.updateRequestedPrice(desireId, userId, requestedPrice);
+            callback.onRequestedPriceUpdated(ret);
         } catch (Throwable t) {
             callback.onUpdateFailed();
         }

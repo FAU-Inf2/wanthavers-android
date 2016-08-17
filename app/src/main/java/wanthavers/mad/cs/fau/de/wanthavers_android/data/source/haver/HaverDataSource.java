@@ -10,9 +10,6 @@ import de.fau.cs.mad.wanthavers.common.Desire;
 import de.fau.cs.mad.wanthavers.common.Haver;
 import de.fau.cs.mad.wanthavers.common.User;
 
-/**
- * Created by Nico on 15.05.2016.
- */
 public interface HaverDataSource {
 
     interface GetHaverCallback {
@@ -87,6 +84,14 @@ public interface HaverDataSource {
 
     }
 
+    interface UpdateRequestedPriceCallback {
+
+        void onRequestedPriceUpdated(Haver haver);
+
+        void onUpdateFailed();
+
+    }
+
     void getHaver(@NonNull long desireId, @NonNull long userId, @NonNull GetHaverCallback callback);
 
     void getAllHaversForDesire(@NonNull long desireId, @NonNull GetAllHaversForDesireCallback callback);
@@ -102,6 +107,8 @@ public interface HaverDataSource {
     void getAcceptedHaverForDesire(@NonNull long desireId, @NonNull GetAcceptedHaverForDesireCallback callback);
 
     void updateHaverStatus(@NonNull long desireId, @NonNull long userId, @NonNull int status, @NonNull UpdateHaverStatusCallback callback);
+
+    void updateRequestedPrice(@NonNull long desireId, @NonNull long userId, @NonNull double requestedPrice, @NonNull UpdateRequestedPriceCallback callback);
 
     void deleteHaver(@NonNull long desireId, @NonNull long userId, @NonNull DeleteHaverCallback callback);
 }
