@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
@@ -121,11 +122,19 @@ public class WelcomeFragment extends Fragment implements WelcomeContract.View {
             startActivity(intent);
         }
 
-        if ( resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
+        if ( resultCode == Activity.RESULT_OK && data != null) {
 
             showLoadingProgress();
 
-            image = data.getData();
+            SelectImageLogic imageLogic = new SelectImageLogic(getContext());
+
+            if (data.getData() == null){
+                Bundle extras = data.getExtras();
+                Bitmap bm = (Bitmap) extras.get("data");
+                image = imageLogic.bitmapToUri(bm);
+            }else{
+                image = data.getData();
+            }
             ImageView imageView = (ImageView) getView().findViewById(R.id.image_camera);
             imageView.setImageURI(image);
 
@@ -138,7 +147,7 @@ public class WelcomeFragment extends Fragment implements WelcomeContract.View {
             }
 
             //resizing high resolution images
-            SelectImageLogic imageLogic = new SelectImageLogic(getContext());
+            //SelectImageLogic imageLogic = new SelectImageLogic(getContext());
             image = imageLogic.scaleDown(image, imageLogic.getMaxImageSize(), orientation);
             imageView.setImageURI(image);
 

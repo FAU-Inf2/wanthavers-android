@@ -43,7 +43,9 @@
                 android:layout_alignParentEnd="true"
                 android:maxLength="50"
                 android:hint="@string/create_desire_title_header"
-                android:lines="1"/>
+                android:lines="1"
+                android:ellipsize="end"
+                android:singleLine="true" />
 
             </android.support.design.widget.TextInputLayout>
 
