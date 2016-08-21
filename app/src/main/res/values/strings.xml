@@ -221,6 +221,10 @@
     <string name="set_default_location">Standard-Standort setzen</string>
     <string name="about_app">Über</string>
 
+    <string name="desire_create_reverse_bidding_popup_title">Über Reversed Bidding in WantHaver</string>
+    <string name="desire_create_reverse_bidding_popup_text">Reversed Bidding text ...//TODO. Für weite Informationen siehe: </string>
+
+
     <string-array name="currencies">
         <item>\u20AC</item>
         <item>\u0024</item>

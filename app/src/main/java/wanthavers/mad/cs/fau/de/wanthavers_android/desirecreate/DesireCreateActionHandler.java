@@ -29,6 +29,10 @@ public class DesireCreateActionHandler {
         mListener.openCategorySelection();
     }
 
+    public void openInfo() {
+        mListener.showInfo();
+    }
+
 
 
 }

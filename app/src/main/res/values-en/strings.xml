@@ -140,6 +140,9 @@
     <string name="default_location_title">Current/Last used location:</string>
     <string name="haver_cancel_desire_title">Do you really want to cancel this desire?</string>
 
+    <string name="desire_create_reverse_bidding_popup_title">About Reversed Bidding in WantHaver</string>
+    <string name="desire_create_reverse_bidding_popup_text">Reversed Bidding text ...//TODO. For further infromation also see: </string>
+
 
     <string-array name="currencies">
         <item>\u20AC</item>
