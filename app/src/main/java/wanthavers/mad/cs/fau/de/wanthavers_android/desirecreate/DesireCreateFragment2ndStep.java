@@ -146,7 +146,8 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
     private void getDataForDesireAndFinish(){
         String title = getActivity().getIntent().getExtras().getString("desireTitle");
         String description = getActivity().getIntent().getExtras().getString("desireDescription");
-        Date date = (Date) getActivity().getIntent().getSerializableExtra("desireExpirationDate");
+        //Date date = (Date) getActivity().getIntent().getSerializableExtra("desireExpirationDate");
+        long timeSpan = (long) getActivity().getIntent().getSerializableExtra("desireTimeSpan");
         boolean biddingAllowed = mViewDataBinding.reverseBiddingCheckbox.isChecked();
 
         Intent intent = new Intent(getContext(), DesireCreateActivity3rdStep.class);
@@ -165,7 +166,8 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
         intent.putExtra("desireLocation", mLocation);
         intent.putExtra("desireLocationLat", Double.toString(mLat));
         intent.putExtra("desireLocationLng", Double.toString(mLng));
-        intent.putExtra("desireExpirationDate", date);
+        //intent.putExtra("desireExpirationDate", date);
+        intent.putExtra("desireTimeSpan", timeSpan);
 
         startActivity(intent);
     }
@@ -416,6 +418,14 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
 
     public void selectExpirationDate(){
         //no Expiration Date Selection in this Step
+    }
+
+    public void toggleHoursRadioButton(){
+        //no Hours RadioButton in this Step
+    }
+
+    public void toggleDaysRadioButton(){
+        //no Days RadioButton in this Step
     }
 
 }

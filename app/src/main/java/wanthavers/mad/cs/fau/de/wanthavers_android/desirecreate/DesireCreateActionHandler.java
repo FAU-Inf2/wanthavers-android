@@ -33,6 +33,14 @@ public class DesireCreateActionHandler {
         mListener.showInfo();
     }
 
+    public void toggleHoursRadioButton(){
+        mListener.toggleHoursRadioButton();
+    }
+
+    public void toggleDaysRadioButton(){
+        mListener.toggleDaysRadioButton();
+    }
+
 
 
 }

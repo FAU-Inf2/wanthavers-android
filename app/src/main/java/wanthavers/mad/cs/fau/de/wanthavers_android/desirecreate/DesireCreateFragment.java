@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -89,7 +90,7 @@ public class DesireCreateFragment extends Fragment implements DesireCreateContra
         mDesireTitle  = mViewDataBinding.createDesireTitle;
         mDesireDescription  =  mViewDataBinding.createDesireDescription;
         mDesireDescriptionCounter = mViewDataBinding.createDesireDescriptionCounter;
-        mDate = mViewDataBinding.noDateSelected;
+        //mDate = mViewDataBinding.noDateSelected;
 
         CustomTextWatcher myWatcher = new CustomTextWatcher(mDesireTitle);
         CustomTextWatcher myWatcher2 = new CustomTextWatcher(mDesireDescription);
@@ -115,6 +116,34 @@ public class DesireCreateFragment extends Fragment implements DesireCreateContra
             }
         });
 
+        //Set up timespan seekbar
+        SeekBar seekBar = (SeekBar) mViewDataBinding.timeSpanSeekbar;
+        final WantHaversTextView timeSpanStatus = (WantHaversTextView) mViewDataBinding.timeSpanStatus;
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            Integer mProgress = 0;
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                mProgress = progress + 1;
+                String curTimeSpan = mProgress.toString();
+                timeSpanStatus.setText(curTimeSpan);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                String curTimeSpan = mProgress.toString();
+                timeSpanStatus.setText(curTimeSpan);
+            }
+        });
+
+        //set default RadioButtonHours
+        mViewDataBinding.radioButtonHours.toggle();
+
         mDesireTitle.addTextChangedListener(myWatcher);
         mDesireDescription.addTextChangedListener(myWatcher2);
 
@@ -133,8 +162,20 @@ public class DesireCreateFragment extends Fragment implements DesireCreateContra
         Intent intent = new Intent(getContext(), DesireCreateActivity2ndStep.class);
         intent.putExtra("desireTitle", mDesireTitle.getText().toString());
         intent.putExtra("desireDescription", mDesireDescription.getText().toString());
-        intent.putExtra("desireExpirationDate", mExpirationDate);
+        //intent.putExtra("desireExpirationDate", mExpirationDate);
+        intent.putExtra("desireTimeSpan", getDesireTimeSpan());
         startActivity(intent);
+    }
+
+    public long getDesireTimeSpan() {
+        long timeSpan = 0L;
+        if (mViewDataBinding.radioButtonHours.isChecked()){
+            timeSpan = ((mViewDataBinding.timeSpanSeekbar.getProgress() + 1)* 3600000);
+        }else if (mViewDataBinding.radioButtonDays.isChecked()){
+            timeSpan = ((mViewDataBinding.timeSpanSeekbar.getProgress() + 1)* 3600000 * 24);
+        }
+        Log.d("TimeSpan in ms: ",Long.toString(timeSpan));
+        return timeSpan;
     }
 
 
@@ -233,11 +274,19 @@ public class DesireCreateFragment extends Fragment implements DesireCreateContra
 
     }
 
-    public void onConfigurationChanged(Configuration newConfig) {
+    public void toggleHoursRadioButton(){
+        mViewDataBinding.timeSpanUnit.setText(getString(R.string.desire_create_hours));
+    }
+
+    public void toggleDaysRadioButton(){
+        mViewDataBinding.timeSpanUnit.setText(getString(R.string.desire_create_days));
+    }
+
+    /*public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         WantHaversTextView date = mViewDataBinding.noDateSelected;
         if (mStringDate != " "){
             date.setText(mStringDate);
         }
-    }
+    }*/
 }

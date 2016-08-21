@@ -190,5 +190,13 @@ public class DesireCreatePresenter implements DesireCreateContract.Presenter {
                 .findViewById(android.R.id.message))
                 .setMovementMethod(LinkMovementMethod.getInstance());
     }
+
+    public void toggleHoursRadioButton(){
+        mDesireCreateView.toggleHoursRadioButton();
+    }
+
+    public void toggleDaysRadioButton(){
+        mDesireCreateView.toggleDaysRadioButton();
+    }
 }
 

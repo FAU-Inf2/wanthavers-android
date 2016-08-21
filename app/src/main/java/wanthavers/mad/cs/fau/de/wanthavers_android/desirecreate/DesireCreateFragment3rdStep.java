@@ -101,11 +101,12 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
         double lat = Double.parseDouble(getActivity().getIntent().getExtras().getString("desireLocationLat"));
         double lng = Double.parseDouble(getActivity().getIntent().getExtras().getString("desireLocationLng"));
         Category cat = (Category) getActivity().getIntent().getSerializableExtra("desireCategory");
-        Date date = (Date) getActivity().getIntent().getSerializableExtra("desireExpirationDate");
+        //Date date = (Date) getActivity().getIntent().getSerializableExtra("desireExpirationDate");
         boolean biddingAllowed = getActivity().getIntent().getBooleanExtra("desireBiddingAllowed", false);
+        Long timeSpan = (Long) getActivity().getIntent().getSerializableExtra("desireTimeSpan");
 
         setDataForDesire(title, description, Integer.parseInt(price),
-                location, currency, image, lat, lng, cat, date, biddingAllowed);
+                location, currency, image, lat, lng, cat, null, timeSpan, biddingAllowed);
         //includes publishDesire()
 
         Log.d("DesireTitle:", desire.getTitle());
@@ -117,11 +118,13 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
         Log.d("DesireColor:", Integer.toString(desire.getColorIndex()));
         Log.d("DesireCategoryId:", Long.toString(desire.getCategoryId()));
         Log.d("DesireBiddingAllowed:", Boolean.toString(desire.isBiddingAllowed()));
-        if (date != null){
+        Log.d("DesireValidTimespan:", Long.toString(desire.getValidTimespan()));
+        //Log.d("DesireTimeSpan:", Long.toString(desire.getValidTimespan()));
+        /*if (date != null){
             Log.d("DesireExpireDate:", DateFormat.getDateTimeInstance().format(desire.getExpireDate()));
         }else{
             Log.d("DesireExpireDate:", "null");
-        }
+        }*/
 
 
         /*Intent intent = new Intent(getContext(), DesireListActivity.class);
@@ -133,7 +136,8 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
 
 
     public void setDataForDesire(String title, String description, int price, String dropzone,
-                                 String currency, Uri image, double lat, double lng, Category cat, Date date, boolean biddingAllowed) {
+                                 String currency, Uri image, double lat, double lng, Category cat, Date date,
+                                 Long timeSpan, boolean biddingAllowed) {
         desire.setTitle(title);
         desire.setDescription(description);
         desire.setPrice(price);
@@ -143,6 +147,7 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
         desire.setDropzone_long(lng);
         desire.setCurrency(currency);
         desire.setExpireDate(date);
+        desire.setValidTimespan(timeSpan);
 
         int colorNumber = (int) (Math.random() * DESIRE_COLOR_NUMBER);
         desire.setColorIndex(colorNumber);
@@ -254,5 +259,13 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
 
     public void selectExpirationDate(){
         //no Expiration Date Selection in this Step
+    }
+
+    public void toggleHoursRadioButton(){
+        //no Hours RadioButton in this Step
+    }
+
+    public void toggleDaysRadioButton(){
+        //no Days RadioButton in this Step
     }
 }

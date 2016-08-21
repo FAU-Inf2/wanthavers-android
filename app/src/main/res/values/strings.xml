@@ -223,6 +223,12 @@
 
     <string name="desire_create_reverse_bidding_popup_title">Über Reversed Bidding in WantHaver</string>
     <string name="desire_create_reverse_bidding_popup_text">Reversed Bidding text ...//TODO. Für weite Informationen siehe: </string>
+    <string name="desire_create_timespan">Läuft ab in&#160;</string>
+    <string name="desire_create_hours">&#160;Stunden</string>
+    <string name="desire_create_days">&#160;Tage</string>
+    <string name="desire_create_select_days">Tage wählen</string>
+    <string name="desire_create_select_hours">Stunden wählen</string>
+
 
 
     <string-array name="currencies">
