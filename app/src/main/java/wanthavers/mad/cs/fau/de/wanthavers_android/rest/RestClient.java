@@ -24,6 +24,7 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.ext.ExceptionMapper;
 
+import wanthavers.mad.cs.fau.de.wanthavers_android.BuildConfig;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.SharedPreferencesHelper;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -36,7 +37,7 @@ public abstract class RestClient {
     protected static ArrayList<RestClient> clients = new ArrayList<>();
 
     //TODO: get API-URL from shared preferences or something like that
-    public static final String API_URL = "https://faui21f.informatik.uni-erlangen.de:8080/";
+    public static final String API_URL = BuildConfig.SERVER_URL;
 
     protected RestClient(@NonNull Context context) {
         checkNotNull(context);

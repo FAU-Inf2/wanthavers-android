@@ -28,10 +28,15 @@ android {
         }
     }
     buildTypes {
+        debug {
+            buildConfigField "String", "SERVER_URL", '"http://dev.wanthaver.com"'
+        }
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
+            buildConfigField "String", "SERVER_URL", '"https://faui21f.informatik.uni-erlangen.de:8080"'
         }
     }
     compileOptions {
@@ -42,7 +47,6 @@ android {
     dataBinding {
         enabled = true
     }
-
 }
 
 preBuild.dependsOn(":wanthavers-common:build")
