@@ -70,7 +70,9 @@
                     android:text="@{user.name}"
                     android:textColor="@color/colorMainTextDark"
                     android:layout_below="@id/settings_name_title"
-                    android:lines="1"/>
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:maxLength="30"/>
 
                 <ImageButton
                     android:id="@+id/button_change_name"
@@ -102,7 +104,9 @@
                     android:text="@{user.email}"
                     android:textColor="@color/colorMainTextDark"
                     android:layout_below="@id/settings_mail_title"
-                    android:lines="1"/>
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:maxLength="30"/>
 
                 <ImageButton
                     android:id="@+id/button_change_mail"

@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.databinding.DataBindingUtil;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -22,6 +23,7 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 
 import de.fau.cs.mad.wanthavers.common.Media;
@@ -125,11 +127,11 @@ public class SettingsFragment extends Fragment implements SettingsContract.View 
         super.onActivityResult(requestCode, resultCode, data);
         Uri image = null;
         ImageView imageView = mSettingsFragBinding.profilePicture;
-        if ( resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
+        if ( resultCode == Activity.RESULT_OK && data != null) {
 
             showLoadingProgress();
 
-            if(requestCode == REQUEST_GALLERY) {
+            if(requestCode == REQUEST_GALLERY && data.getData() != null) {
                 image = galleryResult(data);
             }else if(requestCode == REQUEST_CAMERA){
                 image = cameraResult(data);
@@ -163,10 +165,18 @@ public class SettingsFragment extends Fragment implements SettingsContract.View 
     }
 
     private Uri cameraResult(Intent data){
+        Uri image;
+        if (data.getData() == null){
+            Bundle extras = data.getExtras();
+            Bitmap bm = (Bitmap) extras.get("data");
+            SelectImageLogic imageLogic = mSettingsActionHandler.getSelectImageLogic();
+            image = imageLogic.bitmapToUri(bm);
+        }else{
+            image = data.getData();
+        }
         //showLoadingProgress();
         //SelectImageLogic imageLogic = mSettingsActionHandler.getSelectImageLogic();
         //Uri image = imageLogic.getImageFromCamera(data);
-        Uri image = data.getData();
         return image;
     }
 
@@ -188,10 +198,6 @@ public class SettingsFragment extends Fragment implements SettingsContract.View 
     public void endLoadingProgress() {
         showUpdateUserSuccess();
         mLoadingDialog.cancel();
-
-        Intent intent = getActivity().getIntent();
-        getActivity().finish();
-        startActivity(intent);
     }
 
     private void showMessage(String message) {

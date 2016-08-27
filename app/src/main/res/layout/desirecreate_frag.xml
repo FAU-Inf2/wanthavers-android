@@ -43,7 +43,9 @@
                 android:layout_alignParentEnd="true"
                 android:maxLength="50"
                 android:hint="@string/create_desire_title_header"
-                android:lines="1"/>
+                android:lines="1"
+                android:ellipsize="end"
+                android:singleLine="true" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -94,55 +96,132 @@
 
 
             <FrameLayout
-                android:id="@+id/frame_selected_date"
+                android:id="@+id/frame_selected_timeSpan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="1dp"
-                android:background="@color/colorPrimary"
                 android:layout_below="@+id/create_desire_description"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_marginTop="70dp"
+                android:layout_marginTop="40dp"
                 >
 
                 <RelativeLayout
-                    android:id="@+id/selected_date"
+                    android:id="@+id/select_timeSpan"
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:background="@color/desireDetailBackground"
-                    android:onClick="@{() -> actionHandler.selectExpirationDate()}"
+                    android:layout_height="wrap_content"
                     >
 
-                    <ImageView
-                        android:id="@+id/clock_image"
-                        android:layout_width="45dp"
-                        android:layout_height="45dp"
-                        android:scaleX="0.8"
-                        android:scaleY="0.8"
-                        android:src="@drawable/ic_clock"
-                        android:layout_marginLeft="5dp"
-                        android:onClick="@{() -> actionHandler.selectExpirationDate()}"
-                        />
-
                     <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
-                        android:id="@+id/no_date_selected"
+                        android:id="@+id/timeSpan"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/select_date"
-                        android:gravity="center"
-                        android:textSize="17sp"
-                        android:onClick="@{() -> actionHandler.selectExpirationDate()}"
-                        android:layout_toRightOf="@+id/clock_image"
-                        android:layout_toEndOf="@+id/clock_image"
-                        android:layout_centerVertical="true"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"/>
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/desire_create_timespan"
+                        android:textColor="@color/colorMainTextDark"
+                        android:layout_marginTop="15dp"/>
 
+                    <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                        android:id="@+id/timeSpan_unit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:layout_alignParentRight="true"
+                        android:text="@string/desire_create_hours"
+                        android:textColor="@color/colorMainTextDark"
+                        android:layout_marginTop="15dp"
+                        android:layout_toRightOf="@+id/timeSpan_status"/>
+
+                    <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                        android:id="@+id/timeSpan_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="1"
+                        android:textColor="@color/colorMainTextDark"
+                        android:layout_marginTop="15dp"
+                        android:layout_toRightOf="@+id/timeSpan"
+                         />
+
+                    <SeekBar
+                        android:id="@+id/timeSpan_seekbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:max="23"
+                        android:layout_below="@id/timeSpan"
+                        android:progress="0"/>
                 </RelativeLayout>
 
-            </FrameLayout>
+                <RadioGroup
+                    android:layout_marginTop="70dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    >
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/desire_create_select_hours"
+                        android:id="@+id/radioButton_Hours"
+                        android:layout_marginTop="33dp"
+                        android:onClick="@{() -> actionHandler.toggleHoursRadioButton()}"
+                        />
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/desire_create_select_days"
+                        android:id="@+id/radioButton_Days"
+                        android:layout_marginTop="5dp"
+                        android:onClick="@{() -> actionHandler.toggleDaysRadioButton()}"
+                        />
+                </RadioGroup>
+
+            <!--<RelativeLayout
+                android:id="@+id/selected_date"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/desireDetailBackground"
+                android:onClick="@{() -> actionHandler.selectExpirationDate()}"
+                >
+
+                <ImageView
+                    android:id="@+id/clock_image"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:scaleX="0.8"
+                    android:scaleY="0.8"
+                    android:src="@drawable/ic_clock"
+                    android:layout_marginLeft="5dp"
+                    android:onClick="@{() -> actionHandler.selectExpirationDate()}"
+                    />
+
+                <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                    android:id="@+id/no_date_selected"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/select_date"
+                    android:gravity="center"
+                    android:textSize="17sp"
+                    android:onClick="@{() -> actionHandler.selectExpirationDate()}"
+                    android:layout_toRightOf="@+id/clock_image"
+                    android:layout_toEndOf="@+id/clock_image"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"/>
+
+            </RelativeLayout> -->
+
+        </FrameLayout>
+
+
+
+
 
         </RelativeLayout>
     </ScrollView>

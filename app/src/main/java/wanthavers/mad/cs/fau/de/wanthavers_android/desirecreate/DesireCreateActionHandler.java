@@ -29,6 +29,18 @@ public class DesireCreateActionHandler {
         mListener.openCategorySelection();
     }
 
+    public void openInfo() {
+        mListener.showInfo();
+    }
+
+    public void toggleHoursRadioButton(){
+        mListener.toggleHoursRadioButton();
+    }
+
+    public void toggleDaysRadioButton(){
+        mListener.toggleDaysRadioButton();
+    }
+
 
 
 }

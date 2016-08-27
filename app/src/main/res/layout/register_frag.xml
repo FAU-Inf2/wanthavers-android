@@ -50,7 +50,10 @@
                     android:id="@+id/email"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="@string/email"/>
+                    android:hint="@string/email"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:maxLength="30"/>
 
             </android.support.design.widget.TextInputLayout>
 
@@ -66,7 +69,10 @@
                     android:inputType="textPassword"
                     android:id="@+id/password"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:maxLength="30"/>
 
             </android.support.design.widget.TextInputLayout>
 
@@ -98,7 +104,10 @@
                     android:hint="@string/name"
                     android:id="@+id/name"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:maxLength="40"/>
 
             </android.support.design.widget.TextInputLayout>
 

@@ -34,6 +34,7 @@ import android.widget.TimePicker;
 
 import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.sql.Time;
 import java.util.Date;
@@ -145,7 +146,8 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
     private void getDataForDesireAndFinish(){
         String title = getActivity().getIntent().getExtras().getString("desireTitle");
         String description = getActivity().getIntent().getExtras().getString("desireDescription");
-        Date date = (Date) getActivity().getIntent().getSerializableExtra("desireExpirationDate");
+        //Date date = (Date) getActivity().getIntent().getSerializableExtra("desireExpirationDate");
+        long timeSpan = (long) getActivity().getIntent().getSerializableExtra("desireTimeSpan");
         boolean biddingAllowed = mViewDataBinding.reverseBiddingCheckbox.isChecked();
 
         Intent intent = new Intent(getContext(), DesireCreateActivity3rdStep.class);
@@ -164,7 +166,8 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
         intent.putExtra("desireLocation", mLocation);
         intent.putExtra("desireLocationLat", Double.toString(mLat));
         intent.putExtra("desireLocationLng", Double.toString(mLng));
-        intent.putExtra("desireExpirationDate", date);
+        //intent.putExtra("desireExpirationDate", date);
+        intent.putExtra("desireTimeSpan", timeSpan);
 
         startActivity(intent);
     }
@@ -231,8 +234,8 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
         }else{
 
             mImageView = mViewDataBinding.imageCamera;
-            if (resultCode == Activity.RESULT_OK && data.getData() != null) {
-                if (requestCode == REQUEST_GALLERY) {
+            if (resultCode == Activity.RESULT_OK ){//&& data.getData() != null) {
+                if (requestCode == REQUEST_GALLERY && data.getData() != null) {
                     galleryResult(data);
                 } else if (requestCode == REQUEST_CAMERA) {
                     cameraResult(data);
@@ -278,7 +281,14 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
 
 
     private void cameraResult(Intent intent){
-        image = intent.getData();
+
+        if (intent.getData() == null){
+            Bundle extras = intent.getExtras();
+            Bitmap bm = (Bitmap) extras.get("data");
+            image = mPresenter.getImageLogic().bitmapToUri(bm);
+        }else{
+            image = intent.getData();
+        }
 
         String[] orientationColumn = {MediaStore.Images.Media.ORIENTATION};
 
@@ -408,6 +418,14 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
 
     public void selectExpirationDate(){
         //no Expiration Date Selection in this Step
+    }
+
+    public void toggleHoursRadioButton(){
+        //no Hours RadioButton in this Step
+    }
+
+    public void toggleDaysRadioButton(){
+        //no Days RadioButton in this Step
     }
 
 }

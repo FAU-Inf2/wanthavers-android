@@ -29,6 +29,10 @@ public interface DesireCreateContract {
 
         void selectExpirationDate();
 
+        void toggleHoursRadioButton();
+
+        void toggleDaysRadioButton();
+
         //boolean isStoragePermissionGranted();
 
         //void selectImageForDesire();
@@ -52,6 +56,12 @@ public interface DesireCreateContract {
         void openCategorySelection();
 
         void selectExpirationDate();
+
+        void showInfo();
+
+        void toggleHoursRadioButton();
+
+        void toggleDaysRadioButton();
 
     }
 }

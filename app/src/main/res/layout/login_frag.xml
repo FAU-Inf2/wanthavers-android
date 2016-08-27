@@ -106,7 +106,10 @@
                     android:id="@+id/email"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="@string/email"/>
+                    android:hint="@string/email"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:maxLength="30"/>
 
             </android.support.design.widget.TextInputLayout>
 
@@ -124,7 +127,10 @@
                     android:id="@+id/password"
                     android:inputType="textPassword"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:maxLength="30"/>
 
             </android.support.design.widget.TextInputLayout>
 
