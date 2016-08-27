@@ -23,7 +23,7 @@ public class SetHaver extends UseCase<SetHaver.RequestValues, SetHaver.ResponseV
 
             @Override
             public void onHaverCreated(Haver haver) {
-                ResponseValue responseValue = new ResponseValue(/*haver*/);
+                ResponseValue responseValue = new ResponseValue(haver);
                 getUseCaseCallback().onSuccess(responseValue);
             }
 
@@ -57,7 +57,7 @@ public class SetHaver extends UseCase<SetHaver.RequestValues, SetHaver.ResponseV
 
     public static final class ResponseValue implements  UseCase.ResponseValue {
 
-        /*private Haver mHaver;
+        private Haver mHaver;
 
         public ResponseValue(@NonNull Haver haver) {
             mHaver = haver;
@@ -65,10 +65,6 @@ public class SetHaver extends UseCase<SetHaver.RequestValues, SetHaver.ResponseV
 
         public Haver getHaver() {
             return mHaver;
-        }*/
-
-        public ResponseValue() {
-
         }
 
     }

@@ -44,6 +44,15 @@ public class DesireDetailActionHandler {
             profileView.setImageResource(R.drawable.no_pic);
         }*/
     }
+
+    public void openModifyBidPopup() {
+        mListener.openModifyBidDialog();
+    }
+
+    public void submitModifiedBid() {
+        mListener.updateRequestedPrice();
+    }
+
     public void buttonUnacceptHaver() {
         mListener.openUnacceptHaverDialog();
     }
@@ -71,7 +80,7 @@ public class DesireDetailActionHandler {
     }
 
     public void buttonSubmitBid() {
-        mListener.setHaver();
+        mListener.setHaver(true);
     }
 
     public void buttonCancelBid() {

@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.Spinner;
@@ -134,7 +135,7 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
         mDesireDetailActionHandler = new DesireDetailActionHandler(mDesireDetailFragBinding, mPresenter);
         mDesireDetailFragBinding.setActionHandler(mDesireDetailActionHandler);
 
-        mListAdapter = new DesireDetailAdapter(new ArrayList<Haver>(0), mPresenter, mDesireDetailActionHandler);
+        mListAdapter = new DesireDetailAdapter(new ArrayList<Haver>(0), mPresenter, mDesireDetailActionHandler, mDesireLogic);
         mRecyclerView.setAdapter(mListAdapter);
 
         //S
@@ -209,9 +210,12 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
                 break;
             case R.id.menu_accept_desire:
                 //TODO: remove debug outputs
-                showAcceptDesirePopup();
-                //mPresenter.setHaver();
-                //item.setVisible(false);
+                if (mDesireDetailFragBinding.getDesire().isBiddingAllowed()) {
+                    showAcceptDesirePopup(true);
+                } else {
+                    mPresenter.setHaver(false);
+                    item.setVisible(false);
+                }
                 break;
             case R.id.menu_finish_desire:
                 mPresenter.closeTransaction();
@@ -234,6 +238,7 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
 
         mDesireDetailFragBinding.setDesire(desire);
         mDesireDetailFragBinding.setDesirelogic(mDesireLogic);
+        mListAdapter.setDesire(desire);
 
         //show desire image
         Media mediaDesire = desire.getImage();
@@ -434,15 +439,49 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
             if (active) {
                 mIsHaver = true;
                 mDesireDetailFragBinding.desireHaverStatus.setText(getString(R.string.haver_status_waiting));
-                mDesireDetailFragBinding.desireDetailPriceTitle.setText(getString(R.string.accepted_desire_bid_title));
-                //TODO: set price to bid
+                if (mDesireDetailFragBinding.getDesire().isBiddingAllowed()) {
+                    showBidderView(true);
+                }
             } else {
                 mIsHaver = false;
                 mDesireDetailFragBinding.desireHaverStatus.setText(getString(R.string.haver_status_open));
-                mDesireDetailFragBinding.desireDetailPriceTitle.setText(getString(R.string.create_desire_price_header));
+                if (mDesireDetailFragBinding.getDesire().isBiddingAllowed()) {
+                    showBidderView(false);
+                }
             }
         }
         onPrepareOptionsMenu(mOptionsMenu);
+    }
+
+    public void showBidderView(boolean active) {
+        if (active) {
+            mDesireDetailFragBinding.desireDetailPriceTitle.setText(getString(R.string.accepted_desire_bid_title));
+        } else {
+            mDesireDetailFragBinding.desireDetailPriceTitle.setText(getString(R.string.create_desire_price_header));
+            mDesireDetailFragBinding.setBidder(null);
+        }
+    }
+
+    @Override
+    public void setBidder(Haver bidder) {
+        if (bidder == null) {
+            System.out.println("bidder input is null");
+        }
+        System.out.println(bidder);
+        mDesireDetailFragBinding.setBidder(bidder);
+        if (mDesireDetailFragBinding.getBidder() == null) {
+            System.out.println("bidder output is null");
+        }
+    }
+
+    @Override
+    public double getBidInput() {
+        EditText bidInputView = mDesiredetailAcceptDesirePopupBinding.acceptDesireBidInput;
+        double bid = Double.valueOf(bidInputView.getHint().toString());
+        if (!bidInputView.getText().toString().equals("")) {
+            bid = Double.valueOf(bidInputView.getText().toString());
+        }
+        return bid;
     }
 
     @Override
@@ -471,7 +510,8 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
         startActivity(intent);
     }
 
-    public void showAcceptDesirePopup() {
+    @Override
+    public void showAcceptDesirePopup(boolean initialCall) {
         mAcceptDesireDialog = new Dialog(getContext());
 
         mDesiredetailAcceptDesirePopupBinding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.desiredetail_accept_desire_popup, null, false);
@@ -480,6 +520,16 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
         mDesiredetailAcceptDesirePopupBinding.setActionHandler(mDesireDetailActionHandler);
         mDesiredetailAcceptDesirePopupBinding.setDesire(mDesireDetailFragBinding.getDesire());
         mDesiredetailAcceptDesirePopupBinding.setDesirelogic(mDesireLogic);
+
+        if (initialCall) {
+            mDesiredetailAcceptDesirePopupBinding.acceptDesireBidInput.setHint(String.valueOf( (int) mDesireDetailFragBinding.getDesire().getPrice()));
+        } else {
+            mDesiredetailAcceptDesirePopupBinding.acceptDesireTitle.setText(getString(R.string.desire_modify_bid));
+            mDesiredetailAcceptDesirePopupBinding.buttonSubmitBid.setVisibility(View.GONE);
+            mDesiredetailAcceptDesirePopupBinding.buttonSubmitModifiedBid.setVisibility(View.VISIBLE);
+            mDesiredetailAcceptDesirePopupBinding.acceptDesireSubtitle.setVisibility(View.GONE);
+            mDesiredetailAcceptDesirePopupBinding.acceptDesireBidInput.setHint(String.valueOf( (int) mDesireDetailFragBinding.getBidder().getRequestedPrice()));
+        }
 
         mAcceptDesireDialog.show();
     }

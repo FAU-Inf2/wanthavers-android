@@ -61,6 +61,8 @@ public interface DesireDetailContract {
 
         void closeView();
 
+        void showAcceptDesirePopup(boolean initialCall);
+
         void closeAcceptDesirePopup();
 
         void showDeleteDesireError();
@@ -82,6 +84,10 @@ public interface DesireDetailContract {
         void showUnacceptedHaverView(boolean active);
 
         void showTransactionSuccessMessage();
+
+        void setBidder(Haver bidder);
+
+        double getBidInput();
     }
 
 
@@ -94,7 +100,9 @@ public interface DesireDetailContract {
 
         void loadHavers(boolean forceUpdate);
 
-        void setHaver();
+        void setHaver(boolean biddingAllowed);
+
+        void updateRequestedPrice();
 
         void acceptHaver(long haverId, Haver haver);
 
@@ -135,6 +143,8 @@ public interface DesireDetailContract {
         void openUnacceptHaverDialog();
 
         void closeUnacceptHaverDialog();
+
+        void openModifyBidDialog();
 
     }
 }

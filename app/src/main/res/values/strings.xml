@@ -104,6 +104,7 @@
     <string name="delete_desire_error">Fehler beim Löschen des Auftrages</string>
     <string name="accept_desire_title">Auftrag akzeptieren</string>
     <string name="accept_desire_subtitle">Erstelle dein Angebot:</string>
+    <string name="desire_modify_bid">Ändere dein Angebot:</string>
     <string name="accepted_desire_bid_title">Dein Angebot</string>
     <string name="default_location_title">Aktueller/Letzter Ort:</string>
 

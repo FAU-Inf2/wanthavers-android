@@ -121,6 +121,15 @@ public class DesireLogic {
         return (desire.getStatus() == DesireStatus.STATUS_DONE);
     }
 
+    public boolean showBid(Desire desire, Haver bidder) {
+        if (desire.isBiddingAllowed() && !isDesireCreator(desire.getCreator().getId())) {
+            if (bidder != null) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public boolean canRateUser(Desire desire, Haver haver){
 
         long loggedInUserId = getLoggedInUserId();

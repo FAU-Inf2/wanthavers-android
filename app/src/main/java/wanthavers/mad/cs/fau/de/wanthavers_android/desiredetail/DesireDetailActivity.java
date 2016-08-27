@@ -34,6 +34,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetUser;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.SetHaver;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.UnacceptHaver;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.UpdateDesireStatus;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.UpdateRequestedPrice;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.ActivityUtils;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -81,11 +82,12 @@ public class DesireDetailActivity extends AppCompatActivity {
         FlagRepository flagRepository = FlagRepository.getInstance(FlagRemoteDataSource.getInstance(getApplicationContext()), FlagLocalDataSource.getInstance(context));
 
         //create the presenter with Injection of Usecases
-        mDesireDetailPresenter = new DesireDetailPresenter(desireLogic, UseCaseHandler.getInstance(),
+        mDesireDetailPresenter = new DesireDetailPresenter(this, desireLogic, UseCaseHandler.getInstance(),
                 desireId, desireDetailFragment,new AcceptHaver(haverRepository), new GetDesire(desireRepository),
                 new GetHaverList(haverRepository),new GetUser(userRepository), new SetHaver(haverRepository),
                 new GetAcceptedHaver(haverRepository), new GetChatForDesire(desireRepository), new UpdateDesireStatus(desireRepository),
-                new FlagDesire(flagRepository), new DeleteHaver(haverRepository), new GetHaver(haverRepository), new UnacceptHaver(haverRepository));
+                new FlagDesire(flagRepository), new DeleteHaver(haverRepository), new GetHaver(haverRepository),
+                new UnacceptHaver(haverRepository), new UpdateRequestedPrice(haverRepository));
 
         desireDetailFragment.setPresenter(mDesireDetailPresenter);
 

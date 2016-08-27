@@ -23,6 +23,10 @@
         <variable
             name="haver"
             type="de.fau.cs.mad.wanthavers.common.Haver"/>
+        
+        <variable
+            name="bidder"
+            type="de.fau.cs.mad.wanthavers.common.Haver" />
     </data>
 
     <RelativeLayout
@@ -235,7 +239,6 @@
 
 
                 <RelativeLayout
-
                     android:id="@+id/desire_detail_price_layout"
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
@@ -248,45 +251,14 @@
                         android:layout_centerInParent="true"
                         android:layout_height="match_parent"></RelativeLayout>
 
-                    <!--RelativeLayout
-                        android:layout_centerVertical="true"
-                        android:background="@color/desire_detail_layout_items_background"
-                        android:layout_toLeftOf="@id/desire_detail_price_layout_anchor"
-                        android:layout_width="180dp"
-                        android:layout_height="80dp">
-
-                        <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
-                        android:id="@+id/desire_detail_reward_title"
-                        android:textSize="@dimen/desire_detail_title_size"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/create_desire_reward_header"
-                        android:textColor="@color/colorPrimary"
-                        android:layout_marginTop="5dp"
-                        android:textAllCaps="true"
-                        android:layout_centerHorizontal="true">
-
-                        <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
-                            android:id="@+id/desire_detail_reward"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:text="@{desirelogic.getPriceString(desire, desire.reward)}"
-                            android:textColor="@color/colorMainTextMediumDark"
-                            android:layout_alignParentBottom="true"
-                            android:layout_centerHorizontal="true"
-                            android:textSize="24dp"
-                            android:layout_marginBottom="5dp"/>
-
-                    </RelativeLayout-->
-
                     <RelativeLayout
                         android:layout_centerVertical="true"
                         android:layout_centerHorizontal="true"
                         android:layout_width="180dp"
                         android:layout_height="80dp"
-                        android:background="@color/desire_detail_layout_items_background">
+                        android:background="@color/desire_detail_layout_items_background"
+                        android:clickable="@{desirelogic.showBid(desire, bidder)}"
+                        android:onClick="@{() -> actionHandler.openModifyBidPopup()}">
 
                         <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                             android:id="@+id/desire_detail_price_title"
@@ -306,7 +278,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:text="@{desirelogic.getPriceString(desire, desire.price)}"
+                            android:text="@{desirelogic.showBid(desire, bidder) ? desirelogic.getPriceString(desire, bidder.requestedPrice) : desirelogic.getPriceString(desire, desire.price)}"
                             android:textColor="@color/colorMainTextMediumDark"
                             android:layout_alignParentBottom="true"
                             android:layout_centerHorizontal="true"
@@ -314,6 +286,7 @@
                             android:layout_marginBottom="20dp"/>
 
                     </RelativeLayout>
+
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -394,7 +367,6 @@
                             android:textColor="@color/colorMainTextMediumDark" />
 
 
-
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -447,6 +419,16 @@
                                 android:progressTint="@color/colorRatingStars"
                                 android:secondaryProgressTint="@color/colorRatingStars"
                                 android:layout_below="@+id/haver_name"/>
+
+                            <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                                android:id="@+id/haver_bid"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:visibility="@{desire.biddingAllowed ? View.VISIBLE : View.GONE}"
+                                android:text="@{desirelogic.getPriceString(desire, haver.requestedPrice)}"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:layout_centerVertical="true"/>
 
                         </RelativeLayout>
 
