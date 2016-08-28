@@ -39,6 +39,7 @@ public class CloudMessageTokenClient extends RestClient {
     }
 
     public CloudMessageToken createToken(CloudMessageToken token) {
+        token.setTokenType(CloudMessageToken.ANDROID_TOKEN);
         return cloudMessageTokenEndpoint.createToken(null, token);
     }
 
