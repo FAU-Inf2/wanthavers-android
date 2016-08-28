@@ -95,7 +95,7 @@
                 android:layout_width="200sp"
                 android:layout_height="180sp"
                 android:id="@+id/image_camera"
-                android:src="@drawable/logo_white"
+                android:src="@drawable/logo_white_round"
                 android:onClick="@{() -> actionHandler.onPressImage()}"
                 android:layout_below="@+id/frame_selected_category_item"
                 android:layout_centerHorizontal="true"

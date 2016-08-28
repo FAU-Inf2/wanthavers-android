@@ -137,11 +137,6 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
 
         //mCategory.setId(-1L);
 
-        Bitmap bitmapImage = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.logo_white);
-        SelectImageLogic imageLogic = mPresenter.getImageLogic();
-        Uri uri = imageLogic.bitmapToUri(bitmapImage);
-        Picasso.with(mViewDataBinding.getRoot().getContext()).load(uri).transform(new RoundedTransformation(1000,0)).into(mViewDataBinding.imageCamera);
-
         return mViewDataBinding.getRoot();
     }
 
