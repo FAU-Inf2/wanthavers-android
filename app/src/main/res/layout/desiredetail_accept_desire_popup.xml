@@ -73,8 +73,7 @@
                     android:layout_height="wrap_content"
                     android:maxLength="3"
                     android:inputType="number"
-                    android:ems="10"
-                    android:hint="@{String.valueOf( (int) desire.price)}"/>
+                    android:ems="10" />
 
                 <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                     android:id="@+id/accept_desire_currency"
@@ -112,6 +111,17 @@
                     android:textColor="@color/colorMainTextDark"
                     android:background="@color/colorSecondary"
                     android:onClick="@{() -> actionHandler.buttonSubmitBid()}"/>
+
+                <Button
+                    android:id="@+id/button_submit_modified_bid"
+                    android:layout_width="135dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_submit"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorMainTextDark"
+                    android:background="@color/colorSecondary"
+                    android:visibility="gone"
+                    android:onClick="@{() -> actionHandler.submitModifiedBid()}"/>
 
             </FrameLayout>
 

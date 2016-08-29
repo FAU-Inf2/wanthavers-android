@@ -12,10 +12,12 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import de.fau.cs.mad.wanthavers.common.Desire;
 import de.fau.cs.mad.wanthavers.common.Haver;
 import de.fau.cs.mad.wanthavers.common.Media;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.HaverItemBinding;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.RoundedTransformation;
 
 public class DesireDetailAdapter extends RecyclerView.Adapter<DesireDetailAdapter.ViewHolder> {
@@ -24,11 +26,21 @@ public class DesireDetailAdapter extends RecyclerView.Adapter<DesireDetailAdapte
 
     private DesireDetailContract.Presenter mUserActionsListener;
     private DesireDetailActionHandler mDesireDetailActionHandler;
+    private DesireLogic mDesireLogic;
+    private Desire mDesire;
+    private HaverItemBinding mHaverItemBinding;
 
-    public DesireDetailAdapter(List<Haver> havers, DesireDetailContract.Presenter itemListener, DesireDetailActionHandler desireDetailActionHandler) {
+    public DesireDetailAdapter(List<Haver> havers, DesireDetailContract.Presenter itemListener, DesireDetailActionHandler desireDetailActionHandler,
+                               DesireLogic desireLogic) {
         setList(havers);
         mUserActionsListener = itemListener;
         mDesireDetailActionHandler = desireDetailActionHandler;
+        mDesireLogic = desireLogic;
+    }
+
+    public void setDesire(Desire desire) {
+        mDesire = desire;
+        //mHaverItemBinding.setDesire(mDesire);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -57,21 +69,23 @@ public class DesireDetailAdapter extends RecyclerView.Adapter<DesireDetailAdapte
     public void onBindViewHolder(DesireDetailAdapter.ViewHolder viewHolder, int position) {
         Haver haver = mHaverList.get(position);
 
-        HaverItemBinding haverItemBinding = viewHolder.getHaverItemBinding();
+        mHaverItemBinding = viewHolder.getHaverItemBinding();
 
-        haverItemBinding.setHaver(haver);
+        mHaverItemBinding.setHaver(haver);
 
-        haverItemBinding.setActionHandler(mDesireDetailActionHandler);
+        mHaverItemBinding.setActionHandler(mDesireDetailActionHandler);
+        mHaverItemBinding.setDesirelogic(mDesireLogic);
+        mHaverItemBinding.setDesire(mDesire);
 
-        Media m = haverItemBinding.getHaver().getUser().getImage();
+        Media m = mHaverItemBinding.getHaver().getUser().getImage();
 
 
         if (m != null) {
-            final ImageView profileView = haverItemBinding.imageHaver;
-            Picasso.with(haverItemBinding.getRoot().getContext()).load(m.getLowRes()).transform(new RoundedTransformation(1000,0)).into(profileView);
+            final ImageView profileView = mHaverItemBinding.imageHaver;
+            Picasso.with(mHaverItemBinding.getRoot().getContext()).load(m.getLowRes()).transform(new RoundedTransformation(1000,0)).into(profileView);
         } else{
             //else case is neccessary as the image is otherwise overwritten on scroll
-            final ImageView profileView = haverItemBinding.imageHaver;
+            final ImageView profileView = mHaverItemBinding.imageHaver;
             profileView.setImageResource(R.drawable.no_pic);
         }
     }

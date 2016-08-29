@@ -104,6 +104,7 @@
     <string name="delete_desire_error">Fehler beim Löschen des Auftrages</string>
     <string name="accept_desire_title">Auftrag akzeptieren</string>
     <string name="accept_desire_subtitle">Erstelle dein Angebot:</string>
+    <string name="desire_modify_bid">Ändere dein Angebot:</string>
     <string name="accepted_desire_bid_title">Dein Angebot</string>
     <string name="default_location_title">Aktueller/Letzter Ort:</string>
 
@@ -236,6 +237,7 @@
         <item>\u20AC</item>
         <item>\u0024</item>
         <item>\u00A3</item>
+        <item>CHF</item>
     </string-array>
 
     <string name="update_user_success">Nutzer erfolgreich aktualisiert</string>
@@ -247,6 +249,9 @@
     <string name="declined_memory_runtime_permission">Um ein Bild wählen zu können, stimme bitte den Speicher-Berechtigungen zu</string>
     <string name="closing_transaction_success">Auftrag wurde erfolgreich geschlossen</string>
     <string name="licenseText">
+        Category Icons:\n
+        Icon made by Freepik from www.flaticon.com\n
+        \n
         used libraries with licenses:\n
         server:\n
         Dropwizard: Apache V2.0\n

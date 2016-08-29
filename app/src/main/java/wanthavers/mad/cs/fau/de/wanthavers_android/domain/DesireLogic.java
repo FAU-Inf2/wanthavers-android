@@ -59,6 +59,9 @@ public class DesireLogic {
             case "\u00A3":
                 iso = "GBP";
                 break;
+            case "CHF":
+                iso = "CHF";
+                break;
             default: iso = "EUR";
         }
         return iso;
@@ -119,6 +122,23 @@ public class DesireLogic {
 
     public boolean isDesireFinished(Desire desire) {
         return (desire.getStatus() == DesireStatus.STATUS_DONE);
+    }
+
+    public boolean modifyBidAllowed(Desire desire, Haver haver) {
+        if (showBid(desire, haver) && desire.getStatus() == DesireStatus.STATUS_OPEN) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean showBid(Desire desire, Haver bidder) {
+        System.out.println(bidder);
+        if (desire.isBiddingAllowed() && !isDesireCreator(desire.getCreator().getId())) {
+            if (bidder != null) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean canRateUser(Desire desire, Haver haver){

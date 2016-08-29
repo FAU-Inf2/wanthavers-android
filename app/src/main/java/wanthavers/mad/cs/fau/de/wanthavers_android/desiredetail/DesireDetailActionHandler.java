@@ -44,6 +44,15 @@ public class DesireDetailActionHandler {
             profileView.setImageResource(R.drawable.no_pic);
         }*/
     }
+
+    public void openModifyBidPopup() {
+        mListener.openModifyBidDialog();
+    }
+
+    public void submitModifiedBid() {
+        mListener.updateRequestedPrice();
+    }
+
     public void buttonUnacceptHaver() {
         mListener.openUnacceptHaverDialog();
     }
@@ -59,8 +68,7 @@ public class DesireDetailActionHandler {
 
     public void buttonSubmitHaverCancel(Desire desire, Haver haver) {
         if (desire.getStatus() == DesireStatus.STATUS_IN_PROGRESS) {
-            mListener.unacceptHaver(haver);
-            mListener.deleteHaver();
+            mListener.unacceptAndDeleteHaver(haver);
         } else if (desire.getStatus() == DesireStatus.STATUS_OPEN) {
             mListener.deleteHaver();
         }
@@ -71,7 +79,7 @@ public class DesireDetailActionHandler {
     }
 
     public void buttonSubmitBid() {
-        mListener.setHaver();
+        mListener.setHaver(true);
     }
 
     public void buttonCancelBid() {

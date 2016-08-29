@@ -16,7 +16,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-
+        <import type="android.view.View"/>
         <variable
             name="haver"
             type="de.fau.cs.mad.wanthavers.common.Haver" />
@@ -24,6 +24,14 @@
         <variable
             name="actionHandler"
             type="wanthavers.mad.cs.fau.de.wanthavers_android.desiredetail.DesireDetailActionHandler"/>
+
+        <variable
+            name="desirelogic"
+            type="wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic" />
+
+        <variable
+            name="desire"
+            type="de.fau.cs.mad.wanthavers.common.Desire" />
 
     </data>
 
@@ -56,9 +64,9 @@
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/message_haver">
 
-            <TextView
+            <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                 android:id="@+id/haver_name"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@{haver.user.getName()}"
@@ -78,6 +86,18 @@
                 android:progressTint="@color/colorRatingStars"
                 android:secondaryProgressTint="@color/colorRatingStars"
                 android:layout_below="@+id/haver_name"/>
+
+            <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                android:id="@+id/haver_bid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:visibility="@{desire.biddingAllowed ? View.VISIBLE : View.GONE}"
+                android:text="@{desirelogic.getPriceString(desire, haver.requestedPrice)}"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_marginRight="10dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"/>
 
         </RelativeLayout>
 

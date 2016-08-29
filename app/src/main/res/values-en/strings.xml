@@ -134,6 +134,7 @@
     <string name="desire_detail_delete_haver_error">Error while deleting desire</string>
     <string name="accept_desire_title">Accept Desire</string>
     <string name="accept_desire_subtitle">Make your bid:</string>
+    <string name="desire_modify_bid">Modify your bid:</string>
     <string name="accepted_desire_bid_title">Your bid</string>
     <string name="select_date">&#160;&#160;Select a Expiration Date</string>
     <string name="select_date_error">Expiration Date has to be in the future!</string>
@@ -152,6 +153,7 @@
         <item>\u20AC</item>
         <item>\u0024</item>
         <item>\u00A3</item>
+        <item>CHF</item>
     </string-array>
 
     <string name="or">OR</string>
@@ -232,6 +234,9 @@
     <string name="declined_memory_runtime_permission">Please accept the Storage Permissions to select an image</string>
     <string name="closing_transaction_success">Desire was closed successfully</string>
     <string name="licenseText">
+        Category Icons:\n
+        Icon made by Freepik from www.flaticon.com\n
+        \n
         used libraries with licenses:\n
         server:\n
         Dropwizard: Apache V2.0\n

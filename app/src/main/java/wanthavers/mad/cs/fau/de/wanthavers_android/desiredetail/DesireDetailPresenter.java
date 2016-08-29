@@ -1,6 +1,7 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.desiredetail;
 
 import android.support.annotation.NonNull;
+import android.widget.EditText;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -14,6 +15,7 @@ import de.fau.cs.mad.wanthavers.common.DesireStatus;
 import de.fau.cs.mad.wanthavers.common.Haver;
 import de.fau.cs.mad.wanthavers.common.Location;
 import de.fau.cs.mad.wanthavers.common.User;
+import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCase;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
@@ -30,11 +32,13 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetUser;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.SetHaver;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.UnacceptHaver;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.UpdateDesireStatus;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.UpdateRequestedPrice;
 
 public class DesireDetailPresenter implements DesireDetailContract.Presenter {
 
 
     private final DesireDetailContract.View mDesireDetailView;
+    private DesireDetailActivity mActivity;
     private boolean mFirstLoad = true;
     private DesireLogic mDesireLogic;
 
@@ -52,19 +56,22 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
     private final DeleteHaver mDeleteHaver;
     private final GetHaver mGetHaver;
     private final UnacceptHaver mUnacceptHaver;
+    private final UpdateRequestedPrice mUpdateRequestedPrice;
 
     @NonNull
     private long mDesireId;
 
-    public DesireDetailPresenter(DesireLogic desireLogic, @NonNull UseCaseHandler useCaseHandler, @NonNull long desireId,
-                                 @NonNull DesireDetailContract.View desireDetailView,
+    public DesireDetailPresenter(@NonNull DesireDetailActivity activity, DesireLogic desireLogic, @NonNull UseCaseHandler useCaseHandler,
+                                 @NonNull long desireId, @NonNull DesireDetailContract.View desireDetailView,
                                  @NonNull AcceptHaver acceptHaver, @NonNull GetDesire getDesire,
                                  @NonNull GetHaverList getHaverList, @NonNull GetUser getUser,
                                  @NonNull SetHaver setHaver, @NonNull GetAcceptedHaver getAcceptedHaver,
                                  @NonNull GetChatForDesire getChatForDesire, @NonNull UpdateDesireStatus updateDesireStatus,
                                  @NonNull FlagDesire flagDesire, @NonNull DeleteHaver deleteHaver,
-                                 @NonNull GetHaver getHaver, @NonNull UnacceptHaver unacceptHaver){
+                                 @NonNull GetHaver getHaver, @NonNull UnacceptHaver unacceptHaver,
+                                 @NonNull UpdateRequestedPrice updateRequestedPrice){
 
+        mActivity = checkNotNull(activity, "activity cannot be null");
         mUseCaseHandler = checkNotNull(useCaseHandler, "useCaseHandler cannot be null");
         mDesireDetailView = checkNotNull(desireDetailView, "desiredetail view cannot be null");
         mDesireId = desireId;
@@ -80,6 +87,7 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
         mDeleteHaver = checkNotNull(deleteHaver);
         mGetHaver = checkNotNull(getHaver);
         mUnacceptHaver = checkNotNull(unacceptHaver);
+        mUpdateRequestedPrice = checkNotNull(updateRequestedPrice);
 
         mDesireDetailView.setPresenter(this);
         mDesireLogic = desireLogic;
@@ -181,7 +189,7 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
                     @Override
                     public void onSuccess(GetAcceptedHaver.ResponseValue response) {
                         Haver haver = response.getHaver();
-
+                        mDesireDetailView.setBidder(haver);
                         mDesireDetailView.showAcceptedHaver(haver);
                     }
 
@@ -197,7 +205,7 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
     //Get own User instance & create haver
     //Equals "accept desire" as haver
     @Override
-    public void setHaver() {
+    public void setHaver(final boolean biddingAllowed) {
 
         GetUser.RequestValues requestValues = new GetUser.RequestValues(mDesireLogic.getLoggedInUserId());
 
@@ -205,9 +213,15 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
                 new UseCase.UseCaseCallback<GetUser.ResponseValue>() {
                     @Override
                     public void onSuccess(GetUser.ResponseValue response) {
-                        User user = response.getUser();
-                        setHaver(new Haver(user, new Date(), mDesireId));
 
+                        User user = response.getUser();
+                        Haver haver = new Haver(user, new Date(), mDesireId);
+
+                        if (biddingAllowed) {
+                            haver.setRequestedPrice(mDesireDetailView.getBidInput());
+                        }
+
+                        setHaver(haver, biddingAllowed);
                     }
 
                     @Override
@@ -218,11 +232,9 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
 
     }
 
-    private void setHaver(Haver haver) {
+    private void setHaver(Haver haver, final boolean biddingAllowed) {
 
-        //TODO: get bid here and submit it to the server
-
-        SetHaver.RequestValues requestValues = new SetHaver.RequestValues(mDesireId, haver);
+        final SetHaver.RequestValues requestValues = new SetHaver.RequestValues(mDesireId, haver);
 
         mUseCaseHandler.execute(mSetHaver, requestValues,
                 new UseCase.UseCaseCallback<SetHaver.ResponseValue>() {
@@ -232,7 +244,10 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
                         mDesireDetailView.showUnacceptedHaverView(true);
                         mDesireDetailView.showHaverAcceptStatus();
                         loadDesire();
-                        mDesireDetailView.closeAcceptDesirePopup();
+                        if (biddingAllowed) {
+                            mDesireDetailView.setBidder(response.getHaver());
+                            mDesireDetailView.closeAcceptDesirePopup();
+                        }
                     }
 
                     @Override
@@ -241,6 +256,31 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
                     }
                 }
         );
+
+    }
+
+    @Override
+    public void updateRequestedPrice() {
+
+        double bid = mDesireDetailView.getBidInput();
+
+        UpdateRequestedPrice.RequestValues requestValues =
+                new UpdateRequestedPrice.RequestValues(mDesireId, mDesireLogic.getLoggedInUserId(), bid);
+
+        mUseCaseHandler.execute(mUpdateRequestedPrice, requestValues,
+                new UseCase.UseCaseCallback<UpdateRequestedPrice.ResponseValue>() {
+                    @Override
+                    public void onSuccess(UpdateRequestedPrice.ResponseValue response) {
+                        mDesireDetailView.setBidder(response.getHaver());
+                        mDesireDetailView.closeAcceptDesirePopup();
+                    }
+
+                    @Override
+                    public void onError() {
+                        //TODO: Fehlermeldung
+                        mDesireDetailView.closeAcceptDesirePopup();
+                    }
+                });
 
     }
 
@@ -275,6 +315,24 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
                     @Override
                     public void onSuccess(UnacceptHaver.ResponseValue response) {
                         loadDesire();
+                    }
+
+                    @Override
+                    public void onError() {
+                        //TODO: Fehlermeldung
+                    }
+                });
+    }
+
+    @Override
+    public void unacceptAndDeleteHaver(Haver haver) {
+        UnacceptHaver.RequestValues requestValues = new UnacceptHaver.RequestValues(mDesireId, haver.getId(), haver);
+
+        mUseCaseHandler.execute(mUnacceptHaver, requestValues,
+                new UseCase.UseCaseCallback<UnacceptHaver.ResponseValue>() {
+                    @Override
+                    public void onSuccess(UnacceptHaver.ResponseValue response) {
+                        deleteHaver();
                     }
 
                     @Override
@@ -396,8 +454,12 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
                     @Override
                     public void onSuccess(GetHaver.ResponseValue response) {
                         if (response.getHaver() != null) {
-                            mDesireDetailView.showUnacceptedHaverView(true);
+                            if (desire.isBiddingAllowed()) {
+                                System.out.println("reached");
+                                mDesireDetailView.setBidder(response.getHaver());
+                            }
                             mDesireDetailView.showDesire(desire, null);
+                            mDesireDetailView.showUnacceptedHaverView(true);
                         }
 
                         mDesireDetailView.showDesire(desire, null);
@@ -420,9 +482,9 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
                     @Override
                     public void onSuccess(DeleteHaver.ResponseValue response) {
                         System.out.println("success deleting haver");
+                        loadDesire();
                         mDesireDetailView.showUnacceptedHaverView(false);
                         mDesireDetailView.closeDeleteHaverPopup();
-
                     }
 
                     @Override
@@ -480,6 +542,11 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
         desireFlag.setDesireId(mDesireId);
         mDesireDetailView.closeReportPopup();
         flagDesire(desireFlag);
+    }
+
+    @Override
+    public void openModifyBidDialog() {
+        mDesireDetailView.showAcceptDesirePopup(false);
     }
 
     @Override
