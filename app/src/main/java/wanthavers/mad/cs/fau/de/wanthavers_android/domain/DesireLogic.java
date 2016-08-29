@@ -121,7 +121,15 @@ public class DesireLogic {
         return (desire.getStatus() == DesireStatus.STATUS_DONE);
     }
 
+    public boolean modifyBidAllowed(Desire desire, Haver haver) {
+        if (showBid(desire, haver) && desire.getStatus() == DesireStatus.STATUS_DONE) {
+            return true;
+        }
+        return false;
+    }
+
     public boolean showBid(Desire desire, Haver bidder) {
+        System.out.println(bidder);
         if (desire.isBiddingAllowed() && !isDesireCreator(desire.getCreator().getId())) {
             if (bidder != null) {
                 return true;

@@ -257,7 +257,7 @@
                         android:layout_width="180dp"
                         android:layout_height="80dp"
                         android:background="@color/desire_detail_layout_items_background"
-                        android:clickable="@{desirelogic.showBid(desire, bidder)}"
+                        android:clickable="@{desirelogic.modifyBidAllowed(desire, bidder)}"
                         android:onClick="@{() -> actionHandler.openModifyBidPopup()}">
 
                         <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
@@ -266,7 +266,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:text="@string/create_desire_price_header"
+                            android:text="@{desirelogic.showBid(desire, bidder) ? @string/accepted_desire_bid_title : @string/create_desire_price_header}"
                             android:textColor="@color/colorPrimary"
                             android:textAllCaps="true"
                             android:layout_marginTop="5dp"
@@ -428,6 +428,8 @@
                                 android:visibility="@{desire.biddingAllowed ? View.VISIBLE : View.GONE}"
                                 android:text="@{desirelogic.getPriceString(desire, haver.requestedPrice)}"
                                 android:textColor="@color/colorPrimaryDark"
+                                android:layout_marginRight="50dp"
+                                android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true"/>
 
                         </RelativeLayout>

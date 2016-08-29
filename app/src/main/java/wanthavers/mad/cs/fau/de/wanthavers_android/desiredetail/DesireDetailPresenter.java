@@ -189,7 +189,7 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
                     @Override
                     public void onSuccess(GetAcceptedHaver.ResponseValue response) {
                         Haver haver = response.getHaver();
-
+                        mDesireDetailView.setBidder(haver);
                         mDesireDetailView.showAcceptedHaver(haver);
                     }
 

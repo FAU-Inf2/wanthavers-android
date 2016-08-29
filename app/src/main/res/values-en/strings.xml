@@ -232,6 +232,9 @@
     <string name="declined_memory_runtime_permission">Please accept the Storage Permissions to select an image</string>
     <string name="closing_transaction_success">Desire was closed successfully</string>
     <string name="licenseText">
+        Category Icons:\n
+        Icon made by Freepik from www.flaticon.com\n
+        \n
         used libraries with licenses:\n
         server:\n
         Dropwizard: Apache V2.0\n

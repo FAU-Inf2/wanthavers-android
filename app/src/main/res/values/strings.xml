@@ -247,6 +247,9 @@
     <string name="declined_memory_runtime_permission">Um ein Bild wählen zu können, stimme bitte den Speicher-Berechtigungen zu</string>
     <string name="closing_transaction_success">Auftrag wurde erfolgreich geschlossen</string>
     <string name="licenseText">
+        Category Icons:\n
+        Icon made by Freepik from www.flaticon.com\n
+        \n
         used libraries with licenses:\n
         server:\n
         Dropwizard: Apache V2.0\n
