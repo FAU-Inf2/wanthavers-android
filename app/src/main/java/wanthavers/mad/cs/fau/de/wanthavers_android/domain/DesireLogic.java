@@ -59,6 +59,9 @@ public class DesireLogic {
             case "\u00A3":
                 iso = "GBP";
                 break;
+            case "CHF":
+                iso = "CHF";
+                break;
             default: iso = "EUR";
         }
         return iso;

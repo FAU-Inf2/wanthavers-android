@@ -237,6 +237,7 @@
         <item>\u20AC</item>
         <item>\u0024</item>
         <item>\u00A3</item>
+        <item>CHF</item>
     </string-array>
 
     <string name="update_user_success">Nutzer erfolgreich aktualisiert</string>
