@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.location.LocationManager;
 import android.net.Uri;
@@ -18,6 +19,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.StringDef;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -36,6 +38,8 @@ import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.sql.Time;
 import java.util.Date;
 import java.util.List;
@@ -72,6 +76,7 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
     private String mLocation;
     private double mLat;
     private double mLng;
+    private boolean imgSelected = false;
 
 
     public DesireCreateFragment2ndStep(){
@@ -235,6 +240,7 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
 
             mImageView = mViewDataBinding.imageCamera;
             if (resultCode == Activity.RESULT_OK ){//&& data.getData() != null) {
+                imgSelected = true;
                 if (requestCode == REQUEST_GALLERY && data.getData() != null) {
                     galleryResult(data);
                 } else if (requestCode == REQUEST_CAMERA) {
@@ -259,7 +265,11 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
         //resizing high resolution images
         SelectImageLogic imageLogic = mPresenter.getImageLogic();
         image = imageLogic.scaleDown(image, imageLogic.getMaxImageSize(), orientation);
-        mImageView.setImageURI(image);
+
+
+        // mImageView.setImageURI(image);
+        Picasso.with(mViewDataBinding.getRoot().getContext()).load(image).resize(1200, 1200).centerCrop().transform(new RoundedTransformation(1000,0)).into(mImageView);
+
 
        /* switch(orientation) {
             case 90:
@@ -300,7 +310,11 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
 
         SelectImageLogic imageLogic = mPresenter.getImageLogic();
         image = imageLogic.scaleDown(image, imageLogic.getMaxImageSize(), orientation);
-        mImageView.setImageURI(image);
+
+
+        //mImageView.setImageURI(image);
+        Picasso.with(mViewDataBinding.getRoot().getContext()).load(image).resize(1200, 1200).centerCrop().transform(new RoundedTransformation(1000,0)).into(mImageView);
+
 
         /*switch(orientation) {
             case 90:
@@ -375,6 +389,12 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
         if (media != null) {
             final ImageView profileView = mViewDataBinding.selectedImageCategory;
             Picasso.with(mViewDataBinding.getRoot().getContext()).load(media.getLowRes()).transform(new RoundedTransformation(1000,0)).into(profileView);
+
+            if (!imgSelected){
+                final ImageView desireImagePlaceholder = mViewDataBinding.imageCamera;
+                Picasso.with(mViewDataBinding.getRoot().getContext()).load(media.getLowRes()).transform(new RoundedTransformation(1000,0)).into(desireImagePlaceholder);
+            }
+
         } else{
             //else case is neccessary as the image is otherwise overwritten on scroll
             final ImageView profileView = mViewDataBinding.selectedImageCategory;
