@@ -122,7 +122,7 @@ public class DesireLogic {
     }
 
     public boolean modifyBidAllowed(Desire desire, Haver haver) {
-        if (showBid(desire, haver) && desire.getStatus() == DesireStatus.STATUS_DONE) {
+        if (showBid(desire, haver) && desire.getStatus() == DesireStatus.STATUS_OPEN) {
             return true;
         }
         return false;

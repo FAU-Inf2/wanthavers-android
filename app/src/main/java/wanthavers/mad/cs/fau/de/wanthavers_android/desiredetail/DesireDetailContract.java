@@ -146,5 +146,7 @@ public interface DesireDetailContract {
 
         void openModifyBidDialog();
 
+        void unacceptAndDeleteHaver(Haver haver);
+
     }
 }

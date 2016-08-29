@@ -325,6 +325,24 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
     }
 
     @Override
+    public void unacceptAndDeleteHaver(Haver haver) {
+        UnacceptHaver.RequestValues requestValues = new UnacceptHaver.RequestValues(mDesireId, haver.getId(), haver);
+
+        mUseCaseHandler.execute(mUnacceptHaver, requestValues,
+                new UseCase.UseCaseCallback<UnacceptHaver.ResponseValue>() {
+                    @Override
+                    public void onSuccess(UnacceptHaver.ResponseValue response) {
+                        deleteHaver();
+                    }
+
+                    @Override
+                    public void onError() {
+                        //TODO: Fehlermeldung
+                    }
+                });
+    }
+
+    @Override
     public void sendMessage(long user2Id) {
 
         GetChatForDesire.RequestValues requestValues = new GetChatForDesire.RequestValues(user2Id, mDesireId);
@@ -464,9 +482,9 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
                     @Override
                     public void onSuccess(DeleteHaver.ResponseValue response) {
                         System.out.println("success deleting haver");
+                        loadDesire();
                         mDesireDetailView.showUnacceptedHaverView(false);
                         mDesireDetailView.closeDeleteHaverPopup();
-
                     }
 
                     @Override

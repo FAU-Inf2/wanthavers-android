@@ -68,8 +68,7 @@ public class DesireDetailActionHandler {
 
     public void buttonSubmitHaverCancel(Desire desire, Haver haver) {
         if (desire.getStatus() == DesireStatus.STATUS_IN_PROGRESS) {
-            mListener.unacceptHaver(haver);
-            mListener.deleteHaver();
+            mListener.unacceptAndDeleteHaver(haver);
         } else if (desire.getStatus() == DesireStatus.STATUS_OPEN) {
             mListener.deleteHaver();
         }
