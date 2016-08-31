@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.databinding.Bindable;
 import android.text.format.DateUtils;
+import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -84,6 +85,8 @@ public class DesireLogic {
                 return resources.getString(R.string.dollar_sign);
             case "GBP":
                 return resources.getString(R.string.pound_sign);
+            case "CHF":
+                return "CHF";
             default:
                 return resources.getString(R.string.euro_sign);
         }

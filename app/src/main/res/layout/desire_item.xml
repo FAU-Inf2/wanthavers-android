@@ -164,7 +164,7 @@
                         android:textAppearance="@style/TextAppearance.AppCompat.Title"
                         android:text="@{desireLogic.getPriceString(desire.desire, desire.desire.reward)}" /-->
 
-                    <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                    <TextView
                         android:id="@+id/combinedPrice"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -172,9 +172,8 @@
                         android:layout_alignParentBottom="true"
                         android:gravity="right"
                         android:textColor="@color/colorMainText"
-                        android:textSize="30dp"
+                        android:textSize="25dp"
                         android:layout_marginBottom="15dp"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
                         android:text="@{desireLogic.getPriceString(desire.desire, desire.desire.price)}" />
                 </RelativeLayout>
             </LinearLayout>
