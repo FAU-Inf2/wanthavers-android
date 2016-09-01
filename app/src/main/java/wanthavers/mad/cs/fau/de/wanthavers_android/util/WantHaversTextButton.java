@@ -10,6 +10,7 @@ public class WantHaversTextButton extends Button {
 
     public WantHaversTextButton(Context context, AttributeSet attrs) {
         super(context, attrs);
-        this.setTypeface(Typeface.createFromAsset(context.getAssets(),"fonts/Raleway-Regular.ttf"));
+        this.setTypeface(Typeface.createFromAsset(context.getAssets(),"fonts/EstandarRd-Regular.ttf"));
+        //this.setTypeface(Typeface.createFromAsset(context.getAssets(),"fonts/Raleway-Regular.ttf"));
     }
 }

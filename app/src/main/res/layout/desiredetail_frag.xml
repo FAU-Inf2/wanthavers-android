@@ -272,7 +272,7 @@
                             android:layout_marginTop="5dp"
                             android:layout_centerHorizontal="true" />
 
-                        <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                        <TextView
                             android:layout_marginTop="10dp"
                             android:id="@+id/desire_detail_price"
                             android:layout_width="wrap_content"
