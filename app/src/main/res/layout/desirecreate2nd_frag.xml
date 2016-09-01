@@ -102,10 +102,10 @@
                 android:layout_marginTop="57dp" />
 
             <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
-                android:id="@+id/image_info"
+                android:id="@+id/image_info_desire"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="@string/desire_create_tap_change_image"
                 android:layout_below="@+id/image_camera"
                 android:layout_centerHorizontal="true"

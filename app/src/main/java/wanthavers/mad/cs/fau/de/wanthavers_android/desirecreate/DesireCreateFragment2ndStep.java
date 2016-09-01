@@ -241,6 +241,7 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
             mImageView = mViewDataBinding.imageCamera;
             if (resultCode == Activity.RESULT_OK ){//&& data.getData() != null) {
                 imgSelected = true;
+                mViewDataBinding.imageInfoDesire.setVisibility(View.GONE);
                 if (requestCode == REQUEST_GALLERY && data.getData() != null) {
                     galleryResult(data);
                 } else if (requestCode == REQUEST_CAMERA) {
