@@ -226,10 +226,15 @@
     <string name="desire_create_reverse_bidding_popup_text">Reversed Bidding text ...//TODO. Für weite Informationen siehe: </string>
     <string name="desire_create_timespan">Läuft ab in&#160;</string>
     <string name="desire_create_hours">&#160;Stunden</string>
+    <string name="desire_create_hour">&#160;Stunde</string>
     <string name="desire_create_days">&#160;Tage</string>
+    <string name="desire_create_day">&#160;Tag</string>
+    <string name="desire_create_weeks">&#160;Wochen</string>
+    <string name="desire_create_week">&#160;Woche</string>
     <string name="desire_create_select_days">Tage wählen</string>
     <string name="desire_create_select_hours">Stunden wählen</string>
     <string name="desire_create_tap_change_image">Tippe um ein anderes Bild zu wählen</string>
+    <string name="desire_create_expire_title">Ablaufdatum</string>
 
 
 

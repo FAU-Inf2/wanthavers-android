@@ -115,7 +115,17 @@
                     >
 
                     <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                        android:id="@+id/timeSpan_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="@string/desire_create_expire_title"
+                        android:textColor="@color/colorPrimary"
+                        android:layout_marginTop="15dp"/>
+
+                    <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                         android:id="@+id/timeSpan"
+                        android:layout_below="@id/timeSpan_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
@@ -125,21 +135,23 @@
 
                     <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                         android:id="@+id/timeSpan_unit"
+                        android:layout_below="@id/timeSpan_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:layout_alignParentRight="true"
-                        android:text="@string/desire_create_hours"
+                        android:text="@string/desire_create_weeks"
                         android:textColor="@color/colorMainTextDark"
                         android:layout_marginTop="15dp"
                         android:layout_toRightOf="@+id/timeSpan_status"/>
 
                     <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                         android:id="@+id/timeSpan_status"
+                        android:layout_below="@id/timeSpan_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="1"
+                        android:text="3"
                         android:textColor="@color/colorMainTextDark"
                         android:layout_marginTop="15dp"
                         android:layout_toRightOf="@+id/timeSpan"
@@ -152,12 +164,12 @@
                         android:layout_marginTop="20dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
-                        android:max="23"
+                        android:max="12"
                         android:layout_below="@id/timeSpan"
-                        android:progress="0"/>
+                        android:progress="12"/>
                 </RelativeLayout>
 
-                <RadioGroup
+                <!--<RadioGroup
                     android:layout_marginTop="70dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -180,7 +192,7 @@
                         android:layout_marginTop="5dp"
                         android:onClick="@{() -> actionHandler.toggleDaysRadioButton()}"
                         />
-                </RadioGroup>
+                </RadioGroup> -->
 
             <!--<RelativeLayout
                 android:id="@+id/selected_date"

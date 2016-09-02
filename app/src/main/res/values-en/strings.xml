@@ -144,10 +144,15 @@
     <string name="desire_create_reverse_bidding_popup_title">About Reversed Bidding in WantHaver</string>
     <string name="desire_create_reverse_bidding_popup_text">Reversed Bidding text ...//TODO. For further infromation also see: </string>
     <string name="desire_create_timespan">Expires in&#160;</string>
-    <string name="desire_create_hours">&#160;Hours</string>
-    <string name="desire_create_days">&#160;Days</string>
+    <string name="desire_create_hours">&#160;hours</string>
+    <string name="desire_create_hour">&#160;hour</string>
+    <string name="desire_create_days">&#160;days</string>
+    <string name="desire_create_day">&#160;day</string>
+    <string name="desire_create_weeks">&#160;weeks</string>
+    <string name="desire_create_week">&#160;week</string>
     <string name="desire_create_select_days">Set in Days</string>
     <string name="desire_create_select_hours">Set in Hours</string>
+    <string name="desire_create_expire_title">Expiration Date</string>
 
     <string-array name="currencies">
         <item>\u20AC</item>

@@ -49,6 +49,7 @@ public class DesireCreateFragment extends Fragment implements DesireCreateContra
     private Date mExpirationDate = null;
     private TextView mDate;
     String mStringDate = " ";
+    private final long HOURINMILLISECONDS = 3600000;
 
     public DesireCreateFragment(){
         //Requires empty public constructor
@@ -119,14 +120,19 @@ public class DesireCreateFragment extends Fragment implements DesireCreateContra
         //Set up timespan seekbar
         SeekBar seekBar = (SeekBar) mViewDataBinding.timeSpanSeekbar;
         final WantHaversTextView timeSpanStatus = (WantHaversTextView) mViewDataBinding.timeSpanStatus;
+        final WantHaversTextView timeSpanUnit = (WantHaversTextView) mViewDataBinding.timeSpanUnit;
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            Integer mProgress = 0;
+            Integer mProgress = 12;
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 mProgress = progress + 1;
-                String curTimeSpan = mProgress.toString();
-                timeSpanStatus.setText(curTimeSpan);
+                //String curTimeSpan = mProgress.toString();
+                //timeSpanStatus.setText(curTimeSpan);
+
+                String[] timeSpan = getEntryForProgress(mProgress);
+                timeSpanStatus.setText(timeSpan[0]);
+                timeSpanUnit.setText(timeSpan[1]);
             }
 
             @Override
@@ -136,18 +142,101 @@ public class DesireCreateFragment extends Fragment implements DesireCreateContra
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                String curTimeSpan = mProgress.toString();
-                timeSpanStatus.setText(curTimeSpan);
+                /*String curTimeSpan = mProgress.toString();
+                timeSpanStatus.setText(curTimeSpan);*/
+
+                String[] timeSpan = getEntryForProgress(mProgress);
+                timeSpanStatus.setText(timeSpan[0]);
+                timeSpanUnit.setText(timeSpan[1]);
+
             }
         });
 
         //set default RadioButtonHours
-        mViewDataBinding.radioButtonHours.toggle();
+        //mViewDataBinding.radioButtonHours.toggle();
 
         mDesireTitle.addTextChangedListener(myWatcher);
         mDesireDescription.addTextChangedListener(myWatcher2);
 
         return mViewDataBinding.getRoot();
+    }
+
+
+    public String[] getEntryForProgress(Integer progress){
+
+        String timeSpan[] = new String[2];
+        switch (progress) {
+            //1h 2h 3h 5h 10h 15h 1d 2d 3d 5d 1w 2w 1w
+            case 1:
+                //1h
+                timeSpan[0] = "1";
+                timeSpan[1] = getString(R.string.desire_create_hour);
+                return timeSpan;
+            case 2:
+                //2h
+                timeSpan[0] = "2";
+                timeSpan[1] = getString(R.string.desire_create_hours);
+                return timeSpan;
+            case 3:
+                //3h
+                timeSpan[0] = "3";
+                timeSpan[1] = getString(R.string.desire_create_hours);
+                return timeSpan;
+            case 4:
+                //5h
+                timeSpan[0] = "5";
+                timeSpan[1] = getString(R.string.desire_create_hours);
+                return timeSpan;
+            case 5:
+                //10h
+                timeSpan[0] = "10";
+                timeSpan[1] = getString(R.string.desire_create_hours);
+                return timeSpan;
+            case 6:
+                //15h
+                timeSpan[0] = "15";
+                timeSpan[1] = getString(R.string.desire_create_hours);
+                return timeSpan;
+            case 7:
+                //1d
+                timeSpan[0] = "1";
+                timeSpan[1] = getString(R.string.desire_create_day);
+                return timeSpan;
+            case 8:
+                //2d
+                timeSpan[0] = "2";
+                timeSpan[1] = getString(R.string.desire_create_days);
+                return timeSpan;
+            case 9:
+                //3d
+                timeSpan[0] = "3";
+                timeSpan[1] = getString(R.string.desire_create_days);
+                return timeSpan;
+            case 10:
+                //5d
+                timeSpan[0] = "5";
+                timeSpan[1] = getString(R.string.desire_create_days);
+                return timeSpan;
+            case 11:
+                //1w
+                timeSpan[0] = "1";
+                timeSpan[1] = getString(R.string.desire_create_week);
+                return timeSpan;
+            case 12:
+                //2w
+                timeSpan[0] = "2";
+                timeSpan[1] = getString(R.string.desire_create_weeks);
+                return timeSpan;
+            case 13:
+                //3w
+                timeSpan[0] = "3";
+                timeSpan[1] = getString(R.string.desire_create_weeks);
+                return timeSpan;
+            default:
+                timeSpan[0] = "3";
+                timeSpan[1] = getString(R.string.desire_create_weeks);
+                return timeSpan;
+        }
     }
 
     @Override
@@ -169,11 +258,68 @@ public class DesireCreateFragment extends Fragment implements DesireCreateContra
 
     public long getDesireTimeSpan() {
         long timeSpan = 0L;
-        if (mViewDataBinding.radioButtonHours.isChecked()){
+        /*if (mViewDataBinding.radioButtonHours.isChecked()){
             timeSpan = ((mViewDataBinding.timeSpanSeekbar.getProgress() + 1)* 3600000);
         }else if (mViewDataBinding.radioButtonDays.isChecked()){
             timeSpan = ((mViewDataBinding.timeSpanSeekbar.getProgress() + 1)* 3600000 * 24);
+        }*/
+
+        switch((mViewDataBinding.timeSpanSeekbar.getProgress() + 1)){
+            //1h 2h 3h 5h 10h 15h 1d 2d 3d 5d 1w 2w 1w
+            case 1:
+                //1h
+                timeSpan = HOURINMILLISECONDS;
+                break;
+            case 2:
+                //2h
+                timeSpan = 2 * HOURINMILLISECONDS;
+                break;
+            case 3:
+                //3h
+                timeSpan = 3 * HOURINMILLISECONDS;
+                break;
+            case 4:
+                //5h
+                timeSpan = 5 * HOURINMILLISECONDS;
+                break;
+            case 5:
+                //10h
+                timeSpan = 10 * HOURINMILLISECONDS;
+                break;
+            case 6:
+                //15h
+                timeSpan = 15 * HOURINMILLISECONDS;
+                break;
+            case 7:
+                //1d
+                timeSpan = 24 * HOURINMILLISECONDS;
+                break;
+            case 8:
+                //2d
+                timeSpan = 2 * 24 * HOURINMILLISECONDS;
+                break;
+            case 9:
+                //3d
+                timeSpan = 3 * 24 * HOURINMILLISECONDS;
+                break;
+            case 10:
+                //5d
+                timeSpan = 5 * 24 * HOURINMILLISECONDS;
+                break;
+            case 11:
+                //1w
+                timeSpan = 7 * 24 * HOURINMILLISECONDS;
+                break;
+            case 12:
+                //2w
+                timeSpan = 2 * 7 * 24 * HOURINMILLISECONDS;
+                break;
+            case 13:
+                //3w
+                timeSpan = 3 * 7 * 24 * HOURINMILLISECONDS;
+                break;
         }
+
         Log.d("TimeSpan in ms: ",Long.toString(timeSpan));
         return timeSpan;
     }
