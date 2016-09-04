@@ -45,17 +45,18 @@ public class WantHaversApplication extends MultiDexApplication {
 
         if(location == null) {
             location = new Location();
+            location.setCityName("Erlangen");
+            location.setFullAddress("Martensstraße 1, 91058 Erlangen");
+            location.setLon(11.027172803878784);
+            location.setLat(49.573829301806924);
+            setLocation(location,getApplicationContext());
         }
 
-
-        location.setCityName("Erlangen");
-        location.setFullAddress("Martenstraße, Erlangen");
-        setLocation(location,getApplicationContext());
         //startupFilter.setLocation(location);
 
         startupFilter.setDescription("default");
-        startupFilter.setCityName("Erlangen");
-        startupFilter.setFullAddress("Martenstraße, Erlangen");
+        startupFilter.setCityName(location.getCityName());
+        startupFilter.setFullAddress(location.getFullAddress());
         startupFilter.setLon(location.getLon());
         startupFilter.setLat(location.getLat());
         startupFilter.setRadius(DEFAULT_RADIUS);
