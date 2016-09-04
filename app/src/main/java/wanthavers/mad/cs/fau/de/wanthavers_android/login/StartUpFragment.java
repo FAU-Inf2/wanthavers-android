@@ -20,6 +20,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.StartupFragBindin
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.DesireListActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.eastereggone.EasterEggActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.CenterCropVideoView;
+import wanthavers.mad.cs.fau.de.wanthavers_android.util.SharedPreferencesHelper;
 import wanthavers.mad.cs.fau.de.wanthavers_android.welcome.WelcomeActivity;
 
 public class StartUpFragment extends Fragment implements LoginContract.View {
@@ -47,6 +48,7 @@ public class StartUpFragment extends Fragment implements LoginContract.View {
         super.onActivityCreated(savedInstanceState);
 
         mViewDataBinding.setPresenter(mPresenter);
+        checkButtons();
         mPresenter.start();  //TODO JuG check if needed
 
     }
@@ -55,6 +57,7 @@ public class StartUpFragment extends Fragment implements LoginContract.View {
         super.onResume();
 
         startVideo();
+        checkButtons();
         mPresenter.start();
     }
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -164,5 +167,19 @@ public class StartUpFragment extends Fragment implements LoginContract.View {
             //mViewDataBinding.dummyUserButtons.setVisibility(View.VISIBLE);
         }
         */
+    }
+
+    private void checkButtons() {
+        final SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, getContext());
+        String loggedInUserMail = sharedPreferencesHelper.loadString(SharedPreferencesHelper.KEY_USER_EMAIL, null);
+
+        //buttons invisible if user is logged in
+        if (loggedInUserMail != null) {
+            mViewDataBinding.buttonSignin.setVisibility(View.GONE);
+            mViewDataBinding.buttonSignup.setVisibility(View.GONE);
+        } else {
+            mViewDataBinding.buttonSignin.setVisibility(View.VISIBLE);
+            mViewDataBinding.buttonSignup.setVisibility(View.VISIBLE);
+        }
     }
 }

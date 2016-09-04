@@ -43,7 +43,8 @@
                 android:background="@drawable/border_scondary_nocorner"
                 android:textColor="@color/colorPrimary"
                 android:layout_weight="0.49"
-                android:onClick="@{() -> presenter.openLoginView()}"/>
+                android:onClick="@{() -> presenter.openLoginView()}"
+                android:visibility="gone"/>
 
             <TextView
                 android:layout_width="0dp"
@@ -59,7 +60,8 @@
                 android:textColor="@color/colorSecondary"
                 android:background="@drawable/border_primary_nocorner"
                 android:layout_weight="0.49"
-                android:onClick="@{() -> presenter.openRegisterView()}"/>
+                android:onClick="@{() -> presenter.openRegisterView()}"
+                android:visibility="gone"/>
 
         </LinearLayout>
 
