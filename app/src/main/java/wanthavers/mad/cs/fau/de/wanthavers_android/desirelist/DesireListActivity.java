@@ -133,8 +133,8 @@ public class DesireListActivity extends AppCompatActivity {
                 break;
             case MY_DESIRES: abTitle.setText(getString(R.string.myDesires_title));
                 break;
-            case MY_TRANSACTIONS: abTitle.setText(getString(R.string.myTransactions_title));
-                break;
+            /*case MY_TRANSACTIONS: abTitle.setText(getString(R.string.myTransactions_title));
+                break;*/
             default: abTitle.setText(getString(R.string.wanthavers_text));
         }
 
@@ -237,9 +237,9 @@ public class DesireListActivity extends AppCompatActivity {
                             case R.id.myDesires_navigation_menu_item:
                                 mDesireListPresenter.openMyDesires();
                                 break;
-                            case R.id.myTransactions_navigation_menu_item:
+                            /*case R.id.myTransactions_navigation_menu_item:
                                 mDesireListPresenter.openMyTransactions();
-                                break;
+                                break;*/
                             case R.id.settings_navigation_menu_item:
                                 mDesireListPresenter.openSettings();
                                 break;

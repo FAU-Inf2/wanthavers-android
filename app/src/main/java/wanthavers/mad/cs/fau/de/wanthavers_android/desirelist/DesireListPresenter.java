@@ -336,9 +336,9 @@ public class DesireListPresenter implements DesireListContract.Presenter {
             case MY_DESIRES:
                 desires = mDesireListMy;
                 break;
-            case MY_TRANSACTIONS:
+            /*case MY_TRANSACTIONS:
                 desires = mDesireListTrans;
-                break;
+                break;*/
             default:
                 desires = mDesireListAll;
         }

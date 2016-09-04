@@ -46,23 +46,22 @@ public class GetDesireList extends UseCase<GetDesireList.RequestValues, GetDesir
         }
 
         if(desireListType == DesireListType.MY_DESIRES){
-
-            List<Integer> statusFilter = new ArrayList<>();
-            statusFilter.add(DesireStatus.STATUS_OPEN);
-            statusFilter.add(DesireStatus.STATUS_DONE);
-            statusFilter.add(DesireStatus.STATUS_IN_PROGRESS);
             Long tmpDesireid = desireFilter.getLastDesireId();
-
             desireFilter = new DesireFilter();
             if(tmpDesireid != null) {
                 desireFilter.setLastDesireId(tmpDesireid);
             }
+            List<Integer> statusFilter = new ArrayList<>();
+            statusFilter.add(DesireStatus.STATUS_OPEN);
+            statusFilter.add(DesireStatus.STATUS_DONE);
+            statusFilter.add(DesireStatus.STATUS_IN_PROGRESS);
             desireFilter.setCreatorId(userId);
+            desireFilter.setHaverId(userId);
             desireFilter.setStatus(statusFilter);
         }
 
 
-        if(desireListType == DesireListType.MY_TRANSACTIONS){
+        /*if(desireListType == DesireListType.MY_TRANSACTIONS){
             Long tmpDesireid = desireFilter.getLastDesireId();
             desireFilter = new DesireFilter();
             if(tmpDesireid != null) {
@@ -75,7 +74,7 @@ public class GetDesireList extends UseCase<GetDesireList.RequestValues, GetDesir
             statusFilter.add(DesireStatus.STATUS_IN_PROGRESS);
             desireFilter.setStatus(statusFilter);
             desireFilter.setHaverId(userId);
-        }
+        }*/
 
         mDesireRepository.getDesiresByFilter(desireFilter,
                 new DesireDataSource.GetDesiresByFilterCallback(){

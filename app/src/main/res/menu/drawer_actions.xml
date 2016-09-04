@@ -24,10 +24,10 @@
         android:id="@+id/myDesires_navigation_menu_item"
         android:icon="@drawable/wh_my_desires_icon"
         android:title="@string/myDesires_title" />
-    <item
+    <!--item
         android:id="@+id/myTransactions_navigation_menu_item"
         android:icon="@drawable/wh_my_transactions_icon"
-        android:title="@string/myTransactions_title" />
+        android:title="@string/myTransactions_title" /-->
 
     <item
         android:id="@+id/createDesire_navigation_menu_item"
