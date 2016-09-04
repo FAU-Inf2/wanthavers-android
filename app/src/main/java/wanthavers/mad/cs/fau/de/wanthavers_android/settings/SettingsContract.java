@@ -28,6 +28,8 @@ public interface SettingsContract {
         void endLoadingProgress();
 
         void showSettingsScreen();
+
+        void showLocationList();
     }
 
     interface Presenter extends BasePresenter {
@@ -42,6 +44,8 @@ public interface SettingsContract {
 
         void sendPWResetToken(String email);
 
-        void upDateUserMail(final User user);
+        void upDateUserIncludingMail(final User user);
+
+        void openLocationList();
     }
 }

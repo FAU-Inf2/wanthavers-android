@@ -93,6 +93,9 @@ public class LocationListFragment extends Fragment implements LocationListContra
         mCalledAct = Integer.parseInt(getActivity().getIntent().getStringExtra("calledAct"));
         if (mCalledAct == 0) {
             layoutChangesForDesireCreate(recyclerView);
+        } else if (mCalledAct == 4) {
+            mLocationListFragBinding.buttonCancelLocationChoice.setVisibility(View.GONE);
+            mLocationListFragBinding.fabAddLocation.setY(mLocationListFragBinding.fabAddLocation.getY()+100);
         }
 
         mFirstCalled = true;
@@ -143,6 +146,8 @@ public class LocationListFragment extends Fragment implements LocationListContra
 
             getActivity().setResult(0, intent);
             getActivity().finish();
+
+        } else if(mCalledAct == 4) {
 
         }
     }

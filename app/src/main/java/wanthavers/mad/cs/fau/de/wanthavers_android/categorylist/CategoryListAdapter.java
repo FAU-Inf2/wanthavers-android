@@ -14,6 +14,7 @@ import de.fau.cs.mad.wanthavers.common.Category;
 import de.fau.cs.mad.wanthavers.common.Media;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.CategoryItemBinding;
+import wanthavers.mad.cs.fau.de.wanthavers_android.util.CircularImageView;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.RoundedTransformation;
 
 public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapter.ViewHolder> {
@@ -60,8 +61,9 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
         Media media = categoryItemBinding.getCategory().getImage();
 
         if (media != null) {
-            final ImageView profileView = categoryItemBinding.imageCategory;
-            Picasso.with(categoryItemBinding.getRoot().getContext()).load(media.getLowRes()).transform(new RoundedTransformation(1000,0)).into(profileView);
+            final CircularImageView profileView = categoryItemBinding.imageCategory;
+            Picasso.with(categoryItemBinding.getRoot().getContext()).load(media.getLowRes()).into(profileView);
+            //Picasso.with(categoryItemBinding.getRoot().getContext()).load(media.getLowRes()).transform(new RoundedTransformation(1000,0)).into(profileView);
         } else{
             //else case is neccessary as the image is otherwise overwritten on scroll
             final ImageView profileView = categoryItemBinding.imageCategory;

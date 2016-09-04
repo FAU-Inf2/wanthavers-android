@@ -87,7 +87,7 @@ public class SettingsPresenter implements SettingsContract.Presenter {
                 });
     }
 */
-    public void upDateUserMail(final User user) {
+    public void upDateUserIncludingMail(final User user) {
 
         UpdateUser.RequestValues requestValue = new UpdateUser.RequestValues(user);
 
@@ -214,6 +214,11 @@ public class SettingsPresenter implements SettingsContract.Presenter {
 
                 }
         );
+    }
+
+    @Override
+    public void openLocationList() {
+        mSettingsView.showLocationList();
     }
 
     /*public void updateUserMail(User user, String email) {

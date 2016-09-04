@@ -59,7 +59,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorSecondary"
-                android:layout_marginTop="1dp"
+                android:layout_marginTop="10dp"
                 android:layout_below="@id/filter_setting_category_title">
 
                 <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
@@ -68,12 +68,10 @@
                     android:layout_height="wrap_content"
                     android:text="@string/all_categories" />
 
-                <ImageView
+                <wanthavers.mad.cs.fau.de.wanthavers_android.util.CircularImageView
                     android:id="@+id/selected_image_category"
                     android:layout_width="45dp"
                     android:layout_height="45dp"
-                    android:scaleX="0.8"
-                    android:scaleY="0.8"
                     android:src="@android:drawable/sym_def_app_icon"
                     android:layout_marginLeft="5dp"
                     android:visibility="gone"/>
@@ -83,7 +81,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center_vertical"
                     android:text="@{category.getName()}"
                     android:textColor="@color/colorMainTextDark"
                     android:layout_toRightOf="@+id/selected_image_category"

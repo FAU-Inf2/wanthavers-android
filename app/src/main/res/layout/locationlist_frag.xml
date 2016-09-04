@@ -56,7 +56,7 @@
             android:background="@color/colorMainTextMediumDark"
             android:layout_below="@id/default_location_bar"/>
 
-        <Button
+        <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextButton
             android:id="@+id/button_cancel_location_choice"
             android:layout_width="match_parent"
             android:layout_height="45dp"
@@ -72,9 +72,9 @@
             android:id="@+id/fab_add_location"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="55dp"
             android:src="@drawable/ic_add"
-            android:layout_above="@+id/button_cancel_location_choice"
+            android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:onClick="@{() -> actionHandler.buttonAddLocation()}" />
 

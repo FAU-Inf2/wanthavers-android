@@ -70,7 +70,7 @@ public class LocationListActivity extends AppCompatActivity {
     @Override
     public boolean onSupportNavigateUp() {
         mLocationListPresenter.closeLocationList(null);
-        if(getIntent().getStringExtra("calledAct").equals("0")){
+        if(getIntent().getStringExtra("calledAct").equals("0") || getIntent().getStringExtra("calledAct").equals("4")){
            onBackPressed();
         }
         return true;

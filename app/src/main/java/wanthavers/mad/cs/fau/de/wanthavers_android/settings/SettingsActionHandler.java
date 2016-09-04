@@ -19,22 +19,22 @@ public class SettingsActionHandler {
         mSelectImageLogic = selectImageLogic;
     }
 
-    public void changeNameClicked(User user) {
+    public void changeUserDataClicked(User user) {
         if (user == null) {
             return;
         }
+
         String name = mSettingsFragBinding.userName.getText().toString();
         user.setName(name);
-        mListener.upDateUser(user);
-    }
 
-    public void changeMailClicked(User user) {
-        if (user == null) {
-            return;
-        }
         String email = mSettingsFragBinding.userMail.getText().toString();
         user.setEmail(email);
-        mListener.upDateUserMail(user);
+
+        mListener.upDateUserIncludingMail(user);
+    }
+
+    public void manageLocationsClicked() {
+        mListener.openLocationList();
     }
 
     public void changePhotoClicked(User user) {

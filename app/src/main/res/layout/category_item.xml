@@ -30,29 +30,29 @@
     <RelativeLayout
         android:id="@+id/category_item"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="55dp"
         android:background="@color/colorSecondary"
         android:layout_marginTop="1dp"
+        android:padding="5dp"
         android:onClick="@{() -> actionHandler.selectCategory(category)}">
 
-        <ImageView
+        <wanthavers.mad.cs.fau.de.wanthavers_android.util.CircularImageView
             android:id="@+id/image_category"
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:scaleX="0.8"
-            android:scaleY="0.8"
             android:src="@android:drawable/sym_def_app_icon"
             android:layout_marginLeft="5dp"/>
 
         <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
             android:id="@+id/category_name"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:gravity="center"
             android:text="@{category.getName()}"
             android:layout_toRightOf="@+id/image_category"
             android:layout_toEndOf="@+id/image_category"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical"
             android:textColor="@color/colorMainTextDark"/>
 
     </RelativeLayout>

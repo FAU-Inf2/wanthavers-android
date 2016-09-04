@@ -32,6 +32,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.categorylist.CategoryListActi
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.FiltersettingFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.DesireListActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.locationlist.LocationListActivity;
+import wanthavers.mad.cs.fau.de.wanthavers_android.util.CircularImageView;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.RoundedTransformation;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView;
 
@@ -253,8 +254,9 @@ public class FilterSettingFragment extends Fragment implements FilterSettingCont
         Media media = category.getImage();
 
         if (media != null) {
-            final ImageView profileView = mFilterSettingFragBinding.selectedImageCategory;
-            Picasso.with(mFilterSettingFragBinding.getRoot().getContext()).load(media.getLowRes()).transform(new RoundedTransformation(1000,0)).into(profileView);
+            final CircularImageView profileView = mFilterSettingFragBinding.selectedImageCategory;
+            Picasso.with(mFilterSettingFragBinding.getRoot().getContext()).load(media.getLowRes()).into(profileView);
+            //Picasso.with(mFilterSettingFragBinding.getRoot().getContext()).load(media.getLowRes()).transform(new RoundedTransformation(1000,0)).into(profileView);
         } else{
             //else case is neccessary as the image is otherwise overwritten on scroll
             final ImageView profileView = mFilterSettingFragBinding.selectedImageCategory;

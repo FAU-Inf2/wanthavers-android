@@ -544,8 +544,9 @@ public class MapActivity extends Activity implements MapWrapperLayout.OnDragList
         return (mCalledAct == 2);
     }
 
+    //or Settings
     public boolean forFilterSettings() {
-        return (mCalledAct == 1);
+        return ((mCalledAct == 1) || (mCalledAct == 4));
     }
 
     public boolean forWelcome(){

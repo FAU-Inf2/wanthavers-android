@@ -91,15 +91,15 @@
             </RelativeLayout>
 
 
-            <ImageView
+            <wanthavers.mad.cs.fau.de.wanthavers_android.util.CircularImageView
                 android:layout_width="200sp"
-                android:layout_height="180sp"
+                android:layout_height="200sp"
                 android:id="@+id/image_camera"
                 android:src="@drawable/logo_white_round"
                 android:onClick="@{() -> actionHandler.onPressImage()}"
                 android:layout_below="@+id/frame_selected_category_item"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="57dp" />
+                android:layout_marginTop="20dp" />
 
             <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                 android:id="@+id/image_info_desire"
@@ -157,7 +157,7 @@
                     android:onClick="@{() -> actionHandler.openCategoryList()}"
                     >
 
-                    <ImageView
+                    <wanthavers.mad.cs.fau.de.wanthavers_android.util.CircularImageView
                         android:id="@+id/selected_image_category"
                         android:layout_width="45dp"
                         android:layout_height="45dp"

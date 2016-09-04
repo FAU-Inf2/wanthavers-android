@@ -235,6 +235,9 @@
     <string name="desire_create_select_hours">Stunden wählen</string>
     <string name="desire_create_tap_change_image">Tippe um ein anderes Bild zu wählen</string>
     <string name="desire_create_expire_title">Ablaufdatum</string>
+    <string name="settings_change_user_data_button">Ändere deine Nutzerdaten</string>
+    <string name="settings_manage_locations_title">Verwalte deine gespeicherten Orte</string>
+    <string name="settings_manage_locations_button">Gehe zur Ortsverwaltung</string>
 
 
 

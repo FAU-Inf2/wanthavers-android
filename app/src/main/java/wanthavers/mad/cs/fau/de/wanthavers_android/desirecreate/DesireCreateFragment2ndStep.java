@@ -57,6 +57,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.domain.SelectImageLogic;
 //import wanthavers.mad.cs.fau.de.wanthavers_android.filtersetting.CategoryAdapter;
 import wanthavers.mad.cs.fau.de.wanthavers_android.locationlist.LocationListActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.maps.MapActivity;
+import wanthavers.mad.cs.fau.de.wanthavers_android.util.CircularImageView;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.PathHelper;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.RoundedTransformation;
 
@@ -388,12 +389,14 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
         Media media = category.getImage();
 
         if (media != null) {
-            final ImageView profileView = mViewDataBinding.selectedImageCategory;
-            Picasso.with(mViewDataBinding.getRoot().getContext()).load(media.getLowRes()).transform(new RoundedTransformation(1000,0)).into(profileView);
+            final CircularImageView profileView = mViewDataBinding.selectedImageCategory;
+            Picasso.with(mViewDataBinding.getRoot().getContext()).load(media.getLowRes()).into(profileView);
+            //Picasso.with(mViewDataBinding.getRoot().getContext()).load(media.getLowRes()).transform(new RoundedTransformation(1000,0)).into(profileView);
 
             if (!imgSelected){
-                final ImageView desireImagePlaceholder = mViewDataBinding.imageCamera;
-                Picasso.with(mViewDataBinding.getRoot().getContext()).load(media.getLowRes()).transform(new RoundedTransformation(1000,0)).into(desireImagePlaceholder);
+                final CircularImageView desireImagePlaceholder = mViewDataBinding.imageCamera;
+                Picasso.with(mViewDataBinding.getRoot().getContext()).load(media.getLowRes()).into(desireImagePlaceholder);
+                //Picasso.with(mViewDataBinding.getRoot().getContext()).load(media.getLowRes()).transform(new RoundedTransformation(1000,0)).into(desireImagePlaceholder);
             }
 
         } else{

@@ -140,6 +140,9 @@
     <string name="select_date_error">Expiration Date has to be in the future!</string>
     <string name="default_location_title">Current/Last used location:</string>
     <string name="haver_cancel_desire_title">Do you really want to cancel this desire?</string>
+    <string name="settings_change_user_data_button">Change  your user data</string>
+    <string name="settings_manage_locations_title">Manage your stored locations</string>
+    <string name="settings_manage_locations_button">Go to location management</string>
 
     <string name="desire_create_reverse_bidding_popup_title">About Reversed Bidding in WantHaver</string>
     <string name="desire_create_reverse_bidding_popup_text">Reversed Bidding text ...//TODO. For further infromation also see: </string>
@@ -229,7 +232,7 @@
     <string name="reset_password_mail_hint">Set your Email address</string>
     <string name="gps_location_changed">Location successfully changed</string>
     <string name="set_default_location">Set default Location</string>
-    <string name="password_reset_subtitle">You\'ll get an email to reset your password</string>
+    <string name="password_reset_subtitle">You will get an email to reset your password</string>
     <string name="get_app_version_error">Server can\'t be reached. Version couldn\'t be checked.</string>
     <string name="about_app">About</string>
 

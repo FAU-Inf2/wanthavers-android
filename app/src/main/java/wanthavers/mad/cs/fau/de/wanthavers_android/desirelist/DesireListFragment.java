@@ -52,6 +52,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.licenses.LicensesActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.login.LoginActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.rest.RestClient;
 import wanthavers.mad.cs.fau.de.wanthavers_android.settings.SettingsActivity;
+import wanthavers.mad.cs.fau.de.wanthavers_android.util.CircularImageView;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.RoundedTransformation;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.SharedPreferencesHelper;
 
@@ -294,11 +295,9 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
     public void setUser(User user){
         mNavHeaderBinding.setUser(user);
         Media m = user.getImage();
-
-
         if (m != null) {
-            final ImageView profileView = mNavHeaderBinding.navHeaderUserImage;
-            Picasso.with(mNavHeaderBinding.getRoot().getContext()).load(m.getLowRes()).transform(new RoundedTransformation(1000,0)).into(profileView);
+            final CircularImageView profileView = mNavHeaderBinding.navHeaderUserImage;
+            Picasso.with(mNavHeaderBinding.getRoot().getContext()).load(m.getLowRes()).into(profileView);
         }
     }
 

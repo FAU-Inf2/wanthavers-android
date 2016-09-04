@@ -25,6 +25,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.RatingFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desiredetail.DesireDetailActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
+import wanthavers.mad.cs.fau.de.wanthavers_android.util.CircularImageView;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.RoundedTransformation;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -101,8 +102,9 @@ public class RatingFragment extends Fragment implements RatingContract.View {
         //Show desire image
         Media mediaDesire = desire.getImage();
         if (mediaDesire != null) {
-            final ImageView profileView = mRatingFragBinding.imageDesire;
-            Picasso.with(mRatingFragBinding.getRoot().getContext()).load(mediaDesire.getLowRes()).transform(new RoundedTransformation(1000,0)).into(profileView);
+            final CircularImageView profileView = mRatingFragBinding.imageDesire;
+            Picasso.with(mRatingFragBinding.getRoot().getContext()).load(mediaDesire.getLowRes()).into(profileView);
+            //Picasso.with(mRatingFragBinding.getRoot().getContext()).load(mediaDesire.getLowRes()).transform(new RoundedTransformation(1000,0)).into(profileView);
         } else{
             //else case is neccessary as the image is otherwise overwritten on scroll
             final ImageView profileView = mRatingFragBinding.imageDesire;
@@ -112,8 +114,9 @@ public class RatingFragment extends Fragment implements RatingContract.View {
         //Show Wanter image
         Media mediaWanter = creator.getImage();
         if (mediaWanter != null) {
-            final ImageView profileView = mRatingFragBinding.imageWanter;
-            Picasso.with(mRatingFragBinding.getRoot().getContext()).load(mediaWanter.getLowRes()).transform(new RoundedTransformation(1000,0)).into(profileView);
+            final CircularImageView profileView = mRatingFragBinding.imageWanter;
+            Picasso.with(mRatingFragBinding.getRoot().getContext()).load(mediaWanter.getLowRes()).into(profileView);
+            //Picasso.with(mRatingFragBinding.getRoot().getContext()).load(mediaWanter.getLowRes()).transform(new RoundedTransformation(1000,0)).into(profileView);
         } else{
             //else case is neccessary as the image is otherwise overwritten on scroll
             final ImageView profileView = mRatingFragBinding.imageWanter;
@@ -129,7 +132,8 @@ public class RatingFragment extends Fragment implements RatingContract.View {
         Media mediaHaver = haver.getUser().getImage();
         if (mediaHaver != null) {
             final ImageView profileView = mRatingFragBinding.imageHaver;
-            Picasso.with(mRatingFragBinding.getRoot().getContext()).load(mediaHaver.getLowRes()).transform(new RoundedTransformation(1000,0)).into(profileView);
+            Picasso.with(mRatingFragBinding.getRoot().getContext()).load(mediaHaver.getLowRes()).into(profileView);
+            //Picasso.with(mRatingFragBinding.getRoot().getContext()).load(mediaHaver.getLowRes()).transform(new RoundedTransformation(1000,0)).into(profileView);
         } else{
             //else case is neccessary as the image is otherwise overwritten on scroll
             final ImageView profileView = mRatingFragBinding.imageHaver;

@@ -33,7 +33,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="160dp"
             android:background="@color/colorSecondary"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
@@ -88,22 +88,23 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="95dp"
+                android:layout_height="105dp"
                 android:weightSum="1"
                 android:orientation="horizontal">
 
-                <ImageView
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_marginRight="10dp"
+                <wanthavers.mad.cs.fau.de.wanthavers_android.util.CircularImageView
+                    android:layout_width="95dp"
+                    android:layout_height="95dp"
                     android:id="@+id/desire_list_Image"
+                    android:layout_marginRight="10dp"
                     android:src="@android:drawable/sym_def_app_icon" />
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_weight="0.7"
                     android:orientation="vertical"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp">
 
                     <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                         android:id="@+id/title"
@@ -116,7 +117,7 @@
                         android:textColor="@color/colorPrimary"
                         android:text="@{desire.desire.title}"
                         android:ellipsize="end"
-                        android:singleLine="true"/>
+                        android:singleLine="true" />
 
                     <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                         android:id="@+id/description"
@@ -128,7 +129,8 @@
                         android:maxLines="3"
                         android:ellipsize="end"
                         android:textSize="@dimen/desire_desire_list_text_size"
-                        android:minHeight="150dp"/>
+                        android:minHeight="150dp"
+                        android:layout_marginTop="10dp"/>
 
                 </LinearLayout>
 
@@ -168,9 +170,8 @@
                         android:id="@+id/combinedPrice"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentBottom="true"
                         android:gravity="right"
+                        android:layout_centerVertical="true"
                         android:textColor="@color/colorMainText"
                         android:textSize="25dp"
                         android:layout_marginBottom="15dp"

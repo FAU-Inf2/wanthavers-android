@@ -63,7 +63,7 @@
 
 
                 <RelativeLayout
-                    android:padding="10dp"
+                    android:padding="5dp"
                     android:id="@+id/wanter_bar"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
@@ -73,7 +73,7 @@
                     android:weightSum="1"
                     android:visibility="@{desirelogic.isDesireCreator(desire.creator.getId()) ? View.GONE : View.VISIBLE}">
 
-                    <ImageView
+                    <wanthavers.mad.cs.fau.de.wanthavers_android.util.CircularImageView
                         android:id="@+id/image_wanter"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
@@ -154,7 +154,7 @@
                     android:id="@+id/title_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:minHeight="150dp"
+                    android:minHeight="170dp"
                     android:layout_below="@id/wanter_bar"
                     android:padding="10dp">
 
@@ -181,11 +181,11 @@
                         android:layout_alignParentLeft="true"
                         android:visibility="invisible"/>
 
-                    <ImageView
+                    <wanthavers.mad.cs.fau.de.wanthavers_android.util.CircularImageView
                         android:id="@+id/desire_detail_itemImage"
                         android:layout_centerVertical="true"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
                         android:layout_marginRight="15dp"
                         android:src="@android:drawable/sym_def_app_icon"
                         android:contentDescription="@string/desire_detail_itemImage_contentDesc" />
@@ -372,7 +372,7 @@
                     <RelativeLayout
                         android:id="@+id/accepted_haver_bar"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
+                        android:layout_height="55dp"
                         android:padding="5dp"
                         android:background="@color/desire_detail_layout_items_background"
                         android:layout_alignParentLeft="true"
@@ -380,12 +380,11 @@
                         android:layout_marginTop="1dp"
                         android:visibility="invisible">
 
-                        <ImageView
+                        <wanthavers.mad.cs.fau.de.wanthavers_android.util.CircularImageView
                             android:id="@+id/image_accepted_haver"
                             android:layout_width="45dp"
                             android:layout_height="45dp"
-                            android:scaleX="0.8"
-                            android:scaleY="0.8"
+                            android:layout_centerVertical="true"
                             android:src="@android:drawable/sym_def_app_icon"
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="10dp"/>

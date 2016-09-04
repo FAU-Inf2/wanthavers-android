@@ -52,6 +52,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate.OnSwipeTouchList
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
 import wanthavers.mad.cs.fau.de.wanthavers_android.maps.MapActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.rating.RatingActivity;
+import wanthavers.mad.cs.fau.de.wanthavers_android.util.CircularImageView;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.RoundedTransformation;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.SharedPreferencesHelper;
 
@@ -243,8 +244,9 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
         //show desire image
         Media mediaDesire = desire.getImage();
         if (mediaDesire != null) {
-            final ImageView profileView = mDesireDetailFragBinding.desireDetailItemImage;
-            Picasso.with(mDesireDetailFragBinding.getRoot().getContext()).load(mediaDesire.getLowRes()).transform(new RoundedTransformation(1000,0)).into(profileView);
+            final CircularImageView profileView = mDesireDetailFragBinding.desireDetailItemImage;
+            Picasso.with(mDesireDetailFragBinding.getRoot().getContext()).load(mediaDesire.getLowRes()).into(profileView);
+            //Picasso.with(mDesireDetailFragBinding.getRoot().getContext()).load(mediaDesire.getLowRes()).transform(new RoundedTransformation(1000,0)).into(profileView);
         } else{
             //else case is neccessary as the image is otherwise overwritten on scroll
             final ImageView profileView = mDesireDetailFragBinding.desireDetailItemImage;
@@ -257,8 +259,9 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
         if (!mDesireLogic.isDesireCreator(creator.getId())) {
             Media mediaWanter = creator.getImage();
             if (mediaWanter != null) {
-                final ImageView profileView = mDesireDetailFragBinding.imageWanter;
-                Picasso.with(mDesireDetailFragBinding.getRoot().getContext()).load(mediaWanter.getLowRes()).transform(new RoundedTransformation(1000,0)).into(profileView);
+                final CircularImageView profileView = mDesireDetailFragBinding.imageWanter;
+                Picasso.with(mDesireDetailFragBinding.getRoot().getContext()).load(mediaDesire.getLowRes()).into(profileView);
+                //Picasso.with(mDesireDetailFragBinding.getRoot().getContext()).load(mediaWanter.getLowRes()).transform(new RoundedTransformation(1000,0)).into(profileView);
             } else{
                 //else case is neccessary as the image is otherwise overwritten on scroll
                 final ImageView profileView = mDesireDetailFragBinding.imageWanter;
@@ -319,8 +322,9 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
 
             Media mediaHaver = haver.getUser().getImage();
             if (mediaHaver != null) {
-                final ImageView profileView = mDesireDetailFragBinding.imageAcceptedHaver;
-                Picasso.with(mDesireDetailFragBinding.getRoot().getContext()).load(mediaHaver.getLowRes()).transform(new RoundedTransformation(1000, 0)).into(profileView);
+                final CircularImageView profileView = mDesireDetailFragBinding.imageAcceptedHaver;
+                Picasso.with(mDesireDetailFragBinding.getRoot().getContext()).load(mediaHaver.getLowRes()).into(profileView);
+                //Picasso.with(mDesireDetailFragBinding.getRoot().getContext()).load(mediaHaver.getLowRes()).transform(new RoundedTransformation(1000, 0)).into(profileView);
             } else {
                 //else case is neccessary as the image is otherwise overwritten on scroll
                 final ImageView profileView = mDesireDetailFragBinding.imageAcceptedHaver;

@@ -18,6 +18,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.ormlite.AppChatLastSeenDatabaseHelper;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.ChatItemBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.ChatLogic;
+import wanthavers.mad.cs.fau.de.wanthavers_android.util.CircularImageView;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.RoundedTransformation;
 
 import java.util.Date;
@@ -84,8 +85,9 @@ public class ChatListAdapter  extends RecyclerView.Adapter<ChatListAdapter.ViewH
         }
 
         if (m != null) {
-            final ImageView profileView = chatItemBinding.ivProfileOther;
-            Picasso.with(chatItemBinding.getRoot().getContext()).load(m.getLowRes()).transform(new RoundedTransformation(1000,0)).into(profileView);
+            final CircularImageView profileView = chatItemBinding.ivProfileOther;
+            Picasso.with(chatItemBinding.getRoot().getContext()).load(m.getLowRes()).into(profileView);
+            //Picasso.with(chatItemBinding.getRoot().getContext()).load(m.getLowRes()).transform(new RoundedTransformation(1000,0)).into(profileView);
         } else{
             final ImageView profileView = chatItemBinding.ivProfileOther;
             profileView.setImageResource(R.drawable.no_pic);

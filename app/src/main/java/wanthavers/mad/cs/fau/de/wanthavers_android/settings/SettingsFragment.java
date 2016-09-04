@@ -33,6 +33,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.SettingsFragBindi
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.SelectImageLogic;
 import wanthavers.mad.cs.fau.de.wanthavers_android.filtersetting.FilterSettingActivity;
+import wanthavers.mad.cs.fau.de.wanthavers_android.locationlist.LocationListActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.PathHelper;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.RoundedTransformation;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.SharedPreferencesHelper;
@@ -89,7 +90,8 @@ public class SettingsFragment extends Fragment implements SettingsContract.View 
 
         if (m != null) {
             final ImageView profileView = mSettingsFragBinding.profilePicture;
-            Picasso.with(mSettingsFragBinding.getRoot().getContext()).load(m.getLowRes()).transform(new RoundedTransformation(1000,0)).into(profileView);
+            Picasso.with(mSettingsFragBinding.getRoot().getContext()).load(m.getLowRes()).into(profileView);
+            //Picasso.with(mSettingsFragBinding.getRoot().getContext()).load(m.getLowRes()).transform(new RoundedTransformation(1000,0)).into(profileView);
         } else{
             //else case is neccessary as the image is otherwise overwritten on scroll
             final ImageView profileView = mSettingsFragBinding.profilePicture;
@@ -186,7 +188,14 @@ public class SettingsFragment extends Fragment implements SettingsContract.View 
         startActivity(intent);
     }
 
-   public void showLoadingProgress() {
+    @Override
+    public void showLocationList() {
+        Intent intent = new Intent(getContext(), LocationListActivity.class);
+        intent.putExtra("calledAct", "4"); //for distinguishing which activity started the map
+        startActivity(intent);
+    }
+
+    public void showLoadingProgress() {
         mLoadingDialog = new ProgressDialog(getActivity());
         mLoadingDialog.setTitle(getString(R.string.changeProfilePic_loadingProgress_title));
         mLoadingDialog.setMessage(getString(R.string.createDesire_loadingProgress_message));

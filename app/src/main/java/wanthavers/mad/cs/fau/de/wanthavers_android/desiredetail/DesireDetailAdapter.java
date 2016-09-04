@@ -18,6 +18,7 @@ import de.fau.cs.mad.wanthavers.common.Media;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.HaverItemBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
+import wanthavers.mad.cs.fau.de.wanthavers_android.util.CircularImageView;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.RoundedTransformation;
 
 public class DesireDetailAdapter extends RecyclerView.Adapter<DesireDetailAdapter.ViewHolder> {
@@ -81,8 +82,9 @@ public class DesireDetailAdapter extends RecyclerView.Adapter<DesireDetailAdapte
 
 
         if (m != null) {
-            final ImageView profileView = mHaverItemBinding.imageHaver;
-            Picasso.with(mHaverItemBinding.getRoot().getContext()).load(m.getLowRes()).transform(new RoundedTransformation(1000,0)).into(profileView);
+            final CircularImageView profileView = mHaverItemBinding.imageHaver;
+            Picasso.with(mHaverItemBinding.getRoot().getContext()).load(m.getLowRes()).into(profileView);
+            //Picasso.with(mHaverItemBinding.getRoot().getContext()).load(m.getLowRes()).transform(new RoundedTransformation(1000,0)).into(profileView);
         } else{
             //else case is neccessary as the image is otherwise overwritten on scroll
             final ImageView profileView = mHaverItemBinding.imageHaver;
