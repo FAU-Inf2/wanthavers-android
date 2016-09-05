@@ -165,9 +165,9 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
 
             MenuItem menReportDesire = menu.findItem(R.id.menu_report_desire);
             MenuItem menDeleteDesire = menu.findItem(R.id.menu_delete_desire);
-            MenuItem menAcceptDesire = menu.findItem(R.id.menu_accept_desire);
+            /*MenuItem menAcceptDesire = menu.findItem(R.id.menu_accept_desire);
             MenuItem menDeleteHaver = menu.findItem(R.id.menu_delete_haver);
-            MenuItem menFinishDesire = menu.findItem(R.id.menu_finish_desire);
+            MenuItem menFinishDesire = menu.findItem(R.id.menu_finish_desire);*/
 
             if (mDesireDetailFragBinding.getDesire() != null && mDesireDetailFragBinding.getDesire().getCreator().getId() == loggedInUser) {
 
@@ -176,25 +176,29 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
                 }
 
                 if(curDesire.getStatus() == DesireStatus.STATUS_IN_PROGRESS ){
-                    menFinishDesire.setVisible(true);
+                    //menFinishDesire.setVisible(true);
                     menDeleteDesire.setVisible(true);
+                    mDesireDetailFragBinding.finishDesire.setVisibility(View.VISIBLE);
                 }
 
             } else if (mHaver != null && mHaver.getUser().getId() == loggedInUser) { //include haver here
                 menReportDesire.setVisible(true);
-                menDeleteHaver.setVisible(true);
+                /*menDeleteHaver.setVisible(true);
                 menAcceptDesire.setVisible(false);
-                menFinishDesire.setVisible(false);
+                menFinishDesire.setVisible(false);*/
+                mDesireDetailFragBinding.cancelDesire.setVisibility(View.VISIBLE);
             } else if (mIsHaver) {
-                menFinishDesire.setVisible(false);
+                menReportDesire.setVisible(true);
+                /*menFinishDesire.setVisible(false);
                 menAcceptDesire.setVisible(false);
-                menReportDesire.setVisible(true);
-                menDeleteHaver.setVisible(true);
+                menDeleteHaver.setVisible(true);*/
+                mDesireDetailFragBinding.cancelDesire.setVisibility(View.VISIBLE);
             } else {
-                menDeleteHaver.setVisible(false);
                 menReportDesire.setVisible(true);
+                /*menDeleteHaver.setVisible(false);
                 menAcceptDesire.setVisible(true);
-                menFinishDesire.setVisible(false);
+                menFinishDesire.setVisible(false);*/
+                mDesireDetailFragBinding.acceptDesire.setVisibility(View.VISIBLE);
             }
 
         }
@@ -209,7 +213,7 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
             case R.id.menu_delete_desire:
                 mPresenter.openDeletionDialog();
                 break;
-            case R.id.menu_accept_desire:
+            /*case R.id.menu_accept_desire:
                 //TODO: remove debug outputs
                 if (mDesireDetailFragBinding.getDesire().isBiddingAllowed()) {
                     showAcceptDesirePopup(true);
@@ -223,7 +227,7 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
                 break;
             case R.id.menu_delete_haver:
                 showDeleteHaverPopup();
-                break;
+                break;*/
         }
         return true;
     }
@@ -452,6 +456,7 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
                 if (mDesireDetailFragBinding.getDesire().isBiddingAllowed()) {
                     showBidderView(false);
                 }
+                mDesireDetailFragBinding.cancelDesire.setVisibility(View.GONE);
             }
         }
         onPrepareOptionsMenu(mOptionsMenu);
@@ -543,6 +548,7 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
         mAcceptDesireDialog.dismiss();
     }
 
+    @Override
     public void showDeleteHaverPopup() {
         mDeleteHaverDialog = new Dialog(getContext());
 
@@ -662,8 +668,11 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
 
     @Override
     public void hideFinishDesire(){
-        MenuItem menFinishTransaction = mOptionsMenu.findItem(R.id.menu_finish_desire);
-        menFinishTransaction.setVisible(false);
+        /*MenuItem menFinishTransaction = mOptionsMenu.findItem(R.id.menu_finish_desire);
+        menFinishTransaction.setVisible(false);*/
+        mDesireDetailFragBinding.finishDesire.setVisibility(View.GONE);
+        MenuItem menDeleteDesire = mOptionsMenu.findItem(R.id.menu_delete_desire);
+        menDeleteDesire.setVisible(false);
     }
 
     @Override

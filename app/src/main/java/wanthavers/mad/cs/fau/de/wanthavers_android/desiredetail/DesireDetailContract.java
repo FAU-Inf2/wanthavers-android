@@ -81,6 +81,8 @@ public interface DesireDetailContract {
 
         void hideFinishDesire();
 
+        void showDeleteHaverPopup();
+
         void showUnacceptedHaverView(boolean active);
 
         void showTransactionSuccessMessage();
@@ -132,6 +134,8 @@ public interface DesireDetailContract {
 
         void deleteDesire();
 
+        void openDeleteHaverDialog();
+
         void openDeletionDialog();
 
         void closeDeletionDialog();
@@ -144,7 +148,7 @@ public interface DesireDetailContract {
 
         void closeUnacceptHaverDialog();
 
-        void openModifyBidDialog();
+        void openModifyBidDialog(boolean initialCall);
 
         void unacceptAndDeleteHaver(Haver haver);
 

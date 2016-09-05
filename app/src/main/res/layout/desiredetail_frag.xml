@@ -59,8 +59,7 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:weightSum="1"
-                android:background="@color/desireDetailBackground">
-
+                android:background="@color/colorSecondary">
 
                 <RelativeLayout
                     android:padding="5dp"
@@ -183,12 +182,12 @@
 
                     <wanthavers.mad.cs.fau.de.wanthavers_android.util.CircularImageView
                         android:id="@+id/desire_detail_itemImage"
-                        android:layout_centerVertical="true"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_marginRight="15dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
                         android:src="@android:drawable/sym_def_app_icon"
-                        android:contentDescription="@string/desire_detail_itemImage_contentDesc" />
+                        android:contentDescription="@string/desire_detail_itemImage_contentDesc"
+                        android:layout_below="@id/desire_haver_status"/>
 
                     <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                         android:id="@+id/desire_detail_title"
@@ -197,22 +196,439 @@
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:text="@{desire.title}"
                         android:textColor="@color/colorMainText"
-                        android:layout_marginTop="25dp"
                         android:textSize="35dp"
                         android:textStyle="bold"
-                        android:layout_toRightOf="@+id/desire_detail_itemImage"
-                        android:layout_centerVertical="true"/>
+                        android:layout_below="@+id/desire_detail_itemImage"
+                        android:gravity="center_horizontal"/>
+
+                    <RelativeLayout
+                        android:id="@+id/accept_desire"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/desire_detail_title"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="15dp"
+                        android:visibility="gone">
+
+                        <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextButton
+                            android:id="@+id/button_accept_desire"
+                            android:background="@drawable/border_scondary_nocorner"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:text="@string/button_desire_accept"
+                            android:textColor="@color/colorPrimary"
+                            android:onClick="@{() -> actionHandler.buttonAcceptDesire(desire.biddingAllowed)}"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/cancel_desire"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/desire_detail_title"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="15dp"
+                        android:visibility="gone">
+
+                        <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextButton
+                            android:id="@+id/button_cancel_desire"
+                            android:background="@drawable/border_scondary_nocorner"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:text="@string/button_desire_cancel"
+                            android:textColor="@color/colorPrimary"
+                            android:onClick="@{() -> actionHandler.buttonDeleteHaver()}"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/finish_desire"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/desire_detail_title"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="15dp"
+                        android:visibility="gone">
+
+                        <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextButton
+                            android:id="@+id/button_finish_desire"
+                            android:background="@drawable/border_primary_nocorner"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:text="@string/finish_desire"
+                            android:textColor="@color/colorSecondary"
+                            android:onClick="@{() -> actionHandler.buttonCloseTransaction()}"/>
+
+                    </RelativeLayout>
 
                 </RelativeLayout>
 
-                <LinearLayout
+                <android.support.v7.widget.CardView
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/desire_detail_haver_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    card_view:cardCornerRadius="@dimen/desire_detail_cardCornerRadius"
+                    android:elevation="@dimen/desire_detail_elevation"
+                    android:layout_below="@id/title_layout"
+                    android:layout_marginLeft="@dimen/desire_detail_marginLeftRight"
+                    android:layout_marginRight="@dimen/desire_detail_marginLeftRight"
+                    android:layout_marginBottom="15dp"
+                    android:visibility="@{desirelogic.isDesireCreator(desire.creator.getId()) ? View.VISIBLE : View.GONE}">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <RelativeLayout
+                            android:id="@+id/desire_detail_haver_box"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/desire_detail_card_title_height"
+                            android:background="@color/desire_detail_layout_items_background"
+                            android:padding="@dimen/desire_detail_card_padding">
+
+                            <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                                android:id="@+id/desire_detail_haver_title"
+                                android:textSize="@dimen/desire_detail_title_size"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="@string/desire_detail_haver_title"
+                                android:textColor="@color/colorPrimary"
+                                android:textAllCaps="true" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/desire_detail_haver_box2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/colorSecondary"
+                            android:layout_below="@id/desire_detail_haver_box"
+                            android:padding="@dimen/desire_detail_card_padding">
+
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/haver_list"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+                            </android.support.v7.widget.RecyclerView>
+
+                            <RelativeLayout
+                                android:id="@+id/no_havers"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:visibility="@{havers.notEmpty ? View.GONE : View.VISIBLE}">
+
+                                <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                                    android:id="@+id/no_havers_text"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="@dimen/desire_detail_subtitle_size"
+                                    android:minHeight="@dimen/desire_detail_card_subtitle_min_height"
+                                    android:text="@string/no_havers"
+                                    android:textColor="@color/colorMainTextDark"
+                                    android:gravity="center_vertical"/>
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/accepted_haver_bar"
+                                android:layout_width="match_parent"
+                                android:layout_height="55dp"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentStart="true"
+                                android:layout_marginTop="1dp"
+                                android:visibility="gone">
+
+                                <wanthavers.mad.cs.fau.de.wanthavers_android.util.CircularImageView
+                                    android:id="@+id/image_accepted_haver"
+                                    android:layout_width="45dp"
+                                    android:layout_height="45dp"
+                                    android:layout_centerVertical="true"
+                                    android:src="@android:drawable/sym_def_app_icon"
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginRight="10dp"/>
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerVertical="true"
+                                    android:layout_toRightOf="@id/image_accepted_haver"
+                                    android:layout_toLeftOf="@+id/message_haver">
+
+                                    <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                                        android:id="@+id/haver_name"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textAppearance="?android:attr/textAppearanceMedium"
+                                        android:text="@{haver.user.getName()}"
+                                        android:textColor="@color/colorPrimaryDark"/>
+
+                                    <RatingBar
+                                        android:id="@+id/haver_RatingBar"
+                                        style="?android:attr/ratingBarStyleSmall"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:isIndicator="true"
+                                        android:max="5"
+                                        android:numStars="5"
+                                        android:stepSize="0.1"
+                                        android:rating="@{(float)haver.user.rating}"
+                                        android:progressBackgroundTint="@color/colorMainTextMediumDark"
+                                        android:progressTint="@color/colorRatingStars"
+                                        android:secondaryProgressTint="@color/colorRatingStars"
+                                        android:layout_below="@+id/haver_name"/>
+
+                                    <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                                        android:id="@+id/haver_bid"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textAppearance="?android:attr/textAppearanceMedium"
+                                        android:visibility="@{desire.biddingAllowed ? View.VISIBLE : View.GONE}"
+                                        android:text="@{desirelogic.getPriceString(desire, haver.requestedPrice)}"
+                                        android:textColor="@color/colorPrimaryDark"
+                                        android:layout_marginRight="50dp"
+                                        android:layout_alignParentRight="true"
+                                        android:layout_centerVertical="true"/>
+
+                                </RelativeLayout>
+
+                                <ImageButton
+                                    android:id="@+id/message_haver"
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:src="@drawable/wh_chat_icon_light"
+                                    android:background="@drawable/chat_border_me"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_marginRight="5dp"
+                                    android:layout_centerVertical="true"
+                                    android:onClick="@{() -> actionHandler.sendMessage(haver.getUser().getId())}"/>
+
+                                <ImageButton
+                                    android:id="@+id/remove_haver"
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:src="@drawable/wh_delete_icon_light"
+                                    android:layout_toLeftOf="@id/message_haver"
+                                    android:layout_marginRight="5dp"
+                                    android:layout_centerVertical="true"
+                                    android:onClick="@{ () -> actionHandler.buttonUnacceptHaver()}"
+                                    android:visibility="@{desirelogic.isDesireInProgress(desire) ? View.VISIBLE : View.GONE}"
+                                    android:background="@drawable/chat_border_me" />
+
+                                <ImageButton
+                                    android:id="@+id/rate_creator"
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:src="@drawable/wh_rating_button_light"
+                                    android:layout_toLeftOf="@id/message_haver"
+                                    android:layout_marginRight="5dp"
+                                    android:layout_centerVertical="true"
+                                    android:onClick="@{ () -> actionHandler.buttonOpenRating()}"
+                                    android:visibility="@{desirelogic.isDesireFinished(desire) ? View.VISIBLE : View.GONE}"
+                                    android:background="@{desirelogic.canRateUser(desire, haver) ? @drawable/chat_border_me : @drawable/wh_border_button_inactive}"
+                                    android:clickable="@{desirelogic.canRateUser(desire, haver) ? true : false}"/>
+
+                            </RelativeLayout>
+
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/desire_detail_price_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    card_view:cardCornerRadius="@dimen/desire_detail_cardCornerRadius"
+                    android:elevation="@dimen/desire_detail_elevation"
+                    android:layout_below="@id/desire_detail_haver_card"
+                    android:layout_marginLeft="@dimen/desire_detail_marginLeftRight"
+                    android:layout_marginRight="@dimen/desire_detail_marginLeftRight"
+                    android:clickable="@{desirelogic.modifyBidAllowed(desire, bidder)}"
+                    android:onClick="@{() -> actionHandler.openModifyBidPopup()}">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <RelativeLayout
+                            android:id="@+id/desire_detail_price_box"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/desire_detail_card_title_height"
+                            android:background="@color/desire_detail_layout_items_background"
+                            android:padding="@dimen/desire_detail_card_padding">
+
+                            <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                                android:id="@+id/desire_detail_price_title"
+                                android:textSize="@dimen/desire_detail_title_size"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="@{desirelogic.showBid(desire, bidder) ? @string/accepted_desire_bid_title : @string/create_desire_price_header}"
+                                android:textColor="@color/colorPrimary"
+                                android:textAllCaps="true" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/desire_detail_price_box2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/colorSecondary"
+                            android:layout_below="@id/desire_detail_price_box"
+                            android:padding="@dimen/desire_detail_card_padding">
+
+                                <TextView
+                                    android:id="@+id/desire_detail_price"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textAppearance="?android:attr/textAppearanceMedium"
+                                    android:text="@{desirelogic.showBid(desire, bidder) ? desirelogic.getPriceString(desire, bidder.requestedPrice) : desirelogic.getPriceString(desire, desire.price)}"
+                                    android:minHeight="@dimen/desire_detail_card_subtitle_min_height"
+                                    android:textSize="@dimen/desire_detail_subtitle_size"
+                                    android:textColor="@color/colorMainTextDark"
+                                    android:gravity="center_vertical"/>
+
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/desire_detail_description_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    card_view:cardCornerRadius="@dimen/desire_detail_cardCornerRadius"
+                    android:elevation="@dimen/desire_detail_elevation"
+                    android:layout_below="@id/desire_detail_price_card"
+                    android:layout_marginLeft="@dimen/desire_detail_marginLeftRight"
+                    android:layout_marginRight="@dimen/desire_detail_marginLeftRight"
+                    android:layout_marginTop="15dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <RelativeLayout
+                            android:id="@+id/desire_detail_desciption_box"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/desire_detail_card_title_height"
+                            android:background="@color/desire_detail_layout_items_background"
+                            android:padding="@dimen/desire_detail_card_padding">
+
+                            <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                                android:id="@+id/desire_detail_description_header"
+                                android:textSize="@dimen/desire_detail_title_size"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="@string/create_desire_description_header"
+                                android:textColor="@color/colorPrimary"
+                                android:textAllCaps="true" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/desire_detail_desciption_box2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/colorSecondary"
+                            android:layout_below="@id/desire_detail_desciption_box"
+                            android:padding="@dimen/desire_detail_card_padding">
+
+                            <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                                android:id="@+id/desire_detail_description"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="@{desire.description}"
+                                android:minHeight="@dimen/desire_detail_card_subtitle_min_height"
+                                android:textSize="@dimen/desire_detail_subtitle_size"
+                                android:textColor="@color/colorMainTextDark"
+                                android:gravity="center_vertical"/>
+
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/desire_detail_location_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    card_view:cardCornerRadius="@dimen/desire_detail_cardCornerRadius"
+                    android:elevation="@dimen/desire_detail_elevation"
+                    android:layout_below="@id/desire_detail_description_card"
+                    android:layout_marginLeft="@dimen/desire_detail_marginLeftRight"
+                    android:layout_marginRight="@dimen/desire_detail_marginLeftRight"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:onClick="@{() -> actionHandler.onPressedLocation(desire.getDropzone_lat(), desire.getDropzone_long())}">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <RelativeLayout
+                            android:id="@+id/desire_detail_location_box"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/desire_detail_card_title_height"
+                            android:background="@color/desire_detail_layout_items_background"
+                            android:padding="@dimen/desire_detail_card_padding">
+
+                            <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                                android:id="@+id/desire_detail_location_title"
+                                android:textSize="@dimen/desire_detail_title_size"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="@string/location_title"
+                                android:textColor="@color/colorPrimary"
+                                android:textAllCaps="true" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/desire_detail_location_box2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/colorSecondary"
+                            android:layout_below="@id/desire_detail_location_box"
+                            android:padding="@dimen/desire_detail_card_padding">
+
+                            <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                                android:id="@+id/desire_detail_location"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="@{desire.dropzone_string}"
+                                android:minHeight="@dimen/desire_detail_card_subtitle_min_height"
+                                android:textSize="@dimen/desire_detail_subtitle_size"
+                                android:textColor="@color/colorMainTextDark"
+                                android:gravity="center_vertical"/>
+
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <!--LinearLayout
                     android:id="@+id/desire_detail_description_layout"
                     android:orientation="vertical"
                     android:background="@color/desire_detail_layout_items_background"
                     android:minHeight="120dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/title_layout"
+                    android:layout_below="@id/desire_detail_location_card"
                     android:padding="10dp">
 
                     <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
@@ -235,10 +651,10 @@
                         android:text="@{desire.description}"
                         android:textColor="@color/colorMainTextMediumDark"
                         android:minHeight="100dp" />
-                </LinearLayout>
+                </LinearLayout-->
 
 
-                <RelativeLayout
+                <!--RelativeLayout
                     android:id="@+id/desire_detail_price_layout"
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
@@ -287,9 +703,9 @@
 
                     </RelativeLayout>
 
-                </RelativeLayout>
+                </RelativeLayout-->
 
-                <RelativeLayout
+                <!--RelativeLayout
                     android:id="@+id/desire_detail_location_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -321,15 +737,15 @@
                         android:layout_marginTop="5dp"
                         android:onClick="@{() -> actionHandler.onPressedLocation(desire.getDropzone_lat(), desire.getDropzone_long())}"/>
 
-                </RelativeLayout>
+                </RelativeLayout-->
 
-                <RelativeLayout
+                <!--RelativeLayout
                     android:id="@+id/wanter_views"
                     android:padding="5dp"
                     android:layout_marginBottom="20dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/desire_detail_location_layout"
+                    android:layout_below="@+id/desire_detail_location_card"
                     android:layout_marginTop="20dp"
                     android:background="@color/desire_detail_layout_items_background"
                     android:visibility="@{desirelogic.isDesireCreator(desire.creator.getId()) ? View.VISIBLE : View.GONE}">
@@ -472,7 +888,7 @@
 
                     </RelativeLayout>
 
-                </RelativeLayout>
+                </RelativeLayout-->
 
             </RelativeLayout>
 

@@ -16,7 +16,7 @@
         app:showAsAction="always"
         android:visible="false"/>
 
-    <item
+    <!--item
         android:id="@+id/menu_delete_haver"
         android:title="@string/delete_desire"
         android:icon="@drawable/wh_delete_icon_light"
@@ -35,6 +35,6 @@
         android:title="@string/finish_desire"
         android:icon="@drawable/wh_finish_desire_light"
         app:showAsAction="always"
-        android:visible="false"/>
+        android:visible="false"/-->
 
 </menu>

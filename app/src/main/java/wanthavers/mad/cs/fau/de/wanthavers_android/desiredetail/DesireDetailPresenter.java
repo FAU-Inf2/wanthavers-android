@@ -364,6 +364,7 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
         );
     }
 
+    @Override
     public void closeTransaction() {
 
         UpdateDesireStatus.RequestValues requestValues = new UpdateDesireStatus.RequestValues(mDesireId, DesireStatus.STATUS_DONE);
@@ -545,8 +546,13 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
     }
 
     @Override
-    public void openModifyBidDialog() {
-        mDesireDetailView.showAcceptDesirePopup(false);
+    public void openModifyBidDialog(boolean initialCall) {
+        mDesireDetailView.showAcceptDesirePopup(initialCall);
+    }
+
+    @Override
+    public void openDeleteHaverDialog() {
+        mDesireDetailView.showDeleteHaverPopup();
     }
 
     @Override

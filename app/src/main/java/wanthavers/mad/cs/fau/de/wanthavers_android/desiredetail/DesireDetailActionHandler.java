@@ -46,7 +46,7 @@ public class DesireDetailActionHandler {
     }
 
     public void openModifyBidPopup() {
-        mListener.openModifyBidDialog();
+        mListener.openModifyBidDialog(false);
     }
 
     public void submitModifiedBid() {
@@ -114,7 +114,23 @@ public class DesireDetailActionHandler {
 
     public void onPressedLocation(double lat, double lng){
         mListener.createMap(lat,lng);
+    }
 
+    public void buttonAcceptDesire(boolean biddingAllowed) {
+        if (biddingAllowed) {
+            mListener.openModifyBidDialog(true);
+        } else {
+            mListener.setHaver(false);
+        }
+    }
+
+    public void buttonDeleteHaver() {
+        mListener.openDeleteHaverDialog();
+    }
+
+    public void buttonCloseTransaction() {
+        System.out.println("was here");
+        mListener.closeTransaction();
     }
 
 }

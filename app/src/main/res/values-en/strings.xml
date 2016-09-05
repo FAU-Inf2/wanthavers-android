@@ -43,6 +43,7 @@
     <string name="createDesire_Empty_Text">Please fill out all fields</string>
     <string name="no_chats">no chats to show</string>
     <string name="button_desire_accept">accept desire</string>
+    <string name="button_desire_cancel">Cancel desire</string>
     <string name="button_desire_message">Send</string>
     <string name="desire_detail_wanter">Wanter:</string>
     <string name="loading_chats_error">Error while loading chat</string>
@@ -199,7 +200,7 @@
     <string name="Set_location_cancel">Cancel</string>
     <string name="close_App_on_BackButton">Press the back button once again to close the application.</string>
     <string name="delete_desire">Delete Desire</string>
-    <string name="desire_detail_haver_title">Havers</string>
+    <string name="desire_detail_haver_title">Haver</string>
     <string name="finish_desire">finish desire</string>
     <string name="finish_rating">finish rating</string>
     <string name="report_desire">report desire</string>
