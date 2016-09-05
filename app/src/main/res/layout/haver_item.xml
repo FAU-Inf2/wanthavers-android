@@ -86,7 +86,7 @@
                 android:secondaryProgressTint="@color/colorRatingStars"
                 android:layout_below="@+id/haver_name"/>
 
-            <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+            <TextView
                 android:id="@+id/haver_bid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

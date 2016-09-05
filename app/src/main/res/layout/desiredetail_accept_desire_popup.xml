@@ -75,7 +75,7 @@
                     android:inputType="number"
                     android:ems="10" />
 
-                <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                <TextView
                     android:id="@+id/accept_desire_currency"
                     android:textSize="30dp"
                     android:layout_width="match_parent"

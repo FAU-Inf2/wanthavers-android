@@ -92,6 +92,7 @@
     <string name="haver_status_waiting">AUF WANTER WARTEN</string>
     <string name="haver_status_accepted">AKZEPTIERT</string>
     <string name="haver_status_rejected">ABGELEHNT</string>
+    <string name="haver_status_done">ABGESCHLOSSEN</string>
     <string name="no_location_selected">Kein Ort ausgewählt</string>
     <string name="create_rating_error">Fehler beim Bestätigen des Ratings</string>
     <string name="transaction_title">DEINE TRANSAKTION</string>
@@ -108,6 +109,9 @@
     <string name="desire_modify_bid">Ändere dein Angebot:</string>
     <string name="accepted_desire_bid_title">Dein Angebot</string>
     <string name="default_location_title">Aktueller/Letzter Ort:</string>
+    <string name="desire_detail_bidding_wanter_info">Du hast Bieten aktiviert. Haver müssen einen Preis vorschlagen.</string>
+    <string name="desire_detail_bidding_haver_info">Bieten ist aktiviert. Du must einen Preis vorschlagen.</string>
+    <string name="desire_item_bidding">Bieten</string>
 
 
     <!-- currency strings -->
@@ -225,6 +229,7 @@
 
     <string name="desire_create_reverse_bidding_popup_title">Über Reversed Bidding in WantHaver</string>
     <string name="desire_create_reverse_bidding_popup_text">Reversed Bidding text ...//TODO. Für weite Informationen siehe: </string>
+    <string name="desire_create_bidding_title">Reversed Bidding</string>
     <string name="desire_create_timespan">Läuft ab in&#160;</string>
     <string name="desire_create_hours">&#160;Stunden</string>
     <string name="desire_create_hour">&#160;Stunde</string>

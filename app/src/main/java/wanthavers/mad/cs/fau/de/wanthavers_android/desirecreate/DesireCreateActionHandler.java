@@ -41,6 +41,10 @@ public class DesireCreateActionHandler {
         mListener.toggleDaysRadioButton();
     }
 
+    public void toggleReversedBidding() {
+        mListener.toggleReversedBidding();
+    }
+
 
 
 }

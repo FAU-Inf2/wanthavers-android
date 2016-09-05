@@ -22,7 +22,6 @@
         android:layout_height="match_parent"
         android:fillViewport="true">
 
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -34,38 +33,69 @@
             android:weightSum="1"
             android:focusableInTouchMode="true">
 
+            <RelativeLayout
+                android:id="@+id/price_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="70dp">
 
+                <RelativeLayout
+                    android:id="@+id/create_desire_price_text"
+                    android:layout_width="200dp"
+                    android:layout_height="70dp">
 
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/create_desire_price_header_layout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="visible">
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/create_desire_price_header_layout"
-                android:layout_width="150dp"
-                android:layout_height="60dp">
+                        <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversEditText
+                            android:id="@+id/create_desire_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:ems="10"
+                            android:minHeight="60dp"
+                            android:minWidth="150dp"
+                            android:hint="@string/create_desire_price_header"
+                            android:layout_below="@+id/create_desire_price_header"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:maxLength="3"
+                            android:layout_alignRight="@+id/image_camera"
+                            android:layout_alignEnd="@+id/image_camera" />
 
+                    </android.support.design.widget.TextInputLayout>
 
-                <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversEditText
-                    android:layout_width="150dp"
+                    <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                        android:id="@+id/desire_create_price_info"
+                        android:layout_width="200dp"
+                        android:layout_height="60dp"
+                        android:text="@string/desire_detail_bidding_wanter_info"
+                        android:maxWidth="250dp"
+                        android:visibility="gone"
+                        android:gravity="center_vertical"/>
+
+                </RelativeLayout>
+
+                <Spinner
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:ems="10"
-                    android:hint="@string/create_desire_price_header"
-                    android:id="@+id/create_desire_price"
-                    android:layout_below="@+id/create_desire_price_header"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:maxLength="3"
-                    android:layout_alignRight="@+id/image_camera"
-                    android:layout_alignEnd="@+id/image_camera"
-                    android:layout_marginTop="-5dp" />
+                    android:id="@+id/spinner_currency"
+                    android:spinnerMode="dropdown"
+                    android:entries="@array/currencies"
+                    android:layout_toRightOf="@id/create_desire_price_text"
+                    android:layout_centerVertical="true" />
 
-            </android.support.design.widget.TextInputLayout>
+            </RelativeLayout>
+
 
             <RelativeLayout
                 android:id="@+id/reverse_bidding_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="35dp"
-                android:layout_below="@id/create_desire_price_header_layout">
+                android:layout_below="@id/price_bar"
+                android:layout_marginTop="15dp">
 
                 <CheckBox
                     android:id="@+id/reverse_bidding_checkbox"
@@ -73,13 +103,14 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true" />
+                    android:layout_alignParentEnd="true"
+                    android:onClick="@{() -> actionHandler.toggleReversedBidding()}"/>
 
                 <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                     android:id="@+id/reversed_bidding_title"
                     android:layout_width="180dp"
                     android:layout_height="wrap_content"
-                    android:text="Reverse bidding"
+                    android:text="@string/desire_create_bidding_title"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/colorMainTextDark"
                     android:drawableRight="@drawable/ic_about"
@@ -90,6 +121,88 @@
 
             </RelativeLayout>
 
+            <RelativeLayout
+                android:id="@+id/category_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/reverse_bidding_bar">
+
+                <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                    android:id="@+id/category_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/category_title"
+                    android:textColor="@color/colorMainTextDark"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="20dp" />
+
+                <FrameLayout
+                    android:id="@+id/frame_selected_category_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="1dp"
+                    android:background="@color/colorPrimary"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="70dp">
+
+                    <RelativeLayout
+                        android:id="@+id/selected_category_item"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:background="@color/desireDetailBackground"
+                        android:onClick="@{() -> actionHandler.openCategoryList()}">
+
+                        <wanthavers.mad.cs.fau.de.wanthavers_android.util.CircularImageView
+                            android:id="@+id/selected_image_category"
+                            android:layout_width="45dp"
+                            android:layout_height="45dp"
+                            android:scaleX="0.8"
+                            android:scaleY="0.8"
+                            android:src="@android:drawable/sym_def_app_icon"
+                            android:layout_marginLeft="5dp"
+                            android:visibility="gone"
+                            android:onClick="@{() -> actionHandler.openCategoryList()}"/>
+
+                        <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                            android:id="@+id/selected_category_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:gravity="center"
+                            android:text="@{category.getName()}"
+                            android:textColor="@color/colorPrimary"
+                            android:layout_toRightOf="@+id/selected_image_category"
+                            android:layout_toEndOf="@+id/selected_image_category"
+                            android:visibility="gone"
+                            android:layout_centerVertical="true"
+                            android:onClick="@{() -> actionHandler.openCategoryList()}"/>
+
+                        <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                            android:id="@+id/no_category_selected"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/select_category"
+                            android:textColor="@color/colorPrimary"
+                            android:gravity="center"
+                            android:textSize="17dp"
+                            android:onClick="@{() -> actionHandler.openCategoryList()}"
+                            android:layout_toRightOf="@+id/selected_image_category"
+                            android:layout_toEndOf="@+id/selected_image_category"
+                            android:layout_centerVertical="true"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"/>
+
+                    </RelativeLayout>
+
+                </FrameLayout>
+
+            </RelativeLayout>
+
 
             <wanthavers.mad.cs.fau.de.wanthavers_android.util.CircularImageView
                 android:layout_width="200sp"
@@ -97,7 +210,7 @@
                 android:id="@+id/image_camera"
                 android:src="@drawable/logo_white_round"
                 android:onClick="@{() -> actionHandler.onPressImage()}"
-                android:layout_below="@+id/frame_selected_category_item"
+                android:layout_below="@+id/category_bar"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp" />
 
@@ -111,95 +224,6 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="5dp"
                 android:onClick="@{() -> actionHandler.onPressImage()}"/>
-
-            <Spinner
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/spinner_currency"
-                android:spinnerMode="dropdown"
-                android:entries="@array/currencies"
-                android:layout_toRightOf="@id/create_desire_price_header_layout"
-                android:layout_alignTop="@+id/create_desire_price_header_layout"
-                android:layout_marginTop="20dp" />
-
-
-            <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
-                android:id="@+id/category_header"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/category_title"
-                android:textColor="@color/colorMainTextDark"
-                android:layout_below="@+id/reverse_bidding_bar"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginTop="20dp" />
-
-            <FrameLayout
-                android:id="@+id/frame_selected_category_item"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="1dp"
-                android:background="@color/colorPrimary"
-                android:layout_below="@+id/reverse_bidding_bar"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginTop="70dp"
-                >
-
-                <RelativeLayout
-                    android:id="@+id/selected_category_item"
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:background="@color/desireDetailBackground"
-                    android:onClick="@{() -> actionHandler.openCategoryList()}"
-                    >
-
-                    <wanthavers.mad.cs.fau.de.wanthavers_android.util.CircularImageView
-                        android:id="@+id/selected_image_category"
-                        android:layout_width="45dp"
-                        android:layout_height="45dp"
-                        android:scaleX="0.8"
-                        android:scaleY="0.8"
-                        android:src="@android:drawable/sym_def_app_icon"
-                        android:layout_marginLeft="5dp"
-                        android:visibility="gone"
-                        android:onClick="@{() -> actionHandler.openCategoryList()}"/>
-
-                    <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
-                        android:id="@+id/selected_category_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:gravity="center"
-                        android:text="@{category.getName()}"
-                        android:textColor="@color/colorPrimary"
-                        android:layout_toRightOf="@+id/selected_image_category"
-                        android:layout_toEndOf="@+id/selected_image_category"
-                        android:visibility="gone"
-                        android:layout_centerVertical="true"
-                        android:onClick="@{() -> actionHandler.openCategoryList()}"/>
-
-                    <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
-                        android:id="@+id/no_category_selected"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/select_category"
-                        android:textColor="@color/colorPrimary"
-                        android:gravity="center"
-                        android:textSize="17dp"
-                        android:onClick="@{() -> actionHandler.openCategoryList()}"
-                        android:layout_toRightOf="@+id/selected_image_category"
-                        android:layout_toEndOf="@+id/selected_image_category"
-                        android:layout_centerVertical="true"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"/>
-
-                </RelativeLayout>
-
-            </FrameLayout>
 
         </RelativeLayout>
     </ScrollView>

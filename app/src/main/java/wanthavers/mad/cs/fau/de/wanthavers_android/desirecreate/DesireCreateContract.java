@@ -63,5 +63,7 @@ public interface DesireCreateContract {
 
         void toggleDaysRadioButton();
 
+        void toggleReversedBidding();
+
     }
 }

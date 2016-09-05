@@ -95,6 +95,7 @@
     <string name="haver_status_waiting">WAITING FOR WANTER</string>
     <string name="haver_status_accepted">ACCEPTED</string>
     <string name="haver_status_rejected">REJECTED</string>
+    <string name="haver_status_done">DONE</string>
     <string name="no_location_selected">No location selected yet</string>
     <string name="desire_detail_rating_title">Rating for this transaction</string>
     <string name="create_rating_error">Error while submitting the rating</string>
@@ -144,6 +145,10 @@
     <string name="settings_change_user_data_button">Change  your user data</string>
     <string name="settings_manage_locations_title">Manage your stored locations</string>
     <string name="settings_manage_locations_button">Go to location management</string>
+    <string name="desire_create_bidding_title">Reversed Bidding</string>
+    <string name="desire_detail_bidding_wanter_info">You have enabled reversed bidding. Havers must suggest a price.</string>
+    <string name="desire_detail_bidding_haver_info">Reversed bidding is enabled. You must suggest a price.</string>
+    <string name="desire_item_bidding">Bidding</string>
 
     <string name="desire_create_reverse_bidding_popup_title">About Reversed Bidding in WantHaver</string>
     <string name="desire_create_reverse_bidding_popup_text">Reversed Bidding text ...//TODO. For further infromation also see: </string>

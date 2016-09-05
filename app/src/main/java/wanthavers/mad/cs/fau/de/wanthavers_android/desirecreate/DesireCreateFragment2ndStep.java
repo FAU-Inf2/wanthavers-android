@@ -160,7 +160,12 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
 
         intent.putExtra("desireTitle", title);
         intent.putExtra("desireDescription", description);
-        intent.putExtra("desirePrice", mDesirePrice.getText().toString());
+        if (biddingAllowed) {
+            intent.putExtra("desirePrice", "0");
+        } else {
+            intent.putExtra("desirePrice", mDesirePrice.getText().toString());
+        }
+
 
         DesireLogic dsl = new DesireLogic(getContext());
         String currency = dsl.getIsoCurrency(spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString());
@@ -332,7 +337,7 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
     }*/
 
     private boolean showEmptyEditTextError(){
-        if(mDesirePrice.getText().toString().isEmpty() ){
+        if(mDesirePrice.getText().toString().isEmpty() && !mViewDataBinding.reverseBiddingCheckbox.isChecked()){
             showMessage( getString(R.string.empty_price));
             return false;
         }

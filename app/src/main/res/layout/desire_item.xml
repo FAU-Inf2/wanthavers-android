@@ -16,7 +16,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-
+        <import type="android.view.View"/>
         <variable
             name="desire"
             type="wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.DesireItemViewModel" />
@@ -174,8 +174,20 @@
                         android:layout_centerVertical="true"
                         android:textColor="@color/colorMainText"
                         android:textSize="25dp"
-                        android:layout_marginBottom="15dp"
-                        android:text="@{desireLogic.getPriceString(desire.desire, desire.desire.price)}" />
+                        android:text="@{desireLogic.getPriceString(desire.desire, desire.desire.price)}"
+                        android:visibility="@{desire.desire.biddingAllowed ? View.GONE : View.VISIBLE}"/>
+
+                    <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                        android:id="@+id/bidding"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:layout_centerVertical="true"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="15dp"
+                        android:textAllCaps="true"
+                        android:text="@string/desire_item_bidding"
+                        android:visibility="@{desire.desire.biddingAllowed ? View.VISIBLE : View.GONE}"/>
                 </RelativeLayout>
             </LinearLayout>
 

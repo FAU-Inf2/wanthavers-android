@@ -2,10 +2,14 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate;
 
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
+import android.view.View;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.util.List;
@@ -21,6 +25,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetCategory;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetSubcategories;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.SetDesire;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.SetImage;
+import wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView;
 
 public class DesireCreatePresenter implements DesireCreateContract.Presenter {
     private final DesireCreateContract.View mDesireCreateView;
@@ -34,6 +39,7 @@ public class DesireCreatePresenter implements DesireCreateContract.Presenter {
     private final SelectImageLogic mImageLogic;
     private final GetSubcategories mGetSubcategories;
     private final GetCategory mGetCategory;
+    private boolean biddingEnabled = false;
 
     public DesireCreatePresenter(@NonNull UseCaseHandler ucHandler, @NonNull DesireCreateContract.View view,
                                  DesireCreateActivity3rdStep desireCreateActivity3rdStep, DesireCreateActivity2ndStep desireCreateActivity2ndStep,
@@ -197,6 +203,20 @@ public class DesireCreatePresenter implements DesireCreateContract.Presenter {
 
     public void toggleDaysRadioButton(){
         mDesireCreateView.toggleDaysRadioButton();
+    }
+
+    public void toggleReversedBidding() {
+        WantHaversTextView biddingPriceHint = (WantHaversTextView) mDesireCreateActivity2ndStep.findViewById(R.id.desire_create_price_info);
+        TextInputLayout priceInput = (TextInputLayout) mDesireCreateActivity2ndStep.findViewById(R.id.create_desire_price_header_layout);
+        if (biddingEnabled) {
+            biddingEnabled = false;
+            biddingPriceHint.setVisibility(View.GONE);
+            priceInput.setVisibility(View.VISIBLE);
+        } else {
+            biddingEnabled = true;
+            biddingPriceHint.setVisibility(View.VISIBLE);
+            priceInput.setVisibility(View.GONE);
+        }
     }
 }
 

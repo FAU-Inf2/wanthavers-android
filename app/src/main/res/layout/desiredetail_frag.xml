@@ -379,7 +379,7 @@
                                         android:secondaryProgressTint="@color/colorRatingStars"
                                         android:layout_below="@+id/haver_name"/>
 
-                                    <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                                    <TextView
                                         android:id="@+id/haver_bid"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
@@ -482,6 +482,18 @@
                             android:layout_below="@id/desire_detail_price_box"
                             android:padding="@dimen/desire_detail_card_padding">
 
+                                <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                                    android:id="@+id/desire_bidding_info"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textAppearance="?android:attr/textAppearanceMedium"
+                                    android:text="@{desirelogic.isDesireCreator(desire.creator.id) ? @string/desire_detail_bidding_wanter_info : @string/desire_detail_bidding_haver_info}"
+                                    android:minHeight="@dimen/desire_detail_card_subtitle_min_height"
+                                    android:textSize="@dimen/desire_detail_subtitle_size"
+                                    android:textColor="@color/colorMainTextDark"
+                                    android:gravity="center_vertical"
+                                    android:visibility="@{desirelogic.showBiddingInfo(desire, bidder) ? View.VISIBLE : View.GONE}"/>
+
                                 <TextView
                                     android:id="@+id/desire_detail_price"
                                     android:layout_width="match_parent"
@@ -491,7 +503,8 @@
                                     android:minHeight="@dimen/desire_detail_card_subtitle_min_height"
                                     android:textSize="@dimen/desire_detail_subtitle_size"
                                     android:textColor="@color/colorMainTextDark"
-                                    android:gravity="center_vertical"/>
+                                    android:gravity="center_vertical"
+                                    android:visibility="@{desirelogic.showBiddingInfo(desire, bidder) ? View.GONE : View.VISIBLE}"/>
 
                         </RelativeLayout>
 

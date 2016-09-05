@@ -135,7 +135,6 @@ public class DesireLogic {
     }
 
     public boolean showBid(Desire desire, Haver bidder) {
-        System.out.println(bidder);
         if (desire.isBiddingAllowed() && !isDesireCreator(desire.getCreator().getId())) {
             if (bidder != null) {
                 return true;
@@ -144,14 +143,26 @@ public class DesireLogic {
         return false;
     }
 
+    public boolean showBiddingInfo(Desire desire, Haver bidder) {
+        if (desire.isBiddingAllowed() && isDesireCreator(desire.getCreator().getId())) {
+            return true;
+        } else if (desire.isBiddingAllowed() && !isDesireCreator(desire.getCreator().getId())
+                && bidder == null && desire.getStatus() == DesireStatus.STATUS_OPEN) {
+            return true;
+        }
+        return false;
+    }
+
     public boolean canRateUser(Desire desire, Haver haver){
 
         long loggedInUserId = getLoggedInUserId();
 
-        if(desire.getCreator().getId() == loggedInUserId && desire.getCreatorHasRated() == false && desire.getStatus() == DesireStatus.STATUS_DONE){
+        if(desire.getCreator().getId() == loggedInUserId && desire.getCreatorHasRated() == false
+                && desire.getStatus() == DesireStatus.STATUS_DONE){
             return true;
 
-        }else if (haver != null && haver.getUser().getId() == loggedInUserId && desire.getHaverHasRated() == false && desire.getStatus() == DesireStatus.STATUS_DONE){
+        }else if (haver != null && haver.getUser().getId() == loggedInUserId
+                && desire.getHaverHasRated() == false && desire.getStatus() == DesireStatus.STATUS_DONE){
             return true;
         }
 

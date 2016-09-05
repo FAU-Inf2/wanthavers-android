@@ -207,6 +207,10 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
     @Override
     public void setHaver(final boolean biddingAllowed) {
 
+        if (biddingAllowed && mDesireDetailView.getBidInput() == -1) {
+            return;
+        }
+
         GetUser.RequestValues requestValues = new GetUser.RequestValues(mDesireLogic.getLoggedInUserId());
 
         mUseCaseHandler.execute(mGetUser, requestValues,
@@ -226,6 +230,9 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
 
                     @Override
                     public void onError() {
+                        if (biddingAllowed) {
+                            mDesireDetailView.closeAcceptDesirePopup();
+                        }
                         mDesireDetailView.showSetHaverError();
                     }
                 });
@@ -252,6 +259,9 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
 
                     @Override
                     public void onError() {
+                        if (biddingAllowed) {
+                            mDesireDetailView.closeAcceptDesirePopup();
+                        }
                         mDesireDetailView.showSetHaverError();
                     }
                 }
@@ -263,6 +273,10 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
     public void updateRequestedPrice() {
 
         double bid = mDesireDetailView.getBidInput();
+
+        if (mDesireDetailView.getBidInput() == -1) {
+            mDesireDetailView.closeAcceptDesirePopup();
+        }
 
         UpdateRequestedPrice.RequestValues requestValues =
                 new UpdateRequestedPrice.RequestValues(mDesireId, mDesireLogic.getLoggedInUserId(), bid);

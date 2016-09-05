@@ -129,7 +129,6 @@ public class DesireDetailActionHandler {
     }
 
     public void buttonCloseTransaction() {
-        System.out.println("was here");
         mListener.closeTransaction();
     }
 
