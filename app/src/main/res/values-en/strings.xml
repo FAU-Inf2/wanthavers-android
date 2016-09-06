@@ -154,6 +154,8 @@
     <string name="desire_detail_bidding_haver_info">Reversed bidding is enabled. You must suggest a price.</string>
     <string name="desire_item_bidding">Bidding</string>
     <string name="finish_desire_info">Has your Desire been fulfilled?</string>
+    <string name="user_first_name">Your Firstname</string>
+    <string name="user_last_name">Your Lastname</string>
 
     <string name="desire_create_reverse_bidding_popup_title">About Reversed Bidding in WantHaver</string>
     <string name="desire_create_reverse_bidding_popup_text">Reversed Bidding text ...//TODO. For further infromation also see: </string>

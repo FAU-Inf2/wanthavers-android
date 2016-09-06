@@ -117,6 +117,8 @@
     <string name="desire_detail_bidding_haver_info">Bieten ist aktiviert. Du must einen Preis vorschlagen.</string>
     <string name="desire_item_bidding">Bieten</string>
     <string name="finish_desire_info">Wurde dein Auftrag erfüllt?</string>
+    <string name="user_first_name">Dein Vorname</string>
+    <string name="user_last_name">Dein Nachname</string>
 
 
     <!-- currency strings -->

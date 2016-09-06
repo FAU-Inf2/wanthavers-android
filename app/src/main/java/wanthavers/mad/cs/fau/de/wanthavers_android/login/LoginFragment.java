@@ -136,5 +136,12 @@ public class LoginFragment extends Fragment implements LoginContract.View {
 
 
     @Override
-    public void toggleRegButton(){};
+    public void toggleRegButton(){}
+
+    @Override
+    public void checkButtons() {
+
+    }
+
+    ;
 }

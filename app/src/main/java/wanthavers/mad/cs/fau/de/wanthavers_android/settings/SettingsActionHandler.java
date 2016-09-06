@@ -24,8 +24,11 @@ public class SettingsActionHandler {
             return;
         }
 
-        String name = mSettingsFragBinding.userName.getText().toString();
-        user.setName(name);
+        String firstName = mSettingsFragBinding.userFirstName.getText().toString();
+        user.setName(firstName);
+        user.setFirstName(firstName);
+        String lastName = mSettingsFragBinding.userLastName.getText().toString();
+        user.setLastName(lastName);
 
         String email = mSettingsFragBinding.userMail.getText().toString();
         user.setEmail(email);
