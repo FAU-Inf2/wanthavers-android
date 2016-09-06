@@ -89,6 +89,7 @@
     <string name="button_close_transaction">Transaktion abschließen</string>
     <string name="closing_transaction_error">Fehler beim Abschließen der Transaktion</string>
     <string name="haver_status_open">OFFEN</string>
+    <string name="haver_status_in_progress">IN BEARBEITUNG</string>
     <string name="haver_status_waiting">AUF WANTER WARTEN</string>
     <string name="haver_status_accepted">AKZEPTIERT</string>
     <string name="haver_status_rejected">ABGELEHNT</string>

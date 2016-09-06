@@ -283,19 +283,28 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
                 mDesireDetailFragBinding.acceptDesire.setVisibility(View.GONE);
                 mDesireDetailFragBinding.cancelDesire.setVisibility(View.VISIBLE);
             }
+            mDesireDetailFragBinding.finishDesire.setVisibility(View.GONE);
+
+            if (mDesireLogic.isDesireCreator(creator.getId())) {
+                mDesireDetailFragBinding.desireHaverStatus.setText(getString(R.string.haver_status_open));
+            }
         } else if (desire.getStatus() == DesireStatus.STATUS_IN_PROGRESS) {
-            mPresenter.getAcceptedHaver();
+            mPresenter.getAcceptedHaver(desire.isBiddingAllowed());
             //haver cannot accept
             mDesireDetailFragBinding.acceptDesire.setVisibility(View.GONE);
             if (mDesireLogic.isDesireCreator(creator.getId())) {
                 mDesireDetailFragBinding.finishDesire.setVisibility(View.VISIBLE);
+                mDesireDetailFragBinding.desireHaverStatus.setText(getString(R.string.haver_status_in_progress));
             }
         } else if (desire.getStatus() == DesireStatus.STATUS_DONE) {
-            mPresenter.getAcceptedHaver();
+            mPresenter.getAcceptedHaver(desire.isBiddingAllowed());
             //haver cannot accept & cancel
             mDesireDetailFragBinding.acceptDesire.setVisibility(View.GONE);
             mDesireDetailFragBinding.cancelDesire.setVisibility(View.GONE);
             mDesireDetailFragBinding.finishDesire.setVisibility(View.GONE);
+            if (mDesireLogic.isDesireCreator(creator.getId())) {
+                mDesireDetailFragBinding.desireHaverStatus.setText(getString(R.string.haver_status_done));
+            }
         }
 
     }
@@ -330,7 +339,8 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
                     mDesireDetailFragBinding.cancelDesire.setVisibility(View.VISIBLE);
                 }
             } else if (mDesireLogic.getLoggedInUserId() != haver.getUser().getId()
-                    && mDesireDetailFragBinding.desireHaverStatus.getVisibility() == View.VISIBLE) {
+                    && mDesireDetailFragBinding.desireHaverStatus.getVisibility() == View.VISIBLE
+                    && !mDesireLogic.isDesireCreator(mDesireDetailFragBinding.getDesire().getCreator().getId())) {
                 mDesireDetailFragBinding.desireHaverStatus.setText(getString(R.string.haver_status_rejected));
             }
 

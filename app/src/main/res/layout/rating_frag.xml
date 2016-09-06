@@ -12,12 +12,12 @@
             type="wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic" />
 
         <variable
-            name="presenter"
-            type="wanthavers.mad.cs.fau.de.wanthavers_android.rating.RatingContract.Presenter" />
-
-        <variable
             name="haver"
             type="de.fau.cs.mad.wanthavers.common.Haver" />
+
+        <variable
+            name="presenter"
+            type="wanthavers.mad.cs.fau.de.wanthavers_android.rating.RatingContract.Presenter" />
         
     </data>
 
@@ -113,7 +113,7 @@
                             android:layout_height="wrap_content"
                             android:textAppearance="?android:attr/textAppearanceSmall"
                             android:layout_toRightOf="@id/price_subtitle"
-                            android:text="@{desirelogic.getPriceString(desire, desire.price)}"/>
+                            android:text="@{desire.biddingAllowed ? desirelogic.getPriceString(desire, haver.requestedPrice) : desirelogic.getPriceString(desire, desire.price)}"/>
 
                     </RelativeLayout>
 

@@ -92,6 +92,7 @@
     <string name="button_close_transaction">Close Transaction</string>
     <string name="closing_transaction_error">Error while closing transaction</string>
     <string name="haver_status_open">OPEN</string>
+    <string name="haver_status_in_progress">IN PROGRESS</string>
     <string name="haver_status_waiting">WAITING FOR WANTER</string>
     <string name="haver_status_accepted">ACCEPTED</string>
     <string name="haver_status_rejected">REJECTED</string>

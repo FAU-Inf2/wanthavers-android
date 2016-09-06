@@ -174,15 +174,6 @@ public class DesireLogic {
         return false;
     }
 
-    public boolean showChangeBiddingInfo(Desire desire, Haver bidder) {
-        if (desire.isBiddingAllowed() && !isDesireCreator(desire.getCreator().getId())) {
-            if (bidder != null && (desire.getStatus() == DesireStatus.STATUS_OPEN || desire.getStatus() == DesireStatus.STATUS_IN_PROGRESS)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     public boolean canRateUser(Desire desire, Haver haver){
 
         long loggedInUserId = getLoggedInUserId();

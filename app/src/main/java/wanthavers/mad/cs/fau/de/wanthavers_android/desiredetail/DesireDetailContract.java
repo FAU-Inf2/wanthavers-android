@@ -110,7 +110,7 @@ public interface DesireDetailContract {
 
         void unacceptHaver(Haver haver);
 
-        void getAcceptedHaver();
+        void getAcceptedHaver(boolean biddingAllowed);
 
         void sendMessage(long user2Id);
 

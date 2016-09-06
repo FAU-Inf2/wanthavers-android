@@ -177,8 +177,7 @@
                         android:text="@string/haver_status_open"
                         android:layout_below="@id/desire_detail_creation_time"
                         android:layout_alignParentTop="true"
-                        android:layout_alignParentLeft="true"
-                        android:visibility="invisible"/>
+                        android:layout_alignParentLeft="true"/>
 
                     <wanthavers.mad.cs.fau.de.wanthavers_android.util.CircularImageView
                         android:id="@+id/desire_detail_itemImage"
@@ -528,7 +527,7 @@
                                 android:layout_toRightOf="@id/desire_detail_price"
                                 android:layout_marginLeft="30dp"
                                 android:gravity="center_vertical"
-                                android:visibility="@{desirelogic.showChangeBiddingInfo(desire, bidder) ? View.VISIBLE : View.GONE}"/>
+                                android:visibility="@{desirelogic.modifyBidAllowed(desire, bidder) ? View.VISIBLE : View.GONE}"/>
 
                         </RelativeLayout>
 

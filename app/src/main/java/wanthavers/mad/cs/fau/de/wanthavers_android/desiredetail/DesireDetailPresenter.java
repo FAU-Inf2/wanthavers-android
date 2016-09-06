@@ -180,7 +180,8 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
         });
     }
 
-    public void getAcceptedHaver() {
+    @Override
+    public void getAcceptedHaver(final boolean biddingAllowed) {
 
         GetAcceptedHaver.RequestValues requestValues = new GetAcceptedHaver.RequestValues(mDesireId);
 
@@ -189,7 +190,9 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
                     @Override
                     public void onSuccess(GetAcceptedHaver.ResponseValue response) {
                         Haver haver = response.getHaver();
-                        mDesireDetailView.setBidder(haver);
+                        if (biddingAllowed) {
+                            mDesireDetailView.setBidder(haver);
+                        }
                         mDesireDetailView.showAcceptedHaver(haver);
                     }
 
@@ -471,7 +474,6 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
                     public void onSuccess(GetHaver.ResponseValue response) {
                         if (response.getHaver() != null) {
                             if (desire.isBiddingAllowed()) {
-                                System.out.println("reached");
                                 mDesireDetailView.setBidder(response.getHaver());
                             }
                             mDesireDetailView.showDesire(desire, null);

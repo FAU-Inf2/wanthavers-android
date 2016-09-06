@@ -36,6 +36,8 @@ public class RatingFragment extends Fragment implements RatingContract.View {
     private static final String DESIRE_ID = "DESIRE_ID";
     private RatingFragBinding mRatingFragBinding;
     private RatingContract.Presenter mPresenter;
+    private Haver mHaver;
+    private Desire mDesire;
 
     public RatingFragment() {
         //Requires empty public constructor
@@ -68,7 +70,7 @@ public class RatingFragment extends Fragment implements RatingContract.View {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.menu_finish_rating:
-                mPresenter.finishRating(mRatingFragBinding.getDesire(), mRatingFragBinding.getHaver());
+                mPresenter.finishRating(mDesire, mHaver);
                break;
         }
         return true;
@@ -93,7 +95,6 @@ public class RatingFragment extends Fragment implements RatingContract.View {
     @Override
     public void showDesire(Desire desire) {
 
-        System.out.println("was here");
         mRatingFragBinding.setDesire(desire);
         mRatingFragBinding.setDesirelogic(mDesireLogic);
 
@@ -122,6 +123,8 @@ public class RatingFragment extends Fragment implements RatingContract.View {
             final ImageView profileView = mRatingFragBinding.imageWanter;
             profileView.setImageResource(R.drawable.no_pic);
         }
+
+        mDesire = desire;
     }
 
     @Override
@@ -139,6 +142,8 @@ public class RatingFragment extends Fragment implements RatingContract.View {
             final ImageView profileView = mRatingFragBinding.imageHaver;
             profileView.setImageResource(R.drawable.no_pic);
         }
+
+        mHaver = haver;
     }
 
     @Override

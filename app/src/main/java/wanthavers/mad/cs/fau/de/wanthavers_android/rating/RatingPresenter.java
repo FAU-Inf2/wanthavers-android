@@ -50,7 +50,6 @@ public class RatingPresenter implements RatingContract.Presenter {
     @Override
     public void start() {
         getDesire();
-        getAcceptedHaver();
     }
 
     public void getDesire(){
@@ -62,6 +61,7 @@ public class RatingPresenter implements RatingContract.Presenter {
                     public void onSuccess(GetDesire.ResponseValue response) {
                         Desire desire = response.getDesire();
                         mRatingView.showDesire(desire);
+                        getAcceptedHaver();
                     }
 
                     @Override
