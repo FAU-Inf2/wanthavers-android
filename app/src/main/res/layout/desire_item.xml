@@ -41,7 +41,8 @@
             android:paddingTop="@dimen/list_item_padding"
             android:onClick="@{() -> actionHandler.desireClicked(desire.desire)}"
             android:weightSum="1"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:clickable="@{desireLogic.isDesireInRegularProcess(desire.desire) ? true : false}">
 
             <RelativeLayout
                 android:id="@+id/list_item_header"
@@ -61,8 +62,8 @@
                     android:stepSize="0.1"
                     android:rating="@{(float)desire.desire.creator.rating}"
                     android:progressBackgroundTint="@color/colorMainTextMediumDark"
-                    android:progressTint="@color/colorRatingStars"
-                    android:secondaryProgressTint="@color/colorRatingStars"/>
+                    android:progressTint="@{desireLogic.isDesireInRegularProcess(desire.desire) ? @color/colorRatingStars : @color/colorMainTextDark}"
+                    android:secondaryProgressTint="@{desireLogic.isDesireInRegularProcess(desire.desire) ? @color/colorRatingStars : @color/colorMainTextDark}"/>
 
                 <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                     android:id="@+id/itemUserName"
@@ -114,7 +115,7 @@
                         android:layout_marginTop="-5dp"
                         android:textStyle="bold"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@{desireLogic.isDesireInRegularProcess(desire.desire) ? @color/colorPrimary : @color/colorMainText}"
                         android:text="@{desire.desire.title}"
                         android:ellipsize="end"
                         android:singleLine="true" />
@@ -175,7 +176,7 @@
                         android:textColor="@color/colorMainText"
                         android:textSize="25dp"
                         android:text="@{desireLogic.getPriceString(desire.desire, desire.desire.price)}"
-                        android:visibility="@{desire.desire.biddingAllowed ? View.GONE : View.VISIBLE}"/>
+                        android:visibility="@{desireLogic.showPrice(desire.desire) ? View.VISIBLE : View.GONE}"/>
 
                     <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                         android:id="@+id/bidding"
@@ -187,7 +188,31 @@
                         android:textSize="15dp"
                         android:textAllCaps="true"
                         android:text="@string/desire_item_bidding"
-                        android:visibility="@{desire.desire.biddingAllowed ? View.VISIBLE : View.GONE}"/>
+                        android:visibility="@{desireLogic.showBidding(desire.desire) ? View.VISIBLE : View.GONE}"/>
+
+                    <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                        android:id="@+id/desire_status_deleted"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:layout_centerVertical="true"
+                        android:textColor="@color/colorAlert"
+                        android:textSize="15dp"
+                        android:textAllCaps="true"
+                        android:text="@string/haver_status_deleted"
+                        android:visibility="@{desireLogic.isDesireDeleted(desire.desire) ? View.VISIBLE : View.GONE}"/>
+
+                    <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                        android:id="@+id/desire_status_expired"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:layout_centerVertical="true"
+                        android:textColor="@color/colorAlert"
+                        android:textSize="15dp"
+                        android:textAllCaps="true"
+                        android:text="@string/haver_status_expired"
+                        android:visibility="@{desireLogic.isDesireExpired(desire.desire) ? View.VISIBLE : View.GONE}"/>
                 </RelativeLayout>
             </LinearLayout>
 

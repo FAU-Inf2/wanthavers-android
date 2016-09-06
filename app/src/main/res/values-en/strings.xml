@@ -96,6 +96,8 @@
     <string name="haver_status_accepted">ACCEPTED</string>
     <string name="haver_status_rejected">REJECTED</string>
     <string name="haver_status_done">DONE</string>
+    <string name="haver_status_deleted">DELETED</string>
+    <string name="haver_status_expired">EXPIRED</string>
     <string name="no_location_selected">No location selected yet</string>
     <string name="desire_detail_rating_title">Rating for this transaction</string>
     <string name="create_rating_error">Error while submitting the rating</string>

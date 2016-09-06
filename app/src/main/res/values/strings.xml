@@ -93,6 +93,8 @@
     <string name="haver_status_accepted">AKZEPTIERT</string>
     <string name="haver_status_rejected">ABGELEHNT</string>
     <string name="haver_status_done">ABGESCHLOSSEN</string>
+    <string name="haver_status_deleted">GELÖSCHT</string>
+    <string name="haver_status_expired">AUSGELAUFEN</string>
     <string name="no_location_selected">Kein Ort ausgewählt</string>
     <string name="create_rating_error">Fehler beim Bestätigen des Ratings</string>
     <string name="transaction_title">DEINE TRANSAKTION</string>

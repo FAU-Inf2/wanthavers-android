@@ -55,6 +55,8 @@ public class GetDesireList extends UseCase<GetDesireList.RequestValues, GetDesir
             statusFilter.add(DesireStatus.STATUS_OPEN);
             statusFilter.add(DesireStatus.STATUS_DONE);
             statusFilter.add(DesireStatus.STATUS_IN_PROGRESS);
+            statusFilter.add(DesireStatus.STATUS_DELETED);
+            statusFilter.add(DesireStatus.STATUS_EXPIRED);
             desireFilter.setCreatorId(userId);
             desireFilter.setHaverId(userId);
             desireFilter.setStatus(statusFilter);

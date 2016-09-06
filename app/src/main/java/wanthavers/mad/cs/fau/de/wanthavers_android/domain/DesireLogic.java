@@ -127,6 +127,27 @@ public class DesireLogic {
         return (desire.getStatus() == DesireStatus.STATUS_DONE);
     }
 
+    //True if desire not deleted or expired!!!
+    public boolean isDesireInRegularProcess(Desire desire) {
+        return (!isDesireDeleted(desire) && !isDesireExpired(desire));
+    }
+
+    public boolean isDesireDeleted(Desire desire) {
+        return (desire.getStatus() == DesireStatus.STATUS_DELETED);
+    }
+
+    public boolean isDesireExpired(Desire desire) {
+        return (desire.getStatus() == DesireStatus.STATUS_EXPIRED);
+    }
+
+    public boolean showPrice(Desire desire) {
+        return (isDesireInRegularProcess(desire) && !desire.isBiddingAllowed());
+    }
+
+    public boolean showBidding(Desire desire) {
+        return (isDesireInRegularProcess(desire) && desire.isBiddingAllowed());
+    }
+
     public boolean modifyBidAllowed(Desire desire, Haver haver) {
         if (showBid(desire, haver) && desire.getStatus() == DesireStatus.STATUS_OPEN) {
             return true;

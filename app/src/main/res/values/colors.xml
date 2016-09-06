@@ -17,6 +17,7 @@
     <color name="colorRatingStars">@color/colorPrimary</color>
 
     <color name="colorFb">#3B5998</color>
+    <color name="colorAlert">#FFED0B17</color>
 
     <!--haver_status_colors -->
     <color name="status_open">#e8dd0c</color>

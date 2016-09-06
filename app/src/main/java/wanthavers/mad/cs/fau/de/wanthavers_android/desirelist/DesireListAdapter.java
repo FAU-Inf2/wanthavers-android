@@ -1,8 +1,12 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.desirelist;
 
 import android.databinding.DataBindingUtil;
+import android.graphics.ColorFilter;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
@@ -10,12 +14,14 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import de.fau.cs.mad.wanthavers.common.DesireStatus;
 import de.fau.cs.mad.wanthavers.common.Media;
 import wanthavers.mad.cs.fau.de.wanthavers_android.BR;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.DesireItemBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.CircularImageView;
+import wanthavers.mad.cs.fau.de.wanthavers_android.util.GrayscaleTransformation;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.RoundedTransformation;
 
 public class DesireListAdapter extends RecyclerView.Adapter<DesireListAdapter.ViewHolder>{
@@ -83,8 +89,18 @@ public class DesireListAdapter extends RecyclerView.Adapter<DesireListAdapter.Vi
 
 
         if (m != null) {
-            final CircularImageView profileView = desireItemBinding.desireListImage;
-            Picasso.with(desireItemBinding.getRoot().getContext()).load(m.getLowRes()).into(profileView);
+            CircularImageView profileView = desireItemBinding.desireListImage;
+
+            int desireStatus = desireItemViewModel.getDesire().getStatus();
+
+            if ((desireStatus == DesireStatus.STATUS_DELETED)
+                    || (desireStatus == DesireStatus.STATUS_EXPIRED)) {
+                Picasso.with(desireItemBinding.getRoot().getContext())
+                        .load(m.getLowRes()).transform(new GrayscaleTransformation()).into(profileView);
+            } else {
+                Picasso.with(desireItemBinding.getRoot().getContext())
+                        .load(m.getLowRes()).into(profileView);
+            }
         } else{
             //else case is neccessary as the image is otherwise overwritten on scroll
             final ImageView profileView = desireItemBinding.desireListImage;
