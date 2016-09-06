@@ -34,7 +34,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="160dp"
-            android:background="@color/colorSecondary"
+            android:background="@{desireLogic.isDesireInRegularProcess(desire.desire) ? @color/colorSecondary : @color/very_light_grey}"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
             android:paddingBottom="@dimen/list_item_padding"

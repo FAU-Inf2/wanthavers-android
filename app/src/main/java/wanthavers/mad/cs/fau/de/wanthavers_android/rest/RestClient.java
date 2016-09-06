@@ -37,7 +37,7 @@ public abstract class RestClient {
     protected static ArrayList<RestClient> clients = new ArrayList<>();
 
     //TODO: get API-URL from shared preferences or something like that
-    public static final String API_URL = BuildConfig.SERVER_URL;
+    public static final String API_URL = "https://wanthaver.com:8443";//BuildConfig.SERVER_URL;
 
     protected RestClient(@NonNull Context context) {
         checkNotNull(context);
