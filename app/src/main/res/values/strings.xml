@@ -109,11 +109,13 @@
     <string name="accept_desire_title">Auftrag akzeptieren</string>
     <string name="accept_desire_subtitle">Erstelle dein Angebot:</string>
     <string name="desire_modify_bid">Ändere dein Angebot:</string>
+    <string name="desire_modify_bid_info">(Angebot ändern)</string>
     <string name="accepted_desire_bid_title">Dein Angebot</string>
     <string name="default_location_title">Aktueller/Letzter Ort:</string>
     <string name="desire_detail_bidding_wanter_info">Du hast Bieten aktiviert. Haver müssen einen Preis vorschlagen.</string>
     <string name="desire_detail_bidding_haver_info">Bieten ist aktiviert. Du must einen Preis vorschlagen.</string>
     <string name="desire_item_bidding">Bieten</string>
+    <string name="finish_desire_info">Wurde dein Auftrag erfüllt?</string>
 
 
     <!-- currency strings -->

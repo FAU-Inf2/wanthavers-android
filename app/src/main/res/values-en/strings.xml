@@ -139,6 +139,7 @@
     <string name="accept_desire_title">Accept Desire</string>
     <string name="accept_desire_subtitle">Make your bid:</string>
     <string name="desire_modify_bid">Modify your bid:</string>
+    <string name="desire_modify_bid_info">(Modify your bid)</string>
     <string name="accepted_desire_bid_title">Your bid</string>
     <string name="select_date">&#160;&#160;Select a Expiration Date</string>
     <string name="select_date_error">Expiration Date has to be in the future!</string>
@@ -151,6 +152,7 @@
     <string name="desire_detail_bidding_wanter_info">You have enabled reversed bidding. Havers must suggest a price.</string>
     <string name="desire_detail_bidding_haver_info">Reversed bidding is enabled. You must suggest a price.</string>
     <string name="desire_item_bidding">Bidding</string>
+    <string name="finish_desire_info">Has your Desire been fulfilled?</string>
 
     <string name="desire_create_reverse_bidding_popup_title">About Reversed Bidding in WantHaver</string>
     <string name="desire_create_reverse_bidding_popup_text">Reversed Bidding text ...//TODO. For further infromation also see: </string>

@@ -250,11 +250,21 @@
                         android:layout_marginBottom="15dp"
                         android:visibility="gone">
 
+                        <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                            android:id="@+id/finish_desire_info"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorMainText"
+                            android:text="@string/finish_desire_info"
+                            android:textSize="@dimen/desire_detail_subtitle_size"/>
+
                         <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextButton
                             android:id="@+id/button_finish_desire"
                             android:background="@drawable/border_primary_nocorner"
                             android:layout_width="match_parent"
                             android:layout_height="35dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_below="@id/finish_desire_info"
                             android:text="@string/finish_desire"
                             android:textColor="@color/colorSecondary"
                             android:onClick="@{() -> actionHandler.buttonCloseTransaction()}"/>
@@ -496,7 +506,7 @@
 
                                 <TextView
                                     android:id="@+id/desire_detail_price"
-                                    android:layout_width="match_parent"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:textAppearance="?android:attr/textAppearanceMedium"
                                     android:text="@{desirelogic.showBid(desire, bidder) ? desirelogic.getPriceString(desire, bidder.requestedPrice) : desirelogic.getPriceString(desire, desire.price)}"
@@ -505,6 +515,20 @@
                                     android:textColor="@color/colorMainTextDark"
                                     android:gravity="center_vertical"
                                     android:visibility="@{desirelogic.showBiddingInfo(desire, bidder) ? View.GONE : View.VISIBLE}"/>
+
+                            <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                                android:id="@+id/desire_bidding_change_info"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="@string/desire_modify_bid_info"
+                                android:minHeight="@dimen/desire_detail_card_subtitle_min_height"
+                                android:textSize="@dimen/desire_detail_subtitle_size"
+                                android:textColor="@color/colorMainText"
+                                android:layout_toRightOf="@id/desire_detail_price"
+                                android:layout_marginLeft="30dp"
+                                android:gravity="center_vertical"
+                                android:visibility="@{desirelogic.showChangeBiddingInfo(desire, bidder) ? View.VISIBLE : View.GONE}"/>
 
                         </RelativeLayout>
 
