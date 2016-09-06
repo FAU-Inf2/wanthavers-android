@@ -25,6 +25,8 @@ public interface ChatDetailContract {
         void showSendMessageError();
 
         void showUpdatedMessageListonSendSuccess(Message message);
+
+        void showMessageEmptyError();
     }
 
 

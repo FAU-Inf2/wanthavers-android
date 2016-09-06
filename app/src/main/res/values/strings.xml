@@ -310,4 +310,5 @@
     <string name="licenseTitle">Lizenzen</string>
     <string name="eastereggonetitle">sWHipe</string>
     <string name="accept_agb">Ich bestätige die AGB</string>
+    <string name="send_message_error_empty">Leere Nachricht, die Nachricht wurde nicht gesendet</string>
 </resources>

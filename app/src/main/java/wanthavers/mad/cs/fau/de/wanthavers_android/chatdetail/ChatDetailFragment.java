@@ -139,7 +139,7 @@ public class ChatDetailFragment extends Fragment implements  ChatDetailContract.
 
 
         //set up action handler
-        mChatDetailActionHandler = new ChatDetailActionHandler(mLoggedInUser, mChatDetailFragBinding, mPresenter);
+        mChatDetailActionHandler = new ChatDetailActionHandler(mLoggedInUser, mChatDetailFragBinding, mPresenter, this);
         mChatDetailFragBinding.setActionHandler(mChatDetailActionHandler);
 
 
@@ -220,6 +220,9 @@ public class ChatDetailFragment extends Fragment implements  ChatDetailContract.
     public void showSendMessageError() {
         showMessage(getString(R.string.send_message_error));
     }
+
+    @Override
+    public void showMessageEmptyError() { showMessage(getString(R.string.send_message_error_empty));}
 
     public void setViewModel(ChatDetailViewModel viewModel){mChatDetailViewModel = viewModel;}
 
