@@ -1,11 +1,15 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.desiredetail;
 
+import android.app.ActivityManager;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+
+import java.util.List;
 
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
@@ -21,6 +25,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.haver.HaverReposi
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserLocalDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserRemoteDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserRepository;
+import wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.DesireListActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.AcceptHaver;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.DeleteHaver;
@@ -103,6 +108,26 @@ public class DesireDetailActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 // app icon in action bar clicked; goto parent activity.
+
+                ActivityManager mngr = (ActivityManager) getSystemService( ACTIVITY_SERVICE );
+
+                if(android.os.Build.VERSION.SDK_INT >= 23) {
+
+                    List<ActivityManager.AppTask> taskList = mngr.getAppTasks();
+
+                    if(taskList.size() == 1 && taskList.get(0).getTaskInfo().topActivity.getClassName().equals(this.getClass().getName())) {
+                        Intent intent = new Intent(getApplicationContext(), DesireListActivity.class);
+                        startActivity(intent);
+                    }
+
+                } else {
+                    List<ActivityManager.RunningTaskInfo> taskList = mngr.getRunningTasks(10);
+                    if(taskList.get(0).numActivities == 1 && taskList.get(0).topActivity.getClassName().equals(this.getClass().getName())) {
+                        Intent intent = new Intent(getApplicationContext(), DesireListActivity.class);
+                        startActivity(intent);
+                    }
+                }
+
                 this.finish();
                 return true;
             default:

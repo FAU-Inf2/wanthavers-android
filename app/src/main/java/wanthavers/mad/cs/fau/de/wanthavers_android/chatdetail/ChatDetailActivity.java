@@ -1,5 +1,6 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.chatdetail;
 
+import android.app.ActivityManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -18,6 +19,8 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.List;
+
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import de.fau.cs.mad.wanthavers.common.AppChatLastSeen;
@@ -33,6 +36,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireRepo
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireLocalDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireRemoteDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.ormlite.AppChatLastSeenDatabaseHelper;
+import wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.DesireListActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetMessageList;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.SendMessage;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.ActivityUtils;
@@ -167,6 +171,26 @@ public class ChatDetailActivity extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
+
+        ActivityManager mngr = (ActivityManager) getSystemService( ACTIVITY_SERVICE );
+
+        if(android.os.Build.VERSION.SDK_INT >= 23) {
+            
+            List<ActivityManager.AppTask> taskList = mngr.getAppTasks();
+
+            if(taskList.size() == 1 && taskList.get(0).getTaskInfo().topActivity.getClassName().equals(this.getClass().getName())) {
+                Intent intent = new Intent(getApplicationContext(), DesireListActivity.class);
+                startActivity(intent);
+            }
+
+        } else {
+            List<ActivityManager.RunningTaskInfo> taskList = mngr.getRunningTasks(10);
+            if(taskList.get(0).numActivities == 1 && taskList.get(0).topActivity.getClassName().equals(this.getClass().getName())) {
+                Intent intent = new Intent(getApplicationContext(), DesireListActivity.class);
+                startActivity(intent);
+            }
+        }
+
         onBackPressed();
         return true;
     }
