@@ -295,6 +295,9 @@
         org.glassfish.jersey.media:jersey-media-multipart:2.23: CDDL, GPL 1.1\n
         com.j256.ormlite:ormlite-android:4.48: ISC -> Open Source License\n
         commons-io:commons-io:2.4: Apache V2.0\n
+
+        Black-white-image-filter:\n
+        made by Daichi Furiya from https://github.com/wasabeef/picasso-transformations/
     </string>
     <string name="licenseTitle">Licenses</string>
     <string name="eastereggonetitle">sWHipe</string>
