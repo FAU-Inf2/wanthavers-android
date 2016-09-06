@@ -276,6 +276,7 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
 
         if (mDesireDetailView.getBidInput() == -1) {
             mDesireDetailView.closeAcceptDesirePopup();
+            return;
         }
 
         UpdateRequestedPrice.RequestValues requestValues =

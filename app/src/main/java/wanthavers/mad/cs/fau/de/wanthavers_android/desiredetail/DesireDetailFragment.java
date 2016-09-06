@@ -595,7 +595,10 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
 
         //Set up flag reason spinner
         Spinner mFlagReasonSpinner = mDesiredetailReportPopupBinding.reportReasonSpinner;
-        mFlagReasonSpinner.setAdapter(new ArrayAdapter<FlagReason>(getActivity(), android.R.layout.simple_spinner_item, FlagReason.values()));
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.report_reasons, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mFlagReasonSpinner.setAdapter(adapter);
+        //mFlagReasonSpinner.setAdapter(new ArrayAdapter<FlagReason>(getActivity(), android.R.layout.simple_spinner_item, R.array.report_reasons));
 
         mReportDialog.show();
     }
@@ -604,7 +607,17 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
     public DesireFlag getReport() {
         //get values
         String comment = mDesiredetailReportPopupBinding.reportComment.getText().toString();
-        FlagReason flagReason = (FlagReason) mDesiredetailReportPopupBinding.reportReasonSpinner.getSelectedItem();
+        FlagReason flagReason = null;
+        String flagString = (String) mDesiredetailReportPopupBinding.reportReasonSpinner.getSelectedItem();
+        String[] flags = getResources().getStringArray(R.array.report_reasons);
+
+        if (flagString.equals(flags[0])) {
+            flagReason = FlagReason.INAPPROPRIATE;
+        } else  if (flagString.equals(flags[1])) {
+            flagReason = FlagReason.IMPOSSIBLE;
+        } else  if (flagString.equals(flags[2])) {
+            flagReason = FlagReason.SPAM;
+        }
 
         DesireFlag desireFlag = new DesireFlag();
         if (!comment.equals("")) {

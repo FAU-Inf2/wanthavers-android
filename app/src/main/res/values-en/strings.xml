@@ -163,6 +163,12 @@
     <string name="desire_create_select_hours">Set in Hours</string>
     <string name="desire_create_expire_title">Expiration Date</string>
 
+    <string-array name="report_reasons">
+        <item name="report_inappropiate">INAPPROPRIATE</item>
+        <item name="report_impossible">IMPOSSIBLE</item>
+        <item name="spam">SPAM</item>
+    </string-array>
+
     <string-array name="currencies">
         <item>\u20AC</item>
         <item>\u0024</item>

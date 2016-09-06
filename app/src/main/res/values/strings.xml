@@ -245,7 +245,11 @@
     <string name="settings_manage_locations_title">Verwalte deine gespeicherten Orte</string>
     <string name="settings_manage_locations_button">Gehe zur Ortsverwaltung</string>
 
-
+    <string-array name="report_reasons">
+        <item name="report_inappropiate">UNANGEMESSEN</item>
+        <item name="report_impossible">UNMÖGLICH</item>
+        <item name="spam">SPAM</item>
+    </string-array>
 
     <string-array name="currencies">
         <item>\u20AC</item>
