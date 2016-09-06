@@ -72,29 +72,6 @@
 
 
 
-
-            <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
-                android:id="@+id/forgot_pw"
-                android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:layout_marginTop="10dp"
-                android:text="@string/forgotPw"
-                android:layout_alignParentBottom="true"
-                android:onClick="@{() -> presenter.resetPassword()}"/>
-
-
-            <Button
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="10dp"
-                android:text="@string/signin"
-                android:id="@+id/login"
-                android:textColor="@color/colorSecondary"
-                android:background="@drawable/border_primary_nocorner"
-                android:layout_above="@id/forgot_pw"
-                android:onClick="@{() -> presenter.loginUserWithInput()}"/>
-
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/register_email"
                 android:background="@color/colorSecondary"
@@ -133,6 +110,28 @@
                     android:maxLength="30"/>
 
             </android.support.design.widget.TextInputLayout>
+
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/signin"
+                android:id="@+id/login"
+                android:textColor="@color/colorSecondary"
+                android:background="@drawable/border_primary_nocorner"
+                android:layout_below="@id/register_password"
+                android:onClick="@{() -> presenter.loginUserWithInput()}"/>
+
+            <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                android:id="@+id/forgot_pw"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/forgotPw"
+                android:layout_below="@id/login"
+                android:onClick="@{() -> presenter.resetPassword()}"/>
 
 
         </RelativeLayout>
