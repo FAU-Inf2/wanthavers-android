@@ -150,7 +150,7 @@ public class ChatDetailActivity extends AppCompatActivity {
             Media m = otherUser.getImage();
 
             if (m != null) {
-                Picasso.with(context).load(m.getLowRes()).transform(new RoundedTransformation(200, 0)).into(otherUserPicture);
+                Picasso.with(context).load(m.getLowRes()).transform(new RoundedTransformation(1000, 0)).into(otherUserPicture);
             }
 
         }
