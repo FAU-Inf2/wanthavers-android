@@ -5,8 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -75,7 +77,12 @@ public class DesireListActivity extends AppCompatActivity {
 
             if(pushMessageNotification.mMessageNotificationType.equals(MessageNotificationType.CHAT_MESSAGE.toString())){
                 MenuView.ItemView chatItem = (MenuView.ItemView) findViewById(R.id.menu_chat);
-                Drawable iconNewMessage = getResources().getDrawable(R.drawable.wh_chat_icon_new_message_light,null);
+                Drawable iconNewMessage = null;
+                if (Build.VERSION.SDK_INT >= 21) {
+                    iconNewMessage = getResources().getDrawable(R.drawable.wh_chat_icon_new_message_light,null);
+                } else {
+                    ContextCompat.getDrawable(context, R.drawable.wh_chat_icon_new_message_light);
+                }
                 chatItem.setIcon(iconNewMessage);
             }
         }
