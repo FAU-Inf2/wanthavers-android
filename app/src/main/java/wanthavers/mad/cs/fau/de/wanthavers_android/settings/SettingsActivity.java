@@ -70,7 +70,8 @@ public class SettingsActivity extends AppCompatActivity {
         MediaRepository mediaRepository = MediaRepository.getInstance(MediaRemoteDataSource.getInstance(context), MediaLocalDataSource.getInstance(context));
 
         mSettingsPresenter = new SettingsPresenter(getApplicationContext(), UseCaseHandler.getInstance(), settingsFragment,
-                new GetUser(userRepository), new UpdateUser(userRepository), new CreateImage(mediaRepository), new SendPWResetToken(userRepository));
+                new GetUser(userRepository), new UpdateUser(userRepository), new CreateImage(mediaRepository),
+                new SendPWResetToken(userRepository), desireLogic);
     }
 
     @Override

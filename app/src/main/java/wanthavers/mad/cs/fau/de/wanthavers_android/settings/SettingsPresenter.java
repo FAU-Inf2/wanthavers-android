@@ -12,6 +12,7 @@ import de.fau.cs.mad.wanthavers.common.Media;
 import de.fau.cs.mad.wanthavers.common.User;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCase;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.CreateImage;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetUser;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.SendPWResetToken;
@@ -28,10 +29,11 @@ public class SettingsPresenter implements SettingsContract.Presenter {
     private final UpdateUser mUpdateUser;
     private final CreateImage mCreateImage;
     private final SendPWResetToken mSendPWResetToken;
+    private final DesireLogic mDesireLogic;
 
     public SettingsPresenter(@NonNull Context appContext, @NonNull UseCaseHandler useCaseHandler, @NonNull SettingsContract.View settingsView,
                              @NonNull GetUser getUser, @NonNull UpdateUser updateUser, @NonNull CreateImage createImage,
-                             @NonNull SendPWResetToken sendPWResetToken) {
+                             @NonNull SendPWResetToken sendPWResetToken, @NonNull DesireLogic desireLogic) {
         mAppContext = checkNotNull(appContext);
         mUseCaseHandler = checkNotNull(useCaseHandler, "useCaseHandler cannot be null");
         mSettingsView = checkNotNull(settingsView, "settings view cannont be null");
@@ -39,6 +41,7 @@ public class SettingsPresenter implements SettingsContract.Presenter {
         mUpdateUser = checkNotNull(updateUser);
         mCreateImage = checkNotNull(createImage);
         mSendPWResetToken = checkNotNull(sendPWResetToken);
+        mDesireLogic = checkNotNull(desireLogic);
 
         mSettingsView.setPresenter(this);
     }
@@ -64,7 +67,7 @@ public class SettingsPresenter implements SettingsContract.Presenter {
 
     @Override
     public void start() {
-        //TODO ?
+        getUser(mDesireLogic.getLoggedInUserId());
     }
 
     /*public void getUserForMailUpdate(long userId, final String mail) {

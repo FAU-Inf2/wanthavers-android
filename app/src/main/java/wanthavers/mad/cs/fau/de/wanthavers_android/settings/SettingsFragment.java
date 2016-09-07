@@ -74,7 +74,7 @@ public class SettingsFragment extends Fragment implements SettingsContract.View 
 
         mSettingsFragBinding = SettingsFragBinding.inflate(inflater, container, false);
 
-        mPresenter.getUser(mDesireLogic.getLoggedInUserId());
+        //mPresenter.getUser(mDesireLogic.getLoggedInUserId());
 
         setHasOptionsMenu(true);
 
