@@ -150,6 +150,10 @@ public class DesireListPresenter implements DesireListContract.Presenter {
                             int sizeDesires = desires.size();
                             int sizeNewDesires = newDesires.size();
 
+                            if(sizeNewDesires == 0) {
+                                return;
+                            }
+
                             if (sizeDesires > 0 && sizeNewDesires > 0) {
                                 if (desires.get(desires.size() - 1).getId() == newDesires.get(0).getId()) {
                                     newDesires.remove(0);

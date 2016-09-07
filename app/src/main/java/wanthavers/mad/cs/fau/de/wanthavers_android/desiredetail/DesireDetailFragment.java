@@ -392,9 +392,7 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
     @Override
     public void showSetHaverError() {
         if (isAdded()) {
-            if (isAdded()) {
-                showMessage(getString(R.string.setting_haver_error));
-            }
+            showMessage(getString(R.string.setting_haver_error));
         }
     }
 
