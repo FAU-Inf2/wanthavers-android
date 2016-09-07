@@ -252,4 +252,8 @@ public class SettingsPresenter implements SettingsContract.Presenter {
         mSettingsView.showFilterSettings();
     }
 
+    public void showEmptyUserDataError() {
+        mSettingsView.showEmptyUserDataError();
+    }
+
 }

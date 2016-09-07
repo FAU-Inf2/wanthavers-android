@@ -30,6 +30,8 @@ public interface SettingsContract {
         void showSettingsScreen();
 
         void showLocationList();
+
+        void showEmptyUserDataError();
     }
 
     interface Presenter extends BasePresenter {
@@ -47,5 +49,7 @@ public interface SettingsContract {
         void upDateUserIncludingMail(final User user);
 
         void openLocationList();
+
+        void showEmptyUserDataError();
     }
 }

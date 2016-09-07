@@ -25,12 +25,16 @@ public class SettingsActionHandler {
         }
 
         String firstName = mSettingsFragBinding.userFirstName.getText().toString();
-        user.setName(firstName);
-        user.setFirstName(firstName);
         String lastName = mSettingsFragBinding.userLastName.getText().toString();
-        user.setLastName(lastName);
-
         String email = mSettingsFragBinding.userMail.getText().toString();
+
+        if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty()) {
+            mListener.showEmptyUserDataError();
+            return;
+        }
+
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
         user.setEmail(email);
 
         mListener.upDateUserIncludingMail(user);
