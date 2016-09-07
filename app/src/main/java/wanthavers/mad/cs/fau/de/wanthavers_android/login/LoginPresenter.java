@@ -271,6 +271,7 @@ public class LoginPresenter implements LoginContract.Presenter {
 
         //put together user object
         User user = new User(firstname.getText().toString(), email.getText().toString());
+        user.setName(firstname.getText().toString());
         user.setFirstName(firstname.getText().toString());
         user.setLastName(lastname.getText().toString());
         user.setLangCode(Locale.getDefault().toString());
