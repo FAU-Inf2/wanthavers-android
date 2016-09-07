@@ -33,6 +33,7 @@ public class SettingsActionHandler {
             return;
         }
 
+        user.setName(firstName);
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setEmail(email);
