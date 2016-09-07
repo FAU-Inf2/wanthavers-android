@@ -316,4 +316,6 @@
     <string name="eastereggonetitle">sWHipe</string>
     <string name="accept_agb">Ich bestätige die AGB</string>
     <string name="send_message_error_empty">Leere Nachricht, die Nachricht wurde nicht gesendet</string>
+    <string name="cm_haver_unaccepted">wurde von aktzeptierten Haver abgebrochen</string>
+    <string name="cm_wanter_unaccepted">wurde vom akzeptierten wanter abgebrochen</string>
 </resources>

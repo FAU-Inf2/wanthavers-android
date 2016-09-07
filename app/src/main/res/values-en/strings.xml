@@ -303,4 +303,6 @@
     <string name="eastereggonetitle">sWHipe</string>
     <string name="accept_agb">I accept the terms and conditions</string>
     <string name="send_message_error_empty">Leere Nachricht, die Nachricht wurde nicht gesendet</string>
+    <string name="cm_haver_unaccepted">has been rejected by the accepted Haver</string>
+    <string name="cm_wanter_unaccepted">has been rejected by the accepted Wanter</string>
 </resources>
