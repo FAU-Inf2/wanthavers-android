@@ -376,47 +376,68 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
 
     @Override
     public void showLoadingHaversError() {
-        showMessage(getString(R.string.loading_havers_error));
+
+        if (isAdded()) {
+            showMessage(getString(R.string.loading_havers_error));
+        }
     }
 
     @Override
     public void showLoadingDesireError() {
-        showMessage(getString(R.string.loading_desire_error));
+        if (isAdded()) {
+            showMessage(getString(R.string.loading_desire_error));
+        }
     }
 
     @Override
     public void showSetHaverError() {
-        showMessage(getString(R.string.setting_haver_error));
+        if (isAdded()) {
+            if (isAdded()) {
+                showMessage(getString(R.string.setting_haver_error));
+            }
+        }
     }
 
     @Override
     public void showAcceptHaverError() {
-        showMessage(getString(R.string.accepting_haver_error));
+        if (isAdded()) {
+            showMessage(getString(R.string.accepting_haver_error));
+        }
     }
 
     @Override
     public void showGetChatForDesireError() {
-        showMessage(getString(R.string.get_chat_for_desire_error));
+        if (isAdded()) {
+            showMessage(getString(R.string.get_chat_for_desire_error));
+        }
     }
 
     @Override
     public void showUpdateDesireStatusError() {
-        showMessage(getString(R.string.closing_transaction_error));
+        if (isAdded()) {
+            showMessage(getString(R.string.closing_transaction_error));
+        }
     }
 
     @Override
     public void showDeleteDesireError() {
-        showMessage(getString(R.string.delete_desire_error));
+        if (isAdded()) {
+            showMessage(getString(R.string.delete_desire_error));
+        }
     }
 
     @Override
     public void showFlagDesireError() {
-        showMessage(getString(R.string.flag_desire_error));
+        if (isAdded()) {
+            showMessage(getString(R.string.flag_desire_error));
+        }
     }
 
     @Override
     public void showDeleteHaverError() {
-        showMessage(getString(R.string.desire_detail_delete_haver_error));
+        if (isAdded()) {
+            showMessage(getString(R.string.desire_detail_delete_haver_error));
+        }
     }
 
     public void setDesireLogic(DesireLogic desireLogic){mDesireLogic = desireLogic;}
@@ -455,7 +476,9 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
     }*/
 
     public void showHaverAcceptStatus() {
-        mDesireDetailFragBinding.desireHaverStatus.setText(R.string.haver_status_waiting);
+        if (isAdded()) {
+            mDesireDetailFragBinding.desireHaverStatus.setText(R.string.haver_status_waiting);
+        }
     }
 
     /*public boolean isHaver(List<Haver> havers) {
@@ -724,6 +747,8 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
 
     @Override
     public void showTransactionSuccessMessage(){
-        showMessage(getString(R.string.closing_transaction_success));
+        if (isAdded()) {
+            showMessage(getString(R.string.closing_transaction_success));
+        }
     }
 }

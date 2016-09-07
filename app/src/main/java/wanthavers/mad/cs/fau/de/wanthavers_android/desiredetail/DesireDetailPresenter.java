@@ -116,6 +116,7 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
                     @Override
                     public void onError() {
                         mDesireDetailView.showLoadingDesireError();
+                        mDesireDetailView.closeView();
                     }
                 });
 
@@ -482,6 +483,7 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
                     @Override
                     public void onError() {
                         mDesireDetailView.showLoadingDesireError();
+                        mDesireDetailView.closeView();
                     }
                 }
         );
