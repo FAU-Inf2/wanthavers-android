@@ -213,6 +213,9 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
         if (biddingAllowed && mDesireDetailView.getBidInput() == -1) {
             return;
         }
+        if (biddingAllowed) {
+            mDesireDetailView.closeAcceptDesirePopup();
+        }
 
         GetUser.RequestValues requestValues = new GetUser.RequestValues(mDesireLogic.getLoggedInUserId());
 
@@ -233,9 +236,6 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
 
                     @Override
                     public void onError() {
-                        if (biddingAllowed) {
-                            mDesireDetailView.closeAcceptDesirePopup();
-                        }
                         mDesireDetailView.showSetHaverError();
                     }
                 });
@@ -256,15 +256,11 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
                         loadDesire();
                         if (biddingAllowed) {
                             mDesireDetailView.setBidder(response.getHaver());
-                            mDesireDetailView.closeAcceptDesirePopup();
                         }
                     }
 
                     @Override
                     public void onError() {
-                        if (biddingAllowed) {
-                            mDesireDetailView.closeAcceptDesirePopup();
-                        }
                         mDesireDetailView.showSetHaverError();
                     }
                 }
