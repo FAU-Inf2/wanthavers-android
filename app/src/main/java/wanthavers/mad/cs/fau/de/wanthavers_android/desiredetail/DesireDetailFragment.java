@@ -286,7 +286,9 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
             mDesireDetailFragBinding.finishDesire.setVisibility(View.GONE);
 
             if (mDesireLogic.isDesireCreator(creator.getId())) {
-                mDesireDetailFragBinding.desireHaverStatus.setText(getString(R.string.haver_status_open));
+                if(isAdded()) {
+                    mDesireDetailFragBinding.desireHaverStatus.setText(getString(R.string.haver_status_open));
+                }
             }
         } else if (desire.getStatus() == DesireStatus.STATUS_IN_PROGRESS) {
             mPresenter.getAcceptedHaver(desire.isBiddingAllowed());
@@ -294,7 +296,9 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
             mDesireDetailFragBinding.acceptDesire.setVisibility(View.GONE);
             if (mDesireLogic.isDesireCreator(creator.getId())) {
                 mDesireDetailFragBinding.finishDesire.setVisibility(View.VISIBLE);
-                mDesireDetailFragBinding.desireHaverStatus.setText(getString(R.string.haver_status_in_progress));
+                if(isAdded()) {
+                    mDesireDetailFragBinding.desireHaverStatus.setText(getString(R.string.haver_status_in_progress));
+                }
             }
         } else if (desire.getStatus() == DesireStatus.STATUS_DONE) {
             mPresenter.getAcceptedHaver(desire.isBiddingAllowed());
@@ -302,7 +306,7 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
             mDesireDetailFragBinding.acceptDesire.setVisibility(View.GONE);
             mDesireDetailFragBinding.cancelDesire.setVisibility(View.GONE);
             mDesireDetailFragBinding.finishDesire.setVisibility(View.GONE);
-            if (mDesireLogic.isDesireCreator(creator.getId())) {
+            if (isAdded() && mDesireLogic.isDesireCreator(creator.getId())) {
                 mDesireDetailFragBinding.desireHaverStatus.setText(getString(R.string.haver_status_done));
             }
         }
@@ -490,10 +494,14 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
 
     public void showBidderView(boolean active) {
         if (active) {
-            mDesireDetailFragBinding.desireDetailPriceTitle.setText(getString(R.string.accepted_desire_bid_title));
+            if (isAdded()) {
+                mDesireDetailFragBinding.desireDetailPriceTitle.setText(getString(R.string.accepted_desire_bid_title));
+            }
         } else {
-            mDesireDetailFragBinding.desireDetailPriceTitle.setText(getString(R.string.create_desire_price_header));
-            mDesireDetailFragBinding.setBidder(null);
+            if (isAdded()) {
+                mDesireDetailFragBinding.desireDetailPriceTitle.setText(getString(R.string.create_desire_price_header));
+                mDesireDetailFragBinding.setBidder(null);
+            }
         }
     }
 
@@ -557,7 +565,9 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
         mDesiredetailAcceptDesirePopupBinding.setDesirelogic(mDesireLogic);
 
         if (!initialCall) {
-            mDesiredetailAcceptDesirePopupBinding.acceptDesireTitle.setText(getString(R.string.desire_modify_bid));
+            if (isAdded()) {
+                mDesiredetailAcceptDesirePopupBinding.acceptDesireTitle.setText(getString(R.string.desire_modify_bid));
+            }
             mDesiredetailAcceptDesirePopupBinding.buttonSubmitBid.setVisibility(View.GONE);
             mDesiredetailAcceptDesirePopupBinding.buttonSubmitModifiedBid.setVisibility(View.VISIBLE);
             mDesiredetailAcceptDesirePopupBinding.acceptDesireSubtitle.setVisibility(View.GONE);
