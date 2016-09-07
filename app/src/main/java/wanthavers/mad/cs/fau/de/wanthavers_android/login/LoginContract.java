@@ -27,12 +27,6 @@ public interface LoginContract {
         void toggleRegButton();
 
         void checkButtons();
-
-        void showSetNameDialog(User user);
-
-        void closeSetNameDialog();
-
-        User updateUserData(User user);
     }
 
 
@@ -45,6 +39,8 @@ public interface LoginContract {
         void login(String userMail,String userPw, boolean isRegistering);
 
         void loginUserWithInput();
+
+        void openUserUpdateView(User user);
 
         void openLoginView();
 
@@ -67,5 +63,7 @@ public interface LoginContract {
         void openAgb();
 
         void submitFirstLastName(User user);
+
+        void logout();
     }
 }

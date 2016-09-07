@@ -62,7 +62,6 @@ public class RegisterFragment extends Fragment implements LoginContract.View {
         super.onCreateOptionsMenu(menu, inflater);
     }*/
 
-
     @Override
     public void showDesireList() {
         Intent intent = new Intent(getContext(), DesireListActivity.class);
@@ -122,21 +121,5 @@ public class RegisterFragment extends Fragment implements LoginContract.View {
     public void checkButtons() {
 
     }
-
-    @Override
-    public void showSetNameDialog(User user) {
-
-    }
-
-    @Override
-    public User updateUserData(User user) {
-        return null;
-    }
-
-    @Override
-    public void closeSetNameDialog() {
-
-    }
-
 
 }

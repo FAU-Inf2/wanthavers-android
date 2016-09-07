@@ -12,15 +12,20 @@ import android.widget.VideoView;
 
 import java.io.IOException;
 
+import de.fau.cs.mad.wanthavers.common.User;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.appversion.AppVersionLocalDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.appversion.AppVersionRemoteDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.appversion.AppVersionRepository;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.cloudmessagetoken.CloudMessageTokenLocalDataSource;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.cloudmessagetoken.CloudMessageTokenRemoteDataSource;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.cloudmessagetoken.CloudMessageTokenRepository;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserLocalDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserRemoteDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserRepository;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.CreateUser;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.DeleteToken;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetAppVersion;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.LoginUser;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.SendPWResetToken;
@@ -37,6 +42,7 @@ public class LoginActivity extends AppCompatActivity{
     private GetAppVersion mGetAppVersion;
     private SendPWResetToken mPWReset;
     private UpdateUser mUpdateUser;
+    private DeleteToken mDeleteToken;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +63,8 @@ public class LoginActivity extends AppCompatActivity{
 
         Context context = getApplicationContext();
 
-
+        CloudMessageTokenRepository tokenRepository = CloudMessageTokenRepository.getInstance(CloudMessageTokenRemoteDataSource.getInstance(context), CloudMessageTokenLocalDataSource.getInstance(context));
+        mDeleteToken = new DeleteToken(tokenRepository);
 
         UserRepository userRepository = UserRepository.getInstance(UserRemoteDataSource.getInstance(context), UserLocalDataSource.getInstance(context));
         mCreateUser = new CreateUser(userRepository);
@@ -66,7 +73,7 @@ public class LoginActivity extends AppCompatActivity{
         mUpdateUser = new UpdateUser(userRepository);
         mGetAppVersion = new GetAppVersion(AppVersionRepository.getInstance(AppVersionRemoteDataSource.getInstance(context), AppVersionLocalDataSource.getInstance(context)));
 
-        mLoginPresenter = new LoginPresenter(UseCaseHandler.getInstance(), startUpFragment, getApplicationContext(), this, mCreateUser, mGetAppVersion, mLoginUser, mPWReset,mUpdateUser);
+        mLoginPresenter = new LoginPresenter(UseCaseHandler.getInstance(), startUpFragment, getApplicationContext(), this, mCreateUser, mGetAppVersion, mLoginUser, mPWReset,mUpdateUser, mDeleteToken);
         startUpFragment.setPresenter(mLoginPresenter);
     }
 
@@ -80,7 +87,7 @@ public class LoginActivity extends AppCompatActivity{
                 .replace(R.id.contentFrame,startUpFragment)
                 .commit();
 
-        mLoginPresenter = new LoginPresenter(UseCaseHandler.getInstance(), startUpFragment, getApplicationContext(), this, mCreateUser, mGetAppVersion, mLoginUser, mPWReset,mUpdateUser);
+        mLoginPresenter = new LoginPresenter(UseCaseHandler.getInstance(), startUpFragment, getApplicationContext(), this, mCreateUser, mGetAppVersion, mLoginUser, mPWReset,mUpdateUser, mDeleteToken);
     }
 
     public void setLoginFragment(){
@@ -93,7 +100,7 @@ public class LoginActivity extends AppCompatActivity{
                 .replace(R.id.contentFrame,loginFragment)
                 .commit();
 
-        mLoginPresenter = new LoginPresenter(UseCaseHandler.getInstance(), loginFragment, getApplicationContext(), this, mCreateUser, mGetAppVersion, mLoginUser, mPWReset,mUpdateUser);
+        mLoginPresenter = new LoginPresenter(UseCaseHandler.getInstance(), loginFragment, getApplicationContext(), this, mCreateUser, mGetAppVersion, mLoginUser, mPWReset,mUpdateUser, mDeleteToken);
     }
 
     public void setRegisterFragment(){
@@ -105,7 +112,18 @@ public class LoginActivity extends AppCompatActivity{
                 .replace(R.id.contentFrame,registerFragment)
                 .commit();
 
-        mLoginPresenter = new LoginPresenter(UseCaseHandler.getInstance(), registerFragment, getApplicationContext(), this, mCreateUser, mGetAppVersion, mLoginUser, mPWReset,mUpdateUser);
+        mLoginPresenter = new LoginPresenter(UseCaseHandler.getInstance(), registerFragment, getApplicationContext(), this, mCreateUser, mGetAppVersion, mLoginUser, mPWReset,mUpdateUser, mDeleteToken);
+    }
+
+    public void setUpdateUserFragment(User user) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        UpdateUserFragment updateUserFragment = UpdateUserFragment.newInstance(user);
+
+        fragmentManager.beginTransaction()
+                .replace(R.id.contentFrame,updateUserFragment)
+                .commit();
+
+        mLoginPresenter = new LoginPresenter(UseCaseHandler.getInstance(), updateUserFragment, getApplicationContext(), this, mCreateUser, mGetAppVersion, mLoginUser, mPWReset,mUpdateUser, mDeleteToken);
     }
 
 }

@@ -13,11 +13,14 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.widget.CalendarView;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -32,6 +35,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCase;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.CreateUser;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.DeleteToken;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetAppVersion;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.LoginUser;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.SendMessage;
@@ -53,10 +57,11 @@ public class LoginPresenter implements LoginContract.Presenter {
     private final LoginUser mLoginUser;
     private final SendPWResetToken mSendPWResetToken;
     private final UpdateUser mUpdateUser;
+    private final DeleteToken mDeleteToken;
 
     public LoginPresenter(@NonNull UseCaseHandler ucHandler, @NonNull LoginContract.View view, @NonNull Context appContext,
                           @NonNull LoginActivity activity, @NonNull CreateUser createUser, @NonNull GetAppVersion getAppVersion, @NonNull LoginUser loginUser, @NonNull SendPWResetToken sendPWResetToken,
-                          @NonNull UpdateUser updateUser) {
+                          @NonNull UpdateUser updateUser, @NonNull DeleteToken deleteToken) {
 
         mUseCaseHandler = ucHandler;
         mLoginView = view;
@@ -69,6 +74,7 @@ public class LoginPresenter implements LoginContract.Presenter {
         mLoginUser = loginUser;
         mSendPWResetToken = sendPWResetToken;
         mUpdateUser = updateUser;
+        mDeleteToken = deleteToken;
 
     }
 
@@ -163,7 +169,7 @@ public class LoginPresenter implements LoginContract.Presenter {
                         User user = response.getUser();
 
                         if (user.getFirstName() == null || user.getLastName() == null) {
-                            mLoginView.showSetNameDialog(user);
+                            openUserUpdateView(user);
                         } else {
 
                             sharedPreferencesHelper.saveLong(SharedPreferencesHelper.KEY_USERID, user.getId());
@@ -220,6 +226,11 @@ public class LoginPresenter implements LoginContract.Presenter {
                     }
                 }
         );
+    }
+
+    @Override
+    public void openUserUpdateView(User user) {
+        mActivity.setUpdateUserFragment(user);
     }
 
 
@@ -377,31 +388,70 @@ public class LoginPresenter implements LoginContract.Presenter {
     @Override
     public void submitFirstLastName(final User user) {
 
-        User updatedUser = mLoginView.updateUserData(user);
+        EditText firstNameView = (EditText) mActivity.findViewById(R.id.user_first_name);
+        EditText lastNameView = (EditText) mActivity.findViewById(R.id.user_last_name);
 
-        if (updatedUser == null) {
+        String firstName = firstNameView.getText().toString();
+        String lastName = lastNameView.getText().toString();
+
+        if (firstName.isEmpty() || lastName.isEmpty()) {
+            mLoginView.showMessage(mActivity.getResources().getString(R.string.login_empty_text));
             return;
         }
 
-        UpdateUser.RequestValues requestValue = new UpdateUser.RequestValues(updatedUser);
+        user.setFirstName(firstName);
+        user.setName(firstName);
+        user.setLastName(lastName);
+
+        UpdateUser.RequestValues requestValue = new UpdateUser.RequestValues(user);
 
         mUseCaseHandler.execute(mUpdateUser, requestValue,
                 new UseCase.UseCaseCallback<UpdateUser.ResponseValue>() {
 
                     @Override
                     public void onSuccess(UpdateUser.ResponseValue response) {
-                        mLoginView.closeSetNameDialog();
+                        mLoginView.showMessage(mActivity.getResources().getString(R.string.update_user_success));
                         final SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, mAppContext);
                         login(user.getEmail(), sharedPreferencesHelper.loadString(SharedPreferencesHelper.KEY_PASSWORD, ""), false);
                     }
 
                     @Override
                     public void onError() {
-                        mLoginView.closeSetNameDialog();
-                        mLoginView.showMessage(mActivity.getResources().getString(R.string.userLoginFailed));
+                        mLoginView.showMessage(mActivity.getResources().getString(R.string.update_user_error));
                     }
                 }
         );
+    }
+
+    @Override
+    public void logout() {
+
+        String token = FirebaseInstanceId.getInstance().getToken();
+        DeleteToken.RequestValues requestValue = new DeleteToken.RequestValues(token);
+
+        mUseCaseHandler.execute(mDeleteToken, requestValue,
+                new UseCase.UseCaseCallback<DeleteToken.ResponseValue>() {
+                    @Override
+                    public void onSuccess(DeleteToken.ResponseValue response) {
+                        final SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, mAppContext);
+                        sharedPreferencesHelper.saveString(SharedPreferencesHelper.KEY_USER_EMAIL, null);
+                        sharedPreferencesHelper.saveString(SharedPreferencesHelper.KEY_PASSWORD, null);
+                        sharedPreferencesHelper.saveLong(SharedPreferencesHelper.KEY_USERID, -1);
+                        RestClient.triggerSetNewBasicAuth();
+                        showLogout();
+                    }
+
+                    @Override
+                    public void onError() {
+                        Log.i("LoginPresenter", "error deleting token");
+                        showLogout();
+                    }
+                }
+        );
+    }
+
+    public void showLogout() {
+        openLoginView();
     }
 }
 

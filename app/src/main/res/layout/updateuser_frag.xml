@@ -11,48 +11,46 @@
             type="wanthavers.mad.cs.fau.de.wanthavers_android.login.LoginContract.Presenter" />
     </data>
 
-    <FrameLayout
-        android:id="@+id/desire_detail_popup"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:padding="1dp"
-        android:background="@color/colorMainText"
-        android:layout_gravity="center">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
         <RelativeLayout
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorSecondary">
+            android:background="@color/colorSecondary"
+            android:padding="20dp">
 
-            <RelativeLayout
-                android:id="@+id/set_first_last_name_title_bar"
+            <ImageView
+                android:id="@+id/login_header_logo"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:background="@color/colorPrimary">
+                android:layout_height="80dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/logo_plus_text"/>
 
-                <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
-                    android:id="@+id/set_first_last_name_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/set_first_last_name_title"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="@color/colorSecondary"
-                    android:layout_marginLeft="10dp"
-                    android:layout_centerVertical="true"/>
-
-            </RelativeLayout>
+            <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                android:id="@+id/set_first_last_name_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/set_first_last_name_title"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/colorPrimary"
+                android:layout_below="@id/login_header_logo"
+                android:layout_marginTop="20dp"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/set_first_last_name_title_bar"
-                android:padding="5dp">
+                android:layout_below="@id/set_first_last_name_title">
 
                 <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                     android:id="@+id/set_first_last_name_info"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorMainText"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="@string/set_first_last_name_info" />
 
                 <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
@@ -62,7 +60,8 @@
                     android:text="@string/settings_name_title"
                     android:textColor="@color/colorPrimary"
                     android:layout_below="@+id/set_first_last_name_info"
-                    android:layout_marginTop="10dp"/>
+                    android:layout_marginTop="10dp"
+                    android:textAppearance="?android:attr/textAppearanceMedium"/>
 
                 <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                     android:id="@+id/set_first_last_user_name"
@@ -70,7 +69,8 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorMainTextDark"
                     android:text="@{user.name}"
-                    android:layout_below="@id/set_first_last_user_name_title"/>
+                    android:layout_below="@id/set_first_last_user_name_title"
+                    android:textAppearance="?android:attr/textAppearanceMedium"/>
 
                 <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                     android:id="@+id/set_first_last_user_mail_title"
@@ -78,7 +78,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/mail_adress_title"
                     android:textColor="@color/colorPrimary"
-                    android:layout_below="@+id/set_first_last_user_name" />
+                    android:layout_below="@+id/set_first_last_user_name"
+                    android:textAppearance="?android:attr/textAppearanceMedium"/>
 
                 <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                     android:id="@+id/set_first_last_user_mail"
@@ -86,7 +87,8 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorMainTextDark"
                     android:text="@{user.email}"
-                    android:layout_below="@id/set_first_last_user_mail_title"/>
+                    android:layout_below="@id/set_first_last_user_mail_title"
+                    android:textAppearance="?android:attr/textAppearanceMedium"/>
 
                 <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                     android:id="@+id/set_first_last_name_subtitle"
@@ -95,7 +97,8 @@
                     android:layout_marginTop="10dp"
                     android:textColor="@color/colorMainText"
                     android:text="@string/set_first_last_name_subtitle"
-                    android:layout_below="@id/set_first_last_user_mail"/>
+                    android:layout_below="@id/set_first_last_user_mail"
+                    android:textAppearance="?android:attr/textAppearanceMedium"/>
 
                 <LinearLayout
                     android:id="@+id/user_name_inputs"
@@ -165,13 +168,25 @@
                     android:textColor="@color/colorSecondary"
                     android:text="@string/settings_change_user_data_button"
                     android:layout_below="@id/user_name_inputs"
-                    android:layout_margin="10dp"
+                    android:layout_marginTop="10dp"
                     android:onClick="@{() -> actionHandler.submitFirstLastName(user)}"/>
+
+                <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextButton
+                    android:id="@+id/set_first_last_name_logout"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:background="@color/colorPrimary"
+                    android:textColor="@color/colorSecondary"
+                    android:text="@string/logout_title"
+                    android:layout_marginTop="20dp"
+                    android:layout_below="@id/submit_set_first_last_name"
+                    android:onClick="@{() -> actionHandler.logout()}"/>
 
             </RelativeLayout>
 
         </RelativeLayout>
 
-    </FrameLayout>
+    </ScrollView>
 
 </layout>
