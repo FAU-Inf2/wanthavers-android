@@ -187,6 +187,10 @@ public class LoginPresenter implements LoginContract.Presenter {
                         sharedPreferencesHelper.saveString(SharedPreferencesHelper.KEY_PASSWORD, null);
                         sharedPreferencesHelper.saveLong(SharedPreferencesHelper.KEY_USERID, -1);
                         RestClient.triggerSetNewBasicAuth();
+
+                        //TODO: show buttons
+                        mLoginView.checkButtons();
+
                         mLoginView.showMessage(mActivity.getResources().getString(R.string.userLoginFailed));
                     }
                 });
@@ -235,7 +239,8 @@ public class LoginPresenter implements LoginContract.Presenter {
 
         EditText email = (EditText) mActivity.findViewById(R.id.email);
         EditText password = (EditText) mActivity.findViewById(R.id.password);
-        EditText username = (EditText) mActivity.findViewById(R.id.name);
+        EditText firstname = (EditText) mActivity.findViewById(R.id.first_name);
+        EditText lastname = (EditText) mActivity.findViewById(R.id.last_name);
         DatePicker datePicker = (DatePicker) mActivity.findViewById(R.id.RegisterCalender);
 
         Calendar cal = Calendar.getInstance();
@@ -243,13 +248,16 @@ public class LoginPresenter implements LoginContract.Presenter {
         Date datePicked = cal.getTime();
 
 
-        if (email.getText().toString().isEmpty() || password.getText().toString().isEmpty() || username.getText().toString().isEmpty()) {
+        if (email.getText().toString().isEmpty() || password.getText().toString().isEmpty()
+                || firstname.getText().toString().isEmpty() || lastname.getText().toString().isEmpty()) {
             mLoginView.showMessage(mActivity.getResources().getString(R.string.login_empty_text));
             return;
         }
 
         //put together user object
-        User user = new User(username.getText().toString(), email.getText().toString());
+        User user = new User(firstname.getText().toString(), email.getText().toString());
+        user.setFirstName(firstname.getText().toString());
+        user.setLastName(lastname.getText().toString());
         user.setLangCode(Locale.getDefault().toString());
         user.setBirthday(datePicked);
         registerUser(user, password.getText().toString());

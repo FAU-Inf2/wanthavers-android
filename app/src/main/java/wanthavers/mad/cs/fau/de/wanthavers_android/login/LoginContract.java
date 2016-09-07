@@ -24,6 +24,8 @@ public interface LoginContract {
         void closeResetPasswordDialog();
 
         void toggleRegButton();
+
+        void checkButtons();
     }
 
 

@@ -154,6 +154,8 @@
     <string name="desire_detail_bidding_haver_info">Reversed bidding is enabled. You must suggest a price.</string>
     <string name="desire_item_bidding">Bidding</string>
     <string name="finish_desire_info">Has your Desire been fulfilled?</string>
+    <string name="user_first_name">Your Firstname</string>
+    <string name="user_last_name">Your Lastname</string>
 
     <string name="desire_create_reverse_bidding_popup_title">About Reversed Bidding in WantHaver</string>
     <string name="desire_create_reverse_bidding_popup_text">Reversed Bidding text ...//TODO. For further infromation also see: </string>
@@ -293,6 +295,9 @@
         org.glassfish.jersey.media:jersey-media-multipart:2.23: CDDL, GPL 1.1\n
         com.j256.ormlite:ormlite-android:4.48: ISC -> Open Source License\n
         commons-io:commons-io:2.4: Apache V2.0\n
+
+        Black-white-image-filter:\n
+        made by Daichi Furiya from https://github.com/wasabeef/picasso-transformations/
     </string>
     <string name="licenseTitle">Licenses</string>
     <string name="eastereggonetitle">sWHipe</string>

@@ -169,7 +169,8 @@ public class StartUpFragment extends Fragment implements LoginContract.View {
         */
     }
 
-    private void checkButtons() {
+    @Override
+    public void checkButtons() {
         final SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, getContext());
         String loggedInUserMail = sharedPreferencesHelper.loadString(SharedPreferencesHelper.KEY_USER_EMAIL, null);
 

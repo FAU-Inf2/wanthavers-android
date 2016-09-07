@@ -117,5 +117,10 @@ public class RegisterFragment extends Fragment implements LoginContract.View {
         }
     }
 
+    @Override
+    public void checkButtons() {
+
+    }
+
 
 }

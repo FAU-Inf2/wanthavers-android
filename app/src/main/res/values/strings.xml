@@ -95,7 +95,7 @@
     <string name="haver_status_rejected">ABGELEHNT</string>
     <string name="haver_status_done">ABGESCHLOSSEN</string>
     <string name="haver_status_deleted">GELÖSCHT</string>
-    <string name="haver_status_expired">AUSGELAUFEN</string>
+    <string name="haver_status_expired">ABGELAUFEN</string>
     <string name="no_location_selected">Kein Ort ausgewählt</string>
     <string name="create_rating_error">Fehler beim Bestätigen des Ratings</string>
     <string name="transaction_title">DEINE TRANSAKTION</string>
@@ -117,6 +117,8 @@
     <string name="desire_detail_bidding_haver_info">Bieten ist aktiviert. Du must einen Preis vorschlagen.</string>
     <string name="desire_item_bidding">Bieten</string>
     <string name="finish_desire_info">Wurde dein Auftrag erfüllt?</string>
+    <string name="user_first_name">Dein Vorname</string>
+    <string name="user_last_name">Dein Nachname</string>
 
 
     <!-- currency strings -->
@@ -306,6 +308,9 @@
         org.glassfish.jersey.media:jersey-media-multipart:2.23: CDDL, GPL 1.1\n
         com.j256.ormlite:ormlite-android:4.48: ISC -> Open Source License\n
         commons-io:commons-io:2.4: Apache V2.0\n
+
+        Black-white-image-filter:\n
+        made by Daichi Furiya from https://github.com/wasabeef/picasso-transformations/
     </string>
     <string name="licenseTitle">Lizenzen</string>
     <string name="eastereggonetitle">sWHipe</string>
