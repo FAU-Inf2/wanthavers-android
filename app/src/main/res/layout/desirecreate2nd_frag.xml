@@ -113,8 +113,6 @@
                     android:text="@string/desire_create_bidding_title"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/colorMainTextDark"
-                    android:drawableRight="@drawable/ic_about"
-                    android:onClick="@{() -> actionHandler.openInfo()}"
                     android:layout_centerVertical="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true" />
