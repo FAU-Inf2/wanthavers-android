@@ -1,6 +1,7 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.login;
 
 import de.fau.cs.mad.wanthavers.common.Desire;
+import de.fau.cs.mad.wanthavers.common.User;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.BasePresenter;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.BaseView;
 
@@ -26,6 +27,12 @@ public interface LoginContract {
         void toggleRegButton();
 
         void checkButtons();
+
+        void showSetNameDialog(User user);
+
+        void closeSetNameDialog();
+
+        User updateUserData(User user);
     }
 
 
@@ -58,5 +65,7 @@ public interface LoginContract {
         void toggleRegButton();
 
         void openAgb();
+
+        void submitFirstLastName(User user);
     }
 }

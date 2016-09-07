@@ -318,4 +318,8 @@
     <string name="send_message_error_empty">Leere Nachricht, die Nachricht wurde nicht gesendet</string>
     <string name="cm_haver_unaccepted">wurde von aktzeptierten Haver abgebrochen</string>
     <string name="cm_wanter_unaccepted">wurde vom akzeptierten wanter abgebrochen</string>
+
+    <string name="set_first_last_name_title">Änderung der Nutzerdaten</string>
+    <string name="set_first_last_name_info">Du bist mit folgendem Account angemeldet:</string>
+    <string name="set_first_last_name_subtitle">Du hast noch keinen Vornamen und Nachnamen gesetzt. Trage die Angaben ein, um dich anzumelden:</string>
 </resources>

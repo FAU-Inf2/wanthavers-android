@@ -17,11 +17,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import de.fau.cs.mad.wanthavers.common.User;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserLocalDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserRemoteDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserRepository;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.LoginFragBinding;
+import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.LoginSetFirstLastNameBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.ResetpasswordPopupBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.DesireListActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.welcome.WelcomeActivity;
@@ -31,6 +33,8 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     private LoginContract.Presenter mPresenter;
     private Dialog mResetPassword;
     private ResetpasswordPopupBinding mResetpasswordPopupBinding;
+    private Dialog mSetFirstLastNameDialog;
+    private LoginSetFirstLastNameBinding mloginSetFirstLastNameBinding;
 
 
     public LoginFragment(){
@@ -141,6 +145,47 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     @Override
     public void checkButtons() {
 
+    }
+
+    @Override
+    public void showSetNameDialog(User user) {
+
+        mSetFirstLastNameDialog = new Dialog(getContext());
+
+        mloginSetFirstLastNameBinding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.login_set_first_last_name, null, false);
+        mSetFirstLastNameDialog.setContentView(mloginSetFirstLastNameBinding.getRoot());
+
+        mloginSetFirstLastNameBinding.setUser(user);
+        mloginSetFirstLastNameBinding.setActionHandler(mPresenter);
+
+        mSetFirstLastNameDialog.show();
+
+    }
+
+    @Override
+    public User updateUserData(User user) {
+
+        EditText firstNameView = mloginSetFirstLastNameBinding.userFirstName;
+        EditText lastNameView = mloginSetFirstLastNameBinding.userLastName;
+
+        String firstName = firstNameView.getText().toString();
+        String lastName = lastNameView.getText().toString();
+
+        if (firstName.equals("") || lastName.equals("")) {
+            showMessage(getResources().getString(R.string.login_empty_text));
+            return null;
+        }
+
+        user.setFirstName(firstName);
+        user.setName(firstName);
+        user.setLastName(lastName);
+
+        return user;
+    }
+
+    @Override
+    public void closeSetNameDialog() {
+        mSetFirstLastNameDialog.dismiss();
     }
 
     ;

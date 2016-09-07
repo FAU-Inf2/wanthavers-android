@@ -305,4 +305,8 @@
     <string name="send_message_error_empty">Leere Nachricht, die Nachricht wurde nicht gesendet</string>
     <string name="cm_haver_unaccepted">has been rejected by the accepted Haver</string>
     <string name="cm_wanter_unaccepted">has been rejected by the accepted Wanter</string>
+
+    <string name="set_first_last_name_title">Change user data</string>
+    <string name="set_first_last_name_info">You are logged in with this account:</string>
+    <string name="set_first_last_name_subtitle">You have not set your first name and last name yet. Please enter your details below to log in:</string>
 </resources>

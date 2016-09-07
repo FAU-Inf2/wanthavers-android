@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 
+import de.fau.cs.mad.wanthavers.common.User;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.RegisterFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.StartupFragBinding;
@@ -119,6 +120,21 @@ public class RegisterFragment extends Fragment implements LoginContract.View {
 
     @Override
     public void checkButtons() {
+
+    }
+
+    @Override
+    public void showSetNameDialog(User user) {
+
+    }
+
+    @Override
+    public User updateUserData(User user) {
+        return null;
+    }
+
+    @Override
+    public void closeSetNameDialog() {
 
     }
 

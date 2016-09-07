@@ -95,7 +95,6 @@ public class LoginPresenter implements LoginContract.Presenter {
     @Override
     public void loginUserWithInput() {
 
-
         EditText emailView = (EditText) mActivity.findViewById(R.id.email);
         EditText passwordView = (EditText) mActivity.findViewById(R.id.password);
 
@@ -162,22 +161,27 @@ public class LoginPresenter implements LoginContract.Presenter {
                     public void onSuccess(LoginUser.ResponseValue response) {
 
                         User user = response.getUser();
-                        sharedPreferencesHelper.saveLong(SharedPreferencesHelper.KEY_USERID, user.getId());
 
+                        if (user.getFirstName() == null || user.getLastName() == null) {
+                            mLoginView.showSetNameDialog(user);
+                        } else {
 
-                        if (isRegistering) {
-                            mLoginView.showWelcomeView();
-                            return;
+                            sharedPreferencesHelper.saveLong(SharedPreferencesHelper.KEY_USERID, user.getId());
+
+                            if (isRegistering) {
+                                mLoginView.showWelcomeView();
+                                return;
+                            }
+
+                            String defaultLanguage = Locale.getDefault().toString();
+
+                            if(user.getLangCode() == null || defaultLanguage.compareTo(user.getLangCode()) != 0){
+                                user.setLangCode(defaultLanguage);
+                                updateUser(user);
+                            }
+
+                            mLoginView.showDesireList();
                         }
-
-                        String defaultLanguage = Locale.getDefault().toString();
-
-                        if(user.getLangCode() == null || defaultLanguage.compareTo(user.getLangCode()) != 0){
-                            user.setLangCode(defaultLanguage);
-                            updateUser(user);
-                        }
-
-                        mLoginView.showDesireList();
                     }
 
                     @Override
@@ -368,6 +372,36 @@ public class LoginPresenter implements LoginContract.Presenter {
     public void openAgb() {
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://wanthaver.com/agbs.html"));
         mActivity.startActivity(browserIntent);
+    }
+
+    @Override
+    public void submitFirstLastName(final User user) {
+
+        User updatedUser = mLoginView.updateUserData(user);
+
+        if (updatedUser == null) {
+            return;
+        }
+
+        UpdateUser.RequestValues requestValue = new UpdateUser.RequestValues(updatedUser);
+
+        mUseCaseHandler.execute(mUpdateUser, requestValue,
+                new UseCase.UseCaseCallback<UpdateUser.ResponseValue>() {
+
+                    @Override
+                    public void onSuccess(UpdateUser.ResponseValue response) {
+                        mLoginView.closeSetNameDialog();
+                        final SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, mAppContext);
+                        login(user.getEmail(), sharedPreferencesHelper.loadString(SharedPreferencesHelper.KEY_PASSWORD, ""), false);
+                    }
+
+                    @Override
+                    public void onError() {
+                        mLoginView.closeSetNameDialog();
+                        mLoginView.showMessage(mActivity.getResources().getString(R.string.userLoginFailed));
+                    }
+                }
+        );
     }
 }
 
