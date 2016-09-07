@@ -61,7 +61,6 @@ public class MessageShowPushNotification extends IntentService {
         }
 
         if(pushMessage.mDesireId != null){
-            System.out.println("reached setting DesireDetail");
             intent = new Intent(this, DesireDetailActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             long desireId = Long.valueOf(pushMessage.mDesireId);
@@ -95,14 +94,12 @@ public class MessageShowPushNotification extends IntentService {
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-        System.out.println("notification type = " + notificationType);
-
         notificationManager.cancel(notificationType,0);
         notificationManager.notify(notificationType, 0 /* ID of notification */, notificationBuilder.build());
     }
 
     private String getMessageTitle(PushMessageNotification pushMessage){
-        String messageTitle = "";
+        String messageTitle = " ";
 
         if(pushMessage.mMessageNotificationType.equals(MessageNotificationType.CHAT_MESSAGE.toString())){
             return pushMessage.mSender;
@@ -122,6 +119,14 @@ public class MessageShowPushNotification extends IntentService {
 
         if(pushMessage.mMessageNotificationType.equals(MessageNotificationType.DESIRE_UPDATE.toString())){
             return pushMessage.mDesireTitle + " " + getString(R.string.cm_desire_update);
+        }
+
+        if(pushMessage.mMessageNotificationType.equals(MessageNotificationType.HAVER_UNACCEPTED.toString())){
+            return pushMessage.mDesireTitle + " " + getString(R.string.cm_haver_unaccepted);
+        }
+
+        if(pushMessage.mMessageNotificationType.equals(MessageNotificationType.WANTER_UNACCEPTED.toString())){
+            return pushMessage.mDesireTitle + " " + getString(R.string.cm_wanter_unaccepted);
         }
 
         return messageTitle;

@@ -61,10 +61,10 @@ public class MessageListenerService extends FirebaseMessagingService {
 
         if(messageType.equals(MessageNotificationType.CHAT_MESSAGE)){
             pushMessage.mChatId = remoteMessage.getData().get(CloudMessageSubject.NEWMESSAGE_CHATID);
-            pushMessage.mSender = remoteMessage.getData()   .get(CloudMessageSubject.NEWMESSAGE_SENDER);
+            pushMessage.mSender = remoteMessage.getData().get(CloudMessageSubject.NEWMESSAGE_SENDER);
         } else {
-            pushMessage.mDesireId = remoteMessage.getData().get(CloudMessageSubject.DESIRECOMPLETE_DESIREID);
-            pushMessage.mDesireTitle = remoteMessage.getData().get(CloudMessageSubject.DESIRECOMPLETE_DESIRETITLE);
+            pushMessage.mDesireId = getDesireId(remoteMessage);
+            pushMessage.mDesireTitle = getDesireTitle(remoteMessage);
         }
 
         return pushMessage;
@@ -85,8 +85,55 @@ public class MessageListenerService extends FirebaseMessagingService {
             return MessageNotificationType.HAVER_REJECTED;
         } else if (subject.equals(CloudMessageSubject.NEWHAVER)){
             return MessageNotificationType.NEW_HAVER;
+        } else if (subject.equals(CloudMessageSubject.HAVERUNACCEPTED)){
+            return MessageNotificationType.HAVER_UNACCEPTED;
+        }else if (subject.equals(CloudMessageSubject.WANTERUNACCEPTED)){
+            return  MessageNotificationType.WANTER_UNACCEPTED;
         }
 
         return MessageNotificationType.NOT_DEFINED;
+    }
+
+
+    private String getDesireId(RemoteMessage remoteMessage){
+
+        String subject = remoteMessage.getData().get("subject");
+
+        if(subject.equals(CloudMessageSubject.DESIRECOMPLETE)){
+            return remoteMessage.getData().get(CloudMessageSubject.DESIRECOMPLETE_DESIREID);
+        } else if (subject.equals(CloudMessageSubject.HAVERACCEPTED)){
+            return remoteMessage.getData().get(CloudMessageSubject.HAVERACCEPTED_DESIREID);
+        }  else if (subject.equals(CloudMessageSubject.HAVERREJECTED)){
+            return remoteMessage.getData().get(CloudMessageSubject.HAVERREJECTED_DESIREID);
+        }else if (subject.equals(CloudMessageSubject.NEWHAVER)){
+            return remoteMessage.getData().get(CloudMessageSubject.NEWHAVER_DESIREID);
+        }else if (subject.equals(CloudMessageSubject.HAVERUNACCEPTED)){
+            return remoteMessage.getData().get(CloudMessageSubject.HAVERUNACCEPTED_DESIREID);
+        }else if (subject.equals(CloudMessageSubject.WANTERUNACCEPTED)){
+            return remoteMessage.getData().get(CloudMessageSubject.WANTERUNACCEPTED_DESIREID);
+        }
+
+        return null;
+    }
+
+    private String getDesireTitle(RemoteMessage remoteMessage){
+
+        String subject = remoteMessage.getData().get("subject");
+
+        if(subject.equals(CloudMessageSubject.DESIRECOMPLETE)){
+            return remoteMessage.getData().get(CloudMessageSubject.DESIRECOMPLETE_DESIRETITLE);
+        } else if (subject.equals(CloudMessageSubject.HAVERACCEPTED)){
+            return remoteMessage.getData().get(CloudMessageSubject.HAVERACCPETED_DESIRETITLE);
+        }  else if (subject.equals(CloudMessageSubject.HAVERREJECTED)){
+            return remoteMessage.getData().get(CloudMessageSubject.HAVERREJECTED_DESIRETITLE);
+        }else if (subject.equals(CloudMessageSubject.NEWHAVER)){
+            return remoteMessage.getData().get(CloudMessageSubject.NEWHAVER_DESIRETITLE);
+        }else if (subject.equals(CloudMessageSubject.HAVERUNACCEPTED)){
+            return remoteMessage.getData().get(CloudMessageSubject.HAVERUNACCEPTED_DESIRETITLE);
+        }else if (subject.equals(CloudMessageSubject.WANTERUNACCEPTED)){
+            return remoteMessage.getData().get(CloudMessageSubject.WANTERUNACCEPTED_DESIRETITLE);
+        }
+
+        return null;
     }
 }
