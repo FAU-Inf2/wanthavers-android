@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "wanthavers.mad.cs.fau.de.wanthavers_android"
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 23
         versionCode 2
         versionName "1.1"
