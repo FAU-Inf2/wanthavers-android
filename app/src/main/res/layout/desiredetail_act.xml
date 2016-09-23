@@ -27,7 +27,7 @@ tools:context=".desiredetail.DesireDetailActivity">
             android:text="@string/desire"
             android:textColor="@color/colorSecondary"
             android:layout_gravity="center"
-            android:textSize="30dp"
+            android:textSize="20dp"
             android:background="@color/colorPrimary"
             android:id="@+id/toolbar_title"/>
 
