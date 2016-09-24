@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="user"
+            type="de.fau.cs.mad.wanthavers.common.User" />
+
+        <variable
+            name="desireLogic"
+            type="wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/user_profile_loading_screen"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorSecondary">
+
+        </RelativeLayout>
+
+        <ScrollView
+            android:id="@+id/user_profile_main_screen"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible"
+            android:fillViewport="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:weightSum="1"
+                android:background="@color/colorSecondary">
+
+                <wanthavers.mad.cs.fau.de.wanthavers_android.util.CircularImageView
+                    android:id="@+id/user_profile_picture"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_centerHorizontal="true"
+                    android:src="@android:drawable/sym_def_app_icon"/>
+
+                <RelativeLayout
+                    android:id="@+id/user_profile_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_below="@id/user_profile_picture"
+                    android:gravity="center_horizontal">
+
+                    <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                        android:id="@+id/user_profile_user_first_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="@{user.firstName}"
+                        android:textColor="@color/colorPrimary"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:maxLength="30"/>
+
+                    <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                        android:id="@+id/user_profile_user_last_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="@{user.lastName}"
+                        android:textColor="@color/colorPrimary"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:maxLength="30"
+                        android:layout_marginLeft="5dp"
+                        android:layout_toRightOf="@id/user_profile_user_first_name"/>
+
+                </RelativeLayout>
+
+                <RatingBar
+                    android:id="@+id/user_profile_itemRatingBar"
+                    style="?android:ratingBarStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_below="@id/user_profile_name"
+                    android:isIndicator="true"
+                    android:max="5"
+                    android:numStars="5"
+                    android:rating="@{(float)user.rating}"
+                    android:stepSize="0.1"
+                    android:layout_centerHorizontal="true"
+                    android:scaleX="0.7"
+                    android:scaleY="0.7"
+                    android:progressBackgroundTint="#c3bebe"
+                    android:progressTint="@color/colorRatingStars"
+                    android:secondaryProgressTint="@color/colorRatingStars"/>
+
+                <!--RelativeLayout
+                    android:id="@+id/user_profile_registered"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_below="@id/user_profile_itemRatingBar"
+                    android:gravity="center_horizontal">
+
+                    <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                        android:id="@+id/user_profile_registered_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text=""
+                        android:textColor="@color/colorPrimary"/>
+
+                    <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                        android:id="@+id/user_profile_user_registered_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@{desireLogic.getAbsoluteDateString(user)}"
+                        android:textColor="@color/colorPrimary"
+                        android:layout_marginLeft="5dp"
+                        android:layout_toRightOf="@id/user_profile_registered_title"/>
+                </RelativeLayout-->
+
+                <android.support.v7.widget.CardView
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/user_profile_statistics_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    card_view:cardCornerRadius="@dimen/desire_detail_cardCornerRadius"
+                    android:elevation="@dimen/desire_detail_elevation"
+                    android:layout_below="@id/user_profile_itemRatingBar"
+                    android:layout_marginTop="10dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <RelativeLayout
+                            android:id="@+id/user_profile_statistics_title_box"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/desire_detail_card_title_height"
+                            android:background="@color/desire_detail_layout_items_background"
+                            android:padding="@dimen/desire_detail_card_padding">
+
+                            <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                                android:id="@+id/user_profile_statistics_title"
+                                android:textSize="@dimen/desire_detail_title_size"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="Statistics"
+                                android:textColor="@color/colorPrimary"
+                                android:textAllCaps="true" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/user_profile_statistics_box"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/colorSecondary"
+                            android:layout_below="@id/user_profile_statistics_title_box"
+                            android:padding="@dimen/desire_detail_card_padding">
+
+                            <RelativeLayout
+                                android:id="@+id/user_profile_finished_desires_bar"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <ImageView
+                                    android:id="@+id/user_profile_trophy_icon"
+                                    android:layout_width="35dp"
+                                    android:layout_height="35dp"
+                                    android:src="@drawable/wh_user_profile_trophy_icon"
+                                    android:layout_centerVertical="true"/>
+
+                                <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                                    android:id="@+id/user_profile_finished_desires"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_toRightOf="@id/user_profile_trophy_icon"
+                                    android:layout_marginLeft="10dp"
+                                    android:textColor="@color/colorMainTextDark"
+                                    android:textAppearance="?android:attr/textAppearanceLarge"
+                                    android:layout_centerVertical="true"/>
+
+                                <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                                    android:id="@+id/user_profile_finished_desires_title"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_toRightOf="@id/user_profile_finished_desires"
+                                    android:layout_marginLeft="10dp"
+                                    android:textColor="@color/colorMainText"
+                                    android:textAppearance="?android:attr/textAppearanceMedium"
+                                    android:text="Erfolgreich abgeschlossene Transaktionen"
+                                    android:layout_centerVertical="true"/>
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/user_profile_canceled_desires_bar"
+                                android:layout_marginTop="10dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/user_profile_finished_desires_bar">
+
+                                <ImageView
+                                    android:id="@+id/user_profile_canceled_desires_icon"
+                                    android:layout_width="35dp"
+                                    android:layout_height="35dp"
+                                    android:src="@drawable/wh_user_profile_canceled_desires_icon"
+                                    android:layout_centerVertical="true"/>
+
+                                <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                                    android:id="@+id/user_profile_canceled_desires"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_toRightOf="@id/user_profile_canceled_desires_icon"
+                                    android:layout_marginLeft="10dp"
+                                    android:textColor="@color/colorMainTextDark"
+                                    android:textAppearance="?android:attr/textAppearanceLarge"
+                                    android:text="15"
+                                    android:layout_centerVertical="true"/>
+
+                                <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                                    android:id="@+id/user_profile_canceled_desires_title"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_toRightOf="@id/user_profile_canceled_desires"
+                                    android:layout_marginLeft="10dp"
+                                    android:textColor="@color/colorMainText"
+                                    android:textAppearance="?android:attr/textAppearanceMedium"
+                                    android:text="Abgebrochene Transaktionen"
+                                    android:layout_centerVertical="true"/>
+
+                            </RelativeLayout>
+
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/user_profile_desire_history_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    card_view:cardCornerRadius="@dimen/desire_detail_cardCornerRadius"
+                    android:elevation="@dimen/desire_detail_elevation"
+                    android:layout_below="@id/user_profile_statistics_card"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="10dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <RelativeLayout
+                            android:id="@+id/user_profile_desire_history_title_box"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/desire_detail_card_title_height"
+                            android:background="@color/desire_detail_layout_items_background"
+                            android:padding="@dimen/desire_detail_card_padding">
+
+                            <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                                android:id="@+id/user_profile_desire_history_title"
+                                android:textSize="@dimen/desire_detail_title_size"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="Desire History"
+                                android:textColor="@color/colorPrimary"
+                                android:textAllCaps="true" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/user_profile_desire_history_box"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/colorSecondary"
+                            android:layout_below="@id/user_profile_desire_history_title_box"
+                            android:padding="@dimen/desire_detail_card_padding">
+
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/user_profile_desire_history"
+                                android:background="@color/colorSecondary"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+
+                </android.support.v7.widget.CardView>
+
+            </RelativeLayout>
+
+        </ScrollView>
+
+    </RelativeLayout>
+
+</layout>

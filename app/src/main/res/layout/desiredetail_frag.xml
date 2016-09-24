@@ -36,7 +36,8 @@
         <RelativeLayout
             android:id="@+id/desire_detail_loading_screen"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/colorSecondary">
 
             <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                 android:id="@+id/desire_detail_loadting_text"
@@ -70,7 +71,8 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:weightSum="1"
-                    android:visibility="@{desirelogic.isDesireCreator(desire.creator.getId()) ? View.GONE : View.VISIBLE}">
+                    android:visibility="@{desirelogic.isDesireCreator(desire.creator.getId()) ? View.GONE : View.VISIBLE}"
+                    android:onClick="@{() -> actionHandler.buttonOpenUserProfile(desire.creator)}">
 
                     <wanthavers.mad.cs.fau.de.wanthavers_android.util.CircularImageView
                         android:id="@+id/image_wanter"
@@ -347,7 +349,8 @@
                                 android:layout_alignParentLeft="true"
                                 android:layout_alignParentStart="true"
                                 android:layout_marginTop="1dp"
-                                android:visibility="gone">
+                                android:visibility="gone"
+                                android:onClick="@{() -> actionHandler.buttonOpenUserProfile(haver.user)}">
 
                                 <wanthavers.mad.cs.fau.de.wanthavers_android.util.CircularImageView
                                     android:id="@+id/image_accepted_haver"

@@ -309,4 +309,9 @@
     <string name="set_first_last_name_title">Change user data</string>
     <string name="set_first_last_name_info">You are logged in with this account:</string>
     <string name="set_first_last_name_subtitle">You have not set your first name and last name yet. Please enter your details below to log in:</string>
+
+    <string name="user_profile">User Profile</string>
+    <string name="user_profile_member_since">Member since:</string>
+    <string name="user_profile_loading_error">Error while loading user information</string>
+
 </resources>

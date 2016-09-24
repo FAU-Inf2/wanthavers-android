@@ -62,6 +62,18 @@ public class GetDesireList extends UseCase<GetDesireList.RequestValues, GetDesir
             desireFilter.setStatus(statusFilter);
         }
 
+        if (desireListType == DesireListType.FINISHED_DESIRES) {
+            List<Integer> statusFilter = new ArrayList<>();
+            statusFilter.add(DesireStatus.STATUS_DONE);
+            desireFilter.setLimit(100000);
+            desireFilter.setCreatorId(userId);
+            desireFilter.setHaverId(userId);
+            desireFilter.setStatus(statusFilter);
+        }
+
+        if (desireListType == DesireListType.CANCELED_DESIRES) {
+            //TODO
+        }
 
         /*if(desireListType == DesireListType.MY_TRANSACTIONS){
             Long tmpDesireid = desireFilter.getLastDesireId();

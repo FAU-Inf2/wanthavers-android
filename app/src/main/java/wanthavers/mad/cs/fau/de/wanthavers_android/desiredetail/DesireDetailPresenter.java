@@ -358,6 +358,11 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
     }
 
     @Override
+    public void openUserProfile(User user) {
+        mDesireDetailView.showUserProfile(user);
+    }
+
+    @Override
     public void sendMessage(long user2Id) {
 
         GetChatForDesire.RequestValues requestValues = new GetChatForDesire.RequestValues(user2Id, mDesireId);

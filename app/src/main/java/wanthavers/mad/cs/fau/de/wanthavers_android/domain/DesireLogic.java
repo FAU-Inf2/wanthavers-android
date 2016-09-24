@@ -7,6 +7,7 @@ import android.databinding.Bindable;
 import android.text.format.DateUtils;
 import android.widget.TextView;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -45,6 +46,11 @@ public class DesireLogic {
 
 
         return dateString;
+    }
+
+    public String getAbsoluteDateString(Date date) {
+        DateFormat df = DateFormat.getDateInstance();
+        return df.format(date);
     }
 
 

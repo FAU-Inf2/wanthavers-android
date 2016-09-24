@@ -322,4 +322,8 @@
     <string name="set_first_last_name_title">Änderung der Nutzerdaten</string>
     <string name="set_first_last_name_info">Du bist mit folgendem Account angemeldet:</string>
     <string name="set_first_last_name_subtitle">Du hast noch keinen Vornamen und Nachnamen gesetzt. Trage die Angaben ein, um dich anzumelden:</string>
+
+    <string name="user_profile">Benutzer Profil</string>
+    <string name="user_profile_member_since">Mitglied seit:</string>
+    <string name="user_profile_loading_error">Fehler beim Laden von Benutzer Informationen</string>
 </resources>

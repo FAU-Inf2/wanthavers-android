@@ -90,6 +90,8 @@ public interface DesireDetailContract {
         void setBidder(Haver bidder);
 
         double getBidInput();
+
+        void showUserProfile(User user);
     }
 
 
@@ -151,6 +153,8 @@ public interface DesireDetailContract {
         void openModifyBidDialog(boolean initialCall);
 
         void unacceptAndDeleteHaver(Haver haver);
+
+        void openUserProfile(User user);
 
     }
 }

@@ -52,6 +52,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate.OnSwipeTouchList
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
 import wanthavers.mad.cs.fau.de.wanthavers_android.maps.MapActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.rating.RatingActivity;
+import wanthavers.mad.cs.fau.de.wanthavers_android.userprofile.UserProfileActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.CircularImageView;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.RoundedTransformation;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.SharedPreferencesHelper;
@@ -571,6 +572,13 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
     public void showRating(long desireId) {
         Intent intent = new Intent(getContext(), RatingActivity.class);
         intent.putExtra(RatingActivity.EXTRA_DESIRE_ID, desireId);
+        startActivity(intent);
+    }
+
+    @Override
+    public void showUserProfile(User user) {
+        Intent intent = new Intent(getContext(), UserProfileActivity.class);
+        intent.putExtra("user", user);
         startActivity(intent);
     }
 

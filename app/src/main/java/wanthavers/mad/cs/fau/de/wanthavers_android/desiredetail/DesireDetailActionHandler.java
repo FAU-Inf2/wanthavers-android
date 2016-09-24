@@ -9,6 +9,7 @@ import de.fau.cs.mad.wanthavers.common.Desire;
 import de.fau.cs.mad.wanthavers.common.DesireStatus;
 import de.fau.cs.mad.wanthavers.common.Haver;
 import de.fau.cs.mad.wanthavers.common.Media;
+import de.fau.cs.mad.wanthavers.common.User;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.DesiredetailFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.RoundedTransformation;
@@ -88,6 +89,10 @@ public class DesireDetailActionHandler {
 
     public void buttonOpenRating() {
         mListener.openRating();
+    }
+
+    public void buttonOpenUserProfile(User user) {
+        mListener.openUserProfile(user);
     }
 
     public void openReportPopup() {

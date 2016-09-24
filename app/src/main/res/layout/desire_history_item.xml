@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="desire"
+            type="de.fau.cs.mad.wanthavers.common.Desire" />
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/desire_history_item"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:background="@color/colorSecondary"
+        android:padding="5dp">
+
+        <wanthavers.mad.cs.fau.de.wanthavers_android.util.CircularImageView
+            android:id="@+id/desire_history_image"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:src="@android:drawable/sym_def_app_icon"
+            android:layout_centerHorizontal="true"/>
+
+
+        <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+            android:id="@+id/desire_history_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@{desire.title}"
+            android:lines="1"
+            android:gravity="center_horizontal"
+            android:ellipsize="end"
+            android:textColor="@color/colorMainText"
+            android:layout_below="@id/desire_history_image"/>
+
+    </RelativeLayout>
+
+</layout>

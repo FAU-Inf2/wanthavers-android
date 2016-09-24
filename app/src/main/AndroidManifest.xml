@@ -53,6 +53,8 @@
         <activity android:name="wanthavers.mad.cs.fau.de.wanthavers_android.locationlist.LocationListActivity" />
         <activity android:name="wanthavers.mad.cs.fau.de.wanthavers_android.licenses.LicensesActivity" />
         <activity android:name="wanthavers.mad.cs.fau.de.wanthavers_android.eastereggone.EasterEggActivity" />
+        <activity android:name="wanthavers.mad.cs.fau.de.wanthavers_android.userprofile.UserProfileActivity" />
+
         <meta-data
             android:name="com.parse.APPLICATION_ID"
             android:value="{APPLICATION_ID}" />
