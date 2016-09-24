@@ -33,6 +33,7 @@ public class UserProfileFragment extends Fragment implements UserProfileContract
     private UserprofileFragBinding mUserprofileFragBinding;
     private DesireLogic mDesireLogic;
     private UserProfileAdapter mUserProfileAdapter;
+    private int mSentDataCount = 0;
 
     public UserProfileFragment() {
         //requires empty public constructor
@@ -113,11 +114,22 @@ public class UserProfileFragment extends Fragment implements UserProfileContract
         } else {
             mUserprofileFragBinding.userProfileDesireHistoryCard.setVisibility(View.GONE);
         }
+        finishLoading();
     }
 
     @Override
     public void showCanceledDesireStatistics(int canceledDesires) {
         mUserprofileFragBinding.userProfileCanceledDesires.setText(Integer.toString(canceledDesires));
+        finishLoading();
+    }
+
+    private void finishLoading() {
+        mSentDataCount++;
+        if (mSentDataCount == 2) {
+            mSentDataCount = 0;
+            mUserprofileFragBinding.userProfileLoadingScreen.setVisibility(View.GONE);
+            mUserprofileFragBinding.userProfileMainScreen.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

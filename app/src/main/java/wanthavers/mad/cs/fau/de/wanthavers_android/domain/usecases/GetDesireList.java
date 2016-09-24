@@ -72,7 +72,7 @@ public class GetDesireList extends UseCase<GetDesireList.RequestValues, GetDesir
         }
 
         if (desireListType == DesireListType.CANCELED_DESIRES) {
-            //TODO
+            //TODO: Ask Thorsten/Serverteam
         }
 
         /*if(desireListType == DesireListType.MY_TRANSACTIONS){
