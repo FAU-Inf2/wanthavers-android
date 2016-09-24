@@ -326,4 +326,8 @@
     <string name="user_profile">Benutzer Profil</string>
     <string name="user_profile_member_since">Mitglied seit:</string>
     <string name="user_profile_loading_error">Fehler beim Laden von Benutzer Informationen</string>
+    <string name="user_profile_statistics">Statistiken</string>
+    <string name="user_profile_finished_desires">Erfolgreich abgeschlossene Aufträge</string>
+    <string name="user_profile_canceled_desires">Abgebrochene Aufträge</string>
+    <string name="user_profile_desire_history">Auftragsverlauf</string>
 </resources>

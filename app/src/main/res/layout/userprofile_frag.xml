@@ -157,7 +157,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
-                                android:text="Statistics"
+                                android:text="@string/user_profile_statistics"
                                 android:textColor="@color/colorPrimary"
                                 android:textAllCaps="true" />
 
@@ -201,7 +201,7 @@
                                     android:layout_marginLeft="10dp"
                                     android:textColor="@color/colorMainText"
                                     android:textAppearance="?android:attr/textAppearanceMedium"
-                                    android:text="Erfolgreich abgeschlossene Transaktionen"
+                                    android:text="@string/user_profile_finished_desires"
                                     android:layout_centerVertical="true"/>
 
                             </RelativeLayout>
@@ -239,7 +239,7 @@
                                     android:layout_marginLeft="10dp"
                                     android:textColor="@color/colorMainText"
                                     android:textAppearance="?android:attr/textAppearanceMedium"
-                                    android:text="Abgebrochene Transaktionen"
+                                    android:text="@string/user_profile_canceled_desires"
                                     android:layout_centerVertical="true"/>
 
                             </RelativeLayout>
@@ -278,7 +278,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
-                                android:text="Desire History"
+                                android:text="@string/user_profile_desire_history"
                                 android:textColor="@color/colorPrimary"
                                 android:textAllCaps="true" />
 

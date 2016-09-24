@@ -313,5 +313,9 @@
     <string name="user_profile">User Profile</string>
     <string name="user_profile_member_since">Member since:</string>
     <string name="user_profile_loading_error">Error while loading user information</string>
+    <string name="user_profile_statistics">Statistics</string>
+    <string name="user_profile_finished_desires">Successfully finished desires</string>
+    <string name="user_profile_canceled_desires">Canceled desires</string>
+    <string name="user_profile_desire_history">Desire History</string>
 
 </resources>
