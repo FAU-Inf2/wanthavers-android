@@ -25,10 +25,99 @@
             android:weightSum="1"
             android:focusableInTouchMode="true">
 
-            <TextView
+            <RelativeLayout
+                android:id="@+id/android_licenses"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                    android:id="@+id/android_licenses_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/android_licenses_title"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/colorMainTextDark"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/android_licenses_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_below="@id/android_licenses_title"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/server_licenses"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/licenseText"/>
+                android:layout_marginTop="15dp"
+                android:layout_below="@id/android_licenses">
+
+                <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                    android:id="@+id/server_licenses_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/server_licenses_title"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/colorMainTextDark"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/server_licenses_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_below="@id/server_licenses_title"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/common_licenses"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_below="@id/server_licenses">
+
+                <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                    android:id="@+id/common_licenses_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/common_licenses_title"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/colorMainTextDark"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/common_licenses_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_below="@id/common_licenses_title"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/other_licenses"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_below="@id/common_licenses">
+
+                <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                    android:id="@+id/other_licenses_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/other_licenses_title"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/colorMainTextDark"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/other_licenses_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_below="@id/other_licenses_title"/>
+
+            </RelativeLayout>
 
         </RelativeLayout>
 

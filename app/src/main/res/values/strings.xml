@@ -312,6 +312,57 @@
         Black-white-image-filter:\n
         made by Daichi Furiya from https://github.com/wasabeef/picasso-transformations/
     </string>
+
+
+    <string name="android_licenses_title">Android Lizenzen</string>
+    <string name="server_licenses_title">Server Lizenzen</string>
+    <string name="common_licenses_title">Common Lizenzen</string>
+    <string name="other_licenses_title">Weitere Lizenzen</string>
+
+    <string-array name="android_licenses">
+        <item>com.google.guava:guava:19.0: Apache V2.0</item>
+        <item>org.glassfish.jersey.core:jersey-client:2.22.2: CDDL, GPL 1.1</item>
+        <item>com.fasterxml.jackson.core:jackson-annotations:2.7.4: Apache V2.0</item>
+        <item>javax.inject:javax.inject:1: Apache V2.0</item>
+        <item>com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:2.7.4: Apache V2.0</item>
+        <item>javax.ws.rs:javax.ws.rs-api:2.0.1: CDDL 1.1, GPL 2.0</item>
+        <item>com.squareup.picasso:picasso:2.5.2: Apache V2.0</item>
+        <item>com.squareup.okhttp:okhttp:2.4.0: Apache V2.0</item>
+        <item>org.glassfish.jersey.media:jersey-media-multipart:2.23: CDDL, GPL 1.1</item>
+        <item>com.j256.ormlite:ormlite-android:4.48: ISC -> Open Source License</item>
+        <item>commons-io:commons-io:2.4: Apache V2.0</item>
+    </string-array>
+
+    <string-array name="server_licenses">
+        <item>Dropwizard: Apache V2.0</item>
+        <item>org.eclipse.persistence:javax.persistence:2.1.0: Eclipse Public License v1.0, Eclipse Distribution License v. 1.0</item>
+        <item>org.glassfish.jersey.ext:jersey-proxy-client:2.17: GNU General Public License Version 2 only ("GPL")</item>
+        <item>com.fasterxml.jackson.core:jackson-databind:2.5.3: Apache V2.0</item>
+        <item>com.h2database:h2:1.4.186: MPL 2.0</item>
+        <item>org.json:json:20160212: The JSON License</item>
+        <item>com.smoketurner:dropwizard-swagger:0.9.2-3: Apache V2.0</item>
+    </string-array>
+
+    <string-array name="common_licenses">
+        <item>com.fasterxml.jackson.core:jackson-databind:2.1.4: Apache V2.0</item>
+        <item>io.swagger:swagger-annotations:1.5.0: Apache V2.0</item>
+        <item>org.eclipse.persistence:javax.persistence:2.1.1: EDL 1.0, EPL 1.0</item>
+        <item>javax.ws.rs:javax.ws.rs-api:2.0: CDDL 1.1, GPL 2.0</item>
+        <item>Dropwizard: Apache V2.0</item>
+        <item>com.j256.ormlite:ormlite-android:4.48: ISC -> Open Source License</item>
+    </string-array>
+
+    <!--always use title AND description
+    use '#description#' as divider-->
+    <string-array name="other_licenses">
+        <item>Kategorie Symbole:
+            #description#Symbole erstellt von Freepik auf www.flaticon.com</item>
+        <item>Pokal Symbol:
+            #description#Symbol erstellt von Doug C. Hardester auf www.materialdesignicons.com</item>
+        <item>Schwarz-Weiß-Bild-Filter:
+            #description#erstellt von Daichi Furiya auf https://github.com/wasabeef/picasso-transformations/</item>
+    </string-array>
+
     <string name="licenseTitle">Lizenzen</string>
     <string name="eastereggonetitle">sWHipe</string>
     <string name="accept_agb">Ich bestätige die AGB</string>

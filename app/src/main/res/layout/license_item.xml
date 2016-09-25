@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:id="@+id/lisense_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorSecondary"
+        android:layout_marginTop="5dp"
+        android:padding="2dp">
+
+        <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+            android:id="@+id/license_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textColor="@color/colorMainTextDark"
+            android:visibility="gone"/>
+
+        <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+            android:id="@+id/license_description"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textColor="@color/colorMainText"
+            android:layout_below="@id/license_title"
+            android:layout_marginTop="5dp"/>
+
+    </RelativeLayout>
+
+</layout>
