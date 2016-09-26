@@ -1,11 +1,14 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.licenses;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 
@@ -15,9 +18,9 @@ public class LicenseAdapter extends RecyclerView.Adapter<LicenseAdapter.ViewHold
     private String[] mLicenseDescriptionList;
     private Context mContext;
 
-    public LicenseAdapter(String[] licenseTitleList, String[] licenseDescriptionList, Context context){
+    public LicenseAdapter(String[] licenseTitleList, @NonNull String[] licenseDescriptionList, Context context){
         mLicenseTitleList = licenseTitleList;
-        mLicenseDescriptionList = licenseDescriptionList;
+        mLicenseDescriptionList = checkNotNull(licenseDescriptionList);
         mContext = context;
     }
 
