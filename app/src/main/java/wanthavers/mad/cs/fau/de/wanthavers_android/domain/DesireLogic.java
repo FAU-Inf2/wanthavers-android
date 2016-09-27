@@ -15,6 +15,7 @@ import java.util.Locale;
 import de.fau.cs.mad.wanthavers.common.Desire;
 import de.fau.cs.mad.wanthavers.common.DesireStatus;
 import de.fau.cs.mad.wanthavers.common.Haver;
+import de.fau.cs.mad.wanthavers.common.User;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.SharedPreferencesHelper;
 
@@ -193,6 +194,13 @@ public class DesireLogic {
             return true;
         }
 
+        return false;
+    }
+
+    public boolean hasSetFirstLastName(User user) {
+        if (user.getFirstName() != null && user.getLastName() != null) {
+            return true;
+        }
         return false;
     }
 

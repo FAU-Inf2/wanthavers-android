@@ -10,6 +10,7 @@ import java.util.List;
 import de.fau.cs.mad.wanthavers.common.Desire;
 import de.fau.cs.mad.wanthavers.common.DesireFilter;
 import de.fau.cs.mad.wanthavers.common.DesireStatus;
+import de.fau.cs.mad.wanthavers.common.HaverStatus;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCase;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.WantHaversApplication;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireDataSource;
@@ -65,14 +66,26 @@ public class GetDesireList extends UseCase<GetDesireList.RequestValues, GetDesir
         if (desireListType == DesireListType.FINISHED_DESIRES) {
             List<Integer> statusFilter = new ArrayList<>();
             statusFilter.add(DesireStatus.STATUS_DONE);
-            desireFilter.setLimit(100000);
+            desireFilter.setLimit(Integer.MAX_VALUE);
             desireFilter.setCreatorId(userId);
             desireFilter.setHaverId(userId);
             desireFilter.setStatus(statusFilter);
         }
 
         if (desireListType == DesireListType.CANCELED_DESIRES) {
-            //TODO: Ask Thorsten/Serverteam
+            List<Integer> desireStatusFilter = new ArrayList<>();
+            desireFilter.setLimit(Integer.MAX_VALUE);
+            desireStatusFilter.add(DesireStatus.STATUS_OPEN);
+            desireStatusFilter.add(DesireStatus.STATUS_DONE);
+            desireStatusFilter.add(DesireStatus.STATUS_IN_PROGRESS);
+            desireStatusFilter.add(DesireStatus.STATUS_DELETED);
+            desireStatusFilter.add(DesireStatus.STATUS_EXPIRED);
+            desireFilter.setHaverId(userId);
+            desireFilter.setStatus(desireStatusFilter);
+
+            List<Integer> haverStatusFilter = new ArrayList<>();
+            haverStatusFilter.add(HaverStatus.DELETED);
+            desireFilter.setHaverStatus(haverStatusFilter);
         }
 
         /*if(desireListType == DesireListType.MY_TRANSACTIONS){
