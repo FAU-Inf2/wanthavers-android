@@ -64,6 +64,10 @@ public class GetDesireList extends UseCase<GetDesireList.RequestValues, GetDesir
         }
 
         if (desireListType == DesireListType.FINISHED_DESIRES) {
+
+            //in this case use new independent desirefilter
+            desireFilter = new DesireFilter();
+
             List<Integer> statusFilter = new ArrayList<>();
             statusFilter.add(DesireStatus.STATUS_DONE);
             desireFilter.setLimit(Integer.MAX_VALUE);
@@ -73,6 +77,10 @@ public class GetDesireList extends UseCase<GetDesireList.RequestValues, GetDesir
         }
 
         if (desireListType == DesireListType.CANCELED_DESIRES) {
+
+            //in this case use new independent desirefilter
+            desireFilter = new DesireFilter();
+
             List<Integer> desireStatusFilter = new ArrayList<>();
             desireFilter.setLimit(Integer.MAX_VALUE);
             desireStatusFilter.add(DesireStatus.STATUS_OPEN);
