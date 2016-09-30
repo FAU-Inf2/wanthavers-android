@@ -10,95 +10,106 @@ import de.fau.cs.mad.wanthavers.common.User;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.BasePresenter;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.BaseView;
 import de.fau.cs.mad.wanthavers.common.Desire;
+
+
 public interface DesireDetailContract {
 
 
     interface View extends BaseView<Presenter> {
 
-        //void showAcceptButton(List<Haver> havers);
+        void showDesire(Desire desire, Haver acceptedHaver);
 
-        void showAcceptedHaver(Haver haver);
-
-        void showDesire(Desire desire, Haver haver);
+        void showDesireOpen(boolean isUnacceptedHaver);
 
         void showHavers(List<Haver> haver);
 
-        void showChatList(long userid);
-
-        void showChatDetailsUi(Chat chat);
-
         void setLoadingIndicator(final boolean active);
-
-        void showHaverAcceptStatus();
-
-        void showLoadingHaversError();
-
-        void showAcceptHaverError();
-
-        void showLoadingDesireError();
-
-        void showSetHaverError();
-
-        void showGetChatForDesireError();
-
-        void showUpdateDesireStatusError();
-
-        void showDeleteHaverError();
-
-        void showFlagDesireError();
-
-        void showReportPopup();
 
         boolean isActive();
 
-        void closeReportPopup();
 
-        DesireFlag getReport();
 
-        void endLoadingProgress();
-
-        void showRating(long desireId);
-
-        void closeView();
-
-        void showAcceptDesirePopup(boolean initialCall);
-
-        void closeAcceptDesirePopup();
-
-        void showDeleteDesireError();
-
-        void openDeletionDialog();
-
-        void closeDeletionDialog();
-
-        void closeDeleteHaverPopup();
-
-        void showUnacceptHaverDialog();
-
-        void closeUnacceptHaverDialog();
-
-        void showMap(Location location);
-
-        void hideFinishDesire();
-
-        void showDeleteHaverPopup();
-
-        void showUnacceptedHaverView(boolean active);
-
-        void showTransactionSuccessMessage();
+        //Getter & Setter
 
         void setBidder(Haver bidder);
 
         double getBidInput();
 
+        Haver getAcceptedHaver();
+
+        DesireFlag getReport();
+
+
+
+        //leave current view
+
+        void closeView();
+
+        void showChatDetailsUi(Chat chat);
+
+        void showMap(Location location);
+
+        void showRating(long desireId);
+
         void showUserProfile(User user);
+
+
+
+        //open/close popups
+
+        void showAcceptDesirePopup(boolean initialCall);
+
+        void closeAcceptDesirePopup();
+
+        void closeDeleteDesirePopup();
+
+        void showDeleteHaverPopup();
+
+        void closeDeleteHaverPopup();
+
+        void showReportPopup();
+
+        void closeReportPopup();
+
+        void showUnacceptHaverPopup();
+
+        void closeUnacceptHaverPopup();
+
+
+
+        //Snackbar messages
+
+        void showAcceptHaverError();
+
+        void showDeleteDesireError();
+
+        void showDeleteHaverError();
+
+        void showFlagDesireError();
+
+        void showGetChatForDesireError();
+
+        void showLoadingDesireError();
+
+        void showLoadingHaversError();
+
+        void showSetHaverError();
+
+        void showTransactionSuccessMessage();
+
+        void showUnacceptHaverError();
+
+        void showUpdateDesireStatusError();
+
+        void showUpdateRequestedPriceError();
+
     }
 
 
 
     interface Presenter extends BasePresenter {
 
-        void deleteHaver();
+        //UseCases/Server interaction
 
         void loadDesire();
 
@@ -112,49 +123,48 @@ public interface DesireDetailContract {
 
         void unacceptHaver(Haver haver);
 
-        void getAcceptedHaver(boolean biddingAllowed);
+        void unacceptAndDeleteHaver(Haver haver);
 
-        void sendMessage(long user2Id);
+        void openChat(long user2Id);
 
         void closeTransaction();
 
-        //void getHaver(final long haverId);
+        void deleteDesire();
 
-        void showUnacceptedHaverView(Desire desire);
-
-        void openChatList(User user);
-
-        void openReportPopup();
+        void deleteHaver();
 
         void finishReport();
 
+
+        //Redirect to Fragment
+
+        void openMap(double lat, double lng);
+
         void openRating();
 
-        void closeAcceptDesirePopup();
+        void openUserProfile(User user);
+
+
+
+        //Popups
+
+        void closeDeletionPopup();
+
+        void openDeleteHaverPopup();
+
+        void closeHaverCancelPopup();
+
+        void openModifyBidPopup(boolean initialCall);
+
+        void closeModifyBidPopup();
+
+        void openReportPopup();
 
         void closeReportPopup();
 
-        void deleteDesire();
+        void openUnacceptHaverPopup();
 
-        void openDeleteHaverDialog();
-
-        void openDeletionDialog();
-
-        void closeDeletionDialog();
-
-        void closeHaverCancelDialog();
-
-        void createMap(double lat, double lng);
-
-        void openUnacceptHaverDialog();
-
-        void closeUnacceptHaverDialog();
-
-        void openModifyBidDialog(boolean initialCall);
-
-        void unacceptAndDeleteHaver(Haver haver);
-
-        void openUserProfile(User user);
+        void closeUnacceptHaverPopup();
 
     }
 }

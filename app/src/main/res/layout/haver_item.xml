@@ -45,7 +45,7 @@
         android:layout_alignParentStart="true"
         android:layout_marginTop="1dp"
         android:padding="5dp"
-        android:onClick="@{() -> actionHandler.buttonOpenUserProfile(haver.user)}">
+        android:onClick="@{() -> actionHandler.openUserProfile(haver.user)}">
 
         <wanthavers.mad.cs.fau.de.wanthavers_android.util.CircularImageView
             android:id="@+id/image_haver"
@@ -112,7 +112,7 @@
             android:textColor="@color/colorMainText"
             android:background="@drawable/chat_border_me"
             android:layout_alignParentRight="true"
-            android:onClick="@{() -> actionHandler.wanterAccept(haver.id, haver)}"/>
+            android:onClick="@{() -> actionHandler.wanterAcceptDesire(haver.id, haver)}"/>
 
 
         <ImageButton
@@ -126,7 +126,7 @@
             android:textColor="@color/colorMainText"
             android:background="@drawable/chat_border_me"
             android:layout_toLeftOf="@id/accept_desire_haver"
-            android:onClick="@{() -> actionHandler.sendMessage(haver.getUser().getId())}"/>
+            android:onClick="@{() -> actionHandler.openChat(haver.getUser().getId())}"/>
 
     </RelativeLayout>
 

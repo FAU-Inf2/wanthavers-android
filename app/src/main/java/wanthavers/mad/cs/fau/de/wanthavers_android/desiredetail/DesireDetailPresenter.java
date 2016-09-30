@@ -1,11 +1,10 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.desiredetail;
 
 import android.support.annotation.NonNull;
-import android.widget.EditText;
 
-import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -15,7 +14,6 @@ import de.fau.cs.mad.wanthavers.common.DesireStatus;
 import de.fau.cs.mad.wanthavers.common.Haver;
 import de.fau.cs.mad.wanthavers.common.Location;
 import de.fau.cs.mad.wanthavers.common.User;
-import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCase;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
@@ -97,7 +95,6 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
     @Override
     public void start() {
         loadDesire();
-        //loadHavers(false);
     }
 
     @Override
@@ -131,6 +128,9 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
                     @Override
                     public void onSuccess(GetAcceptedHaver.ResponseValue response) {
                         Haver haver = response.getHaver();
+                        if (desire.isBiddingAllowed()) {
+                            mDesireDetailView.setBidder(haver);
+                        }
                         mDesireDetailView.showDesire(desire, haver);
                     }
 
@@ -163,47 +163,16 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
                 if (!mDesireDetailView.isActive()) {
                     return;
                 }
-                if (showLoadingUI) {
-                    mDesireDetailView.setLoadingIndicator(false);
-                }
 
-                processHavers(havers);
+                mDesireDetailView.showHavers(havers);
 
             }
 
             @Override
             public void onError() {
-                if (!mDesireDetailView.isActive()) {
-                    return;
-                }
                 mDesireDetailView.showLoadingHaversError();
             }
         });
-    }
-
-    @Override
-    public void getAcceptedHaver(final boolean biddingAllowed) {
-
-        GetAcceptedHaver.RequestValues requestValues = new GetAcceptedHaver.RequestValues(mDesireId);
-
-        mUseCaseHandler.execute(mGetAcceptedHaver, requestValues,
-                new UseCase.UseCaseCallback<GetAcceptedHaver.ResponseValue>() {
-                    @Override
-                    public void onSuccess(GetAcceptedHaver.ResponseValue response) {
-                        Haver haver = response.getHaver();
-                        if (biddingAllowed) {
-                            mDesireDetailView.setBidder(haver);
-                        }
-                        mDesireDetailView.showAcceptedHaver(haver);
-                    }
-
-                    @Override
-                    public void onError() {
-                        mDesireDetailView.showLoadingHaversError();
-                    }
-                }
-        );
-
     }
 
     //Get own User instance & create haver
@@ -252,12 +221,10 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
 
                     @Override
                     public void onSuccess(SetHaver.ResponseValue response) {
-                        mDesireDetailView.showUnacceptedHaverView(true);
-                        mDesireDetailView.showHaverAcceptStatus();
-                        loadDesire();
                         if (biddingAllowed) {
                             mDesireDetailView.setBidder(response.getHaver());
                         }
+                        loadDesire();
                     }
 
                     @Override
@@ -292,8 +259,8 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
 
                     @Override
                     public void onError() {
-                        //TODO: Fehlermeldung
                         mDesireDetailView.closeAcceptDesirePopup();
+                        mDesireDetailView.showUpdateRequestedPriceError();
                     }
                 });
 
@@ -310,6 +277,7 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
                     @Override
                     public void onSuccess(AcceptHaver.ResponseValue response) {
                         loadDesire();
+                        mDesireDetailView.showHavers(new ArrayList<Haver>(0));
                     }
 
                     @Override
@@ -334,7 +302,7 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
 
                     @Override
                     public void onError() {
-                        //TODO: Fehlermeldung
+                        mDesireDetailView.showUnacceptHaverError();
                     }
                 });
     }
@@ -352,18 +320,13 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
 
                     @Override
                     public void onError() {
-                        //TODO: Fehlermeldung
+                        mDesireDetailView.showUnacceptHaverError();
                     }
                 });
     }
 
     @Override
-    public void openUserProfile(User user) {
-        mDesireDetailView.showUserProfile(user);
-    }
-
-    @Override
-    public void sendMessage(long user2Id) {
+    public void openChat(long user2Id) {
 
         GetChatForDesire.RequestValues requestValues = new GetChatForDesire.RequestValues(user2Id, mDesireId);
 
@@ -389,19 +352,15 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
 
         UpdateDesireStatus.RequestValues requestValues = new UpdateDesireStatus.RequestValues(mDesireId, DesireStatus.STATUS_DONE);
 
-        System.out.println("loggedinUserId " + mDesireLogic.getLoggedInUserId());
-
         mUseCaseHandler.execute(mUpdateDesireStatus, requestValues,
                 new UseCase.UseCaseCallback<UpdateDesireStatus.ResponseValue>() {
 
                     @Override
                     public void onSuccess(UpdateDesireStatus.ResponseValue response) {
                         Desire updatedDesire = response.getDesire();
-                        mDesireDetailView.showDesire(updatedDesire, null);
-                        mDesireDetailView.hideFinishDesire();
+                        Haver haver = mDesireDetailView.getAcceptedHaver();
+                        mDesireDetailView.showDesire(updatedDesire, haver);
                         mDesireDetailView.showTransactionSuccessMessage();
-                        //mDesireDetailView.disableButton();
-                        //mDesireDetailView.showRating();
                     }
 
                     @Override
@@ -414,16 +373,6 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
     }
 
     @Override
-    public void openDeletionDialog() {
-        mDesireDetailView.openDeletionDialog();
-    }
-
-    @Override
-    public void closeDeletionDialog() {
-        mDesireDetailView.closeDeletionDialog();
-    }
-
-    @Override
     public void deleteDesire() {
 
         UpdateDesireStatus.RequestValues requestValues = new UpdateDesireStatus.RequestValues(mDesireId, DesireStatus.STATUS_DELETED);
@@ -433,12 +382,13 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
 
                     @Override
                     public void onSuccess(UpdateDesireStatus.ResponseValue response) {
-                        mDesireDetailView.closeDeletionDialog();
+                        mDesireDetailView.closeDeleteDesirePopup();
                         mDesireDetailView.closeView();
                     }
 
                     @Override
                     public void onError() {
+                        mDesireDetailView.closeDeleteDesirePopup();
                         mDesireDetailView.showDeleteDesireError();
                     }
 
@@ -446,7 +396,7 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
         );
     }
 
-    public void flagDesire(DesireFlag desireFlag) {
+    private void flagDesire(DesireFlag desireFlag) {
 
         FlagDesire.RequestValues requestValues = new FlagDesire.RequestValues(mDesireId, desireFlag);
 
@@ -454,19 +404,19 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
                 new UseCase.UseCaseCallback<FlagDesire.ResponseValue>() {
                     @Override
                     public void onSuccess(FlagDesire.ResponseValue response) {
-
+                        mDesireDetailView.closeReportPopup();
                     }
 
                     @Override
                     public void onError() {
+                        mDesireDetailView.closeReportPopup();
                         mDesireDetailView.showFlagDesireError();
                     }
                 }
         );
     }
 
-    @Override
-    public void showUnacceptedHaverView(final Desire desire) {
+    private void showUnacceptedHaverView(final Desire desire) {
 
         GetHaver.RequestValues requestValues = new GetHaver.RequestValues(mDesireId, mDesireLogic.getLoggedInUserId());
 
@@ -479,10 +429,11 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
                                 mDesireDetailView.setBidder(response.getHaver());
                             }
                             mDesireDetailView.showDesire(desire, null);
-                            mDesireDetailView.showUnacceptedHaverView(true);
+                            mDesireDetailView.showDesireOpen(true);
+                        } else {
+                            mDesireDetailView.showDesire(desire, null);
+                            mDesireDetailView.showDesireOpen(false);
                         }
-
-                        mDesireDetailView.showDesire(desire, null);
                     }
 
                     @Override
@@ -494,6 +445,7 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
         );
     }
 
+    @Override
     public void deleteHaver () {
 
         DeleteHaver.RequestValues requestValues = new DeleteHaver.RequestValues(mDesireId, mDesireLogic.getLoggedInUserId());
@@ -502,40 +454,21 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
                 new UseCase.UseCaseCallback<DeleteHaver.ResponseValue>() {
                     @Override
                     public void onSuccess(DeleteHaver.ResponseValue response) {
-                        System.out.println("success deleting haver");
-                        loadDesire();
-                        mDesireDetailView.showUnacceptedHaverView(false);
+                        mDesireDetailView.showDesireOpen(false);
                         mDesireDetailView.closeDeleteHaverPopup();
                     }
 
                     @Override
                     public void onError() {
                         mDesireDetailView.closeDeleteHaverPopup();
-                        System.out.println("start deleting haver error");
                         mDesireDetailView.showDeleteHaverError();
                     }
                 }
         );
     }
 
-    private void processHavers(List<Haver> havers) {
-        if (havers.isEmpty()) {
-            //mDesireDetailView.showAcceptButton(havers);
-            //TODO no havers yet
-        } else {
-            mDesireDetailView.showHavers(havers);
-            //mDesireDetailView.showAcceptButton(havers);
-        }
 
-        mDesireDetailView.endLoadingProgress();
-    }
-
-    @Override
-    public void openRating() {
-        mDesireDetailView.showRating(mDesireId);
-    }
-
-    public void openChatDetails(@NonNull Chat chat) {
+    private void openChatDetails(@NonNull Chat chat) {
 
         if(chat == null){
             mDesireDetailView.showGetChatForDesireError();
@@ -545,11 +478,67 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
         mDesireDetailView.showChatDetailsUi(chat);
     }
 
+    @Override
+    public void finishReport() {
+        DesireFlag desireFlag = mDesireDetailView.getReport();
+        desireFlag.setDesireId(mDesireId);
+        closeReportPopup();
+        flagDesire(desireFlag);
+    }
 
-    public void openChatList(User user){
-        //TODO: open chat here;
-        checkNotNull(user, "user cannot be null!");
-        mDesireDetailView.showChatList(user.getId());
+    /**
+     *
+     * Redirect to Fragment
+     *
+     */
+
+    @Override
+    public void openMap(double lat, double lng){
+        Location location = new Location();
+        location.setLat(lat);
+        location.setLon(lng);
+        mDesireDetailView.showMap(location);
+    }
+
+    @Override
+    public void openRating() {
+        mDesireDetailView.showRating(mDesireId);
+    }
+
+    @Override
+    public void openUserProfile(User user) {
+        mDesireDetailView.showUserProfile(user);
+    }
+
+    /**
+     *
+     * Popups
+     *
+     */
+
+    @Override
+    public void closeDeletionPopup() {
+        mDesireDetailView.closeDeleteDesirePopup();
+    }
+
+    @Override
+    public void openDeleteHaverPopup() {
+        mDesireDetailView.showDeleteHaverPopup();
+    }
+
+    @Override
+    public void closeHaverCancelPopup() {
+        mDesireDetailView.closeDeleteHaverPopup();
+    }
+
+    @Override
+    public void openModifyBidPopup(boolean initialCall) {
+        mDesireDetailView.showAcceptDesirePopup(initialCall);
+    }
+
+    @Override
+    public void closeModifyBidPopup() {
+        mDesireDetailView.closeAcceptDesirePopup();
     }
 
     @Override
@@ -558,53 +547,18 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
     }
 
     @Override
-    public void finishReport() {
-        DesireFlag desireFlag = mDesireDetailView.getReport();
-        desireFlag.setDesireId(mDesireId);
-        mDesireDetailView.closeReportPopup();
-        flagDesire(desireFlag);
-    }
-
-    @Override
-    public void openModifyBidDialog(boolean initialCall) {
-        mDesireDetailView.showAcceptDesirePopup(initialCall);
-    }
-
-    @Override
-    public void openDeleteHaverDialog() {
-        mDesireDetailView.showDeleteHaverPopup();
-    }
-
-    @Override
-    public void openUnacceptHaverDialog() {
-        mDesireDetailView.showUnacceptHaverDialog();
-    }
-
-    @Override
-    public void closeUnacceptHaverDialog() {
-        mDesireDetailView.closeUnacceptHaverDialog();
-    }
-
-    @Override
-    public void closeAcceptDesirePopup() {
-        mDesireDetailView.closeAcceptDesirePopup();
-    }
-
-    @Override
     public void closeReportPopup() {
         mDesireDetailView.closeReportPopup();
     }
 
     @Override
-    public void closeHaverCancelDialog() {
-        mDesireDetailView.closeDeleteHaverPopup();
+    public void openUnacceptHaverPopup() {
+        mDesireDetailView.showUnacceptHaverPopup();
     }
 
     @Override
-    public void createMap(double lat, double lng){
-        Location location = new Location();
-        location.setLat(lat);
-        location.setLon(lng);
-        mDesireDetailView.showMap(location);
+    public void closeUnacceptHaverPopup() {
+        mDesireDetailView.closeUnacceptHaverPopup();
     }
+
 }

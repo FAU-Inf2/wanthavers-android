@@ -381,4 +381,7 @@
     <string name="user_profile_finished_desires">Erfolgreich abgeschlossene Aufträge</string>
     <string name="user_profile_canceled_desires">Abgebrochene Aufträge</string>
     <string name="user_profile_desire_history">Auftragsverlauf</string>
+
+    <string name="unaccept_haver_error">Fehler beim Abbrechen des Auftrages</string>
+    <string name="update_requested_price_error">Fehler beim Ändern des Angebots</string>
 </resources>

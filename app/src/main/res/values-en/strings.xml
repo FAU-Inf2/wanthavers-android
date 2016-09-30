@@ -368,4 +368,7 @@
     <string name="user_profile_canceled_desires">Canceled desires</string>
     <string name="user_profile_desire_history">Desire History</string>
 
+    <string name="unaccept_haver_error">Error while cancelling desire</string>
+    <string name="update_requested_price_error">Error while update your Bid</string>
+
 </resources>
