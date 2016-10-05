@@ -50,6 +50,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.maps.MapActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.rating.RatingActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.userprofile.UserProfileActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.CircularImageView;
+import wanthavers.mad.cs.fau.de.wanthavers_android.util.GrayscaleTransformation;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.SharedPreferencesHelper;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -163,7 +164,12 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
                 }
 
             } else {
-                menReportDesire.setVisible(true);
+
+                if(curDesire.getStatus() != DesireStatus.STATUS_DELETED
+                        && curDesire.getStatus() != DesireStatus.STATUS_EXPIRED){
+                    menReportDesire.setVisible(true);
+                }
+
             }
 
         }
@@ -214,6 +220,12 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
             showDesireInProgress();
         } else if (desire.getStatus() == DesireStatus.STATUS_DONE) {
             showDesireDone();
+        } else if ((desire.getStatus() == DesireStatus.STATUS_DELETED)
+                || (desire.getStatus() == DesireStatus.STATUS_EXPIRED)) {
+            //black-white-filter
+            Picasso.with(mDesireDetailFragBinding.getRoot().getContext())
+                    .load(mediaDesire.getLowRes()).transform(new GrayscaleTransformation()).into(desireImageView);
+            showDesireNeutral();
         } else {
             showDesireNeutral();
         }
@@ -324,10 +336,16 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
         boolean isAcceptedHaver = (mDesireLogic.getLoggedInUserId() == acceptedHaver.getUser().getId());
 
         //show status
+        if (isAdded()) {
+            mDesireDetailFragBinding.desireStatus.setTextColor(getResources().getColor(R.color.colorAlert));
+        }
+
         if(isAdded() && desire.getStatus() == DesireStatus.STATUS_EXPIRED) {
             showStatus(getString(R.string.haver_status_expired));
         } else if(isAdded() && desire.getStatus() == DesireStatus.STATUS_DELETED) {
             showStatus(getString(R.string.haver_status_deleted));
+        } else {
+            mDesireDetailFragBinding.desireStatus.setVisibility(View.GONE);
         }
 
         if (isCreator) {
