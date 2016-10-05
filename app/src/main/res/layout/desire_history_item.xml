@@ -18,8 +18,8 @@
 
         <wanthavers.mad.cs.fau.de.wanthavers_android.util.CircularImageView
             android:id="@+id/desire_history_image"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:src="@android:drawable/sym_def_app_icon"
             android:layout_centerHorizontal="true"/>
 
