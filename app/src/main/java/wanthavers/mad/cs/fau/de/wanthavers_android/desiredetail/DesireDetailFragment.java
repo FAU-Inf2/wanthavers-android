@@ -95,7 +95,6 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
     @Override
     public void onResume() {
         super.onResume();
-        mDesireDetailFragBinding.desireDetailSwipeView.setRefreshing(true);
         mPresenter.start();
     }
 
@@ -146,7 +145,6 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
                 mPresenter.loadDesire();
             }
         });
-        swipeRefreshLayout.setRefreshing(true);
 
         return mDesireDetailFragBinding.getRoot();
     }

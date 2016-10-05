@@ -39,6 +39,14 @@
             android:layout_height="match_parent"
             android:background="@color/colorSecondary">
 
+            <ProgressBar
+                android:id="@+id/desire_detail_initial_loading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_centerHorizontal="true"
+                android:indeterminate="true" />
+
             <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
                 android:id="@+id/desire_detail_loadting_text"
                 android:layout_width="match_parent"
