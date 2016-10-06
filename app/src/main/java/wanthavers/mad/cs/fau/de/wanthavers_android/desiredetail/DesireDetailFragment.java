@@ -142,6 +142,7 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                mDesireDetailFragBinding.desireDetailMainScreen.setVisibility(View.GONE);
                 mPresenter.loadDesire();
             }
         });
