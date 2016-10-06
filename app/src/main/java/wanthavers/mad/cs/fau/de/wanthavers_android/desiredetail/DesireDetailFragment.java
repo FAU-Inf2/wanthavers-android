@@ -53,6 +53,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.rating.RatingActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.userprofile.UserProfileActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.CircularImageView;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.GrayscaleTransformation;
+import wanthavers.mad.cs.fau.de.wanthavers_android.util.RoundedTransformation;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.SharedPreferencesHelper;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -295,8 +296,8 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
 
             mDesireDetailFragBinding.acceptedHaverBar.setVisibility(View.VISIBLE);
             Media mediaHaver = acceptedHaver.getUser().getImage();
-            CircularImageView imageAcceptedHaverView = mDesireDetailFragBinding.imageAcceptedHaver;
-            showImage(mediaHaver, imageAcceptedHaverView);
+            ImageView imageAcceptedHaverView = mDesireDetailFragBinding.imageAcceptedHaver;
+            showOutlinedImage(mediaHaver, imageAcceptedHaverView);
 
             mDesireDetailFragBinding.finishDesire.setVisibility(View.VISIBLE);
         } else if (isAcceptedHaver){
@@ -334,7 +335,7 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
             mDesireDetailFragBinding.acceptedHaverBar.setVisibility(View.VISIBLE);
 
             Media mediaHaver = acceptedHaver.getUser().getImage();
-            CircularImageView imageAcceptedHaverView = mDesireDetailFragBinding.imageAcceptedHaver;
+            ImageView imageAcceptedHaverView = mDesireDetailFragBinding.imageAcceptedHaver;
             showImage(mediaHaver, imageAcceptedHaverView);
 
             hideFinishDesire();
@@ -391,7 +392,7 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
 
     private void showWanter() {
         Media mediaWanter = mDesireDetailFragBinding.getDesire().getCreator().getImage();
-        CircularImageView wanterImageView = mDesireDetailFragBinding.imageWanter;
+        ImageView wanterImageView = mDesireDetailFragBinding.imageWanter;
         showImage(mediaWanter, wanterImageView);
     }
 
@@ -409,6 +410,16 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
     }
 
     private void showImage(Media media, @NonNull ImageView view) {
+        checkNotNull(view);
+        if (media != null) {
+            Picasso.with(mDesireDetailFragBinding.getRoot().getContext()).load(media.getLowRes()).transform(new RoundedTransformation(1000,0)).into(view);
+        } else{
+            //else case is neccessary as the image is otherwise overwritten on scroll
+            view.setImageResource(R.drawable.no_pic);
+        }
+    }
+
+    private void showOutlinedImage(Media media, @NonNull ImageView view) {
         checkNotNull(view);
         if (media != null) {
             Picasso.with(mDesireDetailFragBinding.getRoot().getContext()).load(media.getLowRes()).into(view);

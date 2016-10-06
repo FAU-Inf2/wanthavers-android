@@ -68,7 +68,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/all_categories" />
 
-                <wanthavers.mad.cs.fau.de.wanthavers_android.util.CircularImageView
+                <ImageView
                     android:id="@+id/selected_image_category"
                     android:layout_width="45dp"
                     android:layout_height="45dp"

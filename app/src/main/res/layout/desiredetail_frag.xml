@@ -87,7 +87,7 @@
                         android:visibility="@{desirelogic.isDesireCreator(desire.creator.getId()) ? View.GONE : View.VISIBLE}"
                         android:onClick="@{() -> actionHandler.openUserProfile(desire.creator)}">
 
-                        <wanthavers.mad.cs.fau.de.wanthavers_android.util.CircularImageView
+                        <ImageView
                             android:id="@+id/image_wanter"
                             android:layout_marginLeft="10dp"
                             android:layout_marginRight="10dp"
@@ -352,7 +352,7 @@
                                     android:visibility="gone"
                                     android:onClick="@{() -> actionHandler.openUserProfile(haver.user)}">
 
-                                    <wanthavers.mad.cs.fau.de.wanthavers_android.util.CircularImageView
+                                    <ImageView
                                         android:id="@+id/image_accepted_haver"
                                         android:layout_width="45dp"
                                         android:layout_height="45dp"

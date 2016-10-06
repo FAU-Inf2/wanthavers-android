@@ -173,7 +173,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5">
 
-                            <wanthavers.mad.cs.fau.de.wanthavers_android.util.CircularImageView
+                            <ImageView
                                 android:id="@+id/image_wanter"
                                 android:layout_width="60dp"
                                 android:layout_height="60dp"
@@ -187,7 +187,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5">
 
-                            <wanthavers.mad.cs.fau.de.wanthavers_android.util.CircularImageView
+                            <ImageView
                                 android:id="@+id/image_haver"
                                 android:layout_width="60dp"
                                 android:layout_height="60dp"

@@ -36,7 +36,7 @@
         android:padding="5dp"
         android:onClick="@{() -> actionHandler.selectCategory(category)}">
 
-        <wanthavers.mad.cs.fau.de.wanthavers_android.util.CircularImageView
+        <ImageView
             android:id="@+id/image_category"
             android:layout_width="45dp"
             android:layout_height="45dp"

@@ -27,7 +27,7 @@
         android:orientation="horizontal"
         android:onClick="@{() -> actionHandler.chatClicked(chat.chat)}">
 
-        <wanthavers.mad.cs.fau.de.wanthavers_android.util.CircularImageView
+        <ImageView
             android:id="@+id/ivProfileOther"
             android:contentDescription="@string/profile_other"
             android:layout_width="64dp"
