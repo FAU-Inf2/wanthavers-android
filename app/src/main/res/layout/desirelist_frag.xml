@@ -58,13 +58,13 @@
 
             </LinearLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/noDesires"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:orientation="vertical"
-                android:visibility="@{desires.notEmpty ? View.GONE : View.VISIBLE}">
+                android:visibility="@{desires.notEmpty ? View.GONE : View.VISIBLE}"
+                android:padding="16dp">
 
                 <!--ImageView
                     android:id="@+id/noDesiresIcon"
@@ -78,10 +78,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="40sp"
                     android:text="@string/no_desires"
-                    android:layout_marginBottom="@dimen/list_item_padding" />
+                    android:gravity="center"/>
 
-            </LinearLayout>
+                <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                    android:id="@+id/noDesiresMainSubtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/noDesiresMain"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/colorMainText"
+                    android:text="@string/no_desires_subtitle"
+                    android:gravity="center"/>
+
+            </RelativeLayout>
         </RelativeLayout>
     </wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.ScrollChildSwipeRefreshLayout>
 </layout>
