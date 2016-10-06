@@ -171,8 +171,9 @@ public class ChatDetailActivity extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
+        //TODO ask Julian why so complicated
 
-        ActivityManager mngr = (ActivityManager) getSystemService( ACTIVITY_SERVICE );
+        /*ActivityManager mngr = (ActivityManager) getSystemService( ACTIVITY_SERVICE );
 
         if(android.os.Build.VERSION.SDK_INT >= 23) {
             
@@ -189,7 +190,8 @@ public class ChatDetailActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), DesireListActivity.class);
                 startActivity(intent);
             }
-        }
+        }*/
+        super.onSupportNavigateUp();
 
         onBackPressed();
         return true;
