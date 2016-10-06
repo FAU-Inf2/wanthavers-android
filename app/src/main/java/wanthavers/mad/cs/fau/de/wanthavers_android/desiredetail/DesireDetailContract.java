@@ -23,8 +23,6 @@ public interface DesireDetailContract {
 
         void showHavers(List<Haver> haver);
 
-        void setLoadingIndicator(final boolean active);
-
         boolean isActive();
 
 

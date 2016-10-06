@@ -145,14 +145,11 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
 
     @Override
     public void loadHavers(boolean forceUpdate) {
-        loadHavers(forceUpdate || mFirstLoad, true);
+        loadHavers();
         mFirstLoad = false;
     }
 
-    private void loadHavers(boolean forceUpdate, final boolean showLoadingUI) {
-        if (showLoadingUI) {
-            mDesireDetailView.setLoadingIndicator(true);
-        }
+    private void loadHavers() {
 
         GetHaverList.RequestValues requestValues = new GetHaverList.RequestValues(mDesireId);
 

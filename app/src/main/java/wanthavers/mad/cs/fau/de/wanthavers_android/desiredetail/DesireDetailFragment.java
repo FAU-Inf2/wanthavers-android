@@ -428,23 +428,6 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
         endLoadingProgress();
     }
 
-    //may be modified
-    @Override
-    public void setLoadingIndicator(final boolean active) {
-        if (getView() == null) {
-            return;
-        }
-        /*final SwipeRefreshLayout srl = (SwipeRefreshLayout) getView().findViewById(R.id.refresh_layout);
-
-        // Make sure setRefreshing() is called after the layout is done with everything else.
-        srl.post(new Runnable() {
-            @Override
-            public void run() {
-                srl.setRefreshing(active);
-            }
-        });*/
-    }
-
     @Override
     public boolean isActive() {
         return isAdded();
