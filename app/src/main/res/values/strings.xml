@@ -15,7 +15,8 @@
     <string name="createDesire_title">Neuer Auftrag</string>
     <string name="settings_title">Einstellungen</string>
     <string name="logout_title">Ausloggen</string>
-    <string name="no_desires">Leider wurden keine Aufträge gefunden</string>
+    <string name="no_desires">Oops, nichts gefunden</string>
+    <string name="no_desires_subtitle">Sei der Erste und erstelle einen Auftrag oder ändere deinen Ort in den Filtereinstellungen</string>
     <string name="loading_desires_error">Fehler beim Laden der Aufträge</string>
     <string name="listDesires_title">Alle Aufträge</string>
     <string name="no_time_available">keine Zeit verfügbar</string>
