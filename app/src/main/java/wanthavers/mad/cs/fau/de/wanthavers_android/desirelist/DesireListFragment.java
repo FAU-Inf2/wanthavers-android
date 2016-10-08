@@ -37,7 +37,6 @@ import java.util.List;
 import de.fau.cs.mad.wanthavers.common.Location;
 import de.fau.cs.mad.wanthavers.common.Media;
 import de.fau.cs.mad.wanthavers.common.User;
-import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.WantHaversApplication;
 import wanthavers.mad.cs.fau.de.wanthavers_android.chatlist.ChatListActivity;
 
@@ -50,6 +49,7 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.domain.GpsLocationTrackerLogi
 import wanthavers.mad.cs.fau.de.wanthavers_android.filtersetting.FilterSettingActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.licenses.LicensesActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.login.LoginActivity;
+import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.rest.RestClient;
 import wanthavers.mad.cs.fau.de.wanthavers_android.settings.SettingsActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.CircularImageView;
@@ -251,14 +251,21 @@ public class DesireListFragment extends Fragment implements  DesireListContract.
     }
 
     public void showDesires(List<DesireItemViewModel> desireModels){
-
         mListAdapter.replaceData(desireModels);
         mDesireListViewModel.setDesireListSize(desireModels.size());
+        showDesireListScreen();
     }
 
     @Override
     public void showLoadingDesiresError() {
         showMessage(getString(R.string.loading_desires_error));
+        showDesireListScreen();
+    }
+
+    @Override
+    public void showDesireListScreen() {
+        getActivity().findViewById(R.id.refresh_layout).setVisibility(View.VISIBLE);
+        getActivity().findViewById(R.id.desire_list_loading_screen).setVisibility(View.GONE);
     }
 
     public void showMessage(String message) {

@@ -271,6 +271,9 @@ public class DesireListPresenter implements DesireListContract.Presenter {
         if (desires.isEmpty()) {
             // Show a message indicating there are no tasks for that filter type.
             //TODO add what to do if no desires
+
+            mDesireListView.showDesireListScreen();
+
         } else {
 
             List<DesireItemViewModel> desireModels = new ArrayList<>();

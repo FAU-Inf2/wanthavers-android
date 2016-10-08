@@ -27,75 +27,99 @@
 
     </data>
 
-    <wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.ScrollChildSwipeRefreshLayout
-        android:id="@+id/refresh_layout"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:onRefresh="@{presenter}">
-
+        android:layout_height="match_parent">
 
         <RelativeLayout
-            android:id="@+id/desiresContainer"
+            android:id="@+id/desire_list_loading_screen"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:background="@color/colorSecondary">
 
-            <LinearLayout
-                android:id="@+id/desiresListLayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                >
-
-             <!--TODO put visibility in linear layout tag android:visibility="@{desires.notEmpty ? View.VISIBLE : View.GONE"  -->
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/desires_list"
-                    android:scrollbars="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-
-
-            </LinearLayout>
-
-            <RelativeLayout
-                android:id="@+id/noDesires"
+            <ProgressBar
+                android:id="@+id/desire_list_initial_loading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:visibility="@{desires.notEmpty ? View.GONE : View.VISIBLE}"
-                android:padding="16dp">
+                android:layout_marginTop="30dp"
+                android:layout_centerHorizontal="true"
+                android:indeterminate="true" />
 
-                <!--ImageView
-                    android:id="@+id/noDesiresIcon"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/" /-->
-
-                <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
-                    android:id="@+id/noDesiresMain"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="40sp"
-                    android:text="@string/no_desires"
-                    android:gravity="center"/>
-
-                <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
-                    android:id="@+id/noDesiresMainSubtitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/noDesiresMain"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="10dp"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/colorMainText"
-                    android:text="@string/no_desires_subtitle"
-                    android:gravity="center"/>
-
-            </RelativeLayout>
         </RelativeLayout>
-    </wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.ScrollChildSwipeRefreshLayout>
+
+        <wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.ScrollChildSwipeRefreshLayout
+            android:id="@+id/refresh_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:onRefresh="@{presenter}"
+            android:visibility="gone">
+
+
+            <RelativeLayout
+                android:id="@+id/desiresContainer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/desiresListLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    >
+
+                    <!--TODO put visibility in linear layout tag android:visibility="@{desires.notEmpty ? View.VISIBLE : View.GONE"  -->
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/desires_list"
+                        android:scrollbars="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/noDesires"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:visibility="@{desires.notEmpty ? View.GONE : View.VISIBLE}"
+                    android:padding="16dp">
+
+                    <!--ImageView
+                        android:id="@+id/noDesiresIcon"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/" /-->
+
+                    <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                        android:id="@+id/noDesiresMain"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="40sp"
+                        android:text="@string/no_desires"
+                        android:gravity="center"/>
+
+                    <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                        android:id="@+id/noDesiresMainSubtitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/noDesiresMain"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/colorMainText"
+                        android:text="@string/no_desires_subtitle"
+                        android:gravity="center"/>
+
+                </RelativeLayout>
+            </RelativeLayout>
+        </wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.ScrollChildSwipeRefreshLayout>
+
+    </RelativeLayout>
+
 </layout>

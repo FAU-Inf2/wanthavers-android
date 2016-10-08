@@ -22,6 +22,8 @@ public interface DesireListContract {
 
         void showLoadingDesiresError();
 
+        void showDesireListScreen();
+
         boolean isActive();  //TODO check if needed
 
         void showDesireDetailsUi(long desireId);
