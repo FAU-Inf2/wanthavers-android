@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import de.fau.cs.mad.wanthavers.common.User;
+import de.fau.cs.mad.wanthavers.common.UserFlag;
 import wanthavers.mad.cs.fau.de.wanthavers_android.rest.UserClient;
 
 /**
@@ -83,6 +84,16 @@ public class UserRemoteDataSource implements UserDataSource {
             callback.onTokenSent();
         } catch (Throwable t) {
             callback.onSendFailed();
+        }
+    }
+
+    @Override
+    public void flagUser(@NonNull long id, @NonNull FlagUserCallback callback) {
+        try {
+            UserFlag ret = userClient.flagUser(id);
+            callback.onUserFlagged(ret);
+        } catch (Throwable t) {
+            callback.onFlagFailed();
         }
     }
 

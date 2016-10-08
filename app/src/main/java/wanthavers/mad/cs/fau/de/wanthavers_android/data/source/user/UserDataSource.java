@@ -19,6 +19,7 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user;
 import android.support.annotation.NonNull;
 
 import de.fau.cs.mad.wanthavers.common.User;
+import de.fau.cs.mad.wanthavers.common.UserFlag;
 
 /**
  * Main entry point for accessing user data.
@@ -76,6 +77,14 @@ public interface UserDataSource {
 
     }
 
+    interface FlagUserCallback {
+
+        void onUserFlagged(UserFlag userFlag);
+
+        void onFlagFailed();
+
+    }
+
     void getUser(@NonNull long userId, @NonNull GetUserCallback callback);
 
     void createUser(@NonNull User user, @NonNull String password, @NonNull CreateUserCallback callback);
@@ -87,4 +96,6 @@ public interface UserDataSource {
     void login(@NonNull LoginCallback callback);
 
     void sendPWResetToken(@NonNull String email, @NonNull SendPWResetTokenCallback callback);
+
+    void flagUser(@NonNull long id, @NonNull FlagUserCallback callback);
 }

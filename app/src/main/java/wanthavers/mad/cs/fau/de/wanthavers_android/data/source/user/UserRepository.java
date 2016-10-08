@@ -3,6 +3,7 @@ package wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user;
 import android.support.annotation.NonNull;
 
 import de.fau.cs.mad.wanthavers.common.User;
+import de.fau.cs.mad.wanthavers.common.UserFlag;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -151,6 +152,24 @@ public class UserRepository implements UserDataSource {
             @Override
             public void onSendFailed() {
                 callback.onSendFailed();
+            }
+        });
+    }
+
+    @Override
+    public void flagUser(@NonNull long id, @NonNull final FlagUserCallback callback) {
+        checkNotNull(id);
+        checkNotNull(callback);
+
+        userRemoteDataSource.flagUser(id, new FlagUserCallback() {
+            @Override
+            public void onUserFlagged(UserFlag userFlag) {
+                callback.onUserFlagged(userFlag);
+            }
+
+            @Override
+            public void onFlagFailed() {
+                callback.onFlagFailed();
             }
         });
     }

@@ -8,6 +8,7 @@ import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.Location;
 import de.fau.cs.mad.wanthavers.common.User;
+import de.fau.cs.mad.wanthavers.common.UserFlag;
 import de.fau.cs.mad.wanthavers.common.rest.api.LoginResource;
 import de.fau.cs.mad.wanthavers.common.rest.api.UserResource;
 
@@ -62,5 +63,9 @@ public class UserClient extends RestClient {
 
     public void sendToken(String email) {
         userEndpoint.sendToken(email);
+    }
+
+    public UserFlag flagUser(long id) {
+        return userEndpoint.flagUser(null, id);
     }
 }

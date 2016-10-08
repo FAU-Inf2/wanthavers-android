@@ -81,4 +81,9 @@ public class UserLocalDataSource implements UserDataSource {
     public void sendPWResetToken(@NonNull String email, @NonNull SendPWResetTokenCallback callback) {
         callback.onSendFailed();
     }
+
+    @Override
+    public void flagUser(@NonNull long id, @NonNull FlagUserCallback callback) {
+        callback.onFlagFailed();
+    }
 }
