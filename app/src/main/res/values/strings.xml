@@ -385,4 +385,9 @@
 
     <string name="unaccept_haver_error">Fehler beim Abbrechen des Auftrages</string>
     <string name="update_requested_price_error">Fehler beim Ändern des Angebots</string>
+
+    <string name="report_user">Benutzer blockieren</string>
+    <string name="report_user_success">Dieser Benutzer wurde erfolgreich blockiert</string>
+    <string name="report_user_error">Fehler beim Blockieren dieses Benutzers</string>
+    <string name="report_user_subtitle">Bist du sicher, dass du diesen Benutzer dauerhaft blockieren willst?</string>
 </resources>

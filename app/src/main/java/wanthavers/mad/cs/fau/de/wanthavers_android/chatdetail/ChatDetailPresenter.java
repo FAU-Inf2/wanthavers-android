@@ -8,9 +8,12 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import de.fau.cs.mad.wanthavers.common.Chat;
 import de.fau.cs.mad.wanthavers.common.Message;
+import de.fau.cs.mad.wanthavers.common.User;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCase;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.FlagUser;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetMessageList;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.SendMessage;
 
@@ -25,16 +28,20 @@ public class ChatDetailPresenter implements ChatDetailContract.Presenter {
     private final UseCaseHandler mUseCaseHandler;
     private String mChatId;
     private final SendMessage mSendMessage;
+    private final FlagUser mFlagUser;
     private static final int MESSAGE_LOAD_LIMIT  = 20;
     private List<Message> mMessageList = new ArrayList<>();
 
-    public ChatDetailPresenter(@NonNull UseCaseHandler useCaseHandler,@NonNull String chatId, @NonNull ChatDetailContract.View chatListView,
-                             @NonNull GetMessageList getMessageList, @NonNull SendMessage sendMessage){
+    public ChatDetailPresenter(@NonNull UseCaseHandler useCaseHandler, @NonNull String chatId,
+                               @NonNull ChatDetailContract.View chatListView,
+                               @NonNull GetMessageList getMessageList, @NonNull SendMessage sendMessage,
+                               @NonNull FlagUser flagUser){
 
         mUseCaseHandler = checkNotNull(useCaseHandler, "usecaseHandle cannot be null");
         mMessageListView = checkNotNull(chatListView, "desirelist view cannot be null!");
         mGetMessageList = checkNotNull(getMessageList);
         mSendMessage = checkNotNull(sendMessage);
+        mFlagUser = checkNotNull(flagUser);
         mChatId = chatId;
 
         mMessageListView.setPresenter(this);
@@ -155,6 +162,38 @@ public class ChatDetailPresenter implements ChatDetailContract.Presenter {
                 }
         );
 
+
+    }
+
+    @Override
+    public void openFlagUserPopup(User otherUser) {
+        mMessageListView.openFlagUserPopup(otherUser);
+    }
+
+    @Override
+    public void closeFlagUserPopup() {
+        mMessageListView.closeFlagUserPopup();
+    }
+
+    @Override
+    public void flagUser(long otherUserId) {
+
+        FlagUser.RequestValues requestValues = new FlagUser.RequestValues(otherUserId);
+
+        mUseCaseHandler.execute(mFlagUser, requestValues,
+                new UseCase.UseCaseCallback<FlagUser.ResponseValue>() {
+                    @Override
+                    public void onSuccess(FlagUser.ResponseValue response) {
+                        closeFlagUserPopup();
+                        mMessageListView.showFlaggingUserSuccess();
+                    }
+
+                    @Override
+                    public void onError() {
+                        closeFlagUserPopup();
+                        mMessageListView.showFlaggingUserError();
+                    }
+                });
 
     }
 }

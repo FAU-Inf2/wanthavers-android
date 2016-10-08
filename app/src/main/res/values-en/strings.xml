@@ -372,4 +372,8 @@
     <string name="unaccept_haver_error">Error while cancelling desire</string>
     <string name="update_requested_price_error">Error while update your Bid</string>
 
+    <string name="report_user">Block User</string>
+    <string name="report_user_success">Successfully blocked this user</string>
+    <string name="report_user_error">Error while blocking this user</string>
+    <string name="report_user_subtitle">Are you sure, you want to block this user permanently?</string>
 </resources>

@@ -11,6 +11,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -36,7 +39,11 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireRepo
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireLocalDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.desire.DesireRemoteDataSource;
 import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.ormlite.AppChatLastSeenDatabaseHelper;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserLocalDataSource;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserRemoteDataSource;
+import wanthavers.mad.cs.fau.de.wanthavers_android.data.source.user.UserRepository;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirelist.DesireListActivity;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.FlagUser;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetMessageList;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.SendMessage;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.ActivityUtils;
@@ -49,6 +56,7 @@ public class ChatDetailActivity extends AppCompatActivity {
 
     private ChatDetailPresenter mChatDetailPresenter;
     public static final String EXTRA_CHAT_ID = "CHAT_ID";
+    public Chat mChat;
 
 
     private BroadcastReceiver notificationReceiver = new BroadcastReceiver() {
@@ -113,10 +121,11 @@ public class ChatDetailActivity extends AppCompatActivity {
         checkNotNull(context);
 
         ChatRepository chatRepo = ChatRepository.getInstance(ChatRemoteDataSource.getInstance(getApplicationContext()), ChatLocalDataSource.getInstance(context));
+        UserRepository userRepo = UserRepository.getInstance(UserRemoteDataSource.getInstance(getApplicationContext()), UserLocalDataSource.getInstance(context));
 
         // Create the presenter  also sets the presenter for the view
-        mChatDetailPresenter = new ChatDetailPresenter(UseCaseHandler.getInstance(),chatId, chatDetailFragment,
-                new GetMessageList(chatRepo), new SendMessage(chatRepo));
+        mChatDetailPresenter = new ChatDetailPresenter(UseCaseHandler.getInstance(), chatId, chatDetailFragment,
+                new GetMessageList(chatRepo), new SendMessage(chatRepo), new FlagUser(userRepo));
 
 
         // Load previously saved state, if available.
@@ -140,12 +149,12 @@ public class ChatDetailActivity extends AppCompatActivity {
         appChatLastSeenDatabaseHelper.deleteById(chatId);
 
 
-        Chat chat = (Chat) getIntent().getSerializableExtra("ChatOjbect");
+        mChat = (Chat) getIntent().getSerializableExtra("ChatOjbect");
 
-        if(chat != null) {
+        if(mChat != null) {
             SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, getApplicationContext());
             long loggedInUser = sharedPreferencesHelper.loadLong(SharedPreferencesHelper.KEY_USERID, 6L); //Long.valueOf(sharedPreferencesHelper.loadString(SharedPreferencesHelper.KEY_USERID, "6"));
-            User otherUser = getOtherUser(chat.getUserObject1(), chat.getUserObject2(), loggedInUser);
+            User otherUser = getOtherUser(mChat.getUserObject1(), mChat.getUserObject2(), loggedInUser);
 
             WantHaversTextView toolbarTitle = (WantHaversTextView) findViewById(R.id.toolbar_title);
             toolbarTitle.setText(otherUser.getName());
@@ -167,6 +176,25 @@ public class ChatDetailActivity extends AppCompatActivity {
         }
 
         return user1;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.chat_detail_menu, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.menu_flag_user){
+            SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, getApplicationContext());
+            long loggedInUser = sharedPreferencesHelper.loadLong(SharedPreferencesHelper.KEY_USERID, 6L); //Long.valueOf(sharedPreferencesHelper.loadString(SharedPreferencesHelper.KEY_USERID, "6"));
+            User otherUser = getOtherUser(mChat.getUserObject1(), mChat.getUserObject2(), loggedInUser);
+            mChatDetailPresenter.openFlagUserPopup(otherUser);
+        }
+        return true;
     }
 
     @Override

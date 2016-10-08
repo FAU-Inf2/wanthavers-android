@@ -1,5 +1,7 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.chatdetail;
 
+import android.app.Dialog;
+import android.databinding.DataBindingUtil;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,6 +14,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.view.View;
 
@@ -21,14 +24,15 @@ import java.util.List;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import de.fau.cs.mad.wanthavers.common.Message;
+import de.fau.cs.mad.wanthavers.common.User;
 import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.ChatdetailFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.chatdetail.ScrollChildSwipeRefreshLayout;
+import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.ChatdetailReportUserPopupBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.util.SharedPreferencesHelper;
 
 public class ChatDetailFragment extends Fragment implements  ChatDetailContract.View {
-
 
     private ChatDetailContract.Presenter mPresenter;
     private ChatDetailAdapter mListAdapter;
@@ -38,6 +42,7 @@ public class ChatDetailFragment extends Fragment implements  ChatDetailContract.
     private ChatDetailActionHandler mChatDetailActionHandler;
     private static final String CHAT_ID = "CHAT_ID";
     private long mLoggedInUser;
+    private Dialog mReportUserDialog;
 
     public ChatDetailFragment(){
         //Requires empty public constructor
@@ -74,7 +79,7 @@ public class ChatDetailFragment extends Fragment implements  ChatDetailContract.
                              Bundle savedInstanceState) {
 
 
-        mChatDetailFragBinding = ChatdetailFragBinding.inflate(inflater,container,false);
+        mChatDetailFragBinding = ChatdetailFragBinding.inflate(inflater, container, false);
 
         mChatDetailFragBinding.setChats(mChatDetailViewModel);
 
@@ -86,7 +91,7 @@ public class ChatDetailFragment extends Fragment implements  ChatDetailContract.
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(layoutManager);
 
-        mListAdapter = new ChatDetailAdapter(new ArrayList<Message>(0),mLoggedInUser ,mPresenter);
+        mListAdapter = new ChatDetailAdapter(new ArrayList<Message>(0), mLoggedInUser, mPresenter);
         mRecyclerView.setAdapter(mListAdapter);
 
 
@@ -104,8 +109,8 @@ public class ChatDetailFragment extends Fragment implements  ChatDetailContract.
                 @Override
                 public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
 
-                    if(!v.canScrollVertically(1)){
-                        mPresenter.loadMessages(true,false);
+                    if (!v.canScrollVertically(1)) {
+                        mPresenter.loadMessages(true, false);
                     }
                 }
             });
@@ -115,7 +120,7 @@ public class ChatDetailFragment extends Fragment implements  ChatDetailContract.
                 public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                     super.onScrolled(recyclerView, dx, dy);
 
-                    if(!recyclerView.canScrollVertically(1)){
+                    if (!recyclerView.canScrollVertically(1)) {
                         mPresenter.loadMessages(true, false);
                     }
                 }
@@ -123,12 +128,12 @@ public class ChatDetailFragment extends Fragment implements  ChatDetailContract.
         }
 
 
-        mRecyclerView.addOnLayoutChangeListener(new RecyclerView.OnLayoutChangeListener(){
+        mRecyclerView.addOnLayoutChangeListener(new RecyclerView.OnLayoutChangeListener() {
 
 
             @Override
             public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                if(bottom < oldBottom) {
+                if (bottom < oldBottom) {
                     mPresenter.loadMessages(true, false);
                 }
             }
@@ -149,7 +154,6 @@ public class ChatDetailFragment extends Fragment implements  ChatDetailContract.
         View root = mChatDetailFragBinding.getRoot();
         return root;
     }
-
 
     public void getAndSetUser(){
         SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(SharedPreferencesHelper.NAME_USER, getContext().getApplicationContext());
@@ -189,6 +193,25 @@ public class ChatDetailFragment extends Fragment implements  ChatDetailContract.
         return isAdded();
     }
 
+    @Override
+    public void openFlagUserPopup(User otherUser) {
+
+        mReportUserDialog = new Dialog(getContext());
+
+        ChatdetailReportUserPopupBinding binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.chatdetail_report_user_popup, null, false);
+        mReportUserDialog.setContentView(binding.getRoot());
+
+        binding.setActionHandler(mPresenter);
+        binding.setUser(otherUser);
+
+        mReportUserDialog.show();
+
+    }
+
+    @Override
+    public void closeFlagUserPopup() {
+        mReportUserDialog.dismiss();
+    }
 
 
     @Override
@@ -223,6 +246,16 @@ public class ChatDetailFragment extends Fragment implements  ChatDetailContract.
 
     @Override
     public void showMessageEmptyError() { showMessage(getString(R.string.send_message_error_empty));}
+
+    @Override
+    public void showFlaggingUserSuccess() {
+        showMessage(getString(R.string.report_user_success));
+    }
+
+    @Override
+    public void showFlaggingUserError() {
+        showMessage(getString(R.string.report_user_error));
+    }
 
     public void setViewModel(ChatDetailViewModel viewModel){mChatDetailViewModel = viewModel;}
 

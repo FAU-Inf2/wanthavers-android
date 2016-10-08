@@ -6,6 +6,7 @@ import java.util.List;
 
 import de.fau.cs.mad.wanthavers.common.Chat;
 import de.fau.cs.mad.wanthavers.common.Message;
+import de.fau.cs.mad.wanthavers.common.User;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.BasePresenter;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.BaseView;
 
@@ -20,6 +21,10 @@ public interface ChatDetailContract {
 
         boolean isActive();
 
+        void openFlagUserPopup(User otherUser);
+
+        void closeFlagUserPopup();
+
         void showLoadingMessagesError();
 
         void showSendMessageError();
@@ -27,6 +32,10 @@ public interface ChatDetailContract {
         void showUpdatedMessageListonSendSuccess(Message message);
 
         void showMessageEmptyError();
+
+        void showFlaggingUserSuccess();
+
+        void showFlaggingUserError();
     }
 
 
@@ -35,5 +44,11 @@ public interface ChatDetailContract {
         void loadMessages(boolean forceUpdate, boolean loadOldMessages);
 
         void sendMessage(Message message);
+
+        void openFlagUserPopup(User otherUser);
+
+        void closeFlagUserPopup();
+
+        void flagUser(long otherUserId);
     }
 }
