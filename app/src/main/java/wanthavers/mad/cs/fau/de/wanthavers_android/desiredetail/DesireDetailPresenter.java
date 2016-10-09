@@ -210,6 +210,7 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
 
                     @Override
                     public void onError() {
+                        mActivity.findViewById(R.id.accept_desire).setClickable(true);
                         mDesireDetailView.showSetHaverError();
                     }
                 });
@@ -233,6 +234,7 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
 
                     @Override
                     public void onError() {
+                        mActivity.findViewById(R.id.accept_desire).setClickable(true);
                         mDesireDetailView.showSetHaverError();
                     }
                 }

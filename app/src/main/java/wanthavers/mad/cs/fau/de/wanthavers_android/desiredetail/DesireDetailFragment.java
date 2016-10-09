@@ -281,6 +281,7 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
                 showBidderView(false);
             }
             mDesireDetailFragBinding.acceptDesire.setVisibility(View.VISIBLE);
+            mDesireDetailFragBinding.acceptDesire.setClickable(true);
             mDesireDetailFragBinding.cancelDesire.setVisibility(View.GONE);
             endLoadingProgress();
         }
@@ -385,6 +386,7 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
         if (isCreator) {
             mDesireDetailFragBinding.desireDetailHaverCard.setVisibility(View.GONE);
             mDesireDetailFragBinding.recreateDesire.setVisibility(View.VISIBLE);
+            mDesireDetailFragBinding.recreateDesire.setClickable(true);
         } else if (isAcceptedHaver){
             showWanter();
         } else {
@@ -670,6 +672,10 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
 
         mDesiredetailRecreateDesirePopupBinding.setDesire(mDesireDetailFragBinding.getDesire());
         mDesiredetailRecreateDesirePopupBinding.setActionHandler(mDesireDetailActionHandler);
+
+
+        mDesiredetailRecreateDesirePopupBinding.buttonSubmitRecreateDesire.setClickable(true);
+        mDesiredetailRecreateDesirePopupBinding.buttonCancelRecreateDesire.setClickable(true);
 
         mRecreateDesire.show();
 
