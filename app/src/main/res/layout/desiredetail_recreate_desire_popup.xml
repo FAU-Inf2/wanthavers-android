@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="actionHandler"
+            type="wanthavers.mad.cs.fau.de.wanthavers_android.desiredetail.DesireDetailActionHandler" />
+
+        <variable
+            name="desire"
+            type="de.fau.cs.mad.wanthavers.common.Desire" />
+    </data>
+
+    <FrameLayout
+        android:id="@+id/recreate_desire_popup"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:padding="1dp"
+        android:background="@color/colorMainTextDark"
+        android:layout_gravity="center">
+
+        <RelativeLayout
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:background="@color/colorSecondary">
+
+            <RelativeLayout
+                android:id="@+id/recreate_desire_title_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary">
+
+                <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                    android:id="@+id/recreate_desire_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{desire.title}"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/colorSecondary"
+                    android:layout_marginLeft="10dp"/>
+
+            </RelativeLayout>
+
+            <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                android:id="@+id/recreate_desire_subtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/colorMainTextDark"
+                android:text="@string/recreate_desire_info"
+                android:layout_below="@id/recreate_desire_title_bar"/>
+
+            <RelativeLayout
+                android:id="@+id/instant_recreate_desire_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/recreate_desire_subtitle"
+                android:padding="10dp">
+
+                <CheckBox
+                    android:id="@+id/instant_recreate_desire_checkbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"/>
+
+                <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                    android:id="@+id/instant_recreate_desire_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/instant_recreate_desire_option"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/colorMainTextDark"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_toLeftOf="@id/instant_recreate_desire_checkbox"/>
+
+            </RelativeLayout>
+
+            <FrameLayout
+                android:id="@+id/button_frame_submit_recreate_desire"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="1dp"
+                android:background="@color/colorMainTextDark"
+                android:layout_below="@id/instant_recreate_desire_bar"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_alignParentLeft="true">
+
+                <Button
+                    android:id="@+id/button_submit_recreate_desire"
+                    android:layout_width="135dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/location_choose_name_submit"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorMainTextDark"
+                    android:background="@color/colorSecondary"
+                    android:onClick="@{() -> actionHandler.buttonSubmitRecreateDesire(desire)}"/>
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/button_frame_cancel_recreate_desire"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="1dp"
+                android:background="@color/colorMainTextDark"
+                android:layout_below="@id/instant_recreate_desire_bar"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_alignParentRight="true">
+
+                <Button
+                    android:id="@+id/button_cancel_recreate_desire"
+                    android:layout_width="135dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_cancel"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorMainTextDark"
+                    android:background="@color/colorSecondary"
+                    android:onClick="@{() -> actionHandler.buttonCancelRecreateDesire()}"/>
+
+            </FrameLayout>
+
+        </RelativeLayout>
+
+    </FrameLayout>
+
+</layout>

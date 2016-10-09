@@ -390,4 +390,9 @@
     <string name="report_user_success">Dieser Benutzer wurde erfolgreich blockiert</string>
     <string name="report_user_error">Fehler beim Blockieren dieses Benutzers</string>
     <string name="report_user_subtitle">Bist du sicher, dass du diesen Benutzer dauerhaft blockieren willst?</string>
+
+    <string name="recreate_desire">Wunsch erneut erstellen</string>
+    <string name="recreate_desire_info">Möchtest du deinen Wunsch wieder erstellen?</string>
+    <string name="instant_recreate_desire_option">Ich möchte die selben Einstellungen verwenden!</string>
+    <string name="recreate_desire_error">Fehler beim erneuten Erstellen des Wunsches</string>
 </resources>

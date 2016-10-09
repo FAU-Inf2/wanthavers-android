@@ -44,8 +44,10 @@ import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.DesiredetailAccep
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.DesiredetailDeleteDesirePopupBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.DesiredetailFragBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.DesiredetailHaverCancelDesirePopupBinding;
+import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.DesiredetailRecreateDesirePopupBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.DesiredetailReportPopupBinding;
 import wanthavers.mad.cs.fau.de.wanthavers_android.databinding.DesiredetailUnacceptHaverPopupBinding;
+import wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate.DesireCreateActivity;
 import wanthavers.mad.cs.fau.de.wanthavers_android.desirecreate.OnSwipeTouchListener;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
 import wanthavers.mad.cs.fau.de.wanthavers_android.maps.MapActivity;
@@ -69,10 +71,11 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
     private RecyclerView mRecyclerView;
     private DesireDetailViewModel mDesireDetailViewModel;
     private DesireDetailActionHandler mDesireDetailActionHandler;
-    private Dialog mReportDialog, mDeleteDesireDialog, mAcceptDesireDialog, mDeleteHaverDialog, mUnacceptHaverDialog;
+    private Dialog mReportDialog, mDeleteDesireDialog, mAcceptDesireDialog, mDeleteHaverDialog, mUnacceptHaverDialog, mRecreateDesire;
     private DesiredetailReportPopupBinding mDesiredetailReportPopupBinding;
     private DesiredetailAcceptDesirePopupBinding mDesiredetailAcceptDesirePopupBinding;
     private DesiredetailHaverCancelDesirePopupBinding mDesiredetailHaverCancelDesirePopupBinding;
+    private DesiredetailRecreateDesirePopupBinding mDesiredetailRecreateDesirePopupBinding;
     private Menu mOptionsMenu;
     private boolean mLoadFinishedFlag;
 
@@ -339,6 +342,7 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
             showImage(mediaHaver, imageAcceptedHaverView);
 
             hideFinishDesire();
+            mDesireDetailFragBinding.recreateDesire.setVisibility(View.VISIBLE);
         } else if (isAcceptedHaver){
             showWanter();
             mDesireDetailFragBinding.acceptDesire.setVisibility(View.GONE);
@@ -358,7 +362,12 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
         Desire desire = mDesireDetailFragBinding.getDesire();
         boolean isCreator = mDesireLogic.isDesireCreator(desire.getCreator().getId());
         Haver acceptedHaver = mDesireDetailFragBinding.getHaver();
-        boolean isAcceptedHaver = (mDesireLogic.getLoggedInUserId() == acceptedHaver.getUser().getId());
+        boolean isAcceptedHaver = false;
+        if (acceptedHaver != null) {
+            if (mDesireLogic.getLoggedInUserId() == acceptedHaver.getUser().getId()) {
+                isAcceptedHaver = true;
+            }
+        }
 
         //show status
         if (isAdded()) {
@@ -375,6 +384,7 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
 
         if (isCreator) {
             mDesireDetailFragBinding.desireDetailHaverCard.setVisibility(View.GONE);
+            mDesireDetailFragBinding.recreateDesire.setVisibility(View.VISIBLE);
         } else if (isAcceptedHaver){
             showWanter();
         } else {
@@ -474,6 +484,9 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
 
     @Override
     public double getBidInput() {
+        mDesiredetailAcceptDesirePopupBinding.buttonSubmitBid.setClickable(false);
+        mDesiredetailAcceptDesirePopupBinding.buttonSubmitModifiedBid.setClickable(false);
+        mDesiredetailAcceptDesirePopupBinding.buttonCancelBid.setClickable(false);
         EditText bidInputView = mDesiredetailAcceptDesirePopupBinding.acceptDesireBidInput;
         double bid = -1;
         if (!bidInputView.getText().toString().equals("")) {
@@ -485,6 +498,17 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
     @Override
     public Haver getAcceptedHaver() {
         return mDesireDetailFragBinding.getHaver();
+    }
+
+    @Override
+    public boolean getInstantRecreate() {
+        mDesiredetailRecreateDesirePopupBinding.buttonSubmitRecreateDesire.setClickable(false);
+        mDesiredetailRecreateDesirePopupBinding.buttonCancelRecreateDesire.setClickable(false);
+        if (mDesiredetailRecreateDesirePopupBinding.instantRecreateDesireCheckbox.isChecked()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
@@ -528,6 +552,13 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
         Intent intent = new Intent(getContext(), ChatDetailActivity.class);
         intent.putExtra(ChatDetailActivity.EXTRA_CHAT_ID, chat.getObjectId());
         intent.putExtra("ChatOjbect", chat);
+        startActivity(intent);
+    }
+
+    @Override
+    public void showDesireCreate(Desire desire) {
+        Intent intent = new Intent(getContext(), DesireCreateActivity.class);
+        intent.putExtra("oldDesire", desire);
         startActivity(intent);
     }
 
@@ -628,6 +659,25 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
     @Override
     public void closeDeleteHaverPopup() {
         mDeleteHaverDialog.dismiss();
+    }
+
+    @Override
+    public void openRecreateDesirePopup() {
+        mRecreateDesire = new Dialog(getContext());
+
+        mDesiredetailRecreateDesirePopupBinding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.desiredetail_recreate_desire_popup, null, false);
+        mRecreateDesire.setContentView(mDesiredetailRecreateDesirePopupBinding.getRoot());
+
+        mDesiredetailRecreateDesirePopupBinding.setDesire(mDesireDetailFragBinding.getDesire());
+        mDesiredetailRecreateDesirePopupBinding.setActionHandler(mDesireDetailActionHandler);
+
+        mRecreateDesire.show();
+
+    }
+
+    @Override
+    public void closeRecreateDesirePopup() {
+        mRecreateDesire.dismiss();
     }
 
     @Override
@@ -735,6 +785,13 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
     public void showSetHaverError() {
         if (isAdded()) {
             showMessage(getString(R.string.setting_haver_error));
+        }
+    }
+
+    @Override
+    public void showRecreateDesireError() {
+        if (isAdded()) {
+            showMessage(getString(R.string.recreate_desire_error));
         }
     }
 

@@ -35,6 +35,8 @@ public interface DesireDetailContract {
 
         Haver getAcceptedHaver();
 
+        boolean getInstantRecreate();
+
         DesireFlag getReport();
 
 
@@ -44,6 +46,8 @@ public interface DesireDetailContract {
         void closeView();
 
         void showChatDetailsUi(Chat chat);
+
+        void showDesireCreate(Desire desire);
 
         void showMap(Location location);
 
@@ -64,6 +68,10 @@ public interface DesireDetailContract {
         void showDeleteHaverPopup();
 
         void closeDeleteHaverPopup();
+
+        void openRecreateDesirePopup();
+
+        void closeRecreateDesirePopup();
 
         void showReportPopup();
 
@@ -92,6 +100,8 @@ public interface DesireDetailContract {
         void showLoadingHaversError();
 
         void showSetHaverError();
+
+        void showRecreateDesireError();
 
         void showTransactionSuccessMessage();
 
@@ -133,6 +143,8 @@ public interface DesireDetailContract {
 
         void finishReport();
 
+        void recreateDesire(Desire desire);
+
 
         //Redirect to Fragment
 
@@ -155,6 +167,10 @@ public interface DesireDetailContract {
         void openModifyBidPopup(boolean initialCall);
 
         void closeModifyBidPopup();
+
+        void openRecreateDesirePopup();
+
+        void closeRecreateDesirePopup();
 
         void openReportPopup();
 

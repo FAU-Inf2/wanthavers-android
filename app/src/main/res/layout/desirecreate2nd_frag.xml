@@ -47,7 +47,8 @@
                         android:id="@+id/create_desire_price_header_layout"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:visibility="visible">
+                        android:visibility="visible"
+                        android:gravity="center_vertical">
 
                         <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversEditText
                             android:id="@+id/create_desire_price"

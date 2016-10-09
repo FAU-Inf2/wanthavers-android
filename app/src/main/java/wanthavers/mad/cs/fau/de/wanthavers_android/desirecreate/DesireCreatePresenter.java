@@ -154,6 +154,7 @@ public class DesireCreatePresenter implements DesireCreateContract.Presenter {
         });
     }
 
+    @Override
     public void getCategory(long categoryId) {
         GetCategory.RequestValues requestValues = new GetCategory.RequestValues(categoryId);
 
@@ -206,17 +207,7 @@ public class DesireCreatePresenter implements DesireCreateContract.Presenter {
     }
 
     public void toggleReversedBidding() {
-        WantHaversTextView biddingPriceHint = (WantHaversTextView) mDesireCreateActivity2ndStep.findViewById(R.id.desire_create_price_info);
-        TextInputLayout priceInput = (TextInputLayout) mDesireCreateActivity2ndStep.findViewById(R.id.create_desire_price_header_layout);
-        if (biddingEnabled) {
-            biddingEnabled = false;
-            biddingPriceHint.setVisibility(View.GONE);
-            priceInput.setVisibility(View.VISIBLE);
-        } else {
-            biddingEnabled = true;
-            biddingPriceHint.setVisibility(View.VISIBLE);
-            priceInput.setVisibility(View.GONE);
-        }
+        mDesireCreateView.toggleReversedBidding();
     }
 }
 

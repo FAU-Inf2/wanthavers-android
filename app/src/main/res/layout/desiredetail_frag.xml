@@ -272,6 +272,36 @@
 
                         </RelativeLayout>
 
+                        <RelativeLayout
+                            android:id="@+id/recreate_desire"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/desire_detail_title"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="15dp"
+                            android:visibility="gone">
+
+                            <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextView
+                                android:id="@+id/recreate_desire_info"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/colorMainText"
+                                android:text="@string/recreate_desire_info"
+                                android:textSize="@dimen/desire_detail_subtitle_size"/>
+
+                            <wanthavers.mad.cs.fau.de.wanthavers_android.util.WantHaversTextButton
+                                android:id="@+id/recreate_finish_desire"
+                                android:background="@drawable/border_primary_nocorner"
+                                android:layout_width="match_parent"
+                                android:layout_height="35dp"
+                                android:layout_marginTop="15dp"
+                                android:layout_below="@id/recreate_desire_info"
+                                android:text="@string/recreate_desire"
+                                android:textColor="@color/colorSecondary"
+                                android:onClick="@{() -> actionHandler.openRecreateDesirePopup()}"/>
+
+                        </RelativeLayout>
+
                     </RelativeLayout>
 
                     <android.support.v7.widget.CardView

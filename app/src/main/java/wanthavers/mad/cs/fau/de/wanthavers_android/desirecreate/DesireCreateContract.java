@@ -33,6 +33,8 @@ public interface DesireCreateContract {
 
         void toggleDaysRadioButton();
 
+        void toggleReversedBidding();
+
         //boolean isStoragePermissionGranted();
 
         //void selectImageForDesire();
@@ -64,6 +66,8 @@ public interface DesireCreateContract {
         void toggleDaysRadioButton();
 
         void toggleReversedBidding();
+
+        void getCategory(long categoryId);
 
     }
 }

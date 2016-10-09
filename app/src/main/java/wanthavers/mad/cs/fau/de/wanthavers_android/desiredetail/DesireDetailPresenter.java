@@ -1,6 +1,7 @@
 package wanthavers.mad.cs.fau.de.wanthavers_android.desiredetail;
 
 import android.support.annotation.NonNull;
+import android.widget.CheckBox;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -14,6 +15,7 @@ import de.fau.cs.mad.wanthavers.common.DesireStatus;
 import de.fau.cs.mad.wanthavers.common.Haver;
 import de.fau.cs.mad.wanthavers.common.Location;
 import de.fau.cs.mad.wanthavers.common.User;
+import wanthavers.mad.cs.fau.de.wanthavers_android.R;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCase;
 import wanthavers.mad.cs.fau.de.wanthavers_android.baseclasses.UseCaseHandler;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.DesireLogic;
@@ -27,6 +29,7 @@ import de.fau.cs.mad.wanthavers.common.Desire;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetHaver;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetHaverList;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.GetUser;
+import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.SetDesire;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.SetHaver;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.UnacceptHaver;
 import wanthavers.mad.cs.fau.de.wanthavers_android.domain.usecases.UpdateDesireStatus;
@@ -55,6 +58,7 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
     private final GetHaver mGetHaver;
     private final UnacceptHaver mUnacceptHaver;
     private final UpdateRequestedPrice mUpdateRequestedPrice;
+    private final SetDesire mCreateDesire;
 
     @NonNull
     private long mDesireId;
@@ -67,7 +71,7 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
                                  @NonNull GetChatForDesire getChatForDesire, @NonNull UpdateDesireStatus updateDesireStatus,
                                  @NonNull FlagDesire flagDesire, @NonNull DeleteHaver deleteHaver,
                                  @NonNull GetHaver getHaver, @NonNull UnacceptHaver unacceptHaver,
-                                 @NonNull UpdateRequestedPrice updateRequestedPrice){
+                                 @NonNull UpdateRequestedPrice updateRequestedPrice, @NonNull SetDesire createDesire){
 
         mActivity = checkNotNull(activity, "activity cannot be null");
         mUseCaseHandler = checkNotNull(useCaseHandler, "useCaseHandler cannot be null");
@@ -86,6 +90,7 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
         mGetHaver = checkNotNull(getHaver);
         mUnacceptHaver = checkNotNull(unacceptHaver);
         mUpdateRequestedPrice = checkNotNull(updateRequestedPrice);
+        mCreateDesire = checkNotNull(createDesire);
 
         mDesireDetailView.setPresenter(this);
         mDesireLogic = desireLogic;
@@ -176,6 +181,8 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
     //Equals "accept desire" as haver
     @Override
     public void setHaver(final boolean biddingAllowed) {
+
+        mActivity.findViewById(R.id.accept_desire).setClickable(false);
 
         if (biddingAllowed && mDesireDetailView.getBidInput() == -1) {
             return;
@@ -483,6 +490,51 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
         flagDesire(desireFlag);
     }
 
+    @Override
+    public void recreateDesire(Desire desire) {
+        if (mDesireDetailView.getInstantRecreate()) {
+            instantRecreateDesire(desire);
+        } else {
+            mDesireDetailView.closeRecreateDesirePopup();
+            mDesireDetailView.showDesireCreate(desire);
+        }
+    }
+
+    private void instantRecreateDesire(Desire desire) {
+
+        Desire newDesire = new Desire();
+
+        newDesire.setTitle(desire.getTitle());
+        newDesire.setDescription(desire.getDescription());
+        newDesire.setPrice(desire.getPrice());
+        newDesire.setCurrency(desire.getCurrency());
+        newDesire.setBiddingAllowed(desire.isBiddingAllowed());
+        newDesire.setCategoryId(desire.getCategoryId());
+        newDesire.setCreator(desire.getCreator());
+        newDesire.setValidTimespan(desire.getValidTimespan());
+        newDesire.setDropzone_lat(desire.getDropzone_lat());
+        newDesire.setDropzone_long(desire.getDropzone_long());
+        newDesire.setDropzone_string(desire.getDropzone_string());
+        newDesire.setImage(desire.getImage());
+
+        SetDesire.RequestValues requestValues = new SetDesire.RequestValues(newDesire);
+
+        mUseCaseHandler.execute(mCreateDesire, requestValues,
+                new UseCase.UseCaseCallback<SetDesire.ResponseValue>() {
+                    @Override
+                    public void onSuccess(SetDesire.ResponseValue response) {
+                        closeRecreateDesirePopup();
+                        mDesireDetailView.closeView();
+                    }
+
+                    @Override
+                    public void onError() {
+                        closeRecreateDesirePopup();
+                        mDesireDetailView.showRecreateDesireError();
+                    }
+                });
+    }
+
     /**
      *
      * Redirect to Fragment
@@ -536,6 +588,16 @@ public class DesireDetailPresenter implements DesireDetailContract.Presenter {
     @Override
     public void closeModifyBidPopup() {
         mDesireDetailView.closeAcceptDesirePopup();
+    }
+
+    @Override
+    public void openRecreateDesirePopup() {
+        mDesireDetailView.openRecreateDesirePopup();
+    }
+
+    @Override
+    public void closeRecreateDesirePopup() {
+        mDesireDetailView.closeRecreateDesirePopup();
     }
 
     @Override

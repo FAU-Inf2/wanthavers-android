@@ -77,6 +77,7 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
     private double mLat;
     private double mLng;
     private boolean imgSelected = false;
+    private Desire mOldDesire;
 
 
     public DesireCreateFragment2ndStep(){
@@ -137,7 +138,42 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
 
         //mCategory.setId(-1L);
 
+        showOldDesire();
+
         return mViewDataBinding.getRoot();
+    }
+
+    private void showOldDesire() {
+        //This is information for recreate desire
+        if (!getActivity().getIntent().hasExtra("oldDesire")) {
+            return;
+        }
+        mOldDesire = (Desire) getActivity().getIntent().getExtras().getSerializable("oldDesire");
+        if (mOldDesire != null) {
+            if (mOldDesire.isBiddingAllowed()) {
+                mViewDataBinding.reverseBiddingCheckbox.setChecked(true);
+                mPresenter.toggleReversedBidding();
+            } else {
+                mViewDataBinding.createDesirePrice.setText(String.valueOf(mOldDesire.getPrice()));
+            }
+
+            if (mOldDesire.getCurrency().equals("EUR")) {
+                spinner.setSelection(0);
+            } else if (mOldDesire.getCurrency().equals("USD")) {
+                spinner.setSelection(1);
+            } else if (mOldDesire.getCurrency().equals("GBP")) {
+                spinner.setSelection(2);
+            } else if (mOldDesire.getCurrency().equals("CHF")) {
+                spinner.setSelection(3);
+            }
+
+            Media media = mOldDesire.getImage();
+
+            final ImageView desireImagePlaceholder = mViewDataBinding.imageCamera;
+            Picasso.with(mViewDataBinding.getRoot().getContext()).load(media.getLowRes()).transform(new RoundedTransformation(1000,0)).into(desireImagePlaceholder);
+
+            mPresenter.getCategory(mOldDesire.getCategoryId());
+        }
     }
 
     @Override
@@ -452,6 +488,17 @@ public class DesireCreateFragment2ndStep extends Fragment implements DesireCreat
 
     public void toggleDaysRadioButton(){
         //no Days RadioButton in this Step
+    }
+
+    @Override
+    public void toggleReversedBidding() {
+        if (!mViewDataBinding.reverseBiddingCheckbox.isChecked()) {
+            mViewDataBinding.desireCreatePriceInfo.setVisibility(View.GONE);
+            mViewDataBinding.createDesirePrice.setVisibility(View.VISIBLE);
+        } else {
+            mViewDataBinding.desireCreatePriceInfo.setVisibility(View.VISIBLE);
+            mViewDataBinding.createDesirePrice.setVisibility(View.GONE);
+        }
     }
 
 }

@@ -106,4 +106,16 @@ public class DesireDetailActionHandler {
         mListener.closeTransaction();
     }
 
+    public void openRecreateDesirePopup() {
+        mListener.openRecreateDesirePopup();
+    }
+
+    public void buttonSubmitRecreateDesire(Desire desire) {
+        mListener.recreateDesire(desire);
+    }
+
+    public void buttonCancelRecreateDesire() {
+        mListener.closeRecreateDesirePopup();
+    }
+
 }

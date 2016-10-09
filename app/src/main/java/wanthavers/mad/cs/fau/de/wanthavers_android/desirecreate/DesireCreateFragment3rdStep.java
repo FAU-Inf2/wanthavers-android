@@ -268,4 +268,9 @@ public class DesireCreateFragment3rdStep extends Fragment implements DesireCreat
     public void toggleDaysRadioButton(){
         //no Days RadioButton in this Step
     }
+
+    @Override
+    public void toggleReversedBidding() {
+        //nothing to do; 2nd step
+    }
 }

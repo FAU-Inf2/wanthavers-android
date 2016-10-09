@@ -50,6 +50,7 @@ public class DesireCreateFragment extends Fragment implements DesireCreateContra
     private TextView mDate;
     String mStringDate = " ";
     private final long HOURINMILLISECONDS = 3600000;
+    private Desire mOldDesire;
 
     public DesireCreateFragment(){
         //Requires empty public constructor
@@ -158,7 +159,21 @@ public class DesireCreateFragment extends Fragment implements DesireCreateContra
         mDesireTitle.addTextChangedListener(myWatcher);
         mDesireDescription.addTextChangedListener(myWatcher2);
 
+        showOldDesire();
+
         return mViewDataBinding.getRoot();
+    }
+
+    private void showOldDesire() {
+        //This is information for recreate desire
+        if (!getActivity().getIntent().hasExtra("oldDesire")) {
+            return;
+        }
+        mOldDesire = (Desire) getActivity().getIntent().getExtras().getSerializable("oldDesire");
+        if (mOldDesire != null) {
+            mDesireTitle.setText(mOldDesire.getTitle());
+            mDesireDescription.setText(mOldDesire.getDescription());
+        }
     }
 
 
@@ -249,6 +264,7 @@ public class DesireCreateFragment extends Fragment implements DesireCreateContra
         }
 
         Intent intent = new Intent(getContext(), DesireCreateActivity2ndStep.class);
+        intent.putExtra("oldDesire", mOldDesire);
         intent.putExtra("desireTitle", mDesireTitle.getText().toString());
         intent.putExtra("desireDescription", mDesireDescription.getText().toString());
         //intent.putExtra("desireExpirationDate", mExpirationDate);
@@ -426,6 +442,11 @@ public class DesireCreateFragment extends Fragment implements DesireCreateContra
 
     public void toggleDaysRadioButton(){
         mViewDataBinding.timeSpanUnit.setText(getString(R.string.desire_create_days));
+    }
+
+    @Override
+    public void toggleReversedBidding() {
+        //nothing to do; 2nd step
     }
 
     /*public void onConfigurationChanged(Configuration newConfig) {
