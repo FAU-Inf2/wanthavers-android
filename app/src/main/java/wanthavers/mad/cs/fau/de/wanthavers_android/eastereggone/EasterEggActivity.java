@@ -46,6 +46,7 @@ public class EasterEggActivity extends AppCompatActivity implements View.OnTouch
     private ImageView mSadSmiley;
     private ImageView mLogo;
     private Handler mTimeoutHanlder;
+    private boolean isMovable = true;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,6 +111,11 @@ public class EasterEggActivity extends AppCompatActivity implements View.OnTouch
     @Override
     public boolean onTouch(View view, MotionEvent event) {
 
+
+        if(!isMovable){
+            return true;
+        }
+
         ViewAnimator myParent = (ViewAnimator) view.getParent();
 
         if(mMoved == false){
@@ -129,6 +135,7 @@ public class EasterEggActivity extends AppCompatActivity implements View.OnTouch
 
 
         if(absoluteTop <= parentAbsoluteTop){
+            isMovable = false;
             view.setVisibility(View.GONE);
             view.setY(mDcenterY);
             mSadSmiley.setVisibility(View.VISIBLE);
@@ -137,12 +144,13 @@ public class EasterEggActivity extends AppCompatActivity implements View.OnTouch
                 @Override
                 public void run() {
                     finishSmiley(mSadSmiley); }
-                    }, 2000);
+            }, 2000);
 
             return true;
         }
 
         if(absoluteBottom >= parentAbsoluteBottom){
+            isMovable = false;
             view.setVisibility(View.GONE);
             view.setY(mDcenterY);
             mHappySmiley.setVisibility(View.VISIBLE);
@@ -180,7 +188,9 @@ public class EasterEggActivity extends AppCompatActivity implements View.OnTouch
 
 
     private void finishSmiley(ImageView smiley){
-            smiley.setVisibility(View.GONE);
-            mLogo.setVisibility(View.VISIBLE);
+        smiley.setVisibility(View.GONE);
+        mLogo.setY(mDcenterY);
+        mLogo.setVisibility(View.VISIBLE);
+        isMovable = true;
     }
 }
