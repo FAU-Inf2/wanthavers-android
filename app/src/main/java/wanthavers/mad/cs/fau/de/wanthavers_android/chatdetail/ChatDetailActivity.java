@@ -194,32 +194,26 @@ public class ChatDetailActivity extends AppCompatActivity {
             User otherUser = getOtherUser(mChat.getUserObject1(), mChat.getUserObject2(), loggedInUser);
             mChatDetailPresenter.openFlagUserPopup(otherUser);
         }
+
+        if (item.getItemId() == android.R.id.home) {
+            if(isTaskRoot()) {
+                Intent intent = new Intent(getApplicationContext(), DesireListActivity.class);
+                startActivity(intent);
+            }
+
+            this.finish();
+            return true;
+        }
         return true;
     }
 
     @Override
     public boolean onSupportNavigateUp() {
-        //TODO ask Julian why so complicated
 
-        /*ActivityManager mngr = (ActivityManager) getSystemService( ACTIVITY_SERVICE );
-
-        if(android.os.Build.VERSION.SDK_INT >= 23) {
-            
-            List<ActivityManager.AppTask> taskList = mngr.getAppTasks();
-
-            if(taskList.size() == 1 && taskList.get(0).getTaskInfo().topActivity.getClassName().equals(this.getClass().getName())) {
-                Intent intent = new Intent(getApplicationContext(), DesireListActivity.class);
-                startActivity(intent);
-            }
-
-        } else {
-            List<ActivityManager.RunningTaskInfo> taskList = mngr.getRunningTasks(10);
-            if(taskList.get(0).numActivities == 1 && taskList.get(0).topActivity.getClassName().equals(this.getClass().getName())) {
-                Intent intent = new Intent(getApplicationContext(), DesireListActivity.class);
-                startActivity(intent);
-            }
-        }*/
-        super.onSupportNavigateUp();
+        if(isTaskRoot()) {
+            Intent intent = new Intent(getApplicationContext(), DesireListActivity.class);
+            startActivity(intent);
+        }
 
         onBackPressed();
         return true;

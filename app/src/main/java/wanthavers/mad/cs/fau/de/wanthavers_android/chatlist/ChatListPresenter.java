@@ -68,6 +68,9 @@ public class ChatListPresenter implements ChatListContract.Presenter {
                     @Override
                     public void onSuccess(GetChatList.ResponseValue response) {
                         List<Chat> chatList = response.getChats();
+
+                        chatList = deleteChatsWithMissingUsers(chatList);
+
                         // The view may not be able to handle UI updates anymore
                         if (!mChatListView.isActive()) {
                             return;
@@ -111,6 +114,21 @@ public class ChatListPresenter implements ChatListContract.Presenter {
         }
     }
 
+
+    private List<Chat> deleteChatsWithMissingUsers(List<Chat> chatList) {
+
+        for(int i = 0; i <chatList.size(); i++) {
+
+            Chat curChat = chatList.get(i);
+
+            if(curChat.getUserObject1() == null || curChat.getUserObject2() == null) {
+                chatList.remove(i);
+            }
+        }
+
+        return chatList;
+
+    }
 
     @Override
     public void openChatDetails(@NonNull Chat chat) {

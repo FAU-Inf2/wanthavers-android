@@ -110,23 +110,9 @@ public class DesireDetailActivity extends AppCompatActivity {
             case android.R.id.home:
                 // app icon in action bar clicked; goto parent activity.
 
-                ActivityManager mngr = (ActivityManager) getSystemService( ACTIVITY_SERVICE );
-
-                if(android.os.Build.VERSION.SDK_INT >= 23) {
-
-                    List<ActivityManager.AppTask> taskList = mngr.getAppTasks();
-
-                    if(taskList.size() == 1 && taskList.get(0).getTaskInfo().topActivity.getClassName().equals(this.getClass().getName())) {
-                        Intent intent = new Intent(getApplicationContext(), DesireListActivity.class);
-                        startActivity(intent);
-                    }
-
-                } else {
-                    List<ActivityManager.RunningTaskInfo> taskList = mngr.getRunningTasks(10);
-                    if(taskList.get(0).numActivities == 1 && taskList.get(0).topActivity.getClassName().equals(this.getClass().getName())) {
-                        Intent intent = new Intent(getApplicationContext(), DesireListActivity.class);
-                        startActivity(intent);
-                    }
+                if(isTaskRoot()) {
+                    Intent intent = new Intent(getApplicationContext(), DesireListActivity.class);
+                    startActivity(intent);
                 }
 
                 this.finish();
