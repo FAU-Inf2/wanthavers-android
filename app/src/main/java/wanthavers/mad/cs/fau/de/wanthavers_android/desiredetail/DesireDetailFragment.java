@@ -268,7 +268,9 @@ public class DesireDetailFragment extends Fragment implements DesireDetailContra
             mPresenter.loadHavers(false);
         } else if (isUnacceptedHaver) {
             showWanter();
-            showStatus(getString(R.string.haver_status_waiting));
+            if (isAdded()) {
+                showStatus(getString(R.string.haver_status_waiting));
+            }
             if (isBiddingAllowed) {
                 showBidderView(true);
             }
