@@ -31,7 +31,7 @@
     <string name="button_create_desire_second_step">Continue to the last step</string>
     <string name="button_create_desire_third_step">Finish and Publish</string>
     <string name="button_uploadPictureForDesire">Select a Picture (optional)</string>
-    <string name="create_desire_title_header">Titel</string>
+    <string name="create_desire_title_header">Title</string>
     <string name="create_desire_description_header">Description</string>
     <string name="create_desire_priceReward_header">Price</string>
     <string name="create_desire_price_header">Price</string>
