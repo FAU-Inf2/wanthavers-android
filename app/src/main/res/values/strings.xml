@@ -115,7 +115,7 @@
     <string name="accepted_desire_bid_title">Dein Angebot</string>
     <string name="default_location_title">Aktueller/Letzter Ort:</string>
     <string name="desire_detail_bidding_wanter_info">Du hast Bieten aktiviert. Haver müssen einen Preis vorschlagen.</string>
-    <string name="desire_detail_bidding_haver_info">Bieten ist aktiviert. Du must einen Preis vorschlagen.</string>
+    <string name="desire_detail_bidding_haver_info">Bieten ist aktiviert. Du musst einen Preis vorschlagen.</string>
     <string name="desire_item_bidding">Bieten</string>
     <string name="finish_desire_info">Wurde dein Auftrag erfüllt?</string>
     <string name="user_first_name">Dein Vorname</string>
